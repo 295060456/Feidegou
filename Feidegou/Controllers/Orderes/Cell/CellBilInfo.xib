@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="40" id="KGk-i7-Jjw" customClass="CellBilInfo">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="39.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="S0o-xY-WTE">
+                        <rect key="frame" x="302" y="0.0" width="8" height="39.5"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="不开发票" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Yi-n5-lVE">
+                        <rect key="frame" x="240" y="12" width="52" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发票信息" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8F-5q-SfC">
+                        <rect key="frame" x="10" y="10" width="60" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="d8F-5q-SfC" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="5XF-PW-8rd"/>
+                    <constraint firstItem="d8F-5q-SfC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="9fW-Zt-1Iu"/>
+                    <constraint firstItem="S0o-xY-WTE" firstAttribute="leading" secondItem="6Yi-n5-lVE" secondAttribute="trailing" constant="10" id="HIs-ox-QjY"/>
+                    <constraint firstItem="S0o-xY-WTE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="IEI-VF-10z"/>
+                    <constraint firstAttribute="trailing" secondItem="S0o-xY-WTE" secondAttribute="trailing" constant="10" id="tGB-d0-0U8"/>
+                    <constraint firstAttribute="bottom" secondItem="S0o-xY-WTE" secondAttribute="bottom" id="xxv-tB-qk2"/>
+                    <constraint firstItem="6Yi-n5-lVE" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="yWb-Ql-CLb"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="lblTip" destination="6Yi-n5-lVE" id="fJJ-8X-BNO"/>
+            </connections>
+            <point key="canvasLocation" x="213" y="275"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="img_arrow" width="8" height="14"/>
+    </resources>
+</document>

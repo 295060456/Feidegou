@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="1TA-nY-88s">
+            <objects>
+                <navigationController id="Dkh-rg-kDX" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bLy-6P-lnN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Ia4-sz-yly" kind="relationship" relationship="rootViewController" id="6I0-EU-2cg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FTT-Fv-45a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-796" y="113"/>
+        </scene>
+        <!--佣金排行榜-->
+        <scene sceneID="rRc-Ff-S6M">
+            <objects>
+                <viewController storyboardIdentifier="RankListController" hidesBottomBarWhenPushed="YES" id="Ia4-sz-yly" customClass="RankListController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MA0-0p-8pR"/>
+                        <viewControllerLayoutGuide type="bottom" id="NRk-Yb-pT7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dQw-2l-PVp">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rzV-D6-JZa" customClass="BaseTableView">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Ia4-sz-yly" id="BJD-8r-y8T"/>
+                                    <outlet property="delegate" destination="Ia4-sz-yly" id="fAp-Wt-1vT"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rzV-D6-JZa" firstAttribute="leading" secondItem="dQw-2l-PVp" secondAttribute="leading" id="Urb-PZ-NKy"/>
+                            <constraint firstAttribute="trailing" secondItem="rzV-D6-JZa" secondAttribute="trailing" id="kvf-Q7-Emt"/>
+                            <constraint firstItem="rzV-D6-JZa" firstAttribute="top" secondItem="MA0-0p-8pR" secondAttribute="bottom" id="pLM-9G-1Gd"/>
+                            <constraint firstAttribute="bottom" secondItem="rzV-D6-JZa" secondAttribute="bottom" id="zXm-B5-90K"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="佣金排行榜" id="Cwe-2q-H9n"/>
+                    <connections>
+                        <outlet property="tabRank" destination="rzV-D6-JZa" id="31B-Yl-nQY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="o6n-Kd-bn7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="230" y="102"/>
+        </scene>
+    </scenes>
+</document>

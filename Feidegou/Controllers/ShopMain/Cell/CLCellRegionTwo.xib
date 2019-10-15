@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="CLCellRegionTwo">
+            <rect key="frame" x="0.0" y="0.0" width="116" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="116" height="60"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_shop_n_dhzq" translatesAutoresizingMaskIntoConstraints="NO" id="Nkc-9m-UrU">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="Ep5-78-ehs"/>
+                            <constraint firstAttribute="height" constant="19" id="JId-Wa-Zkr"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z0i-hw-DhT">
+                        <color key="backgroundColor" red="0.8862745098" green="0.8862745098" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="xom-8I-Y1s"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="缤纷夏季 清爽有约" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Atn-w4-Wfc">
+                        <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                        <color key="textColor" red="0.54117647059999996" green="0.54117647059999996" blue="0.54117647059999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_shop_i_dhzq" translatesAutoresizingMaskIntoConstraints="NO" id="x2W-Df-u9o">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="37" id="FBg-r1-4vs"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="x2W-Df-u9o" firstAttribute="leading" secondItem="Atn-w4-Wfc" secondAttribute="trailing" id="35m-92-V9p"/>
+                <constraint firstAttribute="trailing" secondItem="z0i-hw-DhT" secondAttribute="trailing" id="6sp-PK-YDH"/>
+                <constraint firstAttribute="bottom" secondItem="z0i-hw-DhT" secondAttribute="bottom" id="8Wf-gP-SEW"/>
+                <constraint firstItem="Atn-w4-Wfc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="FaN-zp-zBa"/>
+                <constraint firstAttribute="bottom" secondItem="x2W-Df-u9o" secondAttribute="bottom" id="Fdz-WS-ual"/>
+                <constraint firstAttribute="trailing" secondItem="Atn-w4-Wfc" secondAttribute="trailing" constant="5" id="Mz8-D2-Be7"/>
+                <constraint firstItem="Nkc-9m-UrU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="SOw-59-97R"/>
+                <constraint firstAttribute="trailing" secondItem="x2W-Df-u9o" secondAttribute="trailing" constant="10" id="VeI-Zb-kkw"/>
+                <constraint firstItem="x2W-Df-u9o" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="WwX-wx-qdd"/>
+                <constraint firstItem="Nkc-9m-UrU" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="ZoB-kS-AyM"/>
+                <constraint firstItem="z0i-hw-DhT" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="gHj-Ww-aUj"/>
+                <constraint firstItem="Atn-w4-Wfc" firstAttribute="top" secondItem="Nkc-9m-UrU" secondAttribute="bottom" constant="10" id="yba-lw-snn"/>
+            </constraints>
+            <size key="customSize" width="116" height="60"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Mz8-D2-Be7"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="imgHead" destination="x2W-Df-u9o" id="aD9-WN-Ap6"/>
+                <outlet property="imgTitle" destination="Nkc-9m-UrU" id="fO5-NS-fAo"/>
+                <outlet property="lblLine" destination="z0i-hw-DhT" id="ANi-ug-oQh"/>
+                <outlet property="lblTip" destination="Atn-w4-Wfc" id="chK-B5-H4W"/>
+            </connections>
+            <point key="canvasLocation" x="245" y="262"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="img_shop_i_dhzq" width="37" height="37"/>
+        <image name="img_shop_n_dhzq" width="70" height="19"/>
+    </resources>
+</document>

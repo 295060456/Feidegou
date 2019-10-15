@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Advertise Start Controller-->
+        <scene sceneID="wgy-ji-Ne9">
+            <objects>
+                <viewController storyboardIdentifier="AdvertiseStartController" id="M84-s0-cgp" customClass="AdvertiseStartController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yAk-7m-khh"/>
+                        <viewControllerLayoutGuide type="bottom" id="g4M-WK-FgZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mCo-F7-ZFv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x5h-aK-rza">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CAL-ws-9vW">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <connections>
+                                    <action selector="clickButtonAdver:" destination="M84-s0-cgp" eventType="touchUpInside" id="u0v-Pk-dMZ"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UFW-Xl-o2L" customClass="UAProgressView">
+                                <rect key="frame" x="295" y="40" width="60" height="60"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tci-ee-vJh">
+                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                        <string key="text">跳过
+广告</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Tci-ee-vJh" firstAttribute="top" secondItem="UFW-Xl-o2L" secondAttribute="top" id="7GN-AA-lS7"/>
+                                    <constraint firstAttribute="height" constant="60" id="AM8-Av-eg8"/>
+                                    <constraint firstAttribute="width" constant="60" id="GmF-Dq-zSw"/>
+                                    <constraint firstAttribute="trailing" secondItem="Tci-ee-vJh" secondAttribute="trailing" id="NZs-ed-v7N"/>
+                                    <constraint firstItem="Tci-ee-vJh" firstAttribute="leading" secondItem="UFW-Xl-o2L" secondAttribute="leading" id="RB9-iZ-U4B"/>
+                                    <constraint firstAttribute="bottom" secondItem="Tci-ee-vJh" secondAttribute="bottom" id="aae-CG-WCk"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n49-n8-APG">
+                                <rect key="frame" x="295" y="40" width="60" height="60"/>
+                                <connections>
+                                    <action selector="clickButtonJump:" destination="M84-s0-cgp" eventType="touchUpInside" id="FAR-QW-U7c"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="广告" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7eF-K4-S9q">
+                                <rect key="frame" x="0.0" y="40" width="40" height="20"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.40340401785714286" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Ccg-Zc-2mG"/>
+                                    <constraint firstAttribute="width" constant="40" id="eos-RD-a0I"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="g4M-WK-FgZ" firstAttribute="top" secondItem="x5h-aK-rza" secondAttribute="bottom" id="28l-AU-lhS"/>
+                            <constraint firstItem="g4M-WK-FgZ" firstAttribute="top" secondItem="CAL-ws-9vW" secondAttribute="bottom" id="51J-Ys-AgA"/>
+                            <constraint firstItem="x5h-aK-rza" firstAttribute="top" secondItem="mCo-F7-ZFv" secondAttribute="top" id="6XM-5k-EgT"/>
+                            <constraint firstItem="CAL-ws-9vW" firstAttribute="leading" secondItem="mCo-F7-ZFv" secondAttribute="leading" id="AAa-Us-NYT"/>
+                            <constraint firstItem="7eF-K4-S9q" firstAttribute="top" secondItem="n49-n8-APG" secondAttribute="top" id="DsH-6L-8IV"/>
+                            <constraint firstItem="CAL-ws-9vW" firstAttribute="top" secondItem="mCo-F7-ZFv" secondAttribute="top" id="NPt-2u-0XM"/>
+                            <constraint firstItem="n49-n8-APG" firstAttribute="height" secondItem="UFW-Xl-o2L" secondAttribute="height" id="RAx-CO-CCI"/>
+                            <constraint firstAttribute="trailing" secondItem="CAL-ws-9vW" secondAttribute="trailing" id="ai5-eM-COZ"/>
+                            <constraint firstItem="n49-n8-APG" firstAttribute="width" secondItem="UFW-Xl-o2L" secondAttribute="width" id="bUF-rE-zV0"/>
+                            <constraint firstItem="UFW-Xl-o2L" firstAttribute="top" secondItem="yAk-7m-khh" secondAttribute="bottom" constant="20" id="dqz-hb-IL8"/>
+                            <constraint firstAttribute="trailing" secondItem="x5h-aK-rza" secondAttribute="trailing" id="gCS-mO-yhU"/>
+                            <constraint firstAttribute="trailing" secondItem="UFW-Xl-o2L" secondAttribute="trailing" constant="20" id="i8p-eq-K3U"/>
+                            <constraint firstItem="n49-n8-APG" firstAttribute="centerY" secondItem="UFW-Xl-o2L" secondAttribute="centerY" id="rKY-5E-sGS"/>
+                            <constraint firstItem="x5h-aK-rza" firstAttribute="leading" secondItem="mCo-F7-ZFv" secondAttribute="leading" id="sgv-H5-MXF"/>
+                            <constraint firstItem="7eF-K4-S9q" firstAttribute="leading" secondItem="mCo-F7-ZFv" secondAttribute="leading" id="vvy-Gj-arJ"/>
+                            <constraint firstItem="n49-n8-APG" firstAttribute="centerX" secondItem="UFW-Xl-o2L" secondAttribute="centerX" id="yau-XP-Zfx"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btnJump" destination="n49-n8-APG" id="CZD-68-wbr"/>
+                        <outlet property="imgStart" destination="x5h-aK-rza" id="MVc-p3-Qpb"/>
+                        <outlet property="lblTime" destination="Tci-ee-vJh" id="3xk-IX-21T"/>
+                        <outlet property="viJump" destination="UFW-Xl-o2L" id="rnx-XH-evB"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8fW-hz-LgQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="101.59999999999999" y="120.98950524737631"/>
+        </scene>
+    </scenes>
+</document>

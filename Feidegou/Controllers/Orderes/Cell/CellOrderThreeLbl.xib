@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="60" id="KGk-i7-Jjw" customClass="CellOrderThreeLbl">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="等待付款" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OyQ-dZ-gQP">
+                        <rect key="frame" x="245" y="10" width="65" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="65" id="zk6-hL-7Nz"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="发票抬头:个人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r82-ad-ZrS">
+                        <rect key="frame" x="10" y="28" width="82" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="支付方式" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cto-Q2-vlo">
+                        <rect key="frame" x="10" y="10" width="225" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="r82-ad-ZrS" firstAttribute="top" secondItem="cto-Q2-vlo" secondAttribute="bottom" id="0rm-49-wa2"/>
+                    <constraint firstItem="OyQ-dZ-gQP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="G8F-SP-cZp"/>
+                    <constraint firstAttribute="trailing" secondItem="OyQ-dZ-gQP" secondAttribute="trailing" constant="10" id="G90-32-s5l"/>
+                    <constraint firstItem="cto-Q2-vlo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Z9M-CP-k7N"/>
+                    <constraint firstItem="cto-Q2-vlo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="dGe-pp-fbe"/>
+                    <constraint firstItem="r82-ad-ZrS" firstAttribute="leading" secondItem="cto-Q2-vlo" secondAttribute="leading" id="fJB-Cl-ByD"/>
+                    <constraint firstItem="OyQ-dZ-gQP" firstAttribute="leading" secondItem="cto-Q2-vlo" secondAttribute="trailing" constant="10" id="gLa-wU-QmA"/>
+                    <constraint firstAttribute="bottom" secondItem="OyQ-dZ-gQP" secondAttribute="bottom" id="kzv-5D-Yp1"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="kzv-5D-Yp1"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="lblLeftDown" destination="r82-ad-ZrS" id="HOz-rn-Y5W"/>
+                <outlet property="lblLeftUp" destination="cto-Q2-vlo" id="B2f-p5-bKt"/>
+                <outlet property="lblRight" destination="OyQ-dZ-gQP" id="gcn-9H-diy"/>
+            </connections>
+            <point key="canvasLocation" x="178" y="285"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="DefaultRefreshView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="下拉刷新" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYN-BK-gfC">
+                    <rect key="frame" x="127.5" y="15" width="65.5" height="20"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                    <color key="textColor" red="0.5296475887298584" green="0.52963173389434814" blue="0.52964073419570923" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow_down" translatesAutoresizingMaskIntoConstraints="NO" id="gel-jz-xGu">
+                    <rect key="frame" x="103.5" y="13" width="16" height="25"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="25" id="IxL-4L-jME"/>
+                        <constraint firstAttribute="width" constant="16" id="gaj-41-amQ"/>
+                    </constraints>
+                </imageView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="1qG-fK-EXt">
+                    <rect key="frame" x="101.5" y="15" width="20" height="20"/>
+                </activityIndicatorView>
+            </subviews>
+            <color key="backgroundColor" red="0.90212953090667725" green="0.90210258960723877" blue="0.90211784839630127" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="centerX" secondItem="jYN-BK-gfC" secondAttribute="centerX" id="0bc-bY-dSS"/>
+                <constraint firstItem="gel-jz-xGu" firstAttribute="centerX" secondItem="1qG-fK-EXt" secondAttribute="centerX" id="AxD-MG-gNg"/>
+                <constraint firstAttribute="bottom" secondItem="jYN-BK-gfC" secondAttribute="bottom" constant="15" id="Cqj-Hc-JPO"/>
+                <constraint firstItem="gel-jz-xGu" firstAttribute="centerY" secondItem="1qG-fK-EXt" secondAttribute="centerY" id="XJm-iL-Fn4"/>
+                <constraint firstItem="jYN-BK-gfC" firstAttribute="centerY" secondItem="gel-jz-xGu" secondAttribute="centerY" id="YU5-3t-XDM"/>
+                <constraint firstItem="jYN-BK-gfC" firstAttribute="leading" secondItem="gel-jz-xGu" secondAttribute="trailing" constant="8" id="h8a-9t-XI1"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="activityIndicatorView" destination="1qG-fK-EXt" id="cUK-up-SHZ"/>
+                <outlet property="arrowImageView" destination="gel-jz-xGu" id="03f-c3-8LL"/>
+                <outlet property="messageLabel" destination="jYN-BK-gfC" id="BFl-wy-mFD"/>
+            </connections>
+            <point key="canvasLocation" x="113" y="70"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Arrow_down" width="33" height="47"/>
+    </resources>
+</document>

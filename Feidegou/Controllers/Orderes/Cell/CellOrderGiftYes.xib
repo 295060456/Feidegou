@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="110" id="KGk-i7-Jjw" customClass="CellOrderGiftYes">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="109.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="EeI-2p-ViD">
+                        <rect key="frame" x="8" y="10" width="70" height="70"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="70" id="kcU-XG-MeC"/>
+                            <constraint firstAttribute="width" constant="70" id="yHu-ae-cdc"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="颜夕2016新款韩版女装" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nuj-l5-O06">
+                        <rect key="frame" x="88" y="10" width="222" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="数量:x1 颜色:图片色 尺码:S" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ft0-Y4-1Uq">
+                        <rect key="frame" x="88" y="28" width="222" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥68.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z4t-VY-dD1">
+                        <rect key="frame" x="88" y="44" width="222" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[赠品]旅行者防风手套" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZnL-dz-KdA">
+                        <rect key="frame" x="10" y="83.5" width="245" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QvE-bf-0GU">
+                        <rect key="frame" x="260" y="84" width="50" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="aiN-NY-XFt"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="ZnL-dz-KdA" secondAttribute="bottom" constant="10" id="2ga-QI-7fz"/>
+                    <constraint firstItem="ZnL-dz-KdA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="4k3-Tn-dZd"/>
+                    <constraint firstItem="z4t-VY-dD1" firstAttribute="leading" secondItem="Nuj-l5-O06" secondAttribute="leading" id="5h9-so-1bG"/>
+                    <constraint firstItem="z4t-VY-dD1" firstAttribute="top" secondItem="Ft0-Y4-1Uq" secondAttribute="bottom" id="Cbf-v3-Iqt"/>
+                    <constraint firstItem="Ft0-Y4-1Uq" firstAttribute="top" secondItem="Nuj-l5-O06" secondAttribute="bottom" id="DDk-uM-QmP"/>
+                    <constraint firstItem="QvE-bf-0GU" firstAttribute="bottom" secondItem="ZnL-dz-KdA" secondAttribute="bottom" id="Iyg-Ko-K82"/>
+                    <constraint firstItem="EeI-2p-ViD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="KUh-Wl-a83"/>
+                    <constraint firstItem="Ft0-Y4-1Uq" firstAttribute="trailing" secondItem="Nuj-l5-O06" secondAttribute="trailing" id="SgI-En-6Hs"/>
+                    <constraint firstItem="z4t-VY-dD1" firstAttribute="trailing" secondItem="Nuj-l5-O06" secondAttribute="trailing" id="UGY-hM-Kzg"/>
+                    <constraint firstItem="Ft0-Y4-1Uq" firstAttribute="leading" secondItem="Nuj-l5-O06" secondAttribute="leading" id="UuG-z1-VjR"/>
+                    <constraint firstItem="EeI-2p-ViD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="VSZ-Y8-szD"/>
+                    <constraint firstItem="Nuj-l5-O06" firstAttribute="leading" secondItem="EeI-2p-ViD" secondAttribute="trailing" constant="10" id="efb-bW-ZXf"/>
+                    <constraint firstAttribute="trailing" secondItem="Nuj-l5-O06" secondAttribute="trailing" constant="10" id="gRl-am-QtJ"/>
+                    <constraint firstItem="QvE-bf-0GU" firstAttribute="leading" secondItem="ZnL-dz-KdA" secondAttribute="trailing" constant="5" id="hCc-KU-HR2"/>
+                    <constraint firstItem="Nuj-l5-O06" firstAttribute="top" secondItem="EeI-2p-ViD" secondAttribute="top" id="i9o-Lg-x3T"/>
+                    <constraint firstAttribute="trailing" secondItem="ZnL-dz-KdA" secondAttribute="trailing" constant="10" id="lYI-Le-Vjv"/>
+                    <constraint firstAttribute="trailing" secondItem="QvE-bf-0GU" secondAttribute="trailing" constant="10" id="njj-O2-i7G"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="lYI-Le-Vjv"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="imgHead" destination="EeI-2p-ViD" id="7Nj-S2-Mvm"/>
+                <outlet property="lblAttributeName" destination="Ft0-Y4-1Uq" id="7JD-io-ZOM"/>
+                <outlet property="lblGiftName" destination="ZnL-dz-KdA" id="pmu-bT-un9"/>
+                <outlet property="lblName" destination="Nuj-l5-O06" id="xPV-Xd-HXC"/>
+                <outlet property="lblPrice" destination="z4t-VY-dD1" id="KRW-46-hHY"/>
+            </connections>
+            <point key="canvasLocation" x="213" y="310"/>
+        </tableViewCell>
+    </objects>
+</document>

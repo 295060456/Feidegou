@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="KGk-i7-Jjw" customClass="CellLogisticsGood">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hsp-ul-N9B">
+                        <rect key="frame" x="10" y="10" width="79.5" height="79.5"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vxq-wx-1m9">
+                                <rect key="frame" x="0.0" y="0.0" width="79.5" height="79.5"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1件商品" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aTc-WT-pIL">
+                                <rect key="frame" x="0.0" y="59" width="79.5" height="20"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.39700427158273383" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Flj-Xc-v4b"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="aTc-WT-pIL" secondAttribute="trailing" id="2yb-4H-nqJ"/>
+                            <constraint firstAttribute="bottom" secondItem="vxq-wx-1m9" secondAttribute="bottom" id="3dr-AR-5Pf"/>
+                            <constraint firstAttribute="trailing" secondItem="vxq-wx-1m9" secondAttribute="trailing" id="ALB-7s-Cml"/>
+                            <constraint firstItem="vxq-wx-1m9" firstAttribute="top" secondItem="hsp-ul-N9B" secondAttribute="top" id="Gih-2W-3xf"/>
+                            <constraint firstItem="aTc-WT-pIL" firstAttribute="leading" secondItem="hsp-ul-N9B" secondAttribute="leading" id="JNU-ou-oen"/>
+                            <constraint firstAttribute="width" secondItem="hsp-ul-N9B" secondAttribute="height" multiplier="1:1" id="TMq-Sv-Jtv"/>
+                            <constraint firstAttribute="bottom" secondItem="aTc-WT-pIL" secondAttribute="bottom" id="YrZ-GM-3cz"/>
+                            <constraint firstItem="vxq-wx-1m9" firstAttribute="leading" secondItem="hsp-ul-N9B" secondAttribute="leading" id="j5X-Na-JTf"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="物流状态" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0qY-WR-Bjw">
+                        <rect key="frame" x="99" y="10" width="60" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.074509803920000006" green="0.074509803920000006" blue="0.074509803920000006" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="运输中" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3FH-5y-Wko">
+                        <rect key="frame" x="164" y="10" width="45" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="承运公司" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBH-VS-cre">
+                        <rect key="frame" x="99" y="38" width="211" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="运单编号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZfB-3l-Su6">
+                        <rect key="frame" x="99" y="64" width="211" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="hsp-ul-N9B" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="3nM-iW-SBk"/>
+                    <constraint firstItem="0qY-WR-Bjw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="5YX-NA-nO9"/>
+                    <constraint firstItem="0qY-WR-Bjw" firstAttribute="leading" secondItem="hsp-ul-N9B" secondAttribute="trailing" constant="10" id="Hok-Kg-xc2"/>
+                    <constraint firstItem="YBH-VS-cre" firstAttribute="leading" secondItem="hsp-ul-N9B" secondAttribute="trailing" constant="10" id="N6q-z4-I2d"/>
+                    <constraint firstItem="ZfB-3l-Su6" firstAttribute="leading" secondItem="hsp-ul-N9B" secondAttribute="trailing" constant="10" id="NEg-Xx-LIB"/>
+                    <constraint firstAttribute="trailing" secondItem="ZfB-3l-Su6" secondAttribute="trailing" constant="10" id="VoU-03-2uh"/>
+                    <constraint firstItem="3FH-5y-Wko" firstAttribute="centerY" secondItem="0qY-WR-Bjw" secondAttribute="centerY" id="c29-1z-APc"/>
+                    <constraint firstAttribute="bottom" secondItem="hsp-ul-N9B" secondAttribute="bottom" constant="10" id="fQB-pN-Uwd"/>
+                    <constraint firstItem="3FH-5y-Wko" firstAttribute="leading" secondItem="0qY-WR-Bjw" secondAttribute="trailing" constant="5" id="hPd-a8-HNz"/>
+                    <constraint firstItem="YBH-VS-cre" firstAttribute="top" secondItem="0qY-WR-Bjw" secondAttribute="bottom" constant="10" id="r2M-Lp-vA1"/>
+                    <constraint firstItem="hsp-ul-N9B" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="t4K-iP-mSt"/>
+                    <constraint firstAttribute="trailing" secondItem="YBH-VS-cre" secondAttribute="trailing" constant="10" id="tko-u1-e5c"/>
+                    <constraint firstItem="ZfB-3l-Su6" firstAttribute="top" secondItem="YBH-VS-cre" secondAttribute="bottom" constant="10" id="y06-LJ-KUR"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="imgHead" destination="vxq-wx-1m9" id="wCD-Ka-Exp"/>
+                <outlet property="lblCompy" destination="YBH-VS-cre" id="uVI-YF-A3l"/>
+                <outlet property="lblNum" destination="aTc-WT-pIL" id="NY4-1Z-g4f"/>
+                <outlet property="lblPostNum" destination="ZfB-3l-Su6" id="30H-nW-4ZH"/>
+                <outlet property="lblState" destination="3FH-5y-Wko" id="mtJ-NG-0S0"/>
+            </connections>
+            <point key="canvasLocation" x="178" y="274"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -1,0 +1,7 @@
+${PODS_ROOT}/Target Support Files/Pods-Feidegou/Pods-Feidegou-resources.sh
+${PODS_ROOT}/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/mapapi.bundle
+${PODS_ROOT}/LJWKeyboardHandler/LJWKeyboardHandlerExample/LJWKeyboardHandler/Resources.bundle
+${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle
+${PODS_ROOT}/iOS-AlipaySDK/AlipaySDK.bundle
+${PODS_ROOT}/mob_sharesdk/SDK/ShareSDK/Support/Required/ShareSDK.bundle
+${PODS_ROOT}/mob_sharesdk/SDK/ShareSDK/Support/Optional/ShareSDKUI.bundle

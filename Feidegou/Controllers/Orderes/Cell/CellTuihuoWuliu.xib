@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="60" id="KGk-i7-Jjw" customClass="CellTuihuoWuliu">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我要退货" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WjI-Xn-PvM" customClass="UILabelBlackBig">
+                        <rect key="frame" x="10" y="10" width="69.5" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="on0-Z7-NCa">
+                        <rect key="frame" x="200" y="0.0" width="120" height="29.5"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="img_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="WHg-ZS-cc0">
+                                <rect key="frame" x="102" y="0.0" width="8" height="29.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="8" id="xtX-S7-Wzf"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="查看退货物流" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Uk-w4-xsv" customClass="UILabelDarkMiddel">
+                                <rect key="frame" x="0.0" y="0.0" width="97" height="29.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R44-zY-Bju">
+                                <rect key="frame" x="0.0" y="0.0" width="110" height="29.5"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="3Uk-w4-xsv" firstAttribute="leading" secondItem="on0-Z7-NCa" secondAttribute="leading" id="9W8-F0-CqK"/>
+                            <constraint firstAttribute="bottom" secondItem="WHg-ZS-cc0" secondAttribute="bottom" id="AZu-48-w18"/>
+                            <constraint firstItem="R44-zY-Bju" firstAttribute="trailing" secondItem="WHg-ZS-cc0" secondAttribute="trailing" id="De0-eM-EgH"/>
+                            <constraint firstAttribute="bottom" secondItem="3Uk-w4-xsv" secondAttribute="bottom" id="Qpn-CY-TLi"/>
+                            <constraint firstItem="WHg-ZS-cc0" firstAttribute="top" secondItem="on0-Z7-NCa" secondAttribute="top" id="Shl-lt-Zyv"/>
+                            <constraint firstAttribute="trailing" secondItem="WHg-ZS-cc0" secondAttribute="trailing" constant="10" id="Uhh-U2-969"/>
+                            <constraint firstItem="WHg-ZS-cc0" firstAttribute="leading" secondItem="3Uk-w4-xsv" secondAttribute="trailing" constant="5" id="bnA-yG-bo4"/>
+                            <constraint firstItem="R44-zY-Bju" firstAttribute="leading" secondItem="3Uk-w4-xsv" secondAttribute="leading" id="eU0-aF-IhW"/>
+                            <constraint firstAttribute="bottom" secondItem="R44-zY-Bju" secondAttribute="bottom" id="ggr-ks-G8P"/>
+                            <constraint firstItem="3Uk-w4-xsv" firstAttribute="top" secondItem="on0-Z7-NCa" secondAttribute="top" id="jqp-TL-LbE"/>
+                            <constraint firstItem="R44-zY-Bju" firstAttribute="top" secondItem="on0-Z7-NCa" secondAttribute="top" id="kEE-Wj-m9O"/>
+                            <constraint firstAttribute="width" constant="120" id="wuF-3a-22u"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Gn-Fl-HbR">
+                        <rect key="frame" x="220" y="29.5" width="100" height="29.5"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcw-Uz-xXW">
+                                <rect key="frame" x="20" y="5" width="70" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="9Mc-Nf-f5V"/>
+                                    <constraint firstAttribute="width" constant="70" id="RkC-ry-9ei"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                <state key="normal" title="修改退货物流">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="hcw-Uz-xXW" firstAttribute="centerY" secondItem="0Gn-Fl-HbR" secondAttribute="centerY" id="7B8-pA-iZX"/>
+                            <constraint firstAttribute="width" constant="100" id="PHg-uL-R2z"/>
+                            <constraint firstAttribute="trailing" secondItem="hcw-Uz-xXW" secondAttribute="trailing" constant="10" id="i7a-SI-iXW"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="0Gn-Fl-HbR" secondAttribute="bottom" id="3VP-5o-GZD"/>
+                    <constraint firstItem="0Gn-Fl-HbR" firstAttribute="top" secondItem="on0-Z7-NCa" secondAttribute="bottom" id="4q2-rL-uM6"/>
+                    <constraint firstItem="on0-Z7-NCa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Fqb-HN-m0j"/>
+                    <constraint firstItem="WjI-Xn-PvM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="OK2-AO-1ZZ"/>
+                    <constraint firstItem="WjI-Xn-PvM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="Q0c-Fp-UXx"/>
+                    <constraint firstAttribute="trailing" secondItem="on0-Z7-NCa" secondAttribute="trailing" id="ZDj-0h-fJr"/>
+                    <constraint firstAttribute="trailing" secondItem="0Gn-Fl-HbR" secondAttribute="trailing" id="bMm-at-SpD"/>
+                    <constraint firstItem="0Gn-Fl-HbR" firstAttribute="height" secondItem="on0-Z7-NCa" secondAttribute="height" id="dII-3y-XWo"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="btnChange" destination="hcw-Uz-xXW" id="W98-wq-vFy"/>
+                <outlet property="btnCheck" destination="R44-zY-Bju" id="tqR-Tq-DM7"/>
+            </connections>
+            <point key="canvasLocation" x="73" y="124"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="img_arrow" width="8" height="14"/>
+    </resources>
+</document>
