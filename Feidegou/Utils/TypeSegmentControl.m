@@ -10,7 +10,10 @@
 
 @implementation TypeSegmentControl
 
-- (id)initWithFrame:(CGRect)frame items:(NSArray*)items iconPosition:(IconPosition)position andSelectionBlock:(SelectionBlock)block{
+- (id)initWithFrame:(CGRect)frame
+              items:(NSArray*)items
+       iconPosition:(IconPosition)position
+  andSelectionBlock:(SelectionBlock)block{
     
     self = [super initWithFrame:frame];
     if (self){
@@ -60,6 +63,7 @@
     }
     return self;
 }
+
 - (void)refreshButtonImage:(UIButton *)sender{
     
     for (int i = 0; i<self.arrButton.count; i++) {
@@ -88,6 +92,7 @@
         }
     }
 }
+
 - (IconState)getStateOfImage:(NSString *)string{
     
     if ([NSString isNullString:string]) {
@@ -120,12 +125,6 @@
         }
     }
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+
 
 @end

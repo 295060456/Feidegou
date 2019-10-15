@@ -10,5 +10,10 @@
 
 @interface JJAlertViewOneButton : NSObject
 
--(void)showAlertView:(UIViewController *)controller andTitle:(NSString *)title andMessage:(NSString *)message andCancel:(NSString *)cancel andCanelIsRed:(BOOL)isRed andBack:(void (^)())cancle;
+-(void)showAlertView:(UIViewController *)controller
+            andTitle:(NSString *)title
+          andMessage:(NSString *)message
+           andCancel:(NSString *)cancel
+       andCanelIsRed:(BOOL)isRed
+             andBack:(void (^)())cancle;
 @end

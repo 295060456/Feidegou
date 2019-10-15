@@ -18,6 +18,7 @@
 @implementation PersonalInfo
 
 static PersonalInfo *personalInfo;
+
 + (PersonalInfo *)sharedInstance{
     static dispatch_once_t longOnce;
     dispatch_once(&longOnce, ^{
@@ -25,12 +26,14 @@ static PersonalInfo *personalInfo;
     });
     return personalInfo;
 }
+
 -(void)updateLoginUserInfo:(ModelLogin*)model{
     NSMutableDictionary *dicInfo = [NSMutableDictionary dictionaryWithDictionary:[model toDictionary]];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:dicInfo forKey:LOGIN_USER_INFO];
     [userDefaults synchronize];
 }
+
 -(ModelLogin*)fetchLoginUserInfo{
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *userInfo = [userDefaults objectForKey:LOGIN_USER_INFO];
@@ -41,6 +44,7 @@ static PersonalInfo *personalInfo;
 //    D_NSLog(@"UserModel is %@",model);
     return model;
 }
+
 -(void)deleteLoginUserInfo{
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:nil forKey:LOGIN_USER_INFO];
@@ -49,6 +53,7 @@ static PersonalInfo *personalInfo;
 //    为个人中心的信息值空
     [[JJDBHelper sharedInstance] saveCenterMsg:nil];
 }
+
 -(BOOL)isLogined{
 //    return YES;
     ModelLogin *model = [self fetchLoginUserInfo];

@@ -7,24 +7,27 @@
 //
 
 #import "BaseTableView.h"
+
 @interface BaseTableView()
 
 @property (nonatomic,strong) UIImageView *bgImageView;
+
 @end
+
 @implementation BaseTableView
 
 -(instancetype)init{
     
     if (self = [super init]) {
         [self baseData];
-    }
-    return self;
+    }return self;
 }
 
 -(void)awakeFromNib{
     [super awakeFromNib];
     [self baseData];
 }
+
 - (void)baseData{
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
     if (@available(iOS 11.0, *)) {
@@ -34,12 +37,14 @@
     }
     self.backgroundView = self.fetchBackgroundView;
 }
--(UIView*)fetchBackgroundView{
+
+-(UIView *)fetchBackgroundView{
     self.bgImageView = [[UIImageView alloc] init];
     self.bgImageView.contentMode = UIViewContentModeCenter;
     self.bgImageView.hidden = YES;
     return self.bgImageView;
 }
+
 -(void)checkNoData:(NSInteger)count{
     if (count > 0) {
         [self hideNoData];
@@ -53,16 +58,10 @@
     self.bgImageView.image = [UIImage imageNamed:imageName];
     self.backgroundView.hidden = NO;
 }
+
 -(void)hideNoData{
     self.backgroundView.hidden = YES;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

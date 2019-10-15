@@ -13,37 +13,38 @@
 /**
  *
  */
-@property (nonatomic,strong) NSString *deleteStatus;
+@property (nonatomic,copy) NSString *deleteStatus;
 /**
  *
  */
-@property (nonatomic,strong) NSString *pd_log_user_id;
+@property (nonatomic,copy) NSString *pd_log_user_id;
 /**
  *
  */
-@property (nonatomic,strong) NSString *ID;
+@property (nonatomic,copy) NSString *ID;
 /**
  *
  */
-@property (nonatomic,strong) NSString *pd_log_amount;
+@property (nonatomic,copy) NSString *pd_log_amount;
 /**
  *
  */
-@property (nonatomic,strong) NSString *pd_op_type;
+@property (nonatomic,copy) NSString *pd_op_type;
 /**
  *
  */
-@property (nonatomic,strong) NSString *pd_log_admin_id;
+@property (nonatomic,copy) NSString *pd_log_admin_id;
 /**
  *
  */
-@property (nonatomic,strong) NSString *addTime;
+@property (nonatomic,copy) NSString *addTime;
 /**
  *
  */
-@property (nonatomic,strong) NSString *pd_log_info;
+@property (nonatomic,copy) NSString *pd_log_info;
 /**
  *
  */
-@property (nonatomic,strong) NSString *pd_type;
+@property (nonatomic,copy) NSString *pd_type;
+
 @end

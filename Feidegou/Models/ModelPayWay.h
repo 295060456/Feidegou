@@ -13,13 +13,14 @@
 /**
  *
  */
-@property (nonatomic,strong) NSString *mark;
+@property (nonatomic,copy) NSString *mark;
 /**
  *
  */
-@property (nonatomic,strong) NSString *name;
+@property (nonatomic,copy) NSString *name;
 /**
  *
  */
-@property (nonatomic,strong) NSString *recommend;
+@property (nonatomic,copy) NSString *recommend;
+
 @end

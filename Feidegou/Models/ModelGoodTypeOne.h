@@ -12,13 +12,14 @@
 /**
  *
  */
-@property (nonatomic,strong) NSString *className;
+@property (nonatomic,copy) NSString *className;
 /**
  *
  */
-@property (nonatomic,strong) NSString *goodsType_id;
+@property (nonatomic,copy) NSString *goodsType_id;
 /**
  *
  */
-@property (nonatomic,strong) NSString *level;
+@property (nonatomic,copy) NSString *level;
+
 @end

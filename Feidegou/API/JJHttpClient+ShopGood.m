@@ -11,7 +11,8 @@
 
 @implementation JJHttpClient (ShopGood)
 
--(RACSignal*)requestShopGoodMainGoodLimit:(NSString *)limit andPage:(NSString *)page{
+-(RACSignal*)requestShopGoodMainGoodLimit:(NSString *)limit
+                                  andPage:(NSString *)page{
     NSDictionary *param = [self paramStringWithStype:@"3062"
                                                 data:@{@"limit":limit,
                                                        @"page":page}];
@@ -68,7 +69,18 @@
         return dictionary[@"goodsClass"];
     }];
 }
--(RACSignal*)requestShopGoodGoodTypeLimit:(NSString *)limit andPage:(NSString *)page andGoodsType_id:(NSString *)goodsType_id andgoodsName:(NSString *)goodsName andgoods_brand_id:(NSString *)goods_brand_id andsort:(NSString *)sort andorder:(NSString *)order andpriceStart:(NSString *)priceStart andpriceEnd:(NSString *)priceEnd andgoodArea:(NSString *)goodArea andgoodActivity:(NSString *)goodActivity andgood_area:(NSString *)good_area{
+-(RACSignal*)requestShopGoodGoodTypeLimit:(NSString *)limit
+                                  andPage:(NSString *)page
+                          andGoodsType_id:(NSString *)goodsType_id
+                             andgoodsName:(NSString *)goodsName
+                        andgoods_brand_id:(NSString *)goods_brand_id
+                                  andsort:(NSString *)sort
+                                 andorder:(NSString *)order
+                            andpriceStart:(NSString *)priceStart
+                              andpriceEnd:(NSString *)priceEnd
+                              andgoodArea:(NSString *)goodArea
+                          andgoodActivity:(NSString *)goodActivity
+                             andgood_area:(NSString *)good_area{
     NSDictionary *param = [self paramStringWithStype:@"3003"
                                                 data:@{@"limit":limit,
                                                        @"page":page,
@@ -109,7 +121,8 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestShopGoodGoodNumGoodsspecpropertyId:(NSString *)goodsspecpropertyId andGoodsId:(NSString *)goodsId{
+-(RACSignal*)requestShopGoodGoodNumGoodsspecpropertyId:(NSString *)goodsspecpropertyId
+                                            andGoodsId:(NSString *)goodsId{
     NSDictionary *param = [self paramStringWithStype:@"3010"
                                                 data:@{@"goodsspecpropertyId":goodsspecpropertyId,
                                                        @"goods_id":goodsId}];
@@ -119,7 +132,10 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestShopGoodOrderListLimit:(NSString *)limit andPage:(NSString *)page andOrder_status:(NSString *)order_status andUser_id:(NSString *)user_id{
+-(RACSignal*)requestShopGoodOrderListLimit:(NSString *)limit
+                                   andPage:(NSString *)page
+                           andOrder_status:(NSString *)order_status
+                                andUser_id:(NSString *)user_id{
     NSDictionary *param = [self paramStringWithStype:@"3013"
                                                 data:@{@"limit":limit,
                                                        @"page":page,
@@ -156,7 +172,8 @@
     }];
 }
 
--(RACSignal*)requestShopGoodOrderDetailLogisticsInformationType:(NSString *)type andPostid:(NSString *)postid{
+-(RACSignal*)requestShopGoodOrderDetailLogisticsInformationType:(NSString *)type
+                                                      andPostid:(NSString *)postid{
 //    @"postid":@"882283795698412885"
     NSInteger integerTemp = random();
     NSString *strTemp = StringFormat(@"%ld",(long)integerTemp);
@@ -170,7 +187,9 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestShopGoodAreaListLevel:(NSString *)level andID:(NSString *)ID{
+
+-(RACSignal*)requestShopGoodAreaListLevel:(NSString *)level
+                                    andID:(NSString *)ID{
     NSDictionary *param = [self paramStringWithStype:@"3011"
                                                 data:@{@"level":level,
                                                        @"id":ID}];
@@ -216,7 +235,8 @@
         return [NSArray array];
     }];
 }
--(RACSignal*)requestShopGoodPayByType:(NSString *)payType andOrder_id:(NSString *)order_id{
+-(RACSignal*)requestShopGoodPayByType:(NSString *)payType
+                          andOrder_id:(NSString *)order_id{
     NSDictionary *param = [self paramStringWithStype:@"4025"
                                                 data:@{@"payment":payType,
                                                        @"order_id":order_id}];
@@ -226,7 +246,8 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestShopGoodVendorOtherGoodGoods_store_id:(NSString *)goods_store_id andLimit:(NSString *)limit andPage:(NSString *)page{
+-(RACSignal*)requestShopGoodVendorOtherGoodGoods_store_id:(NSString *)goods_store_id
+                                                 andLimit:(NSString *)limit andPage:(NSString *)page{
     NSDictionary *param = [self paramStringWithStype:@"3005"
                                                 data:@{@"goods_store_id":goods_store_id,
                                                        @"limit":limit,
@@ -249,7 +270,11 @@
 
 }
 
--(RACSignal*)requestShopGoodDiscussListGoods_id:(NSString *)goods_id andLimit:(NSString *)limit andPage:(NSString *)page andState:(NSString *)state andstore_id:(NSString *)store_id{
+-(RACSignal*)requestShopGoodDiscussListGoods_id:(NSString *)goods_id
+                                       andLimit:(NSString *)limit
+                                        andPage:(NSString *)page
+                                       andState:(NSString *)state
+                                    andstore_id:(NSString *)store_id{
     NSDictionary *param = [self paramStringWithStype:@"3052"
                                                 data:@{@"goods_id":goods_id,
                                                        @"limit":limit,
@@ -274,7 +299,8 @@
     }];
 }
 
--(RACSignal*)requestShopGoodEreaExchangeListLimit:(NSString *)limit andPage:(NSString *)page{
+-(RACSignal*)requestShopGoodEreaExchangeListLimit:(NSString *)limit
+                                          andPage:(NSString *)page{
     NSDictionary *param = [self paramStringWithStype:@"3017"
                                                 data:@{@"limit":limit,
                                                        @"page":page}];
@@ -308,7 +334,8 @@
     }];
 }
 
--(RACSignal*)requestShopGoodOrderListAreaExchangeLimit:(NSString *)limit andPage:(NSString *)page{
+-(RACSignal*)requestShopGoodOrderListAreaExchangeLimit:(NSString *)limit
+                                               andPage:(NSString *)page{
     NSDictionary *param = [self paramStringWithStype:@"3020"
                                                 data:@{@"limit":limit,
                                                        @"page":page}];
@@ -348,7 +375,9 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestShopGoodCartListLimit:(NSString *)limit andPage:(NSString *)page anduser_id:(NSString *)user_id{
+-(RACSignal*)requestShopGoodCartListLimit:(NSString *)limit
+                                  andPage:(NSString *)page
+                               anduser_id:(NSString *)user_id{
     NSDictionary *param = [self paramStringWithStype:@"3030"
                                                 data:@{@"limit":limit,
                                                        @"page":page,
@@ -361,7 +390,8 @@
         return dictionary[@"goodsCart"];
     }];
 }
--(RACSignal*)requestShopGoodCartToOrderDetailsc_id:(NSString *)sc_id andUserId:(NSString *)userId{
+-(RACSignal*)requestShopGoodCartToOrderDetailsc_id:(NSString *)sc_id
+                                         andUserId:(NSString *)userId{
     NSDictionary *param = [self paramStringWithStype:@"3033"
                                                 data:@{@"sc_id":sc_id,
                                                        @"userId":userId}];
@@ -384,7 +414,9 @@
     }];
 }
 
--(RACSignal*)requestShopGoodBlanceDetialLimit:(NSString *)limit andPage:(NSString *)page anduserId:(NSString *)userId{
+-(RACSignal*)requestShopGoodBlanceDetialLimit:(NSString *)limit
+                                      andPage:(NSString *)page
+                                    anduserId:(NSString *)userId{
     NSDictionary *param = [self paramStringWithStype:@"3039"
                                                 data:@{@"limit":limit,
                                                        @"page":page,
@@ -403,7 +435,9 @@
         return [NSArray array];
     }];
 }
--(RACSignal*)requestShopGoodPerformanceDetialLimit:(NSString *)limit andPage:(NSString *)page anduserId:(NSString *)userId{
+-(RACSignal*)requestShopGoodPerformanceDetialLimit:(NSString *)limit
+                                           andPage:(NSString *)page
+                                         anduserId:(NSString *)userId{
     NSDictionary *param = [self paramStringWithStype:@"3046"
                                                 data:@{@"limit":limit,
                                                        @"page":page,
@@ -423,7 +457,9 @@
     }];
 }
 
--(RACSignal*)requestShopGoodRedpacketDetialLimit:(NSString *)limit andPage:(NSString *)page andmode:(NSString *)mode{
+-(RACSignal*)requestShopGoodRedpacketDetialLimit:(NSString *)limit
+                                         andPage:(NSString *)page
+                                         andmode:(NSString *)mode{
     NSDictionary *param = [self paramStringWithStype:@"3066"
                                                 data:@{@"limit":limit,
                                                        @"page":page,
@@ -438,7 +474,9 @@
         return [NSArray array];
     }];
 }
--(RACSignal*)requestShopGoodIntegralDetialLimit:(NSString *)limit andPage:(NSString *)page andGrouId:(NSString *)group_id{
+-(RACSignal*)requestShopGoodIntegralDetialLimit:(NSString *)limit
+                                        andPage:(NSString *)page
+                                      andGrouId:(NSString *)group_id{
     NSDictionary *param = [self paramStringWithStype:@"3067"
                                                 data:@{@"limit":limit,
                                                        @"page":page,
@@ -454,7 +492,8 @@
         return [NSArray array];
     }];
 }
--(RACSignal*)requestShopGoodRankListLimit:(NSString *)limit andPage:(NSString *)page{
+-(RACSignal*)requestShopGoodRankListLimit:(NSString *)limit
+                                  andPage:(NSString *)page{
     NSDictionary *param = [self paramStringWithStype:@"3038"
                                                 data:@{@"limit":limit,
                                                        @"page":page}];
@@ -505,7 +544,11 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestShopGoodVendorNearByLimit:(NSString *)limit andPage:(NSString *)page andlat:(NSString *)lat andlng:(NSString *)lng andkey:(NSString *)key{
+-(RACSignal*)requestShopGoodVendorNearByLimit:(NSString *)limit
+                                      andPage:(NSString *)page
+                                       andlat:(NSString *)lat
+                                       andlng:(NSString *)lng
+                                       andkey:(NSString *)key{
     NSDictionary *param = [self paramStringWithStype:@"3050"
                                                 data:@{@"limit":limit,
                                                        @"page":page,
@@ -532,7 +575,10 @@
         return [NSArray array];
     }];
 }
--(RACSignal*)requestShopGoodVendorNearByLimit:(NSString *)limit andPage:(NSString *)page andclas:(NSString *)clas andkey:(NSString *)key{
+-(RACSignal*)requestShopGoodVendorNearByLimit:(NSString *)limit
+                                      andPage:(NSString *)page
+                                      andclas:(NSString *)clas
+                                       andkey:(NSString *)key{
     NSDictionary *param = [self paramStringWithStype:@"3053"
                                                 data:@{@"limit":limit,
                                                        @"page":page,
@@ -568,7 +614,9 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestShopGoodVendorNearByLimit:(NSString *)limit andPage:(NSString *)page andgoods_store_id:(NSString *)goods_store_id{
+-(RACSignal*)requestShopGoodVendorNearByLimit:(NSString *)limit
+                                      andPage:(NSString *)page
+                            andgoods_store_id:(NSString *)goods_store_id{
     NSDictionary *param = [self paramStringWithStype:@"3005"
                                                 data:@{@"limit":limit,
                                                        @"page":page,
@@ -585,7 +633,10 @@
     }];
 }
 
--(RACSignal*)requestShopGoodVendorOtherGoodGoods_store_id:(NSString *)goods_store_id andLimit:(NSString *)limit andPage:(NSString *)page andrealstore_approve:(NSString *)realstore_approve{
+-(RACSignal*)requestShopGoodVendorOtherGoodGoods_store_id:(NSString *)goods_store_id
+                                                 andLimit:(NSString *)limit
+                                                  andPage:(NSString *)page
+                                     andrealstore_approve:(NSString *)realstore_approve{
     NSDictionary *param = [self paramStringWithStype:@"3005"
                                                 data:@{@"goods_store_id":goods_store_id,
                                                        @"limit":limit,
@@ -610,7 +661,9 @@
     
 }
 
--(RACSignal*)requestShopGoodVendorBillHistoryuser_id:(NSString *)user_id andLimit:(NSString *)limit andPage:(NSString *)page{
+-(RACSignal*)requestShopGoodVendorBillHistoryuser_id:(NSString *)user_id
+                                            andLimit:(NSString *)limit
+                                             andPage:(NSString *)page{
     NSDictionary *param = [self paramStringWithStype:@"3069"
                                                 data:@{@"limit":limit,
                                                        @"page":page
@@ -626,7 +679,12 @@
     }];
 }
 
--(RACSignal*)requestShopGoodVendorNearByLimit:(NSString *)limit andPage:(NSString *)page andclas:(NSString *)clas andkey:(NSString *)key andLat:(NSString *)lat andLng:(NSString *)lng{
+-(RACSignal*)requestShopGoodVendorNearByLimit:(NSString *)limit
+                                      andPage:(NSString *)page
+                                      andclas:(NSString *)clas
+                                       andkey:(NSString *)key
+                                       andLat:(NSString *)lat
+                                       andLng:(NSString *)lng{
     NSDictionary *param = [self paramStringWithStype:@"3053"
                                                 data:@{@"limit":limit,
                                                        @"page":page,
@@ -664,7 +722,8 @@
     }];
 }
 
--(RACSignal*)requestShopGoodPayTheBillType:(NSString *)payType andOrder_id:(NSString *)order_id{
+-(RACSignal*)requestShopGoodPayTheBillType:(NSString *)payType
+                               andOrder_id:(NSString *)order_id{
     NSDictionary *param = [self paramStringWithStype:@"3040"
                                                 data:@{@"payType":payType,
                                                        @"order_id":order_id}];
@@ -675,7 +734,10 @@
     }];
 }
 
--(RACSignal*)requestShopGoodPayByType:(NSString *)payType andOrder_id:(NSString *)order_id andpay_msg:(NSString *)pay_msg andNum:(NSString *)strNum{
+-(RACSignal*)requestShopGoodPayByType:(NSString *)payType
+                          andOrder_id:(NSString *)order_id
+                           andpay_msg:(NSString *)pay_msg
+                               andNum:(NSString *)strNum{
     NSDictionary *param = [self paramStringWithStype:strNum
                                                 data:@{@"payType":payType,
                                                        @"order_id":order_id,
@@ -687,7 +749,8 @@
     }];
 }
 
--(RACSignal*)requestShopGoodCartToOrderDetailsc_list:(NSArray *)sc_list anduser_id:(NSString *)user_id{
+-(RACSignal*)requestShopGoodCartToOrderDetailsc_list:(NSArray *)sc_list
+                                          anduser_id:(NSString *)user_id{
     NSDictionary *param = [self paramStringWithStype:@"3060"
                                                 data:@{@"sc_list":sc_list,
                                                        @"user_id":user_id}];
@@ -776,7 +839,8 @@
     }];
 }
 
--(RACSignal*)requestShopGoodWithdrawHistoryLimit:(NSString *)limit andPage:(NSString *)page{
+-(RACSignal*)requestShopGoodWithdrawHistoryLimit:(NSString *)limit
+                                         andPage:(NSString *)page{
     NSDictionary *param = [self paramStringWithStype:@"3071"
                                                 data:@{
                                                        @"limit":limit,
@@ -797,4 +861,5 @@
         return dictinary[@"data"];
     }];
 }
+
 @end

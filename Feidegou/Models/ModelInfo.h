@@ -13,41 +13,42 @@
 /**
  *
  */
-@property (nonatomic,strong) NSString *region;
+@property (nonatomic,copy) NSString *region;
 /**
  *
  */
-@property (nonatomic,strong) NSString *mobile;
+@property (nonatomic,copy) NSString *mobile;
 /**
  *
  */
-@property (nonatomic,strong) NSString *area_id;
+@property (nonatomic,copy) NSString *area_id;
 /**
  *
  */
-@property (nonatomic,strong) NSString *userName;
+@property (nonatomic,copy) NSString *userName;
 /**
  *
  */
-@property (nonatomic,strong) NSString *birthday;
+@property (nonatomic,copy) NSString *birthday;
 /**
  *
  */
-@property (nonatomic,strong) NSString *email;
+@property (nonatomic,copy) NSString *email;
 /**
  *
  */
-@property (nonatomic,strong) NSString *trueName;
+@property (nonatomic,copy) NSString *trueName;
 /**
  *
  */
-@property (nonatomic,strong) NSString *photoUrl;
+@property (nonatomic,copy) NSString *photoUrl;
 /**
  *
  */
-@property (nonatomic,strong) NSString *birthday_gai;
+@property (nonatomic,copy) NSString *birthday_gai;
 /**
  *sex：0女1男
  */
-@property (nonatomic,strong) NSString *sex;
+@property (nonatomic,copy) NSString *sex;
+
 @end

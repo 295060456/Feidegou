@@ -28,8 +28,7 @@ static void free_image_data(void *info, const void *data, size_t size)
                     alpha:(CGFloat)alpha
                    preset:(WebPPreset)preset
               configBlock:(void (^)(WebPConfig *))configBlock
-                    error:(NSError **)error
-{
+                    error:(NSError **)error{
     if (alpha < 1) {
         image = [self webPImage:image withAlpha:alpha];
     }
@@ -103,8 +102,8 @@ static void free_image_data(void *info, const void *data, size_t size)
     return webPFinalData;
 }
 
-+ (UIImage *)imageWithWebP:(NSString *)filePath error:(NSError **)error
-{
++ (UIImage *)imageWithWebP:(NSString *)filePath
+                     error:(NSError **)error{
     // If passed `filepath` is invalid, return nil to caller and log error in console
     NSError *dataError = nil;
     NSData *imgData = [NSData dataWithContentsOfFile:filePath options:NSDataReadingMappedIfSafe error:&dataError];
@@ -115,8 +114,8 @@ static void free_image_data(void *info, const void *data, size_t size)
     return [UIImage imageWithWebPData:imgData error:error];
 }
 
-+ (UIImage *)imageWithWebPData:(NSData *)imgData error:(NSError **)error
-{
++ (UIImage *)imageWithWebPData:(NSData *)imgData
+                         error:(NSError **)error{
     // `WebPGetInfo` weill return image width and height
     int width = 0, height = 0;
     if(!WebPGetInfo([imgData bytes], [imgData length], &width, &height)) {
@@ -173,28 +172,27 @@ static void free_image_data(void *info, const void *data, size_t size)
 }
 
 #pragma mark - Synchronous methods
-+ (UIImage *)imageWithWebP:(NSString *)filePath
-{
++ (UIImage *)imageWithWebP:(NSString *)filePath{
     NSParameterAssert(filePath != nil);
     return [self imageWithWebP:filePath error:nil];
 }
 
-+ (UIImage *)imageWithWebPData:(NSData *)imgData
-{
++ (UIImage *)imageWithWebPData:(NSData *)imgData{
     NSParameterAssert(imgData != nil);
     return [self imageWithWebPData:imgData error:nil];
 }
 
-+ (NSData *)imageToWebP:(UIImage *)image quality:(CGFloat)quality
-{
++ (NSData *)imageToWebP:(UIImage *)image
+                quality:(CGFloat)quality{
     NSParameterAssert(image != nil);
     NSParameterAssert(quality >= 0.0f && quality <= 100.0f);
     return [self convertToWebP:image quality:quality alpha:1.0f preset:WEBP_PRESET_DEFAULT configBlock:nil error:nil];
 }
 
 #pragma mark - Asynchronous methods
-+ (void)imageWithWebP:(NSString *)filePath completionBlock:(void (^)(UIImage *result))completionBlock failureBlock:(void (^)(NSError *error))failureBlock
-{
++ (void)imageWithWebP:(NSString *)filePath
+      completionBlock:(void (^)(UIImage *result))completionBlock
+         failureBlock:(void (^)(NSError *error))failureBlock{
     NSParameterAssert(filePath != nil);
     NSParameterAssert(completionBlock != nil);
     NSParameterAssert(failureBlock != nil);
@@ -226,8 +224,7 @@ static void free_image_data(void *info, const void *data, size_t size)
               alpha:(CGFloat)alpha
              preset:(WebPPreset)preset
     completionBlock:(void (^)(NSData *result))completionBlock
-       failureBlock:(void (^)(NSError *error))failureBlock
-{
+       failureBlock:(void (^)(NSError *error))failureBlock{
     [self imageToWebP:image
               quality:quality
                 alpha:alpha
@@ -243,8 +240,7 @@ static void free_image_data(void *info, const void *data, size_t size)
              preset:(WebPPreset)preset
         configBlock:(void (^)(WebPConfig *))configBlock
     completionBlock:(void (^)(NSData *result))completionBlock
-       failureBlock:(void (^)(NSError *error))failureBlock
-{
+       failureBlock:(void (^)(NSError *error))failureBlock{
     NSAssert(image != nil, @"imageToWebP:quality:alpha:completionBlock:failureBlock image cannot be nil");
     NSAssert(quality >= 0 && quality <= 100, @"imageToWebP:quality:alpha:completionBlock:failureBlock quality has to be [0, 100]");
     NSAssert(alpha >= 0 && alpha <= 1, @"imageToWebP:quality:alpha:completionBlock:failureBlock alpha has to be [0, 1]");
@@ -275,8 +271,7 @@ static void free_image_data(void *info, const void *data, size_t size)
 
 #pragma mark - Utilities
 
-- (UIImage *)imageByApplyingAlpha:(CGFloat) alpha
-{
+- (UIImage *)imageByApplyingAlpha:(CGFloat) alpha{
     NSParameterAssert(alpha >= 0.0f && alpha <= 1.0f);
     
     if (alpha < 1) {
@@ -307,8 +302,8 @@ static void free_image_data(void *info, const void *data, size_t size)
     }
 }
 
-+ (UIImage *)webPImage:(UIImage *)image withAlpha:(CGFloat)alpha
-{
++ (UIImage *)webPImage:(UIImage *)image
+             withAlpha:(CGFloat)alpha{
     // CGImageAlphaInfo of images with alpha are kCGImageAlphaPremultipliedFirst
     // Convert to kCGImageAlphaPremultipliedLast to avoid gray-ish background
     // when encoding alpha images to WebP format
@@ -324,7 +319,13 @@ static void free_image_data(void *info, const void *data, size_t size)
     NSUInteger bytesPerRow = bytesPerPixel * width;
     NSUInteger bitsPerComponent = 8;
     
-    CGContextRef context = CGBitmapContextCreate(pixelBuffer, width, height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    CGContextRef context = CGBitmapContextCreate(pixelBuffer,
+                                                 width,
+                                                 height,
+                                                 bitsPerComponent,
+                                                 bytesPerRow,
+                                                 colorSpace,
+                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
     CGContextSetRGBFillColor(context, 0, 0, 0, 1);
     CGContextDrawImage(context, CGRectMake(0, 0, width, height), imageRef);
     CGContextRelease(context);
@@ -341,7 +342,13 @@ static void free_image_data(void *info, const void *data, size_t size)
         }
     }
     
-    CGContextRef ctx = CGBitmapContextCreate(pixelBuffer, width, height, bitsPerComponent, bytesPerRow, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    CGContextRef ctx = CGBitmapContextCreate(pixelBuffer,
+                                             width,
+                                             height,
+                                             bitsPerComponent,
+                                             bytesPerRow,
+                                             colorSpace,
+                                             kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
     CGImageRef newImgRef = CGBitmapContextCreateImage(ctx);
     
     free(pixelBuffer);

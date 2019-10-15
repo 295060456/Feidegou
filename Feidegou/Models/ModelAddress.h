@@ -14,33 +14,33 @@
 /**
  *
  */
-@property (nonatomic,strong) NSString *area;
+@property (nonatomic,copy) NSString *area;
 /**
  *
  */
-@property (nonatomic,strong) NSString *area_id;
+@property (nonatomic,copy) NSString *area_id;
 /**
  *
  */
-@property (nonatomic,strong) NSString *area_info;
+@property (nonatomic,copy) NSString *area_info;
 /**
  *
  */
-@property (nonatomic,strong) NSString *mobile;
+@property (nonatomic,copy) NSString *mobile;
 /**
  *
  */
-@property (nonatomic,strong) NSString *ID;
+@property (nonatomic,copy) NSString *ID;
 /**
  *
  */
-@property (nonatomic,strong) NSString *trueName;
+@property (nonatomic,copy) NSString *trueName;
 /**
  *
  */
-@property (nonatomic,strong) NSString *user_id;
+@property (nonatomic,copy) NSString *user_id;
 /**
  *
  */
-@property (nonatomic,strong) NSString *defaultAddr;
+@property (nonatomic,copy) NSString *defaultAddr;
 @end

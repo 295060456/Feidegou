@@ -13,13 +13,13 @@
 /**
  *
  */
-@property (nonatomic,strong) NSString *areaName;
+@property (nonatomic,copy) NSString *areaName;
 /**
  *
  */
-@property (nonatomic,strong) NSString *ID;
+@property (nonatomic,copy) NSString *ID;
 /**
  *
  */
-@property (nonatomic,strong) NSString *level;
+@property (nonatomic,copy) NSString *level;
 @end

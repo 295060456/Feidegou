@@ -16,5 +16,7 @@
  *  @return Dictionary,当属性为nil时,为属性赋值为""
  */
 -(NSDictionary*)toDictionary;
+
 + (NSDictionary *)JSONKeyPathsByPropertyKey;
+
 @end

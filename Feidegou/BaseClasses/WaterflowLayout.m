@@ -17,35 +17,16 @@
 
 @implementation WaterflowLayout
 
-- (NSMutableDictionary *)maxYDict
-{
-    if (!_maxYDict) {
-        self.maxYDict = [[NSMutableDictionary alloc] init];
-    }
-    return _maxYDict;
-}
-
-- (NSMutableArray *)attrsArray
-{
-    if (!_attrsArray) {
-        self.attrsArray = [[NSMutableArray alloc] init];
-    }
-    return _attrsArray;
-}
-
-- (instancetype)init
-{
+- (instancetype)init{
     if (self = [super init]) {
         self.columnMargin = 0;
         self.rowMargin = 0;
         self.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
         self.columnsCount = 3;
-    }
-    return self;
+    }return self;
 }
 
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
-{
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds{
     return YES;
 }
 
@@ -74,10 +55,11 @@
 /**
  *  返回所有的尺寸
  */
-- (CGSize)collectionViewContentSize
-{
+- (CGSize)collectionViewContentSize{
     __block NSString *maxColumn = @"0";
-    [self.maxYDict enumerateKeysAndObjectsUsingBlock:^(NSString *column, NSNumber *maxY, BOOL *stop) {
+    [self.maxYDict enumerateKeysAndObjectsUsingBlock:^(NSString *column,
+                                                       NSNumber *maxY,
+                                                       BOOL *stop) {
         if ([maxY floatValue] > [self.maxYDict[maxColumn] floatValue]) {
             maxColumn = column;
         }
@@ -88,8 +70,7 @@
 /**
  *  返回indexPath这个位置Item的布局属性
  */
-- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath{
     // 假设最短的那一列的第0列
     __block NSString *minColumn = @"0";
     // 找出最短的那一列
@@ -122,6 +103,19 @@
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
     return self.attrsArray;
+}
+
+#pragma mark —— lazyLoad
+- (NSMutableDictionary *)maxYDict{
+    if (!_maxYDict) {
+        self.maxYDict = NSMutableDictionary.dictionary;
+    }return _maxYDict;
+}
+
+- (NSMutableArray *)attrsArray{
+    if (!_attrsArray) {
+        self.attrsArray = NSMutableArray.array;
+    }return _attrsArray;
 }
 
 @end

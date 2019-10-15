@@ -48,7 +48,8 @@ static JJDBHelper *sharedManager;
 //    return sharedManager;
 //    
 //}
--(void)updateCacheForId:(NSString*)cacheId cacheData:(NSData*)cacheData{
+-(void)updateCacheForId:(NSString*)cacheId
+              cacheData:(NSData*)cacheData{
     
     __typeof(self) __weak weakSelf = self;
     [self.databaseQueue inDatabase:^(FMDatabase *db) {
@@ -63,16 +64,21 @@ static JJDBHelper *sharedManager;
     
     
 }
--(void)updateCacheForId:(NSString*)cacheId cacheDictionry:(NSDictionary *)dictionray{
+-(void)updateCacheForId:(NSString*)cacheId
+         cacheDictionry:(NSDictionary *)dictionray{
     
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionray options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dictionray
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
     [self updateCacheForId:cacheId cacheData:jsonData];
 }
 -(void)updateCacheForId:(NSString*)cacheId cacheArray:(NSArray *)array{
     if ([array isKindOfClass:[NSArray class]]) {
         NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:&error];
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array
+                                                           options:NSJSONWritingPrettyPrinted
+                                                             error:&error];
         [self updateCacheForId:cacheId cacheData:jsonData];
     }
 }
@@ -83,7 +89,9 @@ static JJDBHelper *sharedManager;
         return nil;
     }
     NSError *error;
-    id jsonData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+    id jsonData = [NSJSONSerialization JSONObjectWithData:data
+                                                  options:kNilOptions
+                                                    error:&error];
     if (error) {
         return nil;
     }
@@ -97,7 +105,9 @@ static JJDBHelper *sharedManager;
  *  @param cacheId   缓存id(与接口编号相同)
  *  @param db        FMDatabase
  */
--(void)insertCacheData:(NSData*)cacheData cacheId:(NSString*)cacheId db:(FMDatabase*)db{
+-(void)insertCacheData:(NSData*)cacheData
+               cacheId:(NSString*)cacheId
+                    db:(FMDatabase*)db{
     
     NSString *sql = StringFormat(@"insert into %@ (cacheId,cacheData) values (?,?)",DB_TABLE_NAME_LIST_CACHE);
     if ([db executeUpdate:sql withArgumentsInArray:@[cacheId,cacheData]]) {
@@ -113,7 +123,8 @@ static JJDBHelper *sharedManager;
  *
  *  @return YES:存在,NO:不存在
  */
--(BOOL)isExistForCacheId:(NSString*)cacheId db:(FMDatabase*)db{
+-(BOOL)isExistForCacheId:(NSString*)cacheId
+                      db:(FMDatabase*)db{
     
     BOOL isExist = NO;
     NSString *sql = StringFormat(@"select * from %@ where cacheId = ?",DB_TABLE_NAME_LIST_CACHE);
@@ -132,7 +143,9 @@ static JJDBHelper *sharedManager;
  *  @param cacheId   缓存id
  *  @param db        FMDatabase
  */
--(void)updateCacheData:(NSData*)cacheData cacheId:(NSString*)cacheId db:(FMDatabase*)db{
+-(void)updateCacheData:(NSData*)cacheData
+               cacheId:(NSString*)cacheId
+                    db:(FMDatabase*)db{
     
     NSString *sql = StringFormat(@"update %@ set cacheData=? where cacheId=?",DB_TABLE_NAME_LIST_CACHE);
     if ([db executeUpdate:sql withArgumentsInArray:@[cacheData,cacheId]]) {
@@ -160,6 +173,7 @@ static JJDBHelper *sharedManager;
     
     return data;
 }
+
 -(id)init{
     if([super init]){
         

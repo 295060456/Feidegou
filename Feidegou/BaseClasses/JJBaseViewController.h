@@ -33,12 +33,13 @@
 #import <UIKit/UIKit.h>
 #import "JJHttpClient.h"
 #import "UIViewController+LJWKeyboardHandlerHelper.h"
+
 typedef enum {
     enum_exception_timeout
-    
 }enumException;
 
 @interface JJBaseViewController : UIViewController
+
 @property (nonatomic,strong) RACDisposable *disposable;
 @property (strong, nonatomic) UIButton *btnBack;
 //返回
@@ -58,4 +59,5 @@ typedef enum {
 -(void)hideException;
 -(void)showExceptionNoHead;
 -(void)failedRequestException:(enumException)exception;
+
 @end

@@ -13,13 +13,14 @@
 /**
  *
  */
-@property (nonatomic,strong) NSString *content;
+@property (nonatomic,copy) NSString *content;
 /**
  *
  */
-@property (nonatomic,strong) NSString *money;
+@property (nonatomic,copy) NSString *money;
 /**
  *
  */
-@property (nonatomic,strong) NSString *addTime;
+@property (nonatomic,copy) NSString *addTime;
+
 @end

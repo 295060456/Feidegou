@@ -9,6 +9,7 @@
 #import "JJBaseModel.h"
 
 @implementation JJBaseModel
+
 -(NSDictionary*)toDictionary{
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
@@ -23,14 +24,12 @@
         }else{
             [dic setObject:@"" forKey:key];
         }
-    }
-    
-    return dic;
+    }return dic;
 }
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey{
     
     return @{};
-    
 }
+
 @end
