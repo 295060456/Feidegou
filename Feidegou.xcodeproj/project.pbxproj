@@ -1438,22 +1438,24 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		8B39C4D12355984700719997 /* Other */ = {
+		8B7CA09F2355D67B0050EEB6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				C42CCCD9213CC04F0096675F /* AppDelegate.h */,
-				C42CCCDA213CC04F0096675F /* AppDelegate.m */,
-				C42CCCDC213CC04F0096675F /* ViewController.h */,
-				C42CCCDD213CC04F0096675F /* ViewController.m */,
-				C42CCCDF213CC04F0096675F /* Main.storyboard */,
-				C42CCCE2213CC0520096675F /* Assets.xcassets */,
-				C42CCCE4213CC0520096675F /* LaunchScreen.storyboard */,
-				C42CCCE8213CC0520096675F /* main.m */,
+				8B7CA0A12355D6CA0050EEB6 /* Font */,
+				8B7CA0A02355D68B0050EEB6 /* Image */,
 			);
-			path = Other;
+			path = Resource;
 			sourceTree = "<group>";
 		};
-		8B39C4D22355986600719997 /* Font */ = {
+		8B7CA0A02355D68B0050EEB6 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				C42CCCE2213CC0520096675F /* Assets.xcassets */,
+			);
+			path = Image;
+			sourceTree = "<group>";
+		};
+		8B7CA0A12355D6CA0050EEB6 /* Font */ = {
 			isa = PBXGroup;
 			children = (
 				C47D09822148DB710098ED3A /* 汉仪细等线简.ttf */,
@@ -1462,10 +1464,23 @@
 			path = Font;
 			sourceTree = "<group>";
 		};
+		8B7CA0A22355D7040050EEB6 /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				C42CCCD9213CC04F0096675F /* AppDelegate.h */,
+				C42CCCDA213CC04F0096675F /* AppDelegate.m */,
+				C42CCCDC213CC04F0096675F /* ViewController.h */,
+				C42CCCDD213CC04F0096675F /* ViewController.m */,
+				C42CCCDF213CC04F0096675F /* Main.storyboard */,
+				C42CCCE4213CC0520096675F /* LaunchScreen.storyboard */,
+				C42CCCE8213CC0520096675F /* main.m */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		C42CCCCD213CC04F0096675F = {
 			isa = PBXGroup;
 			children = (
-				C42CCF81213CC2620096675F /* PrefixHeader.pch */,
 				C42CCCD8213CC04F0096675F /* Feidegou */,
 				C42CCCF1213CC0520096675F /* FeidegouTests */,
 				C42CCCFC213CC0520096675F /* FeidegouUITests */,
@@ -1488,7 +1503,8 @@
 		C42CCCD8213CC04F0096675F /* Feidegou */ = {
 			isa = PBXGroup;
 			children = (
-				8B39C4D12355984700719997 /* Other */,
+				C42CCF81213CC2620096675F /* PrefixHeader.pch */,
+				8B7CA0A22355D7040050EEB6 /* Other */,
 				C42CCD29213CC2610096675F /* API */,
 				C42CCFFD213CC2630096675F /* BaseClasses */,
 				C42CCD32213CC2620096675F /* Controllers */,
@@ -1496,7 +1512,7 @@
 				C42CD025213CC2640096675F /* Models */,
 				C42CCF82213CC2620096675F /* Storyboard */,
 				C42CCF90213CC2630096675F /* Utils */,
-				8B39C4D22355986600719997 /* Font */,
+				8B7CA09F2355D67B0050EEB6 /* Resource */,
 				C42CCCE7213CC0520096675F /* Info.plist */,
 			);
 			path = Feidegou;
@@ -1525,12 +1541,12 @@
 			children = (
 				C42CCD2F213CC2610096675F /* JJHttpClient+FourZero.h */,
 				C42CCD2A213CC2610096675F /* JJHttpClient+FourZero.m */,
-				C42CCD2B213CC2610096675F /* JJHttpClient+TwoZero.h */,
-				C42CCD2E213CC2610096675F /* JJHttpClient+TwoZero.m */,
-				C42CCD31213CC2610096675F /* JJHttpClient+ShopGood.h */,
-				C42CCD2C213CC2610096675F /* JJHttpClient+ShopGood.m */,
 				C42CCD30213CC2610096675F /* JJHttpClient+Login.h */,
 				C42CCD2D213CC2610096675F /* JJHttpClient+Login.m */,
+				C42CCD31213CC2610096675F /* JJHttpClient+ShopGood.h */,
+				C42CCD2C213CC2610096675F /* JJHttpClient+ShopGood.m */,
+				C42CCD2B213CC2610096675F /* JJHttpClient+TwoZero.h */,
+				C42CCD2E213CC2610096675F /* JJHttpClient+TwoZero.m */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1556,6 +1572,12 @@
 		C42CCD33213CC2620096675F /* Center */ = {
 			isa = PBXGroup;
 			children = (
+				C42F5D21213F840B00114E0E /* Achievememt */,
+				C4A0DA6D213E6B5A00B45B65 /* SignIn */,
+				C42CCD38213CC2620096675F /* ApplyForVender */,
+				C42CCD4D213CC2620096675F /* Cell */,
+				C42CCD73213CC2620096675F /* RankingList */,
+				C42CCD7A213CC2620096675F /* WithDarw */,
 				C42CCD4B213CC2620096675F /* CenterController.h */,
 				C42CCD71213CC2620096675F /* CenterController.m */,
 				C46F8C2E214CE6EB00F0C7D1 /* IntegerGoodDetailController.h */,
@@ -1574,12 +1596,6 @@
 				C42CCD4C213CC2620096675F /* AboutUsController.m */,
 				C42CCD6D213CC2620096675F /* QRCodeController.h */,
 				C42CCD34213CC2620096675F /* QRCodeController.m */,
-				C42F5D21213F840B00114E0E /* Achievememt */,
-				C4A0DA6D213E6B5A00B45B65 /* SignIn */,
-				C42CCD38213CC2620096675F /* ApplyForVender */,
-				C42CCD4D213CC2620096675F /* Cell */,
-				C42CCD73213CC2620096675F /* RankingList */,
-				C42CCD7A213CC2620096675F /* WithDarw */,
 			);
 			path = Center;
 			sourceTree = "<group>";
@@ -1713,14 +1729,14 @@
 		C42CCD90213CC2620096675F /* Alipay */ = {
 			isa = PBXGroup;
 			children = (
-				C42CCDA5213CC2620096675F /* ConstantAlipay.h */,
-				C42CCDA8213CC2620096675F /* ConstantAlipay.m */,
-				C42CCD92213CC2620096675F /* libcrypto.a */,
-				C42CCDA7213CC2620096675F /* libssl.a */,
-				C42CCDA6213CC2620096675F /* Order.h */,
 				C42CCD91213CC2620096675F /* Order.m */,
-				C42CCDA9213CC2620096675F /* openssl */,
+				C42CCD92213CC2620096675F /* libcrypto.a */,
 				C42CCD93213CC2620096675F /* Util */,
+				C42CCDA5213CC2620096675F /* ConstantAlipay.h */,
+				C42CCDA6213CC2620096675F /* Order.h */,
+				C42CCDA7213CC2620096675F /* libssl.a */,
+				C42CCDA8213CC2620096675F /* ConstantAlipay.m */,
+				C42CCDA9213CC2620096675F /* openssl */,
 			);
 			path = Alipay;
 			sourceTree = "<group>";
@@ -1728,23 +1744,23 @@
 		C42CCD93213CC2620096675F /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				C42CCD97213CC2620096675F /* base64.h */,
-				C42CCDA1213CC2620096675F /* base64.m */,
-				C42CCD99213CC2620096675F /* config.h */,
 				C42CCD94213CC2620096675F /* DataSigner.h */,
-				C42CCD9F213CC2620096675F /* DataSigner.m */,
-				C42CCD9A213CC2620096675F /* DataVerifier.h */,
-				C42CCDA3213CC2620096675F /* DataVerifier.m */,
-				C42CCDA0213CC2620096675F /* MD5DataSigner.h */,
-				C42CCD98213CC2620096675F /* MD5DataSigner.m */,
+				C42CCD95213CC2620096675F /* openssl_wrapper.m */,
 				C42CCD96213CC2620096675F /* NSDataEx.h */,
+				C42CCD97213CC2620096675F /* base64.h */,
+				C42CCD98213CC2620096675F /* MD5DataSigner.m */,
+				C42CCD99213CC2620096675F /* config.h */,
+				C42CCD9A213CC2620096675F /* DataVerifier.h */,
+				C42CCD9B213CC2620096675F /* RSADataVerifier.m */,
+				C42CCD9C213CC2620096675F /* RSADataSigner.h */,
 				C42CCD9D213CC2620096675F /* NSDataEx.m */,
 				C42CCD9E213CC2620096675F /* openssl_wrapper.h */,
-				C42CCD95213CC2620096675F /* openssl_wrapper.m */,
-				C42CCD9C213CC2620096675F /* RSADataSigner.h */,
-				C42CCDA4213CC2620096675F /* RSADataSigner.m */,
+				C42CCD9F213CC2620096675F /* DataSigner.m */,
+				C42CCDA0213CC2620096675F /* MD5DataSigner.h */,
+				C42CCDA1213CC2620096675F /* base64.m */,
 				C42CCDA2213CC2620096675F /* RSADataVerifier.h */,
-				C42CCD9B213CC2620096675F /* RSADataVerifier.m */,
+				C42CCDA3213CC2620096675F /* DataVerifier.m */,
+				C42CCDA4213CC2620096675F /* RSADataSigner.m */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -1752,81 +1768,81 @@
 		C42CCDA9213CC2620096675F /* openssl */ = {
 			isa = PBXGroup;
 			children = (
-				C42CCDD7213CC2620096675F /* aes.h */,
-				C42CCDB6213CC2620096675F /* asn1_mac.h */,
-				C42CCDBB213CC2620096675F /* asn1.h */,
-				C42CCDF0213CC2620096675F /* asn1t.h */,
-				C42CCDBD213CC2620096675F /* bio.h */,
-				C42CCDB1213CC2620096675F /* blowfish.h */,
-				C42CCDB0213CC2620096675F /* bn.h */,
-				C42CCDCF213CC2620096675F /* buffer.h */,
-				C42CCDD2213CC2620096675F /* camellia.h */,
-				C42CCDD9213CC2620096675F /* cast.h */,
-				C42CCDF1213CC2620096675F /* cmac.h */,
-				C42CCDB2213CC2620096675F /* cms.h */,
-				C42CCDD8213CC2620096675F /* comp.h */,
-				C42CCDB4213CC2620096675F /* conf_api.h */,
-				C42CCDC3213CC2620096675F /* conf.h */,
-				C42CCDCB213CC2620096675F /* crypto.h */,
-				C42CCDE9213CC2620096675F /* des_old.h */,
-				C42CCDDC213CC2620096675F /* des.h */,
-				C42CCDBF213CC2620096675F /* dh.h */,
-				C42CCDEE213CC2620096675F /* dsa.h */,
-				C42CCDE3213CC2620096675F /* dso.h */,
+				C42CCDAA213CC2620096675F /* pem2.h */,
+				C42CCDAB213CC2620096675F /* pem.h */,
+				C42CCDAC213CC2620096675F /* ssl3.h */,
+				C42CCDAD213CC2620096675F /* ossl_typ.h */,
 				C42CCDAE213CC2620096675F /* dtls1.h */,
+				C42CCDAF213CC2620096675F /* err.h */,
+				C42CCDB0213CC2620096675F /* bn.h */,
+				C42CCDB1213CC2620096675F /* blowfish.h */,
+				C42CCDB2213CC2620096675F /* cms.h */,
+				C42CCDB3213CC2620096675F /* engine.h */,
+				C42CCDB4213CC2620096675F /* conf_api.h */,
+				C42CCDB5213CC2620096675F /* x509.h */,
+				C42CCDB6213CC2620096675F /* asn1_mac.h */,
+				C42CCDB7213CC2620096675F /* ui.h */,
+				C42CCDB8213CC2620096675F /* kssl.h */,
+				C42CCDB9213CC2620096675F /* sha.h */,
+				C42CCDBA213CC2620096675F /* symhacks.h */,
+				C42CCDBB213CC2620096675F /* asn1.h */,
+				C42CCDBC213CC2620096675F /* opensslconf.h */,
+				C42CCDBD213CC2620096675F /* bio.h */,
+				C42CCDBE213CC2620096675F /* rc2.h */,
+				C42CCDBF213CC2620096675F /* dh.h */,
+				C42CCDC0213CC2620096675F /* ui_compat.h */,
+				C42CCDC1213CC2620096675F /* x509v3.h */,
+				C42CCDC2213CC2620096675F /* ssl23.h */,
+				C42CCDC3213CC2620096675F /* conf.h */,
+				C42CCDC4213CC2620096675F /* md5.h */,
+				C42CCDC5213CC2620096675F /* x509_vfy.h */,
+				C42CCDC6213CC2620096675F /* txt_db.h */,
+				C42CCDC7213CC2620096675F /* safestack.h */,
+				C42CCDC8213CC2620096675F /* ecdsa.h */,
+				C42CCDC9213CC2620096675F /* objects.h */,
+				C42CCDCA213CC2620096675F /* pkcs12.h */,
+				C42CCDCB213CC2620096675F /* crypto.h */,
+				C42CCDCC213CC2620096675F /* opensslv.h */,
+				C42CCDCD213CC2620096675F /* pkcs7.h */,
+				C42CCDCE213CC2620096675F /* obj_mac.h */,
+				C42CCDCF213CC2620096675F /* buffer.h */,
+				C42CCDD0213CC2620096675F /* ssl.h */,
+				C42CCDD1213CC2620096675F /* srp.h */,
+				C42CCDD2213CC2620096675F /* camellia.h */,
+				C42CCDD3213CC2620096675F /* evp.h */,
 				C42CCDD4213CC2620096675F /* e_os2.h */,
-				C42CCDF2213CC2620096675F /* ebcdic.h */,
+				C42CCDD5213CC2620096675F /* md4.h */,
+				C42CCDD6213CC2620096675F /* hmac.h */,
+				C42CCDD7213CC2620096675F /* aes.h */,
+				C42CCDD8213CC2620096675F /* comp.h */,
+				C42CCDD9213CC2620096675F /* cast.h */,
+				C42CCDDA213CC2620096675F /* rc4.h */,
+				C42CCDDB213CC2620096675F /* stack.h */,
+				C42CCDDC213CC2620096675F /* des.h */,
+				C42CCDDD213CC2620096675F /* ocsp.h */,
 				C42CCDDE213CC2620096675F /* ec.h */,
 				C42CCDDF213CC2620096675F /* ecdh.h */,
-				C42CCDC8213CC2620096675F /* ecdsa.h */,
-				C42CCDB3213CC2620096675F /* engine.h */,
-				C42CCDAF213CC2620096675F /* err.h */,
-				C42CCDD3213CC2620096675F /* evp.h */,
-				C42CCDD6213CC2620096675F /* hmac.h */,
-				C42CCDF3213CC2620096675F /* idea.h */,
-				C42CCDE8213CC2620096675F /* krb5_asn.h */,
-				C42CCDB8213CC2620096675F /* kssl.h */,
-				C42CCDF4213CC2620096675F /* lhash.h */,
-				C42CCDD5213CC2620096675F /* md4.h */,
-				C42CCDC4213CC2620096675F /* md5.h */,
-				C42CCDED213CC2620096675F /* mdc2.h */,
-				C42CCDE5213CC2620096675F /* modes.h */,
-				C42CCDCE213CC2620096675F /* obj_mac.h */,
-				C42CCDC9213CC2620096675F /* objects.h */,
-				C42CCDDD213CC2620096675F /* ocsp.h */,
-				C42CCDBC213CC2620096675F /* opensslconf.h */,
-				C42CCDCC213CC2620096675F /* opensslv.h */,
-				C42CCDAD213CC2620096675F /* ossl_typ.h */,
-				C42CCDAB213CC2620096675F /* pem.h */,
-				C42CCDAA213CC2620096675F /* pem2.h */,
-				C42CCDCD213CC2620096675F /* pkcs7.h */,
-				C42CCDCA213CC2620096675F /* pkcs12.h */,
-				C42CCDE2213CC2620096675F /* pqueue.h */,
 				C42CCDE0213CC2620096675F /* rand.h */,
-				C42CCDBE213CC2620096675F /* rc2.h */,
-				C42CCDDA213CC2620096675F /* rc4.h */,
-				C42CCDEA213CC2620096675F /* ripemd.h */,
-				C42CCDE7213CC2620096675F /* rsa.h */,
-				C42CCDC7213CC2620096675F /* safestack.h */,
-				C42CCDE4213CC2620096675F /* seed.h */,
-				C42CCDB9213CC2620096675F /* sha.h */,
-				C42CCDD1213CC2620096675F /* srp.h */,
-				C42CCDEF213CC2620096675F /* srtp.h */,
-				C42CCDD0213CC2620096675F /* ssl.h */,
-				C42CCDE6213CC2620096675F /* ssl2.h */,
-				C42CCDAC213CC2620096675F /* ssl3.h */,
-				C42CCDC2213CC2620096675F /* ssl23.h */,
-				C42CCDDB213CC2620096675F /* stack.h */,
-				C42CCDBA213CC2620096675F /* symhacks.h */,
-				C42CCDEC213CC2620096675F /* tls1.h */,
 				C42CCDE1213CC2620096675F /* ts.h */,
-				C42CCDC6213CC2620096675F /* txt_db.h */,
-				C42CCDC0213CC2620096675F /* ui_compat.h */,
-				C42CCDB7213CC2620096675F /* ui.h */,
+				C42CCDE2213CC2620096675F /* pqueue.h */,
+				C42CCDE3213CC2620096675F /* dso.h */,
+				C42CCDE4213CC2620096675F /* seed.h */,
+				C42CCDE5213CC2620096675F /* modes.h */,
+				C42CCDE6213CC2620096675F /* ssl2.h */,
+				C42CCDE7213CC2620096675F /* rsa.h */,
+				C42CCDE8213CC2620096675F /* krb5_asn.h */,
+				C42CCDE9213CC2620096675F /* des_old.h */,
+				C42CCDEA213CC2620096675F /* ripemd.h */,
 				C42CCDEB213CC2620096675F /* whrlpool.h */,
-				C42CCDC5213CC2620096675F /* x509_vfy.h */,
-				C42CCDB5213CC2620096675F /* x509.h */,
-				C42CCDC1213CC2620096675F /* x509v3.h */,
+				C42CCDEC213CC2620096675F /* tls1.h */,
+				C42CCDED213CC2620096675F /* mdc2.h */,
+				C42CCDEE213CC2620096675F /* dsa.h */,
+				C42CCDEF213CC2620096675F /* srtp.h */,
+				C42CCDF0213CC2620096675F /* asn1t.h */,
+				C42CCDF1213CC2620096675F /* cmac.h */,
+				C42CCDF2213CC2620096675F /* ebcdic.h */,
+				C42CCDF3213CC2620096675F /* idea.h */,
+				C42CCDF4213CC2620096675F /* lhash.h */,
 			);
 			path = openssl;
 			sourceTree = "<group>";
@@ -1834,49 +1850,49 @@
 		C42CCDF5213CC2620096675F /* Orderes */ = {
 			isa = PBXGroup;
 			children = (
-				C42CCE08213CC2620096675F /* Cell */,
-				C42CCE07213CC2620096675F /* AddressAddController.h */,
-				C42CCE80213CC2620096675F /* AddressAddController.m */,
-				C42CCE7A213CC2620096675F /* AreaSelectController.h */,
-				C42CCDFE213CC2620096675F /* AreaSelectController.m */,
-				C42CCE7E213CC2620096675F /* BillSelectedController.h */,
-				C42CCE01213CC2620096675F /* BillSelectedController.m */,
-				C42CCE76213CC2620096675F /* DiscussAttribute.h */,
-				C42CCDF8213CC2620096675F /* DiscussAttribute.m */,
-				C42CCE77213CC2620096675F /* DiscussOrderController.h */,
-				C42CCDF7213CC2620096675F /* DiscussOrderController.m */,
-				C42CCE81213CC2620096675F /* MyOrderListController.h */,
-				C42CCE06213CC2620096675F /* MyOrderListController.m */,
-				C42CCE74213CC2620096675F /* OrderAttribute.h */,
-				C42CCDFB213CC2620096675F /* OrderAttribute.m */,
-				C42CCE73213CC2620096675F /* OrderDetailController.h */,
-				C42CCDFA213CC2620096675F /* OrderDetailController.m */,
-				C42CCE82213CC2620096675F /* OrderDiscussController.h */,
-				C42CCE05213CC2620096675F /* OrderDiscussController.m */,
-				C42CCE04213CC2620096675F /* OrderesAddressController.h */,
-				C42CCE83213CC2620096675F /* OrderesAddressController.m */,
 				C42CCE72213CC2620096675F /* OrderesComfilmController.h */,
 				C42CCDFC213CC2620096675F /* OrderesComfilmController.m */,
-				C46D6B5F2143BA0700428D7A /* OrderListMainController.h */,
-				C46D6B602143BA0800428D7A /* OrderListMainController.m */,
-				C42CCE7F213CC2620096675F /* OrderLogisticsDetailController.h */,
-				C42CCE00213CC2620096675F /* OrderLogisticsDetailController.m */,
-				C42CCE03213CC2620096675F /* OrderNotGetController.h */,
-				C42CCE7C213CC2620096675F /* OrderNotGetController.m */,
-				C42CCE7D213CC2620096675F /* OrderNotPayController.h */,
-				C42CCE02213CC2620096675F /* OrderNotPayController.m */,
-				C42CCE79213CC2620096675F /* OrderNotSendOutController.h */,
-				C42CCDFF213CC2620096675F /* OrderNotSendOutController.m */,
-				C42CCDFD213CC2620096675F /* OrderReturnBackController.h */,
-				C42CCE7B213CC2620096675F /* OrderReturnBackController.m */,
-				C42CCDF9213CC2620096675F /* OrderSendWayController.h */,
-				C42CCE75213CC2620096675F /* OrderSendWayController.m */,
 				C41628182171CBC700DC0D10 /* OrderTuihuoController.h */,
 				C41628192171CBC800DC0D10 /* OrderTuihuoController.m */,
-				C46D6B5121438F6300428D7A /* PayMoneySuccedController.h */,
-				C46D6B5221438F6400428D7A /* PayMoneySuccedController.m */,
 				C42CCE78213CC2620096675F /* PayMonyForGoodController.h */,
 				C42CCDF6213CC2620096675F /* PayMonyForGoodController.m */,
+				C46D6B5121438F6300428D7A /* PayMoneySuccedController.h */,
+				C46D6B5221438F6400428D7A /* PayMoneySuccedController.m */,
+				C46D6B5F2143BA0700428D7A /* OrderListMainController.h */,
+				C46D6B602143BA0800428D7A /* OrderListMainController.m */,
+				C42CCE81213CC2620096675F /* MyOrderListController.h */,
+				C42CCE06213CC2620096675F /* MyOrderListController.m */,
+				C42CCE73213CC2620096675F /* OrderDetailController.h */,
+				C42CCDFA213CC2620096675F /* OrderDetailController.m */,
+				C42CCE04213CC2620096675F /* OrderesAddressController.h */,
+				C42CCE83213CC2620096675F /* OrderesAddressController.m */,
+				C42CCE07213CC2620096675F /* AddressAddController.h */,
+				C42CCE80213CC2620096675F /* AddressAddController.m */,
+				C42CCDF7213CC2620096675F /* DiscussOrderController.m */,
+				C42CCDF8213CC2620096675F /* DiscussAttribute.m */,
+				C42CCDF9213CC2620096675F /* OrderSendWayController.h */,
+				C42CCDFB213CC2620096675F /* OrderAttribute.m */,
+				C42CCDFD213CC2620096675F /* OrderReturnBackController.h */,
+				C42CCDFE213CC2620096675F /* AreaSelectController.m */,
+				C42CCDFF213CC2620096675F /* OrderNotSendOutController.m */,
+				C42CCE00213CC2620096675F /* OrderLogisticsDetailController.m */,
+				C42CCE01213CC2620096675F /* BillSelectedController.m */,
+				C42CCE02213CC2620096675F /* OrderNotPayController.m */,
+				C42CCE03213CC2620096675F /* OrderNotGetController.h */,
+				C42CCE05213CC2620096675F /* OrderDiscussController.m */,
+				C42CCE08213CC2620096675F /* Cell */,
+				C42CCE74213CC2620096675F /* OrderAttribute.h */,
+				C42CCE75213CC2620096675F /* OrderSendWayController.m */,
+				C42CCE76213CC2620096675F /* DiscussAttribute.h */,
+				C42CCE77213CC2620096675F /* DiscussOrderController.h */,
+				C42CCE79213CC2620096675F /* OrderNotSendOutController.h */,
+				C42CCE7A213CC2620096675F /* AreaSelectController.h */,
+				C42CCE7B213CC2620096675F /* OrderReturnBackController.m */,
+				C42CCE7C213CC2620096675F /* OrderNotGetController.m */,
+				C42CCE7D213CC2620096675F /* OrderNotPayController.h */,
+				C42CCE7E213CC2620096675F /* BillSelectedController.h */,
+				C42CCE7F213CC2620096675F /* OrderLogisticsDetailController.h */,
+				C42CCE82213CC2620096675F /* OrderDiscussController.h */,
 			);
 			path = Orderes;
 			sourceTree = "<group>";
@@ -2009,8 +2025,8 @@
 			isa = PBXGroup;
 			children = (
 				C42CCE85213CC2620096675F /* WebOnlyController.h */,
-				C42CCE8B213CC2620096675F /* WebOnlyController.m */,
 				C42CCE86213CC2620096675F /* NJKWebViewProgress */,
+				C42CCE8B213CC2620096675F /* WebOnlyController.m */,
 			);
 			path = WebService;
 			sourceTree = "<group>";
@@ -2018,9 +2034,9 @@
 		C42CCE86213CC2620096675F /* NJKWebViewProgress */ = {
 			isa = PBXGroup;
 			children = (
-				C42CCE89213CC2620096675F /* NJKWebViewProgress.h */,
-				C42CCE88213CC2620096675F /* NJKWebViewProgress.m */,
 				C42CCE87213CC2620096675F /* NJKWebViewProgressView.h */,
+				C42CCE88213CC2620096675F /* NJKWebViewProgress.m */,
+				C42CCE89213CC2620096675F /* NJKWebViewProgress.h */,
 				C42CCE8A213CC2620096675F /* NJKWebViewProgressView.m */,
 			);
 			path = NJKWebViewProgress;
@@ -2039,12 +2055,12 @@
 		C42CCE8E213CC2620096675F /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				C42CCE93213CC2620096675F /* CellCartGood.h */,
-				C42CCE90213CC2620096675F /* CellCartGood.m */,
-				C42CCE92213CC2620096675F /* CellCartGood.xib */,
-				C42CCE94213CC2620096675F /* CellCartHead.h */,
-				C42CCE91213CC2620096675F /* CellCartHead.m */,
 				C42CCE8F213CC2620096675F /* CellCartHead.xib */,
+				C42CCE90213CC2620096675F /* CellCartGood.m */,
+				C42CCE91213CC2620096675F /* CellCartHead.m */,
+				C42CCE92213CC2620096675F /* CellCartGood.xib */,
+				C42CCE93213CC2620096675F /* CellCartGood.h */,
+				C42CCE94213CC2620096675F /* CellCartHead.h */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2054,12 +2070,12 @@
 			children = (
 				C42CCEA0213CC2620096675F /* LoginViewController.h */,
 				C42CCE99213CC2620096675F /* LoginViewController.m */,
-				C42CCE9A213CC2620096675F /* RegisterCodeController.h */,
-				C42CCE9F213CC2620096675F /* RegisterCodeController.m */,
-				C42CCE9D213CC2620096675F /* RegisterInputPswController.h */,
-				C42CCE98213CC2620096675F /* RegisterInputPswController.m */,
 				C42CCE97213CC2620096675F /* RegisterInviterController.h */,
 				C42CCE9E213CC2620096675F /* RegisterInviterController.m */,
+				C42CCE9D213CC2620096675F /* RegisterInputPswController.h */,
+				C42CCE98213CC2620096675F /* RegisterInputPswController.m */,
+				C42CCE9A213CC2620096675F /* RegisterCodeController.h */,
+				C42CCE9F213CC2620096675F /* RegisterCodeController.m */,
 				C42CCE9B213CC2620096675F /* RegisterSucceedController.h */,
 				C42CCEA2213CC2620096675F /* RegisterSucceedController.m */,
 				C42CCEA1213CC2620096675F /* RegisterViewController.h */,
@@ -2071,45 +2087,45 @@
 		C42CCEA3213CC2620096675F /* ShopMain */ = {
 			isa = PBXGroup;
 			children = (
+				C42CCEC4213CC2620096675F /* GoodMain */,
+				C42CCEB4213CC2620096675F /* BrandRone */,
+				C42CCEED213CC2620096675F /* Cell */,
+				C42CCF28213CC2620096675F /* SearchGood */,
+				C42CCF35213CC2620096675F /* TypeSelect */,
+				C42CCF47213CC2620096675F /* UnionBusiness */,
+				C42CCEA4213CC2620096675F /* GoodDetailPicController.h */,
+				C42CCF25213CC2620096675F /* GoodDetailPicController.m */,
 				C42CCEA5213CC2620096675F /* FilterMoreController.h */,
 				C42CCEC3213CC2620096675F /* FilterMoreController.m */,
+				C42CCEAA213CC2620096675F /* MoreUp.h */,
+				C42CCF34213CC2620096675F /* MoreUp.m */,
+				C42CCEB1213CC2620096675F /* MoreUp.xib */,
+				C42CCEAB213CC2620096675F /* GoodDetailController.h */,
+				C42CCF33213CC2620096675F /* GoodDetailController.m */,
 				C42CCEAC213CC2620096675F /* FilterTypeController.h */,
 				C42CCF32213CC2620096675F /* FilterTypeController.m */,
 				C42CCEB0213CC2620096675F /* FilterTypeController.xib */,
-				C42CCEAB213CC2620096675F /* GoodDetailController.h */,
-				C42CCF33213CC2620096675F /* GoodDetailController.m */,
-				C42CCF80213CC2620096675F /* GoodDetailDiscussController.h */,
-				C42CCEB2213CC2620096675F /* GoodDetailDiscussController.m */,
-				C42CCEA4213CC2620096675F /* GoodDetailPicController.h */,
-				C42CCF25213CC2620096675F /* GoodDetailPicController.m */,
 				C42CCEAE213CC2620096675F /* GoodDetialAllController.h */,
 				C42CCF30213CC2620096675F /* GoodDetialAllController.m */,
+				C45541C3217374F8007C03C1 /* GoodShareController.h */,
+				C45541C4217374F8007C03C1 /* GoodShareController.m */,
+				C42CCEC1213CC2620096675F /* NotCreateController.h */,
+				C42CCF46213CC2620096675F /* NotCreateController.m */,
+				C42CCEC2213CC2620096675F /* MoreDown.h */,
+				C42CCEA6213CC2620096675F /* MoreDown.m */,
+				C42CCEA8213CC2620096675F /* MoreDown.xib */,
 				C42CCF26213CC2620096675F /* GoodDiscussListController.h */,
 				C42CCEA9213CC2620096675F /* GoodDiscussListController.m */,
+				C42CCF27213CC2620096675F /* GoodsTypeController.h */,
+				C42CCEA7213CC2620096675F /* GoodsTypeController.m */,
+				C42CCF2F213CC2620096675F /* GoodsListController.h */,
+				C42CCEAF213CC2620096675F /* GoodsListController.m */,
 				C42CCF31213CC2620096675F /* GoodOtherListController.h */,
 				C42CCEAD213CC2620096675F /* GoodOtherListController.m */,
 				C42CCF4E213CC2620096675F /* GoodSecendTypeController.h */,
 				C42CCEB3213CC2620096675F /* GoodSecendTypeController.m */,
-				C45541C3217374F8007C03C1 /* GoodShareController.h */,
-				C45541C4217374F8007C03C1 /* GoodShareController.m */,
-				C42CCF2F213CC2620096675F /* GoodsListController.h */,
-				C42CCEAF213CC2620096675F /* GoodsListController.m */,
-				C42CCF27213CC2620096675F /* GoodsTypeController.h */,
-				C42CCEA7213CC2620096675F /* GoodsTypeController.m */,
-				C42CCEC2213CC2620096675F /* MoreDown.h */,
-				C42CCEA6213CC2620096675F /* MoreDown.m */,
-				C42CCEA8213CC2620096675F /* MoreDown.xib */,
-				C42CCEAA213CC2620096675F /* MoreUp.h */,
-				C42CCF34213CC2620096675F /* MoreUp.m */,
-				C42CCEB1213CC2620096675F /* MoreUp.xib */,
-				C42CCEC1213CC2620096675F /* NotCreateController.h */,
-				C42CCF46213CC2620096675F /* NotCreateController.m */,
-				C42CCEB4213CC2620096675F /* BrandRone */,
-				C42CCEED213CC2620096675F /* Cell */,
-				C42CCEC4213CC2620096675F /* GoodMain */,
-				C42CCF28213CC2620096675F /* SearchGood */,
-				C42CCF35213CC2620096675F /* TypeSelect */,
-				C42CCF47213CC2620096675F /* UnionBusiness */,
+				C42CCF80213CC2620096675F /* GoodDetailDiscussController.h */,
+				C42CCEB2213CC2620096675F /* GoodDetailDiscussController.m */,
 			);
 			path = ShopMain;
 			sourceTree = "<group>";
@@ -2337,16 +2353,16 @@
 		C42CCF82213CC2620096675F /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				C42CCF88213CC2630096675F /* Navigation */,
 				C4FC07BC215B2B0300C6ECF3 /* AdvertiseStart.storyboard */,
+				C42CCF85213CC2630096675F /* ApplyForVender.storyboard */,
 				C46F8C31214CF1CA00F0C7D1 /* ExhangeArea.storyboard */,
+				C42CCF8F213CC2630096675F /* LoginAndRegister.storyboard */,
+				C42CCF87213CC2630096675F /* MyOrder.storyboard */,
 				C42CCF83213CC2630096675F /* RankingList.storyboard */,
 				C42CCF84213CC2630096675F /* VendorDetail.storyboard */,
-				C42CCF85213CC2630096675F /* ApplyForVender.storyboard */,
-				C42CCF86213CC2630096675F /* WithdrawDeposit.storyboard */,
-				C42CCF87213CC2630096675F /* MyOrder.storyboard */,
 				C42CCF8E213CC2630096675F /* WebService.storyboard */,
-				C42CCF8F213CC2630096675F /* LoginAndRegister.storyboard */,
-				C42CCF88213CC2630096675F /* Navigation */,
+				C42CCF86213CC2630096675F /* WithdrawDeposit.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -2368,6 +2384,8 @@
 			children = (
 				C42CCFFA213CC2630096675F /* DateSelecet.h */,
 				C42CCFA4213CC2630096675F /* DateSelecet.m */,
+				C42CCF92213CC2630096675F /* TypeSegmentControl.h */,
+				C42CCFB6213CC2630096675F /* TypeSegmentControl.m */,
 				C42CCF96213CC2630096675F /* JJAlertViewOneButton.h */,
 				C42CCFFB213CC2630096675F /* JJAlertViewOneButton.m */,
 				C42CCFB5213CC2630096675F /* JJAlertViewTwoButton.h */,
@@ -2376,8 +2394,6 @@
 				C42CCFFC213CC2630096675F /* PersonalInfo.m */,
 				C42CCFA5213CC2630096675F /* PublicFunction.h */,
 				C42CCFBB213CC2630096675F /* PublicFunction.m */,
-				C42CCF92213CC2630096675F /* TypeSegmentControl.h */,
-				C42CCFB6213CC2630096675F /* TypeSegmentControl.m */,
 				C42CCFAB213CC2630096675F /* HYBUnicodeReadable */,
 				C42CCFA6213CC2630096675F /* iOS-WebP */,
 				C42CCFB7213CC2630096675F /* Lib */,
@@ -2401,12 +2417,12 @@
 		C42CCF97213CC2630096675F /* Refresh */ = {
 			isa = PBXGroup;
 			children = (
-				C42CCF9D213CC2630096675F /* RefreshViewDelegate.h */,
+				C42CCF98213CC2630096675F /* RefreshView */,
+				C42CCFA0213CC2630096675F /* LoadMoreView */,
 				C42CCF9C213CC2630096675F /* RefreshControl.h */,
 				C42CCF9F213CC2630096675F /* RefreshControl.m */,
 				C42CCF9E213CC2630096675F /* RefreshControlDelegate.h */,
-				C42CCFA0213CC2630096675F /* LoadMoreView */,
-				C42CCF98213CC2630096675F /* RefreshView */,
+				C42CCF9D213CC2630096675F /* RefreshViewDelegate.h */,
 			);
 			path = Refresh;
 			sourceTree = "<group>";
@@ -2476,13 +2492,13 @@
 		C42CCFBC213CC2630096675F /* SpecialControl */ = {
 			isa = PBXGroup;
 			children = (
-				C42CCFE7213CC2630096675F /* NSString */,
-				C42CCFD5213CC2630096675F /* UIButton */,
 				C42CCFBD213CC2630096675F /* UIImage */,
-				C42CCFE4213CC2630096675F /* UIImageView */,
 				C42CCFC0213CC2630096675F /* UILabel */,
+				C42CCFD5213CC2630096675F /* UIButton */,
 				C42CCFDC213CC2630096675F /* UIText */,
 				C42CCFE1213CC2630096675F /* UITextView */,
+				C42CCFE4213CC2630096675F /* UIImageView */,
+				C42CCFE7213CC2630096675F /* NSString */,
 			);
 			path = SpecialControl;
 			sourceTree = "<group>";
@@ -2526,16 +2542,16 @@
 		C42CCFD5213CC2630096675F /* UIButton */ = {
 			isa = PBXGroup;
 			children = (
-				C42CCFD6213CC2630096675F /* ButtonSearch.h */,
-				C42CCFD9213CC2630096675F /* ButtonSearch.m */,
 				C4026DBF2148164E00D81974 /* ButtonShare.h */,
 				C4026DBE2148164E00D81974 /* ButtonShare.m */,
+				C42CCFD6213CC2630096675F /* ButtonSearch.h */,
+				C42CCFD9213CC2630096675F /* ButtonSearch.m */,
 				C42CCFDA213CC2630096675F /* ButtonUpDown.h */,
 				C42CCFD7213CC2630096675F /* ButtonUpDown.m */,
-				C46D6B542143A48C00428D7A /* UIButton+EnlargeTouchArea.h */,
-				C46D6B552143A48C00428D7A /* UIButton+EnlargeTouchArea.m */,
 				C42CCFDB213CC2630096675F /* UIButton+Joker.h */,
 				C42CCFD8213CC2630096675F /* UIButton+Joker.m */,
+				C46D6B542143A48C00428D7A /* UIButton+EnlargeTouchArea.h */,
+				C46D6B552143A48C00428D7A /* UIButton+EnlargeTouchArea.m */,
 			);
 			path = UIButton;
 			sourceTree = "<group>";
@@ -2581,25 +2597,25 @@
 		C42CCFFD213CC2630096675F /* BaseClasses */ = {
 			isa = PBXGroup;
 			children = (
-				C42CD017213CC2630096675F /* HeaderForURl.h */,
-				C42CD018213CC2630096675F /* JJDBHelper.h */,
-				C42CCFFE213CC2630096675F /* JJDBHelper.m */,
-				C42CCFFF213CC2630096675F /* JJTableViewCell.h */,
-				C42CD016213CC2630096675F /* JJTableViewCell.m */,
-				C42CD000213CC2630096675F /* JJBaseViewController.h */,
-				C42CD015213CC2630096675F /* JJBaseViewController.m */,
-				C42CD014213CC2630096675F /* JJWaterflowLayout.h */,
-				C42CD001213CC2630096675F /* JJWaterflowLayout.m */,
-				C42CD019213CC2630096675F /* JJHttpClient.h */,
-				C42CD00F213CC2630096675F /* JJHttpClient.m */,
-				C42CD01A213CC2630096675F /* JJCollectionViewCell.h */,
-				C42CD010213CC2630096675F /* JJCollectionViewCell.m */,
-				C42CD011213CC2630096675F /* WaterflowLayout.h */,
-				C42CD01D213CC2630096675F /* WaterflowLayout.m */,
 				C42CD01C213CC2630096675F /* BaseTableView.h */,
 				C42CD012213CC2630096675F /* BaseTableView.m */,
+				C42CD017213CC2630096675F /* HeaderForURl.h */,
 				C42CD01B213CC2630096675F /* JJBaseModel.h */,
 				C42CD013213CC2630096675F /* JJBaseModel.m */,
+				C42CD000213CC2630096675F /* JJBaseViewController.h */,
+				C42CD015213CC2630096675F /* JJBaseViewController.m */,
+				C42CD01A213CC2630096675F /* JJCollectionViewCell.h */,
+				C42CD010213CC2630096675F /* JJCollectionViewCell.m */,
+				C42CD018213CC2630096675F /* JJDBHelper.h */,
+				C42CCFFE213CC2630096675F /* JJDBHelper.m */,
+				C42CD019213CC2630096675F /* JJHttpClient.h */,
+				C42CD00F213CC2630096675F /* JJHttpClient.m */,
+				C42CCFFF213CC2630096675F /* JJTableViewCell.h */,
+				C42CD016213CC2630096675F /* JJTableViewCell.m */,
+				C42CD014213CC2630096675F /* JJWaterflowLayout.h */,
+				C42CD001213CC2630096675F /* JJWaterflowLayout.m */,
+				C42CD011213CC2630096675F /* WaterflowLayout.h */,
+				C42CD01D213CC2630096675F /* WaterflowLayout.m */,
 				C42CD002213CC2630096675F /* NavigationController */,
 			);
 			path = BaseClasses;
@@ -2614,12 +2630,12 @@
 				C42CD007213CC2630096675F /* JJBaseNavigationController.m */,
 				C42CD006213CC2630096675F /* MainNavigationController.h */,
 				C42CD00A213CC2630096675F /* MainNavigationController.m */,
-				C42CD00C213CC2630096675F /* ShopTypeNavigationController.h */,
-				C42CD004213CC2630096675F /* ShopTypeNavigationController.m */,
-				C42CD00E213CC2630096675F /* ShopCartNavigationController.h */,
-				C42CD008213CC2630096675F /* ShopCartNavigationController.m */,
 				C42CD009213CC2630096675F /* MineNavigationController.h */,
 				C42CD003213CC2630096675F /* MineNavigationController.m */,
+				C42CD00E213CC2630096675F /* ShopCartNavigationController.h */,
+				C42CD008213CC2630096675F /* ShopCartNavigationController.m */,
+				C42CD00C213CC2630096675F /* ShopTypeNavigationController.h */,
+				C42CD004213CC2630096675F /* ShopTypeNavigationController.m */,
 			);
 			path = NavigationController;
 			sourceTree = "<group>";
@@ -2870,9 +2886,9 @@
 		C4FC07BE215B2B1A00C6ECF3 /* Start */ = {
 			isa = PBXGroup;
 			children = (
+				C4FC07C2215B35F400C6ECF3 /* UAProgressView */,
 				C4FC07C0215B2B1A00C6ECF3 /* AdvertiseStartController.h */,
 				C4FC07BF215B2B1A00C6ECF3 /* AdvertiseStartController.m */,
-				C4FC07C2215B35F400C6ECF3 /* UAProgressView */,
 			);
 			path = Start;
 			sourceTree = "<group>";

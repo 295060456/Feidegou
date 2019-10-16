@@ -9,7 +9,7 @@
 #import "JJHttpClient+FourZero.h"
 
 @implementation JJHttpClient (FourZero)
--(RACSignal*)requestFourZeroChangeAddressDefaultID:(NSString *)ID
+-(RACSignal *)requestFourZeroChangeAddressDefaultID:(NSString *)ID
                                          andUserId:(NSString *)userId{
     NSDictionary *param = [self paramStringWithStype:@"4009"
                                                 data:@{@"id":ID}];
@@ -18,7 +18,9 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroID:(NSString *)ID andDelete:(NSString *)IsDelete
+
+-(RACSignal *)requestFourZeroID:(NSString *)ID
+                     andDelete:(NSString *)IsDelete
                   andArea_info:(NSString *)area_info
                      andMobile:(NSString *)mobile
                   andTelephone:(NSString *)telephone
@@ -55,7 +57,8 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroCommitOrderInvoiceType:(NSString *)invoiceType
+
+-(RACSignal *)requestFourZeroCommitOrderInvoiceType:(NSString *)invoiceType
                                          andInvoic:(NSString *)invoic
                                             andMsg:(NSString *)msg
                                         andAddr_id:(NSString *)addr_id
@@ -82,8 +85,7 @@
     }];
 }
 
-
--(RACSignal*)requestFourZeroCommitOrderInvoiceType:(NSString *)invoiceType
+-(RACSignal *)requestFourZeroCommitOrderInvoiceType:(NSString *)invoiceType
                                          andInvoic:(NSString *)invoic
                                             andMsg:(NSString *)msg
                                         andAddr_id:(NSString *)addr_id
@@ -107,7 +109,7 @@
 }
 
 
--(RACSignal*)requestFourZeroWithDrawUserId:(NSString *)userId
+-(RACSignal *)requestFourZeroWithDrawUserId:(NSString *)userId
                            andcash_account:(NSString *)cash_account
                               andcash_info:(NSString *)cash_info
                             andcash_amount:(NSString *)cash_amount
@@ -123,7 +125,7 @@
     }];
 }
 
--(RACSignal*)requestFourZeroWithDrawUSERID:(NSString *)USERID
+-(RACSignal *)requestFourZeroWithDrawUSERID:(NSString *)USERID
                                   andLimit:(NSString *)limit
                                    andPage:(NSString *)page{
     NSDictionary *param = [self paramStringWithStype:@"1100"
@@ -141,7 +143,8 @@
 //        }] array];
     }];
 }
--(RACSignal*)requestFourZeroDeleteOrderId:(NSString *)orderId
+
+-(RACSignal *)requestFourZeroDeleteOrderId:(NSString *)orderId
                                  andState:(NSString *)state{
     NSDictionary *param = [self paramStringWithStype:@"4024"
                                                 data:@{@"order_id":orderId,
@@ -151,7 +154,8 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroPayout_trade_no:(NSString *)out_trade_no{
+
+-(RACSignal *)requestFourZeroPayout_trade_no:(NSString *)out_trade_no{
     NSDictionary *param = [self paramStringWithStype:@"4005"
                                                 data:@{@"out_trade_no":out_trade_no}];
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_WRITE
@@ -159,7 +163,8 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroCommitDiscussevaluate_seller_val:(NSString *)evaluate_seller_val
+
+-(RACSignal *)requestFourZeroCommitDiscussevaluate_seller_val:(NSString *)evaluate_seller_val
                                             andevaluate_info:(NSString *)evaluate_info
                                         andevaluate_goods_id:(NSString *)evaluate_goods_id
                                          andevaluate_user_id:(NSString *)evaluate_user_id
@@ -181,7 +186,8 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroCommitDiscussOrderID:(NSString *)orderId
+
+-(RACSignal *)requestFourZeroCommitDiscussOrderID:(NSString *)orderId
                                          andOfId:(NSString *)ofId
                                     andAttribute:(NSArray *)arrAttribute
                                        andUserID:(NSString *)userID{
@@ -195,7 +201,8 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroAreaExchangeOrderComfilmig_goods_id:(NSString *)ig_goods_id
+
+-(RACSignal *)requestFourZeroAreaExchangeOrderComfilmig_goods_id:(NSString *)ig_goods_id
                                                    andgoodsCont:(NSString *)goodsCont
                                                      andigo_msg:(NSString *)igo_msg
                                                       andshopId:(NSString *)shopId
@@ -213,12 +220,13 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroAddCartGoods_id:(NSString *)goods_id
-                                   andcount:(NSString *)count
-                                andsotre_id:(NSString *)store_id
-                                andproperty:(NSString *)property
-                               andspec_info:(NSString *)spec_info
-                                 andUser_id:(NSString *)user_id{
+
+-(RACSignal *)requestFourZeroAddCartGoods_id:(NSString *)goods_id
+                                    andcount:(NSString *)count
+                                 andsotre_id:(NSString *)store_id
+                                 andproperty:(NSString *)property
+                                andspec_info:(NSString *)spec_info
+                                  andUser_id:(NSString *)user_id{
     NSDictionary *param = [self paramStringWithStype:@"4010"
                                                 data:@{@"goods_id":goods_id,
                                                        @"count":count,
@@ -231,9 +239,9 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroCartChangeNumSCId:(NSString *)SCId
-                                     andcount:(NSString *)count
-                                    andcartId:(NSString *)cartId{
+-(RACSignal *)requestFourZeroCartChangeNumSCId:(NSString *)SCId
+                                      andcount:(NSString *)count
+                                     andcartId:(NSString *)cartId{
     NSDictionary *param = [self paramStringWithStype:@"4012"
                                                 data:@{@"storeCartId":SCId,
                                                        @"count":count,
@@ -243,9 +251,10 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroCartDeleteCartGoodsCartId:(NSString *)goodsCartId
-                                       andstoreCartId:(NSString *)storeCartId
-                                        anddeleteType:(NSString *)deleteType{
+
+-(RACSignal *)requestFourZeroCartDeleteCartGoodsCartId:(NSString *)goodsCartId
+                                        andstoreCartId:(NSString *)storeCartId
+                                         anddeleteType:(NSString *)deleteType{
     NSDictionary *param = [self paramStringWithStype:@"4013"
                                                 data:@{@"goodsCartId":goodsCartId,
                                                        @"storeCartId":storeCartId,
@@ -255,17 +264,18 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroApplyForVenderuser_id:(NSString *)user_id
-                                    andstore_ower:(NSString *)store_ower
-                               andstore_ower_card:(NSString *)store_ower_card
-                                    andstore_name:(NSString *)store_name
-                                         andsc_id:(NSString *)sc_id
-                                       andarea_id:(NSString *)area_id
-                                 andstore_address:(NSString *)store_address
-                                     andstore_zip:(NSString *)store_zip
-                                andstore_telphone:(NSString *)store_telphone
-                                     andcard_file:(UIImage *)card_file
-                                  andlicense_file:(UIImage *)license_file{
+
+-(RACSignal *)requestFourZeroApplyForVenderuser_id:(NSString *)user_id
+                                     andstore_ower:(NSString *)store_ower
+                                andstore_ower_card:(NSString *)store_ower_card
+                                     andstore_name:(NSString *)store_name
+                                          andsc_id:(NSString *)sc_id
+                                        andarea_id:(NSString *)area_id
+                                  andstore_address:(NSString *)store_address
+                                      andstore_zip:(NSString *)store_zip
+                                 andstore_telphone:(NSString *)store_telphone
+                                      andcard_file:(UIImage *)card_file
+                                   andlicense_file:(UIImage *)license_file{
 //    NSData *dataImageCard_filet = UIImageJPEGRepresentation(card_file, 0.2);
 //    NSUInteger longSizeCard_filet = dataImageCard_filet.length/1000;
 //    D_NSLog(@"longSizeLeft is %lu",(unsigned long)longSizeCard_filet);
@@ -282,13 +292,13 @@
     NSDictionary *param = [self paramStringWithStype:@"4015"
                                                 data:@{@"user_id":user_id,
                                                        @"store_ower":store_ower,
-                                                           @"store_ower_card":store_ower_card,
-                                                           @"store_name":store_name,
-                                                           @"sc_id":sc_id,
-                                                           @"area_id":area_id,
-                                                           @"store_address":store_address,
-                                                           @"store_zip":store_zip,
-                                                           @"store_telphone":store_telphone,
+                                                       @"store_ower_card":store_ower_card,
+                                                       @"store_name":store_name,
+                                                       @"sc_id":sc_id,
+                                                       @"area_id":area_id,
+                                                       @"store_address":store_address,
+                                                       @"store_zip":store_zip,
+                                                       @"store_telphone":store_telphone,
 //                                                           @"card_file":[NSString stringStandard:_encodedImagecard_file],
 //                                                           @"license_file":[NSString stringStandard:_encodedImageLicense_file]
                                                        
@@ -298,9 +308,10 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroRedPacketTransportuserId:(NSString *)userId
-                                         andaccounts:(NSString *)accounts
-                                           andredbag:(NSString *)redbag{
+
+-(RACSignal *)requestFourZeroRedPacketTransportuserId:(NSString *)userId
+                                          andaccounts:(NSString *)accounts
+                                            andredbag:(NSString *)redbag{
     NSDictionary *param = [self paramStringWithStype:@"4016"
                                                 data:@{@"userId":userId,
                                                        @"accounts":accounts,
@@ -310,12 +321,13 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroChangeInfoUserName:(NSString *)userName
-                                  andtelePhone:(NSString *)telePhone
-                                    andarea_id:(NSString *)area_id
-                                        andsex:(NSString *)sex
-                                   andbirthday:(NSString *)birthday
-                                      andemail:(NSString *)email{
+
+-(RACSignal *)requestFourZeroChangeInfoUserName:(NSString *)userName
+                                   andtelePhone:(NSString *)telePhone
+                                     andarea_id:(NSString *)area_id
+                                         andsex:(NSString *)sex
+                                    andbirthday:(NSString *)birthday
+                                       andemail:(NSString *)email{
     ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
     NSDictionary *param = [self paramStringWithStype:@"4019"
                                                 data:@{@"userId":[NSString stringStandard:model.userId],
@@ -329,9 +341,10 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroChangePswUserName:(NSString *)userName
-                              andpassword_new:(NSString *)password_new
-                              andpassword_old:(NSString *)password_old{
+
+-(RACSignal *)requestFourZeroChangePswUserName:(NSString *)userName
+                               andpassword_new:(NSString *)password_new
+                               andpassword_old:(NSString *)password_old{
     NSDictionary *param = [self paramStringWithStype:@"4020"
                                                 data:@{@"userName":userName,
                                                        @"password_new":[self md5HexDigestSmall:password_new],
@@ -341,7 +354,8 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroMainType{
+
+-(RACSignal *)requestFourZeroMainType{
     NSDictionary *param = [self paramStringWithStype:@"3001"
                                                 data:@{}];
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
@@ -350,7 +364,8 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroMainAdver{
+
+-(RACSignal *)requestFourZeroMainAdver{
     NSDictionary *param = [self paramStringWithStype:@"3059"
                                                 data:@{}];
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
@@ -360,10 +375,10 @@
     }];
 }
 
--(RACSignal*)requestFourZeroBuyTheBillbuy_user_id:(NSString *)buy_user_id
-                                andseller_user_id:(NSString *)seller_user_id
-                                     andbuy_money:(NSString *)buy_money
-                                anddirectPurchase:(NSString *)directPurchase{
+-(RACSignal *)requestFourZeroBuyTheBillbuy_user_id:(NSString *)buy_user_id
+                                 andseller_user_id:(NSString *)seller_user_id
+                                      andbuy_money:(NSString *)buy_money
+                                 anddirectPurchase:(NSString *)directPurchase{
     NSDictionary *param = [self paramStringWithStype:@"4022"
                                                 data:@{@"buy_user_id":buy_user_id,
                                                        @"seller_user_id":seller_user_id,
@@ -376,8 +391,8 @@
     }];
 }
 
--(RACSignal*)requestFourZeroUserID:(NSString *)userid
-                        andpayType:(NSString *)payType{
+-(RACSignal *)requestFourZeroUserID:(NSString *)userid
+                         andpayType:(NSString *)payType{
     NSDictionary *param = [self paramStringWithStype:@"4023"
                                                 data:@{@"userid":userid,
                                                        @"payType":payType
@@ -388,7 +403,7 @@
     }];
 }
 
--(RACSignal*)requestFourZeroCommitOrderCommit:(NSDictionary *)dicInfo{
+-(RACSignal *)requestFourZeroCommitOrderCommit:(NSDictionary *)dicInfo{
     NSDictionary *param = [self paramStringWithStype:@"4011"
                                                 data:dicInfo];
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_WRITE
@@ -397,17 +412,17 @@
     }];
 }
 
--(RACSignal*)requestFourZeroCommitOrderInvoiceType:(NSString *)invoiceType
-                                         andInvoic:(NSString *)invoic
-                                            andMsg:(NSString *)msg
-                                        andAddr_id:(NSString *)addr_id
-                                        andUser_id:(NSString *)user_id
-                                      andTransport:(NSString *)transport
-                                          andCount:(NSString *)count
-                                      andSpec_info:(NSString *)spec_info
-                                       andGoods_id:(NSString *)goods_id
-                                       andProperty:(NSString *)property
-                                   andservice_user:(NSString *)service_user{
+-(RACSignal *)requestFourZeroCommitOrderInvoiceType:(NSString *)invoiceType
+                                          andInvoic:(NSString *)invoic
+                                             andMsg:(NSString *)msg
+                                         andAddr_id:(NSString *)addr_id
+                                         andUser_id:(NSString *)user_id
+                                       andTransport:(NSString *)transport
+                                           andCount:(NSString *)count
+                                       andSpec_info:(NSString *)spec_info
+                                        andGoods_id:(NSString *)goods_id
+                                        andProperty:(NSString *)property
+                                    andservice_user:(NSString *)service_user{
     NSDictionary *param = [self paramStringWithStype:@"4002"
                                                 data:@{@"invoiceType":invoiceType,
                                                        @"invoic":invoic,
@@ -427,7 +442,7 @@
     }];
 }
 
--(RACSignal*)requestFourZeroSignInGoodId:(NSDictionary *)goodId{
+-(RACSignal *)requestFourZeroSignInGoodId:(NSDictionary *)goodId{
     NSDictionary *param = [self paramStringWithStype:@"4100"
                                                 data:@{@"id":goodId}];
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_WRITE
@@ -436,7 +451,7 @@
     }];
 }
 
--(RACSignal*)requestFourZeroShare{
+-(RACSignal *)requestFourZeroShare{
     NSDictionary *param = [self paramStringWithStype:@"4101"
                                                 data:@{}];
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_WRITE
@@ -445,7 +460,7 @@
     }];
 }
 
--(RACSignal*)requestFourZeroAddInteger:(NSString *)cardpwd{
+-(RACSignal *)requestFourZeroAddInteger:(NSString *)cardpwd{
     NSDictionary *param = [self paramStringWithStype:@"4102"
                                                 data:@{@"cardpwd":cardpwd}];
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_WRITE
@@ -454,8 +469,8 @@
     }];
 }
 
--(RACSignal*)requestFourZeroChangeAlipy:(NSString *)alipay
-                          andalipayName:(NSString *)alipayName{
+-(RACSignal *)requestFourZeroChangeAlipy:(NSString *)alipay
+                           andalipayName:(NSString *)alipayName{
     NSDictionary *param = [self paramStringWithStype:@"4028"
                                                 data:@{@"alipay":alipay,
                                                        @"alipay_name":alipayName
@@ -466,9 +481,9 @@
     }];
 }
 
--(RACSignal*)requestFourZeroDarwback:(NSString *)order_id
-                              andmsg:(NSString *)msg
-                             andtype:(NSString *)type{
+-(RACSignal *)requestFourZeroDarwback:(NSString *)order_id
+                               andmsg:(NSString *)msg
+                              andtype:(NSString *)type{
     NSDictionary *param = [self paramStringWithStype:@"4027"
                                                 data:@{@"order_id":order_id,
                                                        @"msg":msg,
@@ -479,9 +494,10 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroWuliuRefund_id:(NSString *)refund_id
-                             andcompany_id:(NSString *)company_id
-                              andship_code:(NSString *)ship_code{
+
+-(RACSignal *)requestFourZeroWuliuRefund_id:(NSString *)refund_id
+                              andcompany_id:(NSString *)company_id
+                               andship_code:(NSString *)ship_code{
     NSDictionary *param = [self paramStringWithStype:@"4029"
                                                 data:@{@"refund_id":refund_id, @"company_id":company_id,   @"ship_code":ship_code
                                                        }];
@@ -490,4 +506,5 @@
         return dictionary;
     }];
 }
+
 @end

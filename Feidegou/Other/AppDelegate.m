@@ -28,18 +28,19 @@
 // 如果需要使用idfa功能所需要引入的头文件（可选）
 #import <AdSupport/AdSupport.h>
 
-
-
 #import "LocationManager.h"
 BMKMapManager* _mapManager;
 
-@interface AppDelegate ()<WXApiDelegate,BMKGeneralDelegate,JPUSHRegisterDelegate>
+@interface AppDelegate ()
+<
+WXApiDelegate,
+BMKGeneralDelegate,
+JPUSHRegisterDelegate
+>
 
 @end
 
 @implementation AppDelegate
-
-
 
 static NSInteger seq = 0;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -70,13 +71,16 @@ static NSInteger seq = 0;
     // Override point for customization after application launch.
     return YES;
 }
+
 - (void)loginAgin{
-    
     if (![[PersonalInfo sharedInstance] isLogined]) {
         return;
     }
     ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-    self.disposableLogin = [[[JJHttpClient new] requestLoginUSERNAME:modelLogin.userName andPASSWORD:modelLogin.password andIsChangedPsw:YES] subscribeNext:^(ModelLogin*model) {
+    
+    self.disposableLogin = [[[JJHttpClient new] requestLoginUSERNAME:modelLogin.userName
+                                                         andPASSWORD:modelLogin.password andIsChangedPsw:YES]
+                            subscribeNext:^(ModelLogin*model) {
         
     }error:^(NSError *error) {
         self.disposableLogin = nil;
@@ -116,6 +120,7 @@ static NSInteger seq = 0;
     }else{
         [self setEntryByIsLogined];
     }
+    
     self.disposableAdver = [[[JJHttpClient new] requestAdverStart] subscribeNext:^(NSArray* array) {
         if (array.count>0) {
             [self downloadImage:array[0][@"photo_url"]];

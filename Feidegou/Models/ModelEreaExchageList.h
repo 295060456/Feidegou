@@ -41,4 +41,5 @@
  *
  */
 @property (nonatomic,copy) NSString *ig_goods_count;
+
 @end

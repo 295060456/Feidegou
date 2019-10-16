@@ -11,12 +11,11 @@
 @implementation TypeSegmentControl
 
 - (id)initWithFrame:(CGRect)frame
-              items:(NSArray*)items
+              items:(NSArray *)items
        iconPosition:(IconPosition)position
   andSelectionBlock:(SelectionBlock)block{
-    
-    self = [super initWithFrame:frame];
-    if (self){
+
+    if (self = [super initWithFrame:frame]){
         //Selection block
         self.selectionBlock=block;
         
@@ -32,7 +31,10 @@
         for(NSDictionary *item in items){
             NSString *text=item[@"text"];
             NSString *icon=item[@"icon"];
-            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0+buttonWith*i, 0, buttonWith, frame.size.height)];
+            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0+buttonWith*i,
+                                                                          0,
+                                                                          buttonWith,
+                                                                          frame.size.height)];
             [button setTag:i];
             if ([NSString isNullString:icon]) {
 //                没图片
@@ -45,7 +47,9 @@
                 }
             }
             [button setTitle:text forState:UIControlStateNormal];
-            [button addTarget:self action:@selector(segmentSelected:) forControlEvents:UIControlEventTouchUpInside];
+            [button addTarget:self
+                       action:@selector(segmentSelected:)
+             forControlEvents:UIControlEventTouchUpInside];
             [button.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
             //Adding to self view
             [self addSubview:button];
@@ -54,7 +58,10 @@
             
             
             i++;
-            UIView *viLine = [[UIView alloc] initWithFrame:CGRectMake(0, frame.size.height-0.5, frame.size.width, 0.5)];
+            UIView *viLine = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                      frame.size.height-0.5,
+                                                                      frame.size.width,
+                                                                      0.5)];
             [viLine setBackgroundColor:ColorLine];
             [self addSubview:viLine];
         }
@@ -65,7 +72,6 @@
 }
 
 - (void)refreshButtonImage:(UIButton *)sender{
-    
     for (int i = 0; i<self.arrButton.count; i++) {
         IconState state = [self getStateOfImage:self.arrImage[i]];
         UIButton *button = (UIButton *)self.arrButton[i];
@@ -78,23 +84,24 @@
         }
         if (state == IconStateNomer) {
             if (button.tag == _currentSelected) {
-                
-                [button setImage:ImageNamed(@"img_select_s") forState:UIControlStateNormal];
-                [button setImage:ImageNamed(@"img_select_x") forState:UIControlStateSelected];
+                [button setImage:ImageNamed(@"img_select_s")
+                        forState:UIControlStateNormal];
+                [button setImage:ImageNamed(@"img_select_x")
+                        forState:UIControlStateSelected];
             }else{
-                [button setImage:ImageNamed(@"img_select_n") forState:UIControlStateNormal];
-                [button setImage:ImageNamed(@"img_select_n") forState:UIControlStateSelected];
+                [button setImage:ImageNamed(@"img_select_n")
+                        forState:UIControlStateNormal];
+                [button setImage:ImageNamed(@"img_select_n")
+                        forState:UIControlStateSelected];
             }
-            
-        }
-        else{
-            [button setImage:ImageNamed(self.arrImage[i]) forState:UIControlStateNormal];
+        }else{
+            [button setImage:ImageNamed(self.arrImage[i])
+                    forState:UIControlStateNormal];
         }
     }
 }
 
 - (IconState)getStateOfImage:(NSString *)string{
-    
     if ([NSString isNullString:string]) {
         //                没图片
         return IconStateNo;
@@ -125,6 +132,5 @@
         }
     }
 }
-
 
 @end

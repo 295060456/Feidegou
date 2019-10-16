@@ -9,7 +9,6 @@
 #import "JJBaseModel.h"
 
 @interface ModelArea : JJBaseModel
-
 /**
  *
  */
@@ -22,4 +21,5 @@
  *
  */
 @property (nonatomic,copy) NSString *level;
+
 @end

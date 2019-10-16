@@ -9,20 +9,22 @@
 #import "ButtonSearch.h"
 
 @implementation ButtonSearch
+
 - (instancetype)initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
-    if (self) {
+    if (self = [super initWithFrame:frame]) {
         [self setAttribute];
-    }
-    return self;
+    }return self;
 }
+
 - (void)awakeFromNib{
     [super awakeFromNib];
     [self setAttribute];
 }
+
 - (void)setTitle:(NSString *)string{
     [self.lblContent setText:string];
 }
+
 - (void)setAttribute{
     self.imageLeft = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 40, self.frame.size.height)];
     [self.imageLeft setImage:ImageNamed(@"img_search_bai")];
@@ -37,12 +39,5 @@
     [self setClipsToBounds:YES];
     [self.layer setCornerRadius:3.0];
 }
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect {
- // Drawing code
- }
- */
 
 @end

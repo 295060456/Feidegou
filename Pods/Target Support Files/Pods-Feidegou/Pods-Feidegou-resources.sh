@@ -101,16 +101,18 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_ROOT}/LJWKeyboardHandler/LJWKeyboardHandlerExample/LJWKeyboardHandler/Resources.bundle"
   install_resource "${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
   install_resource "${PODS_ROOT}/iOS-AlipaySDK/AlipaySDK.bundle"
-  install_resource "${PODS_ROOT}/mob_sharesdk/SDK/ShareSDK/Support/Required/ShareSDK.bundle"
-  install_resource "${PODS_ROOT}/mob_sharesdk/SDK/ShareSDK/Support/Optional/ShareSDKUI.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/mob_sharesdk/ShareSDK.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/mob_sharesdk/ShareSDK_JS_WeChat.bundle"
+  install_resource "${PODS_ROOT}/mob_sharesdk/ShareSDK/Support/Optional/ShareSDKUI.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_ROOT}/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/mapapi.bundle"
   install_resource "${PODS_ROOT}/LJWKeyboardHandler/LJWKeyboardHandlerExample/LJWKeyboardHandler/Resources.bundle"
   install_resource "${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
   install_resource "${PODS_ROOT}/iOS-AlipaySDK/AlipaySDK.bundle"
-  install_resource "${PODS_ROOT}/mob_sharesdk/SDK/ShareSDK/Support/Required/ShareSDK.bundle"
-  install_resource "${PODS_ROOT}/mob_sharesdk/SDK/ShareSDK/Support/Optional/ShareSDKUI.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/mob_sharesdk/ShareSDK.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/mob_sharesdk/ShareSDK_JS_WeChat.bundle"
+  install_resource "${PODS_ROOT}/mob_sharesdk/ShareSDK/Support/Optional/ShareSDKUI.bundle"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

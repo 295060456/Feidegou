@@ -9,6 +9,7 @@
 #import "ModelGood.h"
 
 @implementation ModelGood
+
 + (NSDictionary *)JSONKeyPathsByPropertyKey{
     return @{
              @"goods_id":@"goods_id",
@@ -23,4 +24,5 @@
              @"give_integral":@"give_integral"
              };
 }
+
 @end

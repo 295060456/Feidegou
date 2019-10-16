@@ -23,7 +23,12 @@
  *  保存购物车
  *
  */
-- (void)saveShopCart:(NSDictionary *)dictionary andIntBuyNum:(NSString *)historyNum andhistoryAttribute:(NSString *)historyAttribute andhistoryAttributeName:(NSString *)historyAttributeName andhistoryGood_id:(NSString *)historyGood_id andhistoryPrice:(NSString *)historyPrice;
+- (void)saveShopCart:(NSDictionary *)dictionary
+        andIntBuyNum:(NSString *)historyNum
+ andhistoryAttribute:(NSString *)historyAttribute
+andhistoryAttributeName:(NSString *)historyAttributeName
+   andhistoryGood_id:(NSString *)historyGood_id
+     andhistoryPrice:(NSString *)historyPrice;
 /**
  *  删除购物车
  *
@@ -49,4 +54,5 @@
  *
  */
 - (void)deleteAddressDefault;
+
 @end

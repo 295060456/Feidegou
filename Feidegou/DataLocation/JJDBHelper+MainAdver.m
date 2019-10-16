@@ -11,10 +11,7 @@
 @implementation JJDBHelper (MainAdver)
 - (NSArray *)fetchMainAdver{
     NSData *data = [self queryCacheDataWithCacheId:@"3059"];
-    
     NSArray *array = [self convertData:data];
-    
-    
 //    如果存在了，那么就不添加了
     NSMutableArray *arrAdver = [NSMutableArray array];
     NSMutableArray *arrayId = [NSMutableArray arrayWithArray:[self fetchCacheForMainAdverId]];
@@ -30,8 +27,7 @@
         if (!isHad) {
             [arrAdver addObject:array[i]];
         }
-    }
-    return arrAdver;
+    }return arrAdver;
 }
 
 - (void)saveAdverId:(NSString *)strId{
@@ -44,14 +40,13 @@
     [array addObject:strId];
     [self updateCacheForId:MainAdverId cacheArray:array];
 }
+
 - (NSArray *)fetchCacheForMainAdverId{
-    
     NSData *data = [self queryCacheDataWithCacheId:MainAdverId];
-    
     NSArray *array = [self convertData:data];
     if (![array isKindOfClass:[NSArray class]]) {
         array = [NSArray array];
-    }
-    return array;
+    }return array;
 }
+
 @end

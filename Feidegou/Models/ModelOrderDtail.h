@@ -102,7 +102,6 @@
  *
  */
 @property (nonatomic,copy) NSDictionary *refund;
-
 /**
  *
  */

@@ -22,8 +22,7 @@
                                          parameters:(NSDictionary *)parameters{
     AFHTTPSessionManager *manager = [self __httpSessionManagerWithBaseUrl:strBaseUrl];
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        NSURLSessionDataTask *dataTask = [manager POST:relativePath
-                                            parameters:parameters
+        NSURLSessionDataTask *dataTask = [manager POST:relativePath parameters:parameters
                                               progress:^(NSProgress *_Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask *_Nonnull task,id _Nullable responseObject) {
@@ -39,15 +38,12 @@
         return [RACDisposable disposableWithBlock:^{
             
             [dataTask cancel];
-            
         }];
-        
     }] doError:^(NSError *error) {
         
         NSLog(@"ERROR:%@",error);
         
     }];
-    
 }
 
 /*!
@@ -60,7 +56,9 @@
     AFHTTPSessionManager *manager = [self __httpSessionManagerWithBaseUrl:BASE_URL];
     
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        NSURLSessionDataTask *dataTask = [manager POST:relativePath parameters:parameters progress:^(NSProgress *_Nonnull uploadProgress) {
+        NSURLSessionDataTask *dataTask = [manager POST:relativePath
+                                            parameters:parameters
+                                              progress:^(NSProgress *_Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask *_Nonnull task,id _Nullable responseObject) {
             [self __handleResponseObject:responseObject subscriber:subscriber];
@@ -72,15 +70,11 @@
         return [RACDisposable disposableWithBlock:^{
 
             [dataTask cancel];
-            
         }];
-        
     }] doError:^(NSError *error) {
         
         NSLog(@"ERROR:%@",error);
-        
     }];
-
 }
 
 
@@ -159,8 +153,7 @@
 
 #pragma mark -
 #pragma mark - 生成错误信息
--(NSError*)requestErrorWithDescription:(NSString*)description
-                             errorCode:(NSInteger)errorCode{
+-(NSError*)requestErrorWithDescription:(NSString*)description errorCode:(NSInteger)errorCode{
     
     NSDictionary *userInfo = [NSDictionary dictionaryWithObject:description forKey:NSLocalizedDescriptionKey];
     NSError *error = [NSError errorWithDomain:@"Domain" code:errorCode userInfo:userInfo];

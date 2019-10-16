@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface JJTableViewCell : UITableViewCell
+
 @property (assign, nonatomic) float fWidthPre;
 @property (assign, nonatomic) float fWidthEnd;
 @property (assign, nonatomic) BOOL isHidden;
 @property (strong, nonatomic) UIColor *colorLine;
+
 @end

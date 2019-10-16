@@ -11,9 +11,9 @@
 
 @implementation JJHttpClient (Login)
 
--(RACSignal*)requestLoginUSERNAME:(NSString *)USERNAME
-                      andPASSWORD:(NSString *)PASSWORD
-                  andIsChangedPsw:(BOOL)isChanged{
+-(RACSignal *)requestLoginUSERNAME:(NSString *)USERNAME
+                       andPASSWORD:(NSString *)PASSWORD
+                   andIsChangedPsw:(BOOL)isChanged{
     if (isChanged == NO) {
         PASSWORD = [self md5HexDigestSmall:PASSWORD];
     }
@@ -32,19 +32,13 @@
             [dicInfo setObject:dicInfo[@"id"] forKey:@"userId"];
         }
         if (code == 1) {
-            ModelLogin *model = [MTLJSONAdapter modelOfClass:[ModelLogin class]
-                                          fromJSONDictionary:dicInfo
-                                                       error:nil];
+            ModelLogin *model = [MTLJSONAdapter modelOfClass:[ModelLogin class] fromJSONDictionary:dicInfo error:nil];
             [[PersonalInfo sharedInstance] updateLoginUserInfo:model];
             return model;
         }else{
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             JJAlertViewOneButton *alertView = [[JJAlertViewOneButton alloc] init];
-            [alertView showAlertView:appDelegate.window.rootViewController
-                            andTitle:nil
-                          andMessage:StringFormat(@"%@,请重新登录",dictionary[@"msg"])
-                           andCancel:@"确定"
-                       andCanelIsRed:YES andBack:^{
+            [alertView showAlertView:appDelegate.window.rootViewController andTitle:nil andMessage:StringFormat(@"%@,请重新登录",dictionary[@"msg"])  andCancel:@"确定" andCanelIsRed:YES andBack:^{
                 D_NSLog(@"点击了确定");
                 [[PersonalInfo sharedInstance] deleteLoginUserInfo];
             }];
@@ -53,7 +47,7 @@
     }];
 }
 
--(RACSignal*)requestRegisterPHONE:(NSString *)PHONE{
+-(RACSignal *)requestRegisterPHONE:(NSString *)PHONE{
     
     NSDictionary *param = [self paramStringWithStype:@"2008"
                                                 data:@{@"PHONE":PHONE}];
@@ -64,7 +58,8 @@
     }];
 }
 
--(RACSignal*)requestRegisterPHONE:(NSString *)PHONE andCODE:(NSString *)CODE{
+-(RACSignal *)requestRegisterPHONE:(NSString *)PHONE
+                           andCODE:(NSString *)CODE{
     NSDictionary *param = [self paramStringWithStype:@"1010"
                                                 data:@{@"PHONE":PHONE,
                                                        @"CODE":CODE}];
@@ -75,7 +70,7 @@
     }];
 }
 
--(RACSignal*)requestIsRegisterPHONE:(NSString *)PHONE{
+-(RACSignal *)requestIsRegisterPHONE:(NSString *)PHONE{
     NSDictionary *param = [self paramStringWithStype:@"3029"
                                                 data:@{@"phone":PHONE}];
     
@@ -85,7 +80,7 @@
     }];
 }
 
--(RACSignal*)requestIsRegisterinviterCode:(NSString *)inviterCode{
+-(RACSignal *)requestIsRegisterinviterCode:(NSString *)inviterCode{
     NSDictionary *param = [self paramStringWithStype:@"3042"
                                                 data:@{@"inviterCode":inviterCode}];
     
@@ -95,9 +90,9 @@
     }];
 }
 
--(RACSignal*)requestRegisterPHONE:(NSString *)PHONE
-                      andPASSWORD:(NSString *)PASSWORD
-                    andinviter_id:(NSString *)inviter_id{
+-(RACSignal *)requestRegisterPHONE:(NSString *)PHONE
+                       andPASSWORD:(NSString *)PASSWORD
+                     andinviter_id:(NSString *)inviter_id{
     
     PASSWORD = [self md5HexDigestSmall:PASSWORD];
     NSDictionary *param = [self paramStringWithStype:@"4008"
@@ -112,8 +107,8 @@
     }];
 }
 
--(RACSignal*)requestPswGetBackPHONE:(NSString *)PHONE
-                            andType:(NSString *)strType{
+-(RACSignal *)requestPswGetBackPHONE:(NSString *)PHONE
+                             andType:(NSString *)strType{
     NSDictionary *param = [self paramStringWithStype:@"3047"
                                                 data:@{
                                                        @"PHONE":PHONE,
@@ -126,8 +121,8 @@
     }];
 }
 
--(RACSignal*)requestPswGetBackPHONE:(NSString *)PHONE
-                            andCODE:(NSString *)CODE{
+-(RACSignal *)requestPswGetBackPHONE:(NSString *)PHONE
+                             andCODE:(NSString *)CODE{
     NSDictionary *param = [self paramStringWithStype:@"3048"
                                                 data:@{
                                                        @"PHONE":PHONE,
@@ -139,8 +134,8 @@
     }];
 }
 
--(RACSignal*)requestPswGetBackPHONE:(NSString *)PHONE
-                    andpassword_new:(NSString *)password_new{
+-(RACSignal *)requestPswGetBackPHONE:(NSString *)PHONE
+                     andpassword_new:(NSString *)password_new{
     NSDictionary *param = [self paramStringWithStype:@"4018"
                                                 data:@{
                                                        @"PHONE":PHONE,
@@ -151,7 +146,8 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestForgetPswPHONE:(NSString *)PHONE{
+
+-(RACSignal *)requestForgetPswPHONE:(NSString *)PHONE{
     
     NSDictionary *param = [self paramStringWithStype:@"1067"
                                                 data:@{@"PHONE":PHONE}];
@@ -162,9 +158,9 @@
     }];
 }
 
--(RACSignal*)requestFindBackPswPHONE:(NSString *)PHONE
-                         andPASSWORD:(NSString *)PASSWORD
-                             andCODE:(NSString *)CODE{
+-(RACSignal *)requestFindBackPswPHONE:(NSString *)PHONE
+                          andPASSWORD:(NSString *)PASSWORD
+                              andCODE:(NSString *)CODE{
     
     PASSWORD = [self md5HexDigestSmall:PASSWORD];
     NSDictionary *param = [self paramStringWithStype:@"2066"
@@ -177,8 +173,8 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestJPUSHServiceRegistrationId:(NSString *)registrationId
-                                     andUserid:(NSString *)userid{
+-(RACSignal *)requestJPUSHServiceRegistrationId:(NSString *)registrationId
+                                      andUserid:(NSString *)userid{
     NSDictionary *param = [self paramStringWithStype:@"2972"
                                                 data:@{@"registrationId":registrationId,
                                                        @"userid":userid}];
@@ -189,7 +185,7 @@
     }];
 }
 
--(RACSignal*)requestAdverStart{
+-(RACSignal *)requestAdverStart{
     NSDictionary *param = [self paramStringWithStype:@"3027"
                                                 data:@{}];
     
@@ -199,7 +195,7 @@
         if (![arr isKindOfClass:[NSArray class]]) {
             arr = [NSArray array];
         }
-        if ([dictionary[@"code"] intValue] == 1) {
+        if ([dictionary[@"code"] intValue]==1) {
             [[JJDBHelper sharedInstance] updateCacheForId:@"3027" cacheArray:arr];
         }
         return arr;

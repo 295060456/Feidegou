@@ -324,16 +324,6 @@ THE SOFTWARE.</string>
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>Copyright © 2012-2018 mob</string>
-			<key>License</key>
-			<string>Copyright © 2012-2018 mob.com</string>
-			<key>Title</key>
-			<string>MOBFoundation</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
 			<string>**Copyright (c) 2012 - 2014, GitHub, Inc.**
 **All rights reserved.**
 
@@ -548,17 +538,6 @@ THE SOFTWARE.</string>
 			<string>Copyright</string>
 			<key>Title</key>
 			<string>iOS-AlipaySDK</string>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-		</dict>
-		<dict>
-			<key>FooterText</key>
-			<string>Copyright © 2012-2018 mob
-</string>
-			<key>License</key>
-			<string>MIT</string>
-			<key>Title</key>
-			<string>mob_sharesdk</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

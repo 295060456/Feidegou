@@ -287,10 +287,6 @@ THE SOFTWARE.
 
 
 
-## MOBFoundation
-
-Copyright © 2012-2018 mob
-
 ## Mantle
 
 **Copyright (c) 2012 - 2014, GitHub, Inc.**
@@ -461,11 +457,6 @@ THE SOFTWARE.
 ## iOS-AlipaySDK
 
 支付宝(中国)网络技术有限公司  版权所有.
-
-## mob_sharesdk
-
-Copyright © 2012-2018 mob
-
 
 ## pop
 

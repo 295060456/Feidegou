@@ -74,6 +74,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>mob_sharesdk-ShareSDK.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>mob_sharesdk-ShareSDK_JS_WeChat.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>mob_sharesdk.xcscheme</key>
 		<dict>
 			<key>isShown</key>

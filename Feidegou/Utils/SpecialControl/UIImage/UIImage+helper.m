@@ -10,10 +10,7 @@
 
 @implementation UIImage(helper)
 
-
-
-+(UIImage *)createRRcode: (NSString *)sourceString
-{
++(UIImage *)createRRcode:(NSString *)sourceString{
     //1.实例化一个滤镜
     CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     //1.1>设置filter的默认值
@@ -36,7 +33,8 @@
     return qrImage;
 }
 
-+ (UIImage *)createNonInterpolatedUIImageFormString:(NSString *)string withSize:(CGFloat) size{
++ (UIImage *)createNonInterpolatedUIImageFormString:(NSString *)string
+                                           withSize:(CGFloat) size{
     //二维码滤镜
     
     CIFilter *filter=[CIFilter filterWithName:@"CIQRCodeGenerator"];
@@ -93,8 +91,8 @@
     return [UIImage imageWithCGImage:scaledImage];
     
 }
-+ (UIImage *)imageWithColor:(UIColor *)color
-{
+
++ (UIImage *)imageWithColor:(UIColor *)color{
     // 描述矩形
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     
@@ -114,4 +112,5 @@
     
     return theImage;
 }
+
 @end

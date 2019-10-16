@@ -33,28 +33,26 @@
 #import <UIKit/UIKit.h>
 #import "JJHttpClient.h"
 #import "UIViewController+LJWKeyboardHandlerHelper.h"
-
 typedef enum {
     enum_exception_timeout
+    
 }enumException;
 
 @interface JJBaseViewController : UIViewController
 
 @property (nonatomic,strong) RACDisposable *disposable;
-@property (strong, nonatomic) UIButton *btnBack;
+
+@property (nonatomic,strong) UIButton *btnBack;
 //返回
-- (void)clickButtonBack:(UIButton *)sender;
+-(void)clickButtonBack:(UIButton *)sender;
 //添加控件
-- (void)locationControls;
+-(void)locationControls;
 //初始化数据源
 - (void)initData;
 //添加数据
-- (void)populateData;
-
-
-- (void)pushLoginAlert;
-- (void)pushLoginController;
-
+-(void)populateData;
+-(void)pushLoginAlert;
+-(void)pushLoginController;
 -(void)showException;
 -(void)hideException;
 -(void)showExceptionNoHead;

@@ -13,20 +13,30 @@
 @implementation UIImageView (Helper)
 
 - (void)setImagePathListRectangle:(NSString *)strPath{
-    [self sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",strPath]] placeholderImage:[UIImage imageNamed:@"img_defult_head"]];
+    [self sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",strPath]]
+            placeholderImage:[UIImage imageNamed:@"img_defult_head"]];
 }
+
 - (void)setImagePathListSquare:(NSString *)strPath{
-    [self sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",strPath]] placeholderImage:[UIImage imageNamed:@"img_defult_head"]];
+    [self sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",strPath]]
+            placeholderImage:[UIImage imageNamed:@"img_defult_head"]];
 }
+
 - (void)setImagePathHead:(NSString *)strPath{
-    [self sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",strPath]] placeholderImage:[UIImage imageNamed:@"img_defult_head"]];
+    [self sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",strPath]]
+            placeholderImage:[UIImage imageNamed:@"img_defult_head"]];
     
 }
+
 - (void)setImageWebp:(NSString *)strPath{
-    [self sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",strPath]] placeholderImage:[UIImage imageNamed:@"img_defult_head"]];
+    [self sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",strPath]]
+            placeholderImage:[UIImage imageNamed:@"img_defult_head"]];
 }
+
 - (void)setImageNoHolder:(NSString *)strPath{
-    [self sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",strPath]] placeholderImage:[UIImage imageNamed:@""]];
+    [self sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@",strPath]]
+            placeholderImage:[UIImage imageNamed:@""]];
     
-};
+}
+
 @end

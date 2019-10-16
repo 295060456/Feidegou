@@ -4,7 +4,7 @@
 
 --------------------------------------------------------------------------------------
 
-iOS 地图 SDK v4.2.0是适用于iOS系统移动设备的矢量地图开发包
+iOS 地图 SDK v5.0.0是适用于iOS系统移动设备的矢量地图开发包
 
 --------------------------------------------------------------------------------------
 
@@ -45,36 +45,56 @@ LBS云检索：支持查询存储在LBS云内的自有数据；
  pod setup //更新CocoPods的本地库
  pod search BaiduMapKit  //查看最新地图SDK
  
+ v5.0.0版本：
+ 
+【注意事项】
 
-V4.2.0版本：
+ 1.新引入系统库libz.tbd。
+ 
+ 2.Overlay线宽变细，lineWidth统一为画笔宽度。
+ 
+ 3.步骑行导航适配App Store关于新的后台定位的审核机制，有后台定位需求的开发者请通过doRequestAlwaysAuthorization代理方法调用后台定位API：[locationManager requestAlwaysAuthorization]。
 
-【新 增】
-
-1.新增步骑行组件BaiduMapAPI_WalkNavi，WalkNavi组件需要和Base组件，MapForWalkNavi组件，Search组件，Location组件，Utils组件配合使用。其中需要注意的是，如果使用步骑行WalkNavi组件，则相应的地图功能需要使用MapForWalkNavi组件，而不是Map组件。
-
-2.POI检索（城市检索，周边检索）新增加父子节点功能 。当scope=2时，Poi的详细信息字段（BMKPOIDetailInfo）下新增children <BMKPOIDetailChildrenInfo>字段
-
-3.Sug检索 新增加父子节点功能（该功能需要权限）。当scope=2时，Suggestion检索结果（BMKSuggestionInfo）下新增children <BMKSuggestionChildrenInfo>字段
-
-4.GC检索的返回结果BMKGeoCodeSearchResult中，新增precise, confidence, level等字段。
-
-5.RGC检索的返回结果BMKReverseGeoCodeSearchResult中，新增poiRegions字段
-
-【优 化】
-
-1.不再区分普通版和Bitcode版，只发布支持Bitcode的版本，如果不需要Bitcode功能，可以自行剥离。以Base组件为例：
-xcrun bitcode_strip -r BaiduMapAPI_Base -o BaiduMapAPI_Base
-
-2.考虑到armv7兼容armv7s，因此不再提供armv7s的CPU架构。
-
-3.Map组件的体积缩减了13%。
-
-4.优化了地图引擎的内存管理
-
-5.不再提供Radar周边雷达组件
-
-6.不再提供Location定位组件，开发者可以使用定位SDK实现定位功能。
-
-【修 复】
-
-1.若干bug修复
+ 【新 增】
+ 
+ 1.个性化地图支持多地图多样式，新增加载在线个性化样式接口。
+ 
+ 2.新增Polygon、Circle镂空绘制功能，镂空区域支持polygon(多边形)和circle(圆)图形。
+ 
+ 3.新增Polyline拐角样式，支持平角、尖角和圆角。
+ 
+ 4.新增Polyline头尾样式，支持普通头和圆形头。
+ 
+ 5.新增Overlay虚线样式，支持方块样式和圆点样式。
+ 
+ 6.新增OpenGL映射矩阵(getProjectionMatrix)和视图矩阵(getViewMatrix)接口，用于3D绘制场景。
+ 
+ 7.新增地理矩形区域面积、多边形面积计算工具。
+ 
+ 8.新增坐标方向计算工具。
+ 
+ 9.逆地理编码服务返回poi类型字段(tag，如：”美食;中餐厅“)
+ 
+ 【优 化】
+ 
+ 1.优化地图进入/移出室内图时调用的接口。
+ 
+ 2.优化手势操作造成的地图区域的变化回调原因不准确的问题。
+ 
+ 3.优化地图等级level设置，标准地图可设置范围为4-21，室内图开启时可设置的最大值为22。
+ 
+ 【修 复】
+ 
+ 1.修复BMKMapView与UIScrollView手势响应冲突的问题。
+ 
+ 2.修复BMKAnnotationView的selected属性默认设置为YES不起作用的问题。
+ 
+ 3.修复当前定位点图标在旋转地图后部分被精度圈遮挡的问题。
+ 
+ 4.修复自定义热力图频繁切换切换造成crash的问题。
+ 
+ 5.修复骑行导航返回时间信息有误的问题。
+ 
+ 6.修复其他已知问题。
+ 
+------------------------------------------------------------------------------------------------

@@ -9,7 +9,6 @@
 #import "JJBaseModel.h"
 
 @interface ModelAreaDetail : JJBaseModel
-
 /**
  *
  */

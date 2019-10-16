@@ -9,8 +9,6 @@
 #import "JJBaseModel.h"
 
 @interface ModelAddress : JJBaseModel
-
-
 /**
  *
  */
@@ -43,4 +41,5 @@
  *
  */
 @property (nonatomic,copy) NSString *defaultAddr;
+
 @end

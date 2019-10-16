@@ -21,6 +21,10 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     //下分割线
     CGContextSetStrokeColorWithColor(context, color.CGColor);
-    CGContextStrokeRect(context, CGRectMake(self.fWidthPre, rect.size.height, rect.size.width-self.fWidthPre-self.fWidthEnd, 0.5));
+    CGContextStrokeRect(context, CGRectMake(self.fWidthPre,
+                                            rect.size.height,
+                                            rect.size.width-self.fWidthPre-self.fWidthEnd,
+                                            0.5));
 }
+
 @end

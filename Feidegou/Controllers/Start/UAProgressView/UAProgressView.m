@@ -13,14 +13,11 @@ NSString * const UAProgressViewProgressAnimationKey = @"UAProgressViewProgressAn
 @interface UACircularProgressView : UIView
 
 - (void)updateProgress:(CGFloat)progress;
-
 - (CAShapeLayer *)shapeLayer;
 
 @end
 
-@interface UAProgressView ()
-<UIGestureRecognizerDelegate,
-CAAnimationDelegate>
+@interface UAProgressView () <UIGestureRecognizerDelegate,CAAnimationDelegate>
 
 @property (nonatomic, strong) UACircularProgressView *progressView;
 @property (nonatomic, assign) int valueLabelProgressPercentDifference;
@@ -34,21 +31,26 @@ CAAnimationDelegate>
 #pragma mark - Init
 
 - (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
+    self = [super initWithFrame:frame];
+    if (self) {
         [self sharedSetup];
-    }return self;
+    }
+    return self;
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
-    if (self = [super initWithCoder:aDecoder]) {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
         [self sharedSetup];
-    }return self;
+    }
+    return self;
 }
 
 - (void)sharedSetup {
 	self.progressView = [[UACircularProgressView alloc] initWithFrame:self.bounds];
 	self.progressView.shapeLayer.fillColor = [UIColor clearColor].CGColor;
 	[self addSubview:self.progressView];
+	
 	[self resetDefaults];
 }
 
@@ -72,14 +74,14 @@ CAAnimationDelegate>
 }
 
 - (void)setupGestureRecognizer {
-	UILongPressGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                                                    action:@selector(touchDetected:)];
+	UILongPressGestureRecognizer *gestureRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(touchDetected:)];
 	gestureRecognizer.delegate = self;
 	gestureRecognizer.minimumPressDuration = 0.0;
 	[self addGestureRecognizer:gestureRecognizer];
 }
 
 #pragma mark - Public Accessors
+
 
 - (void)setBorderWidth:(CGFloat)borderWidth {
 	_borderWidth = borderWidth;
@@ -100,6 +102,7 @@ CAAnimationDelegate>
 }
 
 #pragma mark - Color
+
 - (void)tintColorDidChange {
     if ([[self superclass] instancesRespondToSelector: @selector(tintColorDidChange)]) {
         [super tintColorDidChange];
@@ -111,7 +114,8 @@ CAAnimationDelegate>
     self.progressView.shapeLayer.borderColor = tintColor.CGColor;
 }
 
-- (UIColor*) tintColor{
+- (UIColor*) tintColor
+{
     if (_tintColor == nil) {
 //        _tintColor = [UIColor colorWithRed: 0.0 green: 122.0/255.0 blue: 1.0 alpha: 1.0];
         _tintColor = ColorFromHexRGB(0x339efe);
@@ -119,7 +123,8 @@ CAAnimationDelegate>
     return _tintColor;
 }
 
-- (void) setTintColor:(UIColor *)tintColor{
+- (void) setTintColor:(UIColor *)tintColor
+{
     [self willChangeValueForKey: @"tintColor"];
     _tintColor = tintColor;
     [self didChangeValueForKey: @"tintColor"];

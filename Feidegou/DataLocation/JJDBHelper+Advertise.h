@@ -16,4 +16,5 @@
  *  @return NSArray
  */
 - (NSArray *)fetchCacheForAdvertisementStart;
+
 @end

@@ -73,7 +73,7 @@
 /**
  *
  */
-@property (nonatomic,copy) NSArray *goodsList;
+@property (nonatomic,strong) NSArray *goodsList;
 /**
  *
  */
@@ -81,7 +81,7 @@
 /**
  *
  */
-@property (nonatomic,copy) NSArray *arrButton;
+@property (nonatomic,strong) NSArray *arrButton;
 /**
  *
  */
@@ -90,5 +90,4 @@
  *
  */
 @property (nonatomic,copy) NSString *ID;
-
 @end

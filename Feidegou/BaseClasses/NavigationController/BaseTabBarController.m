@@ -22,10 +22,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tabBar.backgroundColor = [UIColor whiteColor];
-    [self dropShadowWithOffset:CGSizeMake(5.0, 5.0) radius:10.0 color:ColorBlack opacity:0.5];
+    [self dropShadowWithOffset:CGSizeMake(5.0, 5.0)
+                        radius:10.0 color:ColorBlack
+                       opacity:0.5];
     //设置tabbar字体颜色
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_DEFAULT,                                                                                                              NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_SELECT,                                                                                                              NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_DEFAULT,
+                                                       NSForegroundColorAttributeName, nil]
+                                             forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_SELECT,
+                                                       NSForegroundColorAttributeName, nil]
+                                             forState:UIControlStateSelected];
     
     //首页
     UIViewController *controller_ShopMain = [self controllerWithStoryboardName:StoryboardShopMain
@@ -78,21 +84,19 @@
  *
  *  @return UIViewController
  */
--(UIViewController*)controllerWithStoryboardName:(NSString*)name
-                                           title:(NSString*)title
-                                 normalImageName:(NSString*)normalImageName
-                                      identifier:(NSString*)identifier
-                               selectedImageName:(NSString*)selectedImageName{
+-(UIViewController *)controllerWithStoryboardName:(NSString *)name
+                                            title:(NSString *)title
+                                  normalImageName:(NSString *)normalImageName
+                                       identifier:(NSString *)identifier
+                                selectedImageName:(NSString *)selectedImageName{
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:name
-                                                         bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:name bundle:nil];
     
     UIViewController *controller;
     if (identifier) {
         controller = [storyboard instantiateViewControllerWithIdentifier:identifier];
     }else{
         controller = [storyboard instantiateInitialViewController];
-        
     }
     
     controller.tabBarItem.title = title;

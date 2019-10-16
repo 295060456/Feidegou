@@ -36,7 +36,8 @@ BMKMapViewDelegate
 /**
  *  更新latitude
  */
-- (void)updateLocalLocationLongitude:(double)longitude andLatitude:(double)latidude;
+- (void)updateLocalLocationLongitude:(double)longitude
+                         andLatitude:(double)latidude;
 /**
  *  获取latitude
  */
@@ -45,5 +46,6 @@ BMKMapViewDelegate
  *  获取longitude
  */
 -(NSString *)fetchLocationLongitude;
-+ (CLLocationCoordinate2D)bd09Decrypt:(double)bdLat bdLon:(double)bdLon;
++ (CLLocationCoordinate2D)bd09Decrypt:(double)bdLat
+                                bdLon:(double)bdLon;
 @end

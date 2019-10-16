@@ -9,7 +9,6 @@
 #import "StarView.h"
 
 @implementation StarView
-
 - (void)awakeFromNib{
     [super awakeFromNib];
     [self setAttribute];
@@ -39,30 +38,20 @@
 - (void)drawRect:(CGRect)rect {
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
     NSString *stars=@"★★★★★";
     //设置frame
     rect = self.bounds;
-    
     UIFont *font = [UIFont systemFontOfSize:self.font_size];
-    
-    
     NSDictionary *dict =  @{NSFontAttributeName: font};
-    
     CGSize starSize = [stars sizeWithAttributes:dict];
-    
     rect.size = starSize;
-
-    [stars drawInRect:rect withAttributes:@{NSFontAttributeName: font,NSForegroundColorAttributeName: self.empty_color}];
-    
+    [stars drawInRect:rect withAttributes:@{NSFontAttributeName: font,
+                                            NSForegroundColorAttributeName: self.empty_color}];
     CGRect clip=rect;
-    
     clip.size.width = clip.size.width * self.show_star / self.max_star;
-    
     CGContextClipToRect(context,clip);
-    
-    [stars drawInRect:rect withAttributes:@{NSFontAttributeName: font,NSForegroundColorAttributeName: self.full_color}];
-
+    [stars drawInRect:rect withAttributes:@{NSFontAttributeName: font,
+                                            NSForegroundColorAttributeName: self.full_color}];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches

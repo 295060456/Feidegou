@@ -50,14 +50,19 @@ static JJDBHelper *sharedManager;
 //}
 -(void)updateCacheForId:(NSString*)cacheId
               cacheData:(NSData*)cacheData{
-    
-    __typeof(self) __weak weakSelf = self;
+
+    @weakify(self)
     [self.databaseQueue inDatabase:^(FMDatabase *db) {
+        @strongify(self)
         [db open];
-        if([weakSelf isExistForCacheId:cacheId db:db]){
-            [weakSelf updateCacheData:cacheData cacheId:cacheId db:db];
+        if([self isExistForCacheId:cacheId db:db]){
+            [self updateCacheData:cacheData
+                          cacheId:cacheId
+                               db:db];
         }else{
-            [weakSelf insertCacheData:cacheData cacheId:cacheId db:db];
+            [self insertCacheData:cacheData
+                          cacheId:cacheId
+                               db:db];
         }
         [db close];
     }];
@@ -82,7 +87,6 @@ static JJDBHelper *sharedManager;
         [self updateCacheForId:cacheId cacheData:jsonData];
     }
 }
-#pragma mark -
 #pragma mark - private methods
 -(id)convertData:(NSData*)data{
     if(!data){
@@ -216,7 +220,6 @@ static JJDBHelper *sharedManager;
     return [fm fileExistsAtPath:[self getFilePath]];
 }
 
-#pragma mark -
 #pragma mark - 删除表信息
 -(BOOL)deleteTableName:(NSString*)tableName{
     
@@ -242,7 +245,6 @@ static JJDBHelper *sharedManager;
     [self createCallImageADTable:db];
 }
 
-#pragma mark -
 #pragma mark - 数据库版本信息
 //数据版本信息表
 -(void)createVersionTable:(FMDatabase *)db{
@@ -295,7 +297,6 @@ static JJDBHelper *sharedManager;
     return version;
 }
 
-#pragma mark -
 #pragma mark - 创建广告信息表
 /**
  * 1.广告信息表
@@ -337,7 +338,6 @@ static JJDBHelper *sharedManager;
     }
     
 }
-#pragma mark -
 #pragma mark - 兑换分类列表(一级目录)
 /**
  * 2.兑换分类列表(一级目录)
@@ -360,7 +360,6 @@ static JJDBHelper *sharedManager;
         D_NSLog(@"创建失败----兑换分类信息表(一级目录)");
     }
 }
-#pragma mark -
 #pragma mark - 兑换分类列表(二级目录)
 /**
  * 3.兑换分类列表(二级目录)
@@ -380,8 +379,6 @@ static JJDBHelper *sharedManager;
         D_NSLog(@"创建失败----兑换分类信息表(二级目录)");
     }
 }
-
-#pragma mark -
 #pragma mark - 数据缓存表
 -(void)createListCacheTable:(FMDatabase*)db{
     NSString *sql = StringFormat(@"create table if not exists %@(\
@@ -398,8 +395,6 @@ static JJDBHelper *sharedManager;
     }
     
 }
-
-#pragma mark -
 #pragma mark - 电话广告列表(弹窗广告)
 -(void)createCallImageADTable:(FMDatabase*)db{
     NSString *sql = StringFormat(@"create table if not exists %@(\

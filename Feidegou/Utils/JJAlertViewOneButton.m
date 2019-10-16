@@ -39,14 +39,14 @@ typedef void (^cancle)();
             }];
             [alertController addAction:cancelAction];
         }
-        [controller presentViewController:alertController animated:YES completion:nil];
-    }
-    else{
+        [controller presentViewController:alertController animated:YES
+                               completion:nil];
+    }else{
         UIAlertView *TitleAlert = [[UIAlertView alloc] initWithTitle:title
                                                              message:message
                                                             delegate:self
                                                    cancelButtonTitle:cancel
-                                                   otherButtonTitles:nil,nil];
+                                                   otherButtonTitles:nil];
         [TitleAlert show];
     }
 }
@@ -55,4 +55,5 @@ typedef void (^cancle)();
 clickedButtonAtIndex:(NSInteger)buttonIndex{
     cancleParam();
 }
+
 @end

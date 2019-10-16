@@ -11,18 +11,21 @@
 @implementation UITextFieldPassWord
 
 - (instancetype)initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
-    if (self) {
+    if (self = [super initWithFrame:frame]) {
         [self setAttribute];
-    }
-    return self;
+    }return self;
 }
+
 - (void)awakeFromNib{
     [super awakeFromNib];
     [self setAttribute];
 }
+
 - (void)setAttribute{
-    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width-40, 0, 40, self.frame.size.height)];
+    UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width - 40,
+                                                                  0,
+                                                                  40,
+                                                                  self.frame.size.height)];
     [button setSelected:YES];
     [button setImage:ImageNamed(@"img_login_close") forState:UIControlStateNormal];
     [button setImage:ImageNamed(@"img_login_open") forState:UIControlStateSelected];
@@ -31,6 +34,7 @@
     [self setRightViewMode:UITextFieldViewModeAlways];
     [self clickButtonEntry:button];
 }
+
 - (void)clickButtonEntry:(UIButton *)sender{
     // 切换按钮的状态
     NSString *tempPwdStr = self.text;
@@ -47,12 +51,5 @@
     }
     sender.selected = !sender.selected;
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

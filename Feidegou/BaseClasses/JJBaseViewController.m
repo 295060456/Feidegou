@@ -9,7 +9,9 @@
 #import "JJBaseViewController.h"
 #import "LoginViewController.h"
 
-@interface JJBaseViewController ()<UIGestureRecognizerDelegate>
+@interface JJBaseViewController ()
+<UIGestureRecognizerDelegate>
+
 @property (nonatomic,strong) UIView *exceptionView;
 @property (nonatomic,strong) UIImageView *imgFailed;
 @property (nonatomic,strong) UILabel *lblTip;
@@ -61,11 +63,13 @@
     }
     D_NSLog(@"进入----------------------------cName is %@",self.class);
 }
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     NSString* cName = [NSString stringWithFormat:@"%@",  self.tabBarItem.title, nil];
     D_NSLog(@"cName is %@",cName);
 }
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     NSString* cName = [NSString stringWithFormat:@"%@", self.tabBarItem.title, nil];
@@ -83,12 +87,14 @@
 - (void)populateData{
     
 }
+
 - (void)dealloc{
     [self.disposable dispose];
     self.disposable = nil;
     D_NSLog(@"%@",NSStringFromClass([self class]));
     
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -99,6 +105,7 @@
     self.integerHead = 64;
     [self showException];
 }
+
 -(void)showException{
     
     if (!self.exceptionView) {
@@ -109,11 +116,13 @@
     }
     [self.view bringSubviewToFront:self.exceptionView];
 }
+
 -(void)hideException{
     if (self.exceptionView) {
         [self.exceptionView setHidden:YES];
     }
 }
+
 - (void)initException{
     self.exceptionView = [[UIView alloc] initWithFrame:CGRectMake(0, self.integerHead, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)-self.integerHead)];
     [self.exceptionView setBackgroundColor:ColorFromRGB(240, 240, 240)];
@@ -132,8 +141,8 @@
     [self.lblTip setTextAlignment:NSTextAlignmentCenter];
     [self.lblTip setFont:[UIFont systemFontOfSize:14.0]];
     [self.exceptionView addSubview:self.lblTip];
-    
 }
+
 -(void)failedRequestException:(enumException)exception{
     [self.lblTip setHidden:YES];
     [self.activity stopAnimating];
@@ -144,6 +153,7 @@
     [self.exceptionView addSubview:imgError];
     
 }
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
     if (self.navigationController.viewControllers.count == 1) {
         return NO;
@@ -151,6 +161,7 @@
         return YES;
     }
 }
+
 - (void)pushLoginAlert{
     JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
     [alertView showAlertView:self andTitle:nil andMessage:@"您当前没有登录，是否登录"  andCancel:@"取消" andCanelIsRed:NO andOherButton:@"立即登录" andConfirm:^{
@@ -160,12 +171,15 @@
         D_NSLog(@"点击了取消");
     }];
 }
+
 - (void)pushLoginController{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
     LoginViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
     [self.navigationController pushViewController:controller animated:YES];
 }
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches
+           withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
 

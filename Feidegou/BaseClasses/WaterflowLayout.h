@@ -10,7 +10,9 @@
 @class WaterflowLayout;
 
 @protocol WaterflowLayoutDelegate <NSObject>
-- (CGFloat)waterflowLayout:(WaterflowLayout *)waterflowLayout heightForWidth:(CGFloat)width atIndexPath:(NSIndexPath *)indexPath;
+- (CGFloat)waterflowLayout:(WaterflowLayout *)waterflowLayout
+            heightForWidth:(CGFloat)width
+               atIndexPath:(NSIndexPath *)indexPath;
 @end
 @interface WaterflowLayout : UICollectionViewLayout
 
@@ -22,5 +24,6 @@
 /** 显示多少列 */
 @property (nonatomic, assign) int columnsCount;
 
-@property (nonatomic, weak) id<WaterflowLayoutDelegate> delegate;
+@property (nonatomic, assign) id<WaterflowLayoutDelegate> delegate;
+
 @end

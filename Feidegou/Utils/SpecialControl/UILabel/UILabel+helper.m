@@ -35,8 +35,10 @@
     [self setFont:[UIFont systemFontOfSize:13.0]];
     [self setTextColor:ColorRed];
     NSMutableAttributedString * atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"￥%@ 门市价:￥%@",priceNow,priceOld)];
-    [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} range:NSMakeRange(1, priceNow.length)];
-    [atrStringPrice addAttributes:@{NSForegroundColorAttributeName:ColorGary} range:NSMakeRange(priceNow.length+2, priceOld.length+5)];
+    [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]}
+                            range:NSMakeRange(1, priceNow.length)];
+    [atrStringPrice addAttributes:@{NSForegroundColorAttributeName:ColorGary}
+                            range:NSMakeRange(priceNow.length+2, priceOld.length+5)];
     [self setAttributedText:atrStringPrice];
 }
 
@@ -46,16 +48,18 @@
     NSString *strDB = [NSString stringStandardFloatTwo:db];
     [self setTextColor:ColorHeader];
     [self setFont:[UIFont systemFontOfSize:13.0]];
-    NSMutableAttributedString * atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"￥%@",strPriceNow)];
-    
-    
+    NSMutableAttributedString *atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"￥%@",strPriceNow)];
+
     if ([strDB floatValue]==0) {
         atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"￥%@",strPriceNow)];
     }else{
         atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"￥%@(可报销￥%@)",strPriceNow,strDB)];
-        [atrStringPrice addAttributes:@{NSForegroundColorAttributeName:ColorFromHexRGB(0x2c9b05)} range:NSMakeRange(strPriceNow.length+1, strDB.length+6)];
+        [atrStringPrice addAttributes:@{NSForegroundColorAttributeName:ColorFromHexRGB(0x2c9b05)}
+                                range:NSMakeRange(strPriceNow.length+1, strDB.length+6)];
     }
-    [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} range:NSMakeRange(1, strPriceNow.length)];
+    [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]}
+                            range:NSMakeRange(1, strPriceNow.length)];
     [self setAttributedText:atrStringPrice];
 }
+
 @end

@@ -40,7 +40,9 @@ static PersonalInfo *personalInfo;
 //    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
 //    [userInfo setValue:@"213123" forKey:@"userId"];
     
-    ModelLogin *model = [MTLJSONAdapter modelOfClass:[ModelLogin class] fromJSONDictionary:userInfo error:nil];
+    ModelLogin *model = [MTLJSONAdapter modelOfClass:[ModelLogin class]
+                                  fromJSONDictionary:userInfo
+                                               error:nil];
 //    D_NSLog(@"UserModel is %@",model);
     return model;
 }
@@ -64,4 +66,5 @@ static PersonalInfo *personalInfo;
         return YES;
     }
 }
+
 @end

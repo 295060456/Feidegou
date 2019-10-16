@@ -45,7 +45,6 @@
  *
  */
 @property (nonatomic,copy) NSString *good_area;
-
 /**
  *
  */

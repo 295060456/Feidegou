@@ -10,6 +10,7 @@
 #import <objc/runtime.h>
 
 typedef void (^ActionBlock)();
+
 @interface UITextView (EditChanged)
 
 /*!
@@ -17,5 +18,6 @@ typedef void (^ActionBlock)();
  * @param controlEvent 事件类型
  * @param action action block
  */
-- (void) handleControlEvent:(UIControlEvents)controlEvent withBlock:(ActionBlock)action;
+- (void) handleControlEvent:(UIControlEvents)controlEvent
+                  withBlock:(ActionBlock)action;
 @end

@@ -99,9 +99,7 @@
             [self.scrollView addSubview:self.loadMoreView];
             
         }
-    }
-    return self;
-    
+    }return self;
 }
 
 #pragma mark -
@@ -160,19 +158,12 @@
                     [self.loadMoreView canEngageRefresh];
                 }
             }
-            
         }else{
-            
             if ([self.loadMoreView respondsToSelector:@selector(didDisengageRefresh)]) {
                 [self.loadMoreView didDisengageRefresh];
-
             }
-            
         }
-        
-        
     }
-    
 }
 
 //开始刷新方法

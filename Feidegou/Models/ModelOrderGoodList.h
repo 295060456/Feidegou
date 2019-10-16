@@ -10,10 +10,12 @@
 #import "OrderAttribute.h"
 
 @interface ModelOrderGoodList : JJBaseModel
+
 /**
  *
  */
 @property (nonatomic,strong) NSArray *goodsCart;
+
 /**
  *
  */
@@ -34,7 +36,6 @@
  *
  */
 @property (nonatomic,copy) NSString *mail_trans_fee;
-
 //配送方式
 @property (assign, nonatomic) enumSendWay sendWay;
 //发票类型
@@ -48,5 +49,4 @@
 @property (nonatomic,copy) NSString *strPayway;
 //InviteID
 @property (nonatomic,copy) NSString *strInviter;
-
 @end

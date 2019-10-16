@@ -7,13 +7,17 @@
 //
 
 #import "JJAlertViewTwoButton.h"
+
 typedef void (^confirm)();
 typedef void (^cancle)();
+
 @interface JJAlertViewTwoButton(){
     confirm confirmParam;
     cancle  cancleParam;
 }
+
 @end
+
 @implementation JJAlertViewTwoButton
 
 -(void)showAlertView:(UIViewController *)viewController
@@ -38,7 +42,8 @@ typedef void (^cancle)();
                 style = UIAlertActionStyleDestructive;
             }
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelButtonTitle
-                                                                   style:style handler:^(UIAlertAction *action) {
+                                                                   style:style
+                                                                 handler:^(UIAlertAction *action) {
                 cancle();
             }];
             [alertController addAction:cancelAction];
@@ -68,7 +73,8 @@ typedef void (^cancle)();
 clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==0) {
         confirmParam();
-    }else{
+    }
+    else{
         cancleParam();
     }
 }

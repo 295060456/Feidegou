@@ -11,8 +11,8 @@
 @implementation JJDBHelper (Advertise)
 
 - (NSArray *)fetchCacheForAdvertisementStart{
-    NSData *data = [self queryCacheDataWithCacheId:@"3027"];
     
+    NSData *data = [self queryCacheDataWithCacheId:@"3027"];
     NSArray *array = [self convertData:data];
     return array;
 }

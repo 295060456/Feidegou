@@ -10,34 +10,30 @@
 
 @implementation ButtonShare
 - (instancetype)initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
-    if (self) {
+    if (self = [super initWithFrame:frame]) {
         [self setAttribute];
-    }
-    return self;
+    }return self;
 }
+
 - (void)awakeFromNib{
     [super awakeFromNib];
     [self setAttribute];
 }
+
 - (void)setAttribute{
     [self.titleLabel setTextAlignment:NSTextAlignmentCenter];
     [self.imageView setContentMode:UIViewContentModeScaleAspectFit];
 }
+
 - (CGRect)imageRectForContentRect:(CGRect)contentRect{
     CGFloat fHeight =CGRectGetHeight(self.frame);
     return CGRectMake(0, 0.1*fHeight, CGRectGetWidth(self.frame), fHeight*0.5);
 }
+
 - (CGRect)titleRectForContentRect:(CGRect)contentRect{
     CGFloat fHeight =CGRectGetHeight(self.frame);
     return CGRectMake(0, fHeight*0.7, CGRectGetWidth(self.frame), fHeight*0.2);
 }
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
+
 
 @end

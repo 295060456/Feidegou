@@ -29,7 +29,8 @@ static const int JPDefaultColumsCount = 3;
 /**
  * 决定了collectionView的contentSize
  */
-- (CGSize)collectionViewContentSize{
+- (CGSize)collectionViewContentSize
+{
     // 找出最长那一列的最大Y值
     CGFloat destMaxY = [self.columnMaxYs[0] doubleValue];
     for (NSUInteger i = 1; i<self.columnMaxYs.count; i++) {
@@ -62,19 +63,18 @@ static const int JPDefaultColumsCount = 3;
         [self.attrsArray addObject:attrs];
     }
 }
-
 /**
  * 说明所有元素（比如cell、补充控件、装饰控件）的布局属性
  */
-- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect{
+- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
+{
     return self.attrsArray;
 }
 
 /**
  * 说明cell的布局属性
  */
-- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewLayoutAttributes *attrs = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
     CGFloat w;
     CGFloat h;
@@ -108,8 +108,7 @@ static const int JPDefaultColumsCount = 3;
     attrs.frame = CGRectMake(x, y, w, h);
     return attrs;
 }
-
-#pragma mark - lazyLoad
+#pragma mark - 懒加载
 - (NSMutableArray *)columnMaxYs{
     if (!_columnMaxYs) {
         _columnMaxYs = NSMutableArray.array;

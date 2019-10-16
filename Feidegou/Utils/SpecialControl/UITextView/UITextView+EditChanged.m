@@ -11,8 +11,12 @@
 @implementation UITextView (EditChanged)
 static char overviewKey;
 
-- (void)handleControlEvent:(UIControlEvents)event withBlock:(ActionBlock)block {
-    objc_setAssociatedObject(self, &overviewKey, block, OBJC_ASSOCIATION_COPY_NONATOMIC);
+- (void)handleControlEvent:(UIControlEvents)event
+                 withBlock:(ActionBlock)block {
+    objc_setAssociatedObject(self,
+                             &overviewKey,
+                             block,
+                             OBJC_ASSOCIATION_COPY_NONATOMIC);
 //    [self setDelegate:<#(id<UITextViewDelegate> _Nullable)#>]
 //    [self addTarget:self action:@selector(callActionBlock:) forControlEvents:event];
 }

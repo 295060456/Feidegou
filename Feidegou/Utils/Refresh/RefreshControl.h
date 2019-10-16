@@ -19,7 +19,7 @@ typedef enum {
     /**
      *  无状态
      */
-    RefreshStateNone        = 0,
+    RefreshStateNone = 0,
     /**
      *  正在刷新
      */

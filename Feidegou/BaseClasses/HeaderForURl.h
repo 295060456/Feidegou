@@ -24,8 +24,6 @@
 //#define RELATIVE_PATH_QUERY @"APP/appShop7/query.do?"
 //#define RELATIVE_PATH_WRITE @"APP/appShop7/write.do?"
 
-
-
 //sotryBoradName
 #define StoryboardExchageArea @"ExhangeArea"
 #define StoryboardWebService @"WebService"
@@ -145,8 +143,6 @@
 //#else
 //#define D_NSLog(format, ...)
 //#endif
-
-
 
 #define _po(o) DLOG(@"%@", (o))
 #define _pn(o) DLOG(@"%d", (o))

@@ -9,7 +9,6 @@
 #import "JJDBHelper.h"
 
 @interface JJDBHelper (MainAdver)
-
 /**
  *  查询首页广告数据
  *
@@ -22,4 +21,5 @@
  *  @return NSDictionary
  */
 - (void)saveAdverId:(NSString *)strId;
+
 @end

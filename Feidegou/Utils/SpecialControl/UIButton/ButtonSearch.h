@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "UIButton+Joker.h"
+
 @interface ButtonSearch : UIButton
+
 @property (strong, nonatomic) UIImageView *imageLeft;
 @property (strong, nonatomic) UILabel *lblContent;
+
 - (void)setTitle:(NSString *)string;
+
 @end

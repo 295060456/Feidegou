@@ -37,7 +37,7 @@
 /**
  *
  */
-@property (nonatomic,copy) NSString *trueName;
+@property (nonatomic,strong) NSString *trueName;
 /**
  *
  */

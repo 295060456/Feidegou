@@ -13,16 +13,19 @@
 @implementation JJDBHelper (ShopCart)
 
 - (NSArray *)fetchShopCart{
-    
     NSData *data = [self queryCacheDataWithCacheId:ShopCartLocation];
-    
     NSArray *array = [self convertData:data];
     if (![array isKindOfClass:[NSArray class]]) {
         array = [NSArray array];
     }
     return array;
 }
-- (void)saveShopCart:(NSDictionary *)dictionary andIntBuyNum:(NSString *)historyNum andhistoryAttribute:(NSString *)historyAttribute andhistoryAttributeName:(NSString *)historyAttributeName andhistoryGood_id:(NSString *)historyGood_id andhistoryPrice:(NSString *)historyPrice{
+- (void)saveShopCart:(NSDictionary *)dictionary
+        andIntBuyNum:(NSString *)historyNum
+ andhistoryAttribute:(NSString *)historyAttribute
+andhistoryAttributeName:(NSString *)historyAttributeName
+   andhistoryGood_id:(NSString *)historyGood_id
+     andhistoryPrice:(NSString *)historyPrice{
     NSMutableArray *arrHistory = [NSMutableArray arrayWithArray:[self fetchShopCart]];
     BOOL isContarinShop = NO;
     BOOL isContarinGood = NO;
@@ -42,7 +45,8 @@
                 if ([TransformString(historyGood_idMiddle) isEqualToString:TransformString(historyGood_id)]&&[TransformString(historyAttributeMiddle) isEqualToString:TransformString(historyAttribute)]&&[TransformString(historyAttributeNameMiddle) isEqualToString:TransformString(historyAttributeName)]&&[TransformString(historyPriceMiddle) isEqualToString:TransformString(historyPrice)]) {
 //                    商品ID和属性一样，则把该商品添加数量并把该商品添加到改商家的第一个，商家也排到第一个
                     isContarinGood = YES;
-                    [dictionaryMiddle setObject:TransformNSInteger([dictionaryMiddle[@"historyNum"] intValue]+[historyNum intValue]) forKey:@"historyNum"];
+                    [dictionaryMiddle setObject:TransformNSInteger([dictionaryMiddle[@"historyNum"] intValue]+[historyNum intValue])
+                                         forKey:@"historyNum"];
                     [arrMiddle removeObjectAtIndex:j];
                     [arrMiddle insertObject:dictionaryMiddle atIndex:0];
                     [arrHistory removeObjectAtIndex:i];
@@ -63,7 +67,6 @@
                 [arrHistory removeObjectAtIndex:i];
                 [arrHistory insertObject:arrMiddle atIndex:0];
             }
-            
         }
     }
     
@@ -80,8 +83,6 @@
         [arrHistory insertObject:[NSArray arrayWithObject:dicAdd] atIndex:0];
     }
     [self updateCacheForId:ShopCartLocation cacheArray:arrHistory];
-    
-    
 //    D_NSLog(@"arrHistory is %@",arrHistory);
 }
 
@@ -89,15 +90,17 @@
     [self updateCacheForId:ShopCartLocation cacheArray:[NSArray array]];
 }
 
-
 - (ModelAddress *)fetchAddressDefault{
     
     NSData *data = [self queryCacheDataWithCacheId:AddressDefault];
     
     NSDictionary *dictionray = [self convertData:data];
-    ModelAddress *model = [MTLJSONAdapter modelOfClass:[ModelAddress class] fromJSONDictionary:dictionray error:nil];
+    ModelAddress *model = [MTLJSONAdapter modelOfClass:[ModelAddress class]
+                                    fromJSONDictionary:dictionray
+                                                 error:nil];
     return model;
 }
+
 - (void)saveAddressDefault:(ModelAddress *)model{
     [self updateCacheForId:AddressDefault cacheDictionry:[model toDictionary]];
 }
@@ -105,4 +108,5 @@
 - (void)deleteAddressDefault{
     [self updateCacheForId:AddressDefault cacheDictionry:[NSDictionary dictionary]];
 }
+
 @end
