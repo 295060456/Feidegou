@@ -29,7 +29,7 @@
  *
  *  @return ModelLogin 用户信息对象实体
  */
--(ModelLogin*)fetchLoginUserInfo;
+-(ModelLogin *)fetchLoginUserInfo;
 /**
  *  删除保存的登录用户信息
  */

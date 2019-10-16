@@ -12,14 +12,15 @@
 #import "AreaExchangeDetailController.h"
 #import "CLCellGoods.h"
 
-@interface AreaExchangeListController ()<RefreshControlDelegate>
+@interface AreaExchangeListController ()
+<RefreshControlDelegate>
+
 @property (weak, nonatomic) IBOutlet BaseTableView *tabAreaExchangeList;
 @property (strong, nonatomic) NSMutableArray *arrAreaExchangeList;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic,strong) RefreshControl *refreshControl;
 @property (nonatomic,assign) int intPageIndex;
-//当前页数数量
-@property (nonatomic,assign) NSInteger curCount;
+@property (nonatomic,assign) NSInteger curCount;//当前页数数量
 
 @end
 
@@ -67,7 +68,8 @@
     
     __weak AreaExchangeListController *myself = self;
     myself.disposable = [[[JJHttpClient new] requestShopGoodEreaExchangeListLimit:@"10"
-                                                                          andPage:TransformNSInteger(self.intPageIndex)] subscribeNext:^(NSArray *array) {
+                                                                          andPage:TransformNSInteger(self.intPageIndex)]
+                         subscribeNext:^(NSArray *array) {
         
         myself.curCount = array.count;
         if (myself.intPageIndex == 1) {
@@ -90,7 +92,6 @@
         [myself.refreshControl endRefreshing];
         myself.disposable = nil;
     }];
-    
 }
 
 #pragma mark---tableviewdelegate---
@@ -126,11 +127,6 @@
     controller.model = self.arrAreaExchangeList[indexPath.row];
     [self.navigationController pushViewController:controller animated:YES];
 }
-
-
-
-
-
 
 #pragma mark --UICollectionViewDelegate
 //定义展示的UICollectionViewCell的个数

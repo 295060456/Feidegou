@@ -44,5 +44,9 @@ extern NSString * const ALIPAY_PRIVATE_KEY;
                             productName:(NSString*)productName
                      productDescription:(NSString*)productDescription
                                  amount:(CGFloat)amount
-                          andPayForType:(enumPayType)payType andUrl:(NSString *)strUrl andALIPAY_PARTNER:(NSString *)ALIPAY_PARTNER andALIPAY_SELLER:(NSString *)ALIPAY_SELLER andALIPAY_PRIVATE_KEY:(NSString *)ALIPAY_PRIVATE_KEY;
+                          andPayForType:(enumPayType)payType
+                                 andUrl:(NSString *)strUrl
+                      andALIPAY_PARTNER:(NSString *)ALIPAY_PARTNER
+                       andALIPAY_SELLER:(NSString *)ALIPAY_SELLER
+                  andALIPAY_PRIVATE_KEY:(NSString *)ALIPAY_PRIVATE_KEY;
 @end

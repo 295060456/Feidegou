@@ -8,7 +8,7 @@
 
 #import "JJAlertViewOneButton.h"
 
-typedef void (^cancle)();
+typedef void (^cancle)(void);
 @interface JJAlertViewOneButton(){
     cancle  cancleParam;
 }
@@ -20,8 +20,8 @@ typedef void (^cancle)();
           andMessage:(NSString *)message
            andCancel:(NSString *)cancel
        andCanelIsRed:(BOOL)isRed
-             andBack:(void (^)())cancle{
-    cancleParam=cancle;
+             andBack:(void (^)(void))cancle{
+    cancleParam=cancle;void
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
                                                                                  message:message

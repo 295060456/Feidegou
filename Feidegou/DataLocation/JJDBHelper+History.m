@@ -50,7 +50,9 @@
 
 - (void)saveSearchHot:(NSArray *)array{
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:&error];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
     [self updateCacheForId:SearchHot cacheData:jsonData];
 }
 

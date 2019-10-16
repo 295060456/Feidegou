@@ -61,7 +61,6 @@ static NSInteger seq = 0;
     //    注册推送
     [self registPushapplication:application didFinishLaunchingWithOptions:launchOptions];
 //    分享
-    
     [self shareWeixin];
     [self loginAgin];
     
@@ -77,22 +76,24 @@ static NSInteger seq = 0;
         return;
     }
     ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-    
+    @weakify(self)
     self.disposableLogin = [[[JJHttpClient new] requestLoginUSERNAME:modelLogin.userName
-                                                         andPASSWORD:modelLogin.password andIsChangedPsw:YES]
+                                                         andPASSWORD:modelLogin.password
+                                                     andIsChangedPsw:YES]
                             subscribeNext:^(ModelLogin*model) {
         
     }error:^(NSError *error) {
+        @strongify(self)
         self.disposableLogin = nil;
     }completed:^{
+        @strongify(self)
         self.disposableLogin = nil;
     }];
 }
 
-
 - (void)requestAdverMain{
     NSArray *arrImage = [[JJDBHelper sharedInstance] fetchCacheForAdvertisementStart];
-    if (arrImage.count>0) {
+    if (arrImage.count > 0) {
         NSString *strPath = arrImage[0][@"photo_url"];
         UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:strPath];
         if (image == nil) {
@@ -115,7 +116,6 @@ static NSInteger seq = 0;
             controller.image = image;
             controller.strUrl = arrImage[0][@"ad_url"];
             self.window.rootViewController = controller;
-            
         }
     }else{
         [self setEntryByIsLogined];
@@ -125,13 +125,13 @@ static NSInteger seq = 0;
         if (array.count>0) {
             [self downloadImage:array[0][@"photo_url"]];
         }
-        
     }error:^(NSError *error) {
         self.disposableAdver = nil;
     }completed:^{
         self.disposableAdver = nil;
     }];
 }
+
 - (void)downloadImage:(NSString *)strImage{
 //    [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:strImage]] options:<#(SDWebImageDownloaderOptions)#> progress:<#^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL)progressBlock#> completed:<#^(UIImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, BOOL finished)completedBlock#>]
 //    [[SDWebImageManager sharedManager] initWithCache:[[SDImageCache sharedImageCache] imageFromDiskCacheForKey:strImage] downloader:[[SDWebImageDownloader sharedDownloader]]
@@ -153,7 +153,6 @@ static NSInteger seq = 0;
         transition.duration = 1.5f;
         transition.type = @"rippleEffect";
         [self.window.layer addAnimation:transition forKey:nil];
-        
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Navigation" bundle:nil];
         self.window.rootViewController = [storyboard instantiateInitialViewController];
