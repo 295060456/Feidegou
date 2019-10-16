@@ -9,6 +9,7 @@
 #import "UILabelBlackBig.h"
 
 @implementation UILabelBlackBig
+
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self setAttribute];

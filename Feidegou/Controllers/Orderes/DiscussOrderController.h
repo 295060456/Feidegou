@@ -11,7 +11,8 @@
 
 @interface DiscussOrderController : JJBaseViewController
 
-@property (strong, nonatomic) NSMutableArray *arrDiscuss;
-@property (strong, nonatomic) NSString *strOfId;
-@property (strong, nonatomic) NSString *strOrderId;
+@property (copy, nonatomic) NSMutableArray *arrDiscuss;
+@property (copy, nonatomic) NSString *strOfId;
+@property (copy, nonatomic) NSString *strOrderId;
+
 @end

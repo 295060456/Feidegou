@@ -94,7 +94,9 @@
     [self showException];
     [NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId];
     __weak OrderesComfilmController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestShopGoodCartToOrderDetailsc_list:self.arrCart anduser_id:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]] subscribeNext:^(NSArray*array) {
+    self.disposable = [[[JJHttpClient new] requestShopGoodCartToOrderDetailsc_list:self.arrCart
+                                                                        anduser_id:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]]
+                       subscribeNext:^(NSArray*array) {
         myself.arrCartGood = [NSMutableArray arrayWithArray:array];
         
         [myself refreTab];
@@ -106,9 +108,9 @@
         [myself hideException];
     }];
 }
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
     [self refreTab];
 }
 
@@ -139,8 +141,7 @@
     }
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         if (self.arrCartGood.count==0) {
             return 0;
@@ -178,11 +179,12 @@
     //    }
     //    return 0;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         return 70.0f;
     }
@@ -221,8 +223,7 @@
     //    return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         NSString *strAddressId = self.orderAttribute.strAddressId;
         if ([NSString isNullString:strAddressId]) {
@@ -344,14 +345,17 @@
     controller.model = self.arrCartGood[row];
     [self.navigationController pushViewController:controller animated:YES];
 }
+
 - (void)textFiledEditChanged:(UITextField *)textField{
     self.orderAttribute.strMsg = textField.text;
     D_NSLog(@"text is %@",self.orderAttribute.strMsg);
 }
+
 - (void)textFiledEditChangedInviter:(UITextField *)textField{
     self.orderAttribute.strInviter = textField.text;
     D_NSLog(@"text is %@",self.orderAttribute.strMsg);
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0||section == 2) {
         return 0;
@@ -359,14 +363,14 @@
         return 10;
     }
 }
+
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self.view endEditing:YES];
     if (indexPath.section == 0) {
@@ -410,20 +414,17 @@
     //        }
     //    }
 }
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [self.view endEditing:YES];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+ 
 - (IBAction)clickButtonConflimOrder:(UIButton *)sender {
     if ([NSString isNullString:self.orderAttribute.strAddressId]) {
         [SVProgressHUD showErrorWithStatus:@"请选择收货地址"];
         return;
     }
-    
-    
+
     //参数（接口编码：num，商品属性：spec_info，商品数量：count，发票类型：invoiceType          0：个人   1：公司   2:不开发票，  公司抬头：invoic， 留言：msg，  地址id：addr_id，用户id：user_id  商城的useridShop，送货方式：transport   平邮，快递，EMS ）支付方式：payType（1：微信  2：支付宝）商品id：goods_id
     [SVProgressHUD showWithStatus:@"正在生成订单..."];
     //    NSString *strSendWay = @"快递";
@@ -516,7 +517,18 @@
         if (model.sendWay == enum_sendWay_ems) {
             strSendWay = @"ems";
         }
-        self.disposable = [[[JJHttpClient new] requestFourZeroCommitOrderInvoiceType:StringFormat(@"%u",model.billType) andInvoic:[NSString stringStandard:model.strCompanyName] andMsg:[NSString stringStandard:model.strMsg] andAddr_id:[NSString stringStandard:self.orderAttribute.strAddressId] andUser_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId andTransport:strSendWay andCount:model.goodsCart[0][@"count"] andSpec_info:[NSString stringStandard:model.goodsCart[0][@"spec_info"]] andGoods_id:[NSString stringStandard:model.goodsCart[0][@"goods_id"]] andProperty:[NSString stringStandard:model.goodsCart[0][@"attribute"]] andservice_user:[NSString stringStandard:model.strInviter]] subscribeNext:^(NSDictionary*dictinary) {
+        self.disposable = [[[JJHttpClient new] requestFourZeroCommitOrderInvoiceType:StringFormat(@"%u",model.billType)
+                                                                           andInvoic:[NSString stringStandard:model.strCompanyName]
+                                                                              andMsg:[NSString stringStandard:model.strMsg]
+                                                                          andAddr_id:[NSString stringStandard:self.orderAttribute.strAddressId]
+                                                                          andUser_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId
+                                                                        andTransport:strSendWay
+                                                                            andCount:model.goodsCart[0][@"count"]
+                                                                        andSpec_info:[NSString stringStandard:model.goodsCart[0][@"spec_info"]]
+                                                                         andGoods_id:[NSString stringStandard:model.goodsCart[0][@"goods_id"]]
+                                                                         andProperty:[NSString stringStandard:model.goodsCart[0][@"attribute"]]
+                                                                     andservice_user:[NSString stringStandard:model.strInviter]]
+                           subscribeNext:^(NSDictionary*dictinary) {
             D_NSLog(@"msg is %@",dictinary[@"msg"]);
             if ([dictinary[@"code"] intValue]==1) {
                 [SVProgressHUD dismiss];
@@ -545,6 +557,7 @@
         }];
     }
 }
+
 - (NSString *)getSendIsPinkage{
     NSString *strSendWay = @"商家配送";
     //    为yes的时候表示要买家承担运费，为no时表示不用付邮费
@@ -564,11 +577,12 @@
     }
     return strSendWay;
 }
+
 - (NSString *)getSendWay{
     NSString *strSendWay = @"由商家选择合作快递为您配送";
-    
     return strSendWay;
 }
+
 - (NSString *)getSendMoney{
     double doubleSendMoney = 0;
     for (int i = 0; i<self.arrCartGood.count; i++) {
@@ -585,14 +599,6 @@
     }
     return StringFormat(@"%.2f",doubleSendMoney);
 }
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
 
 @end

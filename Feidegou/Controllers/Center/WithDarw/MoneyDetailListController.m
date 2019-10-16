@@ -14,20 +14,23 @@
 #import "JJDBHelper+Center.h"
 #import "RedPacketTransportController.h"
 
-@interface MoneyDetailListController ()<RefreshControlDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface MoneyDetailListController ()
+<
+RefreshControlDelegate,
+UITableViewDelegate,
+UITableViewDataSource
+>
 @property (weak, nonatomic) IBOutlet BaseTableView *tabMoney;
 @property (weak, nonatomic) IBOutlet UIView *viButton;
 @property (weak, nonatomic) IBOutlet UIButton *btnNext;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstraintHeight;
-
 @property (strong, nonatomic) NSMutableArray *arrIncome;
-
 @property (nonatomic,strong) RefreshControl *refreshControl;
 @property (nonatomic,assign) int intPageIndex;
-//当前页数数量
-@property (nonatomic,assign) NSInteger curCount;
+@property (nonatomic,assign) NSInteger curCount;//当前页数数量
 @property (nonatomic,strong) NSString *strMode;
 @property (nonatomic,strong) NSString *strImage;
+
 @end
 
 @implementation MoneyDetailListController
@@ -68,7 +71,10 @@
 - (void)requestExchangeList{
     if (self.numDetail == enum_numDetail_wdtd) {
         __weak MoneyDetailListController *myself = self;
-        myself.disposable = [[[JJHttpClient new] requestShopGoodIntegralDetialLimit:@"20" andPage:TransformNSInteger(self.intPageIndex) andGrouId:[NSString stringStandard:self.strGrouId]] subscribeNext:^(NSArray* array) {
+        myself.disposable = [[[JJHttpClient new] requestShopGoodIntegralDetialLimit:@"20"
+                                                                            andPage:TransformNSInteger(self.intPageIndex)
+                                                                          andGrouId:[NSString stringStandard:self.strGrouId]]
+                             subscribeNext:^(NSArray* array) {
             myself.curCount = array.count;
             if (myself.intPageIndex == 1) {
                 myself.arrIncome = [NSMutableArray array];
@@ -93,7 +99,10 @@
         
     }
     __weak MoneyDetailListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodRedpacketDetialLimit:@"20" andPage:TransformNSInteger(self.intPageIndex) andmode:self.strMode] subscribeNext:^(NSArray* array) {
+    myself.disposable = [[[JJHttpClient new] requestShopGoodRedpacketDetialLimit:@"20"
+                                                                         andPage:TransformNSInteger(self.intPageIndex)
+                                                                         andmode:self.strMode]
+                         subscribeNext:^(NSArray* array) {
         myself.curCount = array.count;
         if (myself.intPageIndex == 1) {
             myself.arrIncome = [NSMutableArray array];
@@ -135,31 +144,25 @@
     //从服务器返回的每页数据数量,可以判断出服务器是否没有数据了
     if (self.curCount < 20) {
         return YES;
-    }
-    return NO;
+    }return NO;
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         return 1;
-    }
-    return self.arrIncome.count;
+    }return self.arrIncome.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         return 120.0f;
-    }
-    return 60.0f;
+    }return 60.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         CellBlance *cell=[tableView dequeueReusableCellWithIdentifier:@"CellBlance"];
         if (self.numDetail == enum_numDetail_ljsy) {
@@ -178,7 +181,8 @@
             strMoney = [NSString stringStandardFloatTwo:self.strMoneyAll];
         }
         NSMutableAttributedString * atrString = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"%@",strMoney)];
-                                                                                                               [atrString addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Arial-BoldMT" size:35]} range:NSMakeRange(0, atrString.length)];
+                                                                                                               [atrString addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Arial-BoldMT" size:35]}
+                                                                                                                                  range:NSMakeRange(0, atrString.length)];
         [cell.lblMoney setAttributedText:atrString];
         return cell;
     }
@@ -199,6 +203,7 @@
         return 10;
     }
 }
+
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
@@ -206,8 +211,7 @@
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
     if (indexPath.section ==1 && self.numDetail == enum_numDetail_wdtd&&[NSString isNullString:self.strGrouId]) {
@@ -222,19 +226,6 @@
     
     
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

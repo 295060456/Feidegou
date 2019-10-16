@@ -9,6 +9,7 @@
 #import "JJTableViewCell.h"
 
 @interface CellTwoLblArrow : JJTableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
 @property (weak, nonatomic) IBOutlet UIImageView *imgArrow;
 @property (weak, nonatomic) IBOutlet UILabel *lblContent;

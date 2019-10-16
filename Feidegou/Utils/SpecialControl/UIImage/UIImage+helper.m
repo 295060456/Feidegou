@@ -33,8 +33,8 @@
     return qrImage;
 }
 
-+ (UIImage *)createNonInterpolatedUIImageFormString:(NSString *)string
-                                           withSize:(CGFloat) size{
++(UIImage *)createNonInterpolatedUIImageFormString:(NSString *)string
+                                          withSize:(CGFloat) size{
     //二维码滤镜
     
     CIFilter *filter=[CIFilter filterWithName:@"CIQRCodeGenerator"];
@@ -92,7 +92,7 @@
     
 }
 
-+ (UIImage *)imageWithColor:(UIColor *)color{
++(UIImage *)imageWithColor:(UIColor *)color{
     // 描述矩形
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
     

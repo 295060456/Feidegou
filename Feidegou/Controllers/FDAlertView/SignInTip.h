@@ -10,6 +10,7 @@
 #import "FDAlertView.h"
 
 @interface SignInTip : UIView
+
 @property (weak, nonatomic) IBOutlet UIImageView *imgTip;
 @property (weak, nonatomic) IBOutlet UILabel *lblIntegral;
 

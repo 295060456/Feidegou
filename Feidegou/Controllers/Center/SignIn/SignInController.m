@@ -22,15 +22,19 @@
 #import "AreaExchangeListController.h"
 #import "SiginShowAdverController.h"
 
-@interface SignInController ()<FDAlertViewDelegate,RefreshControlDelegate>
+@interface SignInController ()
+<
+FDAlertViewDelegate,
+RefreshControlDelegate
+>
+
 @property (weak, nonatomic) IBOutlet BaseTableView *tabSignIn;
 @property (nonatomic,strong) NSMutableArray *arrSignIn;
 @property (weak, nonatomic) IBOutlet UIButton *btnSignIn;
 @property (nonatomic,assign) BOOL share;
 @property (nonatomic,strong) NSDictionary *dicShare;
-
-
 @property (nonatomic,strong) RefreshControl *refreshControl;
+
 @end
 
 @implementation SignInController
@@ -88,24 +92,28 @@
         [self requestExchangeList];
     }
 }
+
 -(BOOL)refreshControlEnableLoadMore{
     return NO;
 }
+
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
     return self.arrSignIn.count;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 130.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     CellSignIn *cell=[tableView dequeueReusableCellWithIdentifier:@"CellSignIn"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -128,6 +136,7 @@
     [cell.lblRightUp setTextNull:self.arrSignIn[indexPath.row][@"signed_money"]];
     return cell;
 }
+
 - (void)requestSignIn:(NSInteger)intRow{
     [SVProgressHUD showWithStatus:@"正在请求数据..."];
     __weak SignInController *myself = self;
@@ -167,6 +176,7 @@
         myself.disposable = nil;
     }];
 }
+
 - (void)showSignTip{
     FDAlertView *alert = [[FDAlertView alloc] init];
     SignInTip *contentView = [[NSBundle mainBundle] loadNibNamed:@"SignInTip" owner:nil options:nil].lastObject;
@@ -177,19 +187,18 @@
     alert.contentView = contentView;
     [alert show];
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
+
 - (void)alertView:(FDAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
         [self didClickDelegeteCollectionViewMainTypeDictionary];
     }
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 - (IBAction)clickButtonSignIn:(UIButton *)sender {
     if (!self.share) {
         return;
@@ -198,6 +207,7 @@
     AchievementController *controller = [storyboard instantiateViewControllerWithIdentifier:@"AchievementController"];
     [self.navigationController pushViewController:controller animated:YES];
 }
+
 - (void)didClickDelegeteCollectionViewMainTypeDictionary{
     //    <option value="1">专题</option>
     //    <option value="2">分类</option>
@@ -264,17 +274,6 @@
 //            
 //        }];
     }
-    
-    
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

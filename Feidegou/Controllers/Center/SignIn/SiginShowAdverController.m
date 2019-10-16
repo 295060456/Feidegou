@@ -19,6 +19,7 @@
 
 
 @interface SiginShowAdverController ()
+
 @property (weak, nonatomic) IBOutlet UIImageView *imgAdver;
 
 @end
@@ -30,9 +31,11 @@
     [self.imgAdver setImageNoHolder:self.dicShare[@"ad"][@"photo_url"]];
     // Do any additional setup after loading the view.
 }
+
 - (void)viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
+
 - (IBAction)clickButtonAdver:(UIButton *)sender {
     //    <option value="1">专题</option>
     //    <option value="2">分类</option>
@@ -112,17 +115,7 @@
 //            
 //        }];
     }
-
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

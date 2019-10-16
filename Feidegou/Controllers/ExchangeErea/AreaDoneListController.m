@@ -19,13 +19,13 @@
 #import "OrderLogisticsDetailController.h"
 #import "AreaDoneDetailController.h"
 
-@interface AreaDoneListController ()<RefreshControlDelegate>
+@interface AreaDoneListController ()
+<
+RefreshControlDelegate
+>
 @property (weak, nonatomic) IBOutlet BaseTableView *tabAreaOrder;
 @property (strong, nonatomic) NSMutableArray *arrGoods;
-
 @property (nonatomic,strong) RACDisposable *disposableDelete;
-
-
 @property (nonatomic,strong) RefreshControl *refreshControl;
 @property (nonatomic,assign) int intPageIndex;
 //当前页数数量
@@ -271,21 +271,5 @@
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

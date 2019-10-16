@@ -9,5 +9,7 @@
 #import "JJBaseViewController.h"
 
 @interface MyOrderListController : JJBaseViewController
+
 @property (assign, nonatomic) enumOrderState orderState;
+
 @end

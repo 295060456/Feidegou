@@ -12,6 +12,7 @@
 #import "JJHttpClient+FourZero.h"
 
 @interface DiscussOrderController ()<UITextViewDelegate>
+
 @property (weak, nonatomic) IBOutlet BaseTableView *tabDiscuss;
 @property (weak, nonatomic) IBOutlet UIButton *btnCommit;
 @property (weak, nonatomic) IBOutlet UILabel *lblLine;
@@ -26,27 +27,28 @@
     [self.lblLine setBackgroundColor:ColorLine];
     [self.btnCommit setBackgroundColor:ColorRed];
     [self.tabDiscuss setBackgroundColor:ColorBackground];
-    [self.tabDiscuss registerNib:[UINib nibWithNibName:@"CellDiscussOrder" bundle:nil] forCellReuseIdentifier:@"CellDiscussOrder"];
+    [self.tabDiscuss registerNib:[UINib nibWithNibName:@"CellDiscussOrder" bundle:nil]
+          forCellReuseIdentifier:@"CellDiscussOrder"];
     [self.tabDiscuss checkNoData:self.arrDiscuss.count];
     
     // Do any additional setup after loading the view.
 }
 
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
     return 1;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.arrDiscuss.count;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 365.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CellDiscussOrder *cell=[tableView dequeueReusableCellWithIdentifier:@"CellDiscussOrder"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     [cell popuLateData:self.arrDiscuss[indexPath.section]];
@@ -75,14 +77,14 @@
         [btnFW handleControlEvent:UIControlEventTouchUpInside withBlock:^{
             [self clickButtonDiscuss:i andIndexPath:indexPath];
         }];
-    }
-    return cell;
+    }return cell;
 }
 
 - (void)textViewDidChange:(UITextView *)textView{
     DiscussAttribute *attribute = self.arrDiscuss[textView.tag-10000];
     attribute.strContent = textView.text;
 }
+
 - (void)clickButtonDiscuss:(NSInteger)integerTag andIndexPath:(NSIndexPath *)indexPath{
     [self.view endEditing:YES];
     DiscussAttribute *attribute = self.arrDiscuss[indexPath.section];
@@ -106,20 +108,22 @@
     D_NSLog(@"self.arrDiscuss is %@",self.arrDiscuss);
     [self.tabDiscuss reloadData];
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         return 0;
-    }
-    return 20;
+    }return 20;
 }
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+
+- (nullable UIView *)tableView:(UITableView *)tableView
+        viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 20)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self.view endEditing:YES];
 }
@@ -128,6 +132,7 @@
     
     [self.view endEditing:YES];
 }
+
 - (IBAction)clickButtonCommit:(UIButton *)sender {
     [SVProgressHUD showWithStatus:@"正在提交..." maskType:SVProgressHUDMaskTypeBlack];
     NSMutableArray *arrMiddle = [NSMutableArray array];
@@ -144,7 +149,11 @@
     }
     [self.view endEditing:YES];
     __weak DiscussOrderController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestFourZeroCommitDiscussOrderID:[NSString stringStandard:self.strOrderId] andOfId:[NSString stringStandard:self.strOfId] andAttribute:arrMiddle andUserID:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]] subscribeNext:^(NSDictionary*dictionary) {
+    self.disposable = [[[JJHttpClient new] requestFourZeroCommitDiscussOrderID:[NSString stringStandard:self.strOrderId]
+                                                                       andOfId:[NSString stringStandard:self.strOfId]
+                                                                  andAttribute:arrMiddle
+                                                                     andUserID:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]]
+                       subscribeNext:^(NSDictionary*dictionary) {
         if ([dictionary[@"code"] intValue]==1) {
             [SVProgressHUD showSuccessWithStatus:dictionary[@"msg"]];
             [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNameDiscussSucceed object:self.strOrderId];
@@ -159,20 +168,5 @@
         myself.disposable = nil;
     }];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -29,7 +29,6 @@
 @property (strong, nonatomic) UIImageView *iconImageView;
 @property (strong, nonatomic) UILabel *titleLabel;
 @property (strong, nonatomic) UILabel *messageLabel;
-
 @property (strong, nonatomic) NSMutableArray *buttonArray;
 @property (strong, nonatomic) NSMutableArray *buttonTitleArray;
 
@@ -50,16 +49,20 @@ CGFloat contentViewHeight;
         UIButton *btnHidden = [[UIButton alloc] initWithFrame:self.frame];
         [btnHidden addTarget:self action:@selector(clickButtonHidden:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btnHidden];
-    }
-    return self;
+    }return self;
 }
+
 - (void)clickButtonHidden:(UIButton *)sender{
     if (self.isForBidClickBack) {
         return;
-    }
-    [self hide];
+    }[self hide];
 }
-- (instancetype)initWithTitle:(NSString *)title icon:(UIImage *)icon message:(NSString *)message delegate:(id<FDAlertViewDelegate>)delegate buttonTitles:(NSString *)buttonTitles, ... {
+
+- (instancetype)initWithTitle:(NSString *)title
+                         icon:(UIImage *)icon
+                      message:(NSString *)message
+                     delegate:(id<FDAlertViewDelegate>)delegate
+                 buttonTitles:(NSString *)buttonTitles, ... {
     if (self = [super initWithFrame:[UIScreen mainScreen].bounds]) {
         _icon = icon;
         _title = title;
@@ -91,8 +94,7 @@ CGFloat contentViewHeight;
         _backgroundView.backgroundColor = [UIColor blackColor];
         [self addSubview:_backgroundView];
         [self initContentView];
-    }
-    return self;
+    }return self;
 }
 
 - (void)setContentView:(UIView *)contentView {
@@ -141,7 +143,10 @@ CGFloat contentViewHeight;
     if (_icon != nil) {
         _iconImageView = [[UIImageView alloc] init];
         _iconImageView.image = _icon;
-        _iconImageView.frame = CGRectMake(0, 0, 20, 20);
+        _iconImageView.frame = CGRectMake(0,
+                                          0,
+                                          20,
+                                          20);
         [_titleView addSubview:_iconImageView];
     }
     
@@ -158,8 +163,12 @@ CGFloat contentViewHeight;
         [_titleView addSubview:_titleLabel];
     }
     
-    _titleView.frame = CGRectMake(0, MARGIN_TOP, _iconImageView.frame.size.width + SPACE_SMALL + titleSize.width, MAX(_iconImageView.frame.size.height, titleSize.height));
-    _titleView.center = CGPointMake(contentViewWidth / 2, MARGIN_TOP + _titleView.frame.size.height / 2);
+    _titleView.frame = CGRectMake(0,
+                                  MARGIN_TOP,
+                                  _iconImageView.frame.size.width + SPACE_SMALL + titleSize.width,
+                                  MAX(_iconImageView.frame.size.height, titleSize.height));
+    _titleView.center = CGPointMake(contentViewWidth / 2,
+                                    MARGIN_TOP + _titleView.frame.size.height / 2);
     [_contentView addSubview:_titleView];
     contentViewHeight += _titleView.frame.size.height;
 }
@@ -170,7 +179,10 @@ CGFloat contentViewHeight;
     if (_message != nil) {
         _messageLabel = [[UILabel alloc] init];
         _messageLabel.text = _message;
-        _messageLabel.textColor = RGBA(120, 120, 120, 1.0);
+        _messageLabel.textColor = RGBA(120,
+                                       120,
+                                       120,
+                                       1.0);
         _messageLabel.numberOfLines = 0;
         _messageLabel.font = [UIFont systemFontOfSize:MESSAGE_FONT_SIZE];
         
@@ -181,7 +193,10 @@ CGFloat contentViewHeight;
         _messageLabel.textAlignment = NSTextAlignmentCenter;
         
         CGSize messageSize = [self getMessageSize];
-        _messageLabel.frame = CGRectMake(MARGIN_LEFT_LARGE, _titleView.frame.origin.y + _titleView.frame.size.height + SPACE_LARGE, MAX(contentViewWidth - MARGIN_LEFT_LARGE - MARGIN_RIGHT_LARGE, messageSize.width), messageSize.height);
+        _messageLabel.frame = CGRectMake(MARGIN_LEFT_LARGE,
+                                         _titleView.frame.origin.y + _titleView.frame.size.height + SPACE_LARGE,
+                                         MAX(contentViewWidth - MARGIN_LEFT_LARGE - MARGIN_RIGHT_LARGE, messageSize.width),
+                                         messageSize.height);
         [_contentView addSubview:_messageLabel];
         contentViewHeight += SPACE_LARGE + _messageLabel.frame.size.height;
     }
@@ -191,14 +206,20 @@ CGFloat contentViewHeight;
 - (void)initAllButtons {
     if (_buttonTitleArray.count > 0) {
         contentViewHeight += SPACE_LARGE + 45;
-        UIView *horizonSperatorView = [[UIView alloc] initWithFrame:CGRectMake(0, _messageLabel.frame.origin.y + _messageLabel.frame.size.height + SPACE_LARGE, contentViewWidth, 1)];
+        UIView *horizonSperatorView = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                               _messageLabel.frame.origin.y + _messageLabel.frame.size.height + SPACE_LARGE,
+                                                                               contentViewWidth,
+                                                                               1)];
         horizonSperatorView.backgroundColor = RGBA(218, 218, 222, 1.0);
         [_contentView addSubview:horizonSperatorView];
         
         CGFloat buttonWidth = contentViewWidth / _buttonTitleArray.count;
         for (NSString *buttonTitle in _buttonTitleArray) {
             NSInteger index = [_buttonTitleArray indexOfObject:buttonTitle];
-            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(index * buttonWidth, horizonSperatorView.frame.origin.y + horizonSperatorView.frame.size.height, buttonWidth, 44)];
+            UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(index * buttonWidth,
+                                                                          horizonSperatorView.frame.origin.y + horizonSperatorView.frame.size.height,
+                                                                          buttonWidth,
+                                                                          44)];
             button.titleLabel.font = [UIFont systemFontOfSize:BUTTON_FONT_SIZE];
             [button setTitle:buttonTitle forState:UIControlStateNormal];
             [button setTitleColor:RGBA(70, 130, 180, 1.0) forState:UIControlStateNormal];
@@ -207,8 +228,14 @@ CGFloat contentViewHeight;
             [_contentView addSubview:button];
             
             if (index < _buttonTitleArray.count - 1) {
-                UIView *verticalSeperatorView = [[UIView alloc] initWithFrame:CGRectMake(button.frame.origin.x + button.frame.size.width, button.frame.origin.y, 1, button.frame.size.height)];
-                verticalSeperatorView.backgroundColor = RGBA(218, 218, 222, 1.0);
+                UIView *verticalSeperatorView = [[UIView alloc] initWithFrame:CGRectMake(button.frame.origin.x + button.frame.size.width,
+                                                                                         button.frame.origin.y,
+                                                                                         1,
+                                                                                         button.frame.size.height)];
+                verticalSeperatorView.backgroundColor = RGBA(218,
+                                                             218,
+                                                             222,
+                                                             1.0);
                 [_contentView addSubview:verticalSeperatorView];
             }
         }
@@ -295,7 +322,8 @@ CGFloat contentViewHeight;
     [self removeFromSuperview];
 }
 
-- (void)setTitleColor:(UIColor *)color fontSize:(CGFloat)size {
+- (void)setTitleColor:(UIColor *)color
+             fontSize:(CGFloat)size {
     if (color != nil) {
         _titleLabel.textColor = color;
     }
@@ -305,7 +333,8 @@ CGFloat contentViewHeight;
     }
 }
 
-- (void)setMessageColor:(UIColor *)color fontSize:(CGFloat)size {
+- (void)setMessageColor:(UIColor *)color
+               fontSize:(CGFloat)size {
     if (color != nil) {
         _messageLabel.textColor = color;
     }
@@ -315,7 +344,9 @@ CGFloat contentViewHeight;
     }
 }
 
-- (void)setButtonTitleColor:(UIColor *)color fontSize:(CGFloat)size atIndex:(NSInteger)index {
+- (void)setButtonTitleColor:(UIColor *)color
+                   fontSize:(CGFloat)size
+                    atIndex:(NSInteger)index {
     UIButton *button = _buttonArray[index];
     if (color != nil) {
         [button setTitleColor:color forState:UIControlStateNormal];
@@ -326,8 +357,7 @@ CGFloat contentViewHeight;
     }
 }
 
-- (void)showBackground
-{
+- (void)showBackground{
     _backgroundView.alpha = 0;
     [UIView beginAnimations:@"fadeIn" context:nil];
     [UIView setAnimationDuration:0.35];
@@ -335,8 +365,7 @@ CGFloat contentViewHeight;
     [UIView commitAnimations];
 }
 
--(void)showAlertAnimation
-{
+-(void)showAlertAnimation{
     CAKeyframeAnimation * animation;
     animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
     animation.duration = 0.30;

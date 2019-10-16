@@ -25,6 +25,7 @@ typedef enum {
 @property (nonatomic,strong) NSMutableArray *arrButton;
 @property (nonatomic) NSUInteger currentSelected;
 @property (nonatomic,copy) SelectionBlock selectionBlock;
+
 - (id)initWithFrame:(CGRect)frame
               items:(NSArray*)items
        iconPosition:(IconPosition)position

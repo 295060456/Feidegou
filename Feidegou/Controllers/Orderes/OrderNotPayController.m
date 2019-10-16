@@ -14,15 +14,16 @@
 #import "OrderDetailController.h"
 #import "JJHttpClient+ShopGood.h"
 
-@interface OrderNotPayController ()<RefreshControlDelegate>
+@interface OrderNotPayController ()
+<
+RefreshControlDelegate
+>
+
 @property (weak, nonatomic) IBOutlet UITableView *tabNotPay;
 @property (strong, nonatomic) NSMutableArray *arrGoods;
-
-
 @property (nonatomic,strong) RefreshControl *refreshControl;
 @property (nonatomic,assign) int intPageIndex;
-//当前页数数量
-@property (nonatomic,assign) NSInteger curCount;
+@property (nonatomic,assign) NSInteger curCount;//当前页数数量
 
 @end
 
@@ -32,6 +33,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+
 - (void)locationControls{
     [self.tabNotPay setBackgroundColor:ColorBackground];
     [self.tabNotPay registerNib:[UINib nibWithNibName:@"CellOrderVendorTitle" bundle:nil] forCellReuseIdentifier:@"CellOrderVendorTitle"];
@@ -44,7 +46,11 @@
 
 - (void)requestExchangeList{
     __weak OrderNotPayController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderListLimit:@"10" andPage:TransformNSInteger(self.intPageIndex) andOrder_status:@"10" andUser_id:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]] subscribeNext:^(NSArray* array) {
+    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderListLimit:@"10"
+                                                                   andPage:TransformNSInteger(self.intPageIndex)
+                                                           andOrder_status:@"10"
+                                                                andUser_id:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]]
+                         subscribeNext:^(NSArray* array) {
         myself.curCount = array.count;
         if (myself.intPageIndex == 1) {
             myself.arrGoods = [NSMutableArray array];
@@ -74,12 +80,14 @@
         [self requestExchangeList];
     }
 }
+
 -(void)refreshControlForLoadMoreData{
     //从远程服务器获取数据
     if ([self respondsToSelector:@selector(requestExchangeList)]) {
         [self requestExchangeList];
     }
 }
+
 //在此代理方法中判断数据是否加载完成,
 -(BOOL)refreshControlForDataLoadingFinished{
     //从服务器返回的每页数据数量,可以判断出服务器是否没有数据了
@@ -89,15 +97,15 @@
     return NO;
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 4;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.arrGoods.count;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         return 40.0f;
     }else if (indexPath.row == 1){
@@ -110,8 +118,7 @@
     return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         CellOrderVendorTitle *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderVendorTitle"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -141,37 +148,22 @@
     return cell;
 }
 
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 10;
 }
+
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil];
     OrderDetailController *controller = [storyboard instantiateViewControllerWithIdentifier:@"OrderDetailController"];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

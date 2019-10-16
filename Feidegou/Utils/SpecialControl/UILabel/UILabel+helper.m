@@ -9,15 +9,19 @@
 #import "UILabel+helper.h"
 
 @implementation UILabel (helper)
+
 - (void)setTextNull:(NSString *)string{
     [self setText:[NSString stringStandard:string]];
 }
+
 - (void)setTextZanwu:(NSString *)string{
     [self setText:[NSString stringStandardZanwu:string]];
 }
+
 - (void)setTextFolatTwo:(NSString *)string{
     [self setText:[NSString stringStandardFloatTwo:string]];
 }
+
 - (void)setText:(NSString *)string andTip:(NSString *)strTip{
     if ([NSString isNullString:string]) {
         if ([NSString isNullString:strTip]) {
@@ -29,6 +33,7 @@
     }
     [self setText:string];
 }
+
 - (void)setTextVendorPrice:(NSString *)priceNow andOldPrice:(NSString *)priceOld{
     priceNow = [NSString stringStandardFloatTwo:priceNow];
     priceOld = [NSString stringStandardFloatTwo:priceOld];

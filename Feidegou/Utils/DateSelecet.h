@@ -19,8 +19,6 @@
 @interface DateSelecet : UIView
 
 @property (nonatomic, assign) id<datePickerDeleget> delegate;
-
-
 @property (nonatomic) UIDatePickerMode datePickerMode; // default is UIDatePickerModeDateAndTime
 @property (nonatomic, strong) NSDate *date;        // default is current date when picker created. Ignored in countdown timer mode. for that mode, picker starts at 0:00
 @property (nullable, nonatomic, strong) NSDate *minimumDate; // specify min/max date range. default is nil. When min > max, the values are ignored. Ignored in countdown timer mode

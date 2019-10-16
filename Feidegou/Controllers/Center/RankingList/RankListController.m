@@ -10,14 +10,14 @@
 #import "CellPHBTopThree.h"
 #import "JJHttpClient+ShopGood.h"
 
-@interface RankListController ()<RefreshControlDelegate>
+@interface RankListController ()
+<RefreshControlDelegate>
+
 @property (weak, nonatomic) IBOutlet BaseTableView *tabRank;
 @property (strong, nonatomic) NSMutableArray *arrRankingList;
-
 @property (nonatomic,strong) RefreshControl *refreshControl;
 @property (nonatomic,assign) int intPageIndex;
-//当前页数数量
-@property (nonatomic,assign) NSInteger curCount;
+@property (nonatomic,assign) NSInteger curCount;//当前页数数量
 
 @end
 
@@ -30,15 +30,11 @@
 
 - (void)locationControls{
     
-    [self.tabRank registerNib:[UINib nibWithNibName:@"CellPHBTopThree" bundle:nil] forCellReuseIdentifier:@"CellPHBTopThree"];
-    self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabRank delegate:self];
+    [self.tabRank registerNib:[UINib nibWithNibName:@"CellPHBTopThree" bundle:nil]
+       forCellReuseIdentifier:@"CellPHBTopThree"];
+    self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabRank
+                                                                        delegate:self];
     [self.refreshControl beginRefreshingMethod];
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)requestExchangeList{
@@ -48,7 +44,9 @@
     //传入参数2： USAGE(3种状态：1表示按总数排名，2表示按周总数量排名，3表示按月总数量排名，默认第一个页面进入后按周总数量排名
     //             传入参数3：page（起始页），limit（每页显示数）)
     __weak RankListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodRankListLimit:@"20" andPage:TransformNSInteger(self.intPageIndex)] subscribeNext:^(NSArray* array) {
+    myself.disposable = [[[JJHttpClient new] requestShopGoodRankListLimit:@"20"
+                                                                  andPage:TransformNSInteger(self.intPageIndex)]
+                         subscribeNext:^(NSArray* array) {
         if (myself.intPageIndex == 1) {
             myself.arrRankingList = [NSMutableArray array];
         }
@@ -88,21 +86,20 @@
     return NO;
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     return self.arrRankingList.count;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 60.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     CellPHBTopThree *cell=[tableView dequeueReusableCellWithIdentifier:@"CellPHBTopThree"];
     cell.fWidthPre = 10;
@@ -111,21 +108,10 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

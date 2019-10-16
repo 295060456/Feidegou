@@ -12,4 +12,5 @@
 @interface BillSelectedController : JJBaseViewController
 
 @property (strong, nonatomic) ModelOrderGoodList *model;
+
 @end

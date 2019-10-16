@@ -10,19 +10,15 @@
 
 @interface DiscussAttribute : NSObject
 
-@property (strong, nonatomic) NSString *strGoodsName;
-@property (strong, nonatomic) NSString *strIcon;
-@property (strong, nonatomic) NSString *strUse_integral_value;
-@property (strong, nonatomic) NSString *strGoodsId;
-@property (strong, nonatomic) NSString *strUse_integral_set;
-//评论内容
-@property (strong, nonatomic) NSString *strContent;
-//好评中评差评
-@property (strong, nonatomic) NSString *strGood;
-//描述相符
-@property (strong, nonatomic) NSString *strMS;
-//发货速度
-@property (strong, nonatomic) NSString *strFH;
-//服务态度
-@property (strong, nonatomic) NSString *strFW;
+@property (copy, nonatomic) NSString *strGoodsName;
+@property (copy, nonatomic) NSString *strIcon;
+@property (copy, nonatomic) NSString *strUse_integral_value;
+@property (copy, nonatomic) NSString *strGoodsId;
+@property (copy, nonatomic) NSString *strUse_integral_set;
+@property (copy, nonatomic) NSString *strContent;//评论内容
+@property (copy, nonatomic) NSString *strGood;//好评中评差评
+@property (copy, nonatomic) NSString *strMS;//描述相符
+@property (copy, nonatomic) NSString *strFH;//发货速度
+@property (copy, nonatomic) NSString *strFW;//服务态度
+
 @end

@@ -22,7 +22,7 @@
 @property (strong, nonatomic) NSMutableArray *arrPayType;
 @property (nonatomic,strong) RefreshControl *refreshControl;
 @property (assign,nonatomic) NSInteger intRow;
-@property (strong, nonatomic) NSString *strMoney;
+@property (copy, nonatomic) NSString *strMoney;
 @property (assign, nonatomic) BOOL isShowWeixin;
 @end
 
@@ -36,12 +36,16 @@
     self.isShowWeixin = NO;
     [self.btnPay setBackgroundColor:ColorHeader];
     [self.tabPayType setBackgroundColor:[UIColor clearColor]];
-    NSMutableAttributedString * atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"支付:￥%@",[NSString stringStandardFloatTwo:self.strTotalPrice])];
-    [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0]} range:NSMakeRange(0, 4)];
+    NSMutableAttributedString *atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"支付:￥%@",[NSString stringStandardFloatTwo:self.strTotalPrice])];
+    [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:10.0]}
+                            range:NSMakeRange(0, 4)];
     [self.tabPayType registerNib:[UINib nibWithNibName:@"CellOnlyOneLbl" bundle:nil] forCellReuseIdentifier:@"CellOnlyOneLbl"];
     [self.tabPayType registerNib:[UINib nibWithNibName:@"CellTwoImgOneLbl" bundle:nil] forCellReuseIdentifier:@"CellTwoImgOneLbl"];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotificationPaySucceed:) name:NotificationNamePaySucceed object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(NotificationPaySucceed:)
+                                                 name:NotificationNamePaySucceed
+                                               object:nil];
     self.intRow = 0;
     self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabPayType delegate:self];
     [self.refreshControl beginRefreshingMethod];
@@ -49,11 +53,17 @@
 
 - (void)NotificationPaySucceed:(NSNotification *)notification{
     JJAlertViewOneButton *alertView = [[JJAlertViewOneButton alloc] init];
-    [alertView showAlertView:self andTitle:nil andMessage:@"支付成功"  andCancel:@"确定" andCanelIsRed:YES andBack:^{
+    [alertView showAlertView:self
+                    andTitle:nil
+                  andMessage:@"支付成功"
+                   andCancel:@"确定"
+               andCanelIsRed:YES
+                     andBack:^{
         D_NSLog(@"点击了确定");
         [self.navigationController popToRootViewControllerAnimated:YES];
     }];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNamePaySucceedChangeData object:self.strOrderId];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNamePaySucceedChangeData
+                                                        object:self.strOrderId];
 }
 
 - (void)requestExchangeList{
@@ -100,26 +110,22 @@
     return NO;
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         return 1;
-    }
-    return self.arrPayType.count;
+    }return self.arrPayType.count;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 50.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        
         CellOnlyOneLbl *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOnlyOneLbl"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         ModelPayWay *model = self.arrPayType[self.intRow];
@@ -127,9 +133,10 @@
         if (self.isJifen&&[TransformString(model.mark) isEqualToString:@"not_cash_balance"]) {
             strMoney = [NSString stringStandardFloatTwo:self.not_cash_total];
         }
-        
         NSMutableAttributedString *atrString = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"订单金额:%@元",strMoney)];
-        [atrString addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0],NSForegroundColorAttributeName:ColorRed} range:NSMakeRange(5, strMoney.length+1)];
+        [atrString addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0],
+                                   NSForegroundColorAttributeName:ColorRed}
+                           range:NSMakeRange(5, strMoney.length+1)];
         [cell.lblContent setAttributedText:atrString];
         return cell;
     }
@@ -161,13 +168,13 @@
     return cell;
 }
 
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         return 0;
     }
     return 30;
 }
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHead = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     [viHead setBackgroundColor:ColorBackground];
@@ -178,18 +185,21 @@
     [viHead addSubview:lblTip];
     return viHead;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.section == 1) {
         self.intRow = indexPath.row;
         [self.tabPayType reloadData];
     }
 }
+
 - (void)requestDataForPayType:(NSString *)strType{
     __weak PayMonyForGoodController *myself = self;
     [SVProgressHUD showWithStatus:@"正在请求数据..."];
-    self.disposable = [[[JJHttpClient new] requestShopGoodPayByType:strType andOrder_id:[NSString stringStandard:self.strOrderId]] subscribeNext:^(NSDictionary*dictinary) {
+    self.disposable = [[[JJHttpClient new] requestShopGoodPayByType:strType
+                                                        andOrder_id:[NSString stringStandard:self.strOrderId]]
+                       subscribeNext:^(NSDictionary*dictinary) {
         D_NSLog(@"msg is %@",dictinary[@"msg"]);
         //        支付宝支付
         if ([dictinary[@"code"] intValue]==1) {
@@ -239,6 +249,7 @@
         myself.disposable = nil;
     }];
 }
+
 - (IBAction)clcikButtonPay:(UIButton *)sender {
     if (self.intRow <0 ) {
         return;
@@ -252,19 +263,6 @@
 //    }
     
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

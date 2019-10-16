@@ -11,10 +11,16 @@
 #import "JJHttpClient+TwoZero.h"
 #import "JJDBHelper+Center.h"
 
-@interface ChangeHeadImgController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface ChangeHeadImgController ()
+<
+UIImagePickerControllerDelegate,
+UINavigationControllerDelegate
+>
+
 @property (weak, nonatomic) IBOutlet UITableView *tabHeadImag;
 @property (weak, nonatomic) IBOutlet UIImageView *imgHead;
 @property (strong, nonatomic) ModelCenter*model;
+
 @end
 
 @implementation ChangeHeadImgController
@@ -23,22 +29,23 @@
     [super viewDidLoad];
     self.model = [[JJDBHelper sharedInstance] fetchCenterMsg];
     [self.imgHead setImagePathHead:self.model.head];
-    [self.tabHeadImag registerNib:[UINib nibWithNibName:@"CellTwoImgOneLbl" bundle:nil] forCellReuseIdentifier:@"CellTwoImgOneLbl"];
+    [self.tabHeadImag registerNib:[UINib nibWithNibName:@"CellTwoImgOneLbl"
+                                                 bundle:nil]
+           forCellReuseIdentifier:@"CellTwoImgOneLbl"];
     // Do any additional setup after loading the view.
 }
 
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 2;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 50.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CellTwoImgOneLbl *cell = [tableView dequeueReusableCellWithIdentifier:@"CellTwoImgOneLbl"];
     cell.fWidthPre = 10;
     cell.fWidthEnd = 10;
@@ -50,12 +57,10 @@
     }else{
         [cell.imgHead setImage:ImageNamed(@"img_info_ca")];
         [cell.lblTitle setText:@"拍一张照片"];
-    }
-    return cell;
-    
+    }return cell;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.row == 0) {
         UIImagePickerController *pickerImage = [[UIImagePickerController alloc] init];
@@ -81,8 +86,8 @@
 }
 
 #pragma mark - image picker delegte
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
+- (void)imagePickerController:(UIImagePickerController *)picker
+didFinishPickingMediaWithInfo:(NSDictionary *)info{
     UIImage *image= [info objectForKey:UIImagePickerControllerEditedImage];//获取图
     D_NSLog(@"-----------image is %@ ; image.size.width is %d;image.size.height is %d",image,(int)image.size.width,(int)image.size.height);
     NSData * imageData = UIImageJPEGRepresentation(image,0.2);
@@ -93,13 +98,15 @@
     }
     [self.imgHead setImage:[UIImage imageWithData:imageData]];
     [picker dismissViewControllerAnimated:YES completion:nil];
-    
 }
+
 - (void)requestPostHeadImage:(NSData *)data{
     [SVProgressHUD showWithStatus:@"正在上传头像..."];
     ModelCenter *model = [[JJDBHelper sharedInstance] fetchCenterMsg];
     __weak ChangeHeadImgController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestHeadImageHead:data andUserid:@""] subscribeNext:^(NSDictionary*dictionry) {
+    self.disposable = [[[JJHttpClient new] requestHeadImageHead:data
+                                                      andUserid:@""]
+                       subscribeNext:^(NSDictionary*dictionry) {
         if ([dictionry[@"code"] intValue]==1) {
             model.head = dictionry[@"path"];
             [[JJDBHelper sharedInstance] saveCenterMsg:model];
@@ -115,19 +122,5 @@
         myself.disposable = nil;
     }];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

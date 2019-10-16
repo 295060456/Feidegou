@@ -8,6 +8,7 @@
 
 #import "CellPHBTopThree.h"
 @interface CellPHBTopThree()
+
 @property (weak, nonatomic) IBOutlet UIImageView *imgRanking;
 @property (weak, nonatomic) IBOutlet UILabel *lblRanking;
 @property (weak, nonatomic) IBOutlet UIImageView *imgHead;
@@ -19,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstraintWidthNum;
 
 @end
+
 @implementation CellPHBTopThree
 
 - (void)awakeFromNib {
@@ -31,9 +33,8 @@
     // Initialization code
 }
 
-
-
-- (void)populateDataRanModel:(ModelRankList *)model andRow:(NSInteger)integer{
+- (void)populateDataRanModel:(ModelRankList *)model
+                      andRow:(NSInteger)integer{
     
     if (integer == 0) {
         [self.imgRanking setImage:ImageNamed(@"img_phb_one")];
@@ -86,9 +87,7 @@
         fWidthName = fWidhtMax;
     }
     self.layoutConstraintWidthName.constant = fWidthName;
-    
-    
-    
+
     if ([model.level intValue] == 1) {
         [self.lblLever setText:@"合伙人A"];
     }else if ([model.level intValue] == 2) {
@@ -99,6 +98,7 @@
         [self.lblLever setText:@""];
     }
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

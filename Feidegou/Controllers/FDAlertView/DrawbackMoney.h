@@ -12,4 +12,5 @@
 @interface DrawbackMoney : UIView
 
 @property (weak, nonatomic) IBOutlet UITextField *txtInput;
+
 @end

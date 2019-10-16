@@ -11,7 +11,11 @@
 #import "JJHttpClient+FourZero.h"
 #import <AddressBookUI/AddressBookUI.h>
 
-@interface AddressAddController ()<ABPeoplePickerNavigationControllerDelegate>
+@interface AddressAddController ()
+<
+ABPeoplePickerNavigationControllerDelegate
+>
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIButton *btnSaveAddress;
 @property (weak, nonatomic) IBOutlet UITextField *txtName;
@@ -27,6 +31,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+
 - (void)locationControls{
     [self registerLJWKeyboardHandler];
     [self.btnSaveAddress setBackgroundColor:ColorRed];
@@ -41,20 +46,20 @@
     }
     [self refreshData];
 }
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self refreshData];
 }
+
 - (void)refreshData{
     [self.txtArea setText:self.model.area];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 - (IBAction)clickScrollEndEditing:(UITapGestureRecognizer *)sender {
     [self.view endEditing:YES];
 }
+
 - (IBAction)clickButtonSaveAddress:(UIButton *)sender {
     [self.view endEditing:YES];
     
@@ -81,7 +86,17 @@
     
     [SVProgressHUD showWithStatus:@"正在提交数据..." maskType:SVProgressHUDMaskTypeBlack];
     __weak AddressAddController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestFourZeroID:self.model.ID andDelete:@"" andArea_info:strDetail andMobile:strNum andTelephone:@"" andTrueName:strName andZip:@"" andArea_id:self.model.area_id andUser_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] subscribeNext:^(NSDictionary*dictinary) {
+    self.disposable = [[[JJHttpClient new] requestFourZeroID:self.model.ID
+                                                   andDelete:@""
+                                                andArea_info:strDetail
+                                                   andMobile:strNum
+                                                andTelephone:@""
+                                                 andTrueName:strName
+                                                      andZip:@""
+                                                  andArea_id:self.model.area_id
+                                                  andUser_id:[[PersonalInfo sharedInstance]
+                                                              fetchLoginUserInfo].userId]
+                       subscribeNext:^(NSDictionary*dictinary) {
         D_NSLog(@"msg is %@",dictinary[@"msg"]);
         if ([dictinary[@"code"] intValue]==1) {
             [SVProgressHUD dismiss];
@@ -97,20 +112,19 @@
         myself.disposable = nil;
     }];
 }
+
 - (IBAction)clickButtonSelectArea:(UIButton *)sender {
     [self.view endEditing:YES];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil];
     AreaSelectController *controller = [storyboard instantiateViewControllerWithIdentifier:@"AreaSelectController"];
     controller.model = self.model;
-    [self.navigationController pushViewController:controller animated:YES];
-    
-    
-    
+    [self.navigationController pushViewController:controller
+                                         animated:YES];
 }
 #pragma mark - <ABPeoplePickerNavigationControllerDelegate>
 // 当用户选中某一个联系人时会执行该方法,并且选中联系人后会直接退出控制器
-- (void)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker didSelectPerson:(ABRecordRef)person
-{
+- (void)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker
+                         didSelectPerson:(ABRecordRef)person{
     // 1.获取选中联系人的姓名
     CFStringRef lastName = ABRecordCopyValue(person, kABPersonLastNameProperty);
     CFStringRef firstName = ABRecordCopyValue(person, kABPersonFirstNameProperty);
@@ -144,6 +158,7 @@
     // 注意:管理内存
     CFRelease(phones);
 }
+
 - (IBAction)clickButtonPhone:(UIButton *)sender {
     [self.view endEditing:YES];
     // 1.创建选择联系人的控制器
@@ -155,15 +170,5 @@
     // 3.弹出控制器
     [self presentViewController:ppnc animated:YES completion:nil];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

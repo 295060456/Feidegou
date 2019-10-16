@@ -30,7 +30,11 @@
 #import "ChangeNameController.h"
 #import "CellTwoLblArrow.h"
 
-@interface CenterController ()<DidClickDelegeteOnlyCollectionView,DidClickCollectionViewDelegete>
+@interface CenterController ()
+<
+DidClickDelegeteOnlyCollectionView,
+DidClickCollectionViewDelegete
+>
 @property (weak, nonatomic) IBOutlet UITableView *tabCenter;
 @property (nonatomic,strong) UIView *viHeader;
 @property (nonatomic,strong) UILabel *lblTitle;
@@ -44,6 +48,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+
 - (void)locationControls{
     [self.tabCenter setBackgroundColor:[UIColor clearColor]];
     [self.tabCenter registerNib:[UINib nibWithNibName:@"CellCollectionType" bundle:nil] forCellReuseIdentifier:@"CellCollectionType"];
@@ -59,6 +64,7 @@
     }
     [self initHeaderView];
 }
+
 - (void)initHeaderView{
     
     self.viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
@@ -71,36 +77,47 @@
     [self.lblTitle setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16.0]];
     [self.lblTitle setTextColor:[UIColor whiteColor]];
     [self.viHeader addSubview:self.lblTitle];
-    UIButton *buttonSet=[[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth(self.viHeader.frame)-60, self.viHeader.frame.size.height-44, 60, 44)];
-    [buttonSet setImage:ImageNamed(@"img_center_sz") forState:UIControlStateNormal];
-    [buttonSet handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+    UIButton *buttonSet=[[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth(self.viHeader.frame)-60,
+                                                                  self.viHeader.frame.size.height-44,
+                                                                  60,
+                                                                  44)];
+    [buttonSet setImage:ImageNamed(@"img_center_sz")
+               forState:UIControlStateNormal];
+    [buttonSet handleControlEvent:UIControlEventTouchUpInside
+                        withBlock:^{
         UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardMine bundle:nil];
         SettingController *controller=[storyboard instantiateViewControllerWithIdentifier:@"SettingController"];
         [self.navigationController pushViewController:controller animated:YES];
     }];
     [self.viHeader addSubview:buttonSet];
 }
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [self refreshTab];
     [self requestCenterInfo];
 }
+
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
+
 - (void)refreshTab{
     self.model = [[JJDBHelper sharedInstance] fetchCenterMsg];
     [self.tabCenter reloadData];
 }
+
 - (void)requestCenterInfo{
     if (self.disposable) {
         return;
     }
     if ([[PersonalInfo sharedInstance] isLogined]){
         __weak CenterController *myself = self;
-        myself.disposable = [[[JJHttpClient new] requestShopGoodCenterInfoUserId:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] subscribeNext:^(ModelCenter *model) {
+        myself.disposable = [[[JJHttpClient new] requestShopGoodCenterInfoUserId:[[PersonalInfo sharedInstance]
+                                                                                  fetchLoginUserInfo].userId]
+                             subscribeNext:^(ModelCenter *model) {
             [myself refreshTab];
         }error:^(NSError *error) {
             myself.disposable = nil;
@@ -108,11 +125,10 @@
             myself.disposable = nil;
         }];
     }
-    
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         return 3;
     }
@@ -122,14 +138,15 @@
         }else{
             return 0;
         }
-    }
-    return 1;
+    }return 1;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 6;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             return 140.0f;
@@ -148,8 +165,8 @@
     return 45.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         if (indexPath.row ==0) {
             if ([[PersonalInfo sharedInstance] isLogined]) {
@@ -284,14 +301,14 @@
         return 10;
     }
 }
+
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
@@ -361,8 +378,6 @@
             [self pushLoginController];
         }
     }
-    
-    
     if (indexPath.section == 5) {
         if ([[PersonalInfo sharedInstance] isLogined]) {
             ChangeNameController *controller = [[UIStoryboard storyboardWithName:StoryboardMine bundle:nil] instantiateViewControllerWithIdentifier:@"ChangeNameController"];
@@ -373,6 +388,7 @@
         }
     }
 }
+
 - (void)didClickCollectionViewHeaderSection:(NSInteger)section{
     if (section == 1) {
         if ([[PersonalInfo sharedInstance] isLogined]) {
@@ -383,6 +399,7 @@
         }
     }
 }
+
 - (void)didClickCollectionViewSection:(NSInteger)section andRow:(NSInteger)row{
     if ([[PersonalInfo sharedInstance] isLogined]) {
         
@@ -393,19 +410,22 @@
                 [self.navigationController pushViewController:controller animated:YES];
             }
             if (row == 1) {
-                MoneyDetailListController *controller = [[UIStoryboard storyboardWithName:StoryboardWithdrawDeposit bundle:nil] instantiateViewControllerWithIdentifier:@"MoneyDetailListController"];
+                MoneyDetailListController *controller = [[UIStoryboard storyboardWithName:StoryboardWithdrawDeposit bundle:nil]
+                                                         instantiateViewControllerWithIdentifier:@"MoneyDetailListController"];
                 controller.numDetail = enum_numDetail_qdsye;
                 controller.strMoneyAll = self.model.redbags;
                 [self.navigationController pushViewController:controller animated:YES];
             }
             if (row == 2) {
-                MoneyDetailListController *controller = [[UIStoryboard storyboardWithName:StoryboardWithdrawDeposit bundle:nil] instantiateViewControllerWithIdentifier:@"MoneyDetailListController"];
+                MoneyDetailListController *controller = [[UIStoryboard storyboardWithName:StoryboardWithdrawDeposit bundle:nil]
+                                                         instantiateViewControllerWithIdentifier:@"MoneyDetailListController"];
                 controller.numDetail = enum_numDetail_wdjf;
                 controller.strMoneyAll = self.model.integral;
                 [self.navigationController pushViewController:controller animated:YES];
             }
             if (row == 3) {
-                MoneyDetailListController *controller = [[UIStoryboard storyboardWithName:StoryboardWithdrawDeposit bundle:nil] instantiateViewControllerWithIdentifier:@"MoneyDetailListController"];
+                MoneyDetailListController *controller = [[UIStoryboard storyboardWithName:StoryboardWithdrawDeposit bundle:nil]
+                                                         instantiateViewControllerWithIdentifier:@"MoneyDetailListController"];
                 controller.numDetail = enum_numDetail_wdtd;
                 controller.strMoneyAll = self.model.inviterSize;
                 [self.navigationController pushViewController:controller animated:YES];
@@ -425,8 +445,6 @@
                 [self.navigationController pushViewController:controller animated:YES];
             }
         }
-        
-        
     }else{
         [self pushLoginAlert];
     }
@@ -435,23 +453,28 @@
     if (indexPath.section == 0&&indexPath.row == 2) {
         if ([[PersonalInfo sharedInstance] isLogined]) {
             if (row == 0) {
-                OrderListMainController *controller = [[UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil] instantiateViewControllerWithIdentifier:@"OrderListMainController"];
+                OrderListMainController *controller = [[UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil]
+                                                       instantiateViewControllerWithIdentifier:@"OrderListMainController"];
                 controller.orderState = enumOrder_dfk;
                 [self.navigationController pushViewController:controller animated:YES];
             }else if (row == 1) {
-                OrderListMainController *controller = [[UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil] instantiateViewControllerWithIdentifier:@"OrderListMainController"];
+                OrderListMainController *controller = [[UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil]
+                                                       instantiateViewControllerWithIdentifier:@"OrderListMainController"];
                 controller.orderState = enumOrder_yfk;
                 [self.navigationController pushViewController:controller animated:YES];
             }else if (row == 2) {
-                OrderListMainController *controller = [[UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil] instantiateViewControllerWithIdentifier:@"OrderListMainController"];
+                OrderListMainController *controller = [[UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil]
+                                                       instantiateViewControllerWithIdentifier:@"OrderListMainController"];
                 controller.orderState = enumOrder_yfh;
                 [self.navigationController pushViewController:controller animated:YES];
             }else if (row == 3) {
-                OrderListMainController *controller = [[UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil] instantiateViewControllerWithIdentifier:@"OrderListMainController"];
+                OrderListMainController *controller = [[UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil]
+                                                       instantiateViewControllerWithIdentifier:@"OrderListMainController"];
                 controller.orderState = enumOrder_ysh;
                 [self.navigationController pushViewController:controller animated:YES];
             }else{
-                OrderListMainController *controller = [[UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil] instantiateViewControllerWithIdentifier:@"OrderListMainController"];
+                OrderListMainController *controller = [[UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil]
+                                                       instantiateViewControllerWithIdentifier:@"OrderListMainController"];
                 controller.orderState = enumOrder_tksh;
                 [self.navigationController pushViewController:controller animated:YES];
             }
@@ -459,10 +482,6 @@
             [self pushLoginAlert];
         }
     }
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -480,14 +499,6 @@
         [self.lblTitle setHidden:NO];
     }
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

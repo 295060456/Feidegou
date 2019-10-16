@@ -18,7 +18,12 @@
 #import "JJDBHelper+Center.h"
 #import "CellProtocol.h"
 
-@interface ApplyForVenderController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface ApplyForVenderController ()
+<
+UIActionSheetDelegate,
+UIImagePickerControllerDelegate,
+UINavigationControllerDelegate
+>
 @property (weak, nonatomic) IBOutlet BaseTableView *tabApplyForVender;
 @property (weak, nonatomic) IBOutlet UIButton *btnCommit;
 @property (strong, nonatomic) ApplyForVenderAttribute *attribute;
@@ -40,13 +45,14 @@
     [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTwoLblArrow" bundle:nil] forCellReuseIdentifier:@"CellTwoLblArrow"];
     // Do any additional setup after loading the view.
 }
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.tabApplyForVender reloadData];
 }
+
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         return 1;
     }else if (section == 1){
@@ -56,11 +62,12 @@
     }
     return 0;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         return 30.0f;
     }else if (indexPath.section == 1){
@@ -74,8 +81,7 @@
     return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 1) {
         if (indexPath.row == 3||indexPath.row == 4) {
             CellTwoLblArrow *cell=[tableView dequeueReusableCellWithIdentifier:@"CellTwoLblArrow"];
@@ -212,13 +218,14 @@
         return 10;
     }
 }
+
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self.view endEditing:YES];
     if (indexPath.section == 1) {
@@ -245,8 +252,6 @@
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
-
-
 
 - (void)clickButtonPic:(NSIndexPath *)indexPath {
     self.indexPath = indexPath;
@@ -291,11 +296,11 @@
         UIActionSheet *as=[[UIActionSheet alloc]initWithTitle:@"上传头像" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"马上照一张" otherButtonTitles:@"从相册中选择一张", nil ];
         [as showInView:[[[UIApplication sharedApplication] delegate] window]];
     }
-    
 }
 
 #pragma mark ------------UIActionSheetDelegate-------------
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
+- (void)actionSheet:(UIActionSheet *)actionSheet
+clickedButtonAtIndex:(NSInteger)buttonIndex{
     UIImagePickerController *pickerImage;
     switch (buttonIndex) {
         case 0:
@@ -329,7 +334,8 @@
 }
 
 #pragma mark - image picker delegte
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)imagePickerController:(UIImagePickerController *)picker
+didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     
     UIImage *image= [info objectForKey:UIImagePickerControllerEditedImage];//获取图
@@ -345,10 +351,7 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
     
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 - (IBAction)clickButtonCommit:(UIButton *)sender {
     
     if ([NSString isNullString:self.attribute.strName]) {
@@ -397,7 +400,18 @@
 //    }
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
     __weak ApplyForVenderController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestFourZeroApplyForVenderuser_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId andstore_ower:self.attribute.strName andstore_ower_card:self.attribute.strMemberNum andstore_name:self.attribute.strVendorName andsc_id:self.attribute.strVendorTypeID andarea_id:self.attribute.strAreaID andstore_address:self.attribute.strAddressDetail andstore_zip:self.attribute.strZIPCode andstore_telphone:self.attribute.strPhone andcard_file:self.attribute.imgMemberCard andlicense_file:self.attribute.imgBusiness] subscribeNext:^(NSDictionary*dictionary) {
+    self.disposable = [[[JJHttpClient new] requestFourZeroApplyForVenderuser_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId
+                                                                  andstore_ower:self.attribute.strName
+                                                             andstore_ower_card:self.attribute.strMemberNum
+                                                                  andstore_name:self.attribute.strVendorName
+                                                                       andsc_id:self.attribute.strVendorTypeID
+                                                                     andarea_id:self.attribute.strAreaID
+                                                               andstore_address:self.attribute.strAddressDetail
+                                                                   andstore_zip:self.attribute.strZIPCode
+                                                              andstore_telphone:self.attribute.strPhone
+                                                                   andcard_file:self.attribute.imgMemberCard
+                                                                andlicense_file:self.attribute.imgBusiness]
+                       subscribeNext:^(NSDictionary*dictionary) {
         if ([dictionary[@"code"] intValue]==1) {
             [SVProgressHUD showSuccessWithStatus:@"提交成功"];
             ModelCenter *modelCenter = [[JJDBHelper sharedInstance] fetchCenterMsg];
@@ -414,15 +428,5 @@
         myself.disposable = nil;
     }];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

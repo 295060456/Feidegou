@@ -31,6 +31,8 @@ typedef void (^NJKWebViewProgressBlock)(float progress);
 @end
 
 @protocol NJKWebViewProgressDelegate <NSObject>
-- (void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress;
+
+- (void)webViewProgress:(NJKWebViewProgress *)webViewProgress
+         updateProgress:(float)progress;
 @end
 

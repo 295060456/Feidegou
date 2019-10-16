@@ -11,6 +11,7 @@
 #import "JJDBHelper+Center.h"
 
 @interface ChangeNameController ()
+
 @property (weak, nonatomic) IBOutlet UITextField *txtName;
 @property (weak, nonatomic) IBOutlet UIButton *btnCommit;
 @property (weak, nonatomic) IBOutlet UILabel *lblTip;
@@ -62,7 +63,13 @@
         }
         [SVProgressHUD showWithStatus:@"正在提交信息..."];
         __weak ChangeNameController *myself = self;
-        self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName] andtelePhone:strPhone andarea_id:@"" andsex:@"" andbirthday:@"" andemail:@""] subscribeNext:^(NSDictionary*dictionry) {
+        self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName]
+                                                                    andtelePhone:strPhone
+                                                                      andarea_id:@""
+                                                                          andsex:@""
+                                                                     andbirthday:@""
+                                                                        andemail:@""]
+                           subscribeNext:^(NSDictionary*dictionry) {
             if ([dictionry[@"code"] intValue]==1) {
                 [SVProgressHUD dismiss];
                 model.mobile = strPhone;
@@ -91,7 +98,13 @@
         }
         [SVProgressHUD showWithStatus:@"正在提交信息..."];
         __weak ChangeNameController *myself = self;
-        self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName] andtelePhone:@"" andarea_id:@"" andsex:@"" andbirthday:@"" andemail:strEmail] subscribeNext:^(NSDictionary*dictionry) {
+        self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName]
+                                                                    andtelePhone:@""
+                                                                      andarea_id:@""
+                                                                          andsex:@""
+                                                                     andbirthday:@""
+                                                                        andemail:strEmail]
+                           subscribeNext:^(NSDictionary*dictionry) {
             if ([dictionry[@"code"] intValue]==1) {
                 [SVProgressHUD dismiss];
                 model.email = strEmail;
@@ -114,7 +127,8 @@
         }
         [SVProgressHUD showWithStatus:@"正在提交信息..."];
         __weak ChangeNameController *myself = self;
-        self.disposable = [[[JJHttpClient new] requestFourZeroAddInteger:[NSString stringStandard:strEmail]] subscribeNext:^(NSDictionary*dictionry) {
+        self.disposable = [[[JJHttpClient new] requestFourZeroAddInteger:[NSString stringStandard:strEmail]]
+                           subscribeNext:^(NSDictionary*dictionry) {
             if ([dictionry[@"code"] intValue]==1) {
                 [SVProgressHUD dismiss];
                 [myself.navigationController popViewControllerAnimated:YES];
@@ -133,19 +147,6 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

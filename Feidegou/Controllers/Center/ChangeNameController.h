@@ -12,6 +12,9 @@ typedef enum {
     enum_personalInfo_email,//邮箱
     enum_personalInfo_chongzhi//充值
 }enumPersonalInfo;
+
 @interface ChangeNameController : JJBaseViewController
+
 @property (assign,nonatomic) enumPersonalInfo personalInfo;
+
 @end

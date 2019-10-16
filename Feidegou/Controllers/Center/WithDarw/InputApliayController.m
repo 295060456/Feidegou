@@ -11,6 +11,7 @@
 #import "JJHttpClient+FourZero.h"
 
 @interface InputApliayController ()
+
 @property (weak, nonatomic) IBOutlet UITextField *txtApliyAccount;
 @property (weak, nonatomic) IBOutlet UITextField *txtApliyName;
 @property (weak, nonatomic) IBOutlet UILabel *lblTip;
@@ -30,10 +31,6 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 - (IBAction)clickButtonCommit:(UIButton *)sender {
     NSString *strName = self.txtApliyName.text;
     if ([NSString isNullString:strName]) {
@@ -65,19 +62,11 @@
     }completed:^{
         myself.disposable = nil;
     }];
-    
 }
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -10,6 +10,7 @@
 #import "ModelOrderDtail.h"
 
 @interface OrderTuihuoController : JJBaseViewController
+
 @property (strong, nonatomic) ModelOrderDtail *modelOrderDetail;
 
 @end

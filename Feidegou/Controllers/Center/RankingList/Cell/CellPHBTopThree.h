@@ -12,5 +12,6 @@
 
 @interface CellPHBTopThree : JJTableViewCell
 
-- (void)populateDataRanModel:(ModelRankList *)model andRow:(NSInteger)integer;
+- (void)populateDataRanModel:(ModelRankList *)model
+                      andRow:(NSInteger)integer;
 @end

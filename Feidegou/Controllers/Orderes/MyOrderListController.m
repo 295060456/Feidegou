@@ -23,21 +23,21 @@
 #import "CellOrderGiftNo.h"
 #import "DrawbackMoney.h"
 
-@interface MyOrderListController ()<RefreshControlDelegate>
+@interface MyOrderListController ()
+<
+RefreshControlDelegate
+>
+
 @property (weak, nonatomic) IBOutlet BaseTableView *tabMyOrderList;
 @property (strong, nonatomic) NSMutableArray *arrGoods;
-
 @property (nonatomic,strong) RACDisposable *disposableDelete;
 @property (nonatomic,strong) RACDisposable *disposableShouhuo;
 @property (nonatomic,strong) RACDisposable *disposableShare;
-
-
 @property (nonatomic,strong) RefreshControl *refreshControl;
 @property (nonatomic,assign) int intPageIndex;
-//当前页数数量
-@property (nonatomic,assign) NSInteger curCount;
+@property (nonatomic,assign) NSInteger curCount;//当前页数数量
 @property (nonatomic,strong) ModelOrderList *modelDrawback;
-@property (nonatomic,strong) NSString *strTuikuanType;
+@property (nonatomic,copy) NSString *strTuikuanType;
 
 @end
 
@@ -47,6 +47,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+
 - (void)locationControls{
     [self.tabMyOrderList setBackgroundColor:ColorBackground];
     [self.tabMyOrderList registerNib:[UINib nibWithNibName:@"CellOrderGiftNo" bundle:nil] forCellReuseIdentifier:@"CellOrderGiftNo"];
@@ -63,6 +64,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotificationOrderGetSucceed:) name:NotificationNameOrderGetSucceed object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotificationDrawbackMoneySucceed:) name:NotificationNameDrawbackMoneySucceed object:nil];
 }
+
 - (void)NotificationPaySucceedChangeData:(NSNotification *)notification{
     NSString *strOrderId = TransformString((NSString *)notification.object);
     for (int i = 0; i<self.arrGoods.count; i++) {
@@ -78,6 +80,7 @@
         }
     }
 }
+
 - (void)NotificationDiscussSucceed:(NSNotification *)notification{
     NSString *strOrderId = TransformString((NSString *)notification.object);
     for (int i = 0; i<self.arrGoods.count; i++) {
@@ -121,6 +124,7 @@
         }
     }
 }
+
 - (void)NotificationDrawbackMoneySucceed:(NSNotification *)notification{
     NSString *strOrderId = self.modelDrawback.order_id;
     if ([NSString isNullString:self.modelDrawback.orderId]) {
@@ -133,7 +137,10 @@
     
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
     __weak MyOrderListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestFourZeroDarwback:strOrderId andmsg:strMsg andtype:[NSString stringStandard:self.strTuikuanType]] subscribeNext:^(NSDictionary* dictionary) {
+    myself.disposable = [[[JJHttpClient new] requestFourZeroDarwback:strOrderId
+                                                              andmsg:strMsg
+                                                             andtype:[NSString stringStandard:self.strTuikuanType]]
+                         subscribeNext:^(NSDictionary* dictionary) {
         if ([dictionary[@"code"] intValue]==1) {
             for (int i = 0; i<self.arrGoods.count; i++) {
                 ModelOrderList *modelList = self.arrGoods[i];
@@ -148,8 +155,6 @@
                     [self reloadTabView];
                 }
             }
-
-            
             [SVProgressHUD showSuccessWithStatus:dictionary[@"msg"]];
         }else{
             [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];
@@ -159,15 +164,19 @@
     }completed:^{
         myself.disposable = nil;
     }];
-    
 }
+
 - (void)requestExchangeList{
     NSString *strOrderState = @"";
     if (self.orderState != enumOrder_quanbu) {
         strOrderState = TransformNSInteger(self.orderState);
     }
     __weak MyOrderListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderListLimit:@"10" andPage:TransformNSInteger(self.intPageIndex) andOrder_status:strOrderState andUser_id:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]] subscribeNext:^(NSArray* array) {
+    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderListLimit:@"10"
+                                                                   andPage:TransformNSInteger(self.intPageIndex)
+                                                           andOrder_status:strOrderState
+                                                                andUser_id:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]]
+                         subscribeNext:^(NSArray* array) {
         myself.curCount = array.count;
         if (myself.intPageIndex == 1) {
             myself.arrGoods = [NSMutableArray array];
@@ -188,7 +197,6 @@
         [myself.refreshControl endRefreshing];
         myself.disposable = nil;
     }];
-    
 }
 #pragma mark - RefreshControlDelegate
 -(void)refreshControlForRefreshData{
@@ -198,6 +206,7 @@
         [self requestExchangeList];
     }
 }
+
 -(void)refreshControlForLoadMoreData{
     //从远程服务器获取数据
     if ([self respondsToSelector:@selector(requestExchangeList)]) {
@@ -213,27 +222,25 @@
     return NO;
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     ModelOrderList *model = self.arrGoods[section];
     return model.goodsList.count+3;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.arrGoods.count;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     ModelOrderList *model = self.arrGoods[indexPath.section];
     if (indexPath.row == 0) {
         return 40.0f;
     }else if (indexPath.row<model.goodsList.count+1) {
         return 90.0f;
-    }
-    return 40.0f;
+    }return 40.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ModelOrderList *model = self.arrGoods[indexPath.section];
     if (indexPath.row == 0) {
         CellOrderVendorTitle *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderVendorTitle"];
@@ -245,7 +252,12 @@
         NSDictionary *dicInfo = model.goodsList[indexPath.row-1];
         CellOrderGiftNo *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderGiftNo"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        [cell populateDataName:dicInfo[@"goodsName"] andPath:dicInfo[@"icon"] andNum:dicInfo[@"count"] andspec_info:dicInfo[@"spec_info"] andprice:dicInfo[@"price"] andgift_d_coins:dicInfo[@"gift_d_coins"]];
+        [cell populateDataName:dicInfo[@"goodsName"]
+                       andPath:dicInfo[@"icon"]
+                        andNum:dicInfo[@"count"]
+                  andspec_info:dicInfo[@"spec_info"]
+                      andprice:dicInfo[@"price"]
+               andgift_d_coins:dicInfo[@"gift_d_coins"]];
         return cell;
     }
     if (indexPath.row == model.goodsList.count+2) {
@@ -253,16 +265,24 @@
         CellOrderButtones *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderButtones"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         [cell populateDataOrderList:self.arrGoods[indexPath.section]];
-        [cell.btnOne handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-            [self clickButtonForListName:cell.btnOne.titleLabel.text andIndexPath:self.arrGoods[indexPath.section] andIndexPath:indexPath];
+        [cell.btnOne handleControlEvent:UIControlEventTouchUpInside
+                              withBlock:^{
+            [self clickButtonForListName:cell.btnOne.titleLabel.text
+                            andIndexPath:self.arrGoods[indexPath.section]
+                            andIndexPath:indexPath];
         }];
-        [cell.btnTwo handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-            [self clickButtonForListName:cell.btnTwo.titleLabel.text andIndexPath:self.arrGoods[indexPath.section] andIndexPath:indexPath];
+        [cell.btnTwo handleControlEvent:UIControlEventTouchUpInside
+                              withBlock:^{
+            [self clickButtonForListName:cell.btnTwo.titleLabel.text
+                            andIndexPath:self.arrGoods[indexPath.section]
+                            andIndexPath:indexPath];
         }];
-        [cell.btnThree handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-            [self clickButtonForListName:cell.btnThree.titleLabel.text andIndexPath:self.arrGoods[indexPath.section] andIndexPath:indexPath];
-        }];
-        return cell;
+        [cell.btnThree handleControlEvent:UIControlEventTouchUpInside
+                                withBlock:^{
+            [self clickButtonForListName:cell.btnThree.titleLabel.text
+                            andIndexPath:self.arrGoods[indexPath.section]
+                            andIndexPath:indexPath];
+        }];return cell;
     }
     
     //    if (indexPath.row == model.goodsList.count+1) {
@@ -286,9 +306,11 @@
     //        return cell;
     //    }
 }
-- (void)clickButtonForListName:(NSString *)strTitle andIndexPath:(ModelOrderList *)model andIndexPath:(NSIndexPath *)indexPath{
+
+- (void)clickButtonForListName:(NSString *)strTitle
+                  andIndexPath:(ModelOrderList *)model
+                  andIndexPath:(NSIndexPath *)indexPath{
     if ([TransformString(strTitle) isEqualToString:@"去支付"]) {
-        
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder" bundle:nil];
         PayMonyForGoodController *controller = [storyboard instantiateViewControllerWithIdentifier:@"PayMonyForGoodController"];
         controller.strOrderId = model.order_id;
@@ -301,11 +323,19 @@
     }else if ([TransformString(strTitle) isEqualToString:@"取消订单"]) {
         
         JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-        [alertView showAlertView:self andTitle:nil andMessage:@"是否删除" andCancel:@"取消" andCanelIsRed:NO andOherButton:@"立即删除" andConfirm:^{
+        [alertView showAlertView:self
+                        andTitle:nil
+                      andMessage:@"是否删除"
+                       andCancel:@"取消"
+                   andCanelIsRed:NO
+                   andOherButton:@"立即删除"
+                      andConfirm:^{
             D_NSLog(@"点击了立即发布");
             [SVProgressHUD showWithStatus:@"正在删除..."];
             __weak MyOrderListController *myself = self;
-            myself.disposableDelete = [[[JJHttpClient new] requestFourZeroDeleteOrderId:[NSString stringStandard:model.order_id] andState:@"1"] subscribeNext:^(NSDictionary* dictionary) {
+            myself.disposableDelete = [[[JJHttpClient new] requestFourZeroDeleteOrderId:[NSString stringStandard:model.order_id]
+                                                                               andState:@"1"]
+                                       subscribeNext:^(NSDictionary* dictionary) {
                 if ([dictionary[@"code"] intValue]==1) {
                     [myself.arrGoods removeObject:model];
                     [myself reloadTabView];
@@ -332,9 +362,15 @@
         [self.navigationController pushViewController:controller animated:YES];
     }else if ([TransformString(strTitle) isEqualToString:@"确认收货"]) {
         JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-        [alertView showAlertView:self andTitle:nil andMessage:@"确认收货后不可退款" andCancel:@"取消" andCanelIsRed:NO andOherButton:@"确认收货" andConfirm:^{
+        [alertView showAlertView:self
+                        andTitle:nil
+                      andMessage:@"确认收货后不可退款"
+                       andCancel:@"取消"
+                   andCanelIsRed:NO
+                   andOherButton:@"确认收货" andConfirm:^{
             [SVProgressHUD showWithStatus:@"正在提交信息..."];
-            self.disposableShouhuo = [[[JJHttpClient new] requestFourZeroDeleteOrderId:TransformString(model.order_id) andState:@"2"] subscribeNext:^(NSDictionary* dictionary) {
+            self.disposableShouhuo = [[[JJHttpClient new] requestFourZeroDeleteOrderId:TransformString(model.order_id) andState:@"2"]
+                                      subscribeNext:^(NSDictionary* dictionary) {
                 if ([dictionary[@"code"] intValue]==1) {
                     if (self.orderState == enumOrder_quanbu) {
                         model.order_status = @"40";
@@ -380,14 +416,14 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 10;
 }
+
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     ModelOrderList *modelList = self.arrGoods[indexPath.section];
     if (indexPath.row == 0) {
@@ -402,73 +438,64 @@
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
+
 - (void)reloadTabView{
     for (int i = 0; i<self.arrGoods.count; i++) {
         ModelOrderList *modelList =self.arrGoods[i];
-        modelList.arrButton = [PublicFunction returnButtonNameByNum:modelList.order_status andIsNeedDetail:YES andcourierCode:modelList.courierCode];
+        modelList.arrButton = [PublicFunction returnButtonNameByNum:modelList.order_status
+                                                    andIsNeedDetail:YES
+                                                     andcourierCode:modelList.courierCode];
     }
     [self.tabMyOrderList reloadData];
     [self.tabMyOrderList checkNoData:self.arrGoods.count];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (void)tuikuanSeletct{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"申请退款" message:nil preferredStyle: UIAlertControllerStyleActionSheet];
-    
-    
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    
-    
-    
-    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"仅退款(未收到货)" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"申请退款"
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"仅退款(未收到货)"
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction * _Nonnull action) {
         self.strTuikuanType = @"notover";
         [self tuikuanBack];
     }];
-    UIAlertAction *archiveAction = [UIAlertAction actionWithTitle:@"退货退款(已收到货)" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *archiveAction = [UIAlertAction actionWithTitle:@"退货退款(已收到货)"
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action) {
         self.strTuikuanType = @"over";
         [self tuikuanBack];
         
     }];
-    
-    
-    
     [alertController addAction:cancelAction];
-    
-    
-    
     [alertController addAction:deleteAction];
-    
-    
-    
     [alertController addAction:archiveAction];
     
-    [self presentViewController:alertController animated:YES completion:nil];
+    [self presentViewController:alertController
+                       animated:YES
+                     completion:nil];
     //    alertController.popoverPresentationController.sourceView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
     //
     //    alertController.popoverPresentationController.sourceRect = CGRectMake(0,0,1.0,1.0);
     //
     //    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
 }
+
 - (void)tuikuanBack{
     
     FDAlertView *alert = [[FDAlertView alloc] init];
-    DrawbackMoney *contentView = [[NSBundle mainBundle] loadNibNamed:@"DrawbackMoney" owner:nil options:nil].lastObject;
+    DrawbackMoney *contentView = [[NSBundle mainBundle] loadNibNamed:@"DrawbackMoney"
+                                                               owner:nil
+                                                             options:nil].lastObject;
     [contentView setFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     alert.contentView = contentView;
     [alert show];
 }
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+
 
 @end

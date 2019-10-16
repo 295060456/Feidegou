@@ -29,11 +29,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+
 - (void)locationControls{
     [self.collectionView setBackgroundColor:ColorBackground];
-    [self.tabAreaExchangeList registerNib:[UINib nibWithNibName:@"CellGoodList" bundle:nil] forCellReuseIdentifier:@"CellGoodList"];
+    [self.tabAreaExchangeList registerNib:[UINib nibWithNibName:@"CellGoodList"
+                                                         bundle:nil]
+                   forCellReuseIdentifier:@"CellGoodList"];
     [self.collectionView registerClass:[CLCellGoods class] forCellWithReuseIdentifier:@"CLCellGoods"];
-    self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabAreaExchangeList delegate:self];
+    self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabAreaExchangeList
+                                                                        delegate:self];
     [self.refreshControl beginRefreshingMethod];
 }
 
@@ -56,14 +60,14 @@
     //从服务器返回的每页数据数量,可以判断出服务器是否没有数据了
     if (self.curCount < 10) {
         return YES;
-    }
-    return NO;
+    }return NO;
 }
 
 - (void)requestExchangeList{
     
     __weak AreaExchangeListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodEreaExchangeListLimit:@"10" andPage:TransformNSInteger(self.intPageIndex)] subscribeNext:^(NSArray *array) {
+    myself.disposable = [[[JJHttpClient new] requestShopGoodEreaExchangeListLimit:@"10"
+                                                                          andPage:TransformNSInteger(self.intPageIndex)] subscribeNext:^(NSArray *array) {
         
         myself.curCount = array.count;
         if (myself.intPageIndex == 1) {
@@ -88,19 +92,17 @@
     }];
     
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark---tableviewdelegate---
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.arrAreaExchangeList.count;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 100.0f;
@@ -112,10 +114,12 @@
     [cell populateDataExchage:self.arrAreaExchangeList[indexPath.row]];
     return cell;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self pushToGoodDetial:indexPath];
 }
+
 - (void)pushToGoodDetial:(NSIndexPath *)indexPath{
     UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardExchageArea bundle:nil];
     AreaExchangeDetailController *controller=[storyboard instantiateViewControllerWithIdentifier:@"AreaExchangeDetailController"];

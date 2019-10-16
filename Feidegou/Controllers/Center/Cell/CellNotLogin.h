@@ -9,6 +9,7 @@
 #import "JJTableViewCell.h"
 
 @interface CellNotLogin : JJTableViewCell
+
 @property (weak, nonatomic) IBOutlet UIImageView *imgBack;
 
 @end

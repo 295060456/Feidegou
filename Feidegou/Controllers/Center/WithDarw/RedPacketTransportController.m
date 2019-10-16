@@ -11,6 +11,7 @@
 #import "JJHttpClient+FourZero.h"
 
 @interface RedPacketTransportController ()
+
 @property (weak, nonatomic) IBOutlet UITextField *txtUser;
 @property (weak, nonatomic) IBOutlet UITextField *txtMoney;
 @property (weak, nonatomic) IBOutlet UILabel *lblMoney;
@@ -31,6 +32,7 @@
     }];
     // Do any additional setup after loading the view.
 }
+
 - (void)textFieldChanged{
     if ([NSString isNullString:self.txtUser.text]||[NSString isNullString:self.txtMoney.text]) {
         [self.btnComfirlm setTitleColor:ColorGary forState:UIControlStateNormal];
@@ -40,10 +42,7 @@
         [self.btnComfirlm setBackgroundColor:ColorRed];
     }
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 - (IBAction)clcikButtonComfilrm:(UIButton *)sender {
     NSString *strUserNum = self.txtUser.text;
     NSString *strMoney = self.txtMoney.text;
@@ -77,14 +76,5 @@
     }];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

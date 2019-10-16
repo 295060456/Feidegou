@@ -61,8 +61,13 @@
         [self.pages addObject:controller];
     }
     
-    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
-    self.pageViewController.view.frame = CGRectMake(0, 0, self.viContainer.frame.size.width, self.viContainer.frame.size.height);
+    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
+                                                              navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
+                                                                            options:nil];
+    self.pageViewController.view.frame = CGRectMake(0,
+                                                    0,
+                                                    self.viContainer.frame.size.width,
+                                                    self.viContainer.frame.size.height);
     [self.pageViewController setDataSource:self];
     [self.pageViewController setDelegate:self];
     [self.pageViewController.view setAutoresizingMask:(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)];
@@ -72,42 +77,40 @@
         [self pageControlValueChanged:self.intSelected];
     }
 }
-#pragma mark -
+
 #pragma mark - UIPageViewControllerDataSource
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
-{
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
+      viewControllerBeforeViewController:(UIViewController *)viewController{
     NSUInteger index = [self.pages indexOfObject:viewController];
     
-    if ((index == NSNotFound) || (index == 0)) {
+    if ((index == NSNotFound) ||
+        (index == 0)) {
         return nil;
-    }
-    
-    return self.pages[--index];
+    }return self.pages[--index];
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
-{
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
+       viewControllerAfterViewController:(UIViewController *)viewController{
     NSUInteger index = [self.pages indexOfObject:viewController];
     
-    if ((index == NSNotFound)||(index+1 >= [self.pages count])) {
+    if ((index == NSNotFound)||
+        (index+1 >= [self.pages count])) {
         return nil;
-    }
-    
-    return self.pages[++index];
+    }return self.pages[++index];
 }
 
-- (void)pageViewController:(UIPageViewController *)viewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
-{
+- (void)pageViewController:(UIPageViewController *)viewController
+        didFinishAnimating:(BOOL)finished
+   previousViewControllers:(NSArray *)previousViewControllers
+       transitionCompleted:(BOOL)completed{
     if (!completed){
         return;
     }
-    [self refreshSelectedButton:[self.pages indexOfObject:[viewController.viewControllers lastObject]]+100];
+    [self refreshSelectedButton:[self.pages indexOfObject:[viewController.viewControllers lastObject]] + 100];
 }
 
-#pragma mark -
 #pragma mark - Callback
-- (void)pageControlValueChanged:(NSInteger)interger
-{
+- (void)pageControlValueChanged:(NSInteger)interger{
     UIPageViewControllerNavigationDirection direction = interger > self.intSelected ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse;
     [self.pageViewController setViewControllers:@[self.pages[interger-100]]
                                       direction:direction
@@ -129,46 +132,36 @@
     [self refreshPreForLblLine:(integer-100)*SCREEN_WIDTH/5];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)clickButtonTypeSelect:(UIButton *)sender {
     [self pageControlValueChanged:sender.tag];
 }
+
 - (IBAction)clickButtonAll:(UIButton *)sender {
     [self.btnAll setSelected:YES];
     [self.btnReady setSelected:NO];
     [self.btnSendOut setSelected:NO];
     [self refreshPreForLblLine:CGRectGetMinX(self.btnAll.frame)];
 }
+
 - (IBAction)clickButtonReady:(UIButton *)sender {
     [self.btnAll setSelected:NO];
     [self.btnReady setSelected:YES];
     [self.btnSendOut setSelected:NO];
     [self refreshPreForLblLine:CGRectGetMinX(self.btnReady.frame)];
 }
+
 - (IBAction)clickButtonSendOut:(UIButton *)sender {
     [self.btnAll setSelected:NO];
     [self.btnReady setSelected:NO];
     [self.btnSendOut setSelected:YES];
     [self refreshPreForLblLine:CGRectGetMinX(self.btnSendOut.frame)];
 }
+
 - (void)refreshPreForLblLine:(CGFloat)floatMinX{
     [UIView animateWithDuration:0.27 animations:^{
         self.layoutConstraintPre.constant = floatMinX;
         [self.view layoutIfNeeded];
     }];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

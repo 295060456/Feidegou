@@ -23,12 +23,14 @@
 #import "OrderDiscussController.h"
 
 @interface AreaDoneDetailController ()
+
 @property (weak, nonatomic) IBOutlet UITableView *tabOrderDetail;
 @property (weak, nonatomic) IBOutlet UIButton *btnOne;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstraintHeight;
 @property (strong, nonatomic) NSDictionary *dicPost;
 @property (strong, nonatomic) NSMutableArray *arrPost;
 @property (strong, nonatomic) ModelAreaDetail *modelDetail;
+
 @end
 
 @implementation AreaDoneDetailController
@@ -64,7 +66,9 @@
     }
     self.layoutConstraintHeight.constant = 40;
     __weak AreaDoneDetailController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderDetailLogisticsInformationType:[NSString stringStandard:self.modelDetail.ship_code] andPostid:[NSString stringStandard:self.modelDetail.igo_ship_code]] subscribeNext:^(NSDictionary* dictionary) {
+    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderDetailLogisticsInformationType:[NSString stringStandard:self.modelDetail.ship_code]
+                                                                                      andPostid:[NSString stringStandard:self.modelDetail.igo_ship_code]]
+                         subscribeNext:^(NSDictionary* dictionary) {
         //        如果是字典，则表示有物流信息
         //        如果数组有数据，则表示有具体的物流信息
         myself.arrPost = [NSMutableArray array];
@@ -86,6 +90,7 @@
         myself.disposable = nil;
     }];
 }
+
 - (void)requestData{
     [self showException];
     
@@ -101,17 +106,10 @@
         myself.disposable = nil;
         [myself hideException];
     }];
-    
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         return 2;
     }
@@ -123,12 +121,12 @@
     }
     return 0;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
     return 3;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
@@ -166,8 +164,7 @@
     return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == 0) {
         if (indexPath.row ==0) {
@@ -268,23 +265,23 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         return 0;
-    }
-    return 10;
+    }return 10;
 }
+
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (![NSString isNullString:self.modelDetail.igo_ship_code] && indexPath.row == 0 && indexPath.section == 0) {
         //        跳到物流详情
         [self pushOrderLogist];
     }
 }
+
 - (IBAction)clickButtonCheckWuliu:(UIButton *)sender {
     
     if (![NSString isNullString:self.modelDetail.igo_ship_code]) {
@@ -293,6 +290,7 @@
     }
     
 }
+
 - (void)pushOrderLogist{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder" bundle:nil];
     OrderLogisticsDetailController *controller = [storyboard instantiateViewControllerWithIdentifier:@"OrderLogisticsDetailController"];
@@ -303,14 +301,6 @@
     controller.strCompanyName = self.modelDetail.ship_name;
     [self.navigationController pushViewController:controller animated:YES];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

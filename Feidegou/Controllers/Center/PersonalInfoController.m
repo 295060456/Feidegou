@@ -20,7 +20,9 @@
 #import "AreaSelectController.h"
 #import "ChangePswController.h"
 
-@interface PersonalInfoController ()<datePickerDeleget>
+@interface PersonalInfoController ()
+<datePickerDeleget>
+
 @property (weak, nonatomic) IBOutlet UITableView *tabInfo;
 @property (strong, nonatomic) ModelInfo *model;
 @property (strong, nonatomic) ModelAddress *modelAddress;
@@ -36,6 +38,7 @@
     [self requestData];
     // Do any additional setup after loading the view.
 }
+
 - (void)requestData{
     __weak PersonalInfoController *myself = self;
     myself.disposable = [[[JJHttpClient new] requestShopGoodPersonalInfoUserId:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] subscribeNext:^(ModelInfo *model) {
@@ -52,21 +55,30 @@
         myself.disposable = nil;
     }];
 }
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self refreshView];
 }
+
 - (void)refreshView{
     self.model = [[JJDBHelper sharedInstance] fetchPersonalInfo];
     [self changeArea];
     [self.tabInfo reloadData];
 }
+
 - (void)changeArea{
     if ([self.modelAddress.area_id intValue]>0) {
         ModelInfo *model = [[JJDBHelper sharedInstance]  fetchPersonalInfo];
         [SVProgressHUD showWithStatus:@"正在提交信息..."];
         __weak PersonalInfoController *myself = self;
-        self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName] andtelePhone:@"" andarea_id:self.modelAddress.area_id andsex:@"" andbirthday:@"" andemail:@""] subscribeNext:^(NSDictionary*dictionry) {
+        self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName]
+                                                                    andtelePhone:@""
+                                                                      andarea_id:self.modelAddress.area_id
+                                                                          andsex:@""
+                                                                     andbirthday:@""
+                                                                        andemail:@""]
+                           subscribeNext:^(NSDictionary*dictionry) {
             if ([dictionry[@"code"] intValue]==1) {
                 [SVProgressHUD dismiss];
                 model.region = myself.modelAddress.area;
@@ -77,37 +89,39 @@
         }error:^(NSError *error) {
             myself.disposable = nil;
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-            myself.modelAddress = [MTLJSONAdapter modelOfClass:[ModelAddress class] fromJSONDictionary:[NSDictionary dictionary] error:nil];
+            myself.modelAddress = [MTLJSONAdapter modelOfClass:[ModelAddress class]
+                                            fromJSONDictionary:[NSDictionary dictionary]
+                                                         error:nil];
             [myself refreshView];
         }completed:^{
             myself.disposable = nil;
-            myself.modelAddress = [MTLJSONAdapter modelOfClass:[ModelAddress class] fromJSONDictionary:[NSDictionary dictionary] error:nil];
+            myself.modelAddress = [MTLJSONAdapter modelOfClass:[ModelAddress class]
+                                            fromJSONDictionary:[NSDictionary dictionary]
+                                                         error:nil];
             [myself refreshView];
         }];
     }
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         return 6;
     }
     return 1;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 4;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0&&indexPath.row == 0) {
         return 70;
     }
     return 50.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0&&indexPath.row == 0) {
         CellHeadImg *cell = [tableView dequeueReusableCellWithIdentifier:@"CellHeadImg"];
         [cell.lblName setText:@"头像"];
@@ -177,8 +191,8 @@
         }
         return cell;
     }
-    
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         return 0;
@@ -186,33 +200,42 @@
         return 10;
     }
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.section == 0) {
-        
         if (indexPath.row == 0) {
-            ChangeHeadImgController *controller = [[UIStoryboard storyboardWithName:StoryboardMine bundle:nil] instantiateViewControllerWithIdentifier:@"ChangeHeadImgController"];
+            ChangeHeadImgController *controller = [[UIStoryboard storyboardWithName:StoryboardMine
+                                                                             bundle:nil]
+                                                   instantiateViewControllerWithIdentifier:@"ChangeHeadImgController"];
             [self.navigationController pushViewController:controller animated:YES];
         }
         if (indexPath.row == 2) {
             if ([NSString isNullString:self.model.mobile]) {
-                ChangeNameController *controller = [[UIStoryboard storyboardWithName:StoryboardMine bundle:nil] instantiateViewControllerWithIdentifier:@"ChangeNameController"];
+                ChangeNameController *controller = [[UIStoryboard storyboardWithName:StoryboardMine
+                                                                              bundle:nil]
+                                                    instantiateViewControllerWithIdentifier:@"ChangeNameController"];
                 controller.personalInfo = enum_personalInfo_phone;
-                [self.navigationController pushViewController:controller animated:YES];
+                [self.navigationController pushViewController:controller
+                                                     animated:YES];
             }
         }
         if (indexPath.row == 3) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder
+                                                                 bundle:nil];
             AreaSelectController *controller = [storyboard instantiateViewControllerWithIdentifier:@"AreaSelectController"];
             controller.model = self.modelAddress;
-            [self.navigationController pushViewController:controller animated:YES];
+            [self.navigationController pushViewController:controller
+                                                 animated:YES];
         }
         if (indexPath.row == 4) {
             [self initSelectSex];
         }
         if (indexPath.row == 5) {
-            DateSelecet *viDate = [[DateSelecet alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+            DateSelecet *viDate = [[DateSelecet alloc] initWithFrame:CGRectMake(0,
+                                                                                0,
+                                                                                SCREEN_WIDTH,
+                                                                                SCREEN_HEIGHT)];
             [viDate setDelegate:self];
             NSDate*nowDate = [NSDate date];
             viDate.maximumDate = nowDate;
@@ -232,28 +255,37 @@
         }
     }
     if (indexPath.section == 1) {
-        ChangeNameController *controller = [[UIStoryboard storyboardWithName:StoryboardMine bundle:nil] instantiateViewControllerWithIdentifier:@"ChangeNameController"];
+        ChangeNameController *controller = [[UIStoryboard storyboardWithName:StoryboardMine bundle:nil]
+                                            instantiateViewControllerWithIdentifier:@"ChangeNameController"];
         controller.personalInfo = enum_personalInfo_email;
-        [self.navigationController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller
+                                             animated:YES];
     }
     if (indexPath.section == 2) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil];
         OrderesAddressController *controller = [storyboard instantiateViewControllerWithIdentifier:@"OrderesAddressController"];
-        [self.navigationController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller
+                                             animated:YES];
     }
     if (indexPath.section == 3) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMine bundle:nil];
         ChangePswController *controller = [storyboard instantiateViewControllerWithIdentifier:@"ChangePswController"];
-        [self.navigationController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller
+                                             animated:YES];
     }
 }
 
 - (void)dateSelected:(NSString *)strData{
-    
     ModelInfo *model = [[JJDBHelper sharedInstance] fetchPersonalInfo];
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
     __weak PersonalInfoController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName] andtelePhone:@"" andarea_id:@"" andsex:@"" andbirthday:strData andemail:@""] subscribeNext:^(NSDictionary*dictionry) {
+    self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName]
+                                                                andtelePhone:@""
+                                                                  andarea_id:@""
+                                                                      andsex:@""
+                                                                 andbirthday:strData
+                                                                    andemail:@""]
+                       subscribeNext:^(NSDictionary*dictionry) {
         if ([dictionry[@"code"] intValue]==1) {
             [SVProgressHUD dismiss];
             model.birthday_gai = strData;
@@ -269,29 +301,38 @@
         myself.disposable = nil;
     }];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 - (void)initSelectSex{
     UIAlertController *alert;
     if (isIPhone) {
-        alert = [UIAlertController alertControllerWithTitle:@"性别" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        alert = [UIAlertController alertControllerWithTitle:@"性别"
+                                                    message:nil
+                                             preferredStyle:UIAlertControllerStyleActionSheet];
     }else{
-        alert = [UIAlertController alertControllerWithTitle:@"性别" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        alert = [UIAlertController alertControllerWithTitle:@"性别"
+                                                    message:nil
+                                             preferredStyle:UIAlertControllerStyleAlert];
     }
     
     [self presentViewController:alert animated:YES completion:nil];
-    UIAlertAction *actionMan = [UIAlertAction actionWithTitle:@"男" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+    UIAlertAction *actionMan = [UIAlertAction actionWithTitle:@"男"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction *action){
         [self requestSex:@"1"];
     }];
-    UIAlertAction *actionWoman = [UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+    UIAlertAction *actionWoman = [UIAlertAction actionWithTitle:@"女"
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:^(UIAlertAction *action){
         [self requestSex:@"0"];
     }];
-    UIAlertAction *actionSecrecy = [UIAlertAction actionWithTitle:@"保密" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action){
+    UIAlertAction *actionSecrecy = [UIAlertAction actionWithTitle:@"保密"
+                                                            style:UIAlertActionStyleDestructive
+                                                          handler:^(UIAlertAction *action){
         [self requestSex:@"2"];
     }];
-    UIAlertAction *actionCancell = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *actionCancell = [UIAlertAction actionWithTitle:@"取消"
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:nil];
     [alert addAction:actionMan];
     [alert addAction:actionWoman];
     [alert addAction:actionSecrecy];
@@ -303,7 +344,13 @@
     ModelInfo *model = [[JJDBHelper sharedInstance] fetchPersonalInfo];
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
     __weak PersonalInfoController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName] andtelePhone:@"" andarea_id:@"" andsex:strSex andbirthday:@"" andemail:@""] subscribeNext:^(NSDictionary*dictionry) {
+    self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName]
+                                                                andtelePhone:@""
+                                                                  andarea_id:@""
+                                                                      andsex:strSex
+                                                                 andbirthday:@""
+                                                                    andemail:@""]
+                       subscribeNext:^(NSDictionary*dictionry) {
         if ([dictionry[@"code"] intValue]==1) {
             [SVProgressHUD dismiss];
             model.sex = strSex;
@@ -319,14 +366,6 @@
         myself.disposable = nil;
     }];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

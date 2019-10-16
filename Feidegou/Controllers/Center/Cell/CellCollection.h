@@ -10,13 +10,24 @@
 #import "ModelCenter.h"
 
 @protocol DidClickDelegeteOnlyCollectionView<NSObject>
+
 @optional
-- (void)didClickOnlyCollectionViewIndexPath:(NSIndexPath *)indexPath andRow:(NSInteger)row;
+
+- (void)didClickOnlyCollectionViewIndexPath:(NSIndexPath *)indexPath
+                                     andRow:(NSInteger)row;
 @end
-@interface CellCollection : JJTableViewCell<UICollectionViewDelegate,UICollectionViewDataSource>
+
+@interface CellCollection : JJTableViewCell
+<
+UICollectionViewDelegate,
+UICollectionViewDataSource
+>
+
 @property (assign, nonatomic) id<DidClickDelegeteOnlyCollectionView> delegete;
 @property (strong, nonatomic) NSIndexPath *indxPath;
 @property (strong, nonatomic) NSMutableArray *arrType;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-- (void)populateData:(NSIndexPath *)indexPath andModel:(ModelCenter *)model;
+
+- (void)populateData:(NSIndexPath *)indexPath
+            andModel:(ModelCenter *)model;
 @end

@@ -14,5 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblTime;
 @property (weak, nonatomic) IBOutlet UILabel *lblContent;
 @property (weak, nonatomic) IBOutlet UIImageView *imgHead;
+
 - (void)populataData:(NSDictionary *)dicInfo;
+
 @end

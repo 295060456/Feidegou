@@ -41,13 +41,17 @@
     self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabInteger delegate:self];
     // Do any additional setup after loading the view.
 }
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.refreshControl beginRefreshingMethod];
 }
+
 - (void)requestExchangeList{
     __weak IntegerGoodDetailController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderListAreaExchangeLimit:@"20" andPage:TransformNSInteger(self.intPageIndex)] subscribeNext:^(NSArray* array) {
+    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderListAreaExchangeLimit:@"20"
+                                                                               andPage:TransformNSInteger(self.intPageIndex)]
+                         subscribeNext:^(NSArray* array) {
         myself.curCount = array.count;
         if (myself.intPageIndex == 1) {
             myself.arrInteger = [NSMutableArray array];
@@ -78,6 +82,7 @@
         [self requestExchangeList];
     }
 }
+
 -(void)refreshControlForLoadMoreData{
     //从远程服务器获取数据
     if ([self respondsToSelector:@selector(requestExchangeList)]) {
@@ -92,13 +97,13 @@
     }
     return NO;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
+
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     int intState = [self.arrInteger[section][@"igo_status"] intValue];
     if (intState == 20) {
@@ -110,8 +115,8 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.arrInteger.count;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         return 40.0f;
     }
@@ -126,8 +131,7 @@
     }
     if (indexPath.row == 4) {
         return 40.0f;
-    }
-    return 0;
+    }return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -231,6 +235,7 @@
     [cell.lblDown setTextNull:@""];
     return cell;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0||section == 4) {
         return 0;
@@ -238,24 +243,14 @@
         return 10;
     }
 }
+
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+
 
 @end

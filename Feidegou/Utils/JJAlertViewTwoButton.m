@@ -26,8 +26,8 @@ typedef void (^cancle)();
            andCancel:(NSString *)cancelButtonTitle
        andCanelIsRed:(BOOL)isRed
        andOherButton:(NSString *)otherButtonTitle
-          andConfirm:(void (^)())confirm
-           andCancel:(void (^)())cancle{
+          andConfirm:(void (^)(void))confirm
+           andCancel:(void (^)(void))cancle{
     confirmParam=confirm;
     cancleParam=cancle;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {

@@ -23,7 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblPirceAll;
 @property (strong, nonatomic) OrderAttribute *orderAttribute;
 
-
 @end
 
 @implementation AreaOrderComfilmController
@@ -32,6 +31,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+
 - (void)locationControls{
     [self registerLJWKeyboardHandler];
     [self.tabOrder setBackgroundColor:ColorBackground];
@@ -56,15 +56,15 @@
     }
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 4;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         return 70.0f;
     }
@@ -76,12 +76,10 @@
     }
     if (indexPath.section == 3) {
         return 65;
-    }
-    return 0;
+    }return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         NSString *strAddressId = self.orderAttribute.strAddressId;
         if ([NSString isNullString:strAddressId]) {
@@ -126,10 +124,12 @@
     [cell.lblMoneyDown setTextNull:StringFormat(@"+￥%@",[NSString stringStandardFloatTwo:self.modelDetail.ig_transfee])];
     return cell;
 }
+
 - (void)textFiledEditChanged:(UITextField *)textField{
     self.orderAttribute.strMsg = textField.text;
     D_NSLog(@"text is %@",self.orderAttribute.strMsg);
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         return 0;
@@ -137,14 +137,14 @@
         return 10;
     }
 }
+
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self.view endEditing:YES];
     
@@ -155,14 +155,11 @@
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [self.view endEditing:YES];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 - (IBAction)clickButtonCommit:(UIButton *)sender {
     if ([NSString isNullString:self.orderAttribute.strAddressId]) {
         [SVProgressHUD showErrorWithStatus:@"请选择收货地址"];
@@ -173,14 +170,24 @@
     
     
     __weak AreaOrderComfilmController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestFourZeroAreaExchangeOrderComfilmig_goods_id:[NSString stringStandard:self.modelDetail.ig_goods_id] andgoodsCont:StringFormat(@"%d",self.intNum) andigo_msg:[NSString stringStandard:self.orderAttribute.strMsg] andshopId:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] anduserId:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] andaddrid:[NSString stringStandard:self.orderAttribute.strAddressId]] subscribeNext:^(NSDictionary*dictioanry) {
+    self.disposable = [[[JJHttpClient new] requestFourZeroAreaExchangeOrderComfilmig_goods_id:[NSString stringStandard:self.modelDetail.ig_goods_id]
+                                                                                 andgoodsCont:StringFormat(@"%d",self.intNum)
+                                                                                   andigo_msg:[NSString stringStandard:self.orderAttribute.strMsg]
+                                                                                    andshopId:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]
+                                                                                    anduserId:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]
+                                                                                    andaddrid:[NSString stringStandard:self.orderAttribute.strAddressId]] subscribeNext:^(NSDictionary*dictioanry) {
         [SVProgressHUD dismiss];
         if ([dictioanry[@"code"] intValue]==1) {
             NSDictionary *dicMiddel = dictioanry[@"data"];
             if ([dicMiddel[@"isFinish"] boolValue]) {
                 
                 JJAlertViewOneButton *alertView = [[JJAlertViewOneButton alloc] init];
-                [alertView showAlertView:self andTitle:nil andMessage:dictioanry[@"msg"]  andCancel:@"确定" andCanelIsRed:YES andBack:^{
+                [alertView showAlertView:self
+                                andTitle:nil
+                              andMessage:dictioanry[@"msg"]
+                               andCancel:@"确定"
+                           andCanelIsRed:YES
+                                 andBack:^{
                     D_NSLog(@"点击了确定");
                     [self.navigationController popViewControllerAnimated:YES];
                 }];
@@ -207,17 +214,6 @@
     }completed:^{
         myself.disposable = nil;
     }];
-    
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

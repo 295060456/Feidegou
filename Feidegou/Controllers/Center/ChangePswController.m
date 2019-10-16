@@ -10,6 +10,7 @@
 #import "JJHttpClient+FourZero.h"
 
 @interface ChangePswController ()
+
 @property (weak, nonatomic) IBOutlet UITextView *txtPswOld;
 @property (weak, nonatomic) IBOutlet UITextField *txtPswNew;
 @property (weak, nonatomic) IBOutlet UIButton *btnCommit;
@@ -30,6 +31,7 @@
     [self.txtPswNew addTarget:self action:@selector(textFiledDidChanged:) forControlEvents:UIControlEventEditingChanged];
     // Do any additional setup after loading the view.
 }
+
 - (void)textFiledDidChanged:(UITextField *)text{
     NSString *strPswNew = self.txtPswNew.text;
     if (![NSString isPassword:strPswNew]) {
@@ -38,10 +40,7 @@
         [self.btnCommit setBackgroundColor:ColorRed];
     }
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 - (IBAction)clickButtonCommit:(UIButton *)sender {
     NSString *strPswOld = self.txtPswOld.text;
     NSString *strPswNew = self.txtPswNew.text;
@@ -76,14 +75,5 @@
     }];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

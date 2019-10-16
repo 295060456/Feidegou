@@ -79,9 +79,7 @@
     
     if (string.length == 0) {
         return YES;
-    }
-    
-    return NO;
+    } return NO;
 }
 
 + (NSString *)clearWhitespaceCharacterSet:(NSString *)strFrom{

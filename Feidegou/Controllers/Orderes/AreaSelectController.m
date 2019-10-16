@@ -11,6 +11,7 @@
 #import "JJHttpClient+ShopGood.h"
 
 @interface AreaSelectController ()
+
 @property (weak, nonatomic) IBOutlet UITableView *tabArea;
 @property (strong, nonatomic) NSMutableArray *arrArea;
 @property (strong, nonatomic) NSMutableArray *arrAreaSelected;
@@ -25,6 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+
 - (void)locationControls{
     
     [self.tabArea registerNib:[UINib nibWithNibName:@"CellOneLabel" bundle:nil] forCellReuseIdentifier:@"CellOneLabel"];
@@ -60,23 +62,22 @@
     
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         return self.arrAreaSelected.count;
     }
     return self.arrArea.count;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 40.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CellOneLabel *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOneLabel"];
     ModelArea *model;
     UIView *viBack = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
@@ -95,8 +96,8 @@
     [cell setBackgroundView:viBack];
     return cell;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.section == 1) {
         ModelArea *model = self.arrArea[indexPath.row];
@@ -112,6 +113,7 @@
         }
     }
 }
+
 - (void)selectedCompelete{
     NSString *strAreaName = @"";
     for (int i = 0; i<self.arrAreaSelected.count; i++) {
@@ -126,19 +128,5 @@
     self.applyForVenderAttribute.strAreaName = strAreaName;
     [self.navigationController popViewControllerAnimated:YES];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

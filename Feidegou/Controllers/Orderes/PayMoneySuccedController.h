@@ -11,4 +11,5 @@
 @interface PayMoneySuccedController : JJBaseViewController
 
 @property (nonatomic,assign) int intShare;
+
 @end

@@ -11,4 +11,5 @@
 @interface OrderListMainController : JJBaseViewController
 
 @property (assign, nonatomic) enumOrderState orderState;
+
 @end

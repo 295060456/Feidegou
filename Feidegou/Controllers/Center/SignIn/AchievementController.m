@@ -24,6 +24,7 @@
 @end
 
 @implementation AchievementController
+
 - (IBAction)clickBack:(UIButton *)sender {
     [self clickButtonBack:sender];
 }
@@ -47,15 +48,18 @@
     [self refreshView];
     // Do any additional setup after loading the view.
 }
+
 - (void)refreshView{
     UIImage *image = [PublicFunction fetchImageForShareAchievement:self.dicInfo];
     self.layoutConstraintHeight.constant = SCREEN_WIDTH*image.size.height/image.size.width;
     [self.imgShare setImage:image];
 }
+
 - (void)locationControls{
     [self showExceptionNoHead];
     __weak AchievementController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestShopGoodSignInShare] subscribeNext:^(NSDictionary*dictionary) {        if ([dictionary isKindOfClass:[NSDictionary class]]) {
+    self.disposable = [[[JJHttpClient new] requestShopGoodSignInShare] subscribeNext:^(NSDictionary*dictionary) {
+        if ([dictionary isKindOfClass:[NSDictionary class]]) {
             myself.dicInfo = [NSDictionary dictionaryWithDictionary:dictionary];
             [myself refreshView];
         }
@@ -67,17 +71,15 @@
         [myself hideException];
     }];
 }
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:self.isHadTitle];
 }
+
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:self.isHadTitle];
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)clickButtonShage:(ButtonShare *)sender {
@@ -124,8 +126,6 @@
 //            }
         }];
     }
-
-    
 //    UIImage *shareImage = [PublicFunction fetchImageForShareAchievement:self.dicInfo];
 //    shareImage = [self compressImage:shareImage toByte:32];
 //    WXMediaMessage *message = [WXMediaMessage message];
@@ -146,7 +146,8 @@
 //    [WXApi sendReq:req];
 }
 
-- (UIImage *)compressImage:(UIImage *)image toByte:(NSUInteger)maxLength {
+- (UIImage *)compressImage:(UIImage *)image
+                    toByte:(NSUInteger)maxLength {
     // Compress by quality
     CGFloat compression = 1;
     NSData *data = UIImageJPEGRepresentation(image, compression);
@@ -180,19 +181,7 @@
         resultImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         data = UIImageJPEGRepresentation(resultImage, compression);
-    }
-    
-    return resultImage;
+    }return resultImage;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
