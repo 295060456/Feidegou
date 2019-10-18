@@ -64,31 +64,33 @@
 }
 
 - (void)requestExchangeList{
-    
-    __weak AreaExchangeListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodEreaExchangeListLimit:@"10"
-                                                                          andPage:TransformNSInteger(self.intPageIndex)] subscribeNext:^(NSArray *array) {
-        
-        myself.curCount = array.count;
-        if (myself.intPageIndex == 1) {
-            myself.arrAreaExchangeList = [NSMutableArray array];
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodEreaExchangeListLimit:@"10"
+                                                                          andPage:TransformNSInteger(self.intPageIndex)]
+                         subscribeNext:^(NSArray *array) {
+        @strongify(self)
+        self.curCount = array.count;
+        if (self.intPageIndex == 1) {
+            self.arrAreaExchangeList = [NSMutableArray array];
         }
-        [myself.arrAreaExchangeList addObjectsFromArray:array];
-        [myself.collectionView reloadData];
+        [self.arrAreaExchangeList addObjectsFromArray:array];
+        [self.collectionView reloadData];
 //        [myself.tabAreaExchangeList checkNoData:myself.arrAreaExchangeList.count];
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself.refreshControl endRefreshing];
+        @strongify(self)
+        self.disposable = nil;
+        [self.refreshControl endRefreshing];
         if (error.code!=2) {
 //            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }else{
-            myself.curCount = 0;
+            self.curCount = 0;
         }
-        [myself.tabAreaExchangeList checkNoData:myself.arrAreaExchangeList.count];
+        [self.tabAreaExchangeList checkNoData:self.arrAreaExchangeList.count];
     }completed:^{
-        myself.intPageIndex++;
-        [myself.refreshControl endRefreshing];
-        myself.disposable = nil;
+        @strongify(self)
+        self.intPageIndex++;
+        [self.refreshControl endRefreshing];
+        self.disposable = nil;
     }];
 }
 

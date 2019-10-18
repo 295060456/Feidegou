@@ -39,18 +39,20 @@
 
 - (void)requestData{
     [self showException];
-    __weak GoodSecendTypeController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodTypeTwoGoodsType_id:TransformString(self.model.goodsType_id)]
-                         subscribeNext:^(NSArray* array) {
-        
-        myself.arrType = [NSMutableArray arrayWithArray:array];
-        [myself.collectionView reloadData];
-        [myself hideException];
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodTypeTwoGoodsType_id:TransformString(self.model.goodsType_id)]
+                         subscribeNext:^(NSArray *array) {
+        @strongify(self)
+        self.arrType = [NSMutableArray arrayWithArray:array];
+        [self.collectionView reloadData];
+        [self hideException];
     }error:^(NSError *error) {
-        [myself failedRequestException:enum_exception_timeout];
-        myself.disposable = nil;
+        @strongify(self)
+        [self failedRequestException:enum_exception_timeout];
+        self.disposable = nil;
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 #pragma mark --UICollectionViewDelegate

@@ -44,20 +44,23 @@
 }
 
 - (void)requestData{
-    __weak PersonalInfoController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodPersonalInfoUserId:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodPersonalInfoUserId:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]
                          subscribeNext:^(ModelInfo *model) {
+        @strongify(self)
 //        把登录信息里面的头像更新
         ModelCenter *modelLogin = [[JJDBHelper sharedInstance] fetchCenterMsg];
         if (![NSString isNullString:model.photoUrl]) {
             modelLogin.head = model.photoUrl;
             [[JJDBHelper sharedInstance] saveCenterMsg:modelLogin];
         }
-        [myself refreshView];
+        [self refreshView];
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 
@@ -76,7 +79,7 @@
     if ([self.modelAddress.area_id intValue]>0) {
         ModelInfo *model = [[JJDBHelper sharedInstance]  fetchPersonalInfo];
         [SVProgressHUD showWithStatus:@"正在提交信息..."];
-        __weak PersonalInfoController *myself = self;
+        @weakify(self)
         self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName]
                                                                     andtelePhone:@""
                                                                       andarea_id:self.modelAddress.area_id
@@ -84,26 +87,29 @@
                                                                      andbirthday:@""
                                                                         andemail:@""]
                            subscribeNext:^(NSDictionary*dictionry) {
+            @strongify(self)
             if ([dictionry[@"code"] intValue]==1) {
                 [SVProgressHUD dismiss];
-                model.region = myself.modelAddress.area;
+                model.region = self.modelAddress.area;
                 [[JJDBHelper sharedInstance] savePersonalInfo:model];
             }else{
                 [SVProgressHUD showErrorWithStatus:dictionry[@"msg"]];
             }
         }error:^(NSError *error) {
-            myself.disposable = nil;
+            @strongify(self)
+            self.disposable = nil;
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-            myself.modelAddress = [MTLJSONAdapter modelOfClass:[ModelAddress class]
+            self.modelAddress = [MTLJSONAdapter modelOfClass:[ModelAddress class]
                                             fromJSONDictionary:[NSDictionary dictionary]
                                                          error:nil];
-            [myself refreshView];
+            [self refreshView];
         }completed:^{
-            myself.disposable = nil;
-            myself.modelAddress = [MTLJSONAdapter modelOfClass:[ModelAddress class]
+            @strongify(self)
+            self.disposable = nil;
+            self.modelAddress = [MTLJSONAdapter modelOfClass:[ModelAddress class]
                                             fromJSONDictionary:[NSDictionary dictionary]
                                                          error:nil];
-            [myself refreshView];
+            [self refreshView];
         }];
     }
 }
@@ -281,7 +287,7 @@
 - (void)dateSelected:(NSString *)strData{
     ModelInfo *model = [[JJDBHelper sharedInstance] fetchPersonalInfo];
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
-    __weak PersonalInfoController *myself = self;
+    @weakify(self)
     self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName]
                                                                 andtelePhone:@""
                                                                   andarea_id:@""
@@ -289,23 +295,27 @@
                                                                  andbirthday:strData
                                                                     andemail:@""]
                        subscribeNext:^(NSDictionary*dictionry) {
+        @strongify(self)
         if ([dictionry[@"code"] intValue]==1) {
             [SVProgressHUD dismiss];
             model.birthday_gai = strData;
             [[JJDBHelper sharedInstance] savePersonalInfo:model];
-            [myself refreshView];
+            [self refreshView];
         }else{
             [SVProgressHUD showErrorWithStatus:dictionry[@"msg"]];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 
 - (void)initSelectSex{
+    @weakify(self)
     UIAlertController *alert;
     if (isIPhone) {
         alert = [UIAlertController alertControllerWithTitle:@"性别"
@@ -317,20 +327,25 @@
                                              preferredStyle:UIAlertControllerStyleAlert];
     }
     
-    [self presentViewController:alert animated:YES completion:nil];
+    [self presentViewController:alert
+                       animated:YES
+                     completion:nil];
     UIAlertAction *actionMan = [UIAlertAction actionWithTitle:@"男"
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction *action){
+        @strongify(self)
         [self requestSex:@"1"];
     }];
     UIAlertAction *actionWoman = [UIAlertAction actionWithTitle:@"女"
                                                           style:UIAlertActionStyleDefault
                                                         handler:^(UIAlertAction *action){
+        @strongify(self)
         [self requestSex:@"0"];
     }];
     UIAlertAction *actionSecrecy = [UIAlertAction actionWithTitle:@"保密"
                                                             style:UIAlertActionStyleDestructive
                                                           handler:^(UIAlertAction *action){
+        @strongify(self)
         [self requestSex:@"2"];
     }];
     UIAlertAction *actionCancell = [UIAlertAction actionWithTitle:@"取消"
@@ -346,7 +361,7 @@
     
     ModelInfo *model = [[JJDBHelper sharedInstance] fetchPersonalInfo];
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
-    __weak PersonalInfoController *myself = self;
+    @weakify(self)
     self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName]
                                                                 andtelePhone:@""
                                                                   andarea_id:@""
@@ -354,19 +369,22 @@
                                                                  andbirthday:@""
                                                                     andemail:@""]
                        subscribeNext:^(NSDictionary*dictionry) {
+        @strongify(self)
         if ([dictionry[@"code"] intValue]==1) {
             [SVProgressHUD dismiss];
             model.sex = strSex;
             [[JJDBHelper sharedInstance] savePersonalInfo:model];
-            [myself refreshView];
+            [self refreshView];
         }else{
             [SVProgressHUD showErrorWithStatus:dictionry[@"msg"]];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 

@@ -160,7 +160,10 @@ UIPageViewControllerDelegate
 }
 
 - (void)refreshPreForLblLine:(CGFloat)floatMinX{
-    [UIView animateWithDuration:0.27 animations:^{
+    @weakify(self)
+    [UIView animateWithDuration:0.27
+                     animations:^{
+        @strongify(self)
         self.layoutConstraintPre.constant = floatMinX;
         [self.view layoutIfNeeded];
     }];

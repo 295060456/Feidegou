@@ -60,23 +60,25 @@
 
 - (void)requestData{
     [self showException];
-    __weak AreaExchangeDetailController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodEreaExchangeDetailIg_goods_id:self.model.ig_goods_id] subscribeNext:^(ModelEreaExchangeDetail *model) {
-        myself.modelDetail = model;
-        [myself refreshView];
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodEreaExchangeDetailIg_goods_id:self.model.ig_goods_id] subscribeNext:^(ModelEreaExchangeDetail *model) {
+        @strongify(self)
+        self.modelDetail = model;
+        [self refreshView];
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself failedRequestException:enum_exception_timeout];
+        @strongify(self)
+        self.disposable = nil;
+        [self failedRequestException:enum_exception_timeout];
     }completed:^{
-        myself.disposable = nil;
-        [myself hideException];
+        @strongify(self)
+        self.disposable = nil;
+        [self hideException];
     }];
 }
 
 - (void)refreshView{
     [self.tabDetail reloadData];
     [self.lblNumLeave setText:StringFormat(@"库存%@  限购%@",self.modelDetail.ig_goods_count,self.modelDetail.ig_limit_count)];
-    
     [self.webView loadHTMLString:self.modelDetail.ig_content baseURL:nil];
 }
 

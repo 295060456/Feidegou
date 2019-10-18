@@ -42,29 +42,32 @@
         [SVProgressHUD showErrorWithStatus:@"请输入支付宝账号"];
         return;
     }
-    
     [self.view endEditing:YES];
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
-    __weak InputApliayController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestFourZeroChangeAlipy:strAccount andalipayName:strName] subscribeNext:^(NSDictionary*dictionry) {
-        if ([dictionry[@"code"] intValue]==1) {
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestFourZeroChangeAlipy:strAccount andalipayName:strName] subscribeNext:^(NSDictionary *dictionry) {
+        @strongify(self)
+        if ([dictionry[@"code"] intValue] == 1) {
             [SVProgressHUD dismiss];
-            myself.model.alipayName = strName;
-            myself.model.alipay = strAccount;
+            self.model.alipayName = strName;
+            self.model.alipay = strAccount;
             [[JJDBHelper sharedInstance] saveCenterMsg:self.model];
-            [myself.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:dictionry[@"msg"]];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+- (void)touchesBegan:(NSSet<UITouch *> *)touches
+           withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
 

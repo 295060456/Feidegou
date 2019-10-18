@@ -136,11 +136,12 @@ RefreshControlDelegate
     }
     
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
-    __weak MyOrderListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestFourZeroDarwback:strOrderId
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestFourZeroDarwback:strOrderId
                                                               andmsg:strMsg
                                                              andtype:[NSString stringStandard:self.strTuikuanType]]
                          subscribeNext:^(NSDictionary* dictionary) {
+        @strongify(self)
         if ([dictionary[@"code"] intValue]==1) {
             for (int i = 0; i<self.arrGoods.count; i++) {
                 ModelOrderList *modelList = self.arrGoods[i];
@@ -160,9 +161,11 @@ RefreshControlDelegate
             [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 
@@ -171,31 +174,34 @@ RefreshControlDelegate
     if (self.orderState != enumOrder_quanbu) {
         strOrderState = TransformNSInteger(self.orderState);
     }
-    __weak MyOrderListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderListLimit:@"10"
-                                                                   andPage:TransformNSInteger(self.intPageIndex)
-                                                           andOrder_status:strOrderState
-                                                                andUser_id:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]]
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodOrderListLimit:@"10"
+                                                                 andPage:TransformNSInteger(self.intPageIndex)
+                                                         andOrder_status:strOrderState
+                                                              andUser_id:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]]
                          subscribeNext:^(NSArray* array) {
-        myself.curCount = array.count;
-        if (myself.intPageIndex == 1) {
-            myself.arrGoods = [NSMutableArray array];
+        @strongify(self)
+        self.curCount = array.count;
+        if (self.intPageIndex == 1) {
+            self.arrGoods = [NSMutableArray array];
         }
-        [myself.arrGoods addObjectsFromArray:array];
-        [myself reloadTabView];
+        [self.arrGoods addObjectsFromArray:array];
+        [self reloadTabView];
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself reloadTabView];
-        [myself.refreshControl endRefreshing];
+        @strongify(self)
+        self.disposable = nil;
+        [self reloadTabView];
+        [self.refreshControl endRefreshing];
         if (error.code!=2) {
             //            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }else{
-            myself.curCount = 0;
+            self.curCount = 0;
         }
     }completed:^{
-        myself.intPageIndex++;
-        [myself.refreshControl endRefreshing];
-        myself.disposable = nil;
+        @strongify(self)
+        self.intPageIndex++;
+        [self.refreshControl endRefreshing];
+        self.disposable = nil;
     }];
 }
 #pragma mark - RefreshControlDelegate
@@ -244,9 +250,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    @weakify(self)
     ModelOrderList *model = self.arrGoods[indexPath.section];
     if (indexPath.row == 0) {
-        CellOrderVendorTitle *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderVendorTitle"];
+        CellOrderVendorTitle *cell = [tableView dequeueReusableCellWithIdentifier:@"CellOrderVendorTitle"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         [cell populateData:self.arrGoods[indexPath.section]];
         return cell;
@@ -263,25 +270,28 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                andgift_d_coins:dicInfo[@"gift_d_coins"]];
         return cell;
     }
-    if (indexPath.row == model.goodsList.count+2) {
+    if (indexPath.row == model.goodsList.count + 2) {
         
         CellOrderButtones *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderButtones"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         [cell populateDataOrderList:self.arrGoods[indexPath.section]];
         [cell.btnOne handleControlEvent:UIControlEventTouchUpInside
                               withBlock:^{
+            @strongify(self)
             [self clickButtonForListName:cell.btnOne.titleLabel.text
                             andIndexPath:self.arrGoods[indexPath.section]
                             andIndexPath:indexPath];
         }];
         [cell.btnTwo handleControlEvent:UIControlEventTouchUpInside
                               withBlock:^{
+            @strongify(self)
             [self clickButtonForListName:cell.btnTwo.titleLabel.text
                             andIndexPath:self.arrGoods[indexPath.section]
                             andIndexPath:indexPath];
         }];
         [cell.btnThree handleControlEvent:UIControlEventTouchUpInside
                                 withBlock:^{
+            @strongify(self)
             [self clickButtonForListName:cell.btnThree.titleLabel.text
                             andIndexPath:self.arrGoods[indexPath.section]
                             andIndexPath:indexPath];
@@ -289,7 +299,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     
     //    if (indexPath.row == model.goodsList.count+1) {
-    CellOrderOneLbl *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderOneLbl"];
+    CellOrderOneLbl *cell = [tableView dequeueReusableCellWithIdentifier:@"CellOrderOneLbl"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     [cell populateData:self.arrGoods[indexPath.section]];
     return cell;
@@ -313,6 +323,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 - (void)clickButtonForListName:(NSString *)strTitle
                   andIndexPath:(ModelOrderList *)model
                   andIndexPath:(NSIndexPath *)indexPath{
+    @weakify(self)
     if ([TransformString(strTitle) isEqualToString:@"去支付"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder" bundle:nil];
         PayMonyForGoodController *controller = [storyboard instantiateViewControllerWithIdentifier:@"PayMonyForGoodController"];
@@ -324,32 +335,32 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         }
         [self.navigationController pushViewController:controller animated:YES];
     }else if ([TransformString(strTitle) isEqualToString:@"取消订单"]) {
-        
-        JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-        [alertView showAlertView:self
-                        andTitle:nil
-                      andMessage:@"是否删除"
-                       andCancel:@"取消"
-                   andCanelIsRed:NO
-                   andOherButton:@"立即删除"
-                      andConfirm:^{
+        [JJAlertViewTwoButton.new showAlertView:self
+                                       andTitle:nil
+                                     andMessage:@"是否删除"
+                                      andCancel:@"取消"
+                                  andCanelIsRed:NO
+                                  andOherButton:@"立即删除"
+                                     andConfirm:^{
             D_NSLog(@"点击了立即发布");
             [SVProgressHUD showWithStatus:@"正在删除..."];
-            __weak MyOrderListController *myself = self;
-            myself.disposableDelete = [[[JJHttpClient new] requestFourZeroDeleteOrderId:[NSString stringStandard:model.order_id]
+            
+            self.disposableDelete = [[[JJHttpClient new] requestFourZeroDeleteOrderId:[NSString stringStandard:model.order_id]
                                                                                andState:@"1"]
-                                       subscribeNext:^(NSDictionary* dictionary) {
-                if ([dictionary[@"code"] intValue]==1) {
-                    [myself.arrGoods removeObject:model];
-                    [myself reloadTabView];
+                                       subscribeNext:^(NSDictionary *dictionary) {
+                @strongify(self)
+                if ([dictionary[@"code"] intValue] == 1) {
+                    [self.arrGoods removeObject:model];
+                    [self reloadTabView];
                 }
-                
             }error:^(NSError *error) {
-                myself.disposableDelete = nil;
+                @strongify(self)
+                self.disposableDelete = nil;
                 [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             }completed:^{
+                @strongify(self)
                 [SVProgressHUD dismiss];
-                myself.disposableDelete = nil;
+                self.disposableDelete = nil;
             }];
         } andCancel:^{
             D_NSLog(@"点击了取消");
@@ -364,17 +375,19 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         controller.strImage = model.path;
         [self.navigationController pushViewController:controller animated:YES];
     }else if ([TransformString(strTitle) isEqualToString:@"确认收货"]) {
-        JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-        [alertView showAlertView:self
-                        andTitle:nil
-                      andMessage:@"确认收货后不可退款"
-                       andCancel:@"取消"
-                   andCanelIsRed:NO
-                   andOherButton:@"确认收货" andConfirm:^{
+        [JJAlertViewTwoButton.new showAlertView:self
+                                       andTitle:nil
+                                     andMessage:@"确认收货后不可退款"
+                                      andCancel:@"取消"
+                                  andCanelIsRed:NO
+                                  andOherButton:@"确认收货"
+                                     andConfirm:^{
             [SVProgressHUD showWithStatus:@"正在提交信息..."];
-            self.disposableShouhuo = [[[JJHttpClient new] requestFourZeroDeleteOrderId:TransformString(model.order_id) andState:@"2"]
-                                      subscribeNext:^(NSDictionary* dictionary) {
-                if ([dictionary[@"code"] intValue]==1) {
+            self.disposableShouhuo = [[[JJHttpClient new] requestFourZeroDeleteOrderId:TransformString(model.order_id)
+                                                                              andState:@"2"]
+                                      subscribeNext:^(NSDictionary *dictionary) {
+                @strongify(self)
+                if ([dictionary[@"code"] intValue] == 1) {
                     if (self.orderState == enumOrder_quanbu) {
                         model.order_status = @"40";
                     }else{
@@ -386,9 +399,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];
                 }
             }error:^(NSError *error) {
+                @strongify(self)
                 self.disposableShouhuo = nil;
                 [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             }completed:^{
+                @strongify(self)
                 self.disposableShouhuo = nil;
             }];
         } andCancel:^{
@@ -404,7 +419,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         controller.strCompanyName = model.company_name;
         [self.navigationController pushViewController:controller animated:YES];
     }else if ([TransformString(strTitle) isEqualToString:@"查看详情"]){
-        
         ModelOrderList *modelList = self.arrGoods[indexPath.section];
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder" bundle:nil];
         OrderDetailController *controller = [storyboard instantiateViewControllerWithIdentifier:@"OrderDetailController"];
@@ -446,7 +460,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)reloadTabView{
     for (int i = 0; i<self.arrGoods.count; i++) {
-        ModelOrderList *modelList =self.arrGoods[i];
+        ModelOrderList *modelList = self.arrGoods[i];
         modelList.arrButton = [PublicFunction returnButtonNameByNum:modelList.order_status
                                                     andIsNeedDetail:YES
                                                      andcourierCode:modelList.courierCode];
@@ -456,6 +470,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (void)tuikuanSeletct{
+    @weakify(self)
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"申请退款"
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
@@ -467,12 +482,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"仅退款(未收到货)"
                                                            style:UIAlertActionStyleDestructive
                                                          handler:^(UIAlertAction * _Nonnull action) {
+        @strongify(self)
         self.strTuikuanType = @"notover";
         [self tuikuanBack];
     }];
     UIAlertAction *archiveAction = [UIAlertAction actionWithTitle:@"退货退款(已收到货)"
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * _Nonnull action) {
+        @strongify(self)
         self.strTuikuanType = @"over";
         [self tuikuanBack];
         

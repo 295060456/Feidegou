@@ -36,26 +36,29 @@
 }
 
 - (void)requestExchangeList{
-    __weak VendorGoosListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodVendorOtherGoodGoods_store_id:[NSString stringStandard:self.strStoreID]
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodVendorOtherGoodGoods_store_id:[NSString stringStandard:self.strStoreID]
                                                                                  andLimit:@"10"
                                                                                   andPage:@"1"
                                                                      andrealstore_approve:@"1"]
-                         subscribeNext:^(NSArray* array) {
-        if (myself.intPageIndex == 1) {
-            myself.arrGood = [NSMutableArray array];
+                         subscribeNext:^(NSArray *array) {
+        @strongify(self)
+        if (self.intPageIndex == 1) {
+            self.arrGood = [NSMutableArray array];
         }
-        [myself.arrGood addObjectsFromArray:array];
-        [myself.tabGood reloadData];
+        [self.arrGood addObjectsFromArray:array];
+        [self.tabGood reloadData];
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself.tabGood checkNoData:myself.arrGood.count];
-        [myself.refreshControl endRefreshing];
+        @strongify(self)
+        self.disposable = nil;
+        [self.tabGood checkNoData:self.arrGood.count];
+        [self.refreshControl endRefreshing];
     }completed:^{
-        myself.disposable = nil;
-        myself.intPageIndex++;
-        [myself.tabGood checkNoData:myself.arrGood.count];
-        [myself.refreshControl endRefreshing];
+        @strongify(self)
+        self.disposable = nil;
+        self.intPageIndex++;
+        [self.tabGood checkNoData:self.arrGood.count];
+        [self.refreshControl endRefreshing];
     }];
 }
 #pragma mark - RefreshControlDelegate

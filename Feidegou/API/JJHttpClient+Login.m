@@ -32,17 +32,23 @@
             [dicInfo setObject:dicInfo[@"id"] forKey:@"userId"];
         }
         if (code == 1) {
-            ModelLogin *model = [MTLJSONAdapter modelOfClass:[ModelLogin class] fromJSONDictionary:dicInfo error:nil];
+            ModelLogin *model = [MTLJSONAdapter modelOfClass:[ModelLogin class]
+                                          fromJSONDictionary:dicInfo
+                                                       error:nil];
             [[PersonalInfo sharedInstance] updateLoginUserInfo:model];
             return model;
         }else{
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             JJAlertViewOneButton *alertView = [[JJAlertViewOneButton alloc] init];
-            [alertView showAlertView:appDelegate.window.rootViewController andTitle:nil andMessage:StringFormat(@"%@,请重新登录",dictionary[@"msg"])  andCancel:@"确定" andCanelIsRed:YES andBack:^{
+            [alertView showAlertView:appDelegate.window.rootViewController
+                            andTitle:nil
+                          andMessage:StringFormat(@"%@,请重新登录",dictionary[@"msg"])
+                           andCancel:@"确定"
+                       andCanelIsRed:YES
+                             andBack:^{
                 D_NSLog(@"点击了确定");
                 [[PersonalInfo sharedInstance] deleteLoginUserInfo];
-            }];
-            return nil;
+            }];return nil;
         }
     }];
 }
@@ -196,9 +202,9 @@
             arr = [NSArray array];
         }
         if ([dictionary[@"code"] intValue]==1) {
-            [[JJDBHelper sharedInstance] updateCacheForId:@"3027" cacheArray:arr];
-        }
-        return arr;
+            [[JJDBHelper sharedInstance] updateCacheForId:@"3027"
+                                               cacheArray:arr];
+        }return arr;
     }];
 }
 

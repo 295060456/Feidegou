@@ -57,18 +57,21 @@
 
 - (void)locationControls{
     [self showExceptionNoHead];
-    __weak AchievementController *myself = self;
+    @weakify(self)
     self.disposable = [[[JJHttpClient new] requestShopGoodSignInShare] subscribeNext:^(NSDictionary*dictionary) {
+        @strongify(self)
         if ([dictionary isKindOfClass:[NSDictionary class]]) {
-            myself.dicInfo = [NSDictionary dictionaryWithDictionary:dictionary];
-            [myself refreshView];
+            self.dicInfo = [NSDictionary dictionaryWithDictionary:dictionary];
+            [self refreshView];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself failedRequestException:enum_exception_timeout];
+        @strongify(self)
+        self.disposable = nil;
+        [self failedRequestException:enum_exception_timeout];
     }completed:^{
-        myself.disposable = nil;
-        [myself hideException];
+        @strongify(self)
+        self.disposable = nil;
+        [self hideException];
     }];
 }
 
@@ -100,7 +103,10 @@
                                           title:@"shop7"
                                            type:SSDKContentTypeImage];
         
-        [ShareSDK share:type parameters:shareParams onStateChanged:^(SSDKResponseState state,NSDictionary *userData,SSDKContentEntity *contentEntity,NSError *error){
+        [ShareSDK share:type parameters:shareParams onStateChanged:^(SSDKResponseState state,
+                                                                     NSDictionary *userData,
+                                                                     SSDKContentEntity *contentEntity,
+                                                                     NSError *error){
             
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             [appDelegate shareSucceed];

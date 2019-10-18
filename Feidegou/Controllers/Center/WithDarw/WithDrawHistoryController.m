@@ -29,36 +29,42 @@
 
 - (void)locationControls{
     
-    [self.tabHistory registerNib:[UINib nibWithNibName:@"CellWithDraw" bundle:nil] forCellReuseIdentifier:@"CellWithDraw"];
-    self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabHistory delegate:self];
+    [self.tabHistory registerNib:[UINib nibWithNibName:@"CellWithDraw"
+                                                bundle:nil]
+          forCellReuseIdentifier:@"CellWithDraw"];
+    self.refreshControl = [RefreshControl.new initRefreshControlWithScrollView:self.tabHistory
+                                                                        delegate:self];
     [self.refreshControl beginRefreshingMethod];
 }
 
 - (void)requestData{
-    __weak WithDrawHistoryController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodWithdrawHistoryLimit:@"20"
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodWithdrawHistoryLimit:@"20"
                                                                          andPage:TransformNSInteger(self.intPageIndex)]
                          subscribeNext:^(NSArray* array) {
-        myself.curCount = array.count;
-        if (myself.intPageIndex == 1) {
-            myself.arrHistory = [NSMutableArray array];
+        @strongify(self)
+        self.curCount = array.count;
+        if (self.intPageIndex == 1) {
+            self.arrHistory = [NSMutableArray array];
         }
-        [myself.arrHistory addObjectsFromArray:array];
-        [myself.tabHistory reloadData];
-        [myself.tabHistory checkNoData:myself.arrHistory.count];
+        [self.arrHistory addObjectsFromArray:array];
+        [self.tabHistory reloadData];
+        [self.tabHistory checkNoData:self.arrHistory.count];
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself.tabHistory checkNoData:myself.arrHistory.count];
-        [myself.refreshControl endRefreshing];
+        @strongify(self)
+        self.disposable = nil;
+        [self.tabHistory checkNoData:self.arrHistory.count];
+        [self.refreshControl endRefreshing];
         if (error.code!=2) {
 //            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }else{
-            myself.curCount = 0;
+            self.curCount = 0;
         }
     }completed:^{
-        myself.intPageIndex++;
-        [myself.refreshControl endRefreshing];
-        myself.disposable = nil;
+        @strongify(self)
+        self.intPageIndex++;
+        [self.refreshControl endRefreshing];
+        self.disposable = nil;
     }];
     
 }

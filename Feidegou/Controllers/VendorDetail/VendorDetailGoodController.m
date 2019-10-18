@@ -222,69 +222,70 @@ UIWebViewDelegate
 }
 
 - (void)requestDetail{
-    __weak VendorDetailGoodController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodDetailGoods_id:[NSString stringStandard:self.strGoodId]]
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodDetailGoods_id:[NSString stringStandard:self.strGoodId]]
                          subscribeNext:^(NSDictionary* dictionary) {
+        @strongify(self)
         if ([dictionary[@"code"] intValue]==1) {
             self.strGoodPrice = dictionary[@"goods"][@"store_price"];
             self.strGoodPriceOld = dictionary[@"goods"][@"goods_price"];
             self.strGive_integral = dictionary[@"goods"][@"give_integral"];
             NSArray *arrPic = dictionary[@"photoUrl"];
             if ([arrPic isKindOfClass:[NSArray class]]) {
-                myself.arrPicture = [NSMutableArray arrayWithArray:arrPic];
+                self.arrPicture = [NSMutableArray arrayWithArray:arrPic];
             }
             NSArray *arrProperty = dictionary[@"property"];
             if ([arrProperty isKindOfClass:[NSArray class]]) {
-                
-                
-                myself.arrProperty = [NSMutableArray arrayWithArray:arrProperty];
+                self.arrProperty = [NSMutableArray arrayWithArray:arrProperty];
             }
             if ([dictionary isKindOfClass:[NSDictionary class]]) {
-                myself.dicInfo = [NSMutableDictionary dictionaryWithDictionary:dictionary];
-                if (![NSString isNullString:myself.dicInfo[@"goods"][@"detailURL"]]) {
-                    [myself refreshWebview:myself.dicInfo[@"goods"][@"detailURL"]];
+                self.dicInfo = [NSMutableDictionary dictionaryWithDictionary:dictionary];
+                if (![NSString isNullString:self.dicInfo[@"goods"][@"detailURL"]]) {
+                    [self refreshWebview:self.dicInfo[@"goods"][@"detailURL"]];
                 }
             }
-            [myself reloadDataOfTabView];
-            [myself hideException];
-            
+            [self reloadDataOfTabView];
+            [self hideException];
         }else{
-            [myself failedRequestException:enum_exception_timeout];
+            [self failedRequestException:enum_exception_timeout];
         }
-        
     }error:^(NSError *error) {
-        [myself failedRequestException:enum_exception_timeout];
-        myself.disposable = nil;
-        [myself.refreshControl endRefreshing];
+        @strongify(self)
+        [self failedRequestException:enum_exception_timeout];
+        self.disposable = nil;
+        [self.refreshControl endRefreshing];
     }completed:^{
-        
-        myself.disposable = nil;
-        [myself.refreshControl endRefreshing];
+        @strongify(self)
+        self.disposable = nil;
+        [self.refreshControl endRefreshing];
     }];
 }
 
 - (void)requestDiscuss{
-    __weak VendorDetailGoodController *myself = self;
-    myself.disposableDiscuss = [[[JJHttpClient new] requestShopGoodDiscussListGoods_id:[NSString stringStandard:self.strGoodId]
+    @weakify(self)
+    self.disposableDiscuss = [[[JJHttpClient new] requestShopGoodDiscussListGoods_id:[NSString stringStandard:self.strGoodId]
                                                                               andLimit:@"3"
                                                                                andPage:@"1"
                                                                               andState:@""
                                                                            andstore_id:@""]
                                 subscribeNext:^(NSDictionary* dictionary) {
+        @strongify(self)
         NSArray *array;
-        myself.strDiscussNum = [NSString stringStandardZero:dictionary[@"all"]];
+        self.strDiscussNum = [NSString stringStandardZero:dictionary[@"all"]];
         if ([dictionary[@"evaluate"] isKindOfClass:[NSArray class]]) {
             array = [NSArray arrayWithArray:dictionary[@"evaluate"]];
         }else{
             array = [NSArray array];
         }
-        myself.arrDiscuss = [NSMutableArray arrayWithArray:array];
-        [myself reloadDataOfTabView];
+        self.arrDiscuss = [NSMutableArray arrayWithArray:array];
+        [self reloadDataOfTabView];
         
     }error:^(NSError *error) {
-        myself.disposableDiscuss = nil;
+        @strongify(self)
+        self.disposableDiscuss = nil;
     }completed:^{
-        myself.disposableDiscuss = nil;
+        @strongify(self)
+        self.disposableDiscuss = nil;
     }];
 }
 #pragma mark - RefreshControlDelegate
@@ -435,6 +436,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    @weakify(self)
     if (indexPath.section == 0) {
         CellVendorGoodPic *cell=[tableView dequeueReusableCellWithIdentifier:@"CellVendorGoodPic"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -463,40 +465,37 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         return cell;
     }
     if (indexPath.section == 3) {
-        CellVendorGoodType *cell=[tableView dequeueReusableCellWithIdentifier:@"CellVendorGoodType"];
+        CellVendorGoodType *cell = [tableView dequeueReusableCellWithIdentifier:@"CellVendorGoodType"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         [cell populateDataArray:self.arrProperty];
         [cell setDelegete:self];
-        
         [cell.collectionView performBatchUpdates:^{
             //更新collection的约束一定要写在reload完成之前,否则会导致crash
-            
         } completion:^(BOOL finished) {
+            @strongify(self)
             //这里为了防止循环调用该方法,引入isNeedRefresh属性来做控制
-            
-            if (self.fTypeHeight<0) {
+            if (self.fTypeHeight < 0) {
                 self.fTypeHeight = cell.collectionView.collectionViewLayout.collectionViewContentSize.height;
                 D_NSLog(@"须知的高度%f",self.fTypeHeight);
                 [self reloadDataOfTabView];
             }
-        }];
-        
-        return cell;
+        }];return cell;
     }
     if (indexPath.section == 4) {
-        CellTwoLblArrow *cell=[tableView dequeueReusableCellWithIdentifier:@"CellTwoLblArrow"];
+        CellTwoLblArrow *cell = [tableView dequeueReusableCellWithIdentifier:@"CellTwoLblArrow"];
         [cell.lblName setTextNull:@"商家信息"];
         [cell.lblContent setTextNull:@""];
         [cell.imgArrow setHidden:NO];
         return cell;
     }
     if (indexPath.section == 5) {
-        CellVendorGoodShopInfo *cell=[tableView dequeueReusableCellWithIdentifier:@"CellVendorGoodShopInfo"];
+        CellVendorGoodShopInfo *cell = [tableView dequeueReusableCellWithIdentifier:@"CellVendorGoodShopInfo"];
         [cell populataData:self.dicInfo];
-        [cell.btnPhone handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [cell.btnPhone handleControlEvent:UIControlEventTouchUpInside
+                                withBlock:^{
+            @strongify(self)
             [self dail];
-        }];
-        return cell;
+        }];return cell;
     }
     if (indexPath.section == 6) {
         CellTwoLblArrow *cell=[tableView dequeueReusableCellWithIdentifier:@"CellTwoLblArrow"];
@@ -506,11 +505,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         [cell.imgArrow setHidden:YES];
         return cell;
     }
-    
     if (indexPath.section == 7) {
-        CellVendorWebOlny *cell=[tableView dequeueReusableCellWithIdentifier:@"CellVendorWebOlny"];
+        CellVendorWebOlny *cell = [tableView dequeueReusableCellWithIdentifier:@"CellVendorWebOlny"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        
         [cell addSubview:self.webDetail];
 //        [cell populataData:self.dicInfo[@"goods"][@"detailURL"]];
 //        cell.webViewHeight = ^(CGFloat fWebHeight){
@@ -571,18 +568,22 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         }];
     }
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.section == 8) {
 
-        UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
+        UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain
+                                                           bundle:nil];
         GoodDetailDiscussController *controller = [storyboard instantiateViewControllerWithIdentifier:@"GoodDetailDiscussController"];
         controller.strGood_id = self.strGoodId;
         
-        [self.navigationController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller
+                                             animated:YES];
     }
     if (indexPath.section == 4||indexPath.section == 5) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardVendorDetail bundle:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardVendorDetail
+                                                             bundle:nil];
         VendorDetailShopController *controller = [storyboard instantiateViewControllerWithIdentifier:@"VendorDetailShopController"];
         controller.strStoreID = self.dicInfo[@"goods"][@"goods_store_id"];
         [self.navigationController pushViewController:controller animated:YES];

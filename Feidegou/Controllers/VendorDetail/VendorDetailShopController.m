@@ -97,43 +97,44 @@ didFailLoadWithError:(NSError *)error{
 }
 
 - (void)requestDetail{
-    __weak VendorDetailShopController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodVendorDetailstore_id:[NSString stringStandard:self.strStoreID]]
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodVendorDetailstore_id:[NSString stringStandard:self.strStoreID]]
                          subscribeNext:^(NSDictionary* dictionary) {
+        @strongify(self)
         if ([dictionary[@"code"] intValue]==1) {
             NSDictionary *dicDetail = dictionary[@"store"];
             if ([dicDetail isKindOfClass:[NSDictionary class]]) {
-                myself.dicInfo = [NSMutableDictionary dictionaryWithDictionary:dicDetail];
-                if (![NSString isNullString:myself.dicInfo[@"detailURL"]]) {
-                    [myself refreshWebview:myself.dicInfo[@"detailURL"]];
+                self.dicInfo = [NSMutableDictionary dictionaryWithDictionary:dicDetail];
+                if (![NSString isNullString:self.dicInfo[@"detailURL"]]) {
+                    [self refreshWebview:self.dicInfo[@"detailURL"]];
                 }
             }
             NSArray *arrPic = dictionary[@"photoUrl"];
             if ([arrPic isKindOfClass:[NSArray class]]) {
-                myself.arrPicture = [NSMutableArray arrayWithArray:arrPic];
+                self.arrPicture = [NSMutableArray arrayWithArray:arrPic];
             }
             CLLocationDegrees dLat = [[NSString stringStandardZero:self.dicInfo[@"store_lat"]] doubleValue];
             CLLocationDegrees dLng = [[NSString stringStandardZero:self.dicInfo[@"store_lng"]] doubleValue];
 //            CLLocationCoordinate2D LocationBD09 = (CLLocationCoordinate2D){dLat, dLng};
-            
             self.coordinate = [LocationManager bd09Decrypt:dLat bdLon:dLng];
-            [myself.tabVendor reloadData];
-            [myself hideException];
+            [self.tabVendor reloadData];
+            [self hideException];
         }else{
-            [myself failedRequestException:enum_exception_timeout];
+            [self failedRequestException:enum_exception_timeout];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself.refreshControl endRefreshing];
+        @strongify(self)
+        self.disposable = nil;
+        [self.refreshControl endRefreshing];
         if (error.code!=2) {
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }
-        [myself failedRequestException:enum_exception_timeout];
+        [self failedRequestException:enum_exception_timeout];
     }completed:^{
-        [myself.refreshControl endRefreshing];
-        myself.disposable = nil;
+        @strongify(self)
+        [self.refreshControl endRefreshing];
+        self.disposable = nil;
     }];
-    
 }
 
 - (void)requestGoodList{

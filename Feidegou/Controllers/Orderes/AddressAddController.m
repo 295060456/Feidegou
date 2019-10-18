@@ -86,7 +86,7 @@ ABPeoplePickerNavigationControllerDelegate
     
     [SVProgressHUD showWithStatus:@"正在提交数据..."
                          maskType:SVProgressHUDMaskTypeBlack];
-    __weak AddressAddController *myself = self;
+    @weakify(self)
     self.disposable = [[[JJHttpClient new] requestFourZeroID:self.model.ID
                                                    andDelete:@""
                                                 andArea_info:strDetail
@@ -98,19 +98,21 @@ ABPeoplePickerNavigationControllerDelegate
                                                   andUser_id:[[PersonalInfo sharedInstance]
                                                               fetchLoginUserInfo].userId]
                        subscribeNext:^(NSDictionary*dictinary) {
+        @strongify(self)
         D_NSLog(@"msg is %@",dictinary[@"msg"]);
-        if ([dictinary[@"code"] intValue]==1) {
+        if ([dictinary[@"code"] intValue] == 1) {
             [SVProgressHUD dismiss];
-            [myself.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:dictinary[@"msg"]];
         }
-        
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 

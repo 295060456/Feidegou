@@ -45,22 +45,25 @@
     }
     [self.tabArea reloadData];
     [SVProgressHUD showWithStatus:@"正在请求数据..."];
-    __weak AreaSelectController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodAreaListLevel:StringFormat(@"%d",self.intLevel)
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodAreaListLevel:StringFormat(@"%d",self.intLevel)
                                                                     andID:self.strID]
                          subscribeNext:^(NSArray* array) {
-        myself.arrArea = [NSMutableArray arrayWithArray:array];
+        @strongify(self)
+        self.arrArea = [NSMutableArray arrayWithArray:array];
         if (array.count == 0) {
             [self selectedCompelete];
         }
-        [myself.tabArea reloadData];
-        [myself hideException];
+        [self.tabArea reloadData];
+        [self hideException];
     }error:^(NSError *error) {
-        [myself failedRequestException:enum_exception_timeout];
-        myself.disposable = nil;
+        @strongify(self)
+        [self failedRequestException:enum_exception_timeout];
+        self.disposable = nil;
         [SVProgressHUD dismiss];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD dismiss];
     }];
     
@@ -69,8 +72,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         return self.arrAreaSelected.count;
-    }
-    return self.arrArea.count;
+    }return self.arrArea.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

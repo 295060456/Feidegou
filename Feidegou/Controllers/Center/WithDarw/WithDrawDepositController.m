@@ -130,39 +130,47 @@
         strType = @"3";
     }
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
-    __weak WithDrawDepositController *myself = self;
+    @weakify(self)
     self.disposable = [[[JJHttpClient new] requestFourZeroWithDrawUserId:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId
                                                          andcash_account:[[JJDBHelper sharedInstance] fetchAlipayAccount]
                                                             andcash_info:[[JJDBHelper sharedInstance] fetchAlipayName]
                                                           andcash_amount:strMoney andcash_type:strType]
                        subscribeNext:^(NSDictionary*dictionary) {
-        
-        
+        @strongify(self)
         [SVProgressHUD dismiss];
-        if ([dictionary[@"code"] intValue]==1) {
+        if ([dictionary[@"code"] intValue] == 1) {
             ModelCenter *modelCenter = [[JJDBHelper sharedInstance] fetchCenterMsg];
-            if (myself.intSelected == 1) {
+            if (self.intSelected == 1) {
                 modelCenter.redbags = StringFormat(@"%f",[modelCenter.redbags doubleValue]-[strMoney doubleValue]);
             }else{
-                modelCenter.availableBalance = StringFormat(@"%f",[modelCenter.availableBalance doubleValue]-[strMoney doubleValue]);
+                modelCenter.availableBalance = StringFormat(@"%f",[modelCenter.availableBalance doubleValue] - [strMoney doubleValue]);
             }
             [[JJDBHelper sharedInstance] saveCenterMsg:modelCenter];
-            [myself refreshLayout];
+            [self refreshLayout];
         }
-        JJAlertViewOneButton *alertView = [[JJAlertViewOneButton alloc] init];
-        [alertView showAlertView:self andTitle:nil andMessage:dictionary[@"msg"] andCancel:@"确定" andCanelIsRed:YES andBack:^{
-            [myself.navigationController popViewControllerAnimated:YES];
+        [JJAlertViewOneButton.new showAlertView:self
+                                       andTitle:nil
+                                     andMessage:dictionary[@"msg"]
+                                      andCancel:@"确定"
+                                  andCanelIsRed:YES
+                                        andBack:^{
+            [self.navigationController popViewControllerAnimated:YES];
         }];
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD dismiss];
-        JJAlertViewOneButton *alertView = [[JJAlertViewOneButton alloc] init];
-        [alertView showAlertView:self andTitle:nil andMessage:error.localizedDescription andCancel:@"确定" andCanelIsRed:YES andBack:^{
+        [JJAlertViewOneButton.new showAlertView:self
+                                       andTitle:nil
+                                     andMessage:error.localizedDescription
+                                      andCancel:@"确定"
+                                  andCanelIsRed:YES
+                                        andBack:^{
         }];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
-
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches

@@ -78,15 +78,15 @@ UIPageViewControllerDataSource
 
 - (void)requestData{
     [self showException];
-    __weak GoodDetialAllController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodDetailGoods_id:[NSString stringStandard:self.strGood_id]]
-                         subscribeNext:^(NSDictionary* dictionary) {
-        if ([dictionary[@"code"] intValue]==0) {
-            [myself failedRequestException:enum_exception_timeout];
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodDetailGoods_id:[NSString stringStandard:self.strGood_id]]
+                         subscribeNext:^(NSDictionary *dictionary) {
+        @strongify(self)
+        if ([dictionary[@"code"] intValue] == 0) {
+            [self failedRequestException:enum_exception_timeout];
             return ;
         }
-        myself.dicDetail = [NSDictionary dictionaryWithDictionary:dictionary];
-        
+        self.dicDetail = [NSDictionary dictionaryWithDictionary:dictionary];
         NSArray *arrProperty = self.dicDetail[@"property"];
         if ([arrProperty isKindOfClass:[NSArray class]]) {
             self.arrSelectType = [NSMutableArray arrayWithArray:arrProperty];
@@ -94,14 +94,15 @@ UIPageViewControllerDataSource
             self.strGoodPrice = self.dicDetail[@"goods"][@"store_price"];
             self.intBuyNum = 1;
         }
-        [myself initHeaderView];
-        [myself hideException];
+        [self initHeaderView];
+        [self hideException];
     }error:^(NSError *error) {
-        [myself failedRequestException:enum_exception_timeout];
-        myself.disposable = nil;
+        @strongify(self)
+        [self failedRequestException:enum_exception_timeout];
+        self.disposable = nil;
     }completed:^{
-        
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 
@@ -232,8 +233,11 @@ UIPageViewControllerDataSource
 - (void)refreshSelectedButton:(NSInteger)integer{
     self.intSelected = integer;
     CGRect rectLine = self.lblLine.frame;
-    rectLine.origin.x = (integer-100)*60;
-    [UIView animateWithDuration:0.27 animations:^{
+    rectLine.origin.x = (integer - 100) * 60;
+    @weakify(self)
+    [UIView animateWithDuration:0.27
+                     animations:^{
+        @strongify(self)
         [self.lblLine setFrame:rectLine];
     }];
 }
@@ -711,21 +715,24 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if ([self isSelectedAll] && self.arrSelectType.count>0) {
         NSString *strGoodsspecpropertyId = [self fetchStringGoodsspecpropertyId];
         D_NSLog(@"已全部选择完毕，可以请求库存%@",strGoodsspecpropertyId);
-        __weak GoodDetialAllController *myself = self;
-        [myself.disposableGoodNum dispose];
-        myself.disposableGoodNum = [[[JJHttpClient new] requestShopGoodGoodNumGoodsspecpropertyId:strGoodsspecpropertyId
+        @weakify(self)
+        [self.disposableGoodNum dispose];
+        self.disposableGoodNum = [[[JJHttpClient new] requestShopGoodGoodNumGoodsspecpropertyId:strGoodsspecpropertyId
                                                                                        andGoodsId:[NSString stringStandard:self.strGood_id]]
                                     subscribeNext:^(NSDictionary* dictionary) {
+            @strongify(self)
             D_NSLog(@"msg is %@",dictionary[@"msg"]);
-            myself.strGoodPrice = dictionary[@"store_price"];
-            myself.strGoodNum = dictionary[@"goods_inventory"];
-            [myself.lblPrice setTextNull:StringFormat(@"￥%@",[NSString stringStandardFloatTwo:myself.strGoodPrice])];
-            [myself.collectionSelectType reloadData];
+            self.strGoodPrice = dictionary[@"store_price"];
+            self.strGoodNum = dictionary[@"goods_inventory"];
+            [self.lblPrice setTextNull:StringFormat(@"￥%@",[NSString stringStandardFloatTwo:self.strGoodPrice])];
+            [self.collectionSelectType reloadData];
         }error:^(NSError *error) {
-            [myself failedRequestException:enum_exception_timeout];
-            myself.disposableGoodNum = nil;
+            @strongify(self)
+            [self failedRequestException:enum_exception_timeout];
+            self.disposableGoodNum = nil;
         }completed:^{
-            myself.disposableGoodNum = nil;
+            @strongify(self)
+            self.disposableGoodNum = nil;
         }];
     }else{
         D_NSLog(@"未全部选择完毕，不需请求库存");

@@ -77,18 +77,20 @@ static NSInteger seq = 0;
         return;
     }
     ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-    
+    @weakify(self)
     self.disposableLogin = [[[JJHttpClient new] requestLoginUSERNAME:modelLogin.userName
-                                                         andPASSWORD:modelLogin.password andIsChangedPsw:YES]
+                                                         andPASSWORD:modelLogin.password
+                                                     andIsChangedPsw:YES]
                             subscribeNext:^(ModelLogin*model) {
         
     }error:^(NSError *error) {
+        @strongify(self)
         self.disposableLogin = nil;
     }completed:^{
+        @strongify(self)
         self.disposableLogin = nil;
     }];
 }
-
 
 - (void)requestAdverMain{
     NSArray *arrImage = [[JJDBHelper sharedInstance] fetchCacheForAdvertisementStart];
@@ -120,15 +122,17 @@ static NSInteger seq = 0;
     }else{
         [self setEntryByIsLogined];
     }
-    
+    @weakify(self)
     self.disposableAdver = [[[JJHttpClient new] requestAdverStart] subscribeNext:^(NSArray* array) {
-        if (array.count>0) {
+        @strongify(self)
+        if (array.count > 0) {
             [self downloadImage:array[0][@"photo_url"]];
         }
-        
     }error:^(NSError *error) {
+        @strongify(self)
         self.disposableAdver = nil;
     }completed:^{
+        @strongify(self)
         self.disposableAdver = nil;
     }];
 }
@@ -181,7 +185,8 @@ static NSInteger seq = 0;
 - (void)shareWeixin{
     [ShareSDK registPlatforms:^(SSDKRegister *platformsRegister) {
         //微信
-        [platformsRegister setupWeChatWithAppId:@"wx7d314006a5998a80" appSecret:@"36f4c00f85dfeef68df209402ff9c726"];
+        [platformsRegister setupWeChatWithAppId:@"wx7d314006a5998a80"
+                                      appSecret:@"36f4c00f85dfeef68df209402ff9c726"];
         
     }];
 //    [ShareSDK registerActivePlatforms:@[
@@ -272,7 +277,9 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 #pragma mark- JPUSHRegisterDelegate
 
 // iOS 10 Support
-- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center
+        willPresentNotification:(UNNotification *)notification
+          withCompletionHandler:(void (^)(NSInteger))completionHandler {
     // Required
     NSDictionary * userInfo = notification.request.content.userInfo;
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
@@ -282,7 +289,9 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 }
 
 // iOS 10 Support
-- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center
+ didReceiveNotificationResponse:(UNNotificationResponse *)response
+          withCompletionHandler:(void (^)(void))completionHandler {
     // Required
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
@@ -291,7 +300,9 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     completionHandler();  // 系统要求执行这个方法
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+- (void)application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
     // Required, iOS 7 Support
     [JPUSHService handleRemoteNotification:userInfo];
@@ -303,13 +314,19 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     // Required,For systems with less than or equal to iOS6
     [JPUSHService handleRemoteNotification:userInfo];
 }
+
 - (NSInteger)seq {
     return ++ seq;
 }
+
 - (void)getAlias{
     //    获取别名，如果别名和当前登录的id不一样，则重新设置别名
     if ([[PersonalInfo sharedInstance] isLogined]){
-        [JPUSHService getAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+        @weakify(self)
+        [JPUSHService getAlias:^(NSInteger iResCode,
+                                 NSString *iAlias,
+                                 NSInteger seq) {
+            @strongify(self)
             NSString *strUerId = TransformString([[PersonalInfo sharedInstance] fetchLoginUserInfo].userId);
             D_NSLog(@"setAlias code:%ld iAlias:%@ seq:%ld", iResCode, iAlias, seq);
             if (![TransformString(iAlias) isEqualToString:strUerId]) {
@@ -318,20 +335,27 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
         } seq:[self seq]];
     }
 }
+
 - (void)setAlias{
     if ([[PersonalInfo sharedInstance] isLogined]) {
         NSString *strUerId = TransformString([[PersonalInfo sharedInstance] fetchLoginUserInfo].userId);
-        [JPUSHService setAlias:strUerId completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+        [JPUSHService setAlias:strUerId completion:^(NSInteger iResCode,
+                                                     NSString *iAlias,
+                                                     NSInteger seq) {
             D_NSLog(@"setAlias code:%ld iAlias:%@ seq:%ld", iResCode, iAlias, seq);
         } seq:[self seq]];
     }
 }
+
 - (void)shareSucceed{
+    @weakify(self)
     self.disposableShareSucceed = [[[JJHttpClient new] requestFourZeroShare] subscribeNext:^(NSDictionary* dictionray) {
         D_NSLog(@"分享成功 %@",dictionray[@"msg"]);
     }error:^(NSError *error) {
+        @strongify(self)
         self.disposableShareSucceed = nil;
     }completed:^{
+        @strongify(self)
         self.disposableShareSucceed = nil;
     }];
 }
@@ -367,7 +391,8 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
             int intStatus = [resultDic[@"resultStatus"] intValue];
             if (intStatus==9000) {
                 //                [SVProgressHUD showErrorWithStatus:@"订单支付成功"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNamePaySucceed object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNamePaySucceed
+                                                                    object:nil];
             }else if (intStatus == 8000){
                 [SVProgressHUD showErrorWithStatus:@"订单正在处理中"];
             }else if (intStatus == 4000){
@@ -385,8 +410,7 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
         if (isWXApi) {
             return [WXApi handleOpenURL:url delegate:self];
         }
-    }
-    return YES;
+    }return YES;
 }
 
 // NOTE: 9.0以后使用新API接口
@@ -400,7 +424,8 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
             int intStatus = [resultDic[@"resultStatus"] intValue];
             if (intStatus==9000) {
                 //                [SVProgressHUD showErrorWithStatus:@"订单支付成功"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNamePaySucceed object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNamePaySucceed
+                                                                    object:nil];
             }else if (intStatus == 8000){
                 [SVProgressHUD showErrorWithStatus:@"订单正在处理中"];
             }else if (intStatus == 4000){
@@ -422,11 +447,14 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     return YES;
 }
 - (void)ChangeStateForPay:(NSString *)strOrderId{
+    @weakify(self)
     self.disposablePaySucceed = [[[JJHttpClient new] requestFourZeroPayout_trade_no:TransformString(strOrderId)] subscribeNext:^(NSDictionary* dictionray) {
         D_NSLog(@"更新支付状态 msg is %@",dictionray[@"msg"]);
     }error:^(NSError *error) {
+        @strongify(self)
         self.disposablePaySucceed = nil;
     }completed:^{
+        @strongify(self)
         self.disposablePaySucceed = nil;
     }];
 }

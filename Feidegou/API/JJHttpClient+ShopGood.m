@@ -31,8 +31,7 @@
                                    parameters:param] map:^id(NSDictionary* dictionary) {
         if ([dictionary[@"data"] isKindOfClass:[NSArray class]]) {
             return dictionary[@"data"];
-        }
-        return [NSArray array];
+        }return [NSArray array];
     }];
 }
 
@@ -45,7 +44,9 @@
         NSArray *array = [NSArray arrayWithArray:dictionary[@"goodsClass"]];
         RACSequence *sequence=[array rac_sequence];
         return [[sequence map:^id(NSDictionary *item){
-            ModelGoodTypeOne *model = [MTLJSONAdapter modelOfClass:[ModelGoodTypeOne class] fromJSONDictionary:item error:nil];
+            ModelGoodTypeOne *model = [MTLJSONAdapter modelOfClass:[ModelGoodTypeOne class]
+                                                fromJSONDictionary:item
+                                                             error:nil];
             return model;
         }] array];
     }];
@@ -158,11 +159,12 @@
             }
             RACSequence *sequence=[array rac_sequence];
             return [[sequence map:^id(NSDictionary *item){
-                ModelOrderList *model = [MTLJSONAdapter modelOfClass:[ModelOrderList class] fromJSONDictionary:item error:nil];
+                ModelOrderList *model = [MTLJSONAdapter modelOfClass:[ModelOrderList class]
+                                                  fromJSONDictionary:item
+                                                               error:nil];
                 return model;
             }] array];
-        }
-        return [NSArray array];
+        }return [NSArray array];
     }];
 }
 
@@ -173,7 +175,9 @@
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
                                    parameters:param] map:^id(NSDictionary* dictionary) {
 //        D_NSLog(@"msg is %@",dictionary[@"msg"]);
-        ModelOrderDtail *model = [MTLJSONAdapter modelOfClass:[ModelOrderDtail class] fromJSONDictionary:dictionary[@"orderInfo"] error:nil];
+        ModelOrderDtail *model = [MTLJSONAdapter modelOfClass:[ModelOrderDtail class]
+                                           fromJSONDictionary:dictionary[@"orderInfo"]
+                                                        error:nil];
         return model;
     }];
 }
@@ -189,7 +193,8 @@
                             @"valicode":@"",
                             @"temp":strTemp};
     return [[self requestPOSTWithRelativePathByBaseURL:@"http://m.kuaidi100.com"
-                                       andRelativePath:@"query" parameters:param] map:^id(NSDictionary* dictionary) {
+                                       andRelativePath:@"query"
+                                            parameters:param] map:^id(NSDictionary* dictionary) {
         D_NSLog(@"msg is %@",dictionary);
         return dictionary;
     }];
@@ -200,23 +205,25 @@
     NSDictionary *param = [self paramStringWithStype:@"3011"
                                                 data:@{@"level":level,
                                                        @"id":ID}];
-    
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
                                    parameters:param] map:^id(NSDictionary* dictionary) {
         if ([dictionary[@"area"] isKindOfClass:[NSArray class]]) {
             NSMutableArray *array = [NSMutableArray arrayWithArray:dictionary[@"area"]];
             for (int i = 0; i<array.count; i++) {
                 NSMutableDictionary *dicInfo = [[NSMutableDictionary alloc] initWithDictionary:array[i]];
-                [dicInfo setObject:dicInfo[@"id"] forKey:@"ID"];
-                [array replaceObjectAtIndex:i withObject:dicInfo];
+                [dicInfo setObject:dicInfo[@"id"]
+                            forKey:@"ID"];
+                [array replaceObjectAtIndex:i
+                                 withObject:dicInfo];
             }
             RACSequence *sequence=[array rac_sequence];
             return [[sequence map:^id(NSDictionary *item){
-                ModelArea *model = [MTLJSONAdapter modelOfClass:[ModelArea class] fromJSONDictionary:item error:nil];
+                ModelArea *model = [MTLJSONAdapter modelOfClass:[ModelArea class]
+                                             fromJSONDictionary:item
+                                                          error:nil];
                 return model;
             }] array];
-        }
-        return [NSArray array];
+        }return [NSArray array];
     }];
 }
 
@@ -230,12 +237,16 @@
             NSMutableArray *array = [NSMutableArray arrayWithArray:dictionary[@"addrList"]];
             for (int i = 0; i<array.count; i++) {
                 NSMutableDictionary *dicInfo = [[NSMutableDictionary alloc] initWithDictionary:array[i]];
-                [dicInfo setObject:dicInfo[@"id"] forKey:@"ID"];
-                [array replaceObjectAtIndex:i withObject:dicInfo];
+                [dicInfo setObject:dicInfo[@"id"]
+                            forKey:@"ID"];
+                [array replaceObjectAtIndex:i
+                                 withObject:dicInfo];
             }
             RACSequence *sequence=[array rac_sequence];
             return [[sequence map:^id(NSDictionary *item){
-                ModelAddress *model = [MTLJSONAdapter modelOfClass:[ModelAddress class] fromJSONDictionary:item error:nil];
+                ModelAddress *model = [MTLJSONAdapter modelOfClass:[ModelAddress class]
+                                                fromJSONDictionary:item
+                                                             error:nil];
                 return model;
             }] array];
         }
@@ -270,7 +281,9 @@
             NSArray *array = [NSArray arrayWithArray:dictionary[@"goodsList"]];
             RACSequence *sequence=[array rac_sequence];
             return [[sequence map:^id(NSDictionary *item){
-                ModelGood *model = [MTLJSONAdapter modelOfClass:[ModelGood class] fromJSONDictionary:item error:nil];
+                ModelGood *model = [MTLJSONAdapter modelOfClass:[ModelGood class]
+                                             fromJSONDictionary:item
+                                                          error:nil];
                 return model;
             }] array];
         }else{
@@ -304,7 +317,6 @@
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
                                    parameters:param] map:^id(NSDictionary* dictionary) {
         return dictionary;
-        
     }];
 }
 
@@ -324,7 +336,9 @@
         }
         RACSequence *sequence=[array rac_sequence];
         return [[sequence map:^id(NSDictionary *item){
-            ModelEreaExchageList *model = [MTLJSONAdapter modelOfClass:[ModelEreaExchageList class] fromJSONDictionary:item error:nil];
+            ModelEreaExchageList *model = [MTLJSONAdapter modelOfClass:[ModelEreaExchageList class]
+                                                    fromJSONDictionary:item
+                                                                 error:nil];
             return model;
         }] array];
     }];
@@ -337,7 +351,9 @@
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
                                    parameters:param] map:^id(NSDictionary* dictionary) {
         
-        ModelEreaExchangeDetail *model = [MTLJSONAdapter modelOfClass:[ModelEreaExchangeDetail class] fromJSONDictionary:dictionary[@"data"] error:nil];
+        ModelEreaExchangeDetail *model = [MTLJSONAdapter modelOfClass:[ModelEreaExchangeDetail class]
+                                                   fromJSONDictionary:dictionary[@"data"]
+                                                                error:nil];
         model.ig_goods_id = dictionary[@"data"][@"id"];
         return model;
     }];
@@ -353,8 +369,7 @@
                                    parameters:param] map:^id(NSDictionary* dictionary) {
         if ([dictionary[@"data"] isKindOfClass:[NSArray class]]) {
             return dictionary[@"data"];
-        }
-        return [NSArray array];
+        }return [NSArray array];
     }];
 }
 
@@ -367,7 +382,9 @@
         NSMutableDictionary *dicMiddle = [NSMutableDictionary dictionaryWithDictionary:dictionary[@"integral"]];
 //        [dicMiddle setObject:@"882283795698412885" forKey:@"igo_ship_code"];
         
-        ModelAreaDetail *model = [MTLJSONAdapter modelOfClass:[ModelAreaDetail class] fromJSONDictionary:dicMiddle error:nil];
+        ModelAreaDetail *model = [MTLJSONAdapter modelOfClass:[ModelAreaDetail class]
+                                           fromJSONDictionary:dicMiddle
+                                                        error:nil];
         return model;
     }];
 }
@@ -418,7 +435,9 @@
     
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
                                    parameters:param] map:^id(NSDictionary* dictionary) {
-        ModelCenter *model = [MTLJSONAdapter modelOfClass:[ModelCenter class] fromJSONDictionary:dictionary[@"data"] error:nil];
+        ModelCenter *model = [MTLJSONAdapter modelOfClass:[ModelCenter class]
+                                       fromJSONDictionary:dictionary[@"data"]
+                                                    error:nil];
         [[JJDBHelper sharedInstance] saveCenterMsg:model];
         return model;
     }];
@@ -438,11 +457,12 @@
             NSArray *array = [NSArray arrayWithArray:dictionary[@"list"]];
             RACSequence *sequence=[array rac_sequence];
             return [[sequence map:^id(NSDictionary *item){
-                ModelIncome *model = [MTLJSONAdapter modelOfClass:[ModelIncome class] fromJSONDictionary:item error:nil];
+                ModelIncome *model = [MTLJSONAdapter modelOfClass:[ModelIncome class]
+                                               fromJSONDictionary:item
+                                                            error:nil];
                 return model;
             }] array];
-        }
-        return [NSArray array];
+        }return [NSArray array];
     }];
 }
 -(RACSignal *)requestShopGoodPerformanceDetialLimit:(NSString *)limit
@@ -452,18 +472,18 @@
                                                 data:@{@"limit":limit,
                                                        @"page":page,
                                                        @"userId":userId}];
-    
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
                                    parameters:param] map:^id(NSDictionary* dictionary) {
         if ([dictionary[@"list"] isKindOfClass:[NSArray class]]) {
             NSArray *array = [NSArray arrayWithArray:dictionary[@"list"]];
             RACSequence *sequence=[array rac_sequence];
             return [[sequence map:^id(NSDictionary *item){
-                ModelPerformance *model = [MTLJSONAdapter modelOfClass:[ModelPerformance class] fromJSONDictionary:item error:nil];
+                ModelPerformance *model = [MTLJSONAdapter modelOfClass:[ModelPerformance class]
+                                                    fromJSONDictionary:item
+                                                                 error:nil];
                 return model;
             }] array];
-        }
-        return [NSArray array];
+        }return [NSArray array];
     }];
 }
 
@@ -480,8 +500,7 @@
                                    parameters:param] map:^id(NSDictionary* dictionary) {
         if ([dictionary[@"data"] isKindOfClass:[NSArray class]]) {
             return dictionary[@"data"];
-        }
-        return [NSArray array];
+        }return [NSArray array];
     }];
 }
 
@@ -499,8 +518,7 @@
                                    parameters:param] map:^id(NSDictionary* dictionary) {
         if ([dictionary[@"data"] isKindOfClass:[NSArray class]]) {
             return dictionary[@"data"];
-        }
-        return [NSArray array];
+        }return [NSArray array];
     }];
 }
 
@@ -516,7 +534,9 @@
             NSArray *array = [NSArray arrayWithArray:dictionary[@"list"]];
             RACSequence *sequence=[array rac_sequence];
             return [[sequence map:^id(NSDictionary *item){
-                ModelRankList *model = [MTLJSONAdapter modelOfClass:[ModelRankList class] fromJSONDictionary:item error:nil];
+                ModelRankList *model = [MTLJSONAdapter modelOfClass:[ModelRankList class]
+                                                 fromJSONDictionary:item
+                                                              error:nil];
                 return model;
             }] array];
         }
@@ -555,7 +575,6 @@
     
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
                                    parameters:param] map:^id(NSDictionary* dictionary) {
-        
         return dictionary;
     }];
 }
@@ -584,7 +603,9 @@
             }
             RACSequence *sequence=[array rac_sequence];
             return [[sequence map:^id(NSDictionary *item){
-                ModelVendorNear *model = [MTLJSONAdapter modelOfClass:[ModelVendorNear class] fromJSONDictionary:item error:nil];
+                ModelVendorNear *model = [MTLJSONAdapter modelOfClass:[ModelVendorNear class]
+                                                   fromJSONDictionary:item
+                                                                error:nil];
                 return model;
             }] array];
         }
@@ -614,7 +635,9 @@
             }
             RACSequence *sequence=[array rac_sequence];
             return [[sequence map:^id(NSDictionary *item){
-                ModelVendorNear *model = [MTLJSONAdapter modelOfClass:[ModelVendorNear class] fromJSONDictionary:item error:nil];
+                ModelVendorNear *model = [MTLJSONAdapter modelOfClass:[ModelVendorNear class]
+                                                   fromJSONDictionary:item
+                                                                error:nil];
                 return model;
             }] array];
         }
@@ -669,7 +692,9 @@
             NSArray *array = [NSArray arrayWithArray:dictionary[@"goodsList"]];
             RACSequence *sequence=[array rac_sequence];
             return [[sequence map:^id(NSDictionary *item){
-                ModelGood *model = [MTLJSONAdapter modelOfClass:[ModelGood class] fromJSONDictionary:item error:nil];
+                ModelGood *model = [MTLJSONAdapter modelOfClass:[ModelGood class]
+                                             fromJSONDictionary:item
+                                                          error:nil];
                 return model;
             }] array];
         }else{
@@ -691,8 +716,7 @@
         if ([dictionary[@"data"] isKindOfClass:[NSArray class]]) {
             NSMutableArray *array = [NSMutableArray arrayWithArray:dictionary[@"data"]];
             return array;
-        }
-        return [NSArray array];
+        }return [NSArray array];
     }];
 }
 
@@ -705,7 +729,9 @@
     NSDictionary *param = [self paramStringWithStype:@"3053"
                                                 data:@{@"limit":limit,
                                                        @"page":page,
-                                                       @"clas":clas, @"lat":lat, @"lng":lng,
+                                                       @"clas":clas,
+                                                       @"lat":lat,
+                                                       @"lng":lng,
                                                        @"key":key}];
     
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
@@ -720,7 +746,9 @@
             }
             RACSequence *sequence=[array rac_sequence];
             return [[sequence map:^id(NSDictionary *item){
-                ModelVendorNear *model = [MTLJSONAdapter modelOfClass:[ModelVendorNear class] fromJSONDictionary:item error:nil];
+                ModelVendorNear *model = [MTLJSONAdapter modelOfClass:[ModelVendorNear class]
+                                                   fromJSONDictionary:item
+                                                                error:nil];
                 return model;
             }] array];
         }
@@ -734,8 +762,6 @@
     
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
                                    parameters:param] map:^id(NSDictionary* dictionary) {
-        
-        
         return dictionary;
     }];
 }
@@ -780,18 +806,18 @@
             NSMutableArray *array = [NSMutableArray arrayWithArray:dictionary[@"storeList"]];
             RACSequence *sequence=[array rac_sequence];
             return [[sequence map:^id(NSDictionary *item){
-                ModelOrderGoodList *model = [MTLJSONAdapter modelOfClass:[ModelOrderGoodList class] fromJSONDictionary:item error:nil];
+                ModelOrderGoodList *model = [MTLJSONAdapter modelOfClass:[ModelOrderGoodList class]
+                                                      fromJSONDictionary:item
+                                                                   error:nil];
                 model.billType = enum_billType_no;
                 
                 if ([model.isPackageMail boolValue]) {
                     model.sendWay = enum_sendWay_express;
                 }else{
                     model.sendWay = enum_sendWay_no;
-                }
-                return model;
+                }return model;
             }] array];
-        }
-        return [NSArray array];
+        }return [NSArray array];
         
         //        NSArray *arrInfo = dictionary[@"storeList"];
         //        if (![arrInfo isKindOfClass:[NSArray class]]) {
@@ -806,7 +832,7 @@
                                                 data:@{}];
     
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
-                                   parameters:param] map:^id(NSDictionary* dictionary) {
+                                   parameters:param] map:^id(NSDictionary *dictionary) {
         return dictionary;
 //        if ([dictionary[@"signGoods"] isKindOfClass:[NSArray class]]) {
 //            NSMutableArray *array = [NSMutableArray arrayWithArray:dictionary[@"signGoods"]];

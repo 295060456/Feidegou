@@ -60,7 +60,10 @@
 }
 
 - (void)showDatePicker{
-    [UIView animateWithDuration:0.27 animations:^{
+    @weakify(self)
+    [UIView animateWithDuration:0.27
+                     animations:^{
+        @strongify(self)
         [self setBackgroundColor:ColorFromHexRGBA(0, 0.4)];
         [self.viDate setFrame:CGRectMake(0,
                                          self.frame.size.height - self.viDate.frame.size.height,
@@ -71,13 +74,17 @@
 }
 
 - (void)hidenDatePicker{
-    [UIView animateWithDuration:0.27 animations:^{
+    @weakify(self)
+    [UIView animateWithDuration:0.27
+                     animations:^{
+        @strongify(self)
         [self setBackgroundColor:ColorFromHexRGBA(0, 0.4)];
         [self.viDate setFrame:CGRectMake(0,
                                          self.frame.size.height,
                                          self.viDate.frame.size.width,
                                          self.viDate.frame.size.height)];
     }completion:^(BOOL isfinished){
+        @strongify(self)
         [self removeFromSuperview];
     }];
 }

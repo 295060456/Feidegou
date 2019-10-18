@@ -20,32 +20,31 @@
 - (RACSignal *)requestPOSTWithRelativePathByBaseURL:(NSString *)strBaseUrl
                                     andRelativePath:(NSString *)relativePath
                                          parameters:(NSDictionary *)parameters{
+    @weakify(self)
     AFHTTPSessionManager *manager = [self __httpSessionManagerWithBaseUrl:strBaseUrl];
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        NSURLSessionDataTask *dataTask = [manager POST:relativePath parameters:parameters
+        NSURLSessionDataTask *dataTask = [manager POST:relativePath
+                                            parameters:parameters
                                               progress:^(NSProgress *_Nonnull uploadProgress) {
             
-        } success:^(NSURLSessionDataTask *_Nonnull task,id _Nullable responseObject) {
+        } success:^(NSURLSessionDataTask *_Nonnull task,
+                    id _Nullable responseObject) {
 //            [self __handleResponseObject:responseObject subscriber:subscriber];
-            
             [subscriber sendNext:responseObject];
             [subscriber sendCompleted];
-            
-        } failure:^(NSURLSessionDataTask *_Nullable task,NSError *_Nonnull error) {
-            [self __handleRequestFailure:error subscriber:subscriber];
-            
+        } failure:^(NSURLSessionDataTask *_Nullable task,
+                    NSError *_Nonnull error) {
+            @strongify(self)
+            [self __handleRequestFailure:error
+                              subscriber:subscriber];
         }];
         return [RACDisposable disposableWithBlock:^{
-            
             [dataTask cancel];
         }];
     }] doError:^(NSError *error) {
-        
         NSLog(@"ERROR:%@",error);
-        
     }];
 }
-
 /*!
  * 功能描述:POST请求
  * @param relativePath 请求相对路径地址
@@ -53,17 +52,22 @@
  */
 - (RACSignal *)requestPOSTWithRelativePath:(NSString *)relativePath
                                 parameters:(NSDictionary *)parameters{
+    @weakify(self)
     AFHTTPSessionManager *manager = [self __httpSessionManagerWithBaseUrl:BASE_URL];
-    
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         NSURLSessionDataTask *dataTask = [manager POST:relativePath
                                             parameters:parameters
                                               progress:^(NSProgress *_Nonnull uploadProgress) {
             
-        } success:^(NSURLSessionDataTask *_Nonnull task,id _Nullable responseObject) {
+        } success:^(NSURLSessionDataTask *_Nonnull task,
+                    id _Nullable responseObject) {
+            @strongify(self)
             [self __handleResponseObject:responseObject subscriber:subscriber];
-        } failure:^(NSURLSessionDataTask *_Nullable task,NSError *_Nonnull error) {
-            [self __handleRequestFailure:error subscriber:subscriber];
+        } failure:^(NSURLSessionDataTask *_Nullable task,
+                    NSError *_Nonnull error) {
+            @strongify(self)
+            [self __handleRequestFailure:error
+                              subscriber:subscriber];
         }];
         return [RACDisposable disposableWithBlock:^{
             [dataTask cancel];

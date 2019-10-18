@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		71BE65A43CAAA15ED813BE7F /* libPods-Feidegou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */; };
+		8B4CB3BC2359ECF5009EFDC5 /* YBNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4CB3B92359ECF4009EFDC5 /* YBNotificationManager.m */; };
 		C4026DBD2148161D00D81974 /* AchievementController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBB2148161D00D81974 /* AchievementController.m */; };
 		C4026DC02148164E00D81974 /* ButtonShare.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBE2148164E00D81974 /* ButtonShare.m */; };
 		C405FEFB218C2A0900C02CDC /* CLCellInterger.m in Sources */ = {isa = PBXBuildFile; fileRef = C405FEF9218C2A0900C02CDC /* CLCellInterger.m */; };
@@ -21,7 +22,6 @@
 		C416281E2171DFE200DC0D10 /* CellTuihuoWuliu.m in Sources */ = {isa = PBXBuildFile; fileRef = C416281C2171DFE200DC0D10 /* CellTuihuoWuliu.m */; };
 		C416281F2171DFE200DC0D10 /* CellTuihuoWuliu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C416281D2171DFE200DC0D10 /* CellTuihuoWuliu.xib */; };
 		C42CCCDB213CC04F0096675F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C42CCCDA213CC04F0096675F /* AppDelegate.m */; };
-		C42CCCDE213CC04F0096675F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C42CCCDD213CC04F0096675F /* ViewController.m */; };
 		C42CCCE1213CC04F0096675F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42CCCDF213CC04F0096675F /* Main.storyboard */; };
 		C42CCCE3213CC0520096675F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42CCCE2213CC0520096675F /* Assets.xcassets */; };
 		C42CCCE6213CC0520096675F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42CCCE4213CC0520096675F /* LaunchScreen.storyboard */; };
@@ -502,6 +502,9 @@
 /* Begin PBXFileReference section */
 		24EEB4BC842F9E07DEEF3F0B /* Pods-Feidegou.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.release.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.release.xcconfig"; sourceTree = "<group>"; };
 		6C32034C23408BE5001794DE /* UIImage+helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+helper.h"; sourceTree = "<group>"; };
+		8B4CB3B92359ECF4009EFDC5 /* YBNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBNotificationManager.m; sourceTree = "<group>"; };
+		8B4CB3BA2359ECF4009EFDC5 /* AABlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AABlock.h; sourceTree = "<group>"; };
+		8B4CB3BB2359ECF5009EFDC5 /* YBNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBNotificationManager.h; sourceTree = "<group>"; };
 		947AD75F86191C8F32BD1901 /* Pods-Feidegou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.debug.xcconfig"; sourceTree = "<group>"; };
 		B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Feidegou.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4026DBB2148161D00D81974 /* AchievementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementController.m; sourceTree = "<group>"; };
@@ -527,8 +530,6 @@
 		C42CCCD6213CC04F0096675F /* Feidegou.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Feidegou.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42CCCD9213CC04F0096675F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C42CCCDA213CC04F0096675F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		C42CCCDC213CC04F0096675F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		C42CCCDD213CC04F0096675F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		C42CCCE0213CC04F0096675F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C42CCCE2213CC0520096675F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C42CCCE5213CC0520096675F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -1438,6 +1439,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8B4CB3B82359ECE1009EFDC5 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				8B4CB3BA2359ECF4009EFDC5 /* AABlock.h */,
+				8B4CB3BB2359ECF5009EFDC5 /* YBNotificationManager.h */,
+				8B4CB3B92359ECF4009EFDC5 /* YBNotificationManager.m */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
 		8B7CA09F2355D67B0050EEB6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -1467,10 +1478,9 @@
 		8B7CA0A22355D7040050EEB6 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				8B4CB3B82359ECE1009EFDC5 /* Notification */,
 				C42CCCD9213CC04F0096675F /* AppDelegate.h */,
 				C42CCCDA213CC04F0096675F /* AppDelegate.m */,
-				C42CCCDC213CC04F0096675F /* ViewController.h */,
-				C42CCCDD213CC04F0096675F /* ViewController.m */,
 				C42CCCDF213CC04F0096675F /* Main.storyboard */,
 				C42CCCE4213CC0520096675F /* LaunchScreen.storyboard */,
 				C42CCCE8213CC0520096675F /* main.m */,
@@ -3293,6 +3303,7 @@
 				C42CD126213CC2640096675F /* CellGoodGift.m in Sources */,
 				C42CD0F6213CC2640096675F /* GoodDiscussListController.m in Sources */,
 				C42CD0B0213CC2640096675F /* CellOneButton.m in Sources */,
+				8B4CB3BC2359ECF5009EFDC5 /* YBNotificationManager.m in Sources */,
 				C42CD196213CC2640096675F /* UILabel+helper.m in Sources */,
 				C42CD057213CC2640096675F /* ApplyForVenderController.m in Sources */,
 				C46F8C4A214CF1E600F0C7D1 /* AreaOrderComfilmController.m in Sources */,
@@ -3415,7 +3426,6 @@
 				C42CD1B0213CC2640096675F /* MineNavigationController.m in Sources */,
 				C41628162171C14300DC0D10 /* CellTuihuoInfo.m in Sources */,
 				C42CD1D1213CC2650096675F /* ModelRankList.m in Sources */,
-				C42CCCDE213CC04F0096675F /* ViewController.m in Sources */,
 				C42CD1AD213CC2640096675F /* PersonalInfo.m in Sources */,
 				C42CD0C4213CC2640096675F /* CellAddress.m in Sources */,
 				C42CD12D213CC2640096675F /* CellDiscuss.m in Sources */,

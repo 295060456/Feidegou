@@ -44,43 +44,46 @@
     }else if (self.enumState == enum_discuss_bad) {
         strState = @"-1";
     }
-    __weak GoodDiscussListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodDiscussListGoods_id:[NSString stringStandard:self.strGood_id]
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodDiscussListGoods_id:[NSString stringStandard:self.strGood_id]
                                                                        andLimit:@"10"
                                                                         andPage:TransformNSInteger(self.intPageIndex)
                                                                        andState:strState
                                                                     andstore_id:[NSString stringStandard:self.store_id]]
                          subscribeNext:^(NSDictionary *dictionary) {
+        @strongify(self)
         NSArray *array;
         if ([dictionary[@"evaluate"] isKindOfClass:[NSArray class]]) {
             array = [NSArray arrayWithArray:dictionary[@"evaluate"]];
         }else{
             array = [NSArray array];
         }
-        if (myself.intPageIndex == 1) {
-            myself.arrDiscussList = [NSMutableArray array];
+        if (self.intPageIndex == 1) {
+            self.arrDiscussList = [NSMutableArray array];
         }
-        [myself.arrDiscussList addObjectsFromArray:array];
-        [myself.tabDiscussList reloadData];
+        [self.arrDiscussList addObjectsFromArray:array];
+        [self.tabDiscussList reloadData];
         if (self.enumState == enum_discuss_all) {
             if ([self.delegete respondsToSelector:@selector(discussListNumDictonary:)]) {
                 [self.delegete discussListNumDictonary:dictionary];
             }
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself.refreshControl endRefreshing];
+        @strongify(self)
+        self.disposable = nil;
+        [self.refreshControl endRefreshing];
         if (error.code!=2) {
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }else{
-            myself.curCount = 0;
+            self.curCount = 0;
         }
-        [myself.tabDiscussList checkNoData:myself.arrDiscussList.count];
+        [self.tabDiscussList checkNoData:self.arrDiscussList.count];
     }completed:^{
-        myself.intPageIndex++;
-        [myself.refreshControl endRefreshing];
-        myself.disposable = nil;
-        [myself.tabDiscussList checkNoData:myself.arrDiscussList.count];
+        @strongify(self)
+        self.intPageIndex++;
+        [self.refreshControl endRefreshing];
+        self.disposable = nil;
+        [self.tabDiscussList checkNoData:self.arrDiscussList.count];
     }];
 }
 #pragma mark - RefreshControlDelegate

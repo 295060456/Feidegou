@@ -50,6 +50,7 @@
 }
 - (IBAction)clickButtonCommit:(UIButton *)sender {
     [self.view endEditing:YES];
+    @weakify(self)
     ModelInfo *model = [[JJDBHelper sharedInstance]  fetchPersonalInfo];
     if (self.personalInfo == enum_personalInfo_phone) {
         NSString *strPhone = self.txtName.text;
@@ -62,7 +63,6 @@
             return;
         }
         [SVProgressHUD showWithStatus:@"正在提交信息..."];
-        __weak ChangeNameController *myself = self;
         self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName]
                                                                     andtelePhone:strPhone
                                                                       andarea_id:@""
@@ -70,19 +70,22 @@
                                                                      andbirthday:@""
                                                                         andemail:@""]
                            subscribeNext:^(NSDictionary*dictionry) {
+            @strongify(self)
             if ([dictionry[@"code"] intValue]==1) {
                 [SVProgressHUD dismiss];
                 model.mobile = strPhone;
                 [[JJDBHelper sharedInstance] savePersonalInfo:model];
-                [myself.navigationController popViewControllerAnimated:YES];
+                [self.navigationController popViewControllerAnimated:YES];
             }else{
                 [SVProgressHUD showErrorWithStatus:dictionry[@"msg"]];
             }
         }error:^(NSError *error) {
-            myself.disposable = nil;
+            @strongify(self)
+            self.disposable = nil;
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }completed:^{
-            myself.disposable = nil;
+            @strongify(self)
+            self.disposable = nil;
         }];
     }else if (self.personalInfo == enum_personalInfo_email){
         NSString *strEmail = self.txtName.text;
@@ -95,7 +98,6 @@
             return;
         }
         [SVProgressHUD showWithStatus:@"正在提交信息..."];
-        __weak ChangeNameController *myself = self;
         self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName]
                                                                     andtelePhone:@""
                                                                       andarea_id:@""
@@ -103,19 +105,22 @@
                                                                      andbirthday:@""
                                                                         andemail:strEmail]
                            subscribeNext:^(NSDictionary*dictionry) {
+            @strongify(self)
             if ([dictionry[@"code"] intValue]==1) {
                 [SVProgressHUD dismiss];
                 model.email = strEmail;
                 [[JJDBHelper sharedInstance] savePersonalInfo:model];
-                [myself.navigationController popViewControllerAnimated:YES];
+                [self.navigationController popViewControllerAnimated:YES];
             }else{
                 [SVProgressHUD showErrorWithStatus:dictionry[@"msg"]];
             }
         }error:^(NSError *error) {
-            myself.disposable = nil;
+            @strongify(self)
+            self.disposable = nil;
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }completed:^{
-            myself.disposable = nil;
+            @strongify(self)
+            self.disposable = nil;
         }];
     }else if (self.personalInfo == enum_personalInfo_chongzhi){
         NSString *strEmail = self.txtName.text;
@@ -124,20 +129,22 @@
             return;
         }
         [SVProgressHUD showWithStatus:@"正在提交信息..."];
-        __weak ChangeNameController *myself = self;
         self.disposable = [[[JJHttpClient new] requestFourZeroAddInteger:[NSString stringStandard:strEmail]]
                            subscribeNext:^(NSDictionary*dictionry) {
-            if ([dictionry[@"code"] intValue]==1) {
+            if ([dictionry[@"code"] intValue] == 1) {
                 [SVProgressHUD dismiss];
-                [myself.navigationController popViewControllerAnimated:YES];
+                @strongify(self)
+                [self.navigationController popViewControllerAnimated:YES];
             }else{
                 [SVProgressHUD showErrorWithStatus:dictionry[@"msg"]];
             }
         }error:^(NSError *error) {
-            myself.disposable = nil;
+            @strongify(self)
+            self.disposable = nil;
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }completed:^{
-            myself.disposable = nil;
+            @strongify(self)
+            self.disposable = nil;
         }];
     }
 }

@@ -69,60 +69,65 @@ UITableViewDataSource
     [self.refreshControl beginRefreshingMethod];
 }
 - (void)requestExchangeList{
+    @weakify(self)
     if (self.numDetail == enum_numDetail_wdtd) {
-        __weak MoneyDetailListController *myself = self;
-        myself.disposable = [[[JJHttpClient new] requestShopGoodIntegralDetialLimit:@"20"
+        self.disposable = [[[JJHttpClient new] requestShopGoodIntegralDetialLimit:@"20"
                                                                             andPage:TransformNSInteger(self.intPageIndex)
                                                                           andGrouId:[NSString stringStandard:self.strGrouId]]
                              subscribeNext:^(NSArray* array) {
-            myself.curCount = array.count;
-            if (myself.intPageIndex == 1) {
-                myself.arrIncome = [NSMutableArray array];
+            @strongify(self)
+            self.curCount = array.count;
+            if (self.intPageIndex == 1) {
+                self.arrIncome = [NSMutableArray array];
             }
-            [myself.arrIncome addObjectsFromArray:array];
-            [myself.tabMoney reloadData];
-            [myself.tabMoney checkNoData:myself.arrIncome.count];
+            [self.arrIncome addObjectsFromArray:array];
+            [self.tabMoney reloadData];
+            [self.tabMoney checkNoData:self.arrIncome.count];
         }error:^(NSError *error) {
-            myself.disposable = nil;
-            [myself.refreshControl endRefreshing];
+            @strongify(self)
+            self.disposable = nil;
+            [self.refreshControl endRefreshing];
             if (error.code!=2) {
                 //                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             }else{
-                myself.curCount = 0;
+                self.curCount = 0;
             }
-            [myself.tabMoney checkNoData:myself.arrIncome.count];
+            [self.tabMoney checkNoData:self.arrIncome.count];
         }completed:^{
-            myself.intPageIndex++;
-            [myself.refreshControl endRefreshing];
-            myself.disposable = nil;
+            @strongify(self)
+            self.intPageIndex++;
+            [self.refreshControl endRefreshing];
+            self.disposable = nil;
         }];
         
     }
-    __weak MoneyDetailListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodRedpacketDetialLimit:@"20"
+    self.disposable = [[[JJHttpClient new] requestShopGoodRedpacketDetialLimit:@"20"
                                                                          andPage:TransformNSInteger(self.intPageIndex)
                                                                          andmode:self.strMode]
                          subscribeNext:^(NSArray* array) {
-        myself.curCount = array.count;
-        if (myself.intPageIndex == 1) {
-            myself.arrIncome = [NSMutableArray array];
+        @strongify(self)
+        self.curCount = array.count;
+        if (self.intPageIndex == 1) {
+            self.arrIncome = [NSMutableArray array];
         }
-        [myself.arrIncome addObjectsFromArray:array];
-        [myself.tabMoney reloadData];
-        [myself.tabMoney checkNoData:myself.arrIncome.count];
+        [self.arrIncome addObjectsFromArray:array];
+        [self.tabMoney reloadData];
+        [self.tabMoney checkNoData:self.arrIncome.count];
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself.refreshControl endRefreshing];
+        @strongify(self)
+        self.disposable = nil;
+        [self.refreshControl endRefreshing];
         if (error.code!=2) {
             //                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }else{
-            myself.curCount = 0;
+            self.curCount = 0;
         }
-        [myself.tabMoney checkNoData:myself.arrIncome.count];
+        [self.tabMoney checkNoData:self.arrIncome.count];
     }completed:^{
-        myself.intPageIndex++;
-        [myself.refreshControl endRefreshing];
-        myself.disposable = nil;
+        @strongify(self)
+        self.intPageIndex++;
+        [self.refreshControl endRefreshing];
+        self.disposable = nil;
     }];
 }
 #pragma mark - RefreshControlDelegate
@@ -133,6 +138,7 @@ UITableViewDataSource
         [self requestExchangeList];
     }
 }
+
 -(void)refreshControlForLoadMoreData{
     //从远程服务器获取数据
     if ([self respondsToSelector:@selector(requestExchangeList)]) {
@@ -147,7 +153,8 @@ UITableViewDataSource
     }return NO;
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         return 1;
     }return self.arrIncome.count;
@@ -156,7 +163,9 @@ UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         return 120.0f;
     }return 60.0f;

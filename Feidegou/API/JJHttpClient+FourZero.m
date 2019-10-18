@@ -370,7 +370,8 @@
                                                 data:@{}];
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
                                    parameters:param] map:^id(NSDictionary* dictionary) {
-        [[JJDBHelper sharedInstance] updateCacheForId:@"3059" cacheArray:dictionary[@"biaoXiaoList"]];
+        [[JJDBHelper sharedInstance] updateCacheForId:@"3059"
+                                           cacheArray:dictionary[@"biaoXiaoList"]];
         return dictionary;
     }];
 }
@@ -499,7 +500,9 @@
                               andcompany_id:(NSString *)company_id
                                andship_code:(NSString *)ship_code{
     NSDictionary *param = [self paramStringWithStype:@"4029"
-                                                data:@{@"refund_id":refund_id, @"company_id":company_id,   @"ship_code":ship_code
+                                                data:@{@"refund_id":refund_id,
+                                                       @"company_id":company_id,
+                                                       @"ship_code":ship_code
                                                        }];
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_WRITE
                                    parameters:param] map:^id(NSDictionary* dictionary) {

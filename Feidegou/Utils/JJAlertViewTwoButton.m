@@ -57,9 +57,10 @@ typedef void (^cancle)(void);
             // Add the actions.
             [alertController addAction:otherAction];
         }
-        [viewController presentViewController:alertController animated:YES completion:nil];
-    }
-    else{
+        [viewController presentViewController:alertController
+                                     animated:YES
+                                   completion:nil];
+    }else{
         UIAlertView *TitleAlert = [[UIAlertView alloc] initWithTitle:title
                                                              message:message
                                                             delegate:self

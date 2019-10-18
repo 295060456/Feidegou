@@ -73,7 +73,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         pickerImage.allowsEditing = YES;
         [pickerImage setVideoQuality:UIImagePickerControllerQualityTypeLow];
         pickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        [self presentViewController:pickerImage animated:YES completion:^{}];
+        [self presentViewController:pickerImage
+                           animated:YES
+                         completion:^{}];
     }else{
         UIImagePickerController *pickerImage = [[UIImagePickerController alloc] init];
         if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -105,23 +107,26 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info{
 - (void)requestPostHeadImage:(NSData *)data{
     [SVProgressHUD showWithStatus:@"正在上传头像..."];
     ModelCenter *model = [[JJDBHelper sharedInstance] fetchCenterMsg];
-    __weak ChangeHeadImgController *myself = self;
+    @weakify(self)
     self.disposable = [[[JJHttpClient new] requestHeadImageHead:data
                                                       andUserid:@""]
-                       subscribeNext:^(NSDictionary*dictionry) {
+                       subscribeNext:^(NSDictionary *dictionry) {
+        @strongify(self)
         if ([dictionry[@"code"] intValue]==1) {
             model.head = dictionry[@"path"];
             [[JJDBHelper sharedInstance] saveCenterMsg:model];
             [SVProgressHUD showSuccessWithStatus:dictionry[@"msg"]];
-            [myself.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:dictionry[@"msg"]];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 

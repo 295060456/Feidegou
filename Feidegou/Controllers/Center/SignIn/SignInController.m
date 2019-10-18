@@ -66,23 +66,26 @@ RefreshControlDelegate
 
 }
 - (void)requestExchangeList{
-    __weak SignInController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodSignIn] subscribeNext:^(NSDictionary* dictionary) {
-        myself.share = [dictionary[@"share"] boolValue];
-        [myself refrehsButton];
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodSignIn] subscribeNext:^(NSDictionary* dictionary) {
+        @strongify(self)
+        self.share = [dictionary[@"share"] boolValue];
+        [self refrehsButton];
         if ([dictionary[@"signGoods"] isKindOfClass:[NSArray class]]) {
-            myself.arrSignIn = [NSMutableArray arrayWithArray:dictionary[@"signGoods"]];
+            self.arrSignIn = [NSMutableArray arrayWithArray:dictionary[@"signGoods"]];
         }
     }error:^(NSError *error) {
-        [myself.refreshControl endRefreshing];
-        [myself.tabSignIn reloadData];
-        [myself.tabSignIn checkNoData:myself.arrSignIn.count];
-        myself.disposable = nil;
+        @strongify(self)
+        [self.refreshControl endRefreshing];
+        [self.tabSignIn reloadData];
+        [self.tabSignIn checkNoData:self.arrSignIn.count];
+        self.disposable = nil;
     }completed:^{
-        [myself.refreshControl endRefreshing];
-        [myself.tabSignIn reloadData];
-        [myself.tabSignIn checkNoData:myself.arrSignIn.count];
-        myself.disposable = nil;
+        @strongify(self)
+        [self.refreshControl endRefreshing];
+        [self.tabSignIn reloadData];
+        [self.tabSignIn checkNoData:self.arrSignIn.count];
+        self.disposable = nil;
     }];
 }
 #pragma mark - RefreshControlDelegate
@@ -114,8 +117,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    CellSignIn *cell=[tableView dequeueReusableCellWithIdentifier:@"CellSignIn"];
+    @weakify(self)
+    CellSignIn *cell = [tableView dequeueReusableCellWithIdentifier:@"CellSignIn"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     [cell.imgGood setImagePathListSquare:self.arrSignIn[indexPath.row][@"path"]];
     [cell.lblTitle setTextNull:self.arrSignIn[indexPath.row][@"goods_name"]];
@@ -126,11 +129,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }else{
         [cell.viBtn setBackgroundColor:ColorRed];
         [cell.btnSign setTitle:@"签到" forState:UIControlStateNormal];
+        
         [cell.btnSign handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+            @strongify(self)
             [self requestSignIn:indexPath.row];
         }];
     }
-    
     [cell.lblLeftUp setText:StringFormat(@"%@/天",self.arrSignIn[indexPath.row][@"signed_day"])];
     [cell.lblMiddleUp setText:StringFormat(@"%d/天",[self.arrSignIn[indexPath.row][@"sign_day"] intValue]-[self.arrSignIn[indexPath.row][@"signed_day"] intValue])];
     [cell.lblRightUp setTextNull:self.arrSignIn[indexPath.row][@"signed_money"]];
@@ -139,23 +143,27 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)requestSignIn:(NSInteger)intRow{
     [SVProgressHUD showWithStatus:@"正在请求数据..."];
-    __weak SignInController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestFourZeroSignInGoodId:self.arrSignIn[intRow][@"id"]] subscribeNext:^(NSDictionary* dictionary) {
-        if ([dictionary[@"code"] intValue]==1) {
-            myself.share = YES;
-            [myself refrehsButton];
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestFourZeroSignInGoodId:self.arrSignIn[intRow][@"id"]] subscribeNext:^(NSDictionary* dictionary) {
+        @strongify(self)
+        if ([dictionary[@"code"] intValue] == 1) {
+            self.share = YES;
+            [self refrehsButton];
             
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMine bundle:nil];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMine
+                                                                 bundle:nil];
             SiginShowAdverController *controller = [storyboard instantiateViewControllerWithIdentifier:@"SiginShowAdverController"];
             controller.dicShare = [NSDictionary dictionaryWithDictionary:dictionary];
-            [self.navigationController pushViewController:controller animated:YES];
+            [self.navigationController pushViewController:controller
+                                                 animated:YES];
 
-            
             NSMutableDictionary  *dicInfo = [NSMutableDictionary dictionaryWithDictionary:self.arrSignIn[intRow]];
-            [dicInfo setObject:StringFormat(@"%d",[dicInfo[@"signed_day"] intValue]+1) forKey:@"signed_day"];
-            [dicInfo setObject:StringFormat(@"%.2f",[dicInfo[@"signed_money"] doubleValue]+[dictionary[@"money"] doubleValue]) forKey:@"signed_money"];
-            [myself.arrSignIn replaceObjectAtIndex:intRow withObject:dicInfo];
-            [myself.tabSignIn reloadData];
+            [dicInfo setObject:StringFormat(@"%d",[dicInfo[@"signed_day"] intValue]+1)
+                        forKey:@"signed_day"];
+            [dicInfo setObject:StringFormat(@"%.2f",[dicInfo[@"signed_money"] doubleValue]+[dictionary[@"money"] doubleValue])
+                        forKey:@"signed_money"];
+            [self.arrSignIn replaceObjectAtIndex:intRow withObject:dicInfo];
+            [self.tabSignIn reloadData];
             
 //            myself.dicShare = [NSDictionary dictionaryWithDictionary:dictionary];
 //            [myself showSignTip];
@@ -164,16 +172,18 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];
         }
     }error:^(NSError *error) {
-        [myself.refreshControl endRefreshing];
-        [myself.tabSignIn reloadData];
+        @strongify(self)
+        [self.refreshControl endRefreshing];
+        [self.tabSignIn reloadData];
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-        [myself.tabSignIn checkNoData:myself.arrSignIn.count];
-        myself.disposable = nil;
+        [self.tabSignIn checkNoData:self.arrSignIn.count];
+        self.disposable = nil;
     }completed:^{
-        [myself.refreshControl endRefreshing];
-        [myself.tabSignIn reloadData];
-        [myself.tabSignIn checkNoData:myself.arrSignIn.count];
-        myself.disposable = nil;
+        @strongify(self)
+        [self.refreshControl endRefreshing];
+        [self.tabSignIn reloadData];
+        [self.tabSignIn checkNoData:self.arrSignIn.count];
+        self.disposable = nil;
     }];
 }
 

@@ -23,14 +23,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.txtUser handleTextFieldControlEvent:UIControlEventEditingChanged withBlock:^{
+    @weakify(self)
+    [self.txtUser handleTextFieldControlEvent:UIControlEventEditingChanged
+                                    withBlock:^{
+        @strongify(self)
         [self textFieldChanged];
     }];
-    [self.txtMoney handleTextFieldControlEvent:UIControlEventEditingChanged withBlock:^{
+    [self.txtMoney handleTextFieldControlEvent:UIControlEventEditingChanged
+                                     withBlock:^{
+        @strongify(self)
         [self.lblMoney setText:StringFormat(@"￥%@",[NSString stringStandardFloatTwo:self.txtMoney.text])];
         [self textFieldChanged];
     }];
-    // Do any additional setup after loading the view.
 }
 
 - (void)textFieldChanged{
@@ -59,22 +63,30 @@
         return;
     }
     [self.view endEditing:YES];
-    [SVProgressHUD showWithStatus:@"正在登录..." maskType:SVProgressHUDMaskTypeBlack];
-    __weak RedPacketTransportController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestFourZeroRedPacketTransportuserId:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] andaccounts:strUserNum andredbag:strMoney] subscribeNext:^(NSDictionary*dictionray) {
-        if ([dictionray[@"code"] intValue]==1) {
+    [SVProgressHUD showWithStatus:@"正在登录..."
+                         maskType:SVProgressHUDMaskTypeBlack];
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestFourZeroRedPacketTransportuserId:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]
+                                                                       andaccounts:strUserNum
+                                                                         andredbag:strMoney]
+                       subscribeNext:^(NSDictionary*dictionray) {
+        @strongify(self)
+        if ([dictionray[@"code"] intValue] == 1) {
             [SVProgressHUD showSuccessWithStatus:@"转账成功"];
-            [myself.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:dictionray[@"msg"]];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 
 
 @end
+

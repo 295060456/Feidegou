@@ -23,8 +23,7 @@ static PersonalInfo *personalInfo;
     static dispatch_once_t longOnce;
     dispatch_once(&longOnce, ^{
         personalInfo = [[PersonalInfo alloc] init];
-    });
-    return personalInfo;
+    });return personalInfo;
 }
 
 -(void)updateLoginUserInfo:(ModelLogin*)model{

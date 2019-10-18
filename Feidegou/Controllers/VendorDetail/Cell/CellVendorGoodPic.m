@@ -32,7 +32,11 @@
         self.cycleScrollView.showPageControl = YES;
     }
     //             --- 模拟加载延迟
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    @weakify(self)
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
+                                 (int64_t)(0 * NSEC_PER_SEC)),
+                   dispatch_get_main_queue(), ^{
+        @strongify(self)
         self.cycleScrollView.imageURLStringsGroup = arrImage;
     });
     [self.lblTitle setTextNull:dicInfo[@"goods"][@"goods_name"]];
@@ -40,12 +44,10 @@
 
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView
    didSelectItemAtIndex:(NSInteger)index{
-    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
 }
 

@@ -24,7 +24,7 @@ typedef void (^cancle)(void);
            andCancel:(NSString *)cancel
        andCanelIsRed:(BOOL)isRed
              andBack:(void (^)(void))cancle{
-    cancleParam=cancle;
+    cancleParam = cancle;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
                                                                                  message:message
@@ -42,7 +42,8 @@ typedef void (^cancle)(void);
             }];
             [alertController addAction:cancelAction];
         }
-        [controller presentViewController:alertController animated:YES
+        [controller presentViewController:alertController
+                                 animated:YES
                                completion:nil];
     }else{
         UIAlertView *TitleAlert = [[UIAlertView alloc] initWithTitle:title

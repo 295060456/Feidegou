@@ -33,16 +33,19 @@
 
 - (void)locationControls{
     [self showException];
-    __weak QRCodeController *myself = self;
+    @weakify(self)
     self.disposable = [[[JJHttpClient new] requestShopGoodInviteFriend] subscribeNext:^(NSString*string) {
-        myself.strImage = string;
-        [myself.imgCode setImagePathListSquare:string];
+        @strongify(self)
+        self.strImage = string;
+        [self.imgCode setImagePathListSquare:string];
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself failedRequestException:enum_exception_timeout];
+        @strongify(self)
+        self.disposable = nil;
+        [self failedRequestException:enum_exception_timeout];
     }completed:^{
-        myself.disposable = nil;
-        [myself hideException];
+        @strongify(self)
+        self.disposable = nil;
+        [self hideException];
     }];
 }
 

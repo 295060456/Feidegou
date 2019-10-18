@@ -59,22 +59,25 @@
     [self.view endEditing:YES];
     ModelLogin *model = [[PersonalInfo sharedInstance]  fetchLoginUserInfo];
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
-    __weak ChangePswController *myself = self;
+    @weakify(self)
     self.disposable = [[[JJHttpClient new] requestFourZeroChangePswUserName:[NSString stringStandard:model.userName]
                                                             andpassword_new:strPswNew
                                                             andpassword_old:strPswOld]
                        subscribeNext:^(NSDictionary*dictionry) {
-        if ([dictionry[@"code"] intValue]==1) {
+        @strongify(self)
+        if ([dictionry[@"code"] intValue] == 1) {
             [SVProgressHUD showSuccessWithStatus:dictionry[@"msg"]];
-            [myself.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:dictionry[@"msg"]];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 

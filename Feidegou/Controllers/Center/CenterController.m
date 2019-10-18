@@ -67,27 +67,38 @@ DidClickCollectionViewDelegete
 
 - (void)initHeaderView{
     
-    self.viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
+    self.viHeader = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                             0,
+                                                             SCREEN_WIDTH,
+                                                             64)];
     [self.viHeader setBackgroundColor:[UIColor clearColor]];
     [self.view addSubview:self.viHeader];
-    self.lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(60, 20, SCREEN_WIDTH-120, 44)];
+    self.lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(60,
+                                                              20,
+                                                              SCREEN_WIDTH - 120,
+                                                              44)];
     [self.lblTitle setTextAlignment:NSTextAlignmentCenter];
     [self.lblTitle setHidden:YES];
     [self.lblTitle setText:@"我的"];
-    [self.lblTitle setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16.0]];
+    [self.lblTitle setFont:[UIFont fontWithName:@"Helvetica-Bold"
+                                           size:16.0]];
     [self.lblTitle setTextColor:[UIColor whiteColor]];
     [self.viHeader addSubview:self.lblTitle];
-    UIButton *buttonSet=[[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth(self.viHeader.frame)-60,
-                                                                  self.viHeader.frame.size.height-44,
+    UIButton *buttonSet=[[UIButton alloc]initWithFrame:CGRectMake(CGRectGetWidth(self.viHeader.frame) - 60,
+                                                                  self.viHeader.frame.size.height - 44,
                                                                   60,
                                                                   44)];
     [buttonSet setImage:ImageNamed(@"img_center_sz")
                forState:UIControlStateNormal];
+    @weakify(self)
     [buttonSet handleControlEvent:UIControlEventTouchUpInside
                         withBlock:^{
-        UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardMine bundle:nil];
+        UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardMine
+                                                           bundle:nil];
         SettingController *controller=[storyboard instantiateViewControllerWithIdentifier:@"SettingController"];
-        [self.navigationController pushViewController:controller animated:YES];
+        @strongify(self)
+        [self.navigationController pushViewController:controller
+                                             animated:YES];
     }];
     [self.viHeader addSubview:buttonSet];
 }
@@ -116,15 +127,17 @@ DidClickCollectionViewDelegete
         return;
     }
     if ([[PersonalInfo sharedInstance] isLogined]){
-        __weak CenterController *myself = self;
-        myself.disposable = [[[JJHttpClient new] requestShopGoodCenterInfoUserId:[[PersonalInfo sharedInstance]
+        @weakify(self)
+        self.disposable = [[[JJHttpClient new] requestShopGoodCenterInfoUserId:[[PersonalInfo sharedInstance]
                                                                                   fetchLoginUserInfo].userId]
                              subscribeNext:^(ModelCenter *model) {
-            [myself refreshTab];
+            [self refreshTab];
         }error:^(NSError *error) {
-            myself.disposable = nil;
+            @strongify(self)
+            self.disposable = nil;
         }completed:^{
-            myself.disposable = nil;
+            @strongify(self)
+            self.disposable = nil;
         }];
     }
 }
@@ -170,8 +183,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    @weakify(self)
     if (indexPath.section == 0) {
-        if (indexPath.row ==0) {
+        if (indexPath.row == 0) {
             if ([[PersonalInfo sharedInstance] isLogined]) {
                 CellLogined *cell=[tableView dequeueReusableCellWithIdentifier:@"CellLogined"];
                 [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -221,40 +235,54 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         [arrType addObject:dic2];
         [arrType addObject:dic3];
         [cell setDelegete:self];
-        [cell populateDataArray:arrType andTitle:@"我的资产" andButtonName:@"" andIndexPath:indexPath];
-        [cell.btnMore handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [cell populateDataArray:arrType
+                       andTitle:@"我的资产"
+                  andButtonName:@""
+                   andIndexPath:indexPath];
+        @weakify(self)
+        [cell.btnMore handleControlEvent:UIControlEventTouchUpInside
+                               withBlock:^{
+            @strongify(self)
             if ([[PersonalInfo sharedInstance] isLogined]) {
-                
             }else{
                 [self pushLoginAlert];
             }
         }];return cell;
     }
     if (indexPath.section == 2) {
-        CellCollectionType *cell=[tableView dequeueReusableCellWithIdentifier:@"CellCollectionType"];
+        CellCollectionType *cell = [tableView dequeueReusableCellWithIdentifier:@"CellCollectionType"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         NSMutableArray *arrType = [NSMutableArray array];
         NSMutableDictionary *dic0 = [NSMutableDictionary dictionary];
-        [dic0 setObject:@"img_center_xxmdjl" forKey:@"image"];
-        [dic0 setObject:@"线下买单记录" forKey:@"name"];
-        [dic0 setObject:@"我的购买记录" forKey:@"tip"];
+        [dic0 setObject:@"img_center_xxmdjl"
+                 forKey:@"image"];
+        [dic0 setObject:@"线下买单记录"
+                 forKey:@"name"];
+        [dic0 setObject:@"我的购买记录"
+                 forKey:@"tip"];
         NSMutableDictionary *dic1 = [NSMutableDictionary dictionary];
-        [dic1 setObject:@"img_center_jfdhjl" forKey:@"image"];
-        [dic1 setObject:@"积分兑换记录" forKey:@"name"];
-        [dic1 setObject:@"我的积分记录" forKey:@"tip"];
+        [dic1 setObject:@"img_center_jfdhjl"
+                 forKey:@"image"];
+        [dic1 setObject:@"积分兑换记录"
+                 forKey:@"name"];
+        [dic1 setObject:@"我的积分记录"
+                 forKey:@"tip"];
         [arrType addObject:dic0];
         [arrType addObject:dic1];
         [cell setDelegete:self];
-        [cell populateDataArray:arrType andTitle:@"我的订单" andButtonName:@"" andIndexPath:indexPath];
-        [cell.btnMore handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [cell populateDataArray:arrType
+                       andTitle:@"我的订单"
+                  andButtonName:@""
+                   andIndexPath:indexPath];
+        [cell.btnMore handleControlEvent:UIControlEventTouchUpInside
+                               withBlock:^{
+            @strongify(self)
             if ([[PersonalInfo sharedInstance] isLogined]) {
-                
             }else{
                 [self pushLoginAlert];
             }
         }];return cell;
     }
-
     CellMyService *cell=[tableView dequeueReusableCellWithIdentifier:@"CellMyService"];
     if (indexPath.section == 3) {
         [cell.imgHead setImage:ImageNamed(@"img_center_wdewm")];
@@ -525,3 +553,4 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 
 @end
+

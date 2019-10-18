@@ -74,10 +74,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
+    [tableView deselectRowAtIndexPath:indexPath
+                             animated:NO];
+    @weakify(self)
     if (indexPath.row == 0) {
         [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
+            @strongify(self)
             [self.tabSet reloadData];
         }];
     }
@@ -89,16 +91,16 @@
 }
 
 - (IBAction)clickButtonLoginOut:(UIButton *)sender {
-    
-    JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-    [alertView showAlertView:self
-                    andTitle:nil
-                  andMessage:@"是否退出登录"
-                   andCancel:@"取消"
-               andCanelIsRed:NO
-               andOherButton:@"立即退出"
-                  andConfirm:^{
+    @weakify(self)
+    [JJAlertViewTwoButton.new showAlertView:self
+                                   andTitle:nil
+                                 andMessage:@"是否退出登录"
+                                  andCancel:@"取消"
+                              andCanelIsRed:NO
+                              andOherButton:@"立即退出"
+                                 andConfirm:^{
         [[PersonalInfo sharedInstance] deleteLoginUserInfo];
+        @strongify(self)
         [self.navigationController popViewControllerAnimated:YES];
     } andCancel:^{
         D_NSLog(@"点击了取消");

@@ -77,12 +77,16 @@ DidClickDelegeteCollectionViewType>{
                                                                              self.view.frame.size.width-20,
                                                                              35)];
     [buttonSearch setTitle:@"搜索附近的吃喝玩乐"];
-    [buttonSearch handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+    @weakify(self)
+    [buttonSearch handleControlEvent:UIControlEventTouchUpInside
+                           withBlock:^{
+        @strongify(self)
         D_NSLog(@"clickButtonSearch");
         UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
         SearchGoodController *controller=[storyboard instantiateViewControllerWithIdentifier:@"SearchGoodController"];
         controller.isVendor = YES;
-        [self.navigationController pushViewController:controller animated:NO];
+        [self.navigationController pushViewController:controller
+                                             animated:NO];
     }];
     [self.viHeader addSubview:buttonSearch];
 }
@@ -110,34 +114,36 @@ DidClickDelegeteCollectionViewType>{
 }
 
 - (void)requestExchangeList{
-    __weak VendorMainGoodController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodVenderMain] subscribeNext:^(NSDictionary* dictioanry) {
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodVenderMain] subscribeNext:^(NSDictionary* dictioanry) {
+        @strongify(self)
         NSArray *arrPicUp = dictioanry[@"photoUrl"];
         if ([arrPicUp isKindOfClass:[NSArray class]]) {
-            myself.arrphotoUrlSlider = [NSMutableArray arrayWithArray:arrPicUp];
+            self.arrphotoUrlSlider = [NSMutableArray arrayWithArray:arrPicUp];
         }
         NSArray *arrType = dictioanry[@"classification"];
         if ([arrType isKindOfClass:[NSArray class]]) {
-            myself.arrclassification = [NSMutableArray arrayWithArray:arrType];
+            self.arrclassification = [NSMutableArray arrayWithArray:arrType];
         }
         NSArray *arrPicMiddle = dictioanry[@"photoUrlSlider"];
         if ([arrPicMiddle isKindOfClass:[NSArray class]]) {
-            myself.arrphotoUrl = [NSMutableArray arrayWithArray:arrPicMiddle];
+            self.arrphotoUrl = [NSMutableArray arrayWithArray:arrPicMiddle];
         }
 //        NSArray *arrGood = dictioanry[@"recommendedGoods"];
 //        if ([arrGood isKindOfClass:[NSArray class]]) {
 //            myself.arrrecommendedGoods = [NSMutableArray arrayWithArray:arrGood];
 //        }
-        [myself.tabGood reloadData];
-        
+        [self.tabGood reloadData];
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
 //        [myself.refreshControl endRefreshing];
-        [myself checkNum];
+        [self checkNum];
     }completed:^{
+         @strongify(self)
 //        [myself.refreshControl endRefreshing];
-        myself.disposable = nil;
-        [myself checkNum];
+        self.disposable = nil;
+        [self checkNum];
     }];
 }
 

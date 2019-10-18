@@ -122,28 +122,33 @@ RefreshControlDelegate
     if (self.orderState != enumOrder_quanbu) {
         strOrderState = TransformNSInteger(self.orderState);
     }
-    __weak AreaDoneListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderListAreaExchangeLimit:@"10" andPage:TransformNSInteger(self.intPageIndex)] subscribeNext:^(NSArray* array) {
-        myself.curCount = array.count;
-        if (myself.intPageIndex == 1) {
-            myself.arrGoods = [NSMutableArray array];
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodOrderListAreaExchangeLimit:@"10"
+                                                                               andPage:TransformNSInteger(self.intPageIndex)]
+                         subscribeNext:^(NSArray* array) {
+        @strongify(self)
+        self.curCount = array.count;
+        if (self.intPageIndex == 1) {
+            self.arrGoods = [NSMutableArray array];
         }
-        [myself.arrGoods addObjectsFromArray:array];
-        [myself.tabAreaOrder reloadData];
-        [myself.tabAreaOrder checkNoData:myself.arrGoods.count];
+        [self.arrGoods addObjectsFromArray:array];
+        [self.tabAreaOrder reloadData];
+        [self.tabAreaOrder checkNoData:self.arrGoods.count];
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself.tabAreaOrder checkNoData:myself.arrGoods.count];
-        [myself.refreshControl endRefreshing];
+        @strongify(self)
+        self.disposable = nil;
+        [self.tabAreaOrder checkNoData:self.arrGoods.count];
+        [self.refreshControl endRefreshing];
         if (error.code!=2) {
 //            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }else{
-            myself.curCount = 0;
+            self.curCount = 0;
         }
     }completed:^{
-        myself.intPageIndex++;
-        [myself.refreshControl endRefreshing];
-        myself.disposable = nil;
+        @strongify(self)
+        self.intPageIndex++;
+        [self.refreshControl endRefreshing];
+        self.disposable = nil;
     }];
 }
 #pragma mark - RefreshControlDelegate
@@ -217,38 +222,47 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         [cell populateDataArea:self.arrGoods[indexPath.section]];
         return cell;
     }
-    CellOrderButtones *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderButtones"];
+    CellOrderButtones *cell = [tableView dequeueReusableCellWithIdentifier:@"CellOrderButtones"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 //    [cell populateDataArea:self.arrGoods[indexPath.section]];
-    
+    @weakify(self)
     [cell populateDataOrderList:self.arrGoods[indexPath.section]];
-    [cell.btnOne handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        [self clickButtonForListName:cell.btnOne.titleLabel.text andIndexPath:self.arrGoods[indexPath.section]];
+    [cell.btnOne handleControlEvent:UIControlEventTouchUpInside
+                          withBlock:^{
+        @strongify(self)
+        [self clickButtonForListName:cell.btnOne.titleLabel.text
+                        andIndexPath:self.arrGoods[indexPath.section]];
     }];
-    [cell.btnTwo handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        [self clickButtonForListName:cell.btnTwo.titleLabel.text andIndexPath:self.arrGoods[indexPath.section]];
-    }];
-    return cell;
+    [cell.btnTwo handleControlEvent:UIControlEventTouchUpInside
+                          withBlock:^{
+        @strongify(self)
+        [self clickButtonForListName:cell.btnTwo.titleLabel.text
+                        andIndexPath:self.arrGoods[indexPath.section]];
+    }];return cell;
 }
 
 - (void)clickButtonForListName:(NSString *)strTitle
                   andIndexPath:(ModelAreaList *)model{
     if ([TransformString(strTitle) isEqualToString:@"查看订单"]) {
         
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardExchageArea bundle:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardExchageArea
+                                                             bundle:nil];
         AreaDoneDetailController *controller = [storyboard instantiateViewControllerWithIdentifier:@"AreaDoneDetailController"];
         controller.modelList = model;
-        [self.navigationController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller
+                                             animated:YES];
     }else if ([TransformString(strTitle) isEqualToString:@"查看物流"]) {
         
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder" bundle:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder"
+                                                             bundle:nil];
         OrderLogisticsDetailController *controller = [storyboard instantiateViewControllerWithIdentifier:@"OrderLogisticsDetailController"];
         controller.strPath = model.path;
         controller.strCount = model.count;
         controller.strGoodCode = model.igo_ship_code;
         controller.strCompanyCode = model.ship_code;
         controller.strCompanyName = model.ship_name;
-        [self.navigationController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller
+                                             animated:YES];
     }
 }
 

@@ -168,14 +168,15 @@
 }
 
 - (void)pushLoginAlert{
-    JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-    [alertView showAlertView:self
-                    andTitle:nil
-                  andMessage:@"您当前没有登录，是否登录"
-                   andCancel:@"取消"
-               andCanelIsRed:NO
-               andOherButton:@"立即登录"
-                  andConfirm:^{
+    @weakify(self)
+    [JJAlertViewTwoButton.new showAlertView:self
+                                   andTitle:nil
+                                 andMessage:@"您当前没有登录，是否登录"
+                                  andCancel:@"取消"
+                              andCanelIsRed:NO
+                              andOherButton:@"立即登录"
+                                 andConfirm:^{
+        @strongify(self)
         D_NSLog(@"点击了登录");
         [self pushLoginController];
     } andCancel:^{
@@ -184,7 +185,8 @@
 }
 
 - (void)pushLoginController{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister
+                                                         bundle:nil];
     LoginViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
     [self.navigationController pushViewController:controller
                                          animated:YES];

@@ -58,27 +58,32 @@
         return;
     }
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
-    __weak VendorPayTheBillController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestFourZeroBuyTheBillbuy_user_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestFourZeroBuyTheBillbuy_user_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId
                                                                 andseller_user_id:[NSString stringStandard:self.seller_user_id]
                                                                      andbuy_money:[NSString stringStandard:strPrice] anddirectPurchase:@"1"]
                          subscribeNext:^(NSDictionary* dictionary) {
-        if ([dictionary[@"code"] intValue]==1) {
+        @strongify(self)
+        if ([dictionary[@"code"] intValue] == 1) {
             [SVProgressHUD dismiss];
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder
+                                                                 bundle:nil];
             PayMonyForGoodController *controller = [storyboard instantiateViewControllerWithIdentifier:@"PayMonyForGoodController"];
             controller.strOrderId = dictionary[@"order_id"];
             controller.strTotalPrice = strPrice;
             controller.isPayTheBill = YES;
-            [self.navigationController pushViewController:controller animated:YES];
+            [self.navigationController pushViewController:controller
+                                                 animated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 

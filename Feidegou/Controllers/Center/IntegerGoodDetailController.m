@@ -48,30 +48,33 @@
 }
 
 - (void)requestExchangeList{
-    __weak IntegerGoodDetailController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderListAreaExchangeLimit:@"20"
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodOrderListAreaExchangeLimit:@"20"
                                                                                andPage:TransformNSInteger(self.intPageIndex)]
                          subscribeNext:^(NSArray* array) {
-        myself.curCount = array.count;
-        if (myself.intPageIndex == 1) {
-            myself.arrInteger = [NSMutableArray array];
+        @strongify(self)
+        self.curCount = array.count;
+        if (self.intPageIndex == 1) {
+            self.arrInteger = [NSMutableArray array];
         }
-        [myself.arrInteger addObjectsFromArray:array];
-        [myself.tabInteger reloadData];
-        [myself.tabInteger checkNoData:myself.arrInteger.count];
+        [self.arrInteger addObjectsFromArray:array];
+        [self.tabInteger reloadData];
+        [self.tabInteger checkNoData:self.arrInteger.count];
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself.refreshControl endRefreshing];
+        @strongify(self)
+        self.disposable = nil;
+        [self.refreshControl endRefreshing];
         if (error.code!=2) {
             //                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }else{
-            myself.curCount = 0;
+            self.curCount = 0;
         }
-        [myself.tabInteger checkNoData:myself.arrInteger.count];
+        [self.tabInteger checkNoData:self.arrInteger.count];
     }completed:^{
-        myself.intPageIndex++;
-        [myself.refreshControl endRefreshing];
-        myself.disposable = nil;
+        @strongify(self)
+        self.intPageIndex++;
+        [self.refreshControl endRefreshing];
+        self.disposable = nil;
     }];
 }
 #pragma mark - RefreshControlDelegate
@@ -206,9 +209,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [cell.btnOne setHidden:NO];
             [cell.btnOne setTitle:@"查看物流" forState:UIControlStateNormal];
         }
-        [cell.btnOne handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        @weakify(self)
+        [cell.btnOne handleControlEvent:UIControlEventTouchUpInside
+                              withBlock:^{
+            @strongify(self)
             if (intState == 10) {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder" bundle:nil];
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder"
+                                                                     bundle:nil];
                 PayMonyForGoodController *controller = [storyboard instantiateViewControllerWithIdentifier:@"PayMonyForGoodController"];
                 controller.strOrderId = self.arrInteger[indexPath.section][@"igo_order_sn"];
                 controller.isJifen = YES;
@@ -216,8 +223,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 controller.not_cash_total = StringFormat(@"%.2f",([self.arrInteger[indexPath.section][@"igo_total_integral"] floatValue]+[self.arrInteger[indexPath.section][@"ig_transfee"] floatValue]));
                 [self.navigationController pushViewController:controller animated:YES];
             }else{
-                
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder" bundle:nil];
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder"
+                                                                     bundle:nil];
                 OrderLogisticsDetailController *controller = [storyboard instantiateViewControllerWithIdentifier:@"OrderLogisticsDetailController"];
                 controller.strPath = self.arrInteger[indexPath.section][@"icon"];
                 controller.strCount = @"1";
@@ -227,8 +234,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 controller.strCompanyName = self.arrInteger[indexPath.section][@"company_name"];
                 [self.navigationController pushViewController:controller animated:YES];
             }
-        }];
-        return cell;
+        }];return cell;
     }
     CellOrderMoney *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderMoney"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];

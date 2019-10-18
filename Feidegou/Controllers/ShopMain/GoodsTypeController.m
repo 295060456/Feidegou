@@ -74,30 +74,36 @@ UIPageViewControllerDelegate
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [self.navigationController setNavigationBarHidden:YES
+                                             animated:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [self.navigationController setNavigationBarHidden:NO
+                                             animated:animated];
 }
 
 - (void)requestData{
     [self showException];
-    __weak GoodsTypeController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodTypeOne] subscribeNext:^(NSArray* array) {
-        myself.arrType = [NSMutableArray arrayWithArray:array];
-        [myself setLayout];
-        [myself hideException];
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodTypeOne] subscribeNext:^(NSArray* array) {
+        @strongify(self)
+        self.arrType = [NSMutableArray arrayWithArray:array];
+        [self setLayout];
+        [self hideException];
     }error:^(NSError *error) {
-        [myself failedRequestException:enum_exception_timeout];
-        myself.disposable = nil;
+        @strongify(self)
+        [self failedRequestException:enum_exception_timeout];
+        self.disposable = nil;
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
     return self.arrType.count;
 }
 
@@ -105,7 +111,8 @@ UIPageViewControllerDelegate
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 40.0f;
 }
 

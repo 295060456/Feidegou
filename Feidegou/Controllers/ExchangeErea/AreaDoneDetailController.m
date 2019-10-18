@@ -65,46 +65,49 @@
         return;
     }
     self.layoutConstraintHeight.constant = 40;
-    __weak AreaDoneDetailController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderDetailLogisticsInformationType:[NSString stringStandard:self.modelDetail.ship_code]
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodOrderDetailLogisticsInformationType:[NSString stringStandard:self.modelDetail.ship_code]
                                                                                       andPostid:[NSString stringStandard:self.modelDetail.igo_ship_code]]
                          subscribeNext:^(NSDictionary* dictionary) {
+        @strongify(self)
         //        如果是字典，则表示有物流信息
         //        如果数组有数据，则表示有具体的物流信息
-        myself.arrPost = [NSMutableArray array];
+        self.arrPost = [NSMutableArray array];
         if ([dictionary isKindOfClass:[NSDictionary class]]) {
-            myself.dicPost = [NSDictionary dictionaryWithDictionary:dictionary];
+            self.dicPost = [NSDictionary dictionaryWithDictionary:dictionary];
             NSArray *array = dictionary[@"data"];
-            if ([array isKindOfClass:[NSArray class]]&&array.count>0) {
-                [myself.arrPost addObjectsFromArray:array];
+            if ([array isKindOfClass:[NSArray class]]&&array.count > 0) {
+                [self.arrPost addObjectsFromArray:array];
             }
         }else{
-            myself.dicPost = nil;
+            self.dicPost = nil;
         }
-        [myself.tabOrderDetail reloadData];
-        
-        
+        [self.tabOrderDetail reloadData];
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 
 - (void)requestData{
     [self showException];
-    
-    __weak AreaDoneDetailController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderDetailAreaExchangeorderId:self.modelList.orderId] subscribeNext:^(ModelAreaDetail *model) {
-        myself.modelDetail = model;
-        [myself requestLogisticsInformation];
-        [myself.tabOrderDetail reloadData];
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodOrderDetailAreaExchangeorderId:self.modelList.orderId] subscribeNext:^(ModelAreaDetail *model) {
+        @strongify(self)
+        self.modelDetail = model;
+        [self requestLogisticsInformation];
+        [self.tabOrderDetail reloadData];
     }error:^(NSError *error) {
-        [myself failedRequestException:enum_exception_timeout];
-        myself.disposable = nil;
+        @strongify(self)
+        [self failedRequestException:enum_exception_timeout];
+        self.disposable = nil;
     }completed:^{
-        myself.disposable = nil;
-        [myself hideException];
+        @strongify(self)
+        self.disposable = nil;
+        [self hideException];
     }];
 }
 

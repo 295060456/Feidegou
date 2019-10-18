@@ -167,8 +167,7 @@
     }
     [self.view endEditing:YES];
     [SVProgressHUD showWithStatus:@"正在兑换..."];
-
-    __weak AreaOrderComfilmController *myself = self;
+    @weakify(self)
     self.disposable = [[[JJHttpClient new] requestFourZeroAreaExchangeOrderComfilmig_goods_id:[NSString stringStandard:self.modelDetail.ig_goods_id]
                                                                                  andgoodsCont:StringFormat(@"%d",self.intNum)
                                                                                    andigo_msg:[NSString stringStandard:self.orderAttribute.strMsg]
@@ -176,18 +175,17 @@
                                                                                     anduserId:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]
                                                                                     andaddrid:[NSString stringStandard:self.orderAttribute.strAddressId]]
                        subscribeNext:^(NSDictionary*dictioanry) {
+        @strongify(self)
         [SVProgressHUD dismiss];
-        if ([dictioanry[@"code"] intValue]==1) {
+        if ([dictioanry[@"code"] intValue] == 1) {
             NSDictionary *dicMiddel = dictioanry[@"data"];
             if ([dicMiddel[@"isFinish"] boolValue]) {
-                
-                JJAlertViewOneButton *alertView = [[JJAlertViewOneButton alloc] init];
-                [alertView showAlertView:self
-                                andTitle:nil
-                              andMessage:dictioanry[@"msg"]
-                               andCancel:@"确定"
-                           andCanelIsRed:YES
-                                 andBack:^{
+                [JJAlertViewOneButton.new showAlertView:self
+                                               andTitle:nil
+                                             andMessage:dictioanry[@"msg"]
+                                              andCancel:@"确定"
+                                          andCanelIsRed:YES
+                                                andBack:^{
                     D_NSLog(@"点击了确定");
                     [self.navigationController popViewControllerAnimated:YES];
                 }];
@@ -201,18 +199,23 @@
                 [self.navigationController pushViewController:controller animated:YES];
             }
         }else{
-            JJAlertViewOneButton *alertView = [[JJAlertViewOneButton alloc] init];
-            [alertView showAlertView:self andTitle:nil andMessage:dictioanry[@"msg"]  andCancel:@"确定" andCanelIsRed:YES andBack:^{
+            [JJAlertViewOneButton.new showAlertView:self
+                                           andTitle:nil
+                                         andMessage:dictioanry[@"msg"]
+                                          andCancel:@"确定"
+                                      andCanelIsRed:YES
+                                            andBack:^{
                 D_NSLog(@"点击了确定");
                 [self.navigationController popViewControllerAnimated:YES];
             }];
         }
-        
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 

@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 
-typedef void (^ActionBlock)();
-
 @interface UITextField (EditChanged)
 /*!
  * Event事件处理

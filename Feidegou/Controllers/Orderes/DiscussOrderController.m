@@ -50,6 +50,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    @weakify(self)
     CellDiscussOrder *cell=[tableView dequeueReusableCellWithIdentifier:@"CellDiscussOrder"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     [cell popuLateData:self.arrDiscuss[indexPath.section]];
@@ -57,25 +58,33 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     [cell.textView setDelegate:self];
     for (int i = 100; i<103; i++) {
         UIButton *btnGood = (UIButton *)[cell viewWithTag:i];
-        [btnGood handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [btnGood handleControlEvent:UIControlEventTouchUpInside
+                          withBlock:^{
+            @strongify(self)
             [self clickButtonDiscuss:i andIndexPath:indexPath];
         }];
     }
     for (int i = 200; i<205; i++) {
         UIButton *btnMS = (UIButton *)[cell viewWithTag:i];
-        [btnMS handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [btnMS handleControlEvent:UIControlEventTouchUpInside
+                        withBlock:^{
+            @strongify(self)
             [self clickButtonDiscuss:i andIndexPath:indexPath];
         }];
     }
     for (int i = 300; i<305; i++) {
         UIButton *btnFH = (UIButton *)[cell viewWithTag:i];
-        [btnFH handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [btnFH handleControlEvent:UIControlEventTouchUpInside
+                        withBlock:^{
+            @strongify(self)
             [self clickButtonDiscuss:i andIndexPath:indexPath];
         }];
     }
     for (int i = 400; i<405; i++) {
         UIButton *btnFW = (UIButton *)[cell viewWithTag:i];
-        [btnFW handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [btnFW handleControlEvent:UIControlEventTouchUpInside
+                        withBlock:^{
+            @strongify(self)
             [self clickButtonDiscuss:i andIndexPath:indexPath];
         }];
     }return cell;
@@ -149,24 +158,28 @@ heightForHeaderInSection:(NSInteger)section{
         [arrMiddle addObject:dictionary];
     }
     [self.view endEditing:YES];
-    __weak DiscussOrderController *myself = self;
+    @weakify(self)
     self.disposable = [[[JJHttpClient new] requestFourZeroCommitDiscussOrderID:[NSString stringStandard:self.strOrderId]
                                                                        andOfId:[NSString stringStandard:self.strOfId]
                                                                   andAttribute:arrMiddle
                                                                      andUserID:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]]
                        subscribeNext:^(NSDictionary*dictionary) {
+        @strongify(self)
         if ([dictionary[@"code"] intValue]==1) {
             [SVProgressHUD showSuccessWithStatus:dictionary[@"msg"]];
-            [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNameDiscussSucceed object:self.strOrderId];
-            [myself.navigationController popViewControllerAnimated:YES];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNameDiscussSucceed
+                                                                object:self.strOrderId];
+            [self.navigationController popViewControllerAnimated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 

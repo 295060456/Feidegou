@@ -56,44 +56,51 @@
         [self.tabIncome reloadData];
         return;
     }
-    __weak AchievememtController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodChivement:@"online"] subscribeNext:^(NSDictionary *dictionary) {
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodChivement:@"online"] subscribeNext:^(NSDictionary *dictionary) {
+        @strongify(self)
         if ([dictionary isKindOfClass:[NSDictionary class]]) {
             self.dicOnline = [NSDictionary dictionaryWithDictionary:dictionary];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself.tabIncome reloadData];
-        [myself failedRequestException:enum_exception_timeout];
+        @strongify(self)
+        self.disposable = nil;
+        [self.tabIncome reloadData];
+        [self failedRequestException:enum_exception_timeout];
     }completed:^{
-        myself.disposable = nil;
-        [myself.tabIncome reloadData];
-        [myself hideException];
+        @strongify(self)
+        self.disposable = nil;
+        [self.tabIncome reloadData];
+        [self hideException];
     }];
-    
 }
+
 - (void)requestOutline{
-    if (self.disposableOutline||self.dicOutline) {
+    if (self.disposableOutline ||
+        self.dicOutline) {
         [self.tabIncome reloadData];
         return;
     }
-    __weak AchievememtController *myself = self;
-    myself.disposableOutline = [[[JJHttpClient new] requestShopGoodChivement:@"outline"] subscribeNext:^(NSDictionary *dictionary) {
+    @weakify(self)
+    self.disposableOutline = [[[JJHttpClient new] requestShopGoodChivement:@"outline"] subscribeNext:^(NSDictionary *dictionary) {
         if ([dictionary isKindOfClass:[NSDictionary class]]) {
+            @strongify(self)
             self.dicOutline = [NSDictionary dictionaryWithDictionary:dictionary];
         }
     }error:^(NSError *error) {
-        myself.disposableOutline = nil;
-        [myself.tabIncome reloadData];
+        @strongify(self)
+        self.disposableOutline = nil;
+        [self.tabIncome reloadData];
     }completed:^{
-        myself.disposableOutline = nil;
-        [myself.tabIncome reloadData];
+        @strongify(self)
+        self.disposableOutline = nil;
+        [self.tabIncome reloadData];
     }];
     
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
     if (section == 0||section == 1) {
         return 1;
     }
@@ -102,10 +109,13 @@
     }
     return 0;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 5;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
         return 160;
@@ -127,6 +137,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *dictionary;
+    @weakify(self)
     if (self.isOutline) {
         dictionary = [NSDictionary dictionaryWithDictionary:self.dicOutline];
     }else{
@@ -141,15 +152,18 @@
         NSMutableAttributedString * atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"%@\n累计结算收益",strMoney)];
         [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20.0]} range:NSMakeRange(0, strMoney.length)];
         [cell.lblMoney setAttributedText:atrStringPrice];
-        [cell.btnOnline handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [cell.btnOnline handleControlEvent:UIControlEventTouchUpInside
+                                 withBlock:^{
+            @strongify(self)
             self.isOutline = NO;
             [self.tabIncome reloadData];
         }];
-        [cell.btnOutLine handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [cell.btnOutLine handleControlEvent:UIControlEventTouchUpInside
+                                  withBlock:^{
+            @strongify(self)
             self.isOutline = YES;
             [self.tabIncome reloadData];
-        }];
-        return cell;
+        }];return cell;
     }
     if (indexPath.section == 1) {
         CellIncomeAll *cell=[tableView dequeueReusableCellWithIdentifier:@"CellIncomeAll"];

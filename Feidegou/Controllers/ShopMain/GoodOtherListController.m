@@ -40,31 +40,32 @@
 }
 
 - (void)requestExchangeList{
-    
-    __weak GoodOtherListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodVendorOtherGoodGoods_store_id:[NSString stringStandard:self.strGoods_store_id]
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodVendorOtherGoodGoods_store_id:[NSString stringStandard:self.strGoods_store_id]
                                                                                  andLimit:@"10"
                                                                                   andPage:TransformNSInteger(self.intPageIndex)]
                          subscribeNext:^(NSArray *array) {
-        myself.curCount = array.count;
-        if (myself.intPageIndex == 1) {
-            myself.arrGoodOhterList = [NSMutableArray array];
+        @strongify(self)
+        self.curCount = array.count;
+        if (self.intPageIndex == 1) {
+            self.arrGoodOhterList = [NSMutableArray array];
         }
-        [myself.arrGoodOhterList addObjectsFromArray:array];
-        [myself.tabGoodOtherList reloadData];
-        [myself.tabGoodOtherList checkNoData:self.arrGoodOhterList.count];
+        [self.arrGoodOhterList addObjectsFromArray:array];
+        [self.tabGoodOtherList reloadData];
+        [self.tabGoodOtherList checkNoData:self.arrGoodOhterList.count];
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself.refreshControl endRefreshing];
+        @strongify(self)
+        self.disposable = nil;
+        [self.refreshControl endRefreshing];
         if (error.code!=2) {
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }
-        
-        [myself.tabGoodOtherList checkNoData:self.arrGoodOhterList.count];
+        [self.tabGoodOtherList checkNoData:self.arrGoodOhterList.count];
     }completed:^{
-        myself.intPageIndex++;
-        [myself.refreshControl endRefreshing];
-        myself.disposable = nil;
+        @strongify(self)
+        self.intPageIndex++;
+        [self.refreshControl endRefreshing];
+        self.disposable = nil;
     }];
 }
 #pragma mark - RefreshControlDelegate

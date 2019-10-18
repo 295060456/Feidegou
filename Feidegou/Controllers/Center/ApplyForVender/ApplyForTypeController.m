@@ -28,23 +28,26 @@
 }
 
 - (void)requestExchangeList{
-    __weak ApplyForTypeController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodVenderType] subscribeNext:^(NSArray* array) {
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodVenderType] subscribeNext:^(NSArray* array) {
+        @strongify(self)
         if ([array isKindOfClass:[NSArray class]]) {
-            myself.arrType = [NSMutableArray arrayWithArray:array];
+            self.arrType = [NSMutableArray arrayWithArray:array];
         }
-        [myself.tabType reloadData];
-        [myself.tabType checkNoData:myself.arrType.count];
+        [self.tabType reloadData];
+        [self.tabType checkNoData:self.arrType.count];
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself.tabType checkNoData:myself.arrType.count];
-        [myself.refreshControl endRefreshing];
+        @strongify(self)
+        self.disposable = nil;
+        [self.tabType checkNoData:self.arrType.count];
+        [self.refreshControl endRefreshing];
         if (error.code!=2) {
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }
     }completed:^{
-        [myself.refreshControl endRefreshing];
-        myself.disposable = nil;
+        @strongify(self)
+        [self.refreshControl endRefreshing];
+        self.disposable = nil;
     }];
     
 }

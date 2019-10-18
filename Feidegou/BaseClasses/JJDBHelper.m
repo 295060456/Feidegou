@@ -25,15 +25,10 @@ NSString * const DB_TABLE_NAME_CALL_IMAGE_AD_CACHE = @"DB_TABLE_NAME_CALL_IMAGE_
 
 static JJDBHelper *sharedManager;
 +(JJDBHelper*)sharedInstance{
-    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        
         sharedManager = [[JJDBHelper alloc] init];
-        
-    });
-    return sharedManager;
-    
+    });return sharedManager;
 }
 //+(JJDBHelper*)sharedInstance{
 //    
@@ -54,17 +49,19 @@ static JJDBHelper *sharedManager;
     @weakify(self)
     [self.databaseQueue inDatabase:^(FMDatabase *db) {
         @strongify(self)
-        [db open];
-        if([self isExistForCacheId:cacheId db:db]){
-            [self updateCacheData:cacheData
-                          cacheId:cacheId
-                               db:db];
-        }else{
-            [self insertCacheData:cacheData
-                          cacheId:cacheId
-                               db:db];
+        if ([db open]) {
+            if([self isExistForCacheId:cacheId
+                                    db:db]){
+                [self updateCacheData:cacheData
+                              cacheId:cacheId
+                                   db:db];
+            }else{
+                [self insertCacheData:cacheData
+                              cacheId:cacheId
+                                   db:db];
+            }
+            [db close];
         }
-        [db close];
     }];
 }
 
@@ -160,34 +157,31 @@ static JJDBHelper *sharedManager;
     NSString *sql = StringFormat(@"SELECT cacheData from %@ where cacheId = ?",DB_TABLE_NAME_LIST_CACHE);
     
     [self.databaseQueue inDatabase:^(FMDatabase *db) {
-        [db open];
-        
-        FMResultSet *resultSet = [db executeQuery:sql withArgumentsInArray:@[cacheId]];
-        if([resultSet next]) {
-            
-            data = [resultSet dataForColumn:@"cacheData"];
+        if ([db open]) {
+            FMResultSet *resultSet = [db executeQuery:sql withArgumentsInArray:@[cacheId]];
+            if([resultSet next]) {
+                data = [resultSet dataForColumn:@"cacheData"];
+            }
+            [resultSet close];
+            [db close];
         }
-        [resultSet close];
-        [db close];
     }];return data;
 }
 
 -(id)init{
     if([super init]){
-        
+        @weakify(self)
         /**检查是否存在数据库文件**/
         if (![self isExistDB]) {//不存在创建数据库表结构
             D_NSLog(@"数据库不存在－创建数据库表结构");
-            
             self.databaseQueue =[FMDatabaseQueue databaseQueueWithPath:[self getFilePath]];
             [self.databaseQueue inDatabase:^(FMDatabase *db) {
-                [db open];
-                
-                [self createTables:db];
-                
-                [db close];
+                @strongify(self)
+                if ([db open]) {
+                    [self createTables:db];
+                    [db close];
+                }
             }];
-            
         }else {//存在,对比数据库版本号,判断是否需要进行数据升级
             CGFloat version = [self fetchDBVersion];
             if (version > DB_VERSION) {
@@ -222,13 +216,13 @@ static JJDBHelper *sharedManager;
     
     __block BOOL result = NO;
     [self.databaseQueue inDatabase:^(FMDatabase *db) {
-        [db open];
-        NSString *sql = StringFormat(@"delete from %@",tableName);
-        result = [db executeUpdate:sql];
-        D_NSLog(@"删除 [%@] 信息%@",tableName,result?@"成功":@"失败");
-        [db close];
-    }];
-    return result;
+        if ([db open]) {
+            NSString *sql = StringFormat(@"delete from %@",tableName);
+            result = [db executeUpdate:sql];
+            D_NSLog(@"删除 [%@] 信息%@",tableName,result?@"成功":@"失败");
+            [db close];
+        }
+    }];return result;
 }
 
 -(void)createTables:(FMDatabase*)db{
@@ -278,16 +272,15 @@ static JJDBHelper *sharedManager;
 
     __block CGFloat version = 0;
     [self.databaseQueue inDatabase:^(FMDatabase *db) {
-        [db open];
-        NSString *sql = StringFormat(@"select * from %@ order by version desc limit 1",DB_TABLE_NAME_VERSION);
-        FMResultSet *resultSet = [db executeQuery:sql];
-        if([resultSet next]) {
-            
-            version = [resultSet doubleForColumn:@"version"];
-            
+        if ([db open]) {
+            NSString *sql = StringFormat(@"select * from %@ order by version desc limit 1",DB_TABLE_NAME_VERSION);
+            FMResultSet *resultSet = [db executeQuery:sql];
+            if([resultSet next]) {
+                version = [resultSet doubleForColumn:@"version"];
+            }
+            [resultSet close];
+            [db close];
         }
-        [resultSet close];
-        [db close];
     }];return version;
 }
 

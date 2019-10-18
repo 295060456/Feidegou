@@ -43,25 +43,28 @@
     //累计消费榜，广告数量，投放金额，产品销量
     //传入参数2： USAGE(3种状态：1表示按总数排名，2表示按周总数量排名，3表示按月总数量排名，默认第一个页面进入后按周总数量排名
     //             传入参数3：page（起始页），limit（每页显示数）)
-    __weak RankListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodRankListLimit:@"20"
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodRankListLimit:@"20"
                                                                   andPage:TransformNSInteger(self.intPageIndex)]
                          subscribeNext:^(NSArray* array) {
-        if (myself.intPageIndex == 1) {
-            myself.arrRankingList = [NSMutableArray array];
+        @strongify(self)
+        if (self.intPageIndex == 1) {
+            self.arrRankingList = [NSMutableArray array];
         }
-        myself.curCount = array.count;
-        [myself.arrRankingList addObjectsFromArray:array];
-        [myself.tabRank reloadData];
+        self.curCount = array.count;
+        [self.arrRankingList addObjectsFromArray:array];
+        [self.tabRank reloadData];
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself.refreshControl endRefreshing];
-        [myself.tabRank checkNoData:myself.arrRankingList.count];
+        @strongify(self)
+        self.disposable = nil;
+        [self.refreshControl endRefreshing];
+        [self.tabRank checkNoData:self.arrRankingList.count];
     }completed:^{
-        myself.intPageIndex++;
-        [myself.refreshControl endRefreshing];
-        [myself.tabRank checkNoData:myself.arrRankingList.count];
-        myself.disposable = nil;
+        @strongify(self)
+        self.intPageIndex++;
+        [self.refreshControl endRefreshing];
+        [self.tabRank checkNoData:self.arrRankingList.count];
+        self.disposable = nil;
     }];
 }
 #pragma mark - RefreshControlDelegate

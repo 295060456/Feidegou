@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 
-typedef void (^ActionBlock)();
-
 @interface UITextView (EditChanged)
 
 /*!
@@ -20,4 +18,5 @@ typedef void (^ActionBlock)();
  */
 - (void) handleControlEvent:(UIControlEvents)controlEvent
                   withBlock:(ActionBlock)action;
+
 @end

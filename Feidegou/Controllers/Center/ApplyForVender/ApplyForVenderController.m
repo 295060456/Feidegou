@@ -38,12 +38,16 @@ UINavigationControllerDelegate
     [super viewDidLoad];
     self.isSelected = YES;
     self.attribute = [[ApplyForVenderAttribute alloc] init];
-    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTip" bundle:nil] forCellReuseIdentifier:@"CellTip"];
-    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellProtocol" bundle:nil] forCellReuseIdentifier:@"CellProtocol"];
-    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTextField" bundle:nil] forCellReuseIdentifier:@"CellTextField"];
-    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTwoImg" bundle:nil] forCellReuseIdentifier:@"CellTwoImg"];
-    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTwoLblArrow" bundle:nil] forCellReuseIdentifier:@"CellTwoLblArrow"];
-    // Do any additional setup after loading the view.
+    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTip" bundle:nil]
+                 forCellReuseIdentifier:@"CellTip"];
+    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellProtocol" bundle:nil]
+                 forCellReuseIdentifier:@"CellProtocol"];
+    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTextField" bundle:nil]
+                 forCellReuseIdentifier:@"CellTextField"];
+    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTwoImg" bundle:nil]
+                 forCellReuseIdentifier:@"CellTwoImg"];
+    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTwoLblArrow" bundle:nil]
+                 forCellReuseIdentifier:@"CellTwoLblArrow"];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -67,7 +71,8 @@ UINavigationControllerDelegate
     return 3;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         return 30.0f;
     }else if (indexPath.section == 1){
@@ -81,11 +86,13 @@ UINavigationControllerDelegate
     return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    @weakify(self)
     if (indexPath.section == 1) {
-        if (indexPath.row == 3||indexPath.row == 4) {
+        if (indexPath.row == 3||
+            indexPath.row == 4) {
             CellTwoLblArrow *cell=[tableView dequeueReusableCellWithIdentifier:@"CellTwoLblArrow"];
-            
             NSString *strTip = @"";
             NSString *strPlaceholder = @"";
             NSString *strText = @"";
@@ -104,8 +111,7 @@ UINavigationControllerDelegate
                 [cell.lblContent setText:strPlaceholder];
             }else{
                 [cell.lblContent setText:strText];
-            }
-            return cell;
+            }return cell;
         }
         CellTextField *cell=[tableView dequeueReusableCellWithIdentifier:@"CellTextField"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -145,7 +151,9 @@ UINavigationControllerDelegate
         [cell.lblTip setText:strTip];
         [cell.txtContent setPlaceholder:strPlaceholder];
         [cell.txtContent setText:strText];
-        [cell.txtContent handleTextFieldControlEvent:UIControlEventEditingChanged withBlock:^{
+        [cell.txtContent handleTextFieldControlEvent:UIControlEventEditingChanged
+                                           withBlock:^{
+            @strongify(self)
             NSLog(@"content is %@",cell.txtContent.text);
             
             NSString *strTextChange = cell.txtContent.text;
@@ -167,14 +175,15 @@ UINavigationControllerDelegate
             if (indexPath.row == 7) {
                 self.attribute.strPhone = strTextChange;
             }
-        }];
-        return cell;
+        }];return cell;
     }
     if (indexPath.section == 2) {
         
         CellProtocol *cell=[tableView dequeueReusableCellWithIdentifier:@"CellProtocol"];
         [cell.btnSelect setSelected:self.isSelected];
-        [cell.btnSelect handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [cell.btnSelect handleControlEvent:UIControlEventTouchUpInside
+                                 withBlock:^{
+            @strongify(self)
             self.isSelected = !self.isSelected;
             [self.tabApplyForVender reloadData];
         }];
@@ -204,7 +213,7 @@ UINavigationControllerDelegate
 //        }];
 //        return cell;
 //    }
-    CellTip *cell=[tableView dequeueReusableCellWithIdentifier:@"CellTip"];
+    CellTip *cell = [tableView dequeueReusableCellWithIdentifier:@"CellTip"];
     [cell.lblTip setTextColor:ColorGary];
     [cell.lblTip setText:@"请填写您的真实信息,通过后将不能修改"];
     [cell setBackgroundColor:ColorFromRGB(254, 248, 241)];
@@ -212,15 +221,17 @@ UINavigationControllerDelegate
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0||section == 1) {
+    if (section == 0||
+        section == 1) {
         return 0;
-    }else{
-        return 10;
-    }
+    }else return 10;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
+    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                0,
+                                                                SCREEN_WIDTH,
+                                                                10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
@@ -234,14 +245,16 @@ UINavigationControllerDelegate
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardApplyForVender bundle:nil];
             ApplyForTypeController *controller = [storyboard instantiateViewControllerWithIdentifier:@"ApplyForTypeController"];
             controller.applyForVenderAttribute = self.attribute;
-            [self.navigationController pushViewController:controller animated:YES];
+            [self.navigationController pushViewController:controller
+                                                 animated:YES];
         }
         if (indexPath.row == 4) {
             
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil];
             AreaSelectController *controller = [storyboard instantiateViewControllerWithIdentifier:@"AreaSelectController"];
             controller.applyForVenderAttribute = self.attribute;
-            [self.navigationController pushViewController:controller animated:YES];
+            [self.navigationController pushViewController:controller
+                                                 animated:YES];
         }
     }
     if (indexPath.section == 2) {
@@ -249,7 +262,8 @@ UINavigationControllerDelegate
         WebOnlyController *controller = [storyboard instantiateViewControllerWithIdentifier:@"WebOnlyController"];
         [controller setTitle:@"商家入驻协议"];
         controller.strWebUrl = @"http://feidegou.com/doc_store.htm";
-        [self.navigationController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller
+                                             animated:YES];
     }
 }
 
@@ -258,25 +272,39 @@ UINavigationControllerDelegate
     if (IOS_VERSION>=8.0) {
         UIAlertController *alert;
         if (isIPhone) {
-            alert = [UIAlertController alertControllerWithTitle:@"上传头像" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            alert = [UIAlertController alertControllerWithTitle:@"上传头像"
+                                                        message:nil
+                                                 preferredStyle:UIAlertControllerStyleActionSheet];
         }else{
-            alert = [UIAlertController alertControllerWithTitle:@"上传头像" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            alert = [UIAlertController alertControllerWithTitle:@"上传头像"
+                                                        message:nil
+                                                 preferredStyle:UIAlertControllerStyleAlert];
         }
         
-        [self presentViewController:alert animated:YES completion:nil];
-        UIAlertAction *actionZX = [UIAlertAction actionWithTitle:@"马上照一张" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action){
+        [self presentViewController:alert
+                           animated:YES
+                         completion:nil];
+        @weakify(self)
+        UIAlertAction *actionZX = [UIAlertAction actionWithTitle:@"马上照一张"
+                                                           style:UIAlertActionStyleDestructive
+                                                         handler:^(UIAlertAction *action){
+            @strongify(self)
             UIImagePickerController *pickerImage = [[UIImagePickerController alloc] init];
             if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                 pickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;
                 pickerImage.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:pickerImage.sourceType];
             }
             [pickerImage setVideoQuality:UIImagePickerControllerQualityTypeLow];
-            pickerImage.delegate =self;
-            pickerImage.allowsEditing =YES;//自定义照片样式
-            [self presentViewController:pickerImage animated:YES completion:nil];
+            pickerImage.delegate = self;
+            pickerImage.allowsEditing = YES;//自定义照片样式
+            [self presentViewController:pickerImage
+                               animated:YES
+                             completion:nil];
         }];
-        UIAlertAction *actionXC = [UIAlertAction actionWithTitle:@"从相册中选择一张" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-            
+        UIAlertAction *actionXC = [UIAlertAction actionWithTitle:@"从相册中选择一张"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction *action){
+            @strongify(self)
             UIImagePickerController *pickerImage = [[UIImagePickerController alloc] init];
             if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
                 pickerImage.sourceType= UIImagePickerControllerSourceTypePhotoLibrary;;
@@ -285,15 +313,24 @@ UINavigationControllerDelegate
             pickerImage.allowsEditing = YES;
             [pickerImage setVideoQuality:UIImagePickerControllerQualityTypeLow];
             pickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            [self presentViewController:pickerImage animated:YES completion:^{}];
+            [self presentViewController:pickerImage
+                               animated:YES
+                             completion:^{}];
         }];
-        UIAlertAction *actionCancell = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertAction *actionCancell = [UIAlertAction actionWithTitle:@"取消"
+                                                                style:UIAlertActionStyleCancel
+                                                              handler:nil];
         [alert addAction:actionZX];
         [alert addAction:actionXC];
         [alert addAction:actionCancell];
     }else{
         
-        UIActionSheet *as=[[UIActionSheet alloc]initWithTitle:@"上传头像" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"马上照一张" otherButtonTitles:@"从相册中选择一张", nil ];
+        UIActionSheet *as = [[UIActionSheet alloc]initWithTitle:@"上传头像"
+                                                       delegate:self
+                                              cancelButtonTitle:@"取消"
+                                         destructiveButtonTitle:@"马上照一张"
+                                              otherButtonTitles:@"从相册中选择一张",
+                             nil];
         [as showInView:[[[UIApplication sharedApplication] delegate] window]];
     }
 }
@@ -303,7 +340,7 @@ UINavigationControllerDelegate
 clickedButtonAtIndex:(NSInteger)buttonIndex{
     UIImagePickerController *pickerImage;
     switch (buttonIndex) {
-        case 0:
+        case 0:{
             // for iphone
             pickerImage = [[UIImagePickerController alloc] init];
             if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -315,8 +352,8 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
             pickerImage.allowsEditing =YES;//自定义照片样式
             [self presentViewController:pickerImage animated:YES completion:nil];
             break;
-        case 1:
-            
+        }
+        case 1:{
             pickerImage = [[UIImagePickerController alloc] init];
             if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
                 pickerImage.sourceType= UIImagePickerControllerSourceTypePhotoLibrary;;
@@ -325,9 +362,11 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
             pickerImage.allowsEditing = YES;
             [pickerImage setVideoQuality:UIImagePickerControllerQualityTypeLow];
             pickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            [self presentViewController:pickerImage animated:YES completion:^{}];
-            
+            [self presentViewController:pickerImage
+                               animated:YES
+                             completion:^{}];
             break;
+        }
         default:
             break;
     }
@@ -335,8 +374,7 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
 
 #pragma mark - image picker delegte
 - (void)imagePickerController:(UIImagePickerController *)picker
-didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
+didFinishPickingMediaWithInfo:(NSDictionary *)info{
     
     UIImage *image= [info objectForKey:UIImagePickerControllerEditedImage];//获取图
     D_NSLog(@"-----------image is %@ ; image.size.width is %d;image.size.height is %d",image,(int)image.size.width,(int)image.size.height);
@@ -348,8 +386,8 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     }else{
         self.attribute.imgBusiness = image;
     }
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    
+    [picker dismissViewControllerAnimated:YES
+                               completion:nil];
 }
 
 - (IBAction)clickButtonCommit:(UIButton *)sender {
@@ -399,7 +437,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 //        return;
 //    }
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
-    __weak ApplyForVenderController *myself = self;
+    @weakify(self)
     self.disposable = [[[JJHttpClient new] requestFourZeroApplyForVenderuser_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId
                                                                   andstore_ower:self.attribute.strName
                                                              andstore_ower_card:self.attribute.strMemberNum
@@ -412,20 +450,23 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
                                                                    andcard_file:self.attribute.imgMemberCard
                                                                 andlicense_file:self.attribute.imgBusiness]
                        subscribeNext:^(NSDictionary*dictionary) {
-        if ([dictionary[@"code"] intValue]==1) {
+        @strongify(self)
+        if ([dictionary[@"code"] intValue] == 1) {
             [SVProgressHUD showSuccessWithStatus:@"提交成功"];
             ModelCenter *modelCenter = [[JJDBHelper sharedInstance] fetchCenterMsg];
             modelCenter.store_status = @"1";
             [[JJDBHelper sharedInstance] saveCenterMsg:modelCenter];
-            [myself.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 
