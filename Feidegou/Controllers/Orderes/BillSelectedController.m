@@ -81,7 +81,8 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+- (void)touchesBegan:(NSSet<UITouch *> *)touches
+           withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
 

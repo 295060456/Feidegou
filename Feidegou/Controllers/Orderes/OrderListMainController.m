@@ -66,7 +66,8 @@ UIGestureRecognizerDelegate
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                  cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"CLCellOneLblNoLine";
-    CLCellOneLblNoLine *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    CLCellOneLblNoLine *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier
+                                                                         forIndexPath:indexPath];
     if (indexPath.row == 1){
         [cell.lblContent setTextNull:@"待付款"];
     }else if (indexPath.row == 2){
@@ -165,7 +166,8 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
       viewControllerBeforeViewController:(UIViewController *)viewController{
     NSUInteger index = [self.pages indexOfObject:viewController];
 
-    if ((index == NSNotFound) || (index == 0)) {
+    if ((index == NSNotFound) ||
+        (index == 0)) {
         return nil;
     } return self.pages[--index];
 }
@@ -175,11 +177,10 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 {
     NSUInteger index = [self.pages indexOfObject:viewController];
 
-    if ((index == NSNotFound)||(index+1 >= [self.pages count])) {
+    if ((index == NSNotFound)||
+        (index+1 >= [self.pages count])) {
         return nil;
-    }
-
-    return self.pages[++index];
+    }return self.pages[++index];
 }
 
 - (void)pageViewController:(UIPageViewController *)viewController

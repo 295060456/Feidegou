@@ -32,16 +32,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.tabInfo registerNib:[UINib nibWithNibName:@"CellTwoLblArrow" bundle:nil] forCellReuseIdentifier:@"CellTwoLblArrow"];
-    [self.tabInfo registerNib:[UINib nibWithNibName:@"CellHeadImg" bundle:nil] forCellReuseIdentifier:@"CellHeadImg"];
-    self.modelAddress = [MTLJSONAdapter modelOfClass:[ModelAddress class] fromJSONDictionary:[NSDictionary dictionary] error:nil];
+    [self.tabInfo registerNib:[UINib nibWithNibName:@"CellTwoLblArrow" bundle:nil]
+       forCellReuseIdentifier:@"CellTwoLblArrow"];
+    [self.tabInfo registerNib:[UINib nibWithNibName:@"CellHeadImg" bundle:nil]
+       forCellReuseIdentifier:@"CellHeadImg"];
+    self.modelAddress = [MTLJSONAdapter modelOfClass:[ModelAddress class]
+                                  fromJSONDictionary:[NSDictionary dictionary]
+                                               error:nil];
     [self requestData];
     // Do any additional setup after loading the view.
 }
 
 - (void)requestData{
     __weak PersonalInfoController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodPersonalInfoUserId:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] subscribeNext:^(ModelInfo *model) {
+    myself.disposable = [[[JJHttpClient new] requestShopGoodPersonalInfoUserId:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]
+                         subscribeNext:^(ModelInfo *model) {
 //        把登录信息里面的头像更新
         ModelCenter *modelLogin = [[JJDBHelper sharedInstance] fetchCenterMsg];
         if (![NSString isNullString:model.photoUrl]) {
@@ -106,8 +111,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         return 6;
-    }
-    return 1;
+    }return 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -117,8 +121,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0&&indexPath.row == 0) {
         return 70;
-    }
-    return 50.0f;
+    }return 50.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{

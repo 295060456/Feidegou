@@ -29,11 +29,14 @@
 - (void)setTextFolatTwo:(NSString *)string;
 /* label的null变为其他
  */
-- (void)setText:(NSString *)string andTip:(NSString *)strTip;
+- (void)setText:(NSString *)string
+         andTip:(NSString *)strTip;
 /* 店铺价格
  */
-- (void)setTextVendorPrice:(NSString *)priceNow andOldPrice:(NSString *)priceOld;
+- (void)setTextVendorPrice:(NSString *)priceNow
+               andOldPrice:(NSString *)priceOld;
 /* 商品价格
  */
-- (void)setTextGoodPrice:(NSString *)priceNow andDB:(NSString *)db;
+- (void)setTextGoodPrice:(NSString *)priceNow
+                   andDB:(NSString *)db;
 @end

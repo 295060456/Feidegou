@@ -9,6 +9,7 @@
 #import "JJBaseViewController.h"
 @interface GoodDetailPicController : JJBaseViewController
 
-@property (strong, nonatomic) NSString *strGood_id;
+@property (copy, nonatomic) NSString *strGood_id;
 @property (strong, nonatomic) NSDictionary *dicDetail;
+
 @end

@@ -173,7 +173,9 @@
 
 - (void)refreshButtonTitle{
     self.orderState = [PublicFunction returnStateByNum:self.modelOrderDetail.order_status];
-    if (self.orderState == enumOrder_dfk||self.orderState == enumOrder_yfk||self.orderState == enumOrder_tksh) {
+    if (self.orderState == enumOrder_dfk||
+        self.orderState == enumOrder_yfk||
+        self.orderState == enumOrder_tksh) {
         self.isShowMoreDetail = YES;
     }else{
         self.isShowMoreDetail = NO;
@@ -256,7 +258,8 @@
 //    }
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
     if (self.isShowMoreDetail) {
         if (section == 0) {
 //            订单号
@@ -328,7 +331,8 @@
     }return 0;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.isShowMoreDetail) {
         if (indexPath.section == 0) {
             return 40.0f;
@@ -348,10 +352,14 @@
             return 40.0f;
         }else if (indexPath.section == 6) {
             if (indexPath.row == 0) {
-                return [NSString conculuteRightCGSizeOfString:self.modelOrderDetail.refund[@"refund_log"] andWidth:SCREEN_WIDTH-20 andFont:13.0].height+40;
+                return [NSString conculuteRightCGSizeOfString:self.modelOrderDetail.refund[@"refund_log"]
+                                                     andWidth:SCREEN_WIDTH-20
+                                                      andFont:13.0].height+40;
             }
             if (indexPath.row == 1) {
-                return [NSString conculuteRightCGSizeOfString:self.modelOrderDetail.refund[@"seller_info"] andWidth:SCREEN_WIDTH-20 andFont:13.0].height+40;
+                return [NSString conculuteRightCGSizeOfString:self.modelOrderDetail.refund[@"seller_info"]
+                                                     andWidth:SCREEN_WIDTH-20
+                                                      andFont:13.0].height+40;
             }
             if (indexPath.row ==2) {
                 return 60;
@@ -366,14 +374,18 @@
                 NSDictionary *dicInfo = self.arrPost[0];
                 if ([dicInfo isKindOfClass:[NSDictionary class]]) {
                     NSString *strContent = dicInfo[@"context"];
-                    CGFloat fHeight = [NSString conculuteRightCGSizeOfString:strContent andWidth:SCREEN_WIDTH-65 andFont:15.0].height+40;
+                    CGFloat fHeight = [NSString conculuteRightCGSizeOfString:strContent
+                                                                    andWidth:SCREEN_WIDTH-65
+                                                                     andFont:15.0].height+40;
                     return fHeight;
                 }
             }
             return 0.0f;
         }else if (indexPath.section == 1) {
             NSString *strAddress = StringFormat(@"收货地址:%@",self.modelOrderDetail.area_info);
-            CGFloat fHeight = [NSString conculuteRightCGSizeOfString:strAddress andWidth:SCREEN_WIDTH-40 andFont:13.0].height+40;
+            CGFloat fHeight = [NSString conculuteRightCGSizeOfString:strAddress
+                                                            andWidth:SCREEN_WIDTH-40
+                                                             andFont:13.0].height+40;
             return fHeight;
         }else if (indexPath.section == 2) {
             return 30.0f;
@@ -393,7 +405,8 @@
     }return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (self.isShowMoreDetail) {
         if (indexPath.section == 0) {
@@ -681,7 +694,6 @@
             }];
             return cell;
         }
-        
     }
     CellOrderTwoLbl *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderTwoLbl"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -702,6 +714,7 @@
     }
     return 10;
 }
+
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
@@ -795,7 +808,9 @@
             D_NSLog(@"点击了立即发布");
             [SVProgressHUD showWithStatus:@"正在删除..."];
             __weak OrderDetailController *myself = self;
-            myself.disposableDelete = [[[JJHttpClient new] requestFourZeroDeleteOrderId:[NSString stringStandard:model.order_id] andState:@"1"] subscribeNext:^(NSDictionary* dictionary) {
+            myself.disposableDelete = [[[JJHttpClient new] requestFourZeroDeleteOrderId:[NSString stringStandard:model.order_id]
+                                                                               andState:@"1"]
+                                       subscribeNext:^(NSDictionary* dictionary) {
                 if ([dictionary[@"code"] intValue]==1) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNameOrderDelete object:model.order_id];
                     [myself.navigationController popViewControllerAnimated:YES];
@@ -842,11 +857,14 @@
         [self.navigationController pushViewController:controller animated:YES];
     }else if ([TransformString(strTitle) isEqualToString:@"确认收货"]) {
         [SVProgressHUD showWithStatus:@"正在提交信息..."];
-        self.disposableShouhuo = [[[JJHttpClient new] requestFourZeroDeleteOrderId:TransformString(model.order_id) andState:@""] subscribeNext:^(NSDictionary* dictionary) {
+        self.disposableShouhuo = [[[JJHttpClient new] requestFourZeroDeleteOrderId:TransformString(model.order_id)
+                                                                          andState:@""]
+                                  subscribeNext:^(NSDictionary* dictionary) {
             if ([dictionary[@"code"] intValue]==1) {
                 model.order_status = @"40";
                 [self refreshButtonTitle];
-                [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNameOrderGetSucceed object:model.order_id];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNameOrderGetSucceed
+                                                                    object:model.order_id];
                 [SVProgressHUD dismiss];
             }else{
                 [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];

@@ -9,5 +9,7 @@
 #import "JJBaseViewController.h"
 
 @interface GoodOtherListController : JJBaseViewController
-@property (strong, nonatomic) NSString *strGoods_store_id;
+
+@property (copy, nonatomic) NSString *strGoods_store_id;
+
 @end

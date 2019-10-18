@@ -222,7 +222,8 @@ RefreshControlDelegate
     return NO;
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
     ModelOrderList *model = self.arrGoods[section];
     return model.goodsList.count+3;
 }
@@ -231,7 +232,8 @@ RefreshControlDelegate
     return self.arrGoods.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     ModelOrderList *model = self.arrGoods[indexPath.section];
     if (indexPath.row == 0) {
         return 40.0f;
@@ -240,7 +242,8 @@ RefreshControlDelegate
     }return 40.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ModelOrderList *model = self.arrGoods[indexPath.section];
     if (indexPath.row == 0) {
         CellOrderVendorTitle *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderVendorTitle"];
@@ -417,13 +420,15 @@ RefreshControlDelegate
     return 10;
 }
 
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+- (nullable UIView *)tableView:(UITableView *)tableView
+        viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     ModelOrderList *modelList = self.arrGoods[indexPath.section];
     if (indexPath.row == 0) {

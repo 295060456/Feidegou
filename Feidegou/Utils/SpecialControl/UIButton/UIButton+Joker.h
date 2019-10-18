@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 
-typedef void (^ActionBlock)();
+typedef void (^ActionBlock)(void);
 
 @interface UIButton (Joker)
 

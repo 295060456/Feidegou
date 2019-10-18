@@ -28,14 +28,23 @@
 
 - (void)locationControls{
     [self.tabNotSendOut setBackgroundColor:ColorBackground];
-    [self.tabNotSendOut registerNib:[UINib nibWithNibName:@"CellOrderVendorTitle" bundle:nil] forCellReuseIdentifier:@"CellOrderVendorTitle"];
-    [self.tabNotSendOut registerNib:[UINib nibWithNibName:@"CellOrderGood" bundle:nil] forCellReuseIdentifier:@"CellOrderGood"];
-    [self.tabNotSendOut registerNib:[UINib nibWithNibName:@"CellOrderOneLbl" bundle:nil] forCellReuseIdentifier:@"CellOrderOneLbl"];
-    [self.tabNotSendOut registerNib:[UINib nibWithNibName:@"CellOrderButtones" bundle:nil] forCellReuseIdentifier:@"CellOrderButtones"];
+    [self.tabNotSendOut registerNib:[UINib nibWithNibName:@"CellOrderVendorTitle"
+                                                   bundle:nil]
+             forCellReuseIdentifier:@"CellOrderVendorTitle"];
+    [self.tabNotSendOut registerNib:[UINib nibWithNibName:@"CellOrderGood"
+                                                   bundle:nil]
+             forCellReuseIdentifier:@"CellOrderGood"];
+    [self.tabNotSendOut registerNib:[UINib nibWithNibName:@"CellOrderOneLbl"
+                                                   bundle:nil]
+             forCellReuseIdentifier:@"CellOrderOneLbl"];
+    [self.tabNotSendOut registerNib:[UINib nibWithNibName:@"CellOrderButtones"
+                                                   bundle:nil]
+             forCellReuseIdentifier:@"CellOrderButtones"];
 }
 
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
     return 4;
 }
 
@@ -43,7 +52,8 @@
     return 4;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         return 40.0f;
     }else if (indexPath.row == 1){
@@ -55,7 +65,8 @@
     }return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         CellOrderVendorTitle *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderVendorTitle"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -86,17 +97,20 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView
+heightForHeaderInSection:(NSInteger)section{
     return 10;
 }
 
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+- (nullable UIView *)tableView:(UITableView *)tableView
+        viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 

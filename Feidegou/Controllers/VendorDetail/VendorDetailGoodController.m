@@ -302,8 +302,7 @@ UIWebViewDelegate
     return NO;
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     //    图片
     if (section == 0) {
         if (self.dicInfo.count>0) {
@@ -363,14 +362,15 @@ UIWebViewDelegate
         if (self.arrDiscuss.count>0) {
             return 1;
         }
-    }
-    return 0;
+    }return 0;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 10;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     //    图片
     if (indexPath.section == 0) {
         return SCREEN_WIDTH;
@@ -433,8 +433,8 @@ UIWebViewDelegate
     return 0.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         CellVendorGoodPic *cell=[tableView dequeueReusableCellWithIdentifier:@"CellVendorGoodPic"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -543,29 +543,38 @@ UIWebViewDelegate
     [cell.imgArrow setHidden:YES];
     return cell;
 }
+
 - (void)dail{
     NSString *strPhone = self.dicInfo[@"goods"][@"store_telephone"];
     if ([NSString isNullString:strPhone]) {
         JJAlertViewOneButton *alertView = [[JJAlertViewOneButton alloc] init];
-        [alertView showAlertView:self andTitle:nil andMessage:@"暂无商家电话"  andCancel:@"确定" andCanelIsRed:YES andBack:^{
+        [alertView showAlertView:self
+                        andTitle:nil
+                      andMessage:@"暂无商家电话"
+                       andCancel:@"确定"
+                   andCanelIsRed:YES
+                         andBack:^{
             D_NSLog(@"点击了确定");
             [[PersonalInfo sharedInstance] deleteLoginUserInfo];
         }];
     }else{
         JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-        [alertView showAlertView:self andTitle:nil andMessage:@"是否拨打电话" andCancel:@"取消" andCanelIsRed:NO andOherButton:@"立即拨打" andConfirm:^{
+        [alertView showAlertView:self
+                        andTitle:nil
+                      andMessage:@"是否拨打电话"
+                       andCancel:@"取消"
+                   andCanelIsRed:NO
+                   andOherButton:@"立即拨打"
+                      andConfirm:^{
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:StringFormat(@"tel://%@",strPhone)]]; //拨号
         } andCancel:^{
         }];
     }
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
-    
-    
     if (indexPath.section == 8) {
-        
+
         UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
         GoodDetailDiscussController *controller = [storyboard instantiateViewControllerWithIdentifier:@"GoodDetailDiscussController"];
         controller.strGood_id = self.strGoodId;
@@ -579,6 +588,7 @@ UIWebViewDelegate
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 3&&self.arrProperty.count>0) {
         return 10;
@@ -594,12 +604,17 @@ UIWebViewDelegate
     }
     return 0;
 }
+
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
-- (void)didClickCollectionViewSectionDetail:(NSArray *)arrAttribute andGoodsspecpropertyId:(NSString *)GoodsspecpropertyId andGoodsspecpropertyValueAndName:(NSString *)GoodsspecpropertyValueAndName andIsSelectAll:(BOOL)isSelected{
+
+- (void)didClickCollectionViewSectionDetail:(NSArray *)arrAttribute
+                     andGoodsspecpropertyId:(NSString *)GoodsspecpropertyId
+           andGoodsspecpropertyValueAndName:(NSString *)GoodsspecpropertyValueAndName
+                             andIsSelectAll:(BOOL)isSelected{
     self.arrProperty = [NSMutableArray arrayWithArray:arrAttribute];
     self.strAttribute = GoodsspecpropertyId;
     self.strAttributeName = GoodsspecpropertyValueAndName;
@@ -608,7 +623,9 @@ UIWebViewDelegate
         D_NSLog(@"已全部选择完毕，可以请求库存%@",GoodsspecpropertyId);
         __weak VendorDetailGoodController *myself = self;
         [myself.disposableGoodNum dispose];
-        myself.disposableGoodNum = [[[JJHttpClient new] requestShopGoodGoodNumGoodsspecpropertyId:GoodsspecpropertyId andGoodsId:[NSString stringStandard:self.strGoodId]] subscribeNext:^(NSDictionary* dictionary) {
+        myself.disposableGoodNum = [[[JJHttpClient new] requestShopGoodGoodNumGoodsspecpropertyId:GoodsspecpropertyId
+                                                                                       andGoodsId:[NSString stringStandard:self.strGoodId]]
+                                    subscribeNext:^(NSDictionary* dictionary) {
             D_NSLog(@"msg is %@",dictionary[@"msg"]);
             myself.strGoodPrice = dictionary[@"store_price"];
             myself.strGoodPriceOld = dictionary[@"goods_price"];
@@ -620,7 +637,6 @@ UIWebViewDelegate
         }completed:^{
             myself.disposableGoodNum = nil;
         }];
-        
     }else{
         D_NSLog(@"未全部选择完毕，不需请求库存");
     }
@@ -652,6 +668,7 @@ UIWebViewDelegate
         [self pushLoginController];
     }
 }
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     D_NSLog(@"self.tabGood.contentOffset.y is %f",self.tabGood.contentOffset.y);
     CGFloat fOffSet = self.tabGood.contentOffset.y;
@@ -663,14 +680,6 @@ UIWebViewDelegate
     }
     [self.viBuy setFrame:rect];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

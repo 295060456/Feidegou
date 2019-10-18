@@ -36,8 +36,7 @@
     BOOL isUser = [pred evaluateWithObject:strUser];
     if (strUser.length<6||strUser.length>16) {
         isUser = NO;
-    }
-    return isUser;
+    }return isUser;
 }
 
 + (BOOL)isCardNum:(NSString *)strCardNum{

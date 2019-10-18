@@ -11,13 +11,14 @@
 #import "GoodDetialAllController.h"
 #import "CellGoodList.h"
 
-@interface GoodOtherListController ()<RefreshControlDelegate>
+@interface GoodOtherListController ()
+<RefreshControlDelegate>
+
 @property (weak, nonatomic) IBOutlet BaseTableView *tabGoodOtherList;
 @property (strong, nonatomic) NSMutableArray *arrGoodOhterList;
 @property (nonatomic,strong) RefreshControl *refreshControl;
 @property (nonatomic,assign) int intPageIndex;
-//当前页数数量
-@property (nonatomic,assign) NSInteger curCount;
+@property (nonatomic,assign) NSInteger curCount;//当前页数数量
 
 @end
 
@@ -27,17 +28,24 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+
 - (void)locationControls{
     
-    [self.tabGoodOtherList registerNib:[UINib nibWithNibName:@"CellGoodList" bundle:nil] forCellReuseIdentifier:@"CellGoodList"];
-    self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabGoodOtherList delegate:self];
+    [self.tabGoodOtherList registerNib:[UINib nibWithNibName:@"CellGoodList"
+                                                      bundle:nil]
+                forCellReuseIdentifier:@"CellGoodList"];
+    self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabGoodOtherList
+                                                                        delegate:self];
     [self.refreshControl beginRefreshingMethod];
 }
 
 - (void)requestExchangeList{
     
     __weak GoodOtherListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodVendorOtherGoodGoods_store_id:[NSString stringStandard:self.strGoods_store_id] andLimit:@"10" andPage:TransformNSInteger(self.intPageIndex)] subscribeNext:^(NSArray *array) {
+    myself.disposable = [[[JJHttpClient new] requestShopGoodVendorOtherGoodGoods_store_id:[NSString stringStandard:self.strGoods_store_id]
+                                                                                 andLimit:@"10"
+                                                                                  andPage:TransformNSInteger(self.intPageIndex)]
+                         subscribeNext:^(NSArray *array) {
         myself.curCount = array.count;
         if (myself.intPageIndex == 1) {
             myself.arrGoodOhterList = [NSMutableArray array];
@@ -58,7 +66,6 @@
         [myself.refreshControl endRefreshing];
         myself.disposable = nil;
     }];
-    
 }
 #pragma mark - RefreshControlDelegate
 -(void)refreshControlForRefreshData{
@@ -83,44 +90,41 @@
     return NO;
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
     return self.arrGoodOhterList.count;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 100.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CellGoodList *cell=[tableView dequeueReusableCellWithIdentifier:@"CellGoodList"];
     [cell populateData:self.arrGoodOhterList[indexPath.row]];
     return cell;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self pushToGoodDetial:indexPath];
 }
+
 - (void)pushToGoodDetial:(NSIndexPath *)indexPath{
     UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
     GoodDetialAllController *controller=[storyboard instantiateViewControllerWithIdentifier:@"GoodDetialAllController"];
     ModelGood *model = self.arrGoodOhterList[indexPath.row];
     controller.strGood_id = model.goods_id;
-    [self.navigationController pushViewController:controller animated:YES];
+    [self.navigationController pushViewController:controller
+                                         animated:YES];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

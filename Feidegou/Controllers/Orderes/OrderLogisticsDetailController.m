@@ -75,7 +75,8 @@
     return 3;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         return 100.0f;
     }else if (indexPath.section == 1){
@@ -85,12 +86,15 @@
     NSDictionary *dicInfo = self.arrPost[indexPath.row];
     if ([dicInfo isKindOfClass:[NSDictionary class]]) {
         NSString *strContent = dicInfo[@"context"];
-        CGFloat fHeight = [NSString conculuteRightCGSizeOfString:strContent andWidth:SCREEN_WIDTH-55 andFont:15.0].height+40;
+        CGFloat fHeight = [NSString conculuteRightCGSizeOfString:strContent
+                                                        andWidth:SCREEN_WIDTH-55
+                                                         andFont:15.0].height+40;
         return fHeight;
     }return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         CellLogisticsGood *cell=[tableView dequeueReusableCellWithIdentifier:@"CellLogisticsGood"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -195,18 +199,21 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView
+heightForHeaderInSection:(NSInteger)section{
     if (section == 1) {
         return 10;
     }return 0;
 }
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+- (nullable UIView *)tableView:(UITableView *)tableView
+        viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 //    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil];
 }

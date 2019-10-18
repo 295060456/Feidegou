@@ -10,6 +10,7 @@
 #import "LoginViewController.h"
 
 @interface RegisterSucceedController ()
+
 @property (weak, nonatomic) IBOutlet UIButton *btnTip;
 @property (weak, nonatomic) IBOutlet UIButton *btnLogin;
 
@@ -30,6 +31,7 @@
     [self.btnLogin setTitleColor:ColorRed forState:UIControlStateNormal];
     // Do any additional setup after loading the view.
 }
+
 - (IBAction)clickButtonLogin:(UIButton *)sender {
     NSArray *array = self.navigationController.viewControllers;
     for (int i = 0; i<array.count; i++) {

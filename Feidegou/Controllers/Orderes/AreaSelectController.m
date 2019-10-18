@@ -29,7 +29,9 @@
 
 - (void)locationControls{
     
-    [self.tabArea registerNib:[UINib nibWithNibName:@"CellOneLabel" bundle:nil] forCellReuseIdentifier:@"CellOneLabel"];
+    [self.tabArea registerNib:[UINib nibWithNibName:@"CellOneLabel"
+                                             bundle:nil]
+       forCellReuseIdentifier:@"CellOneLabel"];
     [self showException];
     self.arrAreaSelected = [NSMutableArray array];
     self.intLevel = 0;
@@ -44,7 +46,9 @@
     [self.tabArea reloadData];
     [SVProgressHUD showWithStatus:@"正在请求数据..."];
     __weak AreaSelectController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodAreaListLevel:StringFormat(@"%d",self.intLevel) andID:self.strID] subscribeNext:^(NSArray* array) {
+    myself.disposable = [[[JJHttpClient new] requestShopGoodAreaListLevel:StringFormat(@"%d",self.intLevel)
+                                                                    andID:self.strID]
+                         subscribeNext:^(NSArray* array) {
         myself.arrArea = [NSMutableArray arrayWithArray:array];
         if (array.count == 0) {
             [self selectedCompelete];
@@ -73,11 +77,13 @@
     return 2;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 40.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CellOneLabel *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOneLabel"];
     ModelArea *model;
     UIView *viBack = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 40)];
@@ -97,7 +103,8 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.section == 1) {
         ModelArea *model = self.arrArea[indexPath.row];

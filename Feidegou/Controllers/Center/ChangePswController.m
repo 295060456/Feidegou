@@ -60,7 +60,10 @@
     ModelLogin *model = [[PersonalInfo sharedInstance]  fetchLoginUserInfo];
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
     __weak ChangePswController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestFourZeroChangePswUserName:[NSString stringStandard:model.userName] andpassword_new:strPswNew andpassword_old:strPswOld] subscribeNext:^(NSDictionary*dictionry) {
+    self.disposable = [[[JJHttpClient new] requestFourZeroChangePswUserName:[NSString stringStandard:model.userName]
+                                                            andpassword_new:strPswNew
+                                                            andpassword_old:strPswOld]
+                       subscribeNext:^(NSDictionary*dictionry) {
         if ([dictionry[@"code"] intValue]==1) {
             [SVProgressHUD showSuccessWithStatus:dictionry[@"msg"]];
             [myself.navigationController popViewControllerAnimated:YES];

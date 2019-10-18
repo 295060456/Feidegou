@@ -9,6 +9,7 @@
 #import "DrawbackMoney.h"
 
 @implementation DrawbackMoney
+
 - (void)awakeFromNib{
     [super awakeFromNib];
     [self setBackgroundColor:[UIColor clearColor]];

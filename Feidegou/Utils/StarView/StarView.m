@@ -9,6 +9,7 @@
 #import "StarView.h"
 
 @implementation StarView
+
 - (void)awakeFromNib{
     [super awakeFromNib];
     [self setAttribute];
@@ -17,8 +18,7 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self == [super initWithFrame:frame]) {
         [self setAttribute];
-    }
-    return self;
+    }return self;
 }
 
 - (void)setAttribute{

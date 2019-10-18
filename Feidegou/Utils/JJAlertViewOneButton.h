@@ -15,5 +15,5 @@
           andMessage:(NSString *)message
            andCancel:(NSString *)cancel
        andCanelIsRed:(BOOL)isRed
-             andBack:(void (^)())cancle;
+             andBack:(void (^)(void))cancle;
 @end

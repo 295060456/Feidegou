@@ -9,6 +9,7 @@
 #import "GoodDetailPicController.h"
 
 @interface GoodDetailPicController ()
+
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @end
@@ -19,6 +20,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+
 - (void)locationControls{
     [self.webView setScalesPageToFit:YES];
 //    [self.webView loadHTMLString:self.dicDetail[@"goods"][@"goods_details"] baseURL:[[NSBundle mainBundle] bundleURL]];
@@ -33,8 +35,8 @@
     //加载文件
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
-- (void)webViewDidFinishLoad:(UIWebView *)theWebView
-{
+
+- (void)webViewDidFinishLoad:(UIWebView *)theWebView{
     
 }
 

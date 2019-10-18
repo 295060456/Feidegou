@@ -13,4 +13,5 @@
 @interface AddressAddController : JJBaseViewController
 
 @property (strong, nonatomic) ModelAddress *model;
+
 @end

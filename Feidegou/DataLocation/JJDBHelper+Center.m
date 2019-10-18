@@ -19,7 +19,8 @@
     
     NSDictionary *dictionray = [self convertData:data];
     ModelCenter *model = [MTLJSONAdapter modelOfClass:[ModelCenter class]
-                                   fromJSONDictionary:dictionray error:nil];
+                                   fromJSONDictionary:dictionray
+                                                error:nil];
     return model;
 }
 
@@ -79,7 +80,9 @@
     NSData *data = [self queryCacheDataWithCacheId:PersonalInfo];
     
     NSDictionary *dictionray = [self convertData:data];
-    ModelInfo *model = [MTLJSONAdapter modelOfClass:[ModelInfo class] fromJSONDictionary:dictionray error:nil];
+    ModelInfo *model = [MTLJSONAdapter modelOfClass:[ModelInfo class]
+                                 fromJSONDictionary:dictionray
+                                              error:nil];
     return model;
 }
 

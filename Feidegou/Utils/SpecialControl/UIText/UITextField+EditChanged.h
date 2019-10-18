@@ -12,7 +12,6 @@
 typedef void (^ActionBlock)();
 
 @interface UITextField (EditChanged)
-
 /*!
  * Event事件处理
  * @param controlEvent 事件类型

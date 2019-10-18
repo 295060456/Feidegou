@@ -48,4 +48,5 @@ static char leftNameKey;
         return [super hitTest:point withEvent:event];
     }return CGRectContainsPoint(rect, point) ? self : nil;
 }
+
 @end

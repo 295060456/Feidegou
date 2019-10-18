@@ -20,37 +20,25 @@
 
 @property (nonatomic,assign) RefreshState refreshState;
 @property (nonatomic,strong) UIScrollView *scrollView;
-
-
 @property (nonatomic,strong) UIView<RefreshViewDelegate> *refreshView;
 @property (nonatomic,strong) UIView<RefreshViewDelegate> *loadMoreView;
 @property (nonatomic,assign) id<RefreshControlDelegate> delegate;
-
-/*! 是否启用下拉刷新数据(默认启用)*/
-@property (nonatomic,assign) BOOL isEnableRefresh;
-/*! 是否启用上拉加载数据(默认启用)*/
-@property (nonatomic,assign) BOOL isEnableLoadMore;
-/*! 下拉刷新改变状态距离 */
-@property (nonatomic,assign) CGFloat enableInsetTop;
-/*! 上拉加载改变状态距离 */
-@property (nonatomic,assign) CGFloat enableInsetBottom;
-/*! 数据是否加载完成 */
-@property (nonatomic,assign) BOOL isDataLoadingFinished;
+@property (nonatomic,assign) BOOL isEnableRefresh;/*! 是否启用下拉刷新数据(默认启用)*/
+@property (nonatomic,assign) BOOL isEnableLoadMore;/*! 是否启用上拉加载数据(默认启用)*/
+@property (nonatomic,assign) CGFloat enableInsetTop;/*! 下拉刷新改变状态距离 */
+@property (nonatomic,assign) CGFloat enableInsetBottom;/*! 上拉加载改变状态距离 */
+@property (nonatomic,assign) BOOL isDataLoadingFinished;/*! 数据是否加载完成 */
 
 @end
 
 @implementation RefreshControl
-
-#pragma mark -
 #pragma mark - Public Methods
 - (instancetype)initRefreshControlWithScrollView:(UIScrollView*)scrollView
                                         delegate:(id<RefreshControlDelegate>)delegate{
     
     if (self = [super init]) {
-        
         self.scrollView = scrollView;
         self.delegate = delegate;
-        
         [self.scrollView addObserver:self
                           forKeyPath:KVO_SCROLLVIEW_CONTENT_SIZE
                              options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
@@ -60,8 +48,7 @@
                           forKeyPath:KVO_SCROLLVIEW_CONTENT_OFFSET
                              options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld|NSKeyValueObservingOptionPrior
                              context:NULL];
-        
-        
+
         //创建refreshView
         if (self.isEnableRefresh) {
             if ([self.delegate respondsToSelector:@selector(refreshControlForRefreshView)]) {
@@ -97,12 +84,9 @@
                 self.loadMoreView = [nib firstObject];
             }
             [self.scrollView addSubview:self.loadMoreView];
-            
         }
     }return self;
 }
-
-#pragma mark -
 #pragma mark - Logic Handle Methods
 -(void)handleChange{
 
@@ -112,23 +96,21 @@
         
         if(contentOffsetY < -self.enableInsetTop){
         
-            if (self.scrollView.decelerating && self.scrollView.dragging == NO) {
+            if (self.scrollView.decelerating &&
+                self.scrollView.dragging == NO) {
 
                 [self beginRefreshingMethod];
-                
             }else{
                 
                 if ([self.refreshView respondsToSelector:@selector(canEngageRefresh)]) {
                     [self.refreshView canEngageRefresh];
                 }
             }
-            
         }else{
         
             if ([self.refreshView respondsToSelector:@selector(didDisengageRefresh)]) {
                 [self.refreshView didDisengageRefresh];
             }
-        
         }
     }
     //处理加载
@@ -177,19 +159,19 @@
         }
     }
     
-    [_scrollView setContentOffset:CGPointMake(0, -self.enableInsetTop) animated:YES];
+    [_scrollView setContentOffset:CGPointMake(0, -self.enableInsetTop)
+                         animated:YES];
     
     __weak typeof(self)weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)),
+                   dispatch_get_main_queue(), ^{
         
         __strong typeof(self)strongSelf = weakSelf;
         strongSelf.scrollView.contentInset =  UIEdgeInsetsMake(self.enableInsetTop,0,0,0);
         if ([strongSelf.delegate respondsToSelector:@selector(refreshControlForRefreshData)]) {
             [strongSelf.delegate refreshControlForRefreshData];
         }
-        
     });
-    
 }
 
 //结束刷新方法
@@ -198,20 +180,15 @@
     if ([self.refreshView respondsToSelector:@selector(endRefreshing)]) {
         [self.refreshView endRefreshing];
     }
-    
-
     [UIView animateWithDuration:0.35f animations:^{
         self.scrollView.contentInset = UIEdgeInsetsZero;
     }];
-
     //判断是否还有数据
     if ([self.loadMoreView respondsToSelector:@selector(endRefreshing)]) {
-        
         if (self.isDataLoadingFinished) {
             if ([self.loadMoreView respondsToSelector:@selector(dataLoadingFinished)]) {
                 self.refreshState = RefreshStateFinished;
                 [self.loadMoreView dataLoadingFinished];
-                
                 //当contentSize.height < size.height 时,不显示loadMoreView
                 if (self.scrollView.bounds.size.height - self.scrollView.contentSize.height>0) {
                     self.loadMoreView.hidden = YES;
@@ -225,7 +202,6 @@
     }
     self.refreshState = RefreshStateNone;
 }
-
 //开始加载
 -(void)beginLoadMoreingMethod{
     
@@ -235,13 +211,17 @@
     }
     
     CGFloat height = MAX(self.scrollView.contentSize.height, self.scrollView.bounds.size.height);
-    CGPoint point = CGPointMake(0, height-self.scrollView.bounds.size.height + self.enableInsetBottom);
-    UIEdgeInsets edge = UIEdgeInsetsMake(0,0,self.enableInsetBottom,0);
+    CGPoint point = CGPointMake(0, height - self.scrollView.bounds.size.height + self.enableInsetBottom);
+    UIEdgeInsets edge = UIEdgeInsetsMake(0,
+                                         0,
+                                         self.enableInsetBottom,
+                                         0);
     
     [_scrollView setContentOffset:point animated:YES];
     __weak typeof(self)weakSelf = self;
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)),
+                   dispatch_get_main_queue(), ^{
         
         __strong typeof(self)strongSelf = weakSelf;
         strongSelf.scrollView.contentInset = edge;
@@ -250,7 +230,6 @@
         }
     });
 }
-
 //结束加载
 -(void)endLoadMoreingingMethod{
 
@@ -262,7 +241,6 @@
     } completion:^(BOOL finished) {
         
     }];
-    
     //判断是否还有数据
     if ([self.loadMoreView respondsToSelector:@selector(endRefreshing)]) {
         
@@ -284,47 +262,30 @@
 
 /*! 结束刷新/加载*/
 -(void)endRefreshing{
-
     if(self.refreshState == RefreshStateRefreshing){
-    
         [self endRefreshingMethod];
-    
     }else if(self.refreshState == RefreshStateLoadMoreing){
-    
         [self endLoadMoreingingMethod];
-    
     }
-
 }
-
-
-#pragma mark -
 #pragma mark - Initialize Methods
 -(void)setupRefreshView{
-    
     if (!self.isEnableRefresh || CGRectIsEmpty(self.scrollView.bounds)) {
         return;
     }
-    
     if ([self.refreshView respondsToSelector:@selector(resetLayoutSubViews)]) {
         [self.refreshView resetLayoutSubViews];
     }
-    
 }
 
 -(void)setupLoadMoreView{
-
     if (!self.isEnableLoadMore || CGRectIsEmpty(self.scrollView.bounds)) {
         return;
     }
-    
     if ([self.loadMoreView respondsToSelector:@selector(resetLayoutSubViews)]) {
         [self.loadMoreView resetLayoutSubViews];
     }
-    
 }
-
-#pragma mark -
 #pragma mark - Getter Methods
 -(BOOL)isEnableRefresh{
 
@@ -338,8 +299,7 @@
     
     if ([self.delegate respondsToSelector:@selector(refreshControlEnableLoadMore)]) {
         return [self.delegate refreshControlEnableLoadMore];
-    }
-    return YES;
+    }return YES;
 
 }
 
@@ -347,27 +307,22 @@
 
     if ([self.delegate respondsToSelector:@selector(refreshControlEnableInsetTop)]) {
         return [self.delegate refreshControlEnableInsetTop];
-    }
-    return ENABLE_INSET_TOP;
+    }return ENABLE_INSET_TOP;
 }
 
 -(CGFloat)enableInsetBottom{
     
     if ([self.delegate respondsToSelector:@selector(refreshControlEnableInsetBottom)]) {
         return [self.delegate refreshControlEnableInsetBottom];
-    }
-    return ENABLE_INSET_BOTTOM;
+    }return ENABLE_INSET_BOTTOM;
 }
 
 -(BOOL)isDataLoadingFinished{
     
     if ([self.delegate respondsToSelector:@selector(refreshControlForDataLoadingFinished)]) {
         return [self.delegate refreshControlForDataLoadingFinished];
-    }
-    return NO;
+    }return NO;
 }
-
-#pragma mark -
 #pragma mark - KVO Methods
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
 
@@ -381,18 +336,15 @@
             && self.refreshState != RefreshStateLoadMoreing) {
             [self handleChange];
         }
-        
     }
 }
-
-
-#pragma mark - 
 #pragma mark - Destroy Methods
 -(void)dealloc{
-
     self.delegate = nil;
-    [self.scrollView removeObserver:self forKeyPath:KVO_SCROLLVIEW_CONTENT_SIZE];
-    [self.scrollView removeObserver:self forKeyPath:KVO_SCROLLVIEW_CONTENT_OFFSET];
+    [self.scrollView removeObserver:self
+                         forKeyPath:KVO_SCROLLVIEW_CONTENT_SIZE];
+    [self.scrollView removeObserver:self
+                         forKeyPath:KVO_SCROLLVIEW_CONTENT_OFFSET];
 
 }
 

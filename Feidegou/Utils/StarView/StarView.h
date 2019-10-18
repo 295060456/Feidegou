@@ -29,4 +29,5 @@
 @property (nonatomic,assign) BOOL canSelected;
 
 - (void)refreshView;
+
 @end

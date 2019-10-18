@@ -8,6 +8,7 @@
 
 #import "JJDBHelper+MainAdver.h"
 #define MainAdverId @"mainAdverId"
+
 @implementation JJDBHelper (MainAdver)
 - (NSArray *)fetchMainAdver{
     NSData *data = [self queryCacheDataWithCacheId:@"3059"];

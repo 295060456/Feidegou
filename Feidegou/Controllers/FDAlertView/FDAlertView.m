@@ -132,7 +132,10 @@ CGFloat contentViewHeight;
     [self initMessage];
     [self initAllButtons];
     
-    _contentView.frame = CGRectMake(0, 0, contentViewWidth, contentViewHeight);
+    _contentView.frame = CGRectMake(0,
+                                    0,
+                                    contentViewWidth,
+                                    contentViewHeight);
     _contentView.center = self.center;
     [self addSubview:_contentView];
 }
@@ -159,7 +162,10 @@ CGFloat contentViewHeight;
         _titleLabel.font = [UIFont systemFontOfSize:TITLE_FONT_SIZE];
         _titleLabel.numberOfLines = 0;
         _titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-        _titleLabel.frame = CGRectMake(_iconImageView.frame.origin.x + _iconImageView.frame.size.width + SPACE_SMALL, 1, titleSize.width, titleSize.height);
+        _titleLabel.frame = CGRectMake(_iconImageView.frame.origin.x + _iconImageView.frame.size.width + SPACE_SMALL,
+                                       1,
+                                       titleSize.width,
+                                       titleSize.height);
         [_titleView addSubview:_titleLabel];
     }
     
@@ -241,7 +247,6 @@ CGFloat contentViewHeight;
         }
     }
 }
-
 // Get the size fo title
 - (CGSize)getTitleSize {
     UIFont *font = [UIFont systemFontOfSize:TITLE_FONT_SIZE];

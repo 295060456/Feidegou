@@ -13,6 +13,7 @@
 #import "SDImageCache.h"
 
 @interface SettingController ()
+
 @property (weak, nonatomic) IBOutlet UITableView *tabSet;
 @property (weak, nonatomic) IBOutlet UIButton *btnLoginOut;
 
@@ -82,14 +83,21 @@
     }
     if (indexPath.row == 1) {
         AboutUsController *controller = [[UIStoryboard storyboardWithName:StoryboardMine bundle:nil] instantiateViewControllerWithIdentifier:@"AboutUsController"];
-        [self.navigationController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller
+                                             animated:YES];
     }
 }
 
 - (IBAction)clickButtonLoginOut:(UIButton *)sender {
     
     JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-    [alertView showAlertView:self andTitle:nil andMessage:@"是否退出登录"  andCancel:@"取消" andCanelIsRed:NO andOherButton:@"立即退出" andConfirm:^{
+    [alertView showAlertView:self
+                    andTitle:nil
+                  andMessage:@"是否退出登录"
+                   andCancel:@"取消"
+               andCanelIsRed:NO
+               andOherButton:@"立即退出"
+                  andConfirm:^{
         [[PersonalInfo sharedInstance] deleteLoginUserInfo];
         [self.navigationController popViewControllerAnimated:YES];
     } andCancel:^{

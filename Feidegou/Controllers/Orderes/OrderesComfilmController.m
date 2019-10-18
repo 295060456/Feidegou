@@ -25,14 +25,16 @@
 #import "CellOrderConfilm.h"
 #import "JJDBHelper+ShopCart.h"
 
-@interface OrderesComfilmController ()<DidClickOrderDelegate>
+@interface OrderesComfilmController ()
+<DidClickOrderDelegate>
+
 @property (weak, nonatomic) IBOutlet UITableView *tabOrder;
 @property (weak, nonatomic) IBOutlet UIButton *btnConfilmOrder;
 @property (weak, nonatomic) IBOutlet UILabel *lblPriceAll;
 @property (strong, nonatomic) OrderAttribute *orderAttribute;
-
 @property (strong, nonatomic) NSDictionary *dicCartFee;
 @property (strong, nonatomic) NSMutableArray *arrCartGood;
+
 @end
 
 @implementation OrderesComfilmController
@@ -87,7 +89,6 @@
     //    }
     
     //    self.orderAttribute.billType = enum_billType_no;
-    
 }
 
 - (void)requestOrderBysc_id{
@@ -141,7 +142,8 @@
     }
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         if (self.arrCartGood.count==0) {
             return 0;
@@ -184,7 +186,8 @@
     return 2;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         return 70.0f;
     }
@@ -315,7 +318,8 @@
 }
 
 - (void)didClickOnlyPeisongfangshiRow:(NSInteger)row{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder" bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder"
+                                                         bundle:nil];
     OrderSendWayController *controller = [storyboard instantiateViewControllerWithIdentifier:@"OrderSendWayController"];
     controller.model = self.arrCartGood[row];
     //    if (self.isCart) {
@@ -574,8 +578,7 @@
             strTip = @"平邮";
         }
         strSendWay = StringFormat(@"%@(%@)",strSendWay,strTip);
-    }
-    return strSendWay;
+    }return strSendWay;
 }
 
 - (NSString *)getSendWay{
@@ -596,8 +599,7 @@
         }else{
             doubleSendMoney += [model.mail_trans_fee doubleValue];
         }
-    }
-    return StringFormat(@"%.2f",doubleSendMoney);
+    }return StringFormat(@"%.2f",doubleSendMoney);
 }
 
 

@@ -20,12 +20,10 @@
     }else{
         data = [self queryCacheDataWithCacheId:SearchHistory];
     }
-    
     NSArray *array = [self convertData:data];
     if (![array isKindOfClass:[NSArray class]]) {
         array = [NSArray array];
-    }
-    return array;
+    }return array;
 }
 
 - (NSArray *)fetchSearchHot{
@@ -35,8 +33,7 @@
     NSArray *array = [self convertData:data];
     if (![array isKindOfClass:[NSArray class]]) {
         array = [NSArray array];
-    }
-    return array;
+    }return array;
 }
 
 - (void)saveSearchHistory:(NSArray *)array
@@ -50,8 +47,11 @@
 
 - (void)saveSearchHot:(NSArray *)array{
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:&error];
-    [self updateCacheForId:SearchHot cacheData:jsonData];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    [self updateCacheForId:SearchHot
+                 cacheData:jsonData];
 }
 
 @end

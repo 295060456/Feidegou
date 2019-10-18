@@ -35,8 +35,11 @@ RefreshControlDelegate
 
 - (void)locationControls{
     [self.btnAddAddress setBackgroundColor:ColorRed];
-    [self.tabAddress registerNib:[UINib nibWithNibName:@"CellAddress" bundle:nil] forCellReuseIdentifier:@"CellAddress"];
-    self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabAddress delegate:self];
+    [self.tabAddress registerNib:[UINib nibWithNibName:@"CellAddress"
+                                                bundle:nil]
+          forCellReuseIdentifier:@"CellAddress"];
+    self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabAddress
+                                                                        delegate:self];
 }
 
 - (void)clickButtonBack:(UIButton *)sender{
@@ -144,7 +147,13 @@ RefreshControlDelegate
     [cell.btnDelete handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         
         JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-        [alertView showAlertView:self andTitle:nil andMessage:@"是否删除" andCancel:@"取消" andCanelIsRed:NO andOherButton:@"立即删除" andConfirm:^{
+        [alertView showAlertView:self
+                        andTitle:nil
+                      andMessage:@"是否删除"
+                       andCancel:@"取消"
+                   andCanelIsRed:NO
+                   andOherButton:@"立即删除"
+                      andConfirm:^{
             [self requestDataDeleteAddress:indexPath.section];
         } andCancel:^{
             D_NSLog(@"点击了取消");

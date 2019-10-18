@@ -10,6 +10,7 @@
 #import "CellTwoLblArrow.h"
 
 @interface AboutUsController ()
+
 @property (weak, nonatomic) IBOutlet UIView *viHead;
 @property (weak, nonatomic) IBOutlet UIImageView *imgHead;
 @property (weak, nonatomic) IBOutlet UILabel *lblVersion;
@@ -37,18 +38,21 @@
 }
 
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
     return 1;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 50.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 //    if (indexPath.row == 0) {
 //        CellTwoLblArrow *cell = [tableView dequeueReusableCellWithIdentifier:@"CellTwoLblArrow"];
 //        cell.fWidthPre = 10;
@@ -85,7 +89,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         WebOnlyController *controller = [storyboard instantiateViewControllerWithIdentifier:@"WebOnlyController"];
         [controller setTitle:@"官方网站"];
         controller.strWebUrl = self.strUrl;
-        [self.navigationController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller
+                                             animated:YES];
 //    }
 }
 

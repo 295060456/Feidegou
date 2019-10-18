@@ -18,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblTip;
 @property (weak, nonatomic) IBOutlet UIButton *btnService;
 
-
 @end
 
 @implementation RegisterInviterController
@@ -27,18 +26,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+
 - (void)locationControls{
     [self refrehButtonNextState];
     [self.lblTip setTextColor:ColorGary];
-    [self.btnService setTitleColor:ColorBlack forState:UIControlStateNormal];
+    [self.btnService setTitleColor:ColorBlack
+                          forState:UIControlStateNormal];
     [self.viCode.layer setBorderWidth:0.5];
     [self.viCode.layer setBorderColor:ColorLine.CGColor];
     [self.txtCode setClearButtonMode:UITextFieldViewModeWhileEditing];
-    [self.txtCode addTarget:self action:@selector(textFiledDidChanged:) forControlEvents:UIControlEventEditingChanged];
+    [self.txtCode addTarget:self action:@selector(textFiledDidChanged:)
+           forControlEvents:UIControlEventEditingChanged];
 }
+
 - (void)textFiledDidChanged:(UITextField *)text{
     [self refrehButtonNextState];
 }
+
 - (void)refrehButtonNextState{
     NSString *strUserNum = self.txtCode.text;
     if ([NSString isNullString:strUserNum]) {
@@ -77,12 +81,18 @@
     }completed:^{
         myself.disposable = nil;
     }];
-    
 }
+
 - (IBAction)clickButtonService:(UIButton *)sender {
     
     JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-    [alertView showAlertView:self andTitle:nil andMessage:@"是否拨打电话" andCancel:@"取消" andCanelIsRed:NO andOherButton:@"立即拨打" andConfirm:^{
+    [alertView showAlertView:self
+                    andTitle:nil
+                  andMessage:@"是否拨打电话"
+                   andCancel:@"取消"
+               andCanelIsRed:NO
+               andOherButton:@"立即拨打"
+                  andConfirm:^{
         D_NSLog(@"点击了确定");
         Tel(ServicePhone);
     } andCancel:^{
@@ -90,14 +100,5 @@
     }];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

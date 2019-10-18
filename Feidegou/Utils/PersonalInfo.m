@@ -30,7 +30,8 @@ static PersonalInfo *personalInfo;
 -(void)updateLoginUserInfo:(ModelLogin*)model{
     NSMutableDictionary *dicInfo = [NSMutableDictionary dictionaryWithDictionary:[model toDictionary]];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:dicInfo forKey:LOGIN_USER_INFO];
+    [userDefaults setObject:dicInfo
+                     forKey:LOGIN_USER_INFO];
     [userDefaults synchronize];
 }
 

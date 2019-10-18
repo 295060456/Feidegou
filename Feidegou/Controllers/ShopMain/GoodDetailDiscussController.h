@@ -10,6 +10,7 @@
 
 @interface GoodDetailDiscussController : JJBaseViewController
 
-@property (strong, nonatomic) NSString *strGood_id;
-@property (strong, nonatomic) NSString *store_id;
+@property (copy, nonatomic) NSString *strGood_id;
+@property (copy, nonatomic) NSString *store_id;
+
 @end

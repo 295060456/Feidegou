@@ -25,6 +25,7 @@ UIPickerViewDelegate
 @property(strong,nonatomic)UIPickerView *pickerView;
 @property(strong,nonatomic)UIView *viBack;
 @property(assign,nonatomic)NSInteger row;
+
 @end
 
 @implementation OrderTuihuoController
@@ -82,9 +83,12 @@ UIPickerViewDelegate
                                                                      60,
                                                                      CGRectGetHeight(viButton.frame))];
     [btnCancel.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
-    [btnCancel setTitle:@"取消" forState:UIControlStateNormal];
-    [btnCancel setTitleColor:ColorGaryDark forState:UIControlStateNormal];
-    [btnCancel handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+    [btnCancel setTitle:@"取消"
+               forState:UIControlStateNormal];
+    [btnCancel setTitleColor:ColorGaryDark
+                    forState:UIControlStateNormal];
+    [btnCancel handleControlEvent:UIControlEventTouchUpInside
+                        withBlock:^{
         [self hideSelete];
     }];
     
@@ -95,7 +99,8 @@ UIPickerViewDelegate
     [btnConfilm.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
     [btnConfilm setTitle:@"确定" forState:UIControlStateNormal];
     [btnConfilm setTitleColor:ColorButton forState:UIControlStateNormal];
-    [btnConfilm handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+    [btnConfilm handleControlEvent:UIControlEventTouchUpInside
+                         withBlock:^{
         self.row =  [self.pickerView selectedRowInComponent:0];
         [self.lblName setText:self.arrData[self.row][@"company_name"]];
         [self hideSelete];
@@ -113,7 +118,6 @@ UIPickerViewDelegate
 
 - (void)requestData{
     [self showException];
-    
     __weak OrderTuihuoController *myself = self;
     myself.disposable = [[[JJHttpClient new] requestShopGoodWuliuList] subscribeNext:^(NSArray* array) {
         myself.arrData = [NSMutableArray arrayWithArray:array];
@@ -130,12 +134,14 @@ UIPickerViewDelegate
     return 1;
 }
 //返回行数在每个组件(每一列)
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+- (NSInteger)pickerView:(UIPickerView *)pickerView
+numberOfRowsInComponent:(NSInteger)component{
     return self.arrData.count;
     
 }
 //每一列组件的行高度
-- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component{
+- (CGFloat)pickerView:(UIPickerView *)pickerView
+rowHeightForComponent:(NSInteger)component{
     return 40.0;
 }
 
@@ -189,7 +195,8 @@ UIPickerViewDelegate
     }];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+- (void)touchesBegan:(NSSet<UITouch *> *)touches
+           withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
 

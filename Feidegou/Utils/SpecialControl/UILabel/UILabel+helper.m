@@ -34,7 +34,8 @@
     [self setText:string];
 }
 
-- (void)setTextVendorPrice:(NSString *)priceNow andOldPrice:(NSString *)priceOld{
+- (void)setTextVendorPrice:(NSString *)priceNow
+               andOldPrice:(NSString *)priceOld{
     priceNow = [NSString stringStandardFloatTwo:priceNow];
     priceOld = [NSString stringStandardFloatTwo:priceOld];
     [self setFont:[UIFont systemFontOfSize:13.0]];
@@ -43,11 +44,12 @@
     [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]}
                             range:NSMakeRange(1, priceNow.length)];
     [atrStringPrice addAttributes:@{NSForegroundColorAttributeName:ColorGary}
-                            range:NSMakeRange(priceNow.length+2, priceOld.length+5)];
+                            range:NSMakeRange(priceNow.length + 2, priceOld.length + 5)];
     [self setAttributedText:atrStringPrice];
 }
 
-- (void)setTextGoodPrice:(NSString *)priceNow andDB:(NSString *)db{
+- (void)setTextGoodPrice:(NSString *)priceNow
+                   andDB:(NSString *)db{
     
     NSString *strPriceNow = [NSString stringStandardFloatTwo:priceNow];
     NSString *strDB = [NSString stringStandardFloatTwo:db];
@@ -60,7 +62,7 @@
     }else{
         atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"￥%@(可报销￥%@)",strPriceNow,strDB)];
         [atrStringPrice addAttributes:@{NSForegroundColorAttributeName:ColorFromHexRGB(0x2c9b05)}
-                                range:NSMakeRange(strPriceNow.length+1, strDB.length+6)];
+                                range:NSMakeRange(strPriceNow.length + 1, strDB.length + 6)];
     }
     [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]}
                             range:NSMakeRange(1, strPriceNow.length)];

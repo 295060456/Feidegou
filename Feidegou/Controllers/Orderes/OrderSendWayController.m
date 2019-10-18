@@ -11,6 +11,7 @@
 #import "UIButton+Joker.h"
 
 @interface OrderSendWayController ()
+
 @property (weak, nonatomic) IBOutlet UITableView *tabSendWay;
 @property (weak, nonatomic) IBOutlet UIButton *btnConfilm;
 @property (assign, nonatomic) enumSendWay sendWay;
@@ -27,12 +28,14 @@
 - (void)locationControls{
     [self.btnConfilm setBackgroundColor:ColorRed];
     [self.tabSendWay setBackgroundColor:ColorBackground];
-    [self.tabSendWay registerNib:[UINib nibWithNibName:@"CellSendWay" bundle:nil]
+    [self.tabSendWay registerNib:[UINib nibWithNibName:@"CellSendWay"
+                                                bundle:nil]
           forCellReuseIdentifier:@"CellSendWay"];
     self.sendWay = self.model.sendWay;
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
     return 1;
 }
 
@@ -40,13 +43,15 @@
     return 2;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         return 190.0f;
     }return 166.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CellSendWay *cell=[tableView dequeueReusableCellWithIdentifier:@"CellSendWay"];
     [cell populataData:self.model.goodsCart];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -82,13 +87,16 @@
             [cell.viOne.layer setBorderColor:ColorRed.CGColor];
             
         }else{
-            [cell.btnOne handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+            [cell.btnOne handleControlEvent:UIControlEventTouchUpInside
+                                  withBlock:^{
                 [self refreshTabBySendWay:enum_sendWay_mail];
             }];
-            [cell.btnTwo handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+            [cell.btnTwo handleControlEvent:UIControlEventTouchUpInside
+                                  withBlock:^{
                 [self refreshTabBySendWay:enum_sendWay_express];
             }];
-            [cell.btnThree handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+            [cell.btnThree handleControlEvent:UIControlEventTouchUpInside
+                                    withBlock:^{
                 [self refreshTabBySendWay:enum_sendWay_ems];
             }];
             [cell.viOne setHidden:NO];
@@ -130,7 +138,8 @@
     }return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView
+heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         return 0;
     }else{
@@ -138,8 +147,12 @@
     }
 }
 
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
+- (nullable UIView *)tableView:(UITableView *)tableView
+        viewForHeaderInSection:(NSInteger)section{
+    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                0,
+                                                                SCREEN_WIDTH,
+                                                                10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }

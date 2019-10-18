@@ -13,19 +13,14 @@
 
 static LocationManager *sharedManager;
 +(LocationManager*)sharedInstance{
-    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        
         sharedManager = [[LocationManager alloc] init];
         
-    });
-    return sharedManager;
-    
+    });return sharedManager;
 }
 
 -(instancetype)init{
-    
     if (self = [super init]) {
         //初始化BMKLocationService
 //        self.geoCodeSearch = [[BMKGeoCodeSearch alloc]init];
@@ -53,7 +48,6 @@ static LocationManager *sharedManager;
     _offlineMap.delegate = nil; // 不用时，置nil
 }
 - (void)dealloc {
-    
     if (_offlineMap != nil) {
         _offlineMap = nil;
     }

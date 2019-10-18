@@ -43,33 +43,33 @@
 - (CGRect)imageRectForContentRect:(CGRect)contentRect{
     CGFloat fHeight =CGRectGetHeight(self.frame);
     return CGRectMake(0,
-                      0.1*fHeight,
+                      0.1 * fHeight,
                       CGRectGetWidth(self.frame),
-                      fHeight*0.5);
+                      fHeight * 0.5);
 }
 
 - (CGRect)titleRectForContentRect:(CGRect)contentRect{
     CGFloat fHeight =CGRectGetHeight(self.frame);
     return CGRectMake(0,
-                      fHeight*0.7,
+                      fHeight * 0.7,
                       CGRectGetWidth(self.frame),
-                      fHeight*0.2);
+                      fHeight * 0.2);
 }
 
 - (void)refreshNumber:(NSString *)strNumber{
-    if ([strNumber intValue]==0) {
+    if ([strNumber intValue] == 0) {
         [self.lblNum setHidden:YES];
     }else{
         [self.lblNum setHidden:NO];
         CGFloat fWidth = [NSString conculuteRightCGSizeOfString:strNumber
                                                        andWidth:30
-                                                        andFont:8].width+6;
-        [self.lblNum setFrame:CGRectMake(CGRectGetWidth(self.frame)-fWidth-15,
+                                                        andFont:8].width + 6;
+        [self.lblNum setFrame:CGRectMake(CGRectGetWidth(self.frame) - fWidth - 15,
                                          6,
                                          fWidth,
                                          fWidth)];
         [self.lblNum setTextNull:strNumber];
-        [self.lblNum.layer setCornerRadius:fWidth/2];
+        [self.lblNum.layer setCornerRadius:fWidth / 2];
     }
 }
 

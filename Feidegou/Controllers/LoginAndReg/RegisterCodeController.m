@@ -11,23 +11,25 @@
 #import "JJHttpClient+Login.h"
 
 @interface RegisterCodeController ()
+
 @property (weak, nonatomic) IBOutlet UILabelBlackBig *lblPhone;
 @property (weak, nonatomic) IBOutlet UIView *viCode;
 @property (weak, nonatomic) IBOutlet UITextField *txtCode;
 @property (weak, nonatomic) IBOutlet UIButton *btnNext;
 @property (weak, nonatomic) IBOutlet UIButton *btnCall;
 @property (weak, nonatomic) IBOutlet UIButton *btnCode;
-
 @property (strong, nonatomic) NSTimer *timer;
 @property (assign, nonatomic) int intTime;
 
 @end
 
 @implementation RegisterCodeController
+
 - (void)clickButtonBack:(UIButton *)sender{
     [self removeTimer];
     [super clickButtonBack:sender];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (self.isForgetPsw) {
@@ -46,9 +48,11 @@
         [self requesetCode];
     }
 }
+
 - (void)textFiledDidChanged:(UITextField *)text{
     [self refrehButtonNextState];
 }
+
 - (void)refrehButtonNextState{
     NSString *strUserNum = self.txtCode.text;
     if (![NSString isNullString:strUserNum]) {
@@ -59,12 +63,14 @@
         [self.btnNext setBackgroundColor:ColorGaryButtom];
     }
 }
+
 - (IBAction)clickButtonCode:(UIButton *)sender {
     if (self.btnCode.selected) {
         return;
     }
     [self requesetCode];
 }
+
 - (IBAction)clickButtonNext:(UIButton *)sender {
     
     NSString *strCode = self.txtCode.text;
@@ -98,12 +104,17 @@
     }completed:^{
         myself.disposable = nil;
     }];
-    
-    
 }
+
 - (IBAction)clickButtonCall:(UIButton *)sender {
     JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-    [alertView showAlertView:self andTitle:nil andMessage:@"是否拨打电话" andCancel:@"取消" andCanelIsRed:NO andOherButton:@"立即拨打" andConfirm:^{
+    [alertView showAlertView:self
+                    andTitle:nil
+                  andMessage:@"是否拨打电话"
+                   andCancel:@"取消"
+               andCanelIsRed:NO
+               andOherButton:@"立即拨打"
+                  andConfirm:^{
         D_NSLog(@"点击了确定");
         Tel(ServicePhone);
     } andCancel:^{
@@ -133,9 +144,14 @@
     [self.btnCode setTitle:strTip forState:UIControlStateNormal];
     [self.btnCode setTitle:strTip forState:UIControlStateSelected];
     [self.btnCode setSelected:YES];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerCountDown:) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                  target:self
+                                                selector:@selector(timerCountDown:)
+                                                userInfo:nil
+                                                 repeats:YES];
     //将timer添加到RunLoop中
-    [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    [[NSRunLoop mainRunLoop] addTimer:self.timer
+                              forMode:NSRunLoopCommonModes];
     
 }
 /**
@@ -158,7 +174,9 @@
         strType = @"forget";
     }
     __weak RegisterCodeController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestPswGetBackPHONE:self.strPhone andType:strType] subscribeNext:^(NSDictionary*dictionary) {
+    self.disposable = [[[JJHttpClient new] requestPswGetBackPHONE:self.strPhone
+                                                          andType:strType]
+                       subscribeNext:^(NSDictionary*dictionary) {
         D_NSLog(@"msg is %@",dictionary[@"msg"]);
     }error:^(NSError *error) {
         myself.disposable = nil;
@@ -169,14 +187,6 @@
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

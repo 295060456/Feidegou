@@ -11,6 +11,7 @@
 #import "RegisterSucceedController.h"
 
 @interface RegisterInputPswController ()
+
 @property (weak, nonatomic) IBOutlet UIView *viPswOld;
 @property (weak, nonatomic) IBOutlet UITextField *txtPswOld;
 @property (weak, nonatomic) IBOutlet UIView *viPsw;
@@ -38,9 +39,11 @@
     [self refrehButtonNextState];
     [self.txtPsw addTarget:self action:@selector(textFiledDidChanged:) forControlEvents:UIControlEventEditingChanged];
 }
+
 - (void)textFiledDidChanged:(UITextField *)text{
     [self refrehButtonNextState];
 }
+
 - (void)refrehButtonNextState{
     NSString *strPsw = self.txtPsw.text;
     if ([NSString isPassword:strPsw]&&![NSString isNullString:strPsw]) {
@@ -71,11 +74,11 @@
     }
     [self.view endEditing:YES];
     
-    
     if (self.isForgetPsw) {
         [SVProgressHUD showWithStatus:@"正在修改密码,请稍后..."];
         __weak RegisterInputPswController *myself = self;
-        self.disposable = [[[JJHttpClient new] requestPswGetBackPHONE:self.strPhone andpassword_new:strPsw] subscribeNext:^(NSDictionary*dictionary) {
+        self.disposable = [[[JJHttpClient new] requestPswGetBackPHONE:self.strPhone andpassword_new:strPsw]
+                           subscribeNext:^(NSDictionary*dictionary) {
             D_NSLog(@"msg is %@",dictionary[@"msg"]);
             if ([dictionary[@"code"] intValue]==1) {
                 [SVProgressHUD dismiss];
@@ -91,15 +94,14 @@
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }completed:^{
             myself.disposable = nil;
-        }];
-        
-        return;
+        }]; return;
     }
-    
-    
     [SVProgressHUD showWithStatus:@"正在注册,请稍后..."];
     __weak RegisterInputPswController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestRegisterPHONE:self.strPhone andPASSWORD:strPsw andinviter_id:[NSString stringStandard:self.txtCode.text]] subscribeNext:^(NSDictionary*dictionary) {
+    self.disposable = [[[JJHttpClient new] requestRegisterPHONE:self.strPhone
+                                                    andPASSWORD:strPsw
+                                                  andinviter_id:[NSString stringStandard:self.txtCode.text]]
+                       subscribeNext:^(NSDictionary*dictionary) {
         D_NSLog(@"msg is %@",dictionary[@"msg"]);
         if ([dictionary[@"code"] intValue]==1) {
             [SVProgressHUD dismiss];
@@ -118,14 +120,5 @@
     }];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

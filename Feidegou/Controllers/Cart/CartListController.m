@@ -16,18 +16,17 @@
 #import "GoodOtherListController.h"
 #import "OrderesComfilmController.h"
 #define isSelected @"select"
-@interface CartListController ()<RefreshControlDelegate>
+
+@interface CartListController ()
+<RefreshControlDelegate>
+
 @property (nonatomic,strong) RACDisposable *disposableChangeNum;
 @property (nonatomic,strong) RACDisposable *disposableDelete;
 @property (weak, nonatomic) IBOutlet UIButton *btnEdit;
 @property (weak, nonatomic) IBOutlet BaseTableView *tabCart;
 @property (weak, nonatomic) IBOutlet UIButton *btnPay;
 @property (weak, nonatomic) IBOutlet UILabelBlackBig *lblMoney;
-
-
-
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstraintHeight;
-
 //@property (nonatomic,assign) NSInteger integerSection;
 @property (weak, nonatomic) IBOutlet UIView *viFunction;
 @property (strong, nonatomic) NSMutableArray *arrCart;
@@ -41,20 +40,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     // Do any additional setup after loading the view.
 }
+
 - (void)locationControls{
     [self.tabCart registerNib:[UINib nibWithNibName:@"CellCartHead" bundle:nil] forCellReuseIdentifier:@"CellCartHead"];
     [self.tabCart registerNib:[UINib nibWithNibName:@"CellCartGood" bundle:nil] forCellReuseIdentifier:@"CellCartGood"];
     [self.tabCart setBackgroundColor:ColorBackground];
     
     [self.btnPay setBackgroundColor:ColorHeader];
-    self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabCart delegate:self];
+    self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabCart
+                                                                        delegate:self];
     
-    
-    
-    UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    UILongPressGestureRecognizer *recognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
+                                                                                             action:@selector(handleLongPress:)];
     recognizer.minimumPressDuration = 0.5; //设置最小长按时间；默认为0.5秒
     [self.tabCart addGestureRecognizer:recognizer];
 }
@@ -72,21 +71,32 @@
         strMsg = StringFormat(@"删除%@",self.arrCart[indexPath.section][@"goods"][indexPath.row-1][@"goods_name"]);
     }
     JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-    [alertView showAlertView:self andTitle:@"提示" andMessage:strMsg andCancel:@"取消" andCanelIsRed:NO andOherButton:@"删除" andConfirm:^{
+    [alertView showAlertView:self
+                    andTitle:@"提示"
+                  andMessage:strMsg
+                   andCancel:@"取消"
+               andCanelIsRed:NO
+               andOherButton:@"删除"
+                  andConfirm:^{
         D_NSLog(@"删除%@",indexPath);
-        [self requestDeleteCartIndexPath:indexPath andDeleteType:strType];
+        [self requestDeleteCartIndexPath:indexPath
+                           andDeleteType:strType];
     } andCancel:^{
         D_NSLog(@"取消");
     }];
 }
-- (void)requestDeleteCartIndexPath:(NSIndexPath *)indexPath andDeleteType:(NSString *)deleteType{
+- (void)requestDeleteCartIndexPath:(NSIndexPath *)indexPath
+                     andDeleteType:(NSString *)deleteType{
     NSString *strGoodId = @"";
     if (indexPath.row!=0) {
         strGoodId = self.arrCart[indexPath.section][@"goods"][indexPath.row - 1][@"id"];
     }
     [SVProgressHUD showWithStatus:@"正在删除..."];
     __weak CartListController *myself = self;
-    self.disposableDelete = [[[JJHttpClient new] requestFourZeroCartDeleteCartGoodsCartId:strGoodId andstoreCartId:TransformString(self.arrCart[indexPath.section][@"sc_id"]) anddeleteType:deleteType] subscribeNext:^(NSDictionary*dictionary) {
+    self.disposableDelete = [[[JJHttpClient new] requestFourZeroCartDeleteCartGoodsCartId:strGoodId
+                                                                           andstoreCartId:TransformString(self.arrCart[indexPath.section][@"sc_id"])
+                                                                            anddeleteType:deleteType]
+                             subscribeNext:^(NSDictionary*dictionary) {
         if ([dictionary[@"code"] intValue] == 1) {
             if ([deleteType intValue] == 1) {
                 [myself.arrCart removeObjectAtIndex:indexPath.section];
@@ -104,10 +114,8 @@
                     [myself.arrCart removeObjectAtIndex:indexPath.section];
 //                    [myself.tabCart deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationLeft];
                 }
-                
             }
         }
-        
         [myself refrshCart];
         
     }error:^(NSError *error) {
@@ -118,6 +126,7 @@
         myself.disposableDelete = nil;
     }];
 }
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
@@ -130,10 +139,12 @@
     [self refrshCart];
 }
 
-
 - (void)requestExchangeList{
     __weak CartListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodCartListLimit:@"1000" andPage:@"1" anduser_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] subscribeNext:^(NSArray* array) {
+    myself.disposable = [[[JJHttpClient new] requestShopGoodCartListLimit:@"1000"
+                                                                  andPage:@"1"
+                                                               anduser_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]
+                         subscribeNext:^(NSArray* array) {
         if ([array isKindOfClass:[NSArray class]]) {
 //            先获取以前被选择的商品id
             NSMutableArray *arrSelected = [NSMutableArray array];
@@ -216,7 +227,6 @@
         [myself.refreshControl endRefreshing];
         myself.disposable = nil;
     }];
-    
 }
 #pragma mark - RefreshControlDelegate
 -(void)refreshControlForRefreshData{
@@ -261,14 +271,17 @@
         }else{
             [dic setObject:@"0" forKey:isSelected];
         }
-        [arrMiddle replaceObjectAtIndex:i withObject:dic];
+        [arrMiddle replaceObjectAtIndex:i
+                             withObject:dic];
     }
     [dicMiddle setObject:arrMiddle forKey:@"goods"];
     [self.arrCart replaceObjectAtIndex:section withObject:dicMiddle];
     [self refreshView];
     [self refreshTab];
 }
-- (void)clickCellOnlyOne:(NSIndexPath *)index andSelected:(BOOL)selected{
+
+- (void)clickCellOnlyOne:(NSIndexPath *)index
+             andSelected:(BOOL)selected{
     NSMutableDictionary *dicMiddle = [NSMutableDictionary dictionaryWithDictionary:self.arrCart[index.section]];
     NSMutableArray *arrMiddle = [NSMutableArray arrayWithArray:dicMiddle[@"goods"]];
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:arrMiddle[index.row-1]];
@@ -283,10 +296,12 @@
     [self refreshView];
     [self refreshTab];
 }
+
 - (void)refrshCart{
     [self refreshView];
     [self refreshTab];
 }
+
 - (void)refreshView{
     double doublePrice = 0;
     int intNum = 0;
@@ -312,15 +327,17 @@
 //        self.layoutConstraintHeight.constant = 0;
 //        [self.viFunction setHidden:YES];
     }
-    [self.btnPay setTitle:StringFormat(@"去结算(%d)",intNum) forState:UIControlStateNormal];
+    [self.btnPay setTitle:StringFormat(@"去结算(%d)",intNum)
+                 forState:UIControlStateNormal];
     [self.tabCart checkNoData:self.arrCart.count];
 }
+
 - (void)refreshTab{
     [self.tabCart reloadData];
 }
+
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     NSArray *array = [NSArray arrayWithArray:self.arrCart[section][@"goods"]];
     return array.count+1;
@@ -328,16 +345,14 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.arrCart.count;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         return 40.0f;
     }
     return 110.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         CellCartHead *cell=[tableView dequeueReusableCellWithIdentifier:@"CellCartHead"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -355,10 +370,12 @@
 //        }else{
 //            [cell.btnSelect setSelected:NO];
 //        }
-        [cell.btnSelect handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [cell.btnSelect handleControlEvent:UIControlEventTouchUpInside
+                                 withBlock:^{
 //            self.integerSection = indexPath.section;
 //            [self refrshCart];
-            [self clickCellHead:indexPath.section andSelected:!cell.btnSelect.selected];
+            [self clickCellHead:indexPath.section
+                    andSelected:!cell.btnSelect.selected];
         }];
         
         NSString *strTitle = self.arrCart[indexPath.section][@"store_name"];
@@ -394,17 +411,19 @@
     return cell;
 }
 
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView
+heightForHeaderInSection:(NSInteger)section{
     return 10;
 }
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+- (nullable UIView *)tableView:(UITableView *)tableView
+        viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //    if (!self.btnEdit.selected) {
         if (indexPath.row == 0) {
@@ -423,7 +442,8 @@
         }
 //    }
 }
-- (void)requestChangeCartNumIsAdd:(BOOL)isAdd andIndexPath:(NSIndexPath *)indexPath{
+- (void)requestChangeCartNumIsAdd:(BOOL)isAdd
+                     andIndexPath:(NSIndexPath *)indexPath{
     
     if (self.disposableChangeNum) {
         return;
@@ -441,7 +461,10 @@
     }
     NSString *strNum = TransformNSInteger(intNum);
     __weak CartListController *myself = self;
-    myself.disposableChangeNum = [[[JJHttpClient new] requestFourZeroCartChangeNumSCId:[NSString stringStandard:strSCID] andcount:strNum andcartId:strCartId] subscribeNext:^(NSDictionary* dictionary) {
+    myself.disposableChangeNum = [[[JJHttpClient new] requestFourZeroCartChangeNumSCId:[NSString stringStandard:strSCID]
+                                                                              andcount:strNum
+                                                                             andcartId:strCartId]
+                                  subscribeNext:^(NSDictionary* dictionary) {
         
         if ([dictionary[@"code"] intValue] == 1) {
             for (int i = 0; i<myself.arrCart.count; i++) {
@@ -464,13 +487,10 @@
                     }
                 }
             }
-            
-            
         }else{
             
             [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];
         }
-        
     }error:^(NSError *error) {
         myself.disposableChangeNum = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
@@ -483,10 +503,12 @@
     [sender setSelected:!sender.selected];
     [self refrshCart];
 }
+
 - (IBAction)clickButtonSelectAll:(UIButton *)sender {
     [sender setSelected:!sender.selected];
     [self refrshCart];
 }
+
 - (IBAction)clickButtonPay:(UIButton *)sender {
     NSMutableArray *arrGoodId = [NSMutableArray array];
     for (int i = 0; i<self.arrCart.count; i++) {
@@ -512,24 +534,19 @@
         OrderesComfilmController *controller=[storyboard instantiateViewControllerWithIdentifier:@"OrderesComfilmController"];
         controller.isCart = YES;
         controller.arrCart = [NSMutableArray arrayWithArray:arrGoodId];
-        [self.navigationController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller
+                                             animated:YES];
     }
 }
+
 - (IBAction)clickButtonShare:(UIButton *)sender {
 }
+
 - (IBAction)clickButtonAttention:(UIButton *)sender {
 }
+
 - (IBAction)clickButtonDelete:(UIButton *)sender {
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

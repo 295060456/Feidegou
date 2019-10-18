@@ -8,8 +8,8 @@
 
 #import "JJAlertViewTwoButton.h"
 
-typedef void (^confirm)();
-typedef void (^cancle)();
+typedef void (^confirm)(void);
+typedef void (^cancle)(void);
 
 @interface JJAlertViewTwoButton(){
     confirm confirmParam;
@@ -71,10 +71,9 @@ typedef void (^cancle)();
 
 -(void)alertView:(UIAlertView *)alertView
 clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex==0) {
+    if (buttonIndex == 0) {
         confirmParam();
-    }
-    else{
+    }else{
         cancleParam();
     }
 }

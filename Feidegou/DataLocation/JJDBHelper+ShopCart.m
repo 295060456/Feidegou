@@ -7,9 +7,9 @@
 //
 
 #import "JJDBHelper+ShopCart.h"
-
 #define ShopCartLocation @"shopCartLocation"
 #define AddressDefault @"addressDefault"
+
 @implementation JJDBHelper (ShopCart)
 
 - (NSArray *)fetchShopCart{
@@ -17,9 +17,9 @@
     NSArray *array = [self convertData:data];
     if (![array isKindOfClass:[NSArray class]]) {
         array = [NSArray array];
-    }
-    return array;
+    }return array;
 }
+
 - (void)saveShopCart:(NSDictionary *)dictionary
         andIntBuyNum:(NSString *)historyNum
  andhistoryAttribute:(NSString *)historyAttribute
@@ -69,7 +69,6 @@ andhistoryAttributeName:(NSString *)historyAttributeName
             }
         }
     }
-    
 //    如果商家不一样，则另添加一个商家并把该商品排在第一
     if (!isContarinShop) {
         NSMutableDictionary *dicAdd = [NSMutableDictionary dictionary];
@@ -82,12 +81,14 @@ andhistoryAttributeName:(NSString *)historyAttributeName
         
         [arrHistory insertObject:[NSArray arrayWithObject:dicAdd] atIndex:0];
     }
-    [self updateCacheForId:ShopCartLocation cacheArray:arrHistory];
+    [self updateCacheForId:ShopCartLocation
+                cacheArray:arrHistory];
 //    D_NSLog(@"arrHistory is %@",arrHistory);
 }
 
 - (void)deleteShopCart{
-    [self updateCacheForId:ShopCartLocation cacheArray:[NSArray array]];
+    [self updateCacheForId:ShopCartLocation
+                cacheArray:[NSArray array]];
 }
 
 - (ModelAddress *)fetchAddressDefault{
@@ -102,11 +103,13 @@ andhistoryAttributeName:(NSString *)historyAttributeName
 }
 
 - (void)saveAddressDefault:(ModelAddress *)model{
-    [self updateCacheForId:AddressDefault cacheDictionry:[model toDictionary]];
+    [self updateCacheForId:AddressDefault
+            cacheDictionry:[model toDictionary]];
 }
 
 - (void)deleteAddressDefault{
-    [self updateCacheForId:AddressDefault cacheDictionry:[NSDictionary dictionary]];
+    [self updateCacheForId:AddressDefault
+            cacheDictionry:[NSDictionary dictionary]];
 }
 
 @end

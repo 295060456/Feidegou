@@ -11,7 +11,9 @@
 #import "NJKWebViewProgress.h"
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 
-@interface GoodShareController ()<NJKWebViewProgressDelegate,UIWebViewDelegate>{
+@interface GoodShareController ()
+<NJKWebViewProgressDelegate,
+UIWebViewDelegate>{
     
     NJKWebViewProgressView *_progressView;
     NJKWebViewProgress *_progressProxy;
@@ -22,6 +24,7 @@
 @property (assign, nonatomic) BOOL isFinished;
 @property (weak, nonatomic) IBOutlet UIView *viShare;
 @property (weak, nonatomic) IBOutlet UIButton *btnShare;
+
 @end
 
 @implementation GoodShareController
@@ -45,7 +48,6 @@
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
     _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     
-    
     self.automaticallyAdjustsScrollViewInsets = NO;
     if ([self.strWebUrl rangeOfString:@"http"].location == NSNotFound) {
         self.strWebUrl = [NSString stringWithFormat:@"http://%@",self.strWebUrl];
@@ -62,24 +64,24 @@
     self.activityIndicator.hidden = NO;
     [self.activityIndicator startAnimating];
 }
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     self.activityIndicator.hidden = YES;
     [self.activityIndicator stopAnimating];
     self.isFinished = YES;
 }
+
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     self.activityIndicator.hidden = YES;
     [self.activityIndicator stopAnimating];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar addSubview:_progressView];
 }
 
--(void)viewWillDisappear:(BOOL)animated
-{
+-(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     // Remove progress view
     // because UINavigationBar is shared with other ViewControllers
@@ -87,15 +89,18 @@
 }
 
 #pragma mark - NJKWebViewProgressDelegate
--(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
-{
+-(void)webViewProgress:(NJKWebViewProgress *)webViewProgress
+        updateProgress:(float)progress{
     [_progressView setProgress:progress animated:YES];
 }
+
 - (IBAction)clickButtonShare:(UIButton *)sender {
     if (!self.isFinished) {
         return;
     }
-    UIGraphicsBeginImageContextWithOptions(self.webView.bounds.size, YES, 0);     //设置截屏大小
+    UIGraphicsBeginImageContextWithOptions(self.webView.bounds.size,
+                                           YES,
+                                           0);     //设置截屏大小
 //    UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.webView.scrollView.contentSize.width, self.webView.scrollView.contentSize.height), YES, 0);     //设置截屏大小
     [[self.webView layer] renderInContext:UIGraphicsGetCurrentContext()];
      UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
@@ -113,10 +118,18 @@
                                           title:@"7商城"
                                            type:SSDKContentTypeImage];
         //2、分享（可以弹出我们的分享菜单和编辑界面）
-        [ShareSDK showShareActionSheet:nil customItems:nil shareParams:shareParams sheetConfiguration:nil onStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+        [ShareSDK showShareActionSheet:nil
+                           customItems:nil
+                           shareParams:shareParams
+                    sheetConfiguration:nil
+                        onStateChanged:^(SSDKResponseState state,
+                                         SSDKPlatformType platformType,
+                                         NSDictionary *userData,
+                                         SSDKContentEntity *contentEntity,
+                                         NSError *error,
+                                         BOOL end) {
             switch (state) {
-                case SSDKResponseStateSuccess:
-                {
+                case SSDKResponseStateSuccess:{
                     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"分享成功"
                                                                         message:nil
                                                                        delegate:nil
@@ -125,8 +138,7 @@
                     [alertView show];
                     break;
                 }
-                case SSDKResponseStateFail:
-                {
+                case SSDKResponseStateFail:{
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
                                                                     message:[NSString stringWithFormat:@"%@",error]
                                                                    delegate:nil
@@ -141,14 +153,6 @@
         }];
     }
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

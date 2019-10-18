@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^SelectionBlock)(NSUInteger segmentIndex, BOOL select);
+typedef void(^SelectionBlock)(NSUInteger segmentIndex,
+                              BOOL select);
 typedef enum {
     IconPositionRight,
     IconPositionLeft,

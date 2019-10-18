@@ -27,7 +27,6 @@
     [self.txtPrice addTarget:self action:@selector(textFieldChange:) forControlEvents:UIControlEventEditingChanged];
     [self textFieldChange:self.txtPrice];
     
-    
     if ([self.strTip floatValue]>0) {
         NSString *strDiscount = TransformString(self.strTip);
         NSMutableAttributedString * atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"线下买单送%@%%积分",strDiscount)];
@@ -36,10 +35,8 @@
     }else{
         [self.lblTip setText:@""];
     }
-    
-    
-    // Do any additional setup after loading the view.
 }
+
 - (void)textFieldChange:(UITextField *)textField{
     NSString *strPrice = textField.text;
     if ([NSString isNullString:strPrice]) {
@@ -62,10 +59,12 @@
     }
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
     __weak VendorPayTheBillController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestFourZeroBuyTheBillbuy_user_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId andseller_user_id:[NSString stringStandard:self.seller_user_id] andbuy_money:[NSString stringStandard:strPrice] anddirectPurchase:@"1"] subscribeNext:^(NSDictionary* dictionary) {
+    myself.disposable = [[[JJHttpClient new] requestFourZeroBuyTheBillbuy_user_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId
+                                                                andseller_user_id:[NSString stringStandard:self.seller_user_id]
+                                                                     andbuy_money:[NSString stringStandard:strPrice] anddirectPurchase:@"1"]
+                         subscribeNext:^(NSDictionary* dictionary) {
         if ([dictionary[@"code"] intValue]==1) {
             [SVProgressHUD dismiss];
-            
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil];
             PayMonyForGoodController *controller = [storyboard instantiateViewControllerWithIdentifier:@"PayMonyForGoodController"];
             controller.strOrderId = dictionary[@"order_id"];
@@ -83,14 +82,6 @@
     }];
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -10,6 +10,7 @@
 #import "MyOrderListController.h"
 
 @interface PayMoneySuccedController ()
+
 @property (weak, nonatomic) IBOutlet UILabel *lblTip;
 @property (weak, nonatomic) IBOutlet UILabel *lblTipTwo;
 @property (weak, nonatomic) IBOutlet UIButton *btnButtonOne;
@@ -23,16 +24,19 @@
     [super viewDidLoad];
     [self.lblTip setTextColor:ColorHeader];
     [self.lblTipTwo setTextColor:ColorGaryDark];
-    [self.btnButtonOne setTitleColor:ColorBlack forState:UIControlStateNormal];
+    [self.btnButtonOne setTitleColor:ColorBlack
+                            forState:UIControlStateNormal];
     [self.btnButtonOne setBackgroundColor:ColorLine];
-    [self.btnButtonTwo setTitleColor:ColorBlack forState:UIControlStateNormal];
+    [self.btnButtonTwo setTitleColor:ColorBlack
+                            forState:UIControlStateNormal];
     [self.btnButtonTwo setBackgroundColor:ColorLine];
     // Do any additional setup after loading the view.
 }
 
 - (IBAction)clickButtonOne:(UIButton *)sender {
     
-    MyOrderListController *controller = [[UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil]
+    MyOrderListController *controller = [[UIStoryboard storyboardWithName:StoryboardMyOrder
+                                                                   bundle:nil]
                                          instantiateViewControllerWithIdentifier:@"MyOrderListController"];
     controller.orderState = enumOrder_quanbu;
     [self.navigationController pushViewController:controller animated:YES];

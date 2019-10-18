@@ -260,7 +260,6 @@
     return array;
 }
 
-
 + (UIImage *)fetchImageForShareAchievement:(NSDictionary *)dicInfo{
     UIColor *colorBack = ColorFromRGB(48,
                                       45,
@@ -280,19 +279,19 @@
     [imageView setImage:[UIImage imageNamed:@"achievement"]];
     [viShare addSubview:imageView];
     //        头像
-    UIView *viHead = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(viShare.frame)/2-45,
+    UIView *viHead = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(viShare.frame) / 2 - 45,
                                                               55,
                                                               90,
                                                               90)];
-    [viHead.layer setCornerRadius:CGRectGetWidth(viHead.frame)/2];
+    [viHead.layer setCornerRadius:CGRectGetWidth(viHead.frame) / 2];
     [viHead setClipsToBounds:YES];
     [viHead setBackgroundColor:ColorFromRGB(251, 194, 205)];
     [viShare addSubview:viHead];
     
     UIImageView *imageHead = [[UIImageView alloc] initWithFrame:CGRectMake(2,
                                                                            2,
-                                                                           CGRectGetWidth(viHead.frame)-4,
-                                                                           CGRectGetWidth(viHead.frame)-4)];
+                                                                           CGRectGetWidth(viHead.frame) - 4,
+                                                                           CGRectGetWidth(viHead.frame) - 4)];
     UIImage *imgHead = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:model.head];
     if (imgHead) {
         [imageHead setImage:imgHead];
@@ -308,7 +307,7 @@
         
         UILabel *lblTipUp = [[UILabel alloc] initWithFrame:CGRectMake(fX,
                                                                       CGRectGetMaxY(viHead.frame),
-                                                                      CGRectGetWidth(viShare.frame)-2*fX,
+                                                                      CGRectGetWidth(viShare.frame) - 2 * fX,
                                                                       50)];
         [lblTipUp setFont:[UIFont systemFontOfSize:22.0]];
         [lblTipUp setTextColor:ColorRed];
@@ -319,10 +318,13 @@
         //        金额
         NSString *strMoney = [NSString stringStandardFloatTwo:dicInfo[@"today"]];
         NSMutableAttributedString * atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"%@元",strMoney)];
-        [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:80],NSForegroundColorAttributeName:ColorRed} range:NSMakeRange(0, strMoney.length)];
+        [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
+                                                                            size:80],
+                                        NSForegroundColorAttributeName:ColorRed}
+                                range:NSMakeRange(0, strMoney.length)];
         UILabel *lblMoney = [[UILabel alloc] initWithFrame:CGRectMake(fX,
                                                                       CGRectGetMaxY(lblTipUp.frame),
-                                                                      CGRectGetWidth(viShare.frame)-2*fX,
+                                                                      CGRectGetWidth(viShare.frame) - 2 * fX,
                                                                       280-CGRectGetMaxY(lblTipUp.frame))];
         [lblMoney setFont:[UIFont systemFontOfSize:22.0]];
         [lblMoney setTextColor:ColorFromRGB(241, 242, 217)];
@@ -339,7 +341,7 @@
         
         UILabel *lblTipTwo = [[UILabel alloc] initWithFrame:CGRectMake(fX,
                                                                        415,
-                                                                       CGRectGetWidth(viShare.frame)-2*fX,
+                                                                       CGRectGetWidth(viShare.frame) - 2 * fX,
                                                                        80)];
         [lblTipTwo setFont:[UIFont systemFontOfSize:82.0]];
         [lblTipTwo setTextColor:ColorFromRGB(241, 242, 217)];
@@ -349,7 +351,7 @@
         
         UIView *viMoney = [[UIView alloc] initWithFrame:CGRectMake(fX,
                                                                    590,
-                                                                   CGRectGetWidth(viShare.frame)-2*fX,
+                                                                   CGRectGetWidth(viShare.frame) - 2 * fX,
                                                                    210)];
         [viMoney setBackgroundColor:ColorFromRGB(221, 189, 128)];
         [viMoney.layer setCornerRadius:5.0];
@@ -382,9 +384,7 @@
         [lblDes setAttributedText:atrDes];
         [lblDes setNumberOfLines:0];
         [viMoney addSubview:lblDes];
-
         //        二维码
-
         UIImage *imgCode = [UIImage createNonInterpolatedUIImageFormString:StringFormat(@"%@/inviter.htm?user_id=%@",BASE_URL,[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId)
                                                                   withSize:128];
         UIImageView *imgVi = [[UIImageView alloc] initWithFrame:CGRectMake(392,

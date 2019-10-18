@@ -38,5 +38,6 @@ typedef enum {
 @interface WebOnlyController : JJBaseViewController
 
 @property (assign, nonatomic) webType type;
-@property (strong, nonatomic) NSString *strWebUrl;
+@property (copy, nonatomic) NSString *strWebUrl;
+
 @end

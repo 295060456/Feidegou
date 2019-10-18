@@ -15,7 +15,9 @@
 #import "ConstantAlipay.h"
 #import "JJHttpClient+ShopGood.h"
 #import "JJDBHelper+Center.h"
-@interface PayMonyForGoodController ()<RefreshControlDelegate>
+
+@interface PayMonyForGoodController ()
+<RefreshControlDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tabPayType;
 @property (weak, nonatomic) IBOutlet UIButton *btnPay;
@@ -24,6 +26,7 @@
 @property (assign,nonatomic) NSInteger intRow;
 @property (copy, nonatomic) NSString *strMoney;
 @property (assign, nonatomic) BOOL isShowWeixin;
+
 @end
 
 @implementation PayMonyForGoodController
@@ -32,6 +35,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+
 - (void)locationControls{
     self.isShowWeixin = NO;
     [self.btnPay setBackgroundColor:ColorHeader];
@@ -96,7 +100,6 @@
         [myself.refreshControl endRefreshing];
         myself.disposable = nil;
     }];
-    
 }
 #pragma mark - RefreshControlDelegate
 -(void)refreshControlForRefreshData{
@@ -176,9 +179,15 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *viHead = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
+    UIView *viHead = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                              0,
+                                                              SCREEN_WIDTH,
+                                                              30)];
     [viHead setBackgroundColor:ColorBackground];
-    UILabel *lblTip = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 200, CGRectGetHeight(viHead.frame))];
+    UILabel *lblTip = [[UILabel alloc] initWithFrame:CGRectMake(10,
+                                                                0,
+                                                                200,
+                                                                CGRectGetHeight(viHead.frame))];
     [lblTip setText:@"请选择支付方式"];
     [lblTip setTextColor:ColorBlack];
     [lblTip setFont:[UIFont systemFontOfSize:13.0]];
@@ -205,7 +214,9 @@
         if ([dictinary[@"code"] intValue]==1) {
             [SVProgressHUD dismiss];
             if ([TransformString(strType) isEqualToString:TransformString(@"alipay")]) {
-                [[AlipaySDK defaultService] payOrder:dictinary[@"data"] fromScheme:AlipayScheme callback:^(NSDictionary *resultDic) {
+                [[AlipaySDK defaultService] payOrder:dictinary[@"data"]
+                                          fromScheme:AlipayScheme
+                                            callback:^(NSDictionary *resultDic) {
                     D_NSLog(@"alipay balance reslut = %@，memo is %@",resultDic,resultDic[@"memo"]);
                     int intStatus = [resultDic[@"resultStatus"] intValue];
                     if (intStatus==9000) {

@@ -84,8 +84,6 @@
         }completed:^{
             myself.disposable = nil;
         }];
-        
-        
     }else if (self.personalInfo == enum_personalInfo_email){
         NSString *strEmail = self.txtName.text;
         if ([NSString isNullString:strEmail]) {
@@ -144,7 +142,8 @@
     }
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+- (void)touchesBegan:(NSSet<UITouch *> *)touches
+           withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
 

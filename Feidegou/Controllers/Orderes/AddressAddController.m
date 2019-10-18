@@ -84,7 +84,8 @@ ABPeoplePickerNavigationControllerDelegate
         return;
     }
     
-    [SVProgressHUD showWithStatus:@"正在提交数据..." maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:@"正在提交数据..."
+                         maskType:SVProgressHUDMaskTypeBlack];
     __weak AddressAddController *myself = self;
     self.disposable = [[[JJHttpClient new] requestFourZeroID:self.model.ID
                                                    andDelete:@""
