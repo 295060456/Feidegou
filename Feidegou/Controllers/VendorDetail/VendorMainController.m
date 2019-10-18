@@ -14,17 +14,17 @@
 #import "CLCellUpImgLbl.h"
 #import "CellTypeMore.h"
 
-@interface VendorMainController ()<UIGestureRecognizerDelegate>
+@interface VendorMainController ()
+<UIGestureRecognizerDelegate>
+
 @property (weak, nonatomic) IBOutlet ButtonUpDown *btnMain;
 @property (weak, nonatomic) IBOutlet ButtonUpDown *btnNear;
 @property (weak, nonatomic) IBOutlet UILabel *lblLine;
-//@property (strong, nonatomic) UITextField *txtSearch;
-
-
 @property (weak, nonatomic) IBOutlet UIView *viContainer;
 @property (strong, nonatomic) UIPageViewController *pageViewController;
 @property (strong, nonatomic) NSMutableArray *pages;
 @property (assign, nonatomic) NSInteger intSelected;
+//@property (strong, nonatomic) UITextField *txtSearch;
 
 @end
 
@@ -85,6 +85,7 @@
 //- (void)clickScorviewEditing:(UITapGestureRecognizer *)sender {
 //    [self.navigationItem.titleView endEditing:YES];
 //}
+
 - (void)setLayout{
     /**
      *100代表商品，101代表附近商家
@@ -110,10 +111,8 @@
     }
 }
 
-#pragma mark -
 #pragma mark - Callback
-- (void)pageControlValueChanged:(NSInteger)interger
-{
+- (void)pageControlValueChanged:(NSInteger)interger{
     UIPageViewControllerNavigationDirection direction = interger > self.intSelected ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse;
     [self.pageViewController setViewControllers:@[self.pages[interger-100]]
                                       direction:direction
@@ -134,35 +133,27 @@
         self.title = @"附近商家";
     }
 }
+
 - (IBAction)clickButtonMain:(ButtonUpDown *)sender {
     if (!sender.selected) {
         [self pageControlValueChanged:100];
     }
 }
+
 - (IBAction)clickButtonNear:(ButtonUpDown *)sender {
     if (!sender.selected) {
         [self pageControlValueChanged:101];
     }
 }
+
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     D_NSLog(@"name is %@",NSStringFromClass([touch.view class]));
-    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]||[touch.view isKindOfClass:[StarView class]]||[touch.view isKindOfClass:[CellTypeMore class]]) {//判断如果点击的是tableView的cell，就把手势给关闭了
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]||
+        [touch.view isKindOfClass:[StarView class]]||
+        [touch.view isKindOfClass:[CellTypeMore class]]) {//判断如果点击的是tableView的cell，就把手势给关闭了
         return NO;//关闭手势
-    }//否则手势存在
-    return NO;
+    }return NO;//否则手势存在
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

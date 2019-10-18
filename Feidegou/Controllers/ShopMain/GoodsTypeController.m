@@ -112,10 +112,7 @@
     self.intSelected = indexPath.row;
     [self pageControlValueChanged:indexPath.row];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 - (void)setLayout{
     self.intSelected = 0;
     [self.tabType reloadData];

@@ -49,10 +49,7 @@
         [self.btnNext setBackgroundColor:ColorRed];
     }
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 - (IBAction)clickButtonNext:(UIButton *)sender {
     
     NSString *strCode = self.txtCode.text;

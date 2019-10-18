@@ -51,10 +51,7 @@
         [self.btnNext setBackgroundColor:ColorGaryButtom];
     }
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 - (IBAction)clickButtonCommit:(UIButton *)sender {
     
     NSString *strPswOld = self.txtPswOld.text;

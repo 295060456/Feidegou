@@ -7,14 +7,16 @@
 //
 
 #import "collectionLandScape.h"
+
 @interface collectionLandScape()
 /** 存放所有cell的布局属性 */
 @property (nonatomic, strong) NSMutableArray *attrsArray;
+
 @end
+
 @implementation collectionLandScape
 
-- (void)prepareLayout
-{
+- (void)prepareLayout{
     [super prepareLayout];
     // 计算所有cell的布局属性
     self.attrsArray = [NSMutableArray array];
@@ -25,31 +27,21 @@
         UICollectionViewLayoutAttributes *attrs = [self layoutAttributesForItemAtIndexPath:indexPath];
         [self.attrsArray addObject:attrs];
     }
-    
-}
-- (NSMutableArray *)attrsArray
-{
-    if (!_attrsArray) {
-        _attrsArray = [NSMutableArray array];
-    }
-    return _attrsArray;
 }
 /**
  * 说明所有元素（比如cell、补充控件、装饰控件）的布局属性
  */
-- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
-{
+- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect{
     return self.attrsArray;
 }
+
 - (CGSize)collectionViewContentSize{
-    
     return CGSizeMake((self.attrsArray.count/self.intLie*2+1)*SCREEN_WIDTH, SCREEN_WIDTH*self.fHeight*2/720);
 }
 /**
  * 说明cell的布局属性
  */
-- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewLayoutAttributes *attrs = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
     CGFloat w = 0.0;
     CGFloat h = 0.0;
@@ -64,4 +56,11 @@
     attrs.frame = CGRectMake(x, y, w, h);
     return attrs;
 }
+#pragma mark —— lazyLoad
+- (NSMutableArray *)attrsArray{
+    if (!_attrsArray) {
+        _attrsArray = NSMutableArray.array;
+    }return _attrsArray;
+}
+
 @end

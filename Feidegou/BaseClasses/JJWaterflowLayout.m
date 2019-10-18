@@ -29,8 +29,7 @@ static const int JPDefaultColumsCount = 3;
 /**
  * 决定了collectionView的contentSize
  */
-- (CGSize)collectionViewContentSize
-{
+- (CGSize)collectionViewContentSize{
     // 找出最长那一列的最大Y值
     CGFloat destMaxY = [self.columnMaxYs[0] doubleValue];
     for (NSUInteger i = 1; i<self.columnMaxYs.count; i++) {
@@ -66,8 +65,7 @@ static const int JPDefaultColumsCount = 3;
 /**
  * 说明所有元素（比如cell、补充控件、装饰控件）的布局属性
  */
-- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
-{
+- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect{
     return self.attrsArray;
 }
 

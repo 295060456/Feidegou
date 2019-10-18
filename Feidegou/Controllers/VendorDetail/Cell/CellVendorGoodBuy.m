@@ -16,6 +16,7 @@
     [self.lblMoney setTextColor:ColorRed];
     // Initialization code
 }
+
 - (void)populateData:(NSDictionary *)dicInfo andPrice:(NSString *)strPrice{
     NSString *strPriceNow = [NSString stringStandardFloatTwo:strPrice];
 //    if ([dicInfo[@"use_integral_set"] intValue]==2) {
@@ -25,10 +26,12 @@
 //        [self.lblMoney setAttributedText:atrStringPrice];
 //    }else{
         NSMutableAttributedString * atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"￥%@",strPriceNow)];
-        [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} range:NSMakeRange(1, strPriceNow.length)];
+        [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]}
+                                range:NSMakeRange(1, strPriceNow.length)];
         [self.lblMoney setAttributedText:atrStringPrice];
 //    }
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

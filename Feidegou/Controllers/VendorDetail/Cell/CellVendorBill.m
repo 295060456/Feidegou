@@ -14,12 +14,14 @@
     [super awakeFromNib];
     // Initialization code
 }
+
 - (void)populateData:(NSDictionary *)dicInfo{
     [self.imgHead setImagePathHead:dicInfo[@"path"]];
     [self.lblTitle setTextNull:dicInfo[@"store_name"]];
     [self.lblPrice setTextNull:StringFormat(@"付款总额:￥%@",dicInfo[@"buy_money"])];
     [self.lblTime setTextNull:StringFormat(@"下单时间:%@",[PublicFunction translateTimeHMS:dicInfo[@"addTime"]])];
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

@@ -9,7 +9,12 @@
 #import "AreaDoneAllController.h"
 #import "AreaDoneListController.h"
 
-@interface AreaDoneAllController ()<UIPageViewControllerDataSource,UIPageViewControllerDelegate>
+@interface AreaDoneAllController ()
+<
+UIPageViewControllerDataSource,
+UIPageViewControllerDelegate
+>
+
 @property (weak, nonatomic) IBOutlet UIButton *btnAll;
 @property (weak, nonatomic) IBOutlet UIView *viHeader;
 @property (weak, nonatomic) IBOutlet UIButton *btnReady;
@@ -17,9 +22,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblLine;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstraintPre;
 @property (weak, nonatomic) IBOutlet UIView *viContainer;
-
-
-
 @property (strong, nonatomic) NSMutableArray *pages;
 @property (strong, nonatomic) UIPageViewController *pageViewController;
 @property (assign, nonatomic) NSInteger intSelected;

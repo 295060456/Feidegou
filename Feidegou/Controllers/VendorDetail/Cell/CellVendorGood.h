@@ -16,4 +16,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblMoney;
 
 - (void)populateData:(NSDictionary *)dicInfo;
+
 @end

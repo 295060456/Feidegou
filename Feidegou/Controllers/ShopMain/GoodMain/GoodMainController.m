@@ -410,11 +410,6 @@
     controller.strGood_id = model.goods_id;
     [self.navigationController pushViewController:controller animated:YES];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 /**
  *添加计时器
  */
@@ -422,9 +417,14 @@
     D_NSLog(@"addTimer");
     [self removeTimerRepeat];
     self.arrTip = [NSMutableArray arrayWithArray:[[JJDBHelper sharedInstance] fetchMainAdver]];
-    self.timerRepeat = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(repeatAnimation:) userInfo:nil repeats:YES];
+    self.timerRepeat = [NSTimer scheduledTimerWithTimeInterval:10
+                                                        target:self
+                                                      selector:@selector(repeatAnimation:)
+                                                      userInfo:nil
+                                                       repeats:YES];
     //将timer添加到RunLoop中
-    [[NSRunLoop mainRunLoop] addTimer:self.timerRepeat forMode:NSRunLoopCommonModes];
+    [[NSRunLoop mainRunLoop] addTimer:self.timerRepeat
+                              forMode:NSRunLoopCommonModes];
 }
 /**
  *移除计时器

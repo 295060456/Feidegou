@@ -12,4 +12,5 @@
 
 @property (nonatomic, assign) NSInteger intLie;
 @property (nonatomic, assign) CGFloat fHeight;
+
 @end

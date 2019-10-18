@@ -55,10 +55,7 @@
         [self.btnRegister setBackgroundColor:ColorGaryButtom];
     }
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 - (IBAction)clickButtonNext:(UIButton *)sender {
     if (self.isForgetPsw) {
         NSString *strUserNum = self.txtPhoneNum.text;

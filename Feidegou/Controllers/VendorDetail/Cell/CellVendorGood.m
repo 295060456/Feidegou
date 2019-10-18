@@ -15,13 +15,10 @@
     [self.lblMoney setTextColor:ColorRed];
     // Initialization code
 }
+
 - (void)populateData:(NSDictionary *)dicInfo{
-    
     [self.imgHead setImagePathHead:dicInfo[@"path"]];
-    
     [self.lblTitle setTextNull:dicInfo[@"goods_name"]];
-    
-    
     NSString *strPriceNow = [NSString stringStandardFloatTwo:dicInfo[@"store_price"]];
 //    if ([dicInfo[@"use_integral_set"] intValue]==2) {
 //        NSString *strIntegral = [NSString stringStandardFloatTwo:dicInfo[@"use_integral_value"]];
@@ -30,10 +27,12 @@
 //        [self.lblMoney setAttributedText:atrStringPrice];
 //    }else{
         NSMutableAttributedString * atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"￥%@",strPriceNow)];
-        [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} range:NSMakeRange(1, strPriceNow.length)];
+        [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]}
+                                range:NSMakeRange(1, strPriceNow.length)];
         [self.lblMoney setAttributedText:atrStringPrice];
 //    }
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

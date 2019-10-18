@@ -48,10 +48,7 @@
         [self.btnLogin setBackgroundColor:ColorGaryButtom];
     }
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 - (IBAction)clickButtonLogin:(UIButton *)sender {
     NSString *strUserNum = self.txtUserName.text;
     NSString *strPsw = self.txtPsw.text;

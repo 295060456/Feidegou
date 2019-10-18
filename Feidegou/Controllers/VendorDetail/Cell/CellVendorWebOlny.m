@@ -14,6 +14,7 @@
     [super awakeFromNib];
     // Initialization code
 }
+
 - (void)populataData:(NSString *)strWebUrl{
     [self.webView setDelegate:self];
     [self.webView.scrollView setScrollEnabled:NO];
@@ -22,15 +23,16 @@
     }
     NSLog(@"url is %@",strWebUrl);
     self.backgroundColor=[UIColor whiteColor];
-    
-    
-    
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:strWebUrl]];
-    [self.webView loadData:data MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:[NSURL URLWithString:strWebUrl]];
+    [self.webView loadData:data MIMEType:@"text/html"
+          textEncodingName:@"UTF-8"
+                   baseURL:[NSURL URLWithString:strWebUrl]];
 }
+
 - (void)webViewDidStartLoad:(UIWebView *)webView{
     D_NSLog(@"webViewDidStartLoad");
 }
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     CGFloat webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
     D_NSLog(@"webViewDidFinishLoad须知的高度%f",webViewHeight);
@@ -38,13 +40,15 @@
         self.webViewHeight(webViewHeight);
     }
 }
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+
+- (void)webView:(UIWebView *)webView
+didFailLoadWithError:(NSError *)error{
     
     D_NSLog(@"didFailLoadWithError");
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
     // Configure the view for the selected state
 }
 

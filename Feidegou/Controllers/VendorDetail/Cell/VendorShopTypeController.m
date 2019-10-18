@@ -42,7 +42,13 @@
 
 - (void)requestExchangeList{
     __weak VendorShopTypeController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodVendorNearByLimit:@"10" andPage:TransformNSInteger(self.intPageIndex) andclas:[NSString stringStandard:self.strClas] andkey:[NSString stringStandard:self.strSearch] andLat:[[LocationManager sharedInstance] fetchLocationLatitude] andLng:[[LocationManager sharedInstance] fetchLocationLongitude]] subscribeNext:^(NSArray* array) {
+    myself.disposable = [[[JJHttpClient new] requestShopGoodVendorNearByLimit:@"10"
+                                                                      andPage:TransformNSInteger(self.intPageIndex)
+                                                                      andclas:[NSString stringStandard:self.strClas]
+                                                                       andkey:[NSString stringStandard:self.strSearch]
+                                                                       andLat:[[LocationManager sharedInstance] fetchLocationLatitude]
+                                                                       andLng:[[LocationManager sharedInstance] fetchLocationLongitude]]
+                         subscribeNext:^(NSArray* array) {
         if (myself.intPageIndex == 1) {
             myself.arrVendor = [NSMutableArray array];
         }
@@ -63,7 +69,6 @@
         myself.disposable = nil;
         [myself.tabVendor checkNoData:myself.arrVendor.count];
     }];
-    
 }
 #pragma mark - RefreshControlDelegate
 -(void)refreshControlForRefreshData{
@@ -88,21 +93,16 @@
     }
     return NO;
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.arrVendor.count;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     ModelVendorNear *model = self.arrVendor[indexPath.row];
     if ([model.gift_integral floatValue]>0) {
         return 130;
@@ -111,34 +111,25 @@
     }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     CellVendorShop *cell=[tableView dequeueReusableCellWithIdentifier:@"CellVendorShop"];
     [cell populataData:self.arrVendor[indexPath.row]];
     return cell;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self.navigationItem.titleView endEditing:YES];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardVendorDetail bundle:nil];
     VendorDetailShopController *controller = [storyboard instantiateViewControllerWithIdentifier:@"VendorDetailShopController"];
     ModelVendorNear *model = self.arrVendor[indexPath.row];
     controller.strStoreID = model.ID;
-    [self.navigationController pushViewController:controller animated:YES];
+    [self.navigationController pushViewController:controller
+                                         animated:YES];
 }
 
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

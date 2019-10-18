@@ -111,11 +111,6 @@
     }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)timerCountDown:(NSTimer *)timer{
     D_NSLog(@"timerCountDown");
     if (self.intTime <= 1) {

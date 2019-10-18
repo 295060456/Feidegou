@@ -69,11 +69,6 @@
     [self refreshLayout];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)clickButtonAll:(UIButton *)sender {
     [self.view endEditing:YES];
     [self.txtMony setText:self.strMoney];

@@ -9,6 +9,7 @@
 #import "JJTableViewCell.h"
 
 @interface CellVendorDiscount : JJTableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabelDarkMiddel *lblDiscount;
 
 @end

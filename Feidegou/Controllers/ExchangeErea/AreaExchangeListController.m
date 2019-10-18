@@ -90,12 +90,10 @@
         [myself.refreshControl endRefreshing];
         myself.disposable = nil;
     }];
-    
 }
 
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.arrAreaExchangeList.count;
 }
 
@@ -103,13 +101,11 @@
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 100.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CellGoodList *cell=[tableView dequeueReusableCellWithIdentifier:@"CellGoodList"];
     [cell populateDataExchage:self.arrAreaExchangeList[indexPath.row]];
     return cell;
@@ -127,36 +123,33 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-
-
-
-
-
 #pragma mark --UICollectionViewDelegate
 //定义展示的UICollectionViewCell的个数
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
+-(NSInteger)collectionView:(UICollectionView *)collectionView
+    numberOfItemsInSection:(NSInteger)section{
     return self.arrAreaExchangeList.count;
 }
 //定义展示的Section的个数
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
 //每个UICollectionView展示的内容
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"CLCellGoods";
     CLCellGoods *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     ModelEreaExchageList *model = (ModelEreaExchageList *)self.arrAreaExchangeList[indexPath.row];
     [cell.lblTitle setTextNull:model.ig_goods_name];
 //    原价和现价
-     NSString *strPriceNow = [NSString stringStandardFloatTwo:model.ig_goods_integral];
-     NSString *strPriceOld = StringFormat(@"￥%@",[NSString stringStandardFloatTwo:model.ig_goods_price]);
-     NSMutableAttributedString * atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"%@积分 %@",strPriceNow,strPriceOld)];
-     [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0]} range:NSMakeRange(0, strPriceNow.length)];
-     [atrStringPrice addAttributes:@{NSStrikethroughStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]} range:NSMakeRange(strPriceNow.length+3, strPriceOld.length)];
-    [atrStringPrice addAttributes:@{NSForegroundColorAttributeName:ColorGary,NSFontAttributeName:[UIFont systemFontOfSize:11.0]} range:NSMakeRange(strPriceNow.length, atrStringPrice.length-strPriceNow.length)];
+    NSString *strPriceNow = [NSString stringStandardFloatTwo:model.ig_goods_integral];
+    NSString *strPriceOld = StringFormat(@"￥%@",[NSString stringStandardFloatTwo:model.ig_goods_price]);
+    NSMutableAttributedString * atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"%@积分 %@",strPriceNow,strPriceOld)];
+    [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0]}
+                             range:NSMakeRange(0, strPriceNow.length)];
+    [atrStringPrice addAttributes:@{NSStrikethroughStyleAttributeName:[NSNumber numberWithInteger:NSUnderlineStyleSingle]}
+                             range:NSMakeRange(strPriceNow.length+3, strPriceOld.length)];
+    [atrStringPrice addAttributes:@{NSForegroundColorAttributeName:ColorGary,
+                                    NSFontAttributeName:[UIFont systemFontOfSize:11.0]}
+                            range:NSMakeRange(strPriceNow.length, atrStringPrice.length-strPriceNow.length)];
     [cell.lblPrice setTextColor:ColorHeader];
     [cell.lblPrice setAttributedText:atrStringPrice];
     
@@ -164,28 +157,29 @@
     NSString *strNum = TransformString(model.ig_exchange_count);
     NSString *strleve = TransformString(model.ig_goods_count);
     NSMutableAttributedString * atrStringNum = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"已换%@     剩余%@",strNum,strleve)];
-    [atrStringNum addAttributes:@{NSForegroundColorAttributeName:ColorHeader} range:NSMakeRange(2+strNum.length, atrStringNum.length-strNum.length-2)];
+    [atrStringNum addAttributes:@{NSForegroundColorAttributeName:ColorHeader}
+                          range:NSMakeRange(2+strNum.length, atrStringNum.length-strNum.length-2)];
     [cell.lblExchange setAttributedText:atrStringNum];
     [cell.imgGoods setImagePathListSquare:model.img];
-    
     return cell;
 }
 #pragma mark --UICollectionViewDelegateFlowLayout
 //定义每个UICollectionView 的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout*)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     return CGSizeMake(SCREEN_WIDTH/2,SCREEN_WIDTH/2+110);
 }
 //定义每个UICollectionView 的 margin
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView
+                       layout:(UICollectionViewLayout *)collectionViewLayout
+       insetForSectionAtIndex:(NSInteger)section{
     
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 #pragma mark --UICollectionViewDelegate
 //UICollectionView被选中时调用的方法
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (collectionView == self.collectionView) {
         [self pushToGoodDetial:indexPath];
     }
@@ -198,6 +192,7 @@
         cell.backgroundColor = ColorBackground;
     }
 }
+
 - (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath{
     
     
@@ -206,14 +201,6 @@
         cell.backgroundColor = [UIColor whiteColor];
     }
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

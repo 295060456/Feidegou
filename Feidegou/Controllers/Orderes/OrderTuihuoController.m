@@ -140,13 +140,10 @@ UIPickerViewDelegate
 }
 
 // 返回每一列组件的每一行的标题内容
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)componen{
+- (NSString *)pickerView:(UIPickerView *)pickerView
+             titleForRow:(NSInteger)row
+            forComponent:(NSInteger)componen{
     return self.arrData[row][@"company_name"];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (IBAction)clickButtonSelect:(UIButton *)sender {

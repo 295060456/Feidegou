@@ -66,9 +66,8 @@ static JJDBHelper *sharedManager;
         }
         [db close];
     }];
-    
-    
 }
+
 -(void)updateCacheForId:(NSString*)cacheId
          cacheDictionry:(NSDictionary *)dictionray{
     
@@ -78,6 +77,7 @@ static JJDBHelper *sharedManager;
                                                          error:&error];
     [self updateCacheForId:cacheId cacheData:jsonData];
 }
+
 -(void)updateCacheForId:(NSString*)cacheId cacheArray:(NSArray *)array{
     if ([array isKindOfClass:[NSArray class]]) {
         NSError *error;
@@ -101,7 +101,6 @@ static JJDBHelper *sharedManager;
     }
     return jsonData;
 }
-
 /**
  *  插入缓存数据
  *
@@ -118,7 +117,6 @@ static JJDBHelper *sharedManager;
         D_NSLog(@"缓存添加成功!");
     }
 }
-
 /**
  *  判断缓存是否存在
  *
@@ -139,7 +137,6 @@ static JJDBHelper *sharedManager;
     [resultSet close];
     return isExist;
 }
-
 /**
  *  更新缓存数据
  *
@@ -155,7 +152,6 @@ static JJDBHelper *sharedManager;
     if ([db executeUpdate:sql withArgumentsInArray:@[cacheData,cacheId]]) {
         D_NSLog(@"更新缓存成功!");
     }
-    
 }
 
 -(NSData*)queryCacheDataWithCacheId:(NSString*)cacheId{
@@ -173,9 +169,7 @@ static JJDBHelper *sharedManager;
         }
         [resultSet close];
         [db close];
-    }];
-    
-    return data;
+    }];return data;
 }
 
 -(id)init{
@@ -210,7 +204,10 @@ static JJDBHelper *sharedManager;
 
 -(NSString*)getFilePath{
     //获取Document文件夹下的数据库文件,没有则创建
-    NSString *directory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *directory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                               NSUserDomainMask,
+                                                               YES)
+                           objectAtIndex:0];
     NSString *dbFilePath = [directory stringByAppendingPathComponent:@"SobForIOS.db"];
     return dbFilePath;
 }
@@ -252,7 +249,6 @@ static JJDBHelper *sharedManager;
     NSString *sql = StringFormat(@"create table if not exists %@(\
                                  vid integer primary key autoincrement,version float)",DB_TABLE_NAME_VERSION);
     
-    
     BOOL isSuccess = [db executeUpdate:sql];
     
     if(isSuccess){
@@ -292,9 +288,7 @@ static JJDBHelper *sharedManager;
         }
         [resultSet close];
         [db close];
-    }];
-    
-    return version;
+    }];return version;
 }
 
 #pragma mark - 创建广告信息表
@@ -336,7 +330,6 @@ static JJDBHelper *sharedManager;
     }else{
         D_NSLog(@"创建失败----广告信息表");
     }
-    
 }
 #pragma mark - 兑换分类列表(一级目录)
 /**
@@ -350,10 +343,7 @@ static JJDBHelper *sharedManager;
                                  ID varchar(20),\
                                  ISGROOMP varchar(20),\
                                  NAME varchar(20))",DB_TABLE_NAME_EXCHANGE_CLASS_FIRST);
-    
-    
     BOOL isSuccess = [db executeUpdate:sql];
-    
     if(isSuccess){
         D_NSLog(@"创建成功----兑换分类信息表(一级目录)");
     }else{
@@ -372,7 +362,6 @@ static JJDBHelper *sharedManager;
                                  NAME varchar(20))",DB_TABLE_NAME_EXCHANGE_CLASS_SECOND);
     
     BOOL isSuccess = [db executeUpdate:sql];
-    
     if(isSuccess){
         D_NSLog(@"创建成功----兑换分类信息表(二级目录)");
     }else{
@@ -385,15 +374,12 @@ static JJDBHelper *sharedManager;
                                  cid integer primary key autoincrement,\
                                  cacheId varchar(10),\
                                  cacheData blob)",DB_TABLE_NAME_LIST_CACHE);
-    
     BOOL isSuccess = [db executeUpdate:sql];
-    
     if(isSuccess){
         D_NSLog(@"创建成功----数据缓存表");
     }else{
         D_NSLog(@"创建失败----数据缓存表");
     }
-    
 }
 #pragma mark - 电话广告列表(弹窗广告)
 -(void)createCallImageADTable:(FMDatabase*)db{
@@ -403,13 +389,11 @@ static JJDBHelper *sharedManager;
                                  imageData blob)",DB_TABLE_NAME_CALL_IMAGE_AD_CACHE);
     
     BOOL isSuccess = [db executeUpdate:sql];
-    
     if(isSuccess){
         D_NSLog(@"创建成功----电话广告列表(弹窗广告)");
     }else{
         D_NSLog(@"创建失败----电话广告列表(弹窗广告)");
     }
-    
 }
 
 @end

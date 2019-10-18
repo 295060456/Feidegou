@@ -8,10 +8,9 @@
 
 #import "WaterflowLayout.h"
 @interface WaterflowLayout();
-/** 这个字典用来存储每一列最大的Y值(每一列的高度) */
-@property (nonatomic, strong) NSMutableDictionary *maxYDict;
-/** 存放所有的布局属性 */
-@property (nonatomic, strong) NSMutableArray *attrsArray;
+
+@property (nonatomic, strong) NSMutableDictionary *maxYDict;/** 这个字典用来存储每一列最大的Y值(每一列的高度) */
+@property (nonatomic, strong) NSMutableArray *attrsArray;/** 存放所有的布局属性 */
 
 @end
 

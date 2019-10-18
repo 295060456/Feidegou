@@ -17,13 +17,9 @@
 @interface WaterflowLayout : UICollectionViewLayout
 
 @property (nonatomic, assign) UIEdgeInsets sectionInset;
-/** 每一列之间的间距 */
-@property (nonatomic, assign) CGFloat columnMargin;
-/** 每一行之间的间距 */
-@property (nonatomic, assign) CGFloat rowMargin;
-/** 显示多少列 */
-@property (nonatomic, assign) int columnsCount;
-
+@property (nonatomic, assign) CGFloat columnMargin;/** 每一列之间的间距 */
+@property (nonatomic, assign) CGFloat rowMargin;/** 每一行之间的间距 */
+@property (nonatomic, assign) int columnsCount;/** 显示多少列 */
 @property (nonatomic, assign) id<WaterflowLayoutDelegate> delegate;
 
 @end

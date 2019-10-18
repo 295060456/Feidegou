@@ -15,7 +15,8 @@
     // Initialization code
 }
 
-- (void)populateData:(NSArray *)arrPicture andTitle:(NSDictionary *)dicInfo{
+- (void)populateData:(NSArray *)arrPicture
+            andTitle:(NSDictionary *)dicInfo{
     NSMutableArray *arrImage = [NSMutableArray array];
     for (int i = 0; i<arrPicture.count; i++) {
         [arrImage addObject:[NSString stringStandard:arrPicture[i][@"photo_url"]]];
@@ -36,7 +37,9 @@
     });
     [self.lblTitle setTextNull:dicInfo[@"goods"][@"goods_name"]];
 }
-- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
+
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView
+   didSelectItemAtIndex:(NSInteger)index{
     
 }
 

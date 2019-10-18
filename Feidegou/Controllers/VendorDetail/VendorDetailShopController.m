@@ -26,21 +26,23 @@
 #import "LocationManager.h"
 #import "VendorPayTheBillController.h"
 
-@interface VendorDetailShopController ()<RefreshControlDelegate,UIWebViewDelegate>
-@property (weak, nonatomic) IBOutlet UITableView *tabVendor;
+@interface VendorDetailShopController ()
+<RefreshControlDelegate,
+UIWebViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UITableView *tabVendor;
 @property (nonatomic,strong) RefreshControl *refreshControl;
 @property (strong, nonatomic) NSMutableArray *arrGood;
 @property (strong, nonatomic) NSMutableArray *arrDiscuss;
 @property (strong, nonatomic) NSMutableArray *arrPicture;
 @property (strong, nonatomic) NSMutableDictionary *dicInfo;
-//@property (assign, nonatomic) float fDetailHeight;
 @property (strong, nonatomic) NSString *strDiscussNum;
 @property (nonatomic,strong) RACDisposable *disposableGood;
 @property (nonatomic,strong) RACDisposable *disposableDiscuss;
-
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
 @property (strong, nonatomic) UIWebView *webDetail;
+//@property (assign, nonatomic) float fDetailHeight;
+
 @end
 
 @implementation VendorDetailShopController
@@ -52,15 +54,16 @@
     }
     NSLog(@"url is %@",strWebUrl);
     self.webDetail.backgroundColor=[UIColor whiteColor];
-    
-    
-    
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:strWebUrl]];
-    [self.webDetail loadData:data MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:[NSURL URLWithString:strWebUrl]];
+    [self.webDetail loadData:data MIMEType:@"text/html"
+            textEncodingName:@"UTF-8"
+                     baseURL:[NSURL URLWithString:strWebUrl]];
 }
+
 - (void)webViewDidStartLoad:(UIWebView *)webView{
     D_NSLog(@"webViewDidStartLoad");
 }
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     CGFloat webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
     D_NSLog(@"webViewDidFinishLoad须知的高度%f",webViewHeight);
@@ -68,10 +71,13 @@
     [self.webDetail.scrollView setScrollEnabled:NO];
     [self.tabVendor reloadData];
 }
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+
+- (void)webView:(UIWebView *)webView
+didFailLoadWithError:(NSError *)error{
     
     D_NSLog(@"didFailLoadWithError");
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.webDetail = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 200)];
@@ -89,9 +95,11 @@
     [self showException];
     // Do any additional setup after loading the view.
 }
+
 - (void)requestDetail{
     __weak VendorDetailShopController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodVendorDetailstore_id:[NSString stringStandard:self.strStoreID]] subscribeNext:^(NSDictionary* dictionary) {
+    myself.disposable = [[[JJHttpClient new] requestShopGoodVendorDetailstore_id:[NSString stringStandard:self.strStoreID]]
+                         subscribeNext:^(NSDictionary* dictionary) {
         if ([dictionary[@"code"] intValue]==1) {
             NSDictionary *dicDetail = dictionary[@"store"];
             if ([dicDetail isKindOfClass:[NSDictionary class]]) {
@@ -114,7 +122,6 @@
         }else{
             [myself failedRequestException:enum_exception_timeout];
         }
-        
     }error:^(NSError *error) {
         myself.disposable = nil;
         [myself.refreshControl endRefreshing];
@@ -131,7 +138,11 @@
 
 - (void)requestGoodList{
     __weak VendorDetailShopController *myself = self;
-    myself.disposableGood = [[[JJHttpClient new] requestShopGoodVendorOtherGoodGoods_store_id:[NSString stringStandard:self.strStoreID] andLimit:@"3" andPage:@"1" andrealstore_approve:@"1"] subscribeNext:^(NSArray* array) {
+    myself.disposableGood = [[[JJHttpClient new] requestShopGoodVendorOtherGoodGoods_store_id:[NSString stringStandard:self.strStoreID]
+                                                                                     andLimit:@"3"
+                                                                                      andPage:@"1"
+                                                                         andrealstore_approve:@"1"]
+                             subscribeNext:^(NSArray* array) {
         myself.arrGood = [NSMutableArray arrayWithArray:array];
         [myself.tabVendor reloadData];
         
@@ -149,11 +160,16 @@
 //    }completed:^{
 //        myself.disposableGood = nil;
 //    }];
-    
 }
+
 - (void)requestDiscuss{
     __weak VendorDetailShopController *myself = self;
-    myself.disposableDiscuss = [[[JJHttpClient new] requestShopGoodDiscussListGoods_id:@"" andLimit:@"3" andPage:@"1" andState:@"" andstore_id:[NSString stringStandard:self.strStoreID]] subscribeNext:^(NSDictionary* dictionary) {
+    myself.disposableDiscuss = [[[JJHttpClient new] requestShopGoodDiscussListGoods_id:@""
+                                                                              andLimit:@"3"
+                                                                               andPage:@"1"
+                                                                              andState:@""
+                                                                           andstore_id:[NSString stringStandard:self.strStoreID]]
+                                subscribeNext:^(NSDictionary* dictionary) {
         NSArray *array;
         myself.strDiscussNum = [NSString stringStandardZero:dictionary[@"all"]];
         if ([dictionary[@"evaluate"] isKindOfClass:[NSArray class]]) {
@@ -170,6 +186,7 @@
         myself.disposableDiscuss = nil;
     }];
 }
+
 #pragma mark - RefreshControlDelegate
 -(void)refreshControlForRefreshData{
     //从远程服务器获取数据
@@ -181,17 +198,13 @@
 -(BOOL)refreshControlEnableRefresh{
     return YES;
 }
+
 -(BOOL)refreshControlEnableLoadMore{
     return NO;
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 //    图片
     if (section == 0&&self.arrPicture.count>0) {
         
@@ -238,11 +251,12 @@
     }
     return 0;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 9;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 //    图片
     if (indexPath.section == 0) {
         return SCREEN_WIDTH*5/8;
@@ -255,7 +269,6 @@
         NSString *strContent = self.dicInfo[@"store_name"];
         float fHeight = [NSString conculuteRightCGSizeOfString:strContent andWidth:SCREEN_WIDTH-105 andFont:15.0].height+45;
         return fHeight;
-        
     }
 //    地址
     if (indexPath.section == 2) {
@@ -278,7 +291,9 @@
 //    评价
     if (indexPath.section == 6) {
         NSString *strContent = self.arrDiscuss[indexPath.row][@"evaluate_info"];
-        float fHeight = [NSString conculuteRightCGSizeOfString:strContent andWidth:SCREEN_WIDTH-20 andFont:15.0].height+80;
+        float fHeight = [NSString conculuteRightCGSizeOfString:strContent
+                                                      andWidth:SCREEN_WIDTH-20
+                                                       andFont:15.0].height+80;
         return fHeight;
     }
 //    详情标题
@@ -294,12 +309,11 @@
             return 0;
         }
         return self.webDetail.frame.size.height;
-    }
-    return 0.0f;
+    }return 0.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         CellPicture *cell=[tableView dequeueReusableCellWithIdentifier:@"CellPicture"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -312,9 +326,8 @@
             CellVendorTitle *cell=[tableView dequeueReusableCellWithIdentifier:@"CellVendorTitle"];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             [cell populateData:self.dicInfo];
-            [cell.btnBuy handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-                
-                
+            [cell.btnBuy handleControlEvent:UIControlEventTouchUpInside
+                                  withBlock:^{
                 if ([[PersonalInfo sharedInstance] isLogined]) {
                     
                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardVendorDetail bundle:nil];
@@ -392,25 +405,37 @@
     CellPicture *cell=[tableView dequeueReusableCellWithIdentifier:@"CellPicture"];
     return cell;
 }
+
 - (void)dail{
     NSString *strPhone = self.dicInfo[@"store_telephone"];
     if ([NSString isNullString:strPhone]) {
         JJAlertViewOneButton *alertView = [[JJAlertViewOneButton alloc] init];
-        [alertView showAlertView:self andTitle:nil andMessage:@"暂无商家电话" andCancel:@"确定" andCanelIsRed:YES andBack:^{
+        [alertView showAlertView:self
+                        andTitle:nil
+                      andMessage:@"暂无商家电话"
+                       andCancel:@"确定"
+                   andCanelIsRed:YES
+                           andBack:^{
             [[PersonalInfo sharedInstance] deleteLoginUserInfo];
         }];
     }else{
         JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-        [alertView showAlertView:self andTitle:nil andMessage:@"是否拨打电话" andCancel:@"取消" andCanelIsRed:NO andOherButton:@"立即拨打" andConfirm:^{
+        [alertView showAlertView:self
+                        andTitle:nil
+                      andMessage:@"是否拨打电话"
+                       andCancel:@"取消"
+                   andCanelIsRed:NO
+                   andOherButton:@"立即拨打"
+                      andConfirm:^{
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:StringFormat(@"tel://%@",strPhone)]]; //拨号
-            
         } andCancel:^{
             
         }];
     }
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.section == 3) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardVendorDetail bundle:nil];
@@ -437,6 +462,7 @@
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 3&&self.arrGood.count>0) {
         return 10;
@@ -446,27 +472,36 @@
     }
     if (section == 7&&![NSString isNullString:self.dicInfo[@"detailURL"]]) {
         return 10;
-    }
-    return 0;
+    }return 0;
 }
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
+
+- (nullable UIView *)tableView:(UITableView *)tableView
+        viewForHeaderInSection:(NSInteger)section{
+    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                0,
+                                                                SCREEN_WIDTH,
+                                                                10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
+
 - (void)clickGPS{
     NSString *strAddress = self.dicInfo[@"goods"][@"store_address"];
 //    WGS84、GCJ-02、BD-09地图一般有三种坐标，这里是显示GCJ-02坐标（国标）
-    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"导航到设备" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"导航到设备"
+                                                                              message:nil
+                                                                       preferredStyle:UIAlertControllerStyleActionSheet];
     //自带地图
-    [alertController addAction:[UIAlertAction actionWithTitle:@"自带地图" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:@"自带地图"
+                                                        style:UIAlertActionStyleDefault
+                                                      handler:^(UIAlertAction * _Nonnull action) {
         
         NSLog(@"alertController -- 自带地图");
-        
         //使用自带地图导航
         MKMapItem *currentLocation =[MKMapItem mapItemForCurrentLocation];
         
-        MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:self.coordinate addressDictionary:nil]];
+        MKMapItem *toLocation = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:self.coordinate
+                                                                                           addressDictionary:nil]];
         toLocation.name = strAddress; //目的地名字
         [MKMapItem openMapsWithItems:@[currentLocation,toLocation] launchOptions:@{MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving,
                                                                                    MKLaunchOptionsShowsTrafficKey:[NSNumber numberWithBool:YES]}];
@@ -477,43 +512,39 @@
     //判断是否安装了高德地图，如果安装了高德地图，则使用高德地图导航
     if ( [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"iosamap://"]]) {
         
-        [alertController addAction:[UIAlertAction actionWithTitle:@"高德地图" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"高德地图"
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action) {
             
             NSLog(@"alertController -- 高德地图");
             NSString *urlsting =[[NSString stringWithFormat:@"iosamap://navi?sourceApplication=%@ &backScheme= &lat=%f&lon=%f&dev=0&style=2",strAddress,self.coordinate.latitude,self.coordinate.longitude]stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             [[UIApplication  sharedApplication]openURL:[NSURL URLWithString:urlsting]];
-            
         }]];
     }
     
     //判断是否安装了百度地图，如果安装了百度地图，则使用百度地图导航
     if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"baidumap://"]]) {
-        [alertController addAction:[UIAlertAction actionWithTitle:@"百度地图" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [alertController addAction:[UIAlertAction actionWithTitle:@"百度地图"
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * _Nonnull action) {
             NSLog(@"alertController -- 百度地图");
             NSString *urlsting =[[NSString stringWithFormat:@"baidumap://map/direction?origin={{我的位置}}&destination=latlng:%f,%f|name=%@&mode=driving&coord_type=gcj02",self.coordinate.latitude,self.coordinate.longitude,strAddress] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlsting]];
-            
         }]];
     }
     
     //添加取消选项
-    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消"
+                                                        style:UIAlertActionStyleCancel
+                                                      handler:^(UIAlertAction * _Nonnull action) {
         [alertController dismissViewControllerAnimated:YES completion:nil];
         
     }]];
-    
     //显示alertController
-    [self presentViewController:alertController animated:YES completion:nil];
+    [self presentViewController:alertController
+                       animated:YES
+                     completion:nil];
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

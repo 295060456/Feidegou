@@ -479,10 +479,6 @@
     }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 - (IBAction)clickButtonEdit:(UIButton *)sender {
     [sender setSelected:!sender.selected];
     [self refrshCart];

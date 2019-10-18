@@ -11,6 +11,7 @@
 #import "PayMonyForGoodController.h"
 
 @interface VendorPayTheBillController ()
+
 @property (weak, nonatomic) IBOutlet UITextField *txtPrice;
 @property (weak, nonatomic) IBOutlet UILabel *lblPrice;
 @property (weak, nonatomic) IBOutlet UIButton *btnPrice;
@@ -48,10 +49,7 @@
     }
     [self.lblPrice setText:StringFormat(@"￥%@",[NSString stringStandardFloatTwo:strPrice])];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 - (IBAction)clickButtonBuy:(UIButton *)sender {
     NSString *strPrice = self.txtPrice.text;
     if ([NSString isNullString:strPrice]) {

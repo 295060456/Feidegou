@@ -18,7 +18,8 @@
 - (void)populataData:(NSDictionary *)dicInfo{
     [self.imgHead setImagePathHead:dicInfo[@"path"]];
     [self.lblName setTextNull:dicInfo[@"userName"]];
-    [self.lblTime setTextNull:[PublicFunction translateTime:dicInfo[@"addTime"]]];
+    [self.lblTime setTextNull:[PublicFunction
+                               translateTime:dicInfo[@"addTime"]]];
     [self.lblContent setTextNull:dicInfo[@"evaluate_info"]];
 }
 

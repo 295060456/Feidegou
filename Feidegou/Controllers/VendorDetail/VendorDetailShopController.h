@@ -10,5 +10,7 @@
 #import "ModelVendorNear.h"
 
 @interface VendorDetailShopController : JJBaseViewController
+
 @property (strong, nonatomic) NSString *strStoreID;
+
 @end

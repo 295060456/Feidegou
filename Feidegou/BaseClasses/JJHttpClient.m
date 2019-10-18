@@ -62,33 +62,30 @@
             
         } success:^(NSURLSessionDataTask *_Nonnull task,id _Nullable responseObject) {
             [self __handleResponseObject:responseObject subscriber:subscriber];
-            
         } failure:^(NSURLSessionDataTask *_Nullable task,NSError *_Nonnull error) {
             [self __handleRequestFailure:error subscriber:subscriber];
-            
         }];
         return [RACDisposable disposableWithBlock:^{
-
             [dataTask cancel];
         }];
     }] doError:^(NSError *error) {
-        
         NSLog(@"ERROR:%@",error);
     }];
 }
 
-
-#pragma mark -
 #pragma mark - 创建AFHTTPSessionManager
 -(AFHTTPSessionManager*)__httpSessionManagerWithBaseUrl:(NSString*)baseUrl{
 
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     //设置请求超时时间
-    sessionConfiguration.timeoutIntervalForRequest =HTTPTimeoutInterval;
+    sessionConfiguration.timeoutIntervalForRequest = HTTPTimeoutInterval;
     //设置请求headers
-    sessionConfiguration.HTTPAdditionalHeaders = @{@"source":@"ios"};
+    sessionConfiguration.HTTPAdditionalHeaders = @{
+                                                    @"source":@"ios"
+                                                  };
     
-    AFHTTPSessionManager *manager = [[AFHTTPSessionManager manager] initWithBaseURL:[NSURL URLWithString:baseUrl]  sessionConfiguration:sessionConfiguration];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager manager] initWithBaseURL:[NSURL URLWithString:baseUrl]
+                                                               sessionConfiguration:sessionConfiguration];
     
     //设置请求数据格式(默认二进制)
     //manager.requestSerializer = [AFHTTPRequestSerializer serializer];//(二进制)
@@ -108,8 +105,6 @@
                                                          @"text/javascript",
                                                          @"text/plan",
                                                          @"text/html", nil];
-    
-    
     return manager;
 }
 #pragma mark -

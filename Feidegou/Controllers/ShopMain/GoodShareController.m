@@ -71,10 +71,6 @@
     self.activityIndicator.hidden = YES;
     [self.activityIndicator stopAnimating];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {

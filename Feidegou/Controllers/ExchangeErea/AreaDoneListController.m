@@ -53,6 +53,7 @@ RefreshControlDelegate
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotificationOrderDelete:) name:NotificationNameOrderDelete object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotificationOrderGetSucceed:) name:NotificationNameOrderGetSucceed object:nil];
 }
+
 - (void)NotificationPaySucceedChangeData:(NSNotification *)notification{
     NSString *strOrderId = TransformString((NSString *)notification.object);
     for (int i = 0; i<self.arrGoods.count; i++) {
@@ -69,6 +70,7 @@ RefreshControlDelegate
         }
     }
 }
+
 - (void)NotificationDiscussSucceed:(NSNotification *)notification{
     NSString *strOrderId = TransformString((NSString *)notification.object);
     for (int i = 0; i<self.arrGoods.count; i++) {
@@ -143,7 +145,6 @@ RefreshControlDelegate
         [myself.refreshControl endRefreshing];
         myself.disposable = nil;
     }];
-    
 }
 #pragma mark - RefreshControlDelegate
 -(void)refreshControlForRefreshData{
@@ -153,6 +154,7 @@ RefreshControlDelegate
         [self requestExchangeList];
     }
 }
+
 -(void)refreshControlForLoadMoreData{
     //从远程服务器获取数据
     if ([self respondsToSelector:@selector(requestExchangeList)]) {
@@ -168,15 +170,17 @@ RefreshControlDelegate
     return NO;
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
     return 4;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.arrGoods.count;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         return 40.0f;
     }else if (indexPath.row == 1){
@@ -185,12 +189,11 @@ RefreshControlDelegate
         return 40.0f;
     }else if (indexPath.row == 3){
         return 40.0f;
-    }
-    return 0;
+    }return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.row == 0) {
         CellOrderVendorTitle *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderVendorTitle"];
@@ -227,7 +230,9 @@ RefreshControlDelegate
     }];
     return cell;
 }
-- (void)clickButtonForListName:(NSString *)strTitle andIndexPath:(ModelAreaList *)model{
+
+- (void)clickButtonForListName:(NSString *)strTitle
+                  andIndexPath:(ModelAreaList *)model{
     if ([TransformString(strTitle) isEqualToString:@"查看订单"]) {
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardExchageArea bundle:nil];
@@ -250,6 +255,7 @@ RefreshControlDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 10;
 }
+
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];

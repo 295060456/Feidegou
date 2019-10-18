@@ -9,6 +9,7 @@
 #import "JJCollectionViewCell.h"
 
 @interface CLCellUpImgLbl : JJCollectionViewCell
+
 @property (weak, nonatomic) IBOutlet UILabelBlackBig *lblTitle;
 @property (weak, nonatomic) IBOutlet UIImageView *imgUp;
 

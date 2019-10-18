@@ -136,7 +136,6 @@
                     NSString *strContent = dicInfo[@"context"];
                     CGFloat fHeight = [NSString conculuteRightCGSizeOfString:strContent andWidth:SCREEN_WIDTH-65 andFont:15.0].height+40;
                     return fHeight;
-                    
                 }
             }
             return 0.0f;
@@ -160,8 +159,7 @@
     }
     if (indexPath.section==2) {
         return 105.0f;
-    }
-    return 0;
+    }return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -261,7 +259,6 @@
     return cell;
 }
 
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         return 0;
@@ -288,7 +285,6 @@
         //        跳到物流详情
         [self pushOrderLogist];
     }
-    
 }
 
 - (void)pushOrderLogist{

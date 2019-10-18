@@ -9,8 +9,10 @@
 #import "JJTableViewCell.h"
 
 @interface CellMyService : JJTableViewCell
+
 @property (weak, nonatomic) IBOutlet UIImageView *imgHead;
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
 @property (weak, nonatomic) IBOutlet UIImageView *imgArrow;
 @property (weak, nonatomic) IBOutlet UILabel *lblNum;
+
 @end

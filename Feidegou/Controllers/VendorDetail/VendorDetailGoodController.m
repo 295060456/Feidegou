@@ -21,9 +21,14 @@
 #import "CellVendorGoodType.h"
 #import "OrderesComfilmController.h"
 
-@interface VendorDetailGoodController ()<RefreshControlDelegate,DidClickCollectionViewDelegete,UIWebViewDelegate>
-@property (weak, nonatomic) IBOutlet BaseTableView *tabGood;
+@interface VendorDetailGoodController ()
+<
+RefreshControlDelegate,
+DidClickCollectionViewDelegete,
+UIWebViewDelegate
+>
 
+@property (weak, nonatomic) IBOutlet BaseTableView *tabGood;
 @property (nonatomic,strong) RefreshControl *refreshControl;
 @property (nonatomic,strong) RACDisposable *disposableDiscuss;
 @property (nonatomic,strong) RACDisposable *disposableGoodNum;
@@ -35,31 +40,24 @@
 @property (strong, nonatomic) NSString *strDiscussNum;
 @property (strong, nonatomic) NSMutableArray *arrProperty;
 @property (strong, nonatomic) UIWebView *webDetail;
-
-
 //请求价格获得的参数
-//属性名字
-@property (strong, nonatomic) NSString *strAttributeName;
-
-//属性值（用于下单）
-@property (strong, nonatomic) NSString *strAttribute;
-//价格
-@property (strong, nonatomic) NSString *strGoodPrice;
-//价格
-@property (strong, nonatomic) NSString *strGoodPriceOld;
-//价格
-@property (strong, nonatomic) NSString *strGive_integral;
-//是否选择了全部属性
-@property (assign, nonatomic) BOOL isSelectedAll;
+@property (strong, nonatomic) NSString *strAttributeName;//属性名字
+@property (strong, nonatomic) NSString *strAttribute;//属性值（用于下单）
+@property (strong, nonatomic) NSString *strGoodPrice;//价格
+@property (strong, nonatomic) NSString *strGoodPriceOld;//价格
+@property (strong, nonatomic) NSString *strGive_integral;//价格
+@property (assign, nonatomic) BOOL isSelectedAll;//是否选择了全部属性
 //立即抢购
 @property (strong, nonatomic) UIView *viBuy;
 @property (strong, nonatomic) UILabel *lblMoney;
 @property (strong, nonatomic) UIView *viSend;
 @property (strong, nonatomic) UILabel *lblSend;
 @property (strong, nonatomic) UILabel *lblLinePrice;
+
 @end
 
 @implementation VendorDetailGoodController
+
 - (void)refreshWebview:(NSString *)strWebUrl{
     [self.webDetail setDelegate:self];
 //    [self.webDetail.scrollView setScrollEnabled:NO];
@@ -74,9 +72,11 @@
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:strWebUrl]];
     [self.webDetail loadData:data MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:[NSURL URLWithString:strWebUrl]];
 }
+
 - (void)webViewDidStartLoad:(UIWebView *)webView{
     D_NSLog(@"webViewDidStartLoad");
 }
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     CGFloat webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
     D_NSLog(@"webViewDidFinishLoad须知的高度%f",webViewHeight);
@@ -84,19 +84,23 @@
     [self.webDetail.scrollView setScrollEnabled:NO];
     [self reloadDataOfTabView];
 }
+
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     
     D_NSLog(@"didFailLoadWithError");
 }
+
 - (void)reloadDataOfTabView{
     [self initPriceView];
     [self.tabGood reloadData];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.webDetail = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 200)];
-    
-    
+    self.webDetail = [[UIWebView alloc] initWithFrame:CGRectMake(0,
+                                                                 0,
+                                                                 SCREEN_WIDTH,
+                                                                 200)];
 //    self.fDetailHeight = -1;
     self.fTypeHeight = -1;
     [self.tabGood setBackgroundColor:ColorBackground];
@@ -113,12 +117,19 @@
     [self showException];
     // Do any additional setup after loading the view.
 }
+
 - (void)initPriceView{
     if (!self.viBuy) {
-        self.viBuy = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_WIDTH, SCREEN_WIDTH, 80)];
+        self.viBuy = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                              SCREEN_WIDTH,
+                                                              SCREEN_WIDTH,
+                                                              80)];
         [self.viBuy setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.95]];
         [self.tabGood addSubview:self.viBuy];
-        UIButton *btnBuy = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-75-10, 10, 75, 35)];
+        UIButton *btnBuy = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-75-10,
+                                                                      10,
+                                                                      75,
+                                                                      35)];
         [btnBuy.layer setCornerRadius:3.0];
         [btnBuy setClipsToBounds:YES];
         [btnBuy setBackgroundColor:ColorHeader];
@@ -126,16 +137,26 @@
         [btnBuy setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
         [btnBuy setTitle:@"立即抢购" forState:UIControlStateNormal];
         [btnBuy.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
-        [btnBuy handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [btnBuy handleControlEvent:UIControlEventTouchUpInside
+                         withBlock:^{
             [self clickButtonCreateOrder:btnBuy];
         }];
         [self.viBuy addSubview:btnBuy];
-        self.lblMoney = [[UILabel alloc] initWithFrame:CGRectMake(10, 17, CGRectGetMinX(btnBuy.frame)-10, 20)];
+        self.lblMoney = [[UILabel alloc] initWithFrame:CGRectMake(10,
+                                                                  17,
+                                                                  CGRectGetMinX(btnBuy.frame)-10,
+                                                                  20)];
         [self.lblMoney setTextColor:ColorRed];
         [self.viBuy addSubview:self.lblMoney];
         
-        self.viSend = [[UIView alloc] initWithFrame:CGRectMake(10, CGRectGetHeight(self.viBuy.frame), SCREEN_WIDTH-20, 20)];
-        UILabel *lblTip = [[UILabel alloc] initWithFrame:CGRectMake(0, (CGRectGetHeight(self.viSend.frame)-16)/2, 16, 16)];
+        self.viSend = [[UIView alloc] initWithFrame:CGRectMake(10,
+                                                               CGRectGetHeight(self.viBuy.frame),
+                                                               SCREEN_WIDTH-20,
+                                                               20)];
+        UILabel *lblTip = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                    (CGRectGetHeight(self.viSend.frame)-16)/2,
+                                                                    16,
+                                                                    16)];
         [lblTip.layer setCornerRadius:3.0];
         [lblTip setClipsToBounds:YES];
         [lblTip setText:@"送"];
@@ -145,17 +166,24 @@
         [lblTip setTextAlignment:NSTextAlignmentCenter];
         [self.viSend addSubview:lblTip];
         
-        self.lblSend = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(lblTip.frame)+2, 0, SCREEN_WIDTH-100, CGRectGetHeight(self.viSend.frame))];
+        self.lblSend = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(lblTip.frame)+2,
+                                                                 0,
+                                                                 SCREEN_WIDTH-100,
+                                                                 CGRectGetHeight(self.viSend.frame))];
         [self.lblSend setFont:[UIFont systemFontOfSize:13]];
         [self.lblSend setTextColor:ColorGaryDark];
         [self.viSend addSubview:self.lblSend];
         
         [self.viBuy addSubview:self.viSend];
-        self.lblLinePrice = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.viBuy.frame)-0.5, CGRectGetWidth(self.viBuy.frame), 0.5)];
+        self.lblLinePrice = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                      CGRectGetHeight(self.viBuy.frame)-0.5,
+                                                                      CGRectGetWidth(self.viBuy.frame),
+                                                                      0.5)];
         [self.lblLinePrice setBackgroundColor:ColorLine];
         [self.viBuy addSubview:self.lblLinePrice];
     }
-    [self.lblMoney setTextVendorPrice:self.strGoodPrice andOldPrice:self.strGoodPriceOld];
+    [self.lblMoney setTextVendorPrice:self.strGoodPrice
+                          andOldPrice:self.strGoodPriceOld];
     
     CGFloat fHeight;
     if ([self.strGive_integral floatValue]>0) {
@@ -165,12 +193,19 @@
         fHeight = 60;
         [self.viSend setHidden:YES];
     }
-    [self.viBuy setFrame:CGRectMake(0, SCREEN_WIDTH, SCREEN_WIDTH, fHeight)];
-    [self.viSend setFrame:CGRectMake(10, CGRectGetHeight(self.viBuy.frame)-30, SCREEN_WIDTH-20, 20)];
-    [self.lblLinePrice setFrame:CGRectMake(0, CGRectGetHeight(self.viBuy.frame)-1, CGRectGetWidth(self.viBuy.frame), 0.5)];
+    [self.viBuy setFrame:CGRectMake(0,
+                                    SCREEN_WIDTH,
+                                    SCREEN_WIDTH,
+                                    fHeight)];
+    [self.viSend setFrame:CGRectMake(10,
+                                     CGRectGetHeight(self.viBuy.frame)-30,
+                                     SCREEN_WIDTH-20,
+                                     20)];
+    [self.lblLinePrice setFrame:CGRectMake(0,
+                                           CGRectGetHeight(self.viBuy.frame)-1,
+                                           CGRectGetWidth(self.viBuy.frame),
+                                           0.5)];
     [self.lblSend setTextNull:StringFormat(@"购买后送%@",self.strGive_integral)];
-    
-    
 //    NSDictionary *dicInfo = self.dicInfo[@"goods"];
     
 //    NSString *strPriceNow = [NSString stringStandardFloatTwo:self.strGoodPrice];
@@ -184,11 +219,12 @@
 //        [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} range:NSMakeRange(1, strPriceNow.length)];
 //        [self.lblMoney setAttributedText:atrStringPrice];
 //    }
-    
 }
+
 - (void)requestDetail{
     __weak VendorDetailGoodController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodDetailGoods_id:[NSString stringStandard:self.strGoodId]] subscribeNext:^(NSDictionary* dictionary) {
+    myself.disposable = [[[JJHttpClient new] requestShopGoodDetailGoods_id:[NSString stringStandard:self.strGoodId]]
+                         subscribeNext:^(NSDictionary* dictionary) {
         if ([dictionary[@"code"] intValue]==1) {
             self.strGoodPrice = dictionary[@"goods"][@"store_price"];
             self.strGoodPriceOld = dictionary[@"goods"][@"goods_price"];
@@ -225,12 +261,16 @@
         myself.disposable = nil;
         [myself.refreshControl endRefreshing];
     }];
-    
-    
 }
+
 - (void)requestDiscuss{
     __weak VendorDetailGoodController *myself = self;
-    myself.disposableDiscuss = [[[JJHttpClient new] requestShopGoodDiscussListGoods_id:[NSString stringStandard:self.strGoodId] andLimit:@"3" andPage:@"1" andState:@"" andstore_id:@""] subscribeNext:^(NSDictionary* dictionary) {
+    myself.disposableDiscuss = [[[JJHttpClient new] requestShopGoodDiscussListGoods_id:[NSString stringStandard:self.strGoodId]
+                                                                              andLimit:@"3"
+                                                                               andPage:@"1"
+                                                                              andState:@""
+                                                                           andstore_id:@""]
+                                subscribeNext:^(NSDictionary* dictionary) {
         NSArray *array;
         myself.strDiscussNum = [NSString stringStandardZero:dictionary[@"all"]];
         if ([dictionary[@"evaluate"] isKindOfClass:[NSArray class]]) {
@@ -257,15 +297,10 @@
 -(BOOL)refreshControlEnableRefresh{
     return YES;
 }
+
 -(BOOL)refreshControlEnableLoadMore{
     return NO;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 #pragma mark---tableviewdelegate---
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

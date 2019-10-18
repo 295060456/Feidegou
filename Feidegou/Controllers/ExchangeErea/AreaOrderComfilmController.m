@@ -167,15 +167,15 @@
     }
     [self.view endEditing:YES];
     [SVProgressHUD showWithStatus:@"正在兑换..."];
-    
-    
+
     __weak AreaOrderComfilmController *myself = self;
     self.disposable = [[[JJHttpClient new] requestFourZeroAreaExchangeOrderComfilmig_goods_id:[NSString stringStandard:self.modelDetail.ig_goods_id]
                                                                                  andgoodsCont:StringFormat(@"%d",self.intNum)
                                                                                    andigo_msg:[NSString stringStandard:self.orderAttribute.strMsg]
                                                                                     andshopId:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]
                                                                                     anduserId:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]
-                                                                                    andaddrid:[NSString stringStandard:self.orderAttribute.strAddressId]] subscribeNext:^(NSDictionary*dictioanry) {
+                                                                                    andaddrid:[NSString stringStandard:self.orderAttribute.strAddressId]]
+                       subscribeNext:^(NSDictionary*dictioanry) {
         [SVProgressHUD dismiss];
         if ([dictioanry[@"code"] intValue]==1) {
             NSDictionary *dicMiddel = dictioanry[@"data"];

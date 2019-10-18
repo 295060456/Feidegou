@@ -12,4 +12,5 @@
 
 @property (strong, nonatomic) UIImage *image;
 @property (copy, nonatomic) NSString *strUrl;
+
 @end
