@@ -8,6 +8,7 @@
 
 #import "OrderListVC.h"
 #import "OrderTBVCell.h"
+#import "OrderDetailVC.h"
 
 @interface OrderListVC ()
 <
@@ -124,7 +125,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-    //
+    [OrderDetailVC pushFromVC:self
+                requestParams:nil
+                      success:^(id data) {
+        
+    }
+                     animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView

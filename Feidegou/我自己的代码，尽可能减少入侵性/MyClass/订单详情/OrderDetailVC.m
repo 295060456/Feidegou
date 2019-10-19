@@ -49,7 +49,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    //    self.navigationItem.title = @"订单详情";
+    self.gk_navTitle = @"订单详情";
+    [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
+                                                    NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
+                                                                                        size:17]}];
 }
 
 @end
