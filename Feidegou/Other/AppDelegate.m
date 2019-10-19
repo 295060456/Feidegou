@@ -181,8 +181,8 @@ static NSInteger seq = 0;
 - (void)shareWeixin{
     [ShareSDK registPlatforms:^(SSDKRegister *platformsRegister) {
         //微信
-        [platformsRegister setupWeChatWithAppId:@"wx7d314006a5998a80"
-                                      appSecret:@"36f4c00f85dfeef68df209402ff9c726"];
+//        [platformsRegister setupWeChatWithAppId:@"wx7d314006a5998a80"
+//                                      appSecret:@"36f4c00f85dfeef68df209402ff9c726"];
         
     }];
 //    [ShareSDK registerActivePlatforms:@[
@@ -474,7 +474,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
         req.timeStamp           = stamp.intValue;
         req.package             = [dict objectForKey:@"package"];
         req.sign                = [dict objectForKey:@"sign"];
-        [WXApi sendReq:req];
+//        [WXApi sendReq:req];
         //日志输出
         D_NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
     }

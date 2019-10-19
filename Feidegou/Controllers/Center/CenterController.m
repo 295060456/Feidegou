@@ -29,6 +29,7 @@
 #import "IntegerGoodDetailController.h"
 #import "ChangeNameController.h"
 #import "CellTwoLblArrow.h"
+#import "CatFoodsManagementVC.h"
 
 @interface CenterController ()
 <
@@ -433,7 +434,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
     }
     if (indexPath.section == 6) {
-        
+        [CatFoodsManagementVC pushFromVC:self
+                           requestParams:nil
+                                 success:^(id data) {}
+                                animated:YES];
     }
 }
 

@@ -27,6 +27,9 @@
 		8B83B626235AF93D00FD5D55 /* CleanPetsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B625235AF93D00FD5D55 /* CleanPetsModel.m */; };
 		8BA18191235AF9DE0021B4DC /* GrowthValuePetsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA18190235AF9DE0021B4DC /* GrowthValuePetsModel.m */; };
 		8BA18194235AFA040021B4DC /* GiftFoodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA18193235AFA040021B4DC /* GiftFoodsModel.m */; };
+		8BA181AC235B1F470021B4DC /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA94BCE235AE2E900B00786 /* BaseVC.m */; };
+		8BA181AF235B1F8C0021B4DC /* CatFoodsManagementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA181AD235B1F8C0021B4DC /* CatFoodsManagementVC.m */; };
+		8BA181B3235B1FE70021B4DC /* OrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA181B2235B1FE70021B4DC /* OrderListVC.m */; };
 		8BA94BCC235AD50D00B00786 /* MISCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA94BCA235AD50D00B00786 /* MISCustomButton.m */; };
 		C4026DBD2148161D00D81974 /* AchievementController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBB2148161D00D81974 /* AchievementController.m */; };
 		C4026DC02148164E00D81974 /* ButtonShare.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBE2148164E00D81974 /* ButtonShare.m */; };
@@ -561,6 +564,10 @@
 		8BA18192235AFA040021B4DC /* GiftFoodsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftFoodsModel.h; sourceTree = "<group>"; };
 		8BA18193235AFA040021B4DC /* GiftFoodsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GiftFoodsModel.m; sourceTree = "<group>"; };
 		8BA18195235AFDE90021B4DC /* ToolMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolMacro.h; sourceTree = "<group>"; };
+		8BA181AD235B1F8C0021B4DC /* CatFoodsManagementVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CatFoodsManagementVC.m; sourceTree = "<group>"; };
+		8BA181AE235B1F8C0021B4DC /* CatFoodsManagementVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatFoodsManagementVC.h; sourceTree = "<group>"; };
+		8BA181B1235B1FE70021B4DC /* OrderListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListVC.h; sourceTree = "<group>"; };
+		8BA181B2235B1FE70021B4DC /* OrderListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListVC.m; sourceTree = "<group>"; };
 		8BA94BCA235AD50D00B00786 /* MISCustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MISCustomButton.m; sourceTree = "<group>"; };
 		8BA94BCB235AD50D00B00786 /* MISCustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MISCustomButton.h; sourceTree = "<group>"; };
 		8BA94BCE235AE2E900B00786 /* BaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseVC.m; sourceTree = "<group>"; };
@@ -1649,6 +1656,15 @@
 			path = MyModel;
 			sourceTree = "<group>";
 		};
+		8BA181B0235B1FE60021B4DC /* 订单 */ = {
+			isa = PBXGroup;
+			children = (
+				8BA181B1235B1FE70021B4DC /* OrderListVC.h */,
+				8BA181B2235B1FE70021B4DC /* OrderListVC.m */,
+			);
+			path = "订单";
+			sourceTree = "<group>";
+		};
 		8BA94BC8235AD4EF00B00786 /* 我自己的代码，尽可能减少入侵性 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1697,6 +1713,7 @@
 		8BA94BD1235AE34900B00786 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8BA181B0235B1FE60021B4DC /* 订单 */,
 				8B7135CF235AF254002EDBAA /* 喵粮订单管理 */,
 				8BA94BD4235AE3A000B00786 /* 钱包 */,
 				8BA94BD3235AE39300B00786 /* 喵粮产地 */,
@@ -1708,6 +1725,8 @@
 		8BA94BD2235AE37C00B00786 /* 喵粮管理 */ = {
 			isa = PBXGroup;
 			children = (
+				8BA181AE235B1F8C0021B4DC /* CatFoodsManagementVC.h */,
+				8BA181AD235B1F8C0021B4DC /* CatFoodsManagementVC.m */,
 			);
 			path = "喵粮管理";
 			sourceTree = "<group>";
@@ -3481,6 +3500,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BA181AC235B1F470021B4DC /* BaseVC.m in Sources */,
 				C42CD06E213CC2640096675F /* ChangePswController.m in Sources */,
 				C46D6B5321438F6400428D7A /* PayMoneySuccedController.m in Sources */,
 				C42CD09D213CC2640096675F /* CellLogisticsEnd.m in Sources */,
@@ -3577,6 +3597,7 @@
 				C42CD0BB213CC2640096675F /* CellOrderTwoLbl.m in Sources */,
 				C42CD18E213CC2640096675F /* TypeSegmentControl.m in Sources */,
 				C42CD11F213CC2640096675F /* ReusableViewType.m in Sources */,
+				8BA181B3235B1FE70021B4DC /* OrderListVC.m in Sources */,
 				C42CD084213CC2640096675F /* MD5DataSigner.m in Sources */,
 				C4824261214F99FA00A9D432 /* CellHeaderMore.m in Sources */,
 				C42CD182213CC2640096675F /* DefaultRefreshView.m in Sources */,
@@ -3588,6 +3609,7 @@
 				C42CD1BF213CC2640096675F /* JJDBHelper+Center.m in Sources */,
 				C42CD0BD213CC2640096675F /* CellOrderDetialNumber.m in Sources */,
 				C42CD04B213CC2640096675F /* JJHttpClient+ShopGood.m in Sources */,
+				8BA181AF235B1F8C0021B4DC /* CatFoodsManagementVC.m in Sources */,
 				C42CD1BA213CC2640096675F /* JJBaseViewController.m in Sources */,
 				C42CD0E7213CC2640096675F /* WebOnlyController.m in Sources */,
 				C42CD04C213CC2640096675F /* JJHttpClient+Login.m in Sources */,

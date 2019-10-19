@@ -8,6 +8,7 @@
 //
 
 #import "BaseVC.h"
+
 @interface BaseVC ()<JXCategoryListContentViewDelegate>
 
 @end
