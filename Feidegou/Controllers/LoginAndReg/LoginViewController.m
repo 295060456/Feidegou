@@ -73,28 +73,31 @@
         [SVProgressHUD showErrorWithStatus:@"请输入密码"];
         return;
     }
-    if (strPsw.length<6) {
+    if (strPsw.length < 6) {
         [SVProgressHUD showErrorWithStatus:@"请输入正确的密码"];
         return;
     }
     [self.view endEditing:YES];
     [SVProgressHUD showWithStatus:@"正在登录..."];
-    __weak LoginViewController *myself = self;
+    @weakify(self)
     self.disposable = [[[JJHttpClient new] requestLoginUSERNAME:strUserNum
                                                     andPASSWORD:strPsw
                                                 andIsChangedPsw:NO]
                        subscribeNext:^(ModelLogin*model) {
+        @strongify(self)
         if (model) {
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             [appDelegate setAlias];
             [SVProgressHUD showSuccessWithStatus:@"登录成功"];
-            [myself.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 

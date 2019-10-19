@@ -148,27 +148,30 @@ DidClickDelegeteCollectionViewType>{
 }
 
 - (void)requestVendorList{
-    __weak VendorMainGoodController *myself = self;
-    myself.disposableVendor = [[[JJHttpClient new] requestShopGoodVendorNearByLimit:@"10"
+    @weakify(self)
+    self.disposableVendor = [[[JJHttpClient new] requestShopGoodVendorNearByLimit:@"10"
                                                                             andPage:TransformNSInteger(self.intPageIndex)
                                                                              andlat:[[LocationManager sharedInstance] fetchLocationLatitude]
                                                                              andlng:[[LocationManager sharedInstance] fetchLocationLongitude] andkey:@""]
                                subscribeNext:^(NSArray* array) {
-        if (myself.intPageIndex == 1) {
-            myself.arrrecommendedGoods = [NSMutableArray array];
+        @strongify(self)
+        if (self.intPageIndex == 1) {
+            self.arrrecommendedGoods = [NSMutableArray array];
         }
-        [myself.arrrecommendedGoods addObjectsFromArray:array];
-        [myself.tabGood reloadData];
+        [self.arrrecommendedGoods addObjectsFromArray:array];
+        [self.tabGood reloadData];
     }error:^(NSError *error) {
-        myself.disposableVendor = nil;
-        [myself checkNum];
+        @strongify(self)
+        self.disposableVendor = nil;
+        [self checkNum];
     }completed:^{
-        myself.intPageIndex++;
-        myself.disposableVendor = nil;
-        [myself checkNum];
+        @strongify(self)
+        self.intPageIndex++;
+        self.disposableVendor = nil;
+        [self checkNum];
     }];
-    
 }
+
 - (void)requestNerBy{
     D_NSLog(@"requestNerBy");
 }

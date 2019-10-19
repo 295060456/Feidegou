@@ -59,6 +59,7 @@
 }
 
 - (IBAction)clickButtonNext:(UIButton *)sender {
+    @weakify(self)
     if (self.isForgetPsw) {
         NSString *strUserNum = self.txtPhoneNum.text;
         if ([NSString isNullString:strUserNum]) {
@@ -69,32 +70,33 @@
             [SVProgressHUD showErrorWithStatus:@"请输入正确的手机号码"];
             return;
         }
-        
         [SVProgressHUD showWithStatus:@"正在请求数据,请稍后..."];
-        
         NSString *strType = @"reg";
         if (self.isForgetPsw) {
             strType = @"forget";
         }
-        __weak RegisterViewController *myself = self;
         self.disposable = [[[JJHttpClient new] requestPswGetBackPHONE:strUserNum
                                                               andType:strType]
                            subscribeNext:^(NSDictionary*dictionary) {
+            @strongify(self)
             D_NSLog(@"msg is %@",dictionary[@"msg"]);
             [SVProgressHUD dismiss];
             if ([dictionary[@"code"] intValue]==1) {
                 RegisterCodeController *controller = [[self storyboard] instantiateViewControllerWithIdentifier:@"RegisterCodeController"];
                 controller.strPhone = strUserNum;
                 controller.isForgetPsw = self.isForgetPsw;
-                [self.navigationController pushViewController:controller animated:YES];
+                [self.navigationController pushViewController:controller
+                                                     animated:YES];
             }else{
                 [SVProgressHUD showErrorWithStatus:[NSString stringStandard:dictionary[@"msg"]]];
             }
         }error:^(NSError *error) {
-            myself.disposable = nil;
+            @strongify(self)
+            self.disposable = nil;
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }completed:^{
-            myself.disposable = nil;
+            @strongify(self)
+            self.disposable = nil;
         }];return;
     }
     NSString *strUserNum = self.txtPhoneNum.text;
@@ -111,9 +113,9 @@
         return;
     }
     [SVProgressHUD showWithStatus:@"正在请求数据,请稍后..."];
-    __weak RegisterViewController *myself = self;
     self.disposable = [[[JJHttpClient new] requestIsRegisterPHONE:strUserNum] subscribeNext:^(NSDictionary*dictionary) {
         D_NSLog(@"msg is %@",dictionary[@"msg"]);
+        @strongify(self)
         [SVProgressHUD dismiss];
         if ([dictionary[@"code"] intValue]==1) {
             RegisterCodeController *controller = [[self storyboard] instantiateViewControllerWithIdentifier:@"RegisterCodeController"];
@@ -125,10 +127,12 @@
             [SVProgressHUD showErrorWithStatus:[NSString stringStandard:dictionary[@"msg"]]];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 

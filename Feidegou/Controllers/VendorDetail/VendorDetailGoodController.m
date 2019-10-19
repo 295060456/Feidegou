@@ -119,6 +119,7 @@ UIWebViewDelegate
 }
 
 - (void)initPriceView{
+    @weakify(self)
     if (!self.viBuy) {
         self.viBuy = [[UIView alloc] initWithFrame:CGRectMake(0,
                                                               SCREEN_WIDTH,
@@ -133,12 +134,15 @@ UIWebViewDelegate
         [btnBuy.layer setCornerRadius:3.0];
         [btnBuy setClipsToBounds:YES];
         [btnBuy setBackgroundColor:ColorHeader];
-        [btnBuy setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [btnBuy setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+        [btnBuy setTitleColor:[UIColor whiteColor]
+                     forState:UIControlStateNormal];
+        [btnBuy setTitleColor:[UIColor darkGrayColor]
+                     forState:UIControlStateHighlighted];
         [btnBuy setTitle:@"立即抢购" forState:UIControlStateNormal];
         [btnBuy.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
         [btnBuy handleControlEvent:UIControlEventTouchUpInside
                          withBlock:^{
+            @strongify(self)
             [self clickButtonCreateOrder:btnBuy];
         }];
         [self.viBuy addSubview:btnBuy];

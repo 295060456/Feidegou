@@ -63,7 +63,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [tableView deselectRowAtIndexPath:indexPath
+                             animated:NO];
     if (indexPath.row == 0) {
         UIImagePickerController *pickerImage = [[UIImagePickerController alloc] init];
         if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){

@@ -124,18 +124,20 @@
     if (self.arrHot.count == 0) {
         [self showException];
     }
-    __weak SearchGoodController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodSearchGoodsName:@""] subscribeNext:^(NSDictionary* dictinary) {
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodSearchGoodsName:@""] subscribeNext:^(NSDictionary* dictinary) {
+        @strongify(self)
         NSString *strHotSearch = dictinary[@"hotSearch"];
         NSArray *array = [strHotSearch componentsSeparatedByString:@","];
-        myself.arrHot = [NSMutableArray arrayWithArray:array];
-        [myself.collectionHot reloadData];
-        [[JJDBHelper sharedInstance] saveSearchHot:myself.arrHistory];
-        [myself hideException];
+        self.arrHot = [NSMutableArray arrayWithArray:array];
+        [self.collectionHot reloadData];
+        [[JJDBHelper sharedInstance] saveSearchHot:self.arrHistory];
+        [self hideException];
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself hideException];
-        if (myself.arrHot.count == 0) {
+        @strongify(self)
+        self.disposable = nil;
+        [self hideException];
+        if (self.arrHot.count == 0) {
             self.layoutConstraintCollectionHeight.constant = 0;
             [self.viTip setHidden:YES];
             self.layoutConstraintTipHeight.constant = 0;
@@ -145,8 +147,9 @@
             self.layoutConstraintTipHeight.constant = 30;
         }
     }completed:^{
-        myself.disposable = nil;
-        if (myself.arrHot.count == 0) {
+        @strongify(self)
+        self.disposable = nil;
+        if (self.arrHot.count == 0) {
             self.layoutConstraintCollectionHeight.constant = 0;
             [self.viTip setHidden:YES];
             self.layoutConstraintTipHeight.constant = 0;
@@ -156,25 +159,24 @@
             self.layoutConstraintTipHeight.constant = 30;
         }
     }];
-    
 }
 
 #pragma mark --UICollectionViewDelegate
 //定义展示的UICollectionViewCell的个数
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
-{
+-(NSInteger)collectionView:(UICollectionView *)collectionView
+    numberOfItemsInSection:(NSInteger)section{
     return self.arrHot.count;
 }
 //定义展示的Section的个数
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
 }
 //每个UICollectionView展示的内容
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                 cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"CLCellGoodTypeHead";
-    CLCellGoodTypeHead *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
+    CLCellGoodTypeHead *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier
+                                                                         forIndexPath:indexPath];
     
     [cell.viLbel.layer setBorderColor:ColorGary.CGColor];
     [cell.viLbel.layer setBorderWidth:0.5];
@@ -217,64 +219,77 @@
 //}
 #pragma mark --UICollectionViewDelegateFlowLayout
 //定义每个UICollectionView 的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout*)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     NSString *strContent = self.arrHot[indexPath.row];
-    CGFloat fWidth = [NSString conculuteRightCGSizeOfString:strContent andWidth:200 andFont:13.0].width+25;
+    CGFloat fWidth = [NSString conculuteRightCGSizeOfString:strContent
+                                                   andWidth:200
+                                                    andFont:13.0].width+25;
     return CGSizeMake(fWidth,40);
 }
 //定义每个UICollectionView 的 margin
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView
+                       layout:(UICollectionViewLayout *)collectionViewLayout
+       insetForSectionAtIndex:(NSInteger)section{
     
-    return UIEdgeInsetsMake(0, 0, 0, 0);
+    return UIEdgeInsetsMake(0,
+                            0,
+                            0,
+                            0);
 }
 #pragma mark --UICollectionViewDelegate
 //UICollectionView被选中时调用的方法
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
+-(void)collectionView:(UICollectionView *)collectionView
+didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     [self.view endEditing:YES];
     [self pushControllerGoodList:self.arrHot[indexPath.row]];
 }
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [self.view endEditing:YES];
 }
 
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (self.arrHistory.count==0) {
         return 0;
     }
     if (section == 1) {
         return self.arrHistory.count;
-    }
-    return 1;
-    
+    }return 1;
 }
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 2) {
         return 60.0f;
-    }
-    return 40.0f;
+    }return 40.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 2) {
-        
+        @weakify(self)
         CellHistoryClear *cell=[tableView dequeueReusableCellWithIdentifier:@"CellHistoryClear"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        [cell.btnClear handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-            JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-            [alertView showAlertView:self andTitle:nil andMessage:@"是否清空历史记录" andCancel:@"取消" andCanelIsRed:NO andOherButton:@"立即清空" andConfirm:^{
+        [cell.btnClear handleControlEvent:UIControlEventTouchUpInside
+                                withBlock:^{
+            [JJAlertViewTwoButton.new showAlertView:self
+                                           andTitle:nil
+                                         andMessage:@"是否清空历史记录"
+                                          andCancel:@"取消"
+                                      andCanelIsRed:NO
+                                      andOherButton:@"立即清空"
+                                         andConfirm:^{
+                @strongify(self)
                 D_NSLog(@"点击了立即发布");
-                [[JJDBHelper sharedInstance] saveSearchHistory:[NSArray array] andIsVendor:self.isVendor];
+                [[JJDBHelper sharedInstance] saveSearchHistory:NSArray.array
+                                                   andIsVendor:self.isVendor];
                 [self reloadHistory];
             } andCancel:^{
                 D_NSLog(@"点击了取消");
@@ -291,17 +306,18 @@
         [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
         [cell.lblContent setTextColor:ColorGary];
         [cell.lblContent setTextNull:self.arrHistory[indexPath.row]];
-    }
-    return cell;
-    
+    }return cell;
 }
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self.view endEditing:YES];
     if (indexPath.section == 1) {
         [self pushControllerGoodList:self.arrHistory[indexPath.row]];
     }
 }
+
 - (void)pushControllerGoodList:(NSString *)strSearch{
     if ([NSString isNullString:strSearch]) {
         [SVProgressHUD showErrorWithStatus:@"搜索不能为空"];
@@ -319,20 +335,21 @@
     if (!isConttain) {
         [self.arrHistory insertObject:strSearch atIndex:0];
     }
-    
-    [[JJDBHelper sharedInstance] saveSearchHistory:self.arrHistory andIsVendor:self.isVendor];
+    [[JJDBHelper sharedInstance] saveSearchHistory:self.arrHistory
+                                       andIsVendor:self.isVendor];
     [self.txtSearch setText:strSearch];
-    
     if (self.isVendor) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardVendorDetail bundle:nil];
         VendorShopTypeController *controller = [storyboard instantiateViewControllerWithIdentifier:@"VendorShopTypeController"];
         controller.strSearch = strSearch;
         [self.navigationController pushViewController:controller animated:YES];
     }else{
-        UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
+        UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain
+                                                           bundle:nil];
         GoodsListController *controller=[storyboard instantiateViewControllerWithIdentifier:@"GoodsListController"];
         controller.strSearch = strSearch;
-        [self.navigationController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller
+                                             animated:YES];
     }
 }
 

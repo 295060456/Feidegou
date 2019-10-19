@@ -56,7 +56,7 @@
 }
 
 - (IBAction)clickButtonCommit:(UIButton *)sender {
-    
+    @weakify(self)
     NSString *strPswOld = self.txtPswOld.text;
     NSString *strPsw = self.txtPsw.text;
     if ([NSString isNullString:strPsw]||[NSString isNullString:strPswOld]) {
@@ -73,50 +73,57 @@
         return;
     }
     [self.view endEditing:YES];
-    
     if (self.isForgetPsw) {
         [SVProgressHUD showWithStatus:@"正在修改密码,请稍后..."];
-        __weak RegisterInputPswController *myself = self;
-        self.disposable = [[[JJHttpClient new] requestPswGetBackPHONE:self.strPhone andpassword_new:strPsw]
+       
+        self.disposable = [[[JJHttpClient new] requestPswGetBackPHONE:self.strPhone
+                                                      andpassword_new:strPsw]
                            subscribeNext:^(NSDictionary*dictionary) {
+            @strongify(self)
             D_NSLog(@"msg is %@",dictionary[@"msg"]);
             if ([dictionary[@"code"] intValue]==1) {
                 [SVProgressHUD dismiss];
                 RegisterSucceedController *controller = [[self storyboard] instantiateViewControllerWithIdentifier:@"RegisterSucceedController"];
                 controller.isForgetPsw = self.isForgetPsw;
                 controller.strPhone = self.strPhone;
-                [self.navigationController pushViewController:controller animated:YES];
+                [self.navigationController pushViewController:controller
+                                                     animated:YES];
             }else{
                 [SVProgressHUD showErrorWithStatus:[NSString stringStandard:dictionary[@"msg"]]];
             }
         }error:^(NSError *error) {
-            myself.disposable = nil;
+            @strongify(self)
+            self.disposable = nil;
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }completed:^{
-            myself.disposable = nil;
+            @strongify(self)
+            self.disposable = nil;
         }]; return;
     }
     [SVProgressHUD showWithStatus:@"正在注册,请稍后..."];
-    __weak RegisterInputPswController *myself = self;
     self.disposable = [[[JJHttpClient new] requestRegisterPHONE:self.strPhone
                                                     andPASSWORD:strPsw
                                                   andinviter_id:[NSString stringStandard:self.txtCode.text]]
                        subscribeNext:^(NSDictionary*dictionary) {
+        @strongify(self)
         D_NSLog(@"msg is %@",dictionary[@"msg"]);
-        if ([dictionary[@"code"] intValue]==1) {
+        if ([dictionary[@"code"] intValue] == 1) {
             [SVProgressHUD dismiss];
             RegisterSucceedController *controller = [[self storyboard] instantiateViewControllerWithIdentifier:@"RegisterSucceedController"];
             controller.isForgetPsw = self.isForgetPsw;
             controller.strPhone = self.strPhone;
-            [self.navigationController pushViewController:controller animated:YES];
+            [self.navigationController pushViewController:controller
+                                                 animated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:[NSString stringStandard:dictionary[@"msg"]]];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 

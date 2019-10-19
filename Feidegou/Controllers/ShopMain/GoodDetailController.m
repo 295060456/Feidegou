@@ -118,8 +118,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    @weakify(self)
     if (indexPath.section == 0) {
-        CellPicture *cell=[tableView dequeueReusableCellWithIdentifier:@"CellPicture"];
+        CellPicture *cell = [tableView dequeueReusableCellWithIdentifier:@"CellPicture"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         NSArray *arrPic = self.dicDetail[@"photoUrl"];
         if ([arrPic isKindOfClass:[NSArray class]]) {
@@ -154,13 +155,17 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     CellGoodEnterIn *cell=[tableView dequeueReusableCellWithIdentifier:@"CellGoodEnterIn"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    [cell.btnCheck handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
+    [cell.btnCheck handleControlEvent:UIControlEventTouchUpInside
+                            withBlock:^{
+        @strongify(self)
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
         GoodOtherListController *controller=[storyboard instantiateViewControllerWithIdentifier:@"GoodOtherListController"];
         controller.strGoods_store_id = self.dicDetail[@"goods"][@"goods_store_id"];
         [self.navigationController pushViewController:controller animated:YES];
     }];
-    [cell.btnPhone handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+    [cell.btnPhone handleControlEvent:UIControlEventTouchUpInside
+                            withBlock:^{
+        @strongify(self)
         NSString *strPhone = self.dicDetail[@"goods"][@"store_telephone"];
         if ([NSString isNullString:strPhone]) {
             [SVProgressHUD showErrorWithStatus:@"该商家未填写电话"];
@@ -173,8 +178,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }];return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath
+                             animated:NO];
     if (indexPath.section == 2) {
         
     }
@@ -203,10 +210,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (void)animaitonShowDetailMore{
-    [UIView animateWithDuration:0.27 animations:^{
+    @weakify(self)
+    [UIView animateWithDuration:0.27
+                     animations:^{
+        @strongify(self)
         self.layoutConstraintTop.constant = -CGRectGetHeight(self.tabDetail.frame);
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished){
+        @strongify(self)
         D_NSLog(@"detail is %@",self.dicDetail[@"goods"][@"goods_details"]);
         [self.webDetail setScalesPageToFit:YES];
 //        [self.webDetail loadHTMLString:self.dicDetail[@"goods"][@"goods_details"] baseURL:[[NSBundle mainBundle] bundleURL]];
@@ -234,7 +245,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 //}
 
 - (void)animaitonHidenDetailMore{
-    [UIView animateWithDuration:0.27 animations:^{
+    @weakify(self)
+    [UIView animateWithDuration:0.27
+                     animations:^{
+        @strongify(self)
         self.layoutConstraintTop.constant = 0;
         [self.view layoutIfNeeded];
     }];
@@ -366,7 +380,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 - (void)animationShowViCreateOrder{
     CGRect rectOrder = self.viCreateOrder.frame;
     rectOrder.origin.y = SCREEN_HEIGHT-CGRectGetHeight(self.viCreateOrder.frame);
-    [UIView animateWithDuration:0.27 animations:^{
+    @weakify(self)
+    [UIView animateWithDuration:0.27
+                     animations:^{
+        @strongify(self)
         [self.viCreateBack setAlpha:1];
         [self.viCreateOrder setFrame:rectOrder];
     }];
@@ -375,10 +392,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 - (void)animationHiddenViCreateOrder{
     CGRect rectOrder = self.viCreateOrder.frame;
     rectOrder.origin.y = SCREEN_HEIGHT;
-    [UIView animateWithDuration:0.27 animations:^{
+    @weakify(self)
+    [UIView animateWithDuration:0.27
+                     animations:^{
+        @strongify(self)
         [self.viCreateBack setAlpha:0];
         [self.viCreateOrder setFrame:rectOrder];
     } completion:^(BOOL finished){
+        @strongify(self)
         [self.viCreateBack removeFromSuperview];
     }];
 }
@@ -432,7 +453,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 //每个UICollectionView展示的内容
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                  cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section<self.arrSelectType.count) {
+    @weakify(self)
+    if (indexPath.section < self.arrSelectType.count) {
         static NSString *identifier = @"CLCellGoodProperty";
         CLCellGoodProperty *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
         NSArray *arrClasss = [NSArray arrayWithArray:self.arrSelectType[indexPath.section][@"items"]];
@@ -442,14 +464,18 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"CLCellGoodNum";
     CLCellGoodNum *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     [cell.lblLeave setTextNull:StringFormat(@"库存%@",[NSString stringStandardZero:self.strGoodNum])];
-    [cell.btnAdd handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+    [cell.btnAdd handleControlEvent:UIControlEventTouchUpInside
+                          withBlock:^{
+        @strongify(self)
         if ([self.strGoodNum intValue]>self.intBuyNum) {
             self.intBuyNum++;
             [self.collectionSelectType reloadData];
         }
     }];
-    [cell.btnReduce handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        if (self.intBuyNum>1) {
+    [cell.btnReduce handleControlEvent:UIControlEventTouchUpInside
+                             withBlock:^{
+        @strongify(self)
+        if (self.intBuyNum > 1) {
             self.intBuyNum--;
             [self.collectionSelectType reloadData];
         }
@@ -596,21 +622,24 @@ referenceSizeForHeaderInSection:(NSInteger)section{
     if ([self isSelectedAll] && self.arrSelectType.count>0) {
         NSString *strGoodsspecpropertyId = [self fetchStringGoodsspecpropertyId];
         D_NSLog(@"已全部选择完毕，可以请求库存%@",strGoodsspecpropertyId);
-        __weak GoodDetailController *myself = self;
-        [myself.disposableGoodNum dispose];
-        myself.disposableGoodNum = [[[JJHttpClient new] requestShopGoodGoodNumGoodsspecpropertyId:strGoodsspecpropertyId
+        @weakify(self)
+        [self.disposableGoodNum dispose];
+        self.disposableGoodNum = [[[JJHttpClient new] requestShopGoodGoodNumGoodsspecpropertyId:strGoodsspecpropertyId
                                                                                        andGoodsId:[NSString stringStandard:self.strGood_id]]
                                     subscribeNext:^(NSDictionary* dictionary) {
+            @strongify(self)
             D_NSLog(@"msg is %@",dictionary[@"msg"]);
-            myself.strGoodPrice = dictionary[@"store_price"];
-            myself.strGoodNum = dictionary[@"goods_inventory"];
-            [myself.lblPrice setTextNull:StringFormat(@"￥%@",[NSString stringStandardFloatTwo:myself.strGoodPrice])];
-            [myself.collectionSelectType reloadData];
+            self.strGoodPrice = dictionary[@"store_price"];
+            self.strGoodNum = dictionary[@"goods_inventory"];
+            [self.lblPrice setTextNull:StringFormat(@"￥%@",[NSString stringStandardFloatTwo:self.strGoodPrice])];
+            [self.collectionSelectType reloadData];
         }error:^(NSError *error) {
-            [myself failedRequestException:enum_exception_timeout];
-            myself.disposableGoodNum = nil;
+            @strongify(self)
+            [self failedRequestException:enum_exception_timeout];
+            self.disposableGoodNum = nil;
         }completed:^{
-            myself.disposableGoodNum = nil;
+            @strongify(self)
+            self.disposableGoodNum = nil;
         }];
     }else{
         D_NSLog(@"未全部选择完毕，不需请求库存");

@@ -70,14 +70,15 @@
         strType = @"2";
         strMsg = StringFormat(@"删除%@",self.arrCart[indexPath.section][@"goods"][indexPath.row-1][@"goods_name"]);
     }
-    JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-    [alertView showAlertView:self
-                    andTitle:@"提示"
-                  andMessage:strMsg
-                   andCancel:@"取消"
-               andCanelIsRed:NO
-               andOherButton:@"删除"
-                  andConfirm:^{
+    @weakify(self)
+    [JJAlertViewTwoButton.new showAlertView:self
+                                   andTitle:@"提示"
+                                 andMessage:strMsg
+                                  andCancel:@"取消"
+                              andCanelIsRed:NO
+                              andOherButton:@"删除"
+                                 andConfirm:^{
+        @strongify(self)
         D_NSLog(@"删除%@",indexPath);
         [self requestDeleteCartIndexPath:indexPath
                            andDeleteType:strType];
@@ -85,6 +86,7 @@
         D_NSLog(@"取消");
     }];
 }
+
 - (void)requestDeleteCartIndexPath:(NSIndexPath *)indexPath
                      andDeleteType:(NSString *)deleteType{
     NSString *strGoodId = @"";
@@ -92,17 +94,18 @@
         strGoodId = self.arrCart[indexPath.section][@"goods"][indexPath.row - 1][@"id"];
     }
     [SVProgressHUD showWithStatus:@"正在删除..."];
-    __weak CartListController *myself = self;
+    @weakify(self)
     self.disposableDelete = [[[JJHttpClient new] requestFourZeroCartDeleteCartGoodsCartId:strGoodId
                                                                            andstoreCartId:TransformString(self.arrCart[indexPath.section][@"sc_id"])
                                                                             anddeleteType:deleteType]
                              subscribeNext:^(NSDictionary*dictionary) {
+        @strongify(self)
         if ([dictionary[@"code"] intValue] == 1) {
             if ([deleteType intValue] == 1) {
-                [myself.arrCart removeObjectAtIndex:indexPath.section];
+                [self.arrCart removeObjectAtIndex:indexPath.section];
 //                [myself.tabCart deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationLeft];
             }else{
-                NSMutableDictionary *dicMiddle = [NSMutableDictionary dictionaryWithDictionary:myself.arrCart[indexPath.section]];
+                NSMutableDictionary *dicMiddle = [NSMutableDictionary dictionaryWithDictionary:self.arrCart[indexPath.section]];
                 NSMutableArray *arrMiddle = [NSMutableArray arrayWithArray:dicMiddle[@"goods"]];
                 [arrMiddle removeObjectAtIndex:indexPath.row-1];
                 if (arrMiddle.count > 0) {
@@ -111,19 +114,20 @@
                     [self.arrCart replaceObjectAtIndex:indexPath.section withObject:dicMiddle];
 //                    [myself.tabCart deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
                 }else{
-                    [myself.arrCart removeObjectAtIndex:indexPath.section];
+                    [self.arrCart removeObjectAtIndex:indexPath.section];
 //                    [myself.tabCart deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationLeft];
                 }
             }
         }
-        [myself refrshCart];
-        
+        [self refrshCart];
     }error:^(NSError *error) {
-        myself.disposableDelete = nil;
+        @strongify(self)
+        self.disposableDelete = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
+        @strongify(self)
         [SVProgressHUD dismiss];
-        myself.disposableDelete = nil;
+        self.disposableDelete = nil;
     }];
 }
 
@@ -140,15 +144,16 @@
 }
 
 - (void)requestExchangeList{
-    __weak CartListController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodCartListLimit:@"1000"
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestShopGoodCartListLimit:@"1000"
                                                                   andPage:@"1"
                                                                anduser_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]
                          subscribeNext:^(NSArray* array) {
+        @strongify(self)
         if ([array isKindOfClass:[NSArray class]]) {
 //            先获取以前被选择的商品id
             NSMutableArray *arrSelected = [NSMutableArray array];
-            NSMutableArray *arrMiddle = [NSMutableArray arrayWithArray:myself.arrCart];
+            NSMutableArray *arrMiddle = [NSMutableArray arrayWithArray:self.arrCart];
             for (int i = 0; i<arrMiddle.count; i++) {
                 NSArray *arrGood = arrMiddle[i][@"goods"];
                 for (int j = 0; j<arrGood.count; j++) {
@@ -157,10 +162,10 @@
                     }
                 }
             }
-            myself.arrCart = [NSMutableArray arrayWithArray:array];
+            self.arrCart = [NSMutableArray arrayWithArray:array];
 //            把包含已被选中的添加到新的数组里面
-            for (int i = 0; i<myself.arrCart.count; i++) {
-                NSMutableDictionary *dicMiddle = [NSMutableDictionary dictionaryWithDictionary:myself.arrCart[i]];
+            for (int i = 0; i < self.arrCart.count; i++) {
+                NSMutableDictionary *dicMiddle = [NSMutableDictionary dictionaryWithDictionary:self.arrCart[i]];
                 NSMutableArray *arrGood = [NSMutableArray arrayWithArray:dicMiddle[@"goods"]];
                 for (int j = 0; j<arrGood.count; j++) {
                     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:arrGood[j]];
@@ -175,15 +180,18 @@
                     }
                     if (isSl) {
 //                        替换单个商品
-                        [dic setObject:@"1" forKey:isSelected];
-                        [arrGood replaceObjectAtIndex:j withObject:dic];
+                        [dic setObject:@"1"
+                                forKey:isSelected];
+                        [arrGood replaceObjectAtIndex:j
+                                           withObject:dic];
                     }
                 }
 //                替换单个商家
-                [dicMiddle setObject:arrGood forKey:@"goods"];
-                [myself.arrCart replaceObjectAtIndex:i withObject:dicMiddle];
+                [dicMiddle setObject:arrGood
+                              forKey:@"goods"];
+                [self.arrCart replaceObjectAtIndex:i
+                                        withObject:dicMiddle];
             }
-            
         }
         
 //        if (myself.intPageIndex == 1) {
@@ -213,19 +221,21 @@
 //        }else{
 //            myself.integerSection = -1;
 //        }
-        [myself refrshCart];
+        [self refrshCart];
     }error:^(NSError *error) {
-        myself.disposable = nil;
-        [myself.refreshControl endRefreshing];
+        @strongify(self)
+        self.disposable = nil;
+        [self.refreshControl endRefreshing];
         if (error.code!=2) {
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }else{
 //            myself.curCount = 0;
         }
     }completed:^{
+        @strongify(self)
 //        myself.intPageIndex++;
-        [myself.refreshControl endRefreshing];
-        myself.disposable = nil;
+        [self.refreshControl endRefreshing];
+        self.disposable = nil;
     }];
 }
 #pragma mark - RefreshControlDelegate
@@ -345,14 +355,17 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.arrCart.count;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
         return 40.0f;
-    }
-    return 110.0f;
+    }return 110.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    @weakify(self)
     if (indexPath.row == 0) {
         CellCartHead *cell=[tableView dequeueReusableCellWithIdentifier:@"CellCartHead"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -372,6 +385,7 @@
 //        }
         [cell.btnSelect handleControlEvent:UIControlEventTouchUpInside
                                  withBlock:^{
+            @strongify(self)
 //            self.integerSection = indexPath.section;
 //            [self refrshCart];
             [self clickCellHead:indexPath.section
@@ -379,7 +393,9 @@
         }];
         
         NSString *strTitle = self.arrCart[indexPath.section][@"store_name"];
-        CGFloat fWidth = [NSString conculuteRightCGSizeOfString:strTitle andWidth:SCREEN_WIDTH-75 andFont:15.0].width;
+        CGFloat fWidth = [NSString conculuteRightCGSizeOfString:strTitle
+                                                       andWidth:SCREEN_WIDTH-75
+                                                        andFont:15.0].width;
         cell.layoutConstraintWidth.constant = fWidth;
         [cell.lblTitle setTextNull:strTitle];
         return cell;
@@ -392,8 +408,11 @@
     [cell.lblTitle setTextNull:dicDetail[@"goods_name"]];
     [cell.lblAttribute setTextNull:dicDetail[@"spec_info"]];
     [cell.btnSelect setSelected:[dicDetail[isSelected] boolValue]];
-    [cell.btnSelect handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        [self clickCellOnlyOne:indexPath andSelected:!cell.btnSelect.selected];
+    [cell.btnSelect handleControlEvent:UIControlEventTouchUpInside
+                             withBlock:^{
+        @strongify(self)
+        [self clickCellOnlyOne:indexPath
+                   andSelected:!cell.btnSelect.selected];
     }];
     [cell.lblNum setTextNull:dicDetail[@"count"]];
     if ([dicDetail[@"count"] intValue]>1) {
@@ -401,11 +420,17 @@
     }else{
         [cell.btnReduce setEnabled:NO];
     }
-    [cell.btnReduce handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        [self requestChangeCartNumIsAdd:NO andIndexPath:indexPath];
+    [cell.btnReduce handleControlEvent:UIControlEventTouchUpInside
+                             withBlock:^{
+        @strongify(self)
+        [self requestChangeCartNumIsAdd:NO
+                           andIndexPath:indexPath];
     }];
-    [cell.btnAdd handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        [self requestChangeCartNumIsAdd:YES andIndexPath:indexPath];
+    [cell.btnAdd handleControlEvent:UIControlEventTouchUpInside
+                          withBlock:^{
+        @strongify(self)
+        [self requestChangeCartNumIsAdd:YES
+                           andIndexPath:indexPath];
     }];
     [cell.lblPrice setTextGoodPrice:dicDetail[@"price"] andDB:dicDetail[@"gift_d_coins"]];
     return cell;
@@ -444,7 +469,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 }
 - (void)requestChangeCartNumIsAdd:(BOOL)isAdd
                      andIndexPath:(NSIndexPath *)indexPath{
-    
+    @weakify(self)
     if (self.disposableChangeNum) {
         return;
     }
@@ -460,17 +485,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
         intNum--;
     }
     NSString *strNum = TransformNSInteger(intNum);
-    __weak CartListController *myself = self;
-    myself.disposableChangeNum = [[[JJHttpClient new] requestFourZeroCartChangeNumSCId:[NSString stringStandard:strSCID]
+    self.disposableChangeNum = [[[JJHttpClient new] requestFourZeroCartChangeNumSCId:[NSString stringStandard:strSCID]
                                                                               andcount:strNum
                                                                              andcartId:strCartId]
                                   subscribeNext:^(NSDictionary* dictionary) {
-        
+        @strongify(self)
         if ([dictionary[@"code"] intValue] == 1) {
-            for (int i = 0; i<myself.arrCart.count; i++) {
-                NSMutableDictionary *dicMiddle = [NSMutableDictionary dictionaryWithDictionary:myself.arrCart[i]];
+            for (int i = 0; i < self.arrCart.count; i++) {
+                NSMutableDictionary *dicMiddle = [NSMutableDictionary dictionaryWithDictionary:self.arrCart[i]];
                 if ([TransformString(dicMiddle[@"sc_id"]) isEqualToString:strSCID]) {
-                    
+                
                     NSMutableArray *arrMiddle = [NSMutableArray arrayWithArray:dicMiddle[@"goods"]];
                     
                     for (int j = 0; j<arrMiddle.count; j++) {
@@ -480,22 +504,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
                             [arrMiddle replaceObjectAtIndex:j withObject:dicEnd];
                             [dicMiddle setObject:arrMiddle forKey:@"goods"];
                             [dicMiddle setObject:[NSString stringStandard:dictionary[@"totalPrice"]] forKey:@"total_price"];
-                            [myself.arrCart replaceObjectAtIndex:i withObject:dicMiddle];
-                            [myself refrshCart];
+                            [self.arrCart replaceObjectAtIndex:i withObject:dicMiddle];
+                            [self refrshCart];
                         }
-                        
                     }
                 }
             }
         }else{
-            
             [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];
         }
     }error:^(NSError *error) {
-        myself.disposableChangeNum = nil;
+        @strongify(self)
+        self.disposableChangeNum = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        myself.disposableChangeNum = nil;
+        @strongify(self)
+        self.disposableChangeNum = nil;
     }];
 }
 

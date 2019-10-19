@@ -55,15 +55,15 @@
 }
 
 - (IBAction)clickButtonNext:(UIButton *)sender {
-    
+    @weakify(self)
     NSString *strCode = self.txtCode.text;
     if ([NSString isNullString:strCode]) {
         [SVProgressHUD showErrorWithStatus:@"请输邀请码"];
         return;
     }
     [SVProgressHUD showWithStatus:@"正在请求数据,请稍后..."];
-    __weak RegisterInviterController *myself = self;
     self.disposable = [[[JJHttpClient new] requestIsRegisterinviterCode:strCode] subscribeNext:^(NSDictionary*dictionary) {
+        @strongify(self)
         D_NSLog(@"msg is %@",dictionary[@"msg"]);
         [SVProgressHUD dismiss];
         if ([dictionary[@"code"] intValue]==1) {
@@ -76,10 +76,12 @@
             [SVProgressHUD showErrorWithStatus:[NSString stringStandard:dictionary[@"msg"]]];
         }
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 

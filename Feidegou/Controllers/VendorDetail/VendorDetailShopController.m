@@ -138,19 +138,22 @@ didFailLoadWithError:(NSError *)error{
 }
 
 - (void)requestGoodList{
-    __weak VendorDetailShopController *myself = self;
-    myself.disposableGood = [[[JJHttpClient new] requestShopGoodVendorOtherGoodGoods_store_id:[NSString stringStandard:self.strStoreID]
+    @weakify(self)
+    self.disposableGood = [[[JJHttpClient new] requestShopGoodVendorOtherGoodGoods_store_id:[NSString stringStandard:self.strStoreID]
                                                                                      andLimit:@"3"
                                                                                       andPage:@"1"
                                                                          andrealstore_approve:@"1"]
                              subscribeNext:^(NSArray* array) {
-        myself.arrGood = [NSMutableArray arrayWithArray:array];
-        [myself.tabVendor reloadData];
+        @strongify(self)
+        self.arrGood = [NSMutableArray arrayWithArray:array];
+        [self.tabVendor reloadData];
         
     }error:^(NSError *error) {
-        myself.disposableGood = nil;
+        @strongify(self)
+        self.disposableGood = nil;
     }completed:^{
-        myself.disposableGood = nil;
+        @strongify(self)
+        self.disposableGood = nil;
     }];
 //    myself.disposableGood = [[[JJHttpClient new] requestShopGoodVendorNearByLimit:@"3" andPage:@"1" andgoods_store_id:[NSString stringStandard:self.strStoreID]] subscribeNext:^(NSArray* array) {
 //        myself.arrGood = [NSMutableArray arrayWithArray:array];
@@ -164,27 +167,29 @@ didFailLoadWithError:(NSError *)error{
 }
 
 - (void)requestDiscuss{
-    __weak VendorDetailShopController *myself = self;
-    myself.disposableDiscuss = [[[JJHttpClient new] requestShopGoodDiscussListGoods_id:@""
+    @weakify(self)
+    self.disposableDiscuss = [[[JJHttpClient new] requestShopGoodDiscussListGoods_id:@""
                                                                               andLimit:@"3"
                                                                                andPage:@"1"
                                                                               andState:@""
                                                                            andstore_id:[NSString stringStandard:self.strStoreID]]
                                 subscribeNext:^(NSDictionary* dictionary) {
+        @strongify(self)
         NSArray *array;
-        myself.strDiscussNum = [NSString stringStandardZero:dictionary[@"all"]];
+        self.strDiscussNum = [NSString stringStandardZero:dictionary[@"all"]];
         if ([dictionary[@"evaluate"] isKindOfClass:[NSArray class]]) {
             array = [NSArray arrayWithArray:dictionary[@"evaluate"]];
         }else{
             array = [NSArray array];
         }
-        myself.arrDiscuss = [NSMutableArray arrayWithArray:array];
-        [myself.tabVendor reloadData];
-        
+        self.arrDiscuss = [NSMutableArray arrayWithArray:array];
+        [self.tabVendor reloadData];
     }error:^(NSError *error) {
-        myself.disposableDiscuss = nil;
+        @strongify(self)
+        self.disposableDiscuss = nil;
     }completed:^{
-        myself.disposableDiscuss = nil;
+        @strongify(self)
+        self.disposableDiscuss = nil;
     }];
 }
 
@@ -315,6 +320,7 @@ didFailLoadWithError:(NSError *)error{
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    @weakify(self)
     if (indexPath.section == 0) {
         CellPicture *cell=[tableView dequeueReusableCellWithIdentifier:@"CellPicture"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -358,7 +364,9 @@ didFailLoadWithError:(NSError *)error{
         CellVendorAddress *cell=[tableView dequeueReusableCellWithIdentifier:@"CellVendorAddress"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         [cell.lblAddress setTextNull:self.dicInfo[@"store_address"]];
-        [cell.btnPhone handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [cell.btnPhone handleControlEvent:UIControlEventTouchUpInside
+                                withBlock:^{
+            @strongify(self)
             [self dail];
         }];
         return cell;
@@ -410,24 +418,22 @@ didFailLoadWithError:(NSError *)error{
 - (void)dail{
     NSString *strPhone = self.dicInfo[@"store_telephone"];
     if ([NSString isNullString:strPhone]) {
-        JJAlertViewOneButton *alertView = [[JJAlertViewOneButton alloc] init];
-        [alertView showAlertView:self
-                        andTitle:nil
-                      andMessage:@"暂无商家电话"
-                       andCancel:@"确定"
-                   andCanelIsRed:YES
-                           andBack:^{
+        [JJAlertViewOneButton.new showAlertView:self
+                                       andTitle:nil
+                                     andMessage:@"暂无商家电话"
+                                      andCancel:@"确定"
+                                  andCanelIsRed:YES
+                                        andBack:^{
             [[PersonalInfo sharedInstance] deleteLoginUserInfo];
         }];
     }else{
-        JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-        [alertView showAlertView:self
-                        andTitle:nil
-                      andMessage:@"是否拨打电话"
-                       andCancel:@"取消"
-                   andCanelIsRed:NO
-                   andOherButton:@"立即拨打"
-                      andConfirm:^{
+        [JJAlertViewTwoButton.new showAlertView:self
+                                       andTitle:nil
+                                     andMessage:@"是否拨打电话"
+                                      andCancel:@"取消"
+                                  andCanelIsRed:NO
+                                  andOherButton:@"立即拨打"
+                                     andConfirm:^{
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:StringFormat(@"tel://%@",strPhone)]]; //拨号
         } andCancel:^{
             

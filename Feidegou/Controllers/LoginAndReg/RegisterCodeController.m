@@ -74,16 +74,16 @@
 - (IBAction)clickButtonNext:(UIButton *)sender {
     
     NSString *strCode = self.txtCode.text;
-    
     if ([NSString isNullString:strCode]) {
         [SVProgressHUD showErrorWithStatus:@"请输入验证码"];
         return;
     }
-    
     [SVProgressHUD showWithStatus:@"正在请求数据,请稍后..."];
-    
-    __weak RegisterCodeController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestPswGetBackPHONE:self.strPhone andCODE:strCode] subscribeNext:^(NSDictionary*dictionary) {
+    @weakify(self)
+    self.disposable = [[[JJHttpClient new] requestPswGetBackPHONE:self.strPhone
+                                                          andCODE:strCode]
+                       subscribeNext:^(NSDictionary*dictionary) {
+        @strongify(self)
         D_NSLog(@"msg is %@,sendType is %@",dictionary[@"msg"],dictionary[@"sendType"]);
         if ([dictionary[@"code"] intValue]==1) {
             [SVProgressHUD dismiss];
@@ -92,17 +92,17 @@
             controller.strPhone = self.strPhone;
             controller.isForgetPsw = self.isForgetPsw;
             [self.navigationController pushViewController:controller animated:YES];
-            [myself removeTimer];
+            [self removeTimer];
         }else{
             [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];
             [self removeTimer];
         }
-        
-        
     }error:^(NSError *error) {
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }completed:^{
-        myself.disposable = nil;
+        @strongify(self)
+        self.disposable = nil;
     }];
 }
 
