@@ -1,5 +1,6 @@
 ${PODS_ROOT}/Target Support Files/Pods-Feidegou/Pods-Feidegou-resources.sh
 ${PODS_ROOT}/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/mapapi.bundle
+${PODS_ROOT}/GKNavigationBarViewController/GKNavigationBarViewController/GKNavigationBarViewController.bundle
 ${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle
 ${PODS_ROOT}/LJWKeyboardHandler/LJWKeyboardHandlerExample/LJWKeyboardHandler/Resources.bundle
 ${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle

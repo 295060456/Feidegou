@@ -20,6 +20,7 @@ PODS:
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
+  - GKNavigationBarViewController (2.3.8)
   - HCSStarRatingView (1.5)
   - iOS-AlipaySDK (3.0.2):
     - iOS-AlipaySDK/Core (= 3.0.2)
@@ -83,6 +84,7 @@ DEPENDENCIES:
   - DDProgressView
   - FLEX
   - FMDB (~> 2.6.2)
+  - GKNavigationBarViewController
   - HCSStarRatingView
   - iOS-AlipaySDK (~> 3.0.2)
   - IQKeyboardManager
@@ -127,6 +129,7 @@ SPEC REPOS:
     - DDProgressView
     - FLEX
     - FMDB
+    - GKNavigationBarViewController
     - HCSStarRatingView
     - iOS-AlipaySDK
     - IQKeyboardManager
@@ -168,6 +171,7 @@ SPEC CHECKSUMS:
   DDProgressView: d5a8983e5585217ee58f4a046bb4038f6e1b6306
   FLEX: d66c759bce0f6ebbbf472c742380874d846f2883
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
+  GKNavigationBarViewController: a8c249e20774f19c0c4b20ca976b9bde68710a33
   HCSStarRatingView: 1d18f79654735514cd6f00e6d90e38cb6320dc31
   iOS-AlipaySDK: 97d1c1fe06083e5bf2d9b56981cf469eeb508b78
   IQKeyboardManager: 700e5155d6a292383b54e8678aec769e14fc78fc
@@ -203,6 +207,6 @@ SPEC CHECKSUMS:
   UICountingLabel: faf890b505d96312e324a86718f031fafffb0ccb
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: ba374ab65cf7b8accb9c52ea94c6e807436ff2b7
+PODFILE CHECKSUM: 7f5e175aef8637bace1a576e3b362a53b52934ed
 
 COCOAPODS: 1.8.4

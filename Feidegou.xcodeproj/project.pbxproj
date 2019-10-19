@@ -9,6 +9,24 @@
 /* Begin PBXBuildFile section */
 		71BE65A43CAAA15ED813BE7F /* libPods-Feidegou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */; };
 		8B4CB3BC2359ECF5009EFDC5 /* YBNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4CB3B92359ECF4009EFDC5 /* YBNotificationManager.m */; };
+		8B83B609235AF46D00FD5D55 /* TBVCell_style_01.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5E8235AF46D00FD5D55 /* TBVCell_style_01.m */; };
+		8B83B60A235AF46D00FD5D55 /* UIView+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5EC235AF46D00FD5D55 /* UIView+Extras.m */; };
+		8B83B60B235AF46D00FD5D55 /* NSArray+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5EE235AF46D00FD5D55 /* NSArray+Extension.m */; };
+		8B83B60C235AF46D00FD5D55 /* NSArray+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5F1235AF46D00FD5D55 /* NSArray+Extend.m */; };
+		8B83B60D235AF46D00FD5D55 /* ViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5F3235AF46D00FD5D55 /* ViewForHeader.m */; };
+		8B83B60E235AF46D00FD5D55 /* ViewForFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5F4235AF46D00FD5D55 /* ViewForFooter.m */; };
+		8B83B60F235AF46D00FD5D55 /* HQTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5FA235AF46D00FD5D55 /* HQTextField.m */; };
+		8B83B611235AF46D00FD5D55 /* NSString+Url_Chinese.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5FF235AF46D00FD5D55 /* NSString+Url_Chinese.m */; };
+		8B83B612235AF46D00FD5D55 /* NSString+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B601235AF46D00FD5D55 /* NSString+Extras.m */; };
+		8B83B613235AF46D00FD5D55 /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B602235AF46D00FD5D55 /* NSString+Emoji.m */; };
+		8B83B614235AF46D00FD5D55 /* NSString+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B605235AF46D00FD5D55 /* NSString+File.m */; };
+		8B83B615235AF46D00FD5D55 /* NSString+Password.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B607235AF46D00FD5D55 /* NSString+Password.m */; };
+		8B83B619235AF78900FD5D55 /* PetsInfoListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B618235AF78900FD5D55 /* PetsInfoListModel.m */; };
+		8B83B620235AF8DC00FD5D55 /* AdoptingPetsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B61F235AF8DC00FD5D55 /* AdoptingPetsModel.m */; };
+		8B83B623235AF90C00FD5D55 /* FeedPetsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B622235AF90C00FD5D55 /* FeedPetsModel.m */; };
+		8B83B626235AF93D00FD5D55 /* CleanPetsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B625235AF93D00FD5D55 /* CleanPetsModel.m */; };
+		8BA18191235AF9DE0021B4DC /* GrowthValuePetsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA18190235AF9DE0021B4DC /* GrowthValuePetsModel.m */; };
+		8BA18194235AFA040021B4DC /* GiftFoodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA18193235AFA040021B4DC /* GiftFoodsModel.m */; };
 		8BA94BCC235AD50D00B00786 /* MISCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA94BCA235AD50D00B00786 /* MISCustomButton.m */; };
 		C4026DBD2148161D00D81974 /* AchievementController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBB2148161D00D81974 /* AchievementController.m */; };
 		C4026DC02148164E00D81974 /* ButtonShare.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBE2148164E00D81974 /* ButtonShare.m */; };
@@ -506,6 +524,43 @@
 		8B4CB3B92359ECF4009EFDC5 /* YBNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBNotificationManager.m; sourceTree = "<group>"; };
 		8B4CB3BA2359ECF4009EFDC5 /* AABlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AABlock.h; sourceTree = "<group>"; };
 		8B4CB3BB2359ECF5009EFDC5 /* YBNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBNotificationManager.h; sourceTree = "<group>"; };
+		8B83B5E8235AF46D00FD5D55 /* TBVCell_style_01.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBVCell_style_01.m; sourceTree = "<group>"; };
+		8B83B5E9235AF46D00FD5D55 /* TBVCell_style_01.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBVCell_style_01.h; sourceTree = "<group>"; };
+		8B83B5EB235AF46D00FD5D55 /* UIView+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extras.h"; sourceTree = "<group>"; };
+		8B83B5EC235AF46D00FD5D55 /* UIView+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extras.m"; sourceTree = "<group>"; };
+		8B83B5EE235AF46D00FD5D55 /* NSArray+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Extension.m"; sourceTree = "<group>"; };
+		8B83B5EF235AF46D00FD5D55 /* NSArray+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Extend.h"; sourceTree = "<group>"; };
+		8B83B5F0235AF46D00FD5D55 /* NSArray+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Extension.h"; sourceTree = "<group>"; };
+		8B83B5F1235AF46D00FD5D55 /* NSArray+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Extend.m"; sourceTree = "<group>"; };
+		8B83B5F3235AF46D00FD5D55 /* ViewForHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewForHeader.m; sourceTree = "<group>"; };
+		8B83B5F4235AF46D00FD5D55 /* ViewForFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewForFooter.m; sourceTree = "<group>"; };
+		8B83B5F5235AF46D00FD5D55 /* ViewForFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewForFooter.h; sourceTree = "<group>"; };
+		8B83B5F6235AF46D00FD5D55 /* ViewForHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewForHeader.h; sourceTree = "<group>"; };
+		8B83B5F9235AF46D00FD5D55 /* HQTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HQTextField.h; sourceTree = "<group>"; };
+		8B83B5FA235AF46D00FD5D55 /* HQTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HQTextField.m; sourceTree = "<group>"; };
+		8B83B5FF235AF46D00FD5D55 /* NSString+Url_Chinese.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Url_Chinese.m"; sourceTree = "<group>"; };
+		8B83B600235AF46D00FD5D55 /* NSString+File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+File.h"; sourceTree = "<group>"; };
+		8B83B601235AF46D00FD5D55 /* NSString+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extras.m"; sourceTree = "<group>"; };
+		8B83B602235AF46D00FD5D55 /* NSString+Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Emoji.m"; sourceTree = "<group>"; };
+		8B83B603235AF46D00FD5D55 /* NSString+Password.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Password.h"; sourceTree = "<group>"; };
+		8B83B604235AF46D00FD5D55 /* NSString+Url_Chinese.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Url_Chinese.h"; sourceTree = "<group>"; };
+		8B83B605235AF46D00FD5D55 /* NSString+File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+File.m"; sourceTree = "<group>"; };
+		8B83B606235AF46D00FD5D55 /* NSString+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extras.h"; sourceTree = "<group>"; };
+		8B83B607235AF46D00FD5D55 /* NSString+Password.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Password.m"; sourceTree = "<group>"; };
+		8B83B608235AF46D00FD5D55 /* NSString+Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Emoji.h"; sourceTree = "<group>"; };
+		8B83B617235AF78900FD5D55 /* PetsInfoListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PetsInfoListModel.h; sourceTree = "<group>"; };
+		8B83B618235AF78900FD5D55 /* PetsInfoListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PetsInfoListModel.m; sourceTree = "<group>"; };
+		8B83B61E235AF8DC00FD5D55 /* AdoptingPetsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AdoptingPetsModel.h; sourceTree = "<group>"; };
+		8B83B61F235AF8DC00FD5D55 /* AdoptingPetsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AdoptingPetsModel.m; sourceTree = "<group>"; };
+		8B83B621235AF90C00FD5D55 /* FeedPetsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FeedPetsModel.h; sourceTree = "<group>"; };
+		8B83B622235AF90C00FD5D55 /* FeedPetsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedPetsModel.m; sourceTree = "<group>"; };
+		8B83B624235AF93D00FD5D55 /* CleanPetsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CleanPetsModel.h; sourceTree = "<group>"; };
+		8B83B625235AF93D00FD5D55 /* CleanPetsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CleanPetsModel.m; sourceTree = "<group>"; };
+		8BA1818F235AF9DE0021B4DC /* GrowthValuePetsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GrowthValuePetsModel.h; sourceTree = "<group>"; };
+		8BA18190235AF9DE0021B4DC /* GrowthValuePetsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GrowthValuePetsModel.m; sourceTree = "<group>"; };
+		8BA18192235AFA040021B4DC /* GiftFoodsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftFoodsModel.h; sourceTree = "<group>"; };
+		8BA18193235AFA040021B4DC /* GiftFoodsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GiftFoodsModel.m; sourceTree = "<group>"; };
+		8BA18195235AFDE90021B4DC /* ToolMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolMacro.h; sourceTree = "<group>"; };
 		8BA94BCA235AD50D00B00786 /* MISCustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MISCustomButton.m; sourceTree = "<group>"; };
 		8BA94BCB235AD50D00B00786 /* MISCustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MISCustomButton.h; sourceTree = "<group>"; };
 		8BA94BCE235AE2E900B00786 /* BaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseVC.m; sourceTree = "<group>"; };
@@ -1455,6 +1510,13 @@
 			path = Notification;
 			sourceTree = "<group>";
 		};
+		8B7135CF235AF254002EDBAA /* 喵粮订单管理 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "喵粮订单管理";
+			sourceTree = "<group>";
+		};
 		8B7CA09F2355D67B0050EEB6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -1494,13 +1556,108 @@
 			path = Other;
 			sourceTree = "<group>";
 		};
+		8B83B5E7235AF46D00FD5D55 /* UITableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				8B83B5E9235AF46D00FD5D55 /* TBVCell_style_01.h */,
+				8B83B5E8235AF46D00FD5D55 /* TBVCell_style_01.m */,
+			);
+			path = UITableViewCell;
+			sourceTree = "<group>";
+		};
+		8B83B5EA235AF46D00FD5D55 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				8B83B5EB235AF46D00FD5D55 /* UIView+Extras.h */,
+				8B83B5EC235AF46D00FD5D55 /* UIView+Extras.m */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		8B83B5ED235AF46D00FD5D55 /* NSArray */ = {
+			isa = PBXGroup;
+			children = (
+				8B83B5EF235AF46D00FD5D55 /* NSArray+Extend.h */,
+				8B83B5F1235AF46D00FD5D55 /* NSArray+Extend.m */,
+				8B83B5F0235AF46D00FD5D55 /* NSArray+Extension.h */,
+				8B83B5EE235AF46D00FD5D55 /* NSArray+Extension.m */,
+			);
+			path = NSArray;
+			sourceTree = "<group>";
+		};
+		8B83B5F2235AF46D00FD5D55 /* 👌UITableViewHeaderFooterView */ = {
+			isa = PBXGroup;
+			children = (
+				8B83B5F5235AF46D00FD5D55 /* ViewForFooter.h */,
+				8B83B5F4235AF46D00FD5D55 /* ViewForFooter.m */,
+				8B83B5F6235AF46D00FD5D55 /* ViewForHeader.h */,
+				8B83B5F3235AF46D00FD5D55 /* ViewForHeader.m */,
+			);
+			path = "👌UITableViewHeaderFooterView";
+			sourceTree = "<group>";
+		};
+		8B83B5F7235AF46D00FD5D55 /* UITextField */ = {
+			isa = PBXGroup;
+			children = (
+				8B83B5F8235AF46D00FD5D55 /* HQTextField */,
+			);
+			path = UITextField;
+			sourceTree = "<group>";
+		};
+		8B83B5F8235AF46D00FD5D55 /* HQTextField */ = {
+			isa = PBXGroup;
+			children = (
+				8B83B5F9235AF46D00FD5D55 /* HQTextField.h */,
+				8B83B5FA235AF46D00FD5D55 /* HQTextField.m */,
+			);
+			path = HQTextField;
+			sourceTree = "<group>";
+		};
+		8B83B5FE235AF46D00FD5D55 /* NSString */ = {
+			isa = PBXGroup;
+			children = (
+				8B83B608235AF46D00FD5D55 /* NSString+Emoji.h */,
+				8B83B602235AF46D00FD5D55 /* NSString+Emoji.m */,
+				8B83B606235AF46D00FD5D55 /* NSString+Extras.h */,
+				8B83B601235AF46D00FD5D55 /* NSString+Extras.m */,
+				8B83B600235AF46D00FD5D55 /* NSString+File.h */,
+				8B83B605235AF46D00FD5D55 /* NSString+File.m */,
+				8B83B603235AF46D00FD5D55 /* NSString+Password.h */,
+				8B83B607235AF46D00FD5D55 /* NSString+Password.m */,
+				8B83B604235AF46D00FD5D55 /* NSString+Url_Chinese.h */,
+				8B83B5FF235AF46D00FD5D55 /* NSString+Url_Chinese.m */,
+			);
+			path = NSString;
+			sourceTree = "<group>";
+		};
+		8B83B616235AF72300FD5D55 /* MyModel */ = {
+			isa = PBXGroup;
+			children = (
+				8B83B617235AF78900FD5D55 /* PetsInfoListModel.h */,
+				8B83B618235AF78900FD5D55 /* PetsInfoListModel.m */,
+				8B83B61E235AF8DC00FD5D55 /* AdoptingPetsModel.h */,
+				8B83B61F235AF8DC00FD5D55 /* AdoptingPetsModel.m */,
+				8B83B621235AF90C00FD5D55 /* FeedPetsModel.h */,
+				8B83B622235AF90C00FD5D55 /* FeedPetsModel.m */,
+				8B83B624235AF93D00FD5D55 /* CleanPetsModel.h */,
+				8B83B625235AF93D00FD5D55 /* CleanPetsModel.m */,
+				8BA1818F235AF9DE0021B4DC /* GrowthValuePetsModel.h */,
+				8BA18190235AF9DE0021B4DC /* GrowthValuePetsModel.m */,
+				8BA18192235AFA040021B4DC /* GiftFoodsModel.h */,
+				8BA18193235AFA040021B4DC /* GiftFoodsModel.m */,
+			);
+			path = MyModel;
+			sourceTree = "<group>";
+		};
 		8BA94BC8235AD4EF00B00786 /* 我自己的代码，尽可能减少入侵性 */ = {
 			isa = PBXGroup;
 			children = (
+				8BA18195235AFDE90021B4DC /* ToolMacro.h */,
 				8BA94BD5235AE3C800B00786 /* 10.18会议纪要 */,
 				8BA94BD0235AE30100B00786 /* My_ThirdParty */,
 				8BA94BCD235ADF4400B00786 /* MyBase */,
 				8BA94BD1235AE34900B00786 /* MyClass */,
+				8B83B616235AF72300FD5D55 /* MyModel */,
 			);
 			path = "我自己的代码，尽可能减少入侵性";
 			sourceTree = "<group>";
@@ -1519,6 +1676,12 @@
 			children = (
 				8BA94BCF235AE2EA00B00786 /* BaseVC.h */,
 				8BA94BCE235AE2E900B00786 /* BaseVC.m */,
+				8B83B5F2235AF46D00FD5D55 /* 👌UITableViewHeaderFooterView */,
+				8B83B5ED235AF46D00FD5D55 /* NSArray */,
+				8B83B5FE235AF46D00FD5D55 /* NSString */,
+				8B83B5E7235AF46D00FD5D55 /* UITableViewCell */,
+				8B83B5F7235AF46D00FD5D55 /* UITextField */,
+				8B83B5EA235AF46D00FD5D55 /* UIView */,
 			);
 			path = MyBase;
 			sourceTree = "<group>";
@@ -1534,6 +1697,7 @@
 		8BA94BD1235AE34900B00786 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8B7135CF235AF254002EDBAA /* 喵粮订单管理 */,
 				8BA94BD4235AE3A000B00786 /* 钱包 */,
 				8BA94BD3235AE39300B00786 /* 喵粮产地 */,
 				8BA94BD2235AE37C00B00786 /* 喵粮管理 */,
@@ -3344,12 +3508,14 @@
 				C42CD063213CC2640096675F /* CellCollection.m in Sources */,
 				C42CD06F213CC2640096675F /* SettingController.m in Sources */,
 				C46143EF214386B6000C0CDC /* CellHeader.m in Sources */,
+				8B83B60E235AF46D00FD5D55 /* ViewForFooter.m in Sources */,
 				C42CD198213CC2640096675F /* UILabelDarkBig.m in Sources */,
 				C42CD0EA213CC2640096675F /* CellCartGood.m in Sources */,
 				C42CD0DB213CC2640096675F /* CellOnlyOneLbl.m in Sources */,
 				C42CD094213CC2640096675F /* OrderNotSendOutController.m in Sources */,
 				C46368DE213FBE6C006922D5 /* CLCellTitle.m in Sources */,
 				C42CD08F213CC2640096675F /* DiscussAttribute.m in Sources */,
+				8B83B60A235AF46D00FD5D55 /* UIView+Extras.m in Sources */,
 				C461440E214386B6000C0CDC /* CellMyService.m in Sources */,
 				C42CD13F213CC2640096675F /* CellGoodDetai.m in Sources */,
 				C42CD056213CC2640096675F /* ApplyForVenderAttribute.m in Sources */,
@@ -3368,6 +3534,7 @@
 				C42CD142213CC2640096675F /* GoodDetailPicController.m in Sources */,
 				C42CD0B5213CC2640096675F /* CellImageMore.m in Sources */,
 				C42CD195213CC2640096675F /* UILabelDarkSmall.m in Sources */,
+				8BA18194235AFA040021B4DC /* GiftFoodsModel.m in Sources */,
 				C42CD0BA213CC2640096675F /* CellOrderDetailLogistics.m in Sources */,
 				C4FC07C5215B35F400C6ECF3 /* UAProgressView.m in Sources */,
 				C42CD193213CC2640096675F /* UILabelDarkGarySmall.m in Sources */,
@@ -3400,9 +3567,12 @@
 				C42CD196213CC2640096675F /* UILabel+helper.m in Sources */,
 				C42CD057213CC2640096675F /* ApplyForVenderController.m in Sources */,
 				C46F8C4A214CF1E600F0C7D1 /* AreaOrderComfilmController.m in Sources */,
+				8B83B614235AF46D00FD5D55 /* NSString+File.m in Sources */,
 				C42CD1C7213CC2640096675F /* ModelIncome.m in Sources */,
+				8B83B609235AF46D00FD5D55 /* TBVCell_style_01.m in Sources */,
 				C45541C5217374F8007C03C1 /* GoodShareController.m in Sources */,
 				C46143ED214386B6000C0CDC /* VendorMainShopController.m in Sources */,
+				8B83B60C235AF46D00FD5D55 /* NSArray+Extend.m in Sources */,
 				C46143FC214386B6000C0CDC /* CellVendorGoodType.m in Sources */,
 				C42CD0BB213CC2640096675F /* CellOrderTwoLbl.m in Sources */,
 				C42CD18E213CC2640096675F /* TypeSegmentControl.m in Sources */,
@@ -3435,6 +3605,7 @@
 				C42CD0FD213CC2640096675F /* CLCellRecommend.m in Sources */,
 				C42CD081213CC2640096675F /* Order.m in Sources */,
 				C42CD140213CC2640096675F /* CellPicture.m in Sources */,
+				8B83B612235AF46D00FD5D55 /* NSString+Extras.m in Sources */,
 				C42CD1BB213CC2640096675F /* JJTableViewCell.m in Sources */,
 				C42CD074213CC2640096675F /* CellPHBTopThree.m in Sources */,
 				C42CD12E213CC2640096675F /* CellGoodEnterIn.m in Sources */,
@@ -3455,6 +3626,7 @@
 				C4FC07C1215B2B1B00C6ECF3 /* AdvertiseStartController.m in Sources */,
 				C42CD0FC213CC2640096675F /* GoodSecendTypeController.m in Sources */,
 				C46368D2213FBE6C006922D5 /* CellGoodBigLeft.m in Sources */,
+				8B83B60D235AF46D00FD5D55 /* ViewForHeader.m in Sources */,
 				C42CD08C213CC2640096675F /* ConstantAlipay.m in Sources */,
 				C46F8C47214CF1E600F0C7D1 /* AreaExchangeListController.m in Sources */,
 				C42CD1A3213CC2640096675F /* UIImageView+Helper.m in Sources */,
@@ -3487,6 +3659,7 @@
 				C42CD1A0213CC2640096675F /* UITextField+EditChanged.m in Sources */,
 				C42CD1BD213CC2640096675F /* JJDBHelper+ShopCart.m in Sources */,
 				C42CD0CA213CC2640096675F /* CellOrderDetailGiftYes.m in Sources */,
+				8B83B626235AF93D00FD5D55 /* CleanPetsModel.m in Sources */,
 				C42CD143213CC2640096675F /* SearchGoodController.m in Sources */,
 				C42CD14A213CC2640096675F /* ViewForTypeSelect.m in Sources */,
 				C42CD07B213CC2640096675F /* CellIncome.m in Sources */,
@@ -3502,6 +3675,8 @@
 				C42CD147213CC2640096675F /* FilterTypeController.m in Sources */,
 				C42CD11E213CC2640096675F /* CLCellType.m in Sources */,
 				C42CD19E213CC2640096675F /* UIButton+Joker.m in Sources */,
+				8B83B60F235AF46D00FD5D55 /* HQTextField.m in Sources */,
+				8B83B623235AF90C00FD5D55 /* FeedPetsModel.m in Sources */,
 				C42CD154213CC2640096675F /* UnionBusinessController.m in Sources */,
 				C42CD12B213CC2640096675F /* CLCellTwoLbl.m in Sources */,
 				C46368E5213FBE6C006922D5 /* CLCellTypeSmall.m in Sources */,
@@ -3511,9 +3686,12 @@
 				C42CD0CB213CC2640096675F /* CLCellOneImage.m in Sources */,
 				C46143F9214386B6000C0CDC /* CellVendorGoodPic.m in Sources */,
 				C42CD058213CC2640096675F /* PersonalInfoController.m in Sources */,
+				8B83B611235AF46D00FD5D55 /* NSString+Url_Chinese.m in Sources */,
+				8BA18191235AF9DE0021B4DC /* GrowthValuePetsModel.m in Sources */,
 				C42CD1C2213CC2640096675F /* ModelAreaDetail.m in Sources */,
 				C46143F6214386B6000C0CDC /* CellVendorBill.m in Sources */,
 				C42CD0CD213CC2640096675F /* CellOrderDetailGiftNo.m in Sources */,
+				8B83B619235AF78900FD5D55 /* PetsInfoListModel.m in Sources */,
 				C42CD07D213CC2640096675F /* CellWithDraw.m in Sources */,
 				C42CD0E6213CC2640096675F /* NJKWebViewProgressView.m in Sources */,
 				C42CD1B0213CC2640096675F /* MineNavigationController.m in Sources */,
@@ -3532,6 +3710,7 @@
 				C46F8C48214CF1E600F0C7D1 /* AreaExchangeDetailController.m in Sources */,
 				C42CD0AB213CC2640096675F /* CellOrderButtones.m in Sources */,
 				C405FEFB218C2A0900C02CDC /* CLCellInterger.m in Sources */,
+				8B83B620235AF8DC00FD5D55 /* AdoptingPetsModel.m in Sources */,
 				C46143EC214386B6000C0CDC /* VendorShopTypeController.m in Sources */,
 				C4614410214386B6000C0CDC /* CellVendorDiscount.m in Sources */,
 				C42CD184213CC2640096675F /* RefreshControl.m in Sources */,
@@ -3556,6 +3735,7 @@
 				C46368D6213FBE6C006922D5 /* CellSixType.m in Sources */,
 				C42CD181213CC2640096675F /* StarView.m in Sources */,
 				C46143F5214386B6000C0CDC /* CellTypeMore.m in Sources */,
+				8B83B60B235AF46D00FD5D55 /* NSArray+Extension.m in Sources */,
 				C42CD0BE213CC2640096675F /* CellDiscussOrder.m in Sources */,
 				C4026DC02148164E00D81974 /* ButtonShare.m in Sources */,
 				C4614403214386B6000C0CDC /* CellDiscussVendor.m in Sources */,
@@ -3578,6 +3758,7 @@
 				C4A0DA7D213E957B00B45B65 /* SignInTip.m in Sources */,
 				C42CD0E1213CC2640096675F /* OrderReturnBackController.m in Sources */,
 				C42CD0E2213CC2640096675F /* OrderNotGetController.m in Sources */,
+				8B83B613235AF46D00FD5D55 /* NSString+Emoji.m in Sources */,
 				C42CD09F213CC2640096675F /* CellLogisticsGood.m in Sources */,
 				C46368D5213FBE6C006922D5 /* LayoutMainType.m in Sources */,
 				C42CD197213CC2640096675F /* UILabelDarkMiddel.m in Sources */,
@@ -3623,6 +3804,7 @@
 				C42CD061213CC2640096675F /* CellNotLogin.m in Sources */,
 				C42CD19F213CC2640096675F /* ButtonSearch.m in Sources */,
 				C42CD18D213CC2640096675F /* LocationManager.m in Sources */,
+				8B83B615235AF46D00FD5D55 /* NSString+Password.m in Sources */,
 				C46143F0214386B6000C0CDC /* CellVendorGoodShopInfo.m in Sources */,
 				C4026DBD2148161D00D81974 /* AchievementController.m in Sources */,
 				C42CD062213CC2640096675F /* CLCellCenterType.m in Sources */,

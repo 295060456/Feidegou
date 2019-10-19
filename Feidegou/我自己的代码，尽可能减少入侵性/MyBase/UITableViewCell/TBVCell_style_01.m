@@ -24,9 +24,7 @@
                     reuseIdentifier:reuseIdentifier]) {
         
         self.margin = margin;
-    }
-    
-    return self;
+    }return self;
 }
 
 - (void)setFrame:(CGRect)frame{

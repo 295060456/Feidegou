@@ -22,11 +22,8 @@
 #import "UILabel+helper.h"
 #import "RefreshControl.h"
 #import "PublicFunction.h"
+#import "ToolMacro.h"
 
-//我自己手动引入的第三方
-#import "AABlock.h"
-#import "YBNotificationManager.h"
-#import "MISCustomButton.h"
 //我自己引入的Pods
 #import <lottie-ios/Lottie/Lottie.h>
 #import "TXScrollLabelView.h"
@@ -52,9 +49,32 @@
 #import "TWPageViewController.h"//https://www.jianshu.com/p/25b1a3888bb8
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import <RevealServer/RevealServer.h>
+#import <GKNavigationBarViewController/GKNavigationBarViewController.h>
+//GKNavigationBarViewController.h
 
-
-
-
+//我自己手动引入的第三方
+#import "AABlock.h"
+#import "YBNotificationManager.h"
+#import "MISCustomButton.h"
+#import "BaseVC.h"
+#import "ViewForHeader.h"
+#import "ViewForFooter.h"
+#import "NSArray+Extend.h"
+#import "NSArray+Extension.h"
+#import "NSString+Emoji.h"
+#import "NSString+Extras.h"
+#import "NSString+File.h"
+#import "NSString+Password.h"
+#import "NSString+Url_Chinese.h"
+#import "TBVCell_style_01.h"
+#import "HQTextField.h"
+#import "UIView+Extras.h"
+//Model
+#import "PetsInfoListModel.h"
+#import "AdoptingPetsModel.h"
+#import "FeedPetsModel.h"
+#import "CleanPetsModel.h"
+#import "GrowthValuePetsModel.h"
+#import "GiftFoodsModel.h"
 
 #endif /* PrefixHeader_pch */

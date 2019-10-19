@@ -56,6 +56,7 @@ pod 'MJRefresh'
 pod 'MJExtension'    #上拉加载、下拉刷新
 pod 'TWPageViewController'
 pod 'IQKeyboardManager'
+pod 'GKNavigationBarViewController' 
 
 pod 'Reveal-SDK', :configurations => ['Debug']
 
