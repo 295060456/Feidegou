@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		71BE65A43CAAA15ED813BE7F /* libPods-Feidegou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */; };
 		8B4CB3BC2359ECF5009EFDC5 /* YBNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4CB3B92359ECF4009EFDC5 /* YBNotificationManager.m */; };
+		8BA94BCC235AD50D00B00786 /* MISCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA94BCA235AD50D00B00786 /* MISCustomButton.m */; };
 		C4026DBD2148161D00D81974 /* AchievementController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBB2148161D00D81974 /* AchievementController.m */; };
 		C4026DC02148164E00D81974 /* ButtonShare.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBE2148164E00D81974 /* ButtonShare.m */; };
 		C405FEFB218C2A0900C02CDC /* CLCellInterger.m in Sources */ = {isa = PBXBuildFile; fileRef = C405FEF9218C2A0900C02CDC /* CLCellInterger.m */; };
@@ -505,6 +506,11 @@
 		8B4CB3B92359ECF4009EFDC5 /* YBNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBNotificationManager.m; sourceTree = "<group>"; };
 		8B4CB3BA2359ECF4009EFDC5 /* AABlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AABlock.h; sourceTree = "<group>"; };
 		8B4CB3BB2359ECF5009EFDC5 /* YBNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBNotificationManager.h; sourceTree = "<group>"; };
+		8BA94BCA235AD50D00B00786 /* MISCustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MISCustomButton.m; sourceTree = "<group>"; };
+		8BA94BCB235AD50D00B00786 /* MISCustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MISCustomButton.h; sourceTree = "<group>"; };
+		8BA94BCE235AE2E900B00786 /* BaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseVC.m; sourceTree = "<group>"; };
+		8BA94BCF235AE2EA00B00786 /* BaseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseVC.h; sourceTree = "<group>"; };
+		8BA94BD5235AE3C800B00786 /* 10.18会议纪要 */ = {isa = PBXFileReference; lastKnownFileType = text; path = "10.18会议纪要"; sourceTree = "<group>"; };
 		947AD75F86191C8F32BD1901 /* Pods-Feidegou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.debug.xcconfig"; sourceTree = "<group>"; };
 		B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Feidegou.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4026DBB2148161D00D81974 /* AchievementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementController.m; sourceTree = "<group>"; };
@@ -1488,6 +1494,74 @@
 			path = Other;
 			sourceTree = "<group>";
 		};
+		8BA94BC8235AD4EF00B00786 /* 我自己的代码，尽可能减少入侵性 */ = {
+			isa = PBXGroup;
+			children = (
+				8BA94BD5235AE3C800B00786 /* 10.18会议纪要 */,
+				8BA94BD0235AE30100B00786 /* My_ThirdParty */,
+				8BA94BCD235ADF4400B00786 /* MyBase */,
+				8BA94BD1235AE34900B00786 /* MyClass */,
+			);
+			path = "我自己的代码，尽可能减少入侵性";
+			sourceTree = "<group>";
+		};
+		8BA94BC9235AD50500B00786 /* MISFloatingBall */ = {
+			isa = PBXGroup;
+			children = (
+				8BA94BCB235AD50D00B00786 /* MISCustomButton.h */,
+				8BA94BCA235AD50D00B00786 /* MISCustomButton.m */,
+			);
+			path = MISFloatingBall;
+			sourceTree = "<group>";
+		};
+		8BA94BCD235ADF4400B00786 /* MyBase */ = {
+			isa = PBXGroup;
+			children = (
+				8BA94BCF235AE2EA00B00786 /* BaseVC.h */,
+				8BA94BCE235AE2E900B00786 /* BaseVC.m */,
+			);
+			path = MyBase;
+			sourceTree = "<group>";
+		};
+		8BA94BD0235AE30100B00786 /* My_ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				8BA94BC9235AD50500B00786 /* MISFloatingBall */,
+			);
+			path = My_ThirdParty;
+			sourceTree = "<group>";
+		};
+		8BA94BD1235AE34900B00786 /* MyClass */ = {
+			isa = PBXGroup;
+			children = (
+				8BA94BD4235AE3A000B00786 /* 钱包 */,
+				8BA94BD3235AE39300B00786 /* 喵粮产地 */,
+				8BA94BD2235AE37C00B00786 /* 喵粮管理 */,
+			);
+			path = MyClass;
+			sourceTree = "<group>";
+		};
+		8BA94BD2235AE37C00B00786 /* 喵粮管理 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "喵粮管理";
+			sourceTree = "<group>";
+		};
+		8BA94BD3235AE39300B00786 /* 喵粮产地 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "喵粮产地";
+			sourceTree = "<group>";
+		};
+		8BA94BD4235AE3A000B00786 /* 钱包 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "钱包";
+			sourceTree = "<group>";
+		};
 		C42CCCCD213CC04F0096675F = {
 			isa = PBXGroup;
 			children = (
@@ -1514,6 +1588,7 @@
 			isa = PBXGroup;
 			children = (
 				C42CCF81213CC2620096675F /* PrefixHeader.pch */,
+				8BA94BC8235AD4EF00B00786 /* 我自己的代码，尽可能减少入侵性 */,
 				8B7CA0A22355D7040050EEB6 /* Other */,
 				C42CCD29213CC2610096675F /* API */,
 				C42CCFFD213CC2630096675F /* BaseClasses */,
@@ -2924,6 +2999,7 @@
 				C42CCCD3213CC04F0096675F /* Frameworks */,
 				C42CCCD4213CC04F0096675F /* Resources */,
 				55772166108CE2C74763D0CC /* [CP] Copy Pods Resources */,
+				9FEDCA7A4671330C02363EC5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -3217,6 +3293,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		9FEDCA7A4671330C02363EC5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Feidegou/Pods-Feidegou-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Feidegou/Pods-Feidegou-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Feidegou/Pods-Feidegou-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -3428,6 +3521,7 @@
 				C42CD1D1213CC2650096675F /* ModelRankList.m in Sources */,
 				C42CD1AD213CC2640096675F /* PersonalInfo.m in Sources */,
 				C42CD0C4213CC2640096675F /* CellAddress.m in Sources */,
+				8BA94BCC235AD50D00B00786 /* MISCustomButton.m in Sources */,
 				C42CD12D213CC2640096675F /* CellDiscuss.m in Sources */,
 				C42CD0F8213CC2640096675F /* GoodsListController.m in Sources */,
 				C42CD0C1213CC2640096675F /* CellOrderAddressYes.m in Sources */,

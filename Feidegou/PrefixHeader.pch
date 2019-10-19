@@ -26,4 +26,6 @@
 #import "AABlock.h"
 #import "YBNotificationManager.h"
 
+#import "MISCustomButton.h"
+
 #endif /* PrefixHeader_pch */

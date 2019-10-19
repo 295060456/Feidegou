@@ -158,7 +158,7 @@ DidClickCollectionViewDelegete
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 6;
+    return 7;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -177,8 +177,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     if (indexPath.section == 2) {
         return 105.0f;
-    }
-    return 45.0f;
+    }return 45.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -283,7 +282,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             }
         }];return cell;
     }
-    CellMyService *cell=[tableView dequeueReusableCellWithIdentifier:@"CellMyService"];
+    CellMyService *cell = [tableView dequeueReusableCellWithIdentifier:@"CellMyService"];
     if (indexPath.section == 3) {
         [cell.imgHead setImage:ImageNamed(@"img_center_wdewm")];
         [cell.lblName setText:@"邀请好友"];
@@ -304,7 +303,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         }else{
             strVenderState = @"加入我们";
         }
-        if (stateNum == 1||stateNum == 2) {
+        if (stateNum == 1||
+            stateNum == 2) {
             [cell.imgArrow setHidden:YES];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }else{
@@ -319,33 +319,43 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         [cell.lblName setText:@"积分充值"];
         [cell.lblNum setText:@""];
     }
-    return cell;
+    if(indexPath.section == 6){
+        [cell.imgHead setImage:ImageNamed(@"猫")];
+        [cell.lblName setText:@"喵粮管理"];
+        [cell.lblNum setText:@""];
+    }return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0||section == 4||section == 5) {
+    if (section == 0||
+        section == 4||
+        section == 5) {
         return 0;
-    }else{
-        return 10;
-    }
+    }else return 10;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView
         viewForHeaderInSection:(NSInteger)section{
-    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
+    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                0,
+                                                                SCREEN_WIDTH,
+                                                                10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
 
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    [tableView deselectRowAtIndexPath:indexPath
+                             animated:NO];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             if ([[PersonalInfo sharedInstance] isLogined]) {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMine bundle:nil];
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMine
+                                                                     bundle:nil];
                 PersonalInfoController *controller = [storyboard instantiateViewControllerWithIdentifier:@"PersonalInfoController"];
-                [self.navigationController pushViewController:controller animated:YES];
+                [self.navigationController pushViewController:controller
+                                                     animated:YES];
             }else{
                 [self pushLoginController];
             }
@@ -354,7 +364,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             if ([[PersonalInfo sharedInstance] isLogined]) {
                 OrderListMainController *controller = [[UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil] instantiateViewControllerWithIdentifier:@"OrderListMainController"];
                 controller.orderState = enumOrder_quanbu;
-                [self.navigationController pushViewController:controller animated:YES];
+                [self.navigationController pushViewController:controller
+                                                     animated:YES];
             }else{
                 [self pushLoginController];
             }
@@ -412,13 +423,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     if (indexPath.section == 5) {
         if ([[PersonalInfo sharedInstance] isLogined]) {
-            ChangeNameController *controller = [[UIStoryboard storyboardWithName:StoryboardMine bundle:nil] instantiateViewControllerWithIdentifier:@"ChangeNameController"];
+            ChangeNameController *controller = [[UIStoryboard storyboardWithName:StoryboardMine
+                                                                          bundle:nil] instantiateViewControllerWithIdentifier:@"ChangeNameController"];
             controller.personalInfo = enum_personalInfo_chongzhi;
             [self.navigationController pushViewController:controller
                                                  animated:YES];
         }else{
             [self pushLoginController];
         }
+    }
+    if (indexPath.section == 6) {
+        
     }
 }
 

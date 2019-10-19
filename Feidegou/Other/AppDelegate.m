@@ -94,7 +94,7 @@ static NSInteger seq = 0;
 
 - (void)requestAdverMain{
     NSArray *arrImage = [[JJDBHelper sharedInstance] fetchCacheForAdvertisementStart];
-    if (arrImage.count>0) {
+    if (arrImage.count > 0) {
         NSString *strPath = arrImage[0][@"photo_url"];
         UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:strPath];
         if (image == nil) {
@@ -102,11 +102,8 @@ static NSInteger seq = 0;
             [self downloadImage:strPath];
         }else{
             //            显示广告照片
-            
             [self downloadImage:strPath];
-            
             CATransition *transition = [CATransition animation];
-            
             transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
             transition.duration = 1.5f;
             transition.type = @"rippleEffect";
@@ -117,7 +114,6 @@ static NSInteger seq = 0;
             controller.image = image;
             controller.strUrl = arrImage[0][@"ad_url"];
             self.window.rootViewController = controller;
-            
         }
     }else{
         [self setEntryByIsLogined];
@@ -215,7 +211,8 @@ static NSInteger seq = 0;
 //         }
 //     }];
 }
-- (void)registPushapplication:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (void)registPushapplication:(UIApplication *)application
+didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     //Required
     //notice: 3.0.0及以后版本注册可以这样写，也可以继续用之前的注册方式
@@ -226,7 +223,8 @@ static NSInteger seq = 0;
         // NSSet<UNNotificationCategory *> *categories for iOS10 or later
         // NSSet<UIUserNotificationCategory *> *categories for iOS8 and iOS9
     }
-    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+    [JPUSHService registerForRemoteNotificationConfig:entity
+                                             delegate:self];
     
     // Optional
     // 获取IDFA
@@ -414,8 +412,9 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 }
 
 // NOTE: 9.0以后使用新API接口
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
-{
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<NSString*, id> *)options{
     if ([url.host isEqualToString:@"safepay"]) {
         //跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
@@ -443,9 +442,9 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
         if (isWXApi) {
             return [WXApi handleOpenURL:url delegate:self];
         }
-    }
-    return YES;
+    }return YES;
 }
+
 - (void)ChangeStateForPay:(NSString *)strOrderId{
     @weakify(self)
     self.disposablePaySucceed = [[[JJHttpClient new] requestFourZeroPayout_trade_no:TransformString(strOrderId)] subscribeNext:^(NSDictionary* dictionray) {
@@ -459,10 +458,9 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     }];
 }
 
-
 - (void)sendPay:(NSDictionary *)dict{
     
-    if(dict != nil){
+    if(dict){
         
         NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
         
@@ -481,10 +479,12 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
         D_NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
     }
 }
+
 -(void) onReq:(BaseReq*)req{
     
     D_NSLog(@"onReq is %@",req);
 }
+
 //收到一个来自微信的处理结果。调用一次sendReq后会收到onResp。
 - (void)onResp:(BaseResp *)resp
 {

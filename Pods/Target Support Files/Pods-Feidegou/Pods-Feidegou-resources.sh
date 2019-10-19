@@ -98,8 +98,13 @@ EOM
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_ROOT}/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/mapapi.bundle"
+  install_resource "${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle"
   install_resource "${PODS_ROOT}/LJWKeyboardHandler/LJWKeyboardHandlerExample/LJWKeyboardHandler/Resources.bundle"
+  install_resource "${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle"
+  install_resource "${PODS_ROOT}/PYSearch/PYSearch/PYSearch.bundle"
+  install_resource "${PODS_ROOT}/SGQRCode/SGQRCode/SGQRCode.bundle"
   install_resource "${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
+  install_resource "${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle"
   install_resource "${PODS_ROOT}/iOS-AlipaySDK/AlipaySDK.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/mob_sharesdk/ShareSDK.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/mob_sharesdk/ShareSDK_JS_WeChat.bundle"
@@ -107,8 +112,13 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_ROOT}/BaiduMapKit/BaiduMapKit/BaiduMapAPI_Map.framework/mapapi.bundle"
+  install_resource "${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle"
   install_resource "${PODS_ROOT}/LJWKeyboardHandler/LJWKeyboardHandlerExample/LJWKeyboardHandler/Resources.bundle"
+  install_resource "${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle"
+  install_resource "${PODS_ROOT}/PYSearch/PYSearch/PYSearch.bundle"
+  install_resource "${PODS_ROOT}/SGQRCode/SGQRCode/SGQRCode.bundle"
   install_resource "${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle"
+  install_resource "${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle"
   install_resource "${PODS_ROOT}/iOS-AlipaySDK/AlipaySDK.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/mob_sharesdk/ShareSDK.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/mob_sharesdk/ShareSDK_JS_WeChat.bundle"
