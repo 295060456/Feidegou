@@ -19,7 +19,6 @@
 -(instancetype)initWithStyle:(UITableViewCellStyle)style
              reuseIdentifier:(NSString *)reuseIdentifier
                       margin:(CGFloat)margin{
-    
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
         
@@ -28,21 +27,15 @@
 }
 
 - (void)setFrame:(CGRect)frame{
-    
     frame.origin.x += self.margin;
-    
     frame.origin.y += self.margin;
-    
     frame.size.height -= self.margin;
-    
     frame.size.width -= self.margin * 2;
-    
     [super setFrame:frame];
 }
 
 - (void)setSelected:(BOOL)selected
            animated:(BOOL)animated {
-    
     [super setSelected:selected
               animated:animated];
 }

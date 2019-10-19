@@ -22,20 +22,18 @@
     OrderTBVCell *cell = (OrderTBVCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
     if (!cell) {
         cell = [[OrderTBVCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                   reuseIdentifier:ReuseIdentifier];
+                                   reuseIdentifier:ReuseIdentifier
+                                            margin:SCALING_RATIO(5)];
+        [UIView cornerCutToCircleWithView:cell.contentView
+                          AndCornerRadius:5.f];
+        [UIView colourToLayerOfView:cell.contentView
+                         WithColour:KGreenColor
+                     AndBorderWidth:.1f];
     }return cell;
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
     return SCREEN_HEIGHT / 10;
-}
-
--(instancetype)initWithStyle:(UITableViewCellStyle)style
-             reuseIdentifier:(NSString *)reuseIdentifier{
-    
-    if (self = [super initWithStyle:style
-                    reuseIdentifier:reuseIdentifier]) {
-    }return self;
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
