@@ -7,6 +7,7 @@
 //
 
 #import "OrderListVC.h"
+#import "OrderTBVCell.h"
 
 @interface OrderListVC ()
 <
@@ -50,6 +51,8 @@ UITableViewDataSource
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+//    self.navigationItem.title = @"订单管理";
+    self.gk_navTitle = @"订单管理";
     self.tableView.alpha = 1;
 }
 
@@ -60,7 +63,8 @@ UITableViewDataSource
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return SCALING_RATIO(50);
+    
+    return [OrderTBVCell cellHeightWithModel:nil];
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -68,30 +72,24 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-    
     return 10;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                      reuseIdentifier:ReuseIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//        cell.textLabel.text = self.titleMutArr[indexPath.section][indexPath.row];
-    } return cell;
+    OrderTBVCell *cell = [OrderTBVCell cellWith:tableView];
+    [cell richElementsInCellWithModel:nil];
+    return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 10;
+    return 1;
 }
 
 //给cell添加动画

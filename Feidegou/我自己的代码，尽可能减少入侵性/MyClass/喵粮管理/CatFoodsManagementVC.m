@@ -64,6 +64,8 @@ UITableViewDataSource
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+//    self.navigationItem.title = @"喵粮管理";
+    self.gk_navTitle = @"喵粮管理";
     self.tableView.alpha = 1;
 }
 
@@ -119,10 +121,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
                                              reuseIdentifier:ReuseIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = self.titleMutArr[indexPath.section][indexPath.row];
+        cell.detailTextLabel.textColor = kBlueColor;
+        if (indexPath.section == 0) {
+            if (indexPath.row == 0) {
+                cell.detailTextLabel.text = @"0.1";
+            }else{
+                cell.detailTextLabel.text = @"2.1";
+            }
+        }
     } return cell;
 }
 
