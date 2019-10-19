@@ -46,7 +46,6 @@ pod 'JDStatusBarNotification' #网络提示--> 网络监听显示，主要是展
 pod 'PYSearch'  #优雅的搜索控制器取代了UISearchController for iOS（iPhone和iPad）
 pod 'TTTAttributedLabel'#替代UILabel https://github.com/TTTAttributedLabel/TTTAttributedLabel
 pod 'MBProgressHUD+WJExtension' #基于 MBProgressHUD 的封装、并增加了操作成功与失败的HUD动画与祝贺撒花效果
-pod 'SVProgressHUD' #是一个弹出提示层，用来提示 网络加载 或 提示对错
 pod 'DDProgressView'            #加载状态显示
 pod 'UICountingLabel'           #Lable上的默认值持续变动到指定值
 pod 'HCSStarRatingView'         #星级评分显示

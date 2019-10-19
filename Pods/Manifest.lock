@@ -111,7 +111,6 @@ DEPENDENCIES:
   - SDWebImage (~> 4.4.2)
   - SGQRCode
   - SocketRocket
-  - SVProgressHUD
   - SVProgressHUD (~> 2.2.2)
   - SWTableViewCell (~> 0.3.7)
   - TTTAttributedLabel
@@ -204,6 +203,6 @@ SPEC CHECKSUMS:
   UICountingLabel: faf890b505d96312e324a86718f031fafffb0ccb
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: 7eaac4c06c5ccaef2b3a62f4755b62e990989e0e
+PODFILE CHECKSUM: ba374ab65cf7b8accb9c52ea94c6e807436ff2b7
 
 COCOAPODS: 1.8.4
