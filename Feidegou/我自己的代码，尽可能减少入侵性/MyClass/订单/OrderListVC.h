@@ -10,6 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface SearchView :UIView
+
+@end
+
 @interface OrderListVC : BaseVC
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC

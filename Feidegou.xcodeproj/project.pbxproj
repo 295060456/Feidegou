@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		71BE65A43CAAA15ED813BE7F /* libPods-Feidegou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */; };
+		8B495D6D235C57CF003C0AE1 /* MMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B495D6B235C57CF003C0AE1 /* MMButton.m */; };
+		8B495D6E235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） in Resources */ = {isa = PBXBuildFile; fileRef = 8B495D6C235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） */; };
 		8B4CB3BC2359ECF5009EFDC5 /* YBNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4CB3B92359ECF4009EFDC5 /* YBNotificationManager.m */; };
 		8B83B609235AF46D00FD5D55 /* TBVCell_style_01.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5E8235AF46D00FD5D55 /* TBVCell_style_01.m */; };
 		8B83B60A235AF46D00FD5D55 /* UIView+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5EC235AF46D00FD5D55 /* UIView+Extras.m */; };
@@ -526,6 +528,9 @@
 /* Begin PBXFileReference section */
 		24EEB4BC842F9E07DEEF3F0B /* Pods-Feidegou.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.release.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.release.xcconfig"; sourceTree = "<group>"; };
 		6C32034C23408BE5001794DE /* UIImage+helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+helper.h"; sourceTree = "<group>"; };
+		8B495D6A235C57CF003C0AE1 /* MMButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMButton.h; sourceTree = "<group>"; };
+		8B495D6B235C57CF003C0AE1 /* MMButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMButton.m; sourceTree = "<group>"; };
+		8B495D6C235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "MMButton（自定义图文位置 \\ 距离）"; sourceTree = "<group>"; };
 		8B4CB3B92359ECF4009EFDC5 /* YBNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBNotificationManager.m; sourceTree = "<group>"; };
 		8B4CB3BA2359ECF4009EFDC5 /* AABlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AABlock.h; sourceTree = "<group>"; };
 		8B4CB3BB2359ECF5009EFDC5 /* YBNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBNotificationManager.h; sourceTree = "<group>"; };
@@ -1513,6 +1518,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8B495D69235C57CF003C0AE1 /* MMButton */ = {
+			isa = PBXGroup;
+			children = (
+				8B495D6A235C57CF003C0AE1 /* MMButton.h */,
+				8B495D6B235C57CF003C0AE1 /* MMButton.m */,
+				8B495D6C235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） */,
+			);
+			path = MMButton;
+			sourceTree = "<group>";
+		};
 		8B4CB3B82359ECE1009EFDC5 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
@@ -1729,6 +1744,7 @@
 		8BA94BD0235AE30100B00786 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				8B495D69235C57CF003C0AE1 /* MMButton */,
 				8BA94BC9235AD50500B00786 /* MISFloatingBall */,
 			);
 			path = My_ThirdParty;
@@ -3326,6 +3342,7 @@
 				C46143EE214386B6000C0CDC /* CellVendorShop.xib in Resources */,
 				C42CD13B213CC2640096675F /* CellGoodList.xib in Resources */,
 				C46368DD213FBE6C006922D5 /* CLCellTypeBig.xib in Resources */,
+				8B495D6E235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） in Resources */,
 				C42CD0D9213CC2640096675F /* CellOrderVendorTitle.xib in Resources */,
 				C42CD09B213CC2640096675F /* CellOneButton.xib in Resources */,
 				C42CD130213CC2640096675F /* CellDiscuss.xib in Resources */,
@@ -3819,6 +3836,7 @@
 				C4614407214386B6000C0CDC /* CellVendorGood.m in Sources */,
 				C42CD1AC213CC2640096675F /* JJAlertViewOneButton.m in Sources */,
 				C42CD18B213CC2640096675F /* NSDictionary+HYBUnicodeReadable.m in Sources */,
+				8B495D6D235C57CF003C0AE1 /* MMButton.m in Sources */,
 				C42CD050213CC2640096675F /* CellTextField.m in Sources */,
 				C42CD19B213CC2640096675F /* UILabelDarkGaryBig.m in Sources */,
 				C42CD1B3213CC2640096675F /* ShopCartNavigationController.m in Sources */,
