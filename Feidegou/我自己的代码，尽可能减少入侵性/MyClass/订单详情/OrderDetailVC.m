@@ -97,6 +97,7 @@
 #pragma mark —— OrderDetailVC
 @interface OrderDetailVC ()
 
+@property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)InfoView *infoView;
 @property(nonatomic,strong)UIButton *sureBtn;
 @property(nonatomic,strong)UIButton *cancelBtn;
@@ -161,6 +162,14 @@
 }
 
 #pragma mark —— lazyLoad
+
+-(UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = UITableView.new;
+        _tableView.delegate = self;
+    }return _tableView;
+}
+
 -(InfoView *)infoView{
     if (!_infoView) {
         _infoView = InfoView.new;
