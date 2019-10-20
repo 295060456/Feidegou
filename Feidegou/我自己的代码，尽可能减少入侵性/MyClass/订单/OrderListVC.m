@@ -22,6 +22,7 @@ UIScrollViewDelegate
 @property(nonatomic,strong)MMButton *typeBtn;//按类型（目前进行中(挂牌出售中)、已经取消的）
 @property(nonatomic,strong)MMButton *tradeTypeBtn;//交易类型(买/卖)
 @property(nonatomic,strong)UITextField *textfield;
+
 @property(nonatomic,strong)NSMutableArray <UIView *>*viewMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*btnTitleMutArr;
 
@@ -103,6 +104,23 @@ UIScrollViewDelegate
     return YES;
 }
 
+#pragma mark —— 点击事件
+-(void)defaultBtnClickEvent:(UIButton *)sender{
+    NSLog(@"默认");
+}
+
+-(void)timeBtnClickEvent:(UIButton *)sender{
+    NSLog(@"时间");
+}
+
+-(void)typeBtnClickEvent:(UIButton *)sender{
+    NSLog(@"买卖");
+}
+
+-(void)tradeTypeBtnClickEvent:(UIButton *)sender{
+    NSLog(@"交易状态");
+}
+
 #pragma mark —— lazyLoad
 -(UIScrollView *)scrollView{
     if (!_scrollView) {
@@ -124,6 +142,9 @@ UIScrollViewDelegate
 -(MMButton *)defaultBtn{
     if (!_defaultBtn) {
         _defaultBtn = MMButton.new;
+        [_defaultBtn addTarget:self
+                        action:@selector(defaultBtnClickEvent:)
+              forControlEvents:UIControlEventTouchUpInside];
         [_defaultBtn setImage:kIMG(@"双向箭头_2")
                      forState:UIControlStateNormal];
         [_defaultBtn setTitleColor:kBlackColor
@@ -131,7 +152,7 @@ UIScrollViewDelegate
         [UIView cornerCutToCircleWithView:_defaultBtn
                           AndCornerRadius:5.f];
         [UIView colourToLayerOfView:_defaultBtn
-                         WithColour:KLightGrayColor
+                         WithColour:kBlackColor
                      AndBorderWidth:0.1f];
         _defaultBtn.imageAlignment = MMImageAlignmentRight;
         _defaultBtn.spaceBetweenTitleAndImage = SCALING_RATIO(2);
@@ -144,6 +165,9 @@ UIScrollViewDelegate
 -(MMButton *)timeBtn{
     if (!_timeBtn) {
         _timeBtn = MMButton.new;
+        [_timeBtn addTarget:self
+                     action:@selector(timeBtnClickEvent:)
+           forControlEvents:UIControlEventTouchUpInside];
         [_timeBtn setImage:kIMG(@"双向箭头_2")
                   forState:UIControlStateNormal];
         [_timeBtn setTitleColor:kBlackColor
@@ -151,7 +175,7 @@ UIScrollViewDelegate
         [UIView cornerCutToCircleWithView:_timeBtn
                           AndCornerRadius:5.f];
         [UIView colourToLayerOfView:_timeBtn
-                         WithColour:KLightGrayColor
+                         WithColour:kBlackColor
                      AndBorderWidth:0.1f];
         _timeBtn.imageAlignment = MMImageAlignmentRight;
         _timeBtn.spaceBetweenTitleAndImage = SCALING_RATIO(2);
@@ -164,6 +188,9 @@ UIScrollViewDelegate
 -(MMButton *)typeBtn{
     if (!_typeBtn) {
         _typeBtn = MMButton.new;
+        [_typeBtn addTarget:self
+                     action:@selector(typeBtnClickEvent:)
+           forControlEvents:UIControlEventTouchUpInside];
         [_typeBtn setImage:kIMG(@"双向箭头_2")
                   forState:UIControlStateNormal];
         [_typeBtn setTitleColor:kBlackColor
@@ -171,7 +198,7 @@ UIScrollViewDelegate
         [UIView cornerCutToCircleWithView:_typeBtn
                           AndCornerRadius:5.f];
         [UIView colourToLayerOfView:_typeBtn
-                         WithColour:KLightGrayColor
+                         WithColour:kBlackColor
                      AndBorderWidth:0.1f];
         _typeBtn.imageAlignment = MMImageAlignmentRight;
         _typeBtn.spaceBetweenTitleAndImage = SCALING_RATIO(2);
@@ -184,6 +211,9 @@ UIScrollViewDelegate
 -(MMButton *)tradeTypeBtn{
     if (!_tradeTypeBtn) {
         _tradeTypeBtn = MMButton.new;
+        [_tradeTypeBtn addTarget:self
+                          action:@selector(tradeTypeBtnClickEvent:)
+                forControlEvents:UIControlEventTouchUpInside];
         [_tradeTypeBtn setImage:kIMG(@"双向箭头_2")
                        forState:UIControlStateNormal];
         [_tradeTypeBtn setTitleColor:kBlackColor
@@ -191,7 +221,7 @@ UIScrollViewDelegate
         [UIView cornerCutToCircleWithView:_tradeTypeBtn
                           AndCornerRadius:5.f];
         [UIView colourToLayerOfView:_tradeTypeBtn
-                         WithColour:KLightGrayColor
+                         WithColour:kBlackColor
                      AndBorderWidth:0.1f];
         _tradeTypeBtn.imageAlignment = MMImageAlignmentRight;
         _tradeTypeBtn.spaceBetweenTitleAndImage = SCALING_RATIO(2);
@@ -231,8 +261,8 @@ UIScrollViewDelegate
         _btnTitleMutArr = NSMutableArray.array;
         [_btnTitleMutArr addObject:@"默认排序"];
         [_btnTitleMutArr addObject:@"按时间"];
-        [_btnTitleMutArr addObject:@"按类型"];
-        [_btnTitleMutArr addObject:@"交易类型"];
+        [_btnTitleMutArr addObject:@"按买/卖"];
+        [_btnTitleMutArr addObject:@"交易状态"];
         [_btnTitleMutArr addObject:@"在此输入查询ID"];
     }return _btnTitleMutArr;
 }
@@ -248,6 +278,8 @@ UITableViewDataSource
 @property(nonatomic,strong)SearchView *viewer;
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIButton *filterBtn;
+@property(nonatomic,strong)MJRefreshAutoGifFooter *tableViewFooter;
+@property(nonatomic,strong)MJRefreshGifHeader *tableViewHeader;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
@@ -300,8 +332,20 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.tableView.mj_header beginRefreshing];
 }
 
+#pragma mark —— 私有方法
+// 下拉刷新
+-(void)pullToRefresh{
+    NSLog(@"下拉刷新");
+    [self.tableView.mj_header endRefreshing];
+}
+//上拉加载更多
+- (void)loadMoreRefresh{
+    NSLog(@"上拉加载更多");
+    [self.tableView.mj_header endRefreshing];
+}
 #pragma mark —— 点击事件
 -(void)filterBtnClickEvent:(UIButton *)sender{
     @weakify(self)
@@ -402,7 +446,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(SearchView *)viewer{
     if (!_viewer) {
         _viewer = SearchView.new;
-//        _viewer.backgroundColor = kRedColor;
+        _viewer.backgroundColor = kWhiteColor;
         [self.view addSubview:_viewer];
         [_viewer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
@@ -418,12 +462,63 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                  style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-
+        _tableView.mj_header = self.tableViewHeader;
+        _tableView.mj_footer = self.tableViewFooter;
+        _tableView.mj_footer.hidden = YES;
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         }];
     }return _tableView;
+}
+
+-(MJRefreshGifHeader *)tableViewHeader{
+    if (!_tableViewHeader) {
+        _tableViewHeader =  [MJRefreshGifHeader headerWithRefreshingTarget:self
+                                                          refreshingAction:@selector(pullToRefresh)];
+        // 设置普通状态的动画图片
+        [_tableViewHeader setImages:@[kIMG(@"猫粮")]
+                           forState:MJRefreshStateIdle];
+        // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
+        [_tableViewHeader setImages:@[kIMG(@"猫咪")]
+                           forState:MJRefreshStatePulling];
+        // 设置正在刷新状态的动画图片
+        [_tableViewHeader setImages:@[kIMG(@"猫爪")]
+                           forState:MJRefreshStateRefreshing];
+        // 设置文字
+        [_tableViewHeader setTitle:@"Click or drag down to refresh" forState:MJRefreshStateIdle];
+        [_tableViewHeader setTitle:@"Loading more ..." forState:MJRefreshStateRefreshing];
+        [_tableViewHeader setTitle:@"No more data" forState:MJRefreshStateNoMoreData];
+        // 设置字体
+        _tableViewHeader.stateLabel.font = [UIFont systemFontOfSize:17];
+        // 设置颜色
+        _tableViewHeader.stateLabel.textColor = KLightGrayColor;
+    }return _tableViewHeader;
+}
+
+-(MJRefreshAutoGifFooter *)tableViewFooter{
+    if (!_tableViewFooter) {
+        _tableViewFooter = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self
+                                                                refreshingAction:@selector(loadMoreRefresh)];
+        // 设置普通状态的动画图片
+        [_tableViewFooter setImages:@[kIMG(@"猫粮")]
+                           forState:MJRefreshStateIdle];
+        // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
+        [_tableViewFooter setImages:@[kIMG(@"猫咪")]
+                           forState:MJRefreshStatePulling];
+        // 设置正在刷新状态的动画图片
+        [_tableViewFooter setImages:@[kIMG(@"猫爪")]
+                           forState:MJRefreshStateRefreshing];
+        // 设置文字
+        [_tableViewFooter setTitle:@"Click or drag up to refresh" forState:MJRefreshStateIdle];
+        [_tableViewFooter setTitle:@"Loading more ..." forState:MJRefreshStateRefreshing];
+        [_tableViewFooter setTitle:@"No more data" forState:MJRefreshStateNoMoreData];
+        // 设置字体
+        _tableViewFooter.stateLabel.font = [UIFont systemFontOfSize:17];
+        // 设置颜色
+        _tableViewFooter.stateLabel.textColor = KLightGrayColor;
+        _tableViewFooter.hidden = YES;
+    }return _tableViewFooter;
 }
 
 -(UIButton *)filterBtn{

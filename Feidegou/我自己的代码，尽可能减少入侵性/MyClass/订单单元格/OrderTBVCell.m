@@ -39,8 +39,8 @@
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     self.imgV.alpha = 1;
-    self.titleLab.text = @"1234567";
-    self.timeLab.text = @"928364";
+    self.titleLab.text = @"猫粮200g";
+    self.timeLab.text = @"2019年10月20日 17:23:11";
     self.typeImgV.image = kIMG(@"Mf_旌旗_红色");//Mf_旌旗_绿色
 }
 #pragma mark —— lazyLoad

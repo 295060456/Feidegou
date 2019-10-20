@@ -16,6 +16,9 @@ UITableViewDataSource
 >
 
 @property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,strong)MJRefreshAutoGifFooter *tableViewFooter;
+@property(nonatomic,strong)MJRefreshGifHeader *tableViewHeader;
+
 @property(nonatomic,strong)NSMutableArray <NSArray *>*titleMutArr;
 
 @property(nonatomic,strong)id requestParams;
@@ -71,6 +74,19 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.tableView.mj_header beginRefreshing];
+}
+
+#pragma mark —— 私有方法
+// 下拉刷新
+-(void)pullToRefresh{
+    NSLog(@"下拉刷新");
+    [self.tableView.mj_header endRefreshing];
+}
+//上拉加载更多
+- (void)loadMoreRefresh{
+    NSLog(@"上拉加载更多");
+    [self.tableView.mj_header endRefreshing];
 }
 
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
@@ -166,11 +182,62 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                  style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
         _tableView.delegate = self;
+        _tableView.mj_header = self.tableViewHeader;
+        _tableView.mj_footer = self.tableViewFooter;
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         }];
     }return _tableView;
+}
+
+-(MJRefreshGifHeader *)tableViewHeader{
+    if (!_tableViewHeader) {
+        _tableViewHeader =  [MJRefreshGifHeader headerWithRefreshingTarget:self
+                                                          refreshingAction:@selector(pullToRefresh)];
+        // 设置普通状态的动画图片
+        [_tableViewHeader setImages:@[kIMG(@"猫粮")]
+                           forState:MJRefreshStateIdle];
+        // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
+        [_tableViewHeader setImages:@[kIMG(@"猫咪")]
+                           forState:MJRefreshStatePulling];
+        // 设置正在刷新状态的动画图片
+        [_tableViewHeader setImages:@[kIMG(@"猫爪")]
+                           forState:MJRefreshStateRefreshing];
+        // 设置文字
+        [_tableViewHeader setTitle:@"Click or drag down to refresh" forState:MJRefreshStateIdle];
+        [_tableViewHeader setTitle:@"Loading more ..." forState:MJRefreshStateRefreshing];
+        [_tableViewHeader setTitle:@"No more data" forState:MJRefreshStateNoMoreData];
+        // 设置字体
+        _tableViewHeader.stateLabel.font = [UIFont systemFontOfSize:17];
+        // 设置颜色
+        _tableViewHeader.stateLabel.textColor = KLightGrayColor;
+    }return _tableViewHeader;
+}
+
+-(MJRefreshAutoGifFooter *)tableViewFooter{
+    if (!_tableViewFooter) {
+        _tableViewFooter = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self
+                                                                refreshingAction:@selector(loadMoreRefresh)];
+        // 设置普通状态的动画图片
+        [_tableViewFooter setImages:@[kIMG(@"猫粮")]
+                           forState:MJRefreshStateIdle];
+        // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
+        [_tableViewFooter setImages:@[kIMG(@"猫咪")]
+                           forState:MJRefreshStatePulling];
+        // 设置正在刷新状态的动画图片
+        [_tableViewFooter setImages:@[kIMG(@"猫爪")]
+                           forState:MJRefreshStateRefreshing];
+        // 设置文字
+        [_tableViewFooter setTitle:@"Click or drag up to refresh" forState:MJRefreshStateIdle];
+        [_tableViewFooter setTitle:@"Loading more ..." forState:MJRefreshStateRefreshing];
+        [_tableViewFooter setTitle:@"No more data" forState:MJRefreshStateNoMoreData];
+        // 设置字体
+        _tableViewFooter.stateLabel.font = [UIFont systemFontOfSize:17];
+        // 设置颜色
+        _tableViewFooter.stateLabel.textColor = KLightGrayColor;
+        _tableViewFooter.hidden = YES;
+    }return _tableViewFooter;
 }
 
 -(NSMutableArray<NSArray *> *)titleMutArr{
