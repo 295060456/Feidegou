@@ -7,7 +7,8 @@
 //
 
 #import "CatFoodsManagementVC.h"
-#import "OrderListVC.h"
+#import "OrderListVC.h"//订单
+#import "ShopReceiptQRcodeVC.h"//店铺收款码"
 
 @interface CatFoodsManagementVC ()
 <
@@ -97,21 +98,35 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
     
-    [OrderListVC pushFromVC:self
-              requestParams:Nil
-                    success:^(id data) {
-        
-    }
-                   animated:YES];
-    
-//    if (self.block2) {
-//
-//        self.block2(self.dataArr[indexPath.row]);
-//    }
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            
+        }else if (indexPath.row == 1){
+            
+        }else{
+            
+        }
+    }else if (indexPath.section == 1){
+        if (indexPath.row == 0) {
+            [OrderListVC pushFromVC:self
+                      requestParams:Nil
+                            success:^(id data) {
+                
+            }
+                           animated:YES];
+        }else if (indexPath.row == 1){
+            [ShopReceiptQRcodeVC pushFromVC:self
+                              requestParams:Nil
+                                    success:^(id data) {
+            }
+                                   animated:YES];
+        }else if (indexPath.row == 2){
+            
+        }else{}
+    }else{}
 }
 
 - (NSInteger)tableView:(UITableView *)tableView

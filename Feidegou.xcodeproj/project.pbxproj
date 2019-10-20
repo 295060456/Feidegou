@@ -10,6 +10,7 @@
 		71BE65A43CAAA15ED813BE7F /* libPods-Feidegou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */; };
 		8B495D6D235C57CF003C0AE1 /* MMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B495D6B235C57CF003C0AE1 /* MMButton.m */; };
 		8B495D6E235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） in Resources */ = {isa = PBXBuildFile; fileRef = 8B495D6C235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） */; };
+		8B495D72235C6B03003C0AE1 /* ShopReceiptQRcodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B495D71235C6B03003C0AE1 /* ShopReceiptQRcodeVC.m */; };
 		8B4CB3BC2359ECF5009EFDC5 /* YBNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4CB3B92359ECF4009EFDC5 /* YBNotificationManager.m */; };
 		8B83B609235AF46D00FD5D55 /* TBVCell_style_01.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5E8235AF46D00FD5D55 /* TBVCell_style_01.m */; };
 		8B83B60A235AF46D00FD5D55 /* UIView+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5EC235AF46D00FD5D55 /* UIView+Extras.m */; };
@@ -531,6 +532,8 @@
 		8B495D6A235C57CF003C0AE1 /* MMButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMButton.h; sourceTree = "<group>"; };
 		8B495D6B235C57CF003C0AE1 /* MMButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMButton.m; sourceTree = "<group>"; };
 		8B495D6C235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "MMButton（自定义图文位置 \\ 距离）"; sourceTree = "<group>"; };
+		8B495D70235C6B03003C0AE1 /* ShopReceiptQRcodeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopReceiptQRcodeVC.h; sourceTree = "<group>"; };
+		8B495D71235C6B03003C0AE1 /* ShopReceiptQRcodeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShopReceiptQRcodeVC.m; sourceTree = "<group>"; };
 		8B4CB3B92359ECF4009EFDC5 /* YBNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBNotificationManager.m; sourceTree = "<group>"; };
 		8B4CB3BA2359ECF4009EFDC5 /* AABlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AABlock.h; sourceTree = "<group>"; };
 		8B4CB3BB2359ECF5009EFDC5 /* YBNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBNotificationManager.h; sourceTree = "<group>"; };
@@ -1528,6 +1531,15 @@
 			path = MMButton;
 			sourceTree = "<group>";
 		};
+		8B495D6F235C6AC0003C0AE1 /* 店铺收款码 */ = {
+			isa = PBXGroup;
+			children = (
+				8B495D70235C6B03003C0AE1 /* ShopReceiptQRcodeVC.h */,
+				8B495D71235C6B03003C0AE1 /* ShopReceiptQRcodeVC.m */,
+			);
+			path = "店铺收款码";
+			sourceTree = "<group>";
+		};
 		8B4CB3B82359ECE1009EFDC5 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
@@ -1753,6 +1765,7 @@
 		8BA94BD1235AE34900B00786 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8B495D6F235C6AC0003C0AE1 /* 店铺收款码 */,
 				8BA181B8235B31560021B4DC /* 订单详情 */,
 				8BA181B4235B27180021B4DC /* 订单单元格 */,
 				8BA181B0235B1FE60021B4DC /* 订单 */,
@@ -3553,6 +3566,7 @@
 				C461440D214386B6000C0CDC /* CellVendorGoodList.m in Sources */,
 				C42CD11D213CC2640096675F /* CBAutoScrollLabel.m in Sources */,
 				C42CD078213CC2640096675F /* CellBlance.m in Sources */,
+				8B495D72235C6B03003C0AE1 /* ShopReceiptQRcodeVC.m in Sources */,
 				C42CD1AE213CC2640096675F /* JJDBHelper.m in Sources */,
 				C42CD0E3213CC2640096675F /* AddressAddController.m in Sources */,
 				C4614413214386B6000C0CDC /* VendorDetailShopController.m in Sources */,
