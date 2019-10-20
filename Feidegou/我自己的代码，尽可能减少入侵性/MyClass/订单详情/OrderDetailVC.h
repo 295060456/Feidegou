@@ -10,6 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface InfoView : UIView
+
+@end
+
 @interface OrderDetailVC : BaseVC
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
