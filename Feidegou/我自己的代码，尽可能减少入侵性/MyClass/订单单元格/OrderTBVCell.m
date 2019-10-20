@@ -11,6 +11,7 @@
 @interface OrderTBVCell ()
 
 @property(nonatomic,strong)UIImageView *imgV;
+@property(nonatomic,strong)UIImageView *typeImgV;
 @property(nonatomic,strong)UILabel *titleLab;
 @property(nonatomic,strong)UILabel *timeLab;
 
@@ -40,6 +41,7 @@
     self.imgV.alpha = 1;
     self.titleLab.text = @"1234567";
     self.timeLab.text = @"928364";
+    self.typeImgV.image = kIMG(@"Mf_旌旗_红色");//Mf_旌旗_绿色
 }
 #pragma mark —— lazyLoad
 -(UIImageView *)imgV{
@@ -82,6 +84,19 @@
             make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-5));
         }];
     }return _timeLab;
+}
+
+-(UIImageView *)typeImgV{
+    if (!_typeImgV) {
+        _typeImgV = UIImageView.new;
+        [self.contentView addSubview:_typeImgV];
+        [_typeImgV mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-30));
+            make.top.equalTo(self.contentView);
+            make.width.mas_equalTo(SCALING_RATIO(30));
+            make.bottom.equalTo(self.contentView.mas_centerY);
+        }];
+    }return _typeImgV;
 }
 
 @end
