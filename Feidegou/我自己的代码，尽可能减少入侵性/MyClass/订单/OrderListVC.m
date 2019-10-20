@@ -324,7 +324,7 @@ UITableViewDataSource
                                                                                         size:17]}];
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.filterBtn];
     self.gk_navItemRightSpace = SCALING_RATIO(30);
-    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.tableView.alpha = 1;
 }
 

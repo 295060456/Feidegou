@@ -69,6 +69,7 @@ UITableViewDataSource
 //    self.navigationItem.title = @"喵粮管理";
     self.gk_navTitle = @"喵粮管理";
     self.tableView.alpha = 1;
+    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -166,7 +167,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
     return self.titleMutArr.count;
 }
 
@@ -193,6 +193,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_tableView) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectZero
                                                  style:UITableViewStyleGrouped];
+        _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.mj_header = self.tableViewHeader;

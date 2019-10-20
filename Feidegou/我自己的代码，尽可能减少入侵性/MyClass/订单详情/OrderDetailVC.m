@@ -8,7 +8,7 @@
 
 #import "OrderDetailVC.h"
 #pragma mark —— InfoView
-@interface InfoView ()
+@interface OrderDetailTBVCell_01 ()
 
 @property(nonatomic,strong)UIButton *A_Btn;
 @property(nonatomic,strong)UIButton *B_Btn;
@@ -16,20 +16,28 @@
 
 @end
 
-@implementation InfoView
+@implementation OrderDetailTBVCell_01
 
-- (void)dealloc {
-    NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
++(instancetype)cellWith:(UITableView *)tableView{
+    OrderDetailTBVCell_01 *cell = (OrderDetailTBVCell_01 *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];//
+    if (!cell) {
+        cell = [[OrderDetailTBVCell_01 alloc] initWithStyle:UITableViewCellStyleDefault
+                                            reuseIdentifier:ReuseIdentifier
+                                                     margin:SCALING_RATIO(5)];
+        [UIView cornerCutToCircleWithView:cell.contentView
+                          AndCornerRadius:5.f];
+        [UIView colourToLayerOfView:cell.contentView
+                         WithColour:KGreenColor
+                     AndBorderWidth:.1f];
+    }return cell;
 }
 
-- (instancetype)init{
-    if (self = [super init]) {
-        
-    }return self;
++(CGFloat)cellHeightWithModel:(id _Nullable)model{
+    return SCREEN_HEIGHT / 10;
 }
 
--(void)layoutSubviews{
-    [super layoutSubviews];
+- (void)richElementsInCellWithModel:(id _Nullable)model{
+    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.A_Btn.alpha = 1;
     self.B_Btn.alpha = 1;
     self.directionBtn.alpha = 1;
@@ -43,15 +51,15 @@
         _A_Btn.backgroundColor = kBlueColor;
         [_A_Btn.titleLabel sizeToFit];
         _A_Btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-        [self addSubview:_A_Btn];
+        [self.contentView addSubview:_A_Btn];
         [_A_Btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self);
-            make.left.equalTo(self).offset(SCALING_RATIO(10));
+            make.centerY.equalTo(self.contentView);
+            make.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
             if (self.mj_h < SCREEN_HEIGHT / 10) {//
-                make.top.equalTo(self).offset(SCALING_RATIO(10));
-                make.bottom.equalTo(self).offset(SCALING_RATIO(-10));
+                make.top.equalTo(self.contentView).offset(SCALING_RATIO(10));
+                make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));
             }else{
-                make.height.mas_equalTo(self.mj_h / 2);
+                make.height.mas_equalTo(self.contentView.mj_h / 2);
             }
         }];
     }return _A_Btn;
@@ -64,15 +72,15 @@
         [_B_Btn.titleLabel sizeToFit];
         _B_Btn.backgroundColor = kRedColor;
         _B_Btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-        [self addSubview:_B_Btn];
+        [self.contentView addSubview:_B_Btn];
         [_B_Btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self);
-            make.right.equalTo(self).offset(SCALING_RATIO(-10));
+            make.centerY.equalTo(self.contentView);
+            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
             if (self.mj_h < SCREEN_HEIGHT / 10) {//
-                make.top.equalTo(self).offset(SCALING_RATIO(10));
-                make.bottom.equalTo(self).offset(SCALING_RATIO(-10));
+                make.top.equalTo(self.contentView).offset(SCALING_RATIO(10));
+                make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));
             }else{
-                make.height.mas_equalTo(self.mj_h / 2);
+                make.height.mas_equalTo(self.contentView.mj_h / 2);
             }
         }];
     }return _B_Btn;
@@ -85,7 +93,7 @@
                        forState:UIControlStateNormal];
         [self addSubview:_directionBtn];
         [_directionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self);
+            make.centerY.equalTo(self.contentView);
             make.left.equalTo(self.A_Btn.mas_right).offset(SCALING_RATIO(5));
             make.right.equalTo(self.B_Btn.mas_left).offset(SCALING_RATIO(-5));
             make.height.mas_equalTo(SCALING_RATIO(20));
@@ -94,11 +102,122 @@
 }
 
 @end
-#pragma mark —— OrderDetailVC
-@interface OrderDetailVC ()
+
+@interface OrderDetailTBVCell_02 ()
+<UITableViewDelegate,
+UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView *tableView;
-@property(nonatomic,strong)InfoView *infoView;
+@property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
+@property(nonatomic,strong)NSMutableArray <NSString *>*tempMutArr;
+
+@end
+
+@implementation OrderDetailTBVCell_02
+
++(instancetype)cellWith:(UITableView *)tableView{
+    OrderDetailTBVCell_02 *cell = (OrderDetailTBVCell_02 *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
+    if (!cell) {
+        cell = [[OrderDetailTBVCell_02 alloc] initWithStyle:UITableViewCellStyleValue1
+                                            reuseIdentifier:ReuseIdentifier
+                                                     margin:SCALING_RATIO(5)];
+        [UIView cornerCutToCircleWithView:cell.contentView
+                          AndCornerRadius:5.f];
+        [UIView colourToLayerOfView:cell.contentView
+                         WithColour:KGreenColor
+                     AndBorderWidth:.1f];
+    }return cell;
+}
+
++(CGFloat)cellHeightWithModel:(id _Nullable)model{
+    return SCREEN_HEIGHT / 2;
+}
+
+- (void)richElementsInCellWithModel:(id _Nullable)model{
+    self.contentView.backgroundColor = kRedColor;//[UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    self.tableView.alpha = 1;
+}
+#pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return [OrderDetailTBVCell_02 cellHeightWithModel:Nil];
+}
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath
+                             animated:NO];
+    return;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
+    return self.titleMutArr.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    OrderDetailTBVCell_02 *cell = [OrderDetailTBVCell_02 cellWith:tableView];
+    cell.textLabel.text = self.titleMutArr[indexPath.row];
+    cell.detailTextLabel.text = self.tempMutArr[indexPath.row];
+//    [cell richElementsInCellWithModel:nil];
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+#pragma mark —— lazyLoad
+-(UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:CGRectZero
+                                                 style:UITableViewStylePlain];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        [self.contentView addSubview:_tableView];
+        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.contentView);
+        }];
+    }return _tableView;
+}
+
+-(NSMutableArray<NSString *> *)titleMutArr{
+    if (!_titleMutArr) {
+        _titleMutArr = NSMutableArray.array;
+        [_titleMutArr addObject:@"订单:"];
+        [_titleMutArr addObject:@"单价:"];
+        [_titleMutArr addObject:@"总价:"];
+        [_titleMutArr addObject:@"账号:"];
+        [_titleMutArr addObject:@"支付方式:"];
+        [_titleMutArr addObject:@"参考号:"];
+        [_titleMutArr addObject:@"下单时间:"];
+    }return _titleMutArr;
+}
+
+-(NSMutableArray<NSString *> *)tempMutArr{
+    if (!_tempMutArr) {
+        _tempMutArr = NSMutableArray.array;
+        [_tempMutArr addObject:@"1234567890"];
+        [_tempMutArr addObject:@"12.0 CNY"];
+        [_tempMutArr addObject:@"200.00 CNY"];
+        [_tempMutArr addObject:@"账号"];
+        [_tempMutArr addObject:@"银行卡"];
+        [_tempMutArr addObject:@"dsjaihoufex"];
+        [_tempMutArr addObject:@"2019/09/26 23:22:23 "];
+    }return _tempMutArr;
+}
+
+@end
+
+#pragma mark —— OrderDetailVC
+@interface OrderDetailVC ()
+<
+UITableViewDelegate,
+UITableViewDataSource
+>
+
+@property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIButton *sureBtn;
 @property(nonatomic,strong)UIButton *cancelBtn;
 
@@ -146,7 +265,8 @@
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
-    self.infoView.alpha = 1;
+//    self.infoView.alpha = 1;
+    self.tableView.alpha = 1;
     self.sureBtn.alpha = 1;
     self.cancelBtn.alpha = 1;
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
@@ -160,30 +280,90 @@
     
     
 }
-
-#pragma mark —— lazyLoad
-
--(UITableView *)tableView{
-    if (!_tableView) {
-        _tableView = UITableView.new;
-        _tableView.delegate = self;
-    }return _tableView;
+#pragma mark —— 私有方法
+// 下拉刷新
+-(void)pullToRefresh{
+    NSLog(@"下拉刷新");
+    [self.tableView.mj_header endRefreshing];
+}
+//上拉加载更多
+- (void)loadMoreRefresh{
+    NSLog(@"上拉加载更多");
+    [self.tableView.mj_header endRefreshing];
 }
 
--(InfoView *)infoView{
-    if (!_infoView) {
-        _infoView = InfoView.new;
-        _infoView.backgroundColor = KLightGrayColor;
-        [UIView cornerCutToCircleWithView:_infoView
-                          AndCornerRadius:5];
-        [self.view addSubview:_infoView];
-        [_infoView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(SCALING_RATIO(10));
-            make.left.equalTo(self.view).offset(SCALING_RATIO(10));
-            make.right.equalTo(self.view).offset(SCALING_RATIO(-10));
-            make.height.mas_equalTo(SCREEN_HEIGHT / 5);
+#pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.section == 0 &&
+        indexPath.row == 0) {
+        return [OrderDetailTBVCell_01 cellHeightWithModel:Nil];
+    }else if(indexPath.section == 0 &&
+             indexPath.row == 0){
+        return 200;//[OrderDetailTBVCell_02 cellHeightWithModel:Nil];
+    }else{}
+    return 0.0f;
+}
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath
+                             animated:NO];
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            
+        }else{}
+    }else if (indexPath.section == 1){
+        if (indexPath.row == 0) {
+
+        }else{}
+    }else{}
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            OrderDetailTBVCell_01 *cell = [OrderDetailTBVCell_01 cellWith:tableView];
+            [cell richElementsInCellWithModel:nil];
+            return cell;
+        }else{}
+    }else if (indexPath.section == 1){
+        if (indexPath.row == 0) {
+            OrderDetailTBVCell_02 *cell = [OrderDetailTBVCell_02 cellWith:tableView];
+            [cell richElementsInCellWithModel:nil];
+            return cell;
+        }
+    }else{
+        return UITableViewCell.new;
+    }return UITableViewCell.new;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 2;
+}
+#pragma mark —— lazyLoad
+-(UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:CGRectZero
+                                                 style:UITableViewStyleGrouped];
+        _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+        _tableView.mj_header = self.tableViewHeader;
+        _tableView.mj_footer = self.tableViewFooter;
+        [self.view addSubview:_tableView];
+        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.view);
         }];
-    }return _infoView;
+    }return _tableView;
 }
 
 -(UIButton *)sureBtn{
@@ -199,7 +379,7 @@
                           AndCornerRadius:5];
         [self.view addSubview:_sureBtn];
         [_sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.infoView).offset(SCALING_RATIO(10));
+            make.left.equalTo(self.view).offset(SCALING_RATIO(10));
             make.bottom.equalTo(self.view).offset(SCALING_RATIO(-100));
             make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 5,
                                              SCREEN_HEIGHT / 15));
@@ -220,7 +400,7 @@
                           AndCornerRadius:5];
         [self.view addSubview:_cancelBtn];
         [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.infoView).offset(SCALING_RATIO(-10));
+            make.right.equalTo(self.view).offset(SCALING_RATIO(-10));
             make.bottom.equalTo(self.view).offset(SCALING_RATIO(-100));
             make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 5,
                                              SCREEN_HEIGHT / 15));

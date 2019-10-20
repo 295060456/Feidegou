@@ -10,7 +10,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface InfoView : UIView
+@interface OrderDetailTBVCell_01 : TBVCell_style_01
+
++(instancetype)cellWith:(UITableView *)tableView;
++(CGFloat)cellHeightWithModel:(id _Nullable)model;
+- (void)richElementsInCellWithModel:(id _Nullable)model;
+
+@end
+
+@interface OrderDetailTBVCell_02 : TBVCell_style_01
+
++(instancetype)cellWith:(UITableView *)tableView;
++(CGFloat)cellHeightWithModel:(id _Nullable)model;
+- (void)richElementsInCellWithModel:(id _Nullable)model;
 
 @end
 

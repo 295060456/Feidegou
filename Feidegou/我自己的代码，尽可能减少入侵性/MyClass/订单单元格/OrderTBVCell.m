@@ -38,6 +38,7 @@
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
+    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.imgV.alpha = 1;
     self.titleLab.text = @"猫粮200g";
     self.timeLab.text = @"2019年10月20日 17:23:11";

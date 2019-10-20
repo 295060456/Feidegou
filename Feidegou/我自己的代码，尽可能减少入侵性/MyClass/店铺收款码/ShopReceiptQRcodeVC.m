@@ -61,7 +61,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.gk_navTitle = @"店铺收款码";
-    self.view.backgroundColor = kWhiteColor;
+    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     [self QRcode];
 }
 
