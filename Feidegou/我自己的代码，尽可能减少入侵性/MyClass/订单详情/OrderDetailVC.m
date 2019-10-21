@@ -345,6 +345,53 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 @end
 
+@interface OrderDetailTBVCell_05 ()
+
+@property(nonatomic,strong)UILabel *titleLab;
+
+@end
+
+@implementation OrderDetailTBVCell_05
+
++(instancetype)cellWith:(UITableView *)tableView{
+    OrderDetailTBVCell_05 *cell = (OrderDetailTBVCell_05 *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];//
+    if (!cell) {
+        cell = [[OrderDetailTBVCell_05 alloc] initWithStyle:UITableViewCellStyleDefault
+                                            reuseIdentifier:ReuseIdentifier
+                                                     margin:SCALING_RATIO(5)];
+//        [UIView cornerCutToCircleWithView:cell.contentView
+//                          AndCornerRadius:5.f];
+//        [UIView colourToLayerOfView:cell.contentView
+//                         WithColour:KGreenColor
+//                     AndBorderWidth:.1f];
+        cell.backgroundColor = kRedColor;
+    }return cell;
+}
+
++(CGFloat)cellHeightWithModel:(id _Nullable)model{
+    return SCREEN_HEIGHT / 10;
+}
+
+- (void)richElementsInCellWithModel:(id _Nullable)model{
+    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    self.titleLab.alpha = 1;
+
+}
+
+#pragma mark —— lazyLoad
+-(UILabel *)titleLab{
+    if (!_titleLab) {
+        _titleLab = UILabel.new;
+        _titleLab.text = @"订单已完成";
+        [self.contentView addSubview:_titleLab];
+        [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.contentView);
+        }];
+    }return _titleLab;
+}
+
+@end
+
 #pragma mark —— OrderDetailVC
 @interface OrderDetailVC ()
 <
@@ -439,6 +486,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }else if(indexPath.section == 1 &&
              indexPath.row == 0){
         return OrderDetailTBVCell_02_Height;
+    }else if (indexPath.section == 1 &&
+              indexPath.row == 1){
+        return [OrderDetailTBVCell_05 cellHeightWithModel:NULL];
     }else{}
     return 0.0f;
 }
@@ -447,7 +497,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-    
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             
@@ -461,7 +510,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    switch (section) {
+        case 0:{
+            return 1;
+        } break;
+        case 1:{
+            return 2;
+        } break;
+        default:
+            return 0;
+            break;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -480,7 +539,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             cell.backgroundColor = KGreenColor;
             [cell richElementsInCellWithModel:nil];
             return cell;
-        }
+        }else if(indexPath.row == 1){
+            OrderDetailTBVCell_05 *cell = [OrderDetailTBVCell_05 cellWith:tableView];
+            cell.backgroundColor = KGreenColor;
+            [cell richElementsInCellWithModel:nil];
+            return cell;
+        }else{}
     }else{
         return UITableViewCell.new;
     }return UITableViewCell.new;
@@ -502,7 +566,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//去掉cell下划线
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.view);
+            make.top.equalTo(self.gk_navigationBar.mas_bottom);
+            make.left.right.bottom.equalTo(self.view);
         }];
     }return _tableView;
 }

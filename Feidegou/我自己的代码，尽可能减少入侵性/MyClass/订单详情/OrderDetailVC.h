@@ -43,6 +43,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface OrderDetailTBVCell_05 : TBVCell_style_01
+
++(instancetype)cellWith:(UITableView *)tableView;
++(CGFloat)cellHeightWithModel:(id _Nullable)model;
+- (void)richElementsInCellWithModel:(id _Nullable)model;
+
+@end
+
 @interface OrderDetailVC : BaseVC
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
