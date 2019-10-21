@@ -392,19 +392,127 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 @end
 
+@interface OrderDetailTBVCell_06 ()
+
+@property(nonatomic,strong)UIButton *sureBtn;
+@property(nonatomic,strong)VerifyCodeButton *cancelBtn;
+@property(nonatomic,copy)DataBlock sureBlock;
+@property(nonatomic,copy)DataBlock cancelBlock;
+
+
+@end
+
+@implementation OrderDetailTBVCell_06
+
++(instancetype)cellWith:(UITableView *)tableView{
+    OrderDetailTBVCell_06 *cell = (OrderDetailTBVCell_06 *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];//
+    if (!cell) {
+        cell = [[OrderDetailTBVCell_06 alloc] initWithStyle:UITableViewCellStyleDefault
+                                            reuseIdentifier:ReuseIdentifier
+                                                     margin:SCALING_RATIO(5)];
+//        [UIView cornerCutToCircleWithView:cell.contentView
+//                          AndCornerRadius:5.f];
+//        [UIView colourToLayerOfView:cell.contentView
+//                         WithColour:KGreenColor
+//                     AndBorderWidth:.1f];
+        cell.backgroundColor = kClearColor;
+    }return cell;
+}
+
++(CGFloat)cellHeightWithModel:(id _Nullable)model{
+    return SCREEN_HEIGHT / 5;
+}
+
+- (void)richElementsInCellWithModel:(id _Nullable)model{
+//    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+
+    self.sureBtn.alpha = 1;
+    self.cancelBtn.alpha = 1;
+}
+
+-(void)actionSureBlock:(DataBlock)block{
+    self.sureBlock = block;
+}
+
+-(void)actionCancelBlock:(DataBlock)block{
+    self.cancelBlock = block;
+}
+
+-(void)sureBtnClickEvent:(UIButton *)sender{
+    NSLog(@"确认发货");
+    if (self.sureBlock) {
+        self.sureBlock(@1);
+    }
+}
+
+-(void)cancelBtnClickEvent:(UIButton *)sender{
+    NSLog(@"取消");
+    if (self.cancelBlock) {
+        self.cancelBlock(@1);
+    }
+}
+
+#pragma mark —— lazyload
+-(UIButton *)sureBtn{
+    if (!_sureBtn) {
+        _sureBtn = UIButton.new;
+        [_sureBtn.titleLabel sizeToFit];
+        _sureBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
+        [_sureBtn setTitle:@"确认发货"
+                  forState:UIControlStateNormal];
+        [_sureBtn addTarget:self
+                     action:@selector(sureBtnClickEvent:)
+           forControlEvents:UIControlEventTouchUpInside];
+        _sureBtn.backgroundColor = kOrangeColor;
+        [UIView cornerCutToCircleWithView:_sureBtn
+                          AndCornerRadius:5];
+        [self.contentView addSubview:_sureBtn];
+        [_sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
+            make.centerY.equalTo(self.contentView);
+        }];
+    }return _sureBtn;
+}
+
+-(VerifyCodeButton *)cancelBtn{
+    if (!_cancelBtn) {
+        _cancelBtn = VerifyCodeButton.new;
+        _cancelBtn.titleBeginStr = @"取消";
+        _cancelBtn.titleEndStr = @"取消";
+        _cancelBtn.titleColor = kWhiteColor;
+        _cancelBtn.bgBeginColor = KLightGrayColor;
+        _cancelBtn.bgEndColor = kOrangeColor;
+        _cancelBtn.layerBorderColor = kWhiteColor;
+        _cancelBtn.layerCornerRadius = 5;
+        _cancelBtn.isClipsToBounds = YES;
+        [_cancelBtn.titleLabel sizeToFit];
+        _cancelBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
+        [_cancelBtn timeFailBeginFrom:10];
+        [_cancelBtn addTarget:self
+                       action:@selector(cancelBtnClickEvent:)
+             forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:_cancelBtn];
+        [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+            make.centerY.equalTo(self.contentView);
+        }];
+    }return _cancelBtn;
+}
+
+@end
+
 #pragma mark —— OrderDetailVC
 @interface OrderDetailVC ()
 <
 UITableViewDelegate,
 UITableViewDataSource
->{
+>
+{
     CGFloat OrderDetailTBVCell_04_Height;
     CGFloat OrderDetailTBVCell_02_Height;
 }
 
 @property(nonatomic,strong)UITableView *tableView;
-@property(nonatomic,strong)UIButton *sureBtn;
-@property(nonatomic,strong)VerifyCodeButton *cancelBtn;
 @property(nonatomic,strong)BRStringPickerView *stringPickerView;
 
 @property(nonatomic,strong)id requestParams;
@@ -449,32 +557,8 @@ UITableViewDataSource
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
-//    self.infoView.alpha = 1;
     self.tableView.alpha = 1;
-    self.sureBtn.alpha = 1;
-    self.cancelBtn.alpha = 1;
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-}
-#pragma mark —— 点击事件
--(void)sureBtnClickEvent:(UIButton *)sender{
-    NSLog(@"确认发货");
-    [self showAlertViewTitle:@"确认发货？"
-                     message:@"确认以后将货款进行拨付"
-                 btnTitleArr:@[@"确认发货",
-                                @"取消"]
-              alertBtnAction:@[@"ConfirmDelivery",//确认发货
-                               @"Cancel"]];//取消
-    
-}
-
--(void)cancelBtnClickEvent:(UIButton *)sender{
-    NSLog(@"取消");
-    [self showAlertViewTitle:@"取消发货？"
-                     message:@""
-                 btnTitleArr:@[@"取消发货",
-                                @"取消"]
-              alertBtnAction:@[@"CancelDelivery",//取消发货
-                               @"Cancel"]];//取消
 }
 
 -(void)ConfirmDelivery{
@@ -516,6 +600,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }else if (indexPath.section == 1 &&
               indexPath.row == 1){
         return [OrderDetailTBVCell_05 cellHeightWithModel:NULL];
+    }else if (indexPath.section == 1 &&
+              indexPath.row == 2){
+        return [OrderDetailTBVCell_06 cellHeightWithModel:NULL];
     }else{}
     return 0.0f;
 }
@@ -542,7 +629,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             return 1;
         } break;
         case 1:{
-            return 2;
+            return 3;
         } break;
         default:
             return 0;
@@ -563,13 +650,34 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         if (indexPath.row == 0) {
             OrderDetailTBVCell_02 *cell = [OrderDetailTBVCell_02 cellWith:tableView];
             OrderDetailTBVCell_02_Height = [cell cellHeightWithModel:NULL];
-            cell.backgroundColor = KGreenColor;
+//            cell.backgroundColor = KGreenColor;
             [cell richElementsInCellWithModel:nil];
             return cell;
         }else if(indexPath.row == 1){
             OrderDetailTBVCell_05 *cell = [OrderDetailTBVCell_05 cellWith:tableView];
-            cell.backgroundColor = KGreenColor;
+//            cell.backgroundColor = KGreenColor;
             [cell richElementsInCellWithModel:nil];
+            return cell;
+        }else if(indexPath.row == 2){
+            OrderDetailTBVCell_06 *cell = [OrderDetailTBVCell_06 cellWith:tableView];
+//            cell.backgroundColor = KGreenColor;
+            [cell richElementsInCellWithModel:nil];
+            [cell actionSureBlock:^(id data) {
+                [self showAlertViewTitle:@"确认发货？"
+                                 message:@"确认以后将货款进行拨付"
+                             btnTitleArr:@[@"确认发货",
+                                           @"取消"]
+                          alertBtnAction:@[@"ConfirmDelivery",//确认发货
+                                           @"Cancel"]];//取消
+            }];
+            [cell actionCancelBlock:^(id data) {
+                [self showAlertViewTitle:@"取消发货？"
+                                 message:@""
+                             btnTitleArr:@[@"取消发货",
+                                           @"取消"]
+                          alertBtnAction:@[@"CancelDelivery",//取消发货
+                                           @"Cancel"]];//取消
+            }];
             return cell;
         }else{}
     }else{
@@ -597,52 +705,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             make.left.right.bottom.equalTo(self.view);
         }];
     }return _tableView;
-}
-
--(UIButton *)sureBtn{
-    if (!_sureBtn) {
-        _sureBtn = UIButton.new;
-        [_sureBtn setTitle:@"确认发货"
-                  forState:UIControlStateNormal];
-        [_sureBtn addTarget:self
-                     action:@selector(sureBtnClickEvent:)
-           forControlEvents:UIControlEventTouchUpInside];
-        _sureBtn.backgroundColor = kOrangeColor;
-        [UIView cornerCutToCircleWithView:_sureBtn
-                          AndCornerRadius:5];
-        [self.view addSubview:_sureBtn];
-        [_sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.view).offset(SCALING_RATIO(10));
-            make.bottom.equalTo(self.view).offset(SCALING_RATIO(-100));
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 5,
-                                             SCREEN_HEIGHT / 15));
-        }];
-    }return _sureBtn;
-}
-
--(VerifyCodeButton *)cancelBtn{
-    if (!_cancelBtn) {
-        _cancelBtn = VerifyCodeButton.new;
-        _cancelBtn.titleBeginStr = @"取消";
-        _cancelBtn.titleEndStr = @"取消";
-        _cancelBtn.titleColor = kWhiteColor;
-        _cancelBtn.bgBeginColor = KLightGrayColor;
-        _cancelBtn.bgEndColor = kOrangeColor;
-        _cancelBtn.layerBorderColor = kWhiteColor;
-        _cancelBtn.layerCornerRadius = 5;
-        _cancelBtn.isClipsToBounds = YES;
-        [_cancelBtn timeFailBeginFrom:10];
-        [_cancelBtn addTarget:self
-                       action:@selector(cancelBtnClickEvent:)
-             forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_cancelBtn];
-        [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.view).offset(SCALING_RATIO(-10));
-            make.bottom.equalTo(self.view).offset(SCALING_RATIO(-100));
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 5,
-                                             SCREEN_HEIGHT / 15));
-        }];
-    }return _cancelBtn;
 }
 
 -(BRStringPickerView *)stringPickerView{
