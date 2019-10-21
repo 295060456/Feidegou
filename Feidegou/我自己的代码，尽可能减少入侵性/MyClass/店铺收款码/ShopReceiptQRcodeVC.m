@@ -16,6 +16,7 @@
 
 //Q宠
 @property(nonatomic,strong)Q_Pet *pet;
+@property(nonatomic,strong)UIButton *upLoadBtn;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
@@ -64,6 +65,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.gk_navTitle = @"店铺收款码";
+    self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.upLoadBtn];
+    self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     [self QRcode];
     self.pet.alpha = 1;
@@ -71,7 +74,12 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+}
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.pet hide];
+    [self.pet.laAnimation removeFromSuperview];
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
@@ -79,36 +87,33 @@
     self.tap++;
     [self QRcode];
 }
+#pragma mark —— 点击事件
+-(void)upLoadBtnClickEvent:(UIButton *)sender{
+    
+}
 
 -(void)QRcode{
-    
     NSLog(@"A = %d",self.tap);
     NSLog(@"B = %d",self.tap % 4);
-    
-    
     switch (self.tap % 4) {
             
         case 0:{
-//            NSLog(@"0");
             self.QRcodeIMGV.image = [SGQRCodeObtain generateQRCodeWithData:self.QRcodeStr
                                                                       size:SCREEN_WIDTH / 2
                                                                      color:kRedColor
                                                            backgroundColor:KYellowColor];
         }break;
         case 1:{
-//            NSLog(@"1");
             self.QRcodeIMGV.image = [SGQRCodeObtain generateQRCodeWithData:self.QRcodeStr
                                                                       size:SCREEN_WIDTH / 2
                                                                  logoImage:kIMG(@"喵猫")
                                                                      ratio:5];
         }break;
         case 2:{
-//            NSLog(@"2");
             self.QRcodeIMGV.image = [SGQRCodeObtain generateQRCodeWithData:@"https://github.com/KeenTeam1990/SGQRCode.git"
                                                                       size:SCREEN_WIDTH / 2];
         }break;
         case 3:{
-//            NSLog(@"3");
             self.QRcodeIMGV.image = [SGQRCodeObtain generateQRCodeWithData:self.QRcodeStr
                                                                       size:SCREEN_WIDTH / 2
                                                                  logoImage:kIMG(@"喵猫")
@@ -142,10 +147,21 @@
                                                       100,
                                                       100)];
         _pet.autoCloseEdge = YES;
-//        [_pet setContent:kIMG(@"新机器猫")
-//             contentType:MISFloatingBallContentTypeImage];
         [_pet show];
     }return _pet;
 }
+
+-(UIButton *)upLoadBtn{
+    if (!_upLoadBtn) {
+        _upLoadBtn = UIButton.new;
+        [_upLoadBtn setImage:kIMG(@"上传")
+                    forState:UIControlStateNormal];
+        [_upLoadBtn addTarget:self
+                       action:@selector(upLoadBtnClickEvent:)
+             forControlEvents:UIControlEventTouchUpInside];
+    }return _upLoadBtn;
+}
+
+
 
 @end

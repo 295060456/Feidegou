@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Q_Pet : MISFloatingBall
 
+@property(nonatomic,strong)LOTAnimationView *laAnimation;
+
 @end
 
 NS_ASSUME_NONNULL_END

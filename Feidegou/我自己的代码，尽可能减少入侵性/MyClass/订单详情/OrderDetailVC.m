@@ -427,7 +427,6 @@ UITableViewDataSource
     OrderDetailVC *vc = OrderDetailVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-
     if (rootVC.navigationController) {
         vc.isPush = YES;
         vc.isPresent = NO;

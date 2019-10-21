@@ -26,8 +26,6 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
     int d;
 }
 
-@property(nonatomic,strong)LOTAnimationView *laAnimation;
-
 @end
 
 @implementation Q_Pet
@@ -53,9 +51,7 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
              contentType:MISFloatingBallContentTypeImage];
         [self.laAnimation playWithCompletion:^(BOOL animationFinished) {
             @strongify(self)
-//            NSLog(@"123");
             [self.laAnimation removeFromSuperview];
-            self.laAnimation = nil;
             [self setContent:kIMG(@"新机器猫")
                  contentType:MISFloatingBallContentTypeImage];
         }];
