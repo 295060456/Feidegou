@@ -11,13 +11,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark —— 各种UITableViewCell
-@interface OrderDetailTBVCell_01 : TBVCell_style_01
-//第一个UITableViewCell，标题 （表现形式 1）
-+(instancetype)cellWith:(UITableView *)tableView;
-+(CGFloat)cellHeightWithModel:(id _Nullable)model;
-- (void)richElementsInCellWithModel:(id _Nullable)model;
-
-@end
+//@interface OrderDetailTBVCell_01 : TBVCell_style_01
+////第一个UITableViewCell，标题 （表现形式 1）
+//+(instancetype)cellWith:(UITableView *)tableView;
+//+(CGFloat)cellHeightWithModel:(id _Nullable)model;
+//- (void)richElementsInCellWithModel:(id _Nullable)model;
+//
+//@end
 //装表格的，UITableViewCell嵌套UITableView
 @interface OrderDetailTBVCell_02 : TBVCell_style_01
 

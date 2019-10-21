@@ -58,6 +58,7 @@ pod 'TWPageViewController'
 pod 'IQKeyboardManager'
 pod 'GKNavigationBarViewController'
 pod 'YYText'
+#pod 'YYKit'#有问题
 
 pod 'Reveal-SDK', :configurations => ['Debug']
 

@@ -8,100 +8,100 @@
 
 #import "OrderDetailVC.h"
 #pragma mark —— InfoView
-@interface OrderDetailTBVCell_01 ()
-
-@property(nonatomic,strong)UIButton *A_Btn;
-@property(nonatomic,strong)UIButton *B_Btn;
-@property(nonatomic,strong)UIButton *directionBtn;
-
-@end
-
-@implementation OrderDetailTBVCell_01
-
-+(instancetype)cellWith:(UITableView *)tableView{
-    OrderDetailTBVCell_01 *cell = (OrderDetailTBVCell_01 *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];//
-    if (!cell) {
-        cell = [[OrderDetailTBVCell_01 alloc] initWithStyle:UITableViewCellStyleDefault
-                                            reuseIdentifier:ReuseIdentifier
-                                                     margin:SCALING_RATIO(5)];
-        [UIView cornerCutToCircleWithView:cell.contentView
-                          AndCornerRadius:5.f];
-        [UIView colourToLayerOfView:cell.contentView
-                         WithColour:KGreenColor
-                     AndBorderWidth:.1f];
-    }return cell;
-}
-
-+(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCREEN_HEIGHT / 10;
-}
-
-- (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.A_Btn.alpha = 1;
-    self.B_Btn.alpha = 1;
-    self.directionBtn.alpha = 1;
-}
-
-#pragma mark —— lazyLoad
--(UIButton *)A_Btn{
-    if (!_A_Btn) {
-        _A_Btn = UIButton.new;
-        _A_Btn.titleLabel.text = @"1234567";
-        _A_Btn.backgroundColor = kBlueColor;
-        [_A_Btn.titleLabel sizeToFit];
-        _A_Btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-        [self.contentView addSubview:_A_Btn];
-        [_A_Btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.contentView);
-            make.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
-            if (self.mj_h < SCREEN_HEIGHT / 10) {//
-                make.top.equalTo(self.contentView).offset(SCALING_RATIO(10));
-                make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-            }else{
-                make.height.mas_equalTo(self.contentView.mj_h / 2);
-            }
-        }];
-    }return _A_Btn;
-}
-
--(UIButton *)B_Btn{
-    if (!_B_Btn) {
-        _B_Btn = UIButton.new;
-        _B_Btn.titleLabel.text = @"1234567";
-        [_B_Btn.titleLabel sizeToFit];
-        _B_Btn.backgroundColor = kRedColor;
-        _B_Btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-        [self.contentView addSubview:_B_Btn];
-        [_B_Btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.contentView);
-            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-            if (self.mj_h < SCREEN_HEIGHT / 10) {//
-                make.top.equalTo(self.contentView).offset(SCALING_RATIO(10));
-                make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-            }else{
-                make.height.mas_equalTo(self.contentView.mj_h / 2);
-            }
-        }];
-    }return _B_Btn;
-}
-
--(UIButton *)directionBtn{
-    if (!_directionBtn) {
-        _directionBtn = UIButton.new;
-        [_directionBtn setImage:kIMG(@"双向箭头")
-                       forState:UIControlStateNormal];
-        [self addSubview:_directionBtn];
-        [_directionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.contentView);
-            make.left.equalTo(self.A_Btn.mas_right).offset(SCALING_RATIO(5));
-            make.right.equalTo(self.B_Btn.mas_left).offset(SCALING_RATIO(-5));
-            make.height.mas_equalTo(SCALING_RATIO(20));
-        }];
-    }return _directionBtn;
-}
-
-@end
+//@interface OrderDetailTBVCell_01 ()
+//
+//@property(nonatomic,strong)UIButton *A_Btn;
+//@property(nonatomic,strong)UIButton *B_Btn;
+//@property(nonatomic,strong)UIButton *directionBtn;
+//
+//@end
+//
+//@implementation OrderDetailTBVCell_01
+//
+//+(instancetype)cellWith:(UITableView *)tableView{
+//    OrderDetailTBVCell_01 *cell = (OrderDetailTBVCell_01 *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];//
+//    if (!cell) {
+//        cell = [[OrderDetailTBVCell_01 alloc] initWithStyle:UITableViewCellStyleDefault
+//                                            reuseIdentifier:ReuseIdentifier
+//                                                     margin:SCALING_RATIO(5)];
+//        [UIView cornerCutToCircleWithView:cell.contentView
+//                          AndCornerRadius:5.f];
+//        [UIView colourToLayerOfView:cell.contentView
+//                         WithColour:KGreenColor
+//                     AndBorderWidth:.1f];
+//    }return cell;
+//}
+//
+//+(CGFloat)cellHeightWithModel:(id _Nullable)model{
+//    return SCREEN_HEIGHT / 10;
+//}
+//
+//- (void)richElementsInCellWithModel:(id _Nullable)model{
+//    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+//    self.A_Btn.alpha = 1;
+//    self.B_Btn.alpha = 1;
+//    self.directionBtn.alpha = 1;
+//}
+//
+//#pragma mark —— lazyLoad
+//-(UIButton *)A_Btn{
+//    if (!_A_Btn) {
+//        _A_Btn = UIButton.new;
+//        _A_Btn.titleLabel.text = @"1234567";
+//        _A_Btn.backgroundColor = kBlueColor;
+//        [_A_Btn.titleLabel sizeToFit];
+//        _A_Btn.titleLabel.adjustsFontSizeToFitWidth = YES;
+//        [self.contentView addSubview:_A_Btn];
+//        [_A_Btn mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(self.contentView);
+//            make.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
+//            if (self.mj_h < SCREEN_HEIGHT / 10) {//
+//                make.top.equalTo(self.contentView).offset(SCALING_RATIO(10));
+//                make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+//            }else{
+//                make.height.mas_equalTo(self.contentView.mj_h / 2);
+//            }
+//        }];
+//    }return _A_Btn;
+//}
+//
+//-(UIButton *)B_Btn{
+//    if (!_B_Btn) {
+//        _B_Btn = UIButton.new;
+//        _B_Btn.titleLabel.text = @"1234567";
+//        [_B_Btn.titleLabel sizeToFit];
+//        _B_Btn.backgroundColor = kRedColor;
+//        _B_Btn.titleLabel.adjustsFontSizeToFitWidth = YES;
+//        [self.contentView addSubview:_B_Btn];
+//        [_B_Btn mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(self.contentView);
+//            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+//            if (self.mj_h < SCREEN_HEIGHT / 10) {//
+//                make.top.equalTo(self.contentView).offset(SCALING_RATIO(10));
+//                make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+//            }else{
+//                make.height.mas_equalTo(self.contentView.mj_h / 2);
+//            }
+//        }];
+//    }return _B_Btn;
+//}
+//
+//-(UIButton *)directionBtn{
+//    if (!_directionBtn) {
+//        _directionBtn = UIButton.new;
+//        [_directionBtn setImage:kIMG(@"双向箭头")
+//                       forState:UIControlStateNormal];
+//        [self addSubview:_directionBtn];
+//        [_directionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(self.contentView);
+//            make.left.equalTo(self.A_Btn.mas_right).offset(SCALING_RATIO(5));
+//            make.right.equalTo(self.B_Btn.mas_left).offset(SCALING_RATIO(-5));
+//            make.height.mas_equalTo(SCALING_RATIO(20));
+//        }];
+//    }return _directionBtn;
+//}
+//
+//@end
 
 @interface OrderDetailTBVCell_02 ()
 <UITableViewDelegate,
@@ -120,16 +120,16 @@ UITableViewDataSource>
         cell = [[OrderDetailTBVCell_02 alloc] initWithStyle:UITableViewCellStyleValue1
                                             reuseIdentifier:ReuseIdentifier
                                                      margin:SCALING_RATIO(5)];
-        [UIView cornerCutToCircleWithView:cell.contentView
-                          AndCornerRadius:5.f];
-        [UIView colourToLayerOfView:cell.contentView
-                         WithColour:KGreenColor
-                     AndBorderWidth:.1f];
+//        [UIView cornerCutToCircleWithView:cell.contentView
+//                          AndCornerRadius:5.f];
+//        [UIView colourToLayerOfView:cell.contentView
+//                         WithColour:KGreenColor
+//                     AndBorderWidth:.1f];
     }return cell;
 }
 
 -(CGFloat)cellHeightWithModel:(id _Nullable)model{//大
-    return self.titleMutArr.count * [OrderDetailTBVCell_03 cellHeightWithModel:NULL];
+    return self.titleMutArr.count * [OrderDetailTBVCell_03 cellHeightWithModel:NULL] + SCALING_RATIO(20);
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
@@ -173,6 +173,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                                  style:UITableViewStylePlain];
         _tableView.dataSource = self;
         _tableView.delegate = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//去掉cell下划线
         [self.contentView addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView);
@@ -219,11 +220,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         cell = [[OrderDetailTBVCell_03 alloc] initWithStyle:UITableViewCellStyleValue1
                                             reuseIdentifier:ReuseIdentifier
                                                      margin:SCALING_RATIO(5)];
-        [UIView cornerCutToCircleWithView:cell.contentView
-                          AndCornerRadius:5.f];
-        [UIView colourToLayerOfView:cell.contentView
-                         WithColour:KGreenColor
-                     AndBorderWidth:.1f];
+//        [UIView cornerCutToCircleWithView:cell.contentView
+//                          AndCornerRadius:5.f];
+//        [UIView colourToLayerOfView:cell.contentView
+//                         WithColour:KGreenColor
+//                     AndBorderWidth:.1f];
     }return cell;
 }
 
@@ -239,7 +240,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 @interface OrderDetailTBVCell_04 ()
 
-@property(nonatomic,strong)UILabel *titleLab;
+@property(nonatomic,strong)YYLabel *titleLab;
 
 @end
 
@@ -251,16 +252,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         cell = [[OrderDetailTBVCell_04 alloc] initWithStyle:UITableViewCellStyleDefault
                                             reuseIdentifier:ReuseIdentifier
                                                      margin:SCALING_RATIO(5)];
-        [UIView cornerCutToCircleWithView:cell.contentView
-                          AndCornerRadius:5.f];
-        [UIView colourToLayerOfView:cell.contentView
-                         WithColour:KGreenColor
-                     AndBorderWidth:.1f];
+//        [UIView cornerCutToCircleWithView:cell.contentView
+//                          AndCornerRadius:5.f];
+//        [UIView colourToLayerOfView:cell.contentView
+//                         WithColour:KGreenColor
+//                     AndBorderWidth:.1f];
     }return cell;
 }
 
 -(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCREEN_HEIGHT / 10;
+    return self.titleLab.mj_h + SCALING_RATIO(50);//SCALING_RATIO(50) 为补充值
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
@@ -269,12 +270,76 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 #pragma mark —— lazyLoad
--(UILabel *)titleLab{
+-(YYLabel *)titleLab{
     if (!_titleLab) {
-        _titleLab = UILabel.new;
-        _titleLab.text = @"您向习近平购买43.22222222222";
+        _titleLab = YYLabel.new;
+        _titleLab.textAlignment = NSTextAlignmentCenter;
+        
+        NSString *str = @"您向习近平购买43.22222222222 ";
+        
+        NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+        paragraphStyle.lineSpacing = 1;//行间距
+        paragraphStyle.firstLineHeadIndent = 40;//首行缩进
+        
+        NSDictionary *attributeDic = @{
+            NSFontAttributeName : [UIFont systemFontOfSize:24],
+            NSParagraphStyleAttributeName : paragraphStyle,
+            NSForegroundColorAttributeName : kRedColor
+                                       };
+        
+        NSMutableAttributedString *text = [[NSMutableAttributedString alloc]initWithString:str
+                                                                                attributes:attributeDic];
+        
+        NSRange selRange_01 = [str rangeOfString:@"您向"];
+        NSRange selRange_02 = [str rangeOfString:@"购买"];
+        
+        //设定可点击文字的的大小
+        UIFont *selFont = [UIFont systemFontOfSize:18];
+        CTFontRef selFontRef = CTFontCreateWithName((__bridge CFStringRef)selFont.fontName,
+                                                    selFont.pointSize,
+                                                    NULL);
+        //设置可点击文本的大小
+        [text addAttribute:(NSString *)kCTFontAttributeName
+                     value:(__bridge id)selFontRef
+                     range:selRange_01];
+        //设置可点击文本的颜色
+        [text addAttribute:(NSString *)kCTForegroundColorAttributeName
+                     value:(id)[[UIColor blueColor] CGColor]
+                     range:selRange_01];
+         //设置可点击文本的背景颜色
+        if (@available(iOS 10.0, *)) {
+            [text addAttribute:(NSString *)kCTBackgroundColorAttributeName
+                         value:(__bridge id)selFontRef
+                         range:selRange_01];
+        } else {
+            // Fallback on earlier versions
+        }
+        //设置可点击文本的大小
+        [text addAttribute:(NSString *)kCTFontAttributeName
+                     value:(__bridge id)selFontRef
+                     range:selRange_02];
+        //设置可点击文本的颜色
+        [text addAttribute:(NSString *)kCTForegroundColorAttributeName
+                     value:(id)[[UIColor blueColor] CGColor]
+                     range:selRange_02];
+         //设置可点击文本的背景颜色
+        if (@available(iOS 10.0, *)) {
+            [text addAttribute:(NSString *)kCTBackgroundColorAttributeName
+                         value:(__bridge id)selFontRef
+                         range:selRange_02];
+        } else {
+            // Fallback on earlier versions
+        }
+        _titleLab.attributedText = text;
         _titleLab.numberOfLines = 0;
+//        _titleLab.lineBreakMode = NSLineBreakByCharWrapping;//？？
         [_titleLab sizeToFit];
+        [self addSubview:_titleLab];
+        [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.contentView).offset(SCALING_RATIO(20));
+            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-20));
+            make.left.right.equalTo(self.contentView);
+        }];
     }return _titleLab;
 }
 
@@ -286,6 +351,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 UITableViewDelegate,
 UITableViewDataSource
 >{
+    CGFloat OrderDetailTBVCell_04_Height;
     CGFloat OrderDetailTBVCell_02_Height;
 }
 
@@ -369,7 +435,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (indexPath.section == 0 &&
         indexPath.row == 0) {
-        return [OrderDetailTBVCell_01 cellHeightWithModel:Nil];
+        return OrderDetailTBVCell_04_Height;
     }else if(indexPath.section == 1 &&
              indexPath.row == 0){
         return OrderDetailTBVCell_02_Height;
@@ -402,8 +468,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            OrderDetailTBVCell_01 *cell = [OrderDetailTBVCell_01 cellWith:tableView];
+            OrderDetailTBVCell_04 *cell = [OrderDetailTBVCell_04 cellWith:tableView];
             [cell richElementsInCellWithModel:nil];
+            OrderDetailTBVCell_04_Height = [cell cellHeightWithModel:NULL];
             return cell;
         }else{}
     }else if (indexPath.section == 1){
@@ -432,6 +499,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.delegate = self;
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//去掉cell下划线
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
