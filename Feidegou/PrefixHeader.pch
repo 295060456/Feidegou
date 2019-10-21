@@ -50,6 +50,7 @@
 #import <IQKeyboardManager/IQKeyboardManager.h>
 #import <RevealServer/RevealServer.h>
 #import <GKNavigationBarViewController/GKNavigationBarViewController.h>
+#import <YYText/YYText.h>
 //GKNavigationBarViewController.h
 
 //我自己手动引入的第三方

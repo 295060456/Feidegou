@@ -10,7 +10,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#pragma mark —— 各种UITableViewCell
 @interface OrderDetailTBVCell_01 : TBVCell_style_01
+//第一个UITableViewCell，标题 （表现形式 1）
++(instancetype)cellWith:(UITableView *)tableView;
++(CGFloat)cellHeightWithModel:(id _Nullable)model;
+- (void)richElementsInCellWithModel:(id _Nullable)model;
+
+@end
+//装表格的，UITableViewCell嵌套UITableView
+@interface OrderDetailTBVCell_02 : TBVCell_style_01
+
++(instancetype)cellWith:(UITableView *)tableView;
+-(CGFloat)cellHeightWithModel:(id _Nullable)model;
+- (void)richElementsInCellWithModel:(id _Nullable)model;
+
+@end
+//订单、单价、总价、账号、支付方式、参考号、下单时间
+@interface OrderDetailTBVCell_03 : TBVCell_style_01
 
 +(instancetype)cellWith:(UITableView *)tableView;
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;
@@ -18,10 +35,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface OrderDetailTBVCell_02 : TBVCell_style_01
+@interface OrderDetailTBVCell_04 : TBVCell_style_01
 
 +(instancetype)cellWith:(UITableView *)tableView;
-+(CGFloat)cellHeightWithModel:(id _Nullable)model;
+-(CGFloat)cellHeightWithModel:(id _Nullable)model;
 - (void)richElementsInCellWithModel:(id _Nullable)model;
 
 @end

@@ -114,7 +114,6 @@ UITableViewDataSource>
 @end
 
 @implementation OrderDetailTBVCell_02
-
 +(instancetype)cellWith:(UITableView *)tableView{
     OrderDetailTBVCell_02 *cell = (OrderDetailTBVCell_02 *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
     if (!cell) {
@@ -129,18 +128,18 @@ UITableViewDataSource>
     }return cell;
 }
 
-+(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCREEN_HEIGHT / 2;
+-(CGFloat)cellHeightWithModel:(id _Nullable)model{//大
+    return self.titleMutArr.count * [OrderDetailTBVCell_03 cellHeightWithModel:NULL];
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.contentView.backgroundColor = kRedColor;//[UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.tableView.alpha = 1;
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [OrderDetailTBVCell_02 cellHeightWithModel:Nil];
+    return [OrderDetailTBVCell_03 cellHeightWithModel:Nil];
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -157,10 +156,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    OrderDetailTBVCell_02 *cell = [OrderDetailTBVCell_02 cellWith:tableView];
+    OrderDetailTBVCell_03 *cell = [OrderDetailTBVCell_03 cellWith:tableView];
     cell.textLabel.text = self.titleMutArr[indexPath.row];
     cell.detailTextLabel.text = self.tempMutArr[indexPath.row];
-//    [cell richElementsInCellWithModel:nil];
     return cell;
 }
 
@@ -210,12 +208,86 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 @end
 
+@interface OrderDetailTBVCell_03 ()
+@end
+
+@implementation OrderDetailTBVCell_03
+
++(instancetype)cellWith:(UITableView *)tableView{
+    OrderDetailTBVCell_03 *cell = (OrderDetailTBVCell_03 *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
+    if (!cell) {
+        cell = [[OrderDetailTBVCell_03 alloc] initWithStyle:UITableViewCellStyleValue1
+                                            reuseIdentifier:ReuseIdentifier
+                                                     margin:SCALING_RATIO(5)];
+        [UIView cornerCutToCircleWithView:cell.contentView
+                          AndCornerRadius:5.f];
+        [UIView colourToLayerOfView:cell.contentView
+                         WithColour:KGreenColor
+                     AndBorderWidth:.1f];
+    }return cell;
+}
+
++(CGFloat)cellHeightWithModel:(id _Nullable)model{//小
+    return SCALING_RATIO(40);
+}
+
+- (void)richElementsInCellWithModel:(id _Nullable)model{
+    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+}
+
+@end
+
+@interface OrderDetailTBVCell_04 ()
+
+@property(nonatomic,strong)UILabel *titleLab;
+
+@end
+
+@implementation OrderDetailTBVCell_04
+
++(instancetype)cellWith:(UITableView *)tableView{
+    OrderDetailTBVCell_04 *cell = (OrderDetailTBVCell_04 *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];//
+    if (!cell) {
+        cell = [[OrderDetailTBVCell_04 alloc] initWithStyle:UITableViewCellStyleDefault
+                                            reuseIdentifier:ReuseIdentifier
+                                                     margin:SCALING_RATIO(5)];
+        [UIView cornerCutToCircleWithView:cell.contentView
+                          AndCornerRadius:5.f];
+        [UIView colourToLayerOfView:cell.contentView
+                         WithColour:KGreenColor
+                     AndBorderWidth:.1f];
+    }return cell;
+}
+
+-(CGFloat)cellHeightWithModel:(id _Nullable)model{
+    return SCREEN_HEIGHT / 10;
+}
+
+- (void)richElementsInCellWithModel:(id _Nullable)model{
+    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+
+}
+
+#pragma mark —— lazyLoad
+-(UILabel *)titleLab{
+    if (!_titleLab) {
+        _titleLab = UILabel.new;
+        _titleLab.text = @"您向习近平购买43.22222222222";
+        _titleLab.numberOfLines = 0;
+        [_titleLab sizeToFit];
+    }return _titleLab;
+}
+
+@end
+
 #pragma mark —— OrderDetailVC
 @interface OrderDetailVC ()
 <
 UITableViewDelegate,
 UITableViewDataSource
->
+>{
+    CGFloat OrderDetailTBVCell_02_Height;
+}
 
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIButton *sureBtn;
@@ -256,7 +328,6 @@ UITableViewDataSource
                            completion:^{}];
     }return vc;
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -299,9 +370,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0 &&
         indexPath.row == 0) {
         return [OrderDetailTBVCell_01 cellHeightWithModel:Nil];
-    }else if(indexPath.section == 0 &&
+    }else if(indexPath.section == 1 &&
              indexPath.row == 0){
-        return 200;//[OrderDetailTBVCell_02 cellHeightWithModel:Nil];
+        return OrderDetailTBVCell_02_Height;
     }else{}
     return 0.0f;
 }
@@ -338,6 +409,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
             OrderDetailTBVCell_02 *cell = [OrderDetailTBVCell_02 cellWith:tableView];
+            OrderDetailTBVCell_02_Height = [cell cellHeightWithModel:NULL];
+            cell.backgroundColor = KGreenColor;
             [cell richElementsInCellWithModel:nil];
             return cell;
         }
