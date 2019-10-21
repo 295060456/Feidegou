@@ -51,6 +51,7 @@
 #import <RevealServer/RevealServer.h>
 #import <GKNavigationBarViewController/GKNavigationBarViewController.h>
 #import <YYText/YYText.h>
+#import "BRPickerView.h"
 //#import <YYKit/YYKit.h>
 
 //我自己手动引入的第三方
@@ -74,7 +75,8 @@
 #import "MISFloatingBall.h"
 #import "Q_Pet.h"
 #import "VerifyCodeButton.h"
-
+#import "ECAuthorizationTools.h"
+#import "VideoHandleTool.h"
 //Model
 #import "PetsInfoListModel.h"
 #import "AdoptingPetsModel.h"

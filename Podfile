@@ -58,6 +58,7 @@ pod 'TWPageViewController'
 pod 'IQKeyboardManager'
 pod 'GKNavigationBarViewController'
 pod 'MISFloatingBall'
+pod 'BRPickerView'
 pod 'YYText'
 #pod 'YYKit'#有问题
 

@@ -405,6 +405,7 @@ UITableViewDataSource
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIButton *sureBtn;
 @property(nonatomic,strong)VerifyCodeButton *cancelBtn;
+@property(nonatomic,strong)BRStringPickerView *stringPickerView;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
@@ -472,7 +473,7 @@ UITableViewDataSource
                      message:@""
                  btnTitleArr:@[@"取消发货",
                                 @"取消"]
-              alertBtnAction:@[@"CancelDelivery",//确认发货
+              alertBtnAction:@[@"CancelDelivery",//取消发货
                                @"Cancel"]];//取消
 }
 
@@ -482,6 +483,8 @@ UITableViewDataSource
 
 -(void)CancelDelivery{
     NSLog(@"2");
+    //选择取消发货的原因
+    [self.stringPickerView show];
 }
 
 -(void)Cancel{
@@ -642,7 +645,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _cancelBtn;
 }
 
-
+-(BRStringPickerView *)stringPickerView{
+    if (!_stringPickerView) {
+        _stringPickerView = [[BRStringPickerView alloc]initWithPickerMode:BRStringPickerComponentSingle];
+        _stringPickerView.title = @"请选择取消原因";
+        _stringPickerView.dataSourceArr = @[@"未收到款项",
+                                           @"收到了,但是款项不符"];
+//        _stringPickerView.selectValue = textField.text;
+        _stringPickerView.resultModelBlock = ^(BRResultModel *resultModel) {
+            NSLog(@"选择的值：%@", resultModel.selectValue);
+        };
+    }return _stringPickerView;
+}
 
 
 

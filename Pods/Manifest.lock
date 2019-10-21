@@ -15,6 +15,7 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - BaiduMapKit (5.0.0)
+  - BRPickerView (2.3.1)
   - DDProgressView (0.1)
   - FLEX (3.0.0)
   - FMDB (2.6.2):
@@ -83,6 +84,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
   - BaiduMapKit
+  - BRPickerView
   - DDProgressView
   - FLEX
   - FMDB (~> 2.6.2)
@@ -130,6 +132,7 @@ SPEC REPOS:
   trunk:
     - AFNetworking
     - BaiduMapKit
+    - BRPickerView
     - DDProgressView
     - FLEX
     - FMDB
@@ -174,6 +177,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   BaiduMapKit: 3a875b001293a9ee6692febd549d8bf82108dbac
+  BRPickerView: 46c9c2a5fce2590554402961acca694557521712
   DDProgressView: d5a8983e5585217ee58f4a046bb4038f6e1b6306
   FLEX: d66c759bce0f6ebbbf472c742380874d846f2883
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
@@ -215,6 +219,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: 3193d9d2790c2946921be011413cd1d3e864f2d9
+PODFILE CHECKSUM: 0f2d25d571033fd852b21e79fb755bfeab733b07
 
 COCOAPODS: 1.8.4
