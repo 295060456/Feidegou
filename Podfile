@@ -57,6 +57,7 @@ pod 'MJExtension'    #上拉加载、下拉刷新
 pod 'TWPageViewController'
 pod 'IQKeyboardManager'
 pod 'GKNavigationBarViewController'
+pod 'MISFloatingBall'
 pod 'YYText'
 #pod 'YYKit'#有问题
 

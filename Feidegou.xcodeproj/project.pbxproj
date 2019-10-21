@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		71BE65A43CAAA15ED813BE7F /* libPods-Feidegou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */; };
+		8B4781AF235D9C72007CBC63 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781A5235D9C72007CBC63 /* TwitterHeart.json */; };
+		8B4781B0235D9C72007CBC63 /* HamburgerArrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781A6235D9C72007CBC63 /* HamburgerArrow.json */; };
+		8B4781B1235D9C72007CBC63 /* G.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781A7235D9C72007CBC63 /* G.json */; };
+		8B4781B2235D9C72007CBC63 /* vcTransition1.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781A8235D9C72007CBC63 /* vcTransition1.json */; };
+		8B4781B3235D9C72007CBC63 /* F.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781A9235D9C72007CBC63 /* F.json */; };
+		8B4781B4235D9C72007CBC63 /* LottieLogo2.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781AA235D9C72007CBC63 /* LottieLogo2.json */; };
+		8B4781B5235D9C72007CBC63 /* Watermelon.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781AB235D9C72007CBC63 /* Watermelon.json */; };
+		8B4781B6235D9C72007CBC63 /* Q.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781AC235D9C72007CBC63 /* Q.json */; };
+		8B4781B7235D9C72007CBC63 /* PinJump.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781AD235D9C72007CBC63 /* PinJump.json */; };
+		8B4781B8235D9C72007CBC63 /* W.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781AE235D9C72007CBC63 /* W.json */; };
 		8B495D6D235C57CF003C0AE1 /* MMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B495D6B235C57CF003C0AE1 /* MMButton.m */; };
 		8B495D6E235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） in Resources */ = {isa = PBXBuildFile; fileRef = 8B495D6C235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） */; };
 		8B495D72235C6B03003C0AE1 /* ShopReceiptQRcodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B495D71235C6B03003C0AE1 /* ShopReceiptQRcodeVC.m */; };
@@ -28,6 +38,7 @@
 		8B83B620235AF8DC00FD5D55 /* AdoptingPetsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B61F235AF8DC00FD5D55 /* AdoptingPetsModel.m */; };
 		8B83B623235AF90C00FD5D55 /* FeedPetsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B622235AF90C00FD5D55 /* FeedPetsModel.m */; };
 		8B83B626235AF93D00FD5D55 /* CleanPetsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B625235AF93D00FD5D55 /* CleanPetsModel.m */; };
+		8B9C4D70235D94B400BBE7D1 /* Q_Pet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9C4D6F235D94B400BBE7D1 /* Q_Pet.m */; };
 		8BA18191235AF9DE0021B4DC /* GrowthValuePetsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA18190235AF9DE0021B4DC /* GrowthValuePetsModel.m */; };
 		8BA18194235AFA040021B4DC /* GiftFoodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA18193235AFA040021B4DC /* GiftFoodsModel.m */; };
 		8BA181AC235B1F470021B4DC /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA94BCE235AE2E900B00786 /* BaseVC.m */; };
@@ -529,6 +540,16 @@
 /* Begin PBXFileReference section */
 		24EEB4BC842F9E07DEEF3F0B /* Pods-Feidegou.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.release.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.release.xcconfig"; sourceTree = "<group>"; };
 		6C32034C23408BE5001794DE /* UIImage+helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+helper.h"; sourceTree = "<group>"; };
+		8B4781A5235D9C72007CBC63 /* TwitterHeart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeart.json; sourceTree = "<group>"; };
+		8B4781A6235D9C72007CBC63 /* HamburgerArrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HamburgerArrow.json; sourceTree = "<group>"; };
+		8B4781A7235D9C72007CBC63 /* G.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = G.json; sourceTree = "<group>"; };
+		8B4781A8235D9C72007CBC63 /* vcTransition1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = vcTransition1.json; sourceTree = "<group>"; };
+		8B4781A9235D9C72007CBC63 /* F.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = F.json; sourceTree = "<group>"; };
+		8B4781AA235D9C72007CBC63 /* LottieLogo2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LottieLogo2.json; sourceTree = "<group>"; };
+		8B4781AB235D9C72007CBC63 /* Watermelon.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Watermelon.json; sourceTree = "<group>"; };
+		8B4781AC235D9C72007CBC63 /* Q.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Q.json; sourceTree = "<group>"; };
+		8B4781AD235D9C72007CBC63 /* PinJump.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PinJump.json; sourceTree = "<group>"; };
+		8B4781AE235D9C72007CBC63 /* W.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = W.json; sourceTree = "<group>"; };
 		8B495D6A235C57CF003C0AE1 /* MMButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMButton.h; sourceTree = "<group>"; };
 		8B495D6B235C57CF003C0AE1 /* MMButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMButton.m; sourceTree = "<group>"; };
 		8B495D6C235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "MMButton（自定义图文位置 \\ 距离）"; sourceTree = "<group>"; };
@@ -569,6 +590,8 @@
 		8B83B622235AF90C00FD5D55 /* FeedPetsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FeedPetsModel.m; sourceTree = "<group>"; };
 		8B83B624235AF93D00FD5D55 /* CleanPetsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CleanPetsModel.h; sourceTree = "<group>"; };
 		8B83B625235AF93D00FD5D55 /* CleanPetsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CleanPetsModel.m; sourceTree = "<group>"; };
+		8B9C4D6E235D94B400BBE7D1 /* Q_Pet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Q_Pet.h; sourceTree = "<group>"; };
+		8B9C4D6F235D94B400BBE7D1 /* Q_Pet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Q_Pet.m; sourceTree = "<group>"; };
 		8BA1818F235AF9DE0021B4DC /* GrowthValuePetsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GrowthValuePetsModel.h; sourceTree = "<group>"; };
 		8BA18190235AF9DE0021B4DC /* GrowthValuePetsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GrowthValuePetsModel.m; sourceTree = "<group>"; };
 		8BA18192235AFA040021B4DC /* GiftFoodsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftFoodsModel.h; sourceTree = "<group>"; };
@@ -1521,6 +1544,23 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8B4781A4235D9C72007CBC63 /* jsonfile */ = {
+			isa = PBXGroup;
+			children = (
+				8B4781A5235D9C72007CBC63 /* TwitterHeart.json */,
+				8B4781A6235D9C72007CBC63 /* HamburgerArrow.json */,
+				8B4781A7235D9C72007CBC63 /* G.json */,
+				8B4781A8235D9C72007CBC63 /* vcTransition1.json */,
+				8B4781A9235D9C72007CBC63 /* F.json */,
+				8B4781AA235D9C72007CBC63 /* LottieLogo2.json */,
+				8B4781AB235D9C72007CBC63 /* Watermelon.json */,
+				8B4781AC235D9C72007CBC63 /* Q.json */,
+				8B4781AD235D9C72007CBC63 /* PinJump.json */,
+				8B4781AE235D9C72007CBC63 /* W.json */,
+			);
+			path = jsonfile;
+			sourceTree = "<group>";
+		};
 		8B495D69235C57CF003C0AE1 /* MMButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -1560,6 +1600,7 @@
 		8B7CA09F2355D67B0050EEB6 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				8B4781A4235D9C72007CBC63 /* jsonfile */,
 				8B7CA0A12355D6CA0050EEB6 /* Font */,
 				8B7CA0A02355D68B0050EEB6 /* Image */,
 			);
@@ -1689,6 +1730,15 @@
 			path = MyModel;
 			sourceTree = "<group>";
 		};
+		8B9C4D6D235D945D00BBE7D1 /* Q宠 */ = {
+			isa = PBXGroup;
+			children = (
+				8B9C4D6E235D94B400BBE7D1 /* Q_Pet.h */,
+				8B9C4D6F235D94B400BBE7D1 /* Q_Pet.m */,
+			);
+			path = "Q宠";
+			sourceTree = "<group>";
+		};
 		8BA181B0235B1FE60021B4DC /* 订单 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1765,6 +1815,7 @@
 		8BA94BD1235AE34900B00786 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8B9C4D6D235D945D00BBE7D1 /* Q宠 */,
 				8B495D6F235C6AC0003C0AE1 /* 店铺收款码 */,
 				8BA181B8235B31560021B4DC /* 订单详情 */,
 				8BA181B4235B27180021B4DC /* 订单单元格 */,
@@ -3337,6 +3388,7 @@
 				C42CD09C213CC2640096675F /* CellLogisticsGood.xib in Resources */,
 				C42CD0AF213CC2640096675F /* CellOrderDetialNumber.xib in Resources */,
 				C42CD179213CC2640096675F /* Navigation.storyboard in Resources */,
+				8B4781AF235D9C72007CBC63 /* TwitterHeart.json in Resources */,
 				C46143FB214386B6000C0CDC /* CellVendorDiscount.xib in Resources */,
 				C4A0DA7F213E958D00B45B65 /* SignInTip.xib in Resources */,
 				C42CD0A9213CC2640096675F /* CellOrderGiftNo.xib in Resources */,
@@ -3379,6 +3431,7 @@
 				C42CD120213CC2640096675F /* CLCellRegion.xib in Resources */,
 				C46368DA213FBE6C006922D5 /* CellGoodBigLeft.xib in Resources */,
 				C42CCCE3213CC0520096675F /* Assets.xcassets in Resources */,
+				8B4781B5235D9C72007CBC63 /* Watermelon.json in Resources */,
 				C42CD176213CC2640096675F /* ApplyForVender.storyboard in Resources */,
 				C46D6B5A2143A5C900428D7A /* CellOrderConfilm.xib in Resources */,
 				C4614406214386B6000C0CDC /* CellVendorGoodPic.xib in Resources */,
@@ -3400,7 +3453,9 @@
 				C42CD14F213CC2640096675F /* CLCellSelectedNo.xib in Resources */,
 				C42CD0CF213CC2640096675F /* CellOrderMoney.xib in Resources */,
 				C46368EB213FBE6C006922D5 /* CLCellTypeSmall.xib in Resources */,
+				8B4781B6235D9C72007CBC63 /* Q.json in Resources */,
 				C47D09852148DB720098ED3A /* 苏新诗卵石体.ttf in Resources */,
+				8B4781B0235D9C72007CBC63 /* HamburgerArrow.json in Resources */,
 				C4824262214F99FA00A9D432 /* CellHeaderMore.xib in Resources */,
 				C42CD07A213CC2640096675F /* CellBlance.xib in Resources */,
 				C42CD137213CC2640096675F /* ReusableViewProperty.xib in Resources */,
@@ -3437,10 +3492,14 @@
 				C42CD17A213CC2640096675F /* ShopCart.storyboard in Resources */,
 				C42CD0DC213CC2640096675F /* CellImageMore.xib in Resources */,
 				C42CD0B3213CC2640096675F /* CellGoodMoney.xib in Resources */,
+				8B4781B4235D9C72007CBC63 /* LottieLogo2.json in Resources */,
 				C42CD053213CC2640096675F /* CellTextField.xib in Resources */,
 				C46D6B652143BA2E00428D7A /* CLCellOneLblNoLine.xib in Resources */,
 				C4614408214386B6000C0CDC /* CellMyService.xib in Resources */,
+				8B4781B3235D9C72007CBC63 /* F.json in Resources */,
+				8B4781B2235D9C72007CBC63 /* vcTransition1.json in Resources */,
 				C42CD0A1213CC2640096675F /* CellAddress.xib in Resources */,
+				8B4781B8235D9C72007CBC63 /* W.json in Resources */,
 				C4A2220A215A331100AC08C4 /* DrawbackMoney.xib in Resources */,
 				C42CD17E213CC2640096675F /* WebService.storyboard in Resources */,
 				C42CD135213CC2640096675F /* CellPicture.xib in Resources */,
@@ -3461,6 +3520,7 @@
 				C42CD0D8213CC2640096675F /* CellOrderOneLbl.xib in Resources */,
 				C42CD069213CC2640096675F /* CellTwoLblArrow.xib in Resources */,
 				C42CD174213CC2640096675F /* RankingList.storyboard in Resources */,
+				8B4781B1235D9C72007CBC63 /* G.json in Resources */,
 				C42CD17D213CC2640096675F /* ShopType.storyboard in Resources */,
 				C46368DF213FBE6C006922D5 /* CellAdver.xib in Resources */,
 				C46368EE213FBE6C006922D5 /* CellSixType.xib in Resources */,
@@ -3470,6 +3530,7 @@
 				C46368E3213FBE6C006922D5 /* CLCellTipMsg.xib in Resources */,
 				C42CD0C9213CC2640096675F /* CellOneLabel.xib in Resources */,
 				C42CD05C213CC2640096675F /* CellCollection.xib in Resources */,
+				8B4781B7235D9C72007CBC63 /* PinJump.json in Resources */,
 				C4614400214386B6000C0CDC /* CellTypeMore.xib in Resources */,
 				C42CD05D213CC2640096675F /* CellCollectionType.xib in Resources */,
 				C42CD14C213CC2640096675F /* CLCellGoodTypeHead.xib in Resources */,
@@ -3559,6 +3620,7 @@
 				8BA181AC235B1F470021B4DC /* BaseVC.m in Sources */,
 				C42CD06E213CC2640096675F /* ChangePswController.m in Sources */,
 				C46D6B5321438F6400428D7A /* PayMoneySuccedController.m in Sources */,
+				8B9C4D70235D94B400BBE7D1 /* Q_Pet.m in Sources */,
 				C42CD09D213CC2640096675F /* CellLogisticsEnd.m in Sources */,
 				C42CD0F0213CC2640096675F /* RegisterInviterController.m in Sources */,
 				C46143F2214386B6000C0CDC /* CellVendorAddress.m in Sources */,

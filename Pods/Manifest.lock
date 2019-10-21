@@ -36,6 +36,7 @@ PODS:
   - Mantle/extobjc (1.5.8)
   - Masonry (1.1.0)
   - "MBProgressHUD+WJExtension (1.3.1)"
+  - MISFloatingBall (1.1.1)
   - MJExtension (3.2.1)
   - MJRefresh (3.2.0)
   - mob_sharesdk (4.3.3):
@@ -97,6 +98,7 @@ DEPENDENCIES:
   - Mantle (~> 1.5.8)
   - Masonry
   - "MBProgressHUD+WJExtension"
+  - MISFloatingBall
   - MJExtension
   - MJRefresh
   - mob_sharesdk
@@ -143,6 +145,7 @@ SPEC REPOS:
     - Mantle
     - Masonry
     - "MBProgressHUD+WJExtension"
+    - MISFloatingBall
     - MJExtension
     - MJRefresh
     - mob_sharesdk
@@ -186,6 +189,7 @@ SPEC CHECKSUMS:
   Mantle: f03b2b606c3f0cabd80214ad8a2fed6b464a7359
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   "MBProgressHUD+WJExtension": 1d9c93951b49e8c711fef6e6089aa6d7d3321192
+  MISFloatingBall: c2b0c60baaa87cc5675ef33159d3b999f82253a3
   MJExtension: 635f2c663dcb1bf76fa4b715b2570a5710aec545
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
   mob_sharesdk: 48cb240a4b9cc393be2d6ff9c5b597ae77a1da73
@@ -211,6 +215,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: f96f6e44579afd218f98398680c33fb989effbf1
+PODFILE CHECKSUM: 3193d9d2790c2946921be011413cd1d3e864f2d9
 
 COCOAPODS: 1.8.4

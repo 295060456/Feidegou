@@ -14,6 +14,9 @@
 @property(nonatomic,assign)int tap;
 @property(nonatomic,copy)NSString *QRcodeStr;
 
+//Q宠
+@property(nonatomic,strong)Q_Pet *pet;
+
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -63,6 +66,7 @@
     self.gk_navTitle = @"店铺收款码";
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     [self QRcode];
+    self.pet.alpha = 1;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -129,6 +133,20 @@
                                              SCREEN_WIDTH / 2));
         }];
     }return _QRcodeIMGV;
+}
+
+-(Q_Pet *)pet{
+    if (!_pet) {
+        _pet = [[Q_Pet alloc]initWithFrame:CGRectMake(100,
+                                                      100,
+                                                      100,
+                                                      100)];
+        _pet.autoCloseEdge = YES;
+
+        [_pet setContent:kIMG(@"新机器猫")
+             contentType:MISFloatingBallContentTypeImage];
+        [_pet show];
+    }return _pet;
 }
 
 @end

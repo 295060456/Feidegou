@@ -71,6 +71,9 @@
 #import "HQTextField.h"
 #import "UIView+Extras.h"
 #import "MMButton.h"
+#import "MISFloatingBall.h"
+#import "Q_Pet.h"
+
 //Model
 #import "PetsInfoListModel.h"
 #import "AdoptingPetsModel.h"
