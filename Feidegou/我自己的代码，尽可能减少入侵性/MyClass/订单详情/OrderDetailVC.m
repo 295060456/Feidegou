@@ -404,7 +404,7 @@ UITableViewDataSource
 
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIButton *sureBtn;
-@property(nonatomic,strong)UIButton *cancelBtn;
+@property(nonatomic,strong)VerifyCodeButton *cancelBtn;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
@@ -457,13 +457,38 @@ UITableViewDataSource
 }
 #pragma mark —— 点击事件
 -(void)sureBtnClickEvent:(UIButton *)sender{
+    NSLog(@"确认发货");
+    [self showAlertViewTitle:@"确认发货？"
+                     message:@"确认以后将货款进行拨付"
+                 btnTitleArr:@[@"确认发货",
+                                @"取消"]
+              alertBtnAction:@[@"ConfirmDelivery",//确认发货
+                               @"Cancel"]];//取消
     
 }
 
 -(void)cancelBtnClickEvent:(UIButton *)sender{
-    
-    
+    NSLog(@"取消");
+    [self showAlertViewTitle:@"取消发货？"
+                     message:@""
+                 btnTitleArr:@[@"取消发货",
+                                @"取消"]
+              alertBtnAction:@[@"CancelDelivery",//确认发货
+                               @"Cancel"]];//取消
 }
+
+-(void)ConfirmDelivery{
+    NSLog(@"1");
+}
+
+-(void)CancelDelivery{
+    NSLog(@"2");
+}
+
+-(void)Cancel{
+    NSLog(@"3");
+}
+
 #pragma mark —— 私有方法
 // 下拉刷新
 -(void)pullToRefresh{
@@ -593,17 +618,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _sureBtn;
 }
 
--(UIButton *)cancelBtn{
+-(VerifyCodeButton *)cancelBtn{
     if (!_cancelBtn) {
-        _cancelBtn = UIButton.new;
-        [_cancelBtn setTitle:@"取消"
-                    forState:UIControlStateNormal];
+        _cancelBtn = VerifyCodeButton.new;
+        _cancelBtn.titleBeginStr = @"取消";
+        _cancelBtn.titleEndStr = @"取消";
+        _cancelBtn.titleColor = kWhiteColor;
+        _cancelBtn.bgBeginColor = KLightGrayColor;
+        _cancelBtn.bgEndColor = kOrangeColor;
+        _cancelBtn.layerBorderColor = kWhiteColor;
+        _cancelBtn.layerCornerRadius = 5;
+        _cancelBtn.isClipsToBounds = YES;
+        [_cancelBtn timeFailBeginFrom:10];
         [_cancelBtn addTarget:self
                        action:@selector(cancelBtnClickEvent:)
              forControlEvents:UIControlEventTouchUpInside];
-        _cancelBtn.backgroundColor = KLightGrayColor;
-        [UIView cornerCutToCircleWithView:_cancelBtn
-                          AndCornerRadius:5];
         [self.view addSubview:_cancelBtn];
         [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.view).offset(SCALING_RATIO(-10));

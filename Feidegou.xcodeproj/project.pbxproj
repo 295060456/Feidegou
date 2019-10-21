@@ -18,6 +18,8 @@
 		8B4781B6235D9C72007CBC63 /* Q.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781AC235D9C72007CBC63 /* Q.json */; };
 		8B4781B7235D9C72007CBC63 /* PinJump.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781AD235D9C72007CBC63 /* PinJump.json */; };
 		8B4781B8235D9C72007CBC63 /* W.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781AE235D9C72007CBC63 /* W.json */; };
+		8B4781C3235DB8DE007CBC63 /* VerifyCodeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4781C1235DB8DE007CBC63 /* VerifyCodeButton.m */; };
+		8B4781C4235DB8DE007CBC63 /* 验证码按钮单例封装 in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781C2235DB8DE007CBC63 /* 验证码按钮单例封装 */; };
 		8B495D6D235C57CF003C0AE1 /* MMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B495D6B235C57CF003C0AE1 /* MMButton.m */; };
 		8B495D6E235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） in Resources */ = {isa = PBXBuildFile; fileRef = 8B495D6C235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） */; };
 		8B495D72235C6B03003C0AE1 /* ShopReceiptQRcodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B495D71235C6B03003C0AE1 /* ShopReceiptQRcodeVC.m */; };
@@ -550,6 +552,9 @@
 		8B4781AC235D9C72007CBC63 /* Q.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Q.json; sourceTree = "<group>"; };
 		8B4781AD235D9C72007CBC63 /* PinJump.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PinJump.json; sourceTree = "<group>"; };
 		8B4781AE235D9C72007CBC63 /* W.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = W.json; sourceTree = "<group>"; };
+		8B4781C0235DB8DE007CBC63 /* VerifyCodeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VerifyCodeButton.h; sourceTree = "<group>"; };
+		8B4781C1235DB8DE007CBC63 /* VerifyCodeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VerifyCodeButton.m; sourceTree = "<group>"; };
+		8B4781C2235DB8DE007CBC63 /* 验证码按钮单例封装 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "验证码按钮单例封装"; sourceTree = "<group>"; };
 		8B495D6A235C57CF003C0AE1 /* MMButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMButton.h; sourceTree = "<group>"; };
 		8B495D6B235C57CF003C0AE1 /* MMButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMButton.m; sourceTree = "<group>"; };
 		8B495D6C235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "MMButton（自定义图文位置 \\ 距离）"; sourceTree = "<group>"; };
@@ -1561,6 +1566,16 @@
 			path = jsonfile;
 			sourceTree = "<group>";
 		};
+		8B4781BF235DB8D3007CBC63 /* VerifyCodeButton */ = {
+			isa = PBXGroup;
+			children = (
+				8B4781C2235DB8DE007CBC63 /* 验证码按钮单例封装 */,
+				8B4781C0235DB8DE007CBC63 /* VerifyCodeButton.h */,
+				8B4781C1235DB8DE007CBC63 /* VerifyCodeButton.m */,
+			);
+			path = VerifyCodeButton;
+			sourceTree = "<group>";
+		};
 		8B495D69235C57CF003C0AE1 /* MMButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -1806,6 +1821,7 @@
 		8BA94BD0235AE30100B00786 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				8B4781BF235DB8D3007CBC63 /* VerifyCodeButton */,
 				8B495D69235C57CF003C0AE1 /* MMButton */,
 				8BA94BC9235AD50500B00786 /* MISFloatingBall */,
 			);
@@ -3456,6 +3472,7 @@
 				8B4781B6235D9C72007CBC63 /* Q.json in Resources */,
 				C47D09852148DB720098ED3A /* 苏新诗卵石体.ttf in Resources */,
 				8B4781B0235D9C72007CBC63 /* HamburgerArrow.json in Resources */,
+				8B4781C4235DB8DE007CBC63 /* 验证码按钮单例封装 in Resources */,
 				C4824262214F99FA00A9D432 /* CellHeaderMore.xib in Resources */,
 				C42CD07A213CC2640096675F /* CellBlance.xib in Resources */,
 				C42CD137213CC2640096675F /* ReusableViewProperty.xib in Resources */,
@@ -3666,6 +3683,7 @@
 				C42CD0E4213CC2640096675F /* OrderesAddressController.m in Sources */,
 				C42CD052213CC2640096675F /* CellTip.m in Sources */,
 				C46368E9213FBE6C006922D5 /* CLCellTypeBig.m in Sources */,
+				8B4781C3235DB8DE007CBC63 /* VerifyCodeButton.m in Sources */,
 				C42CD0F2213CC2640096675F /* RegisterSucceedController.m in Sources */,
 				C42CD04F213CC2640096675F /* ApplyForTypeController.m in Sources */,
 				C42CD1C0213CC2640096675F /* ModelVendorNear.m in Sources */,
