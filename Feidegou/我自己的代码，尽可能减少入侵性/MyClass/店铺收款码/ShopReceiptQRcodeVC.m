@@ -142,9 +142,8 @@
                                                       100,
                                                       100)];
         _pet.autoCloseEdge = YES;
-
-        [_pet setContent:kIMG(@"新机器猫")
-             contentType:MISFloatingBallContentTypeImage];
+//        [_pet setContent:kIMG(@"新机器猫")
+//             contentType:MISFloatingBallContentTypeImage];
         [_pet show];
     }return _pet;
 }

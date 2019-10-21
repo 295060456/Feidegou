@@ -32,6 +32,40 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
 
 @implementation Q_Pet
 
+- (instancetype)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]) {
+        [self setContent:kIMG(@"新机器猫")
+             contentType:MISFloatingBallContentTypeImage];
+    }return self;
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches
+          withEvent:(UIEvent *)event{
+    d++;
+    if (_laAnimation) {
+        [_laAnimation removeFromSuperview];
+        _laAnimation = nil;
+    }
+    NSLog(@"KKK = %d",d %2);
+    if (d % 2) {//开
+       @weakify(self)
+        [self setContent:kIMG(@"透明图标")
+             contentType:MISFloatingBallContentTypeImage];
+        [self.laAnimation playWithCompletion:^(BOOL animationFinished) {
+            @strongify(self)
+//            NSLog(@"123");
+            [self.laAnimation removeFromSuperview];
+            self.laAnimation = nil;
+            [self setContent:kIMG(@"新机器猫")
+                 contentType:MISFloatingBallContentTypeImage];
+        }];
+    }else{//关
+        [self setContent:kIMG(@"新机器猫")
+             contentType:MISFloatingBallContentTypeImage];
+        [self.laAnimation pause];//
+    }
+}
+
 -(NSString *)event_marchWithAnimationType:(DYAnimationType)animationType{
     switch (animationType) {
         case kDYAnimationOne:
@@ -66,30 +100,6 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
             break;
         default:
             break;
-    }
-}
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches
-          withEvent:(UIEvent *)event{
-    d++;
-    if (_laAnimation) {
-        [_laAnimation removeFromSuperview];
-        _laAnimation = nil;
-    }
-//    jsonString = [self event_marchWithAnimationType:d % 10];
-    NSLog(@"KKK = %d",d %2);
-    if (d % 2) {//开
-//       @weakify(self)
-//        [self setContent:Nil
-//             contentType:MISFloatingBallContentTypeImage];
-        [self.laAnimation playWithCompletion:^(BOOL animationFinished) {
-//            @strongify(self)
-            
-        }];
-    }else{//关
-//        [self setContent:kIMG(@"新机器猫")
-//             contentType:MISFloatingBallContentTypeImage];
-        [self.laAnimation pause];//
     }
 }
 
