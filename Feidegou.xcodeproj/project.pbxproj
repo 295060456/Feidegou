@@ -26,6 +26,7 @@
 		8B495D6E235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） in Resources */ = {isa = PBXBuildFile; fileRef = 8B495D6C235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） */; };
 		8B495D72235C6B03003C0AE1 /* ShopReceiptQRcodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B495D71235C6B03003C0AE1 /* ShopReceiptQRcodeVC.m */; };
 		8B4CB3BC2359ECF5009EFDC5 /* YBNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4CB3B92359ECF4009EFDC5 /* YBNotificationManager.m */; };
+		8B5A7018235F37B8000373ED /* CatFoodProducingAreaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5A7017235F37B8000373ED /* CatFoodProducingAreaVC.m */; };
 		8B83B609235AF46D00FD5D55 /* TBVCell_style_01.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5E8235AF46D00FD5D55 /* TBVCell_style_01.m */; };
 		8B83B60A235AF46D00FD5D55 /* UIView+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5EC235AF46D00FD5D55 /* UIView+Extras.m */; };
 		8B83B60B235AF46D00FD5D55 /* NSArray+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5EE235AF46D00FD5D55 /* NSArray+Extension.m */; };
@@ -572,6 +573,8 @@
 		8B4CB3B92359ECF4009EFDC5 /* YBNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YBNotificationManager.m; sourceTree = "<group>"; };
 		8B4CB3BA2359ECF4009EFDC5 /* AABlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AABlock.h; sourceTree = "<group>"; };
 		8B4CB3BB2359ECF5009EFDC5 /* YBNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBNotificationManager.h; sourceTree = "<group>"; };
+		8B5A7016235F37B8000373ED /* CatFoodProducingAreaVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatFoodProducingAreaVC.h; sourceTree = "<group>"; };
+		8B5A7017235F37B8000373ED /* CatFoodProducingAreaVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CatFoodProducingAreaVC.m; sourceTree = "<group>"; };
 		8B83B5E8235AF46D00FD5D55 /* TBVCell_style_01.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBVCell_style_01.m; sourceTree = "<group>"; };
 		8B83B5E9235AF46D00FD5D55 /* TBVCell_style_01.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBVCell_style_01.h; sourceTree = "<group>"; };
 		8B83B5EB235AF46D00FD5D55 /* UIView+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extras.h"; sourceTree = "<group>"; };
@@ -1641,6 +1644,8 @@
 		8B7135CF235AF254002EDBAA /* 喵粮订单管理 */ = {
 			isa = PBXGroup;
 			children = (
+				8BA181B1235B1FE70021B4DC /* OrderListVC.h */,
+				8BA181B2235B1FE70021B4DC /* OrderListVC.m */,
 			);
 			path = "喵粮订单管理";
 			sourceTree = "<group>";
@@ -1788,15 +1793,6 @@
 			path = "Q宠";
 			sourceTree = "<group>";
 		};
-		8BA181B0235B1FE60021B4DC /* 订单 */ = {
-			isa = PBXGroup;
-			children = (
-				8BA181B1235B1FE70021B4DC /* OrderListVC.h */,
-				8BA181B2235B1FE70021B4DC /* OrderListVC.m */,
-			);
-			path = "订单";
-			sourceTree = "<group>";
-		};
 		8BA181B4235B27180021B4DC /* 订单单元格 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1873,7 +1869,6 @@
 				8B495D6F235C6AC0003C0AE1 /* 店铺收款码 */,
 				8BA181B8235B31560021B4DC /* 订单详情 */,
 				8BA181B4235B27180021B4DC /* 订单单元格 */,
-				8BA181B0235B1FE60021B4DC /* 订单 */,
 				8B7135CF235AF254002EDBAA /* 喵粮订单管理 */,
 				8BA94BD4235AE3A000B00786 /* 钱包 */,
 				8BA94BD3235AE39300B00786 /* 喵粮产地 */,
@@ -1894,6 +1889,8 @@
 		8BA94BD3235AE39300B00786 /* 喵粮产地 */ = {
 			isa = PBXGroup;
 			children = (
+				8B5A7016235F37B8000373ED /* CatFoodProducingAreaVC.h */,
+				8B5A7017235F37B8000373ED /* CatFoodProducingAreaVC.m */,
 			);
 			path = "喵粮产地";
 			sourceTree = "<group>";
@@ -3880,6 +3877,7 @@
 				C42CD19D213CC2640096675F /* ButtonUpDown.m in Sources */,
 				8BB8BD3A235ED50C008C7578 /* HQTextField.m in Sources */,
 				C42CD0E5213CC2640096675F /* NJKWebViewProgress.m in Sources */,
+				8B5A7018235F37B8000373ED /* CatFoodProducingAreaVC.m in Sources */,
 				C42CD1C4213CC2640096675F /* ModelCenter.m in Sources */,
 				C42CD066213CC2640096675F /* CLCellUpImgDownLbl.m in Sources */,
 				C42CD096213CC2640096675F /* BillSelectedController.m in Sources */,

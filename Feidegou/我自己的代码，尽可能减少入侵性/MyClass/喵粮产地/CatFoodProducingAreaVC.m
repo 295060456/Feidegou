@@ -1,0 +1,241 @@
+//
+//  CatFoodProducingAreaVC.m
+//  Feidegou
+//
+//  Created by Kite on 2019/10/22.
+//  Copyright © 2019 朝花夕拾. All rights reserved.
+//
+
+#import "CatFoodProducingAreaVC.h"
+
+@interface CatFoodProducingAreaTBVCell ()
+
+@property(nonatomic,strong)UILabel *sellerNameLab;//卖家名称
+@property(nonatomic,strong)UILabel *priceLab;//单价
+@property(nonatomic,strong)UILabel *numLab;//数量
+
+@end
+
+@implementation CatFoodProducingAreaTBVCell
+
++(instancetype)cellWith:(UITableView *)tableView{
+    CatFoodProducingAreaTBVCell *cell = (CatFoodProducingAreaTBVCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
+    if (!cell) {
+        cell = [[CatFoodProducingAreaTBVCell alloc]initWithStyle:UITableViewCellStyleDefault
+                                               reuseIdentifier:ReuseIdentifier
+                                                        margin:SCALING_RATIO(10)];
+        [UIView cornerCutToCircleWithView:cell
+                          AndCornerRadius:10.f];
+        [UIView colourToLayerOfView:cell
+                         WithColour:kWhiteColor
+                     AndBorderWidth:0.3f];
+    }return cell;
+}
+
+-(CGFloat)cellHeightWithModel:(id _Nullable)model{
+    return 200;//self.numLab.mj_y + self.numLab.mj_h + SCALING_RATIO(20);
+}
+
+- (void)richElementsInCellWithModel:(id _Nullable)model{
+    self.sellerNameLab.text = @"中国北京市中南海";
+    self.priceLab.text = @"11234.11";
+    self.numLab.text = @"1234";
+    [self layoutIfNeeded];
+}
+
+#pragma mark —— lazyLoad
+-(UILabel *)sellerNameLab{
+    if (!_sellerNameLab) {
+        _sellerNameLab = UILabel.new;
+        [_sellerNameLab sizeToFit];
+        [self.contentView addSubview:_sellerNameLab];
+        [_sellerNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
+        }];
+    }return _sellerNameLab;
+}
+
+-(UILabel *)priceLab{
+    if (!_priceLab) {
+        _priceLab = UILabel.new;
+        [_priceLab sizeToFit];
+        [self.contentView addSubview:_priceLab];
+        [_priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.contentView).offset(SCALING_RATIO(10));
+            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+        }];
+    }return _sellerNameLab;
+}
+
+-(UILabel *)numLab{
+    if (!_numLab) {
+        _numLab = UILabel.new;
+        [_numLab sizeToFit];
+        [self.contentView addSubview:_numLab];
+        [_numLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+            make.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
+            make.top.equalTo(self.sellerNameLab.mas_bottom).offset(SCALING_RATIO(5));
+        }];
+    }return _sellerNameLab;
+}
+
+@end
+
+@interface CatFoodProducingAreaVC ()
+<UITableViewDelegate,
+UITableViewDataSource>
+{
+    CGFloat CatFoodProducingAreaTBVCellHeight;
+}
+
+@property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,strong)UIButton *fleshBtn;
+
+@property(nonatomic,strong)id requestParams;
+@property(nonatomic,copy)DataBlock successBlock;
+@property(nonatomic,assign)BOOL isPush;
+@property(nonatomic,assign)BOOL isPresent;
+
+@end
+
+@implementation CatFoodProducingAreaVC
+
+- (void)dealloc {
+    NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
+}
+
++ (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
+                       requestParams:(nullable id)requestParams
+                             success:(DataBlock _Nonnull )block
+                            animated:(BOOL)animated{
+    CatFoodProducingAreaVC *vc = CatFoodProducingAreaVC.new;
+    vc.successBlock = block;
+    vc.requestParams = requestParams;
+
+    if (rootVC.navigationController) {
+        vc.isPush = YES;
+        vc.isPresent = NO;
+        [rootVC.navigationController pushViewController:vc
+                                               animated:animated];
+    }else{
+        vc.isPush = NO;
+        vc.isPresent = YES;
+        [rootVC presentViewController:vc
+                             animated:animated
+                           completion:^{}];
+    }return vc;
+}
+
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    self.gk_navTitle = @"喵粮产地";
+    [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
+                                                    NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
+                                                                                        size:17]}];
+    self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.fleshBtn];
+    self.gk_navItemRightSpace = SCALING_RATIO(30);
+    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    self.tableView.alpha = 1;
+}
+#pragma mark —— 点击事件
+-(void)fleshBtnClickEvent:(UIButton *)sender{
+    NSLog(@"刷新");
+    [self.tableView.mj_header beginRefreshing];
+}
+
+#pragma mark —— 私有方法
+// 下拉刷新
+-(void)pullToRefresh{
+    NSLog(@"下拉刷新");
+    [self.tableView.mj_header endRefreshing];
+}
+//上拉加载更多
+- (void)loadMoreRefresh{
+    NSLog(@"上拉加载更多");
+    [self.tableView.mj_header endRefreshing];
+}
+
+#pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return CatFoodProducingAreaTBVCellHeight;
+}
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath
+                             animated:NO];
+    return;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
+    return 4;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    CatFoodProducingAreaTBVCell *cell = [CatFoodProducingAreaTBVCell cellWith:tableView];
+    cell.backgroundColor = RandomColor;
+    [cell richElementsInCellWithModel:nil];
+    CatFoodProducingAreaTBVCellHeight = [cell cellHeightWithModel:nil];
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+//给cell添加动画
+-(void)tableView:(UITableView *)tableView
+ willDisplayCell:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath{
+    //设置Cell的动画效果为3D效果
+    //设置x和y的初始值为0.1；
+    cell.layer.transform = CATransform3DMakeScale(0.1,
+                                                  0.1,
+                                                  1);
+    //x和y的最终值为1
+    [UIView animateWithDuration:1
+                     animations:^{
+        cell.layer.transform = CATransform3DMakeScale(1,
+                                                      1,
+                                                      1);
+    }];
+}
+
+#pragma mark —— lazyLoad
+-(UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:CGRectZero
+                                                 style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.tableFooterView = UIView.new;
+        _tableView.mj_header = self.tableViewHeader;
+        _tableView.mj_footer = self.tableViewFooter;
+        _tableView.mj_footer.hidden = YES;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//推荐该方法
+        [self.view addSubview:_tableView];
+        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.gk_navigationBar.mas_bottom);
+            make.left.right.bottom.equalTo(self.view);
+        }];
+    }return _tableView;
+}
+
+-(UIButton *)fleshBtn{
+    if (!_fleshBtn) {
+        _fleshBtn = UIButton.new;
+        [_fleshBtn addTarget:self
+                      action:@selector(fleshBtnClickEvent:)
+            forControlEvents:UIControlEventTouchUpInside];
+        [_fleshBtn setImage:kIMG(@"刷新")
+                   forState:UIControlStateNormal];
+    }return _fleshBtn;
+}
+
+
+
+@end

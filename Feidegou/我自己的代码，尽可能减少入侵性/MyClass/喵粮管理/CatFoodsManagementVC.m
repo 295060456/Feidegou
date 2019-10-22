@@ -10,6 +10,7 @@
 #import "OrderListVC.h"//订单
 #import "ShopReceiptQRcodeVC.h"//店铺收款码"
 #import "GiftVC.h"//赠送
+#import "CatFoodProducingAreaVC.h"//喵粮产地
 
 @interface CatFoodsManagementVC ()
 <
@@ -128,6 +129,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                  requestParams:nil
                        success:^(id data) {}
                       animated:YES];
+        }else if (indexPath.row == 3){
+            [CatFoodProducingAreaVC pushFromVC:self
+                                 requestParams:nil
+                                       success:^(id data) {}
+                                      animated:YES];
         }else{}
     }else{}
 }
@@ -212,8 +218,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSMutableArray<NSArray *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
-        [_titleMutArr addObject:@[@"余额",@"出售中"]];
-        [_titleMutArr addObject:@[@"喵粮订单管理",@"店铺收款码",@"赠送"]];
+        [_titleMutArr addObject:@[@"余额",
+                                  @"出售中"]];
+        [_titleMutArr addObject:@[@"喵粮订单管理",
+                                  @"店铺收款码",
+                                  @"赠送",
+                                  @"喵粮产地"]];
     }return _titleMutArr;
 }
 

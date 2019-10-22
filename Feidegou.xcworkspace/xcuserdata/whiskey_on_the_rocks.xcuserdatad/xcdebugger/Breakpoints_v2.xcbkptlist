@@ -5,66 +5,14 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            uuid = "F9881600-F1D5-45D2-9F50-65F83494B20A"
+            uuid = "19DFF26A-C9CC-492A-8743-5410DEBB828E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x4e0a;&#x4f20;&#x53d6;&#x6d88;&#x539f;&#x56e0;&#xff08;&#x622a;&#x56fe;&#xff09;/UpLoadCancelReasonVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "-IMGV"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "F9881600-F1D5-45D2-9F50-65F83494B20A - 79fe587263e3e9e2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__33-[UpLoadCancelReasonTBVCell IMGV]_block_invoke"
-                  moduleName = "Feidegou"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/whiskey_on_the_rocks/Documents/GitHub%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6/Feidegou/Feidegou/%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%8C%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%87%8F%E5%B0%91%E5%85%A5%E4%BE%B5%E6%80%A7/MyClass/%E4%B8%8A%E4%BC%A0%E5%8F%96%E6%B6%88%E5%8E%9F%E5%9B%A0%EF%BC%88%E6%88%AA%E5%9B%BE%EF%BC%89/UpLoadCancelReasonVC.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "137"
-                  endingLineNumber = "137"
-                  offsetFromSymbolStart = "256">
-               </Location>
-               <Location
-                  uuid = "F9881600-F1D5-45D2-9F50-65F83494B20A - 79fe587263e3e9e2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__33-[UpLoadCancelReasonTBVCell IMGV]_block_invoke"
-                  moduleName = "Feidegou"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/whiskey_on_the_rocks/Documents/GitHub%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6/Feidegou/Feidegou/%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%8C%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%87%8F%E5%B0%91%E5%85%A5%E4%BE%B5%E6%80%A7/MyClass/%E4%B8%8A%E4%BC%A0%E5%8F%96%E6%B6%88%E5%8E%9F%E5%9B%A0%EF%BC%88%E6%88%AA%E5%9B%BE%EF%BC%89/UpLoadCancelReasonVC.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "137"
-                  endingLineNumber = "137"
-                  offsetFromSymbolStart = "336">
-               </Location>
-               <Location
-                  uuid = "F9881600-F1D5-45D2-9F50-65F83494B20A - 79fe587263e3e9e2"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__33-[UpLoadCancelReasonTBVCell IMGV]_block_invoke"
-                  moduleName = "Feidegou"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/whiskey_on_the_rocks/Documents/GitHub%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6/Feidegou/Feidegou/%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%8C%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%87%8F%E5%B0%91%E5%85%A5%E4%BE%B5%E6%80%A7/MyClass/%E4%B8%8A%E4%BC%A0%E5%8F%96%E6%B6%88%E5%8E%9F%E5%9B%A0%EF%BC%88%E6%88%AA%E5%9B%BE%EF%BC%89/UpLoadCancelReasonVC.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "137"
-                  endingLineNumber = "137"
-                  offsetFromSymbolStart = "564">
-               </Location>
-            </Locations>
+            scope = "1"
+            stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -599,7 +599,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _stringPickerView.dataSourceArr = @[@"未收到款项",
                                            @"收到了,但是款项不符"];
 //        _stringPickerView.selectValue = textField.text;
+        @weakify(self)
         _stringPickerView.resultModelBlock = ^(BRResultModel *resultModel) {
+            @strongify(self)
             NSLog(@"选择的值：%@", resultModel.selectValue);
             [UpLoadCancelReasonVC pushFromVC:self
                                requestParams:Nil
