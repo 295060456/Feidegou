@@ -7,102 +7,9 @@
 //
 
 #import "OrderDetailVC.h"
-#pragma mark —— InfoView
-//@interface OrderDetailTBVCell_01 ()
-//
-//@property(nonatomic,strong)UIButton *A_Btn;
-//@property(nonatomic,strong)UIButton *B_Btn;
-//@property(nonatomic,strong)UIButton *directionBtn;
-//
-//@end
-//
-//@implementation OrderDetailTBVCell_01
-//
-//+(instancetype)cellWith:(UITableView *)tableView{
-//    OrderDetailTBVCell_01 *cell = (OrderDetailTBVCell_01 *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];//
-//    if (!cell) {
-//        cell = [[OrderDetailTBVCell_01 alloc] initWithStyle:UITableViewCellStyleDefault
-//                                            reuseIdentifier:ReuseIdentifier
-//                                                     margin:SCALING_RATIO(5)];
-//        [UIView cornerCutToCircleWithView:cell.contentView
-//                          AndCornerRadius:5.f];
-//        [UIView colourToLayerOfView:cell.contentView
-//                         WithColour:KGreenColor
-//                     AndBorderWidth:.1f];
-//    }return cell;
-//}
-//
-//+(CGFloat)cellHeightWithModel:(id _Nullable)model{
-//    return SCREEN_HEIGHT / 10;
-//}
-//
-//- (void)richElementsInCellWithModel:(id _Nullable)model{
-//    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-//    self.A_Btn.alpha = 1;
-//    self.B_Btn.alpha = 1;
-//    self.directionBtn.alpha = 1;
-//}
-//
-//#pragma mark —— lazyLoad
-//-(UIButton *)A_Btn{
-//    if (!_A_Btn) {
-//        _A_Btn = UIButton.new;
-//        _A_Btn.titleLabel.text = @"1234567";
-//        _A_Btn.backgroundColor = kBlueColor;
-//        [_A_Btn.titleLabel sizeToFit];
-//        _A_Btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-//        [self.contentView addSubview:_A_Btn];
-//        [_A_Btn mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.centerY.equalTo(self.contentView);
-//            make.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
-//            if (self.mj_h < SCREEN_HEIGHT / 10) {//
-//                make.top.equalTo(self.contentView).offset(SCALING_RATIO(10));
-//                make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-//            }else{
-//                make.height.mas_equalTo(self.contentView.mj_h / 2);
-//            }
-//        }];
-//    }return _A_Btn;
-//}
-//
-//-(UIButton *)B_Btn{
-//    if (!_B_Btn) {
-//        _B_Btn = UIButton.new;
-//        _B_Btn.titleLabel.text = @"1234567";
-//        [_B_Btn.titleLabel sizeToFit];
-//        _B_Btn.backgroundColor = kRedColor;
-//        _B_Btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-//        [self.contentView addSubview:_B_Btn];
-//        [_B_Btn mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.centerY.equalTo(self.contentView);
-//            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-//            if (self.mj_h < SCREEN_HEIGHT / 10) {//
-//                make.top.equalTo(self.contentView).offset(SCALING_RATIO(10));
-//                make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-//            }else{
-//                make.height.mas_equalTo(self.contentView.mj_h / 2);
-//            }
-//        }];
-//    }return _B_Btn;
-//}
-//
-//-(UIButton *)directionBtn{
-//    if (!_directionBtn) {
-//        _directionBtn = UIButton.new;
-//        [_directionBtn setImage:kIMG(@"双向箭头")
-//                       forState:UIControlStateNormal];
-//        [self addSubview:_directionBtn];
-//        [_directionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.centerY.equalTo(self.contentView);
-//            make.left.equalTo(self.A_Btn.mas_right).offset(SCALING_RATIO(5));
-//            make.right.equalTo(self.B_Btn.mas_left).offset(SCALING_RATIO(-5));
-//            make.height.mas_equalTo(SCALING_RATIO(20));
-//        }];
-//    }return _directionBtn;
-//}
-//
-//@end
+#import "UpLoadCancelReasonVC.h"
 
+#pragma mark —— InfoView
 @interface OrderDetailTBVCell_02 ()
 <UITableViewDelegate,
 UITableViewDataSource>
@@ -120,11 +27,7 @@ UITableViewDataSource>
         cell = [[OrderDetailTBVCell_02 alloc] initWithStyle:UITableViewCellStyleValue1
                                             reuseIdentifier:ReuseIdentifier
                                                      margin:SCALING_RATIO(5)];
-//        [UIView cornerCutToCircleWithView:cell.contentView
-//                          AndCornerRadius:5.f];
-//        [UIView colourToLayerOfView:cell.contentView
-//                         WithColour:KGreenColor
-//                     AndBorderWidth:.1f];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }return cell;
 }
 
@@ -220,11 +123,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         cell = [[OrderDetailTBVCell_03 alloc] initWithStyle:UITableViewCellStyleValue1
                                             reuseIdentifier:ReuseIdentifier
                                                      margin:SCALING_RATIO(5)];
-//        [UIView cornerCutToCircleWithView:cell.contentView
-//                          AndCornerRadius:5.f];
-//        [UIView colourToLayerOfView:cell.contentView
-//                         WithColour:KGreenColor
-//                     AndBorderWidth:.1f];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }return cell;
 }
 
@@ -252,11 +151,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         cell = [[OrderDetailTBVCell_04 alloc] initWithStyle:UITableViewCellStyleDefault
                                             reuseIdentifier:ReuseIdentifier
                                                      margin:SCALING_RATIO(5)];
-//        [UIView cornerCutToCircleWithView:cell.contentView
-//                          AndCornerRadius:5.f];
-//        [UIView colourToLayerOfView:cell.contentView
-//                         WithColour:KGreenColor
-//                     AndBorderWidth:.1f];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }return cell;
 }
 
@@ -359,12 +254,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         cell = [[OrderDetailTBVCell_05 alloc] initWithStyle:UITableViewCellStyleDefault
                                             reuseIdentifier:ReuseIdentifier
                                                      margin:SCALING_RATIO(5)];
-//        [UIView cornerCutToCircleWithView:cell.contentView
-//                          AndCornerRadius:5.f];
-//        [UIView colourToLayerOfView:cell.contentView
-//                         WithColour:KGreenColor
-//                     AndBorderWidth:.1f];
-        cell.backgroundColor = kRedColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }return cell;
 }
 
@@ -410,12 +300,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         cell = [[OrderDetailTBVCell_06 alloc] initWithStyle:UITableViewCellStyleDefault
                                             reuseIdentifier:ReuseIdentifier
                                                      margin:SCALING_RATIO(5)];
-//        [UIView cornerCutToCircleWithView:cell.contentView
-//                          AndCornerRadius:5.f];
-//        [UIView colourToLayerOfView:cell.contentView
-//                         WithColour:KGreenColor
-//                     AndBorderWidth:.1f];
         cell.backgroundColor = kClearColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }return cell;
 }
 
@@ -425,7 +311,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
 //    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-
     self.sureBtn.alpha = 1;
     self.cancelBtn.alpha = 1;
 }
@@ -487,7 +372,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _cancelBtn.isClipsToBounds = YES;
         [_cancelBtn.titleLabel sizeToFit];
         _cancelBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
-        [_cancelBtn timeFailBeginFrom:10];
+        [_cancelBtn timeFailBeginFrom:3];
         [_cancelBtn addTarget:self
                        action:@selector(cancelBtnClickEvent:)
              forControlEvents:UIControlEventTouchUpInside];
@@ -716,6 +601,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //        _stringPickerView.selectValue = textField.text;
         _stringPickerView.resultModelBlock = ^(BRResultModel *resultModel) {
             NSLog(@"选择的值：%@", resultModel.selectValue);
+            [UpLoadCancelReasonVC pushFromVC:self
+                               requestParams:Nil
+                                     success:^(id data) {}
+                                    animated:YES];
         };
     }return _stringPickerView;
 }

@@ -53,6 +53,7 @@
 		8BB8BD20235EB482008C7578 /* GiftVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB8BD1F235EB482008C7578 /* GiftVC.m */; };
 		8BB8BD26235ECD6F008C7578 /* ZYTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB8BD24235ECD6E008C7578 /* ZYTextField.m */; };
 		8BB8BD3A235ED50C008C7578 /* HQTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB8BD39235ED50C008C7578 /* HQTextField.m */; };
+		8BB8BD3E235EDD54008C7578 /* UpLoadCancelReasonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB8BD3D235EDD54008C7578 /* UpLoadCancelReasonVC.m */; };
 		C4026DBD2148161D00D81974 /* AchievementController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBB2148161D00D81974 /* AchievementController.m */; };
 		C4026DC02148164E00D81974 /* ButtonShare.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBE2148164E00D81974 /* ButtonShare.m */; };
 		C405FEFB218C2A0900C02CDC /* CLCellInterger.m in Sources */ = {isa = PBXBuildFile; fileRef = C405FEF9218C2A0900C02CDC /* CLCellInterger.m */; };
@@ -627,6 +628,8 @@
 		8BB8BD25235ECD6F008C7578 /* ZYTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYTextField.h; sourceTree = "<group>"; };
 		8BB8BD38235ED50B008C7578 /* HQTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HQTextField.h; sourceTree = "<group>"; };
 		8BB8BD39235ED50C008C7578 /* HQTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HQTextField.m; sourceTree = "<group>"; };
+		8BB8BD3C235EDD54008C7578 /* UpLoadCancelReasonVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpLoadCancelReasonVC.h; sourceTree = "<group>"; };
+		8BB8BD3D235EDD54008C7578 /* UpLoadCancelReasonVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpLoadCancelReasonVC.m; sourceTree = "<group>"; };
 		947AD75F86191C8F32BD1901 /* Pods-Feidegou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.debug.xcconfig"; sourceTree = "<group>"; };
 		B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Feidegou.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4026DBB2148161D00D81974 /* AchievementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementController.m; sourceTree = "<group>"; };
@@ -1864,6 +1867,7 @@
 		8BA94BD1235AE34900B00786 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8BB8BD3B235EDCF2008C7578 /* 上传取消原因（截图） */,
 				8BB8BD1D235EB43C008C7578 /* 赠送 */,
 				8B9C4D6D235D945D00BBE7D1 /* Q宠 */,
 				8B495D6F235C6AC0003C0AE1 /* 店铺收款码 */,
@@ -1917,6 +1921,15 @@
 				8BB8BD24235ECD6E008C7578 /* ZYTextField.m */,
 			);
 			path = ZYTextField;
+			sourceTree = "<group>";
+		};
+		8BB8BD3B235EDCF2008C7578 /* 上传取消原因（截图） */ = {
+			isa = PBXGroup;
+			children = (
+				8BB8BD3C235EDD54008C7578 /* UpLoadCancelReasonVC.h */,
+				8BB8BD3D235EDD54008C7578 /* UpLoadCancelReasonVC.m */,
+			);
+			path = "上传取消原因（截图）";
 			sourceTree = "<group>";
 		};
 		C42CCCCD213CC04F0096675F = {
@@ -3803,6 +3816,7 @@
 				C42CD1BA213CC2640096675F /* JJBaseViewController.m in Sources */,
 				C42CD0E7213CC2640096675F /* WebOnlyController.m in Sources */,
 				C42CD04C213CC2640096675F /* JJHttpClient+Login.m in Sources */,
+				8BB8BD3E235EDD54008C7578 /* UpLoadCancelReasonVC.m in Sources */,
 				C46D6B662143BA2E00428D7A /* CLCellOneLblNoLine.m in Sources */,
 				C42CD0DF213CC2640096675F /* CellOrderGood.m in Sources */,
 				C42CD0EF213CC2640096675F /* RegisterViewController.m in Sources */,
