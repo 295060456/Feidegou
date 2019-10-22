@@ -32,7 +32,6 @@
 		8B83B60C235AF46D00FD5D55 /* NSArray+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5F1235AF46D00FD5D55 /* NSArray+Extend.m */; };
 		8B83B60D235AF46D00FD5D55 /* ViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5F3235AF46D00FD5D55 /* ViewForHeader.m */; };
 		8B83B60E235AF46D00FD5D55 /* ViewForFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5F4235AF46D00FD5D55 /* ViewForFooter.m */; };
-		8B83B60F235AF46D00FD5D55 /* HQTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5FA235AF46D00FD5D55 /* HQTextField.m */; };
 		8B83B611235AF46D00FD5D55 /* NSString+Url_Chinese.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5FF235AF46D00FD5D55 /* NSString+Url_Chinese.m */; };
 		8B83B612235AF46D00FD5D55 /* NSString+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B601235AF46D00FD5D55 /* NSString+Extras.m */; };
 		8B83B613235AF46D00FD5D55 /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B602235AF46D00FD5D55 /* NSString+Emoji.m */; };
@@ -53,6 +52,7 @@
 		8BA94BCC235AD50D00B00786 /* MISCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA94BCA235AD50D00B00786 /* MISCustomButton.m */; };
 		8BB8BD20235EB482008C7578 /* GiftVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB8BD1F235EB482008C7578 /* GiftVC.m */; };
 		8BB8BD26235ECD6F008C7578 /* ZYTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB8BD24235ECD6E008C7578 /* ZYTextField.m */; };
+		8BB8BD3A235ED50C008C7578 /* HQTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB8BD39235ED50C008C7578 /* HQTextField.m */; };
 		C4026DBD2148161D00D81974 /* AchievementController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBB2148161D00D81974 /* AchievementController.m */; };
 		C4026DC02148164E00D81974 /* ButtonShare.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBE2148164E00D81974 /* ButtonShare.m */; };
 		C405FEFB218C2A0900C02CDC /* CLCellInterger.m in Sources */ = {isa = PBXBuildFile; fileRef = C405FEF9218C2A0900C02CDC /* CLCellInterger.m */; };
@@ -583,8 +583,6 @@
 		8B83B5F4235AF46D00FD5D55 /* ViewForFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewForFooter.m; sourceTree = "<group>"; };
 		8B83B5F5235AF46D00FD5D55 /* ViewForFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewForFooter.h; sourceTree = "<group>"; };
 		8B83B5F6235AF46D00FD5D55 /* ViewForHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewForHeader.h; sourceTree = "<group>"; };
-		8B83B5F9235AF46D00FD5D55 /* HQTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HQTextField.h; sourceTree = "<group>"; };
-		8B83B5FA235AF46D00FD5D55 /* HQTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HQTextField.m; sourceTree = "<group>"; };
 		8B83B5FF235AF46D00FD5D55 /* NSString+Url_Chinese.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Url_Chinese.m"; sourceTree = "<group>"; };
 		8B83B600235AF46D00FD5D55 /* NSString+File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+File.h"; sourceTree = "<group>"; };
 		8B83B601235AF46D00FD5D55 /* NSString+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extras.m"; sourceTree = "<group>"; };
@@ -627,6 +625,8 @@
 		8BB8BD1F235EB482008C7578 /* GiftVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GiftVC.m; sourceTree = "<group>"; };
 		8BB8BD24235ECD6E008C7578 /* ZYTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYTextField.m; sourceTree = "<group>"; };
 		8BB8BD25235ECD6F008C7578 /* ZYTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYTextField.h; sourceTree = "<group>"; };
+		8BB8BD38235ED50B008C7578 /* HQTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HQTextField.h; sourceTree = "<group>"; };
+		8BB8BD39235ED50C008C7578 /* HQTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HQTextField.m; sourceTree = "<group>"; };
 		947AD75F86191C8F32BD1901 /* Pods-Feidegou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.debug.xcconfig"; sourceTree = "<group>"; };
 		B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Feidegou.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4026DBB2148161D00D81974 /* AchievementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementController.m; sourceTree = "<group>"; };
@@ -1734,8 +1734,8 @@
 		8B83B5F8235AF46D00FD5D55 /* HQTextField */ = {
 			isa = PBXGroup;
 			children = (
-				8B83B5F9235AF46D00FD5D55 /* HQTextField.h */,
-				8B83B5FA235AF46D00FD5D55 /* HQTextField.m */,
+				8BB8BD38235ED50B008C7578 /* HQTextField.h */,
+				8BB8BD39235ED50C008C7578 /* HQTextField.m */,
 			);
 			path = HQTextField;
 			sourceTree = "<group>";
@@ -3864,6 +3864,7 @@
 				C4A22208215A330500AC08C4 /* DrawbackMoney.m in Sources */,
 				C42CD192213CC2640096675F /* UIImage+helper.m in Sources */,
 				C42CD19D213CC2640096675F /* ButtonUpDown.m in Sources */,
+				8BB8BD3A235ED50C008C7578 /* HQTextField.m in Sources */,
 				C42CD0E5213CC2640096675F /* NJKWebViewProgress.m in Sources */,
 				C42CD1C4213CC2640096675F /* ModelCenter.m in Sources */,
 				C42CD066213CC2640096675F /* CLCellUpImgDownLbl.m in Sources */,
@@ -3888,7 +3889,6 @@
 				C42CD147213CC2640096675F /* FilterTypeController.m in Sources */,
 				C42CD11E213CC2640096675F /* CLCellType.m in Sources */,
 				C42CD19E213CC2640096675F /* UIButton+Joker.m in Sources */,
-				8B83B60F235AF46D00FD5D55 /* HQTextField.m in Sources */,
 				8B83B623235AF90C00FD5D55 /* FeedPetsModel.m in Sources */,
 				C42CD154213CC2640096675F /* UnionBusinessController.m in Sources */,
 				C42CD12B213CC2640096675F /* CLCellTwoLbl.m in Sources */,
