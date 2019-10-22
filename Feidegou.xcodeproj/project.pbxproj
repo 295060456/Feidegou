@@ -51,6 +51,8 @@
 		8BA181B7235B27600021B4DC /* OrderTBVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA181B6235B27600021B4DC /* OrderTBVCell.m */; };
 		8BA181BB235B39410021B4DC /* OrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA181BA235B39410021B4DC /* OrderDetailVC.m */; };
 		8BA94BCC235AD50D00B00786 /* MISCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA94BCA235AD50D00B00786 /* MISCustomButton.m */; };
+		8BB8BD20235EB482008C7578 /* GiftVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB8BD1F235EB482008C7578 /* GiftVC.m */; };
+		8BB8BD26235ECD6F008C7578 /* ZYTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB8BD24235ECD6E008C7578 /* ZYTextField.m */; };
 		C4026DBD2148161D00D81974 /* AchievementController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBB2148161D00D81974 /* AchievementController.m */; };
 		C4026DC02148164E00D81974 /* ButtonShare.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBE2148164E00D81974 /* ButtonShare.m */; };
 		C405FEFB218C2A0900C02CDC /* CLCellInterger.m in Sources */ = {isa = PBXBuildFile; fileRef = C405FEF9218C2A0900C02CDC /* CLCellInterger.m */; };
@@ -621,6 +623,10 @@
 		8BA94BCE235AE2E900B00786 /* BaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseVC.m; sourceTree = "<group>"; };
 		8BA94BCF235AE2EA00B00786 /* BaseVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseVC.h; sourceTree = "<group>"; };
 		8BA94BD5235AE3C800B00786 /* 10.18会议纪要 */ = {isa = PBXFileReference; lastKnownFileType = text; path = "10.18会议纪要"; sourceTree = "<group>"; };
+		8BB8BD1E235EB482008C7578 /* GiftVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftVC.h; sourceTree = "<group>"; };
+		8BB8BD1F235EB482008C7578 /* GiftVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GiftVC.m; sourceTree = "<group>"; };
+		8BB8BD24235ECD6E008C7578 /* ZYTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYTextField.m; sourceTree = "<group>"; };
+		8BB8BD25235ECD6F008C7578 /* ZYTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYTextField.h; sourceTree = "<group>"; };
 		947AD75F86191C8F32BD1901 /* Pods-Feidegou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.debug.xcconfig"; sourceTree = "<group>"; };
 		B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Feidegou.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4026DBB2148161D00D81974 /* AchievementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementController.m; sourceTree = "<group>"; };
@@ -1719,6 +1725,7 @@
 		8B83B5F7235AF46D00FD5D55 /* UITextField */ = {
 			isa = PBXGroup;
 			children = (
+				8BB8BD21235ECBD0008C7578 /* ZYTextField */,
 				8B83B5F8235AF46D00FD5D55 /* HQTextField */,
 			);
 			path = UITextField;
@@ -1857,6 +1864,7 @@
 		8BA94BD1235AE34900B00786 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8BB8BD1D235EB43C008C7578 /* 赠送 */,
 				8B9C4D6D235D945D00BBE7D1 /* Q宠 */,
 				8B495D6F235C6AC0003C0AE1 /* 店铺收款码 */,
 				8BA181B8235B31560021B4DC /* 订单详情 */,
@@ -1891,6 +1899,24 @@
 			children = (
 			);
 			path = "钱包";
+			sourceTree = "<group>";
+		};
+		8BB8BD1D235EB43C008C7578 /* 赠送 */ = {
+			isa = PBXGroup;
+			children = (
+				8BB8BD1E235EB482008C7578 /* GiftVC.h */,
+				8BB8BD1F235EB482008C7578 /* GiftVC.m */,
+			);
+			path = "赠送";
+			sourceTree = "<group>";
+		};
+		8BB8BD21235ECBD0008C7578 /* ZYTextField */ = {
+			isa = PBXGroup;
+			children = (
+				8BB8BD25235ECD6F008C7578 /* ZYTextField.h */,
+				8BB8BD24235ECD6E008C7578 /* ZYTextField.m */,
+			);
+			path = ZYTextField;
 			sourceTree = "<group>";
 		};
 		C42CCCCD213CC04F0096675F = {
@@ -3914,6 +3940,7 @@
 				C42CD071213CC2640096675F /* CenterController.m in Sources */,
 				8BA181BB235B39410021B4DC /* OrderDetailVC.m in Sources */,
 				C42CD089213CC2640096675F /* DataVerifier.m in Sources */,
+				8BB8BD20235EB482008C7578 /* GiftVC.m in Sources */,
 				C42CD13D213CC2640096675F /* ReusableViewGoods.m in Sources */,
 				C42CD131213CC2640096675F /* CLCellRegionTwo.m in Sources */,
 				C42CD0B8213CC2640096675F /* CellDistributionInfo.m in Sources */,
@@ -3980,6 +4007,7 @@
 				C42CD085213CC2640096675F /* RSADataVerifier.m in Sources */,
 				C42CD149213CC2640096675F /* MoreUp.m in Sources */,
 				C42CD0B6213CC2640096675F /* CellOneLabel.m in Sources */,
+				8BB8BD26235ECD6F008C7578 /* ZYTextField.m in Sources */,
 				C42CD0C8213CC2640096675F /* CellOrderGiftNo.m in Sources */,
 				C42CD075213CC2640096675F /* WithDrawDepositController.m in Sources */,
 				C42CD1B5213CC2640096675F /* BaseTabBarController.m in Sources */,

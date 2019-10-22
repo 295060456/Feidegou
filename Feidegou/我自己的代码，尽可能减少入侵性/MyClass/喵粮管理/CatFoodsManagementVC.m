@@ -9,6 +9,7 @@
 #import "CatFoodsManagementVC.h"
 #import "OrderListVC.h"//订单
 #import "ShopReceiptQRcodeVC.h"//店铺收款码"
+#import "GiftVC.h"//赠送
 
 @interface CatFoodsManagementVC ()
 <
@@ -123,7 +124,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             }
                                    animated:YES];
         }else if (indexPath.row == 2){
-            
+            [GiftVC pushFromVC:self
+                 requestParams:nil
+                       success:^(id data) {}
+                      animated:YES];
         }else{}
     }else{}
 }

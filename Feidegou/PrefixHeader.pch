@@ -69,7 +69,6 @@
 #import "NSString+Password.h"
 #import "NSString+Url_Chinese.h"
 #import "TBVCell_style_01.h"
-#import "HQTextField.h"
 #import "UIView+Extras.h"
 #import "MMButton.h"
 #import "MISFloatingBall.h"
@@ -77,6 +76,8 @@
 #import "VerifyCodeButton.h"
 #import "ECAuthorizationTools.h"
 #import "VideoHandleTool.h"
+#import "HQTextField.h"
+#import "ZYTextField.h"
 //Model
 #import "PetsInfoListModel.h"
 #import "AdoptingPetsModel.h"
@@ -84,5 +85,6 @@
 #import "CleanPetsModel.h"
 #import "GrowthValuePetsModel.h"
 #import "GiftFoodsModel.h"
+
 
 #endif /* PrefixHeader_pch */
