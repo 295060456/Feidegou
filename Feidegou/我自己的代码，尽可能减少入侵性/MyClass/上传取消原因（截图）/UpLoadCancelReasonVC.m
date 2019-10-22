@@ -12,6 +12,9 @@
 
 @property(nonatomic,strong)MMButton *picBtn;
 @property(nonatomic,strong)UIButton *upLoadbtn;
+@property(nonatomic,strong)UIImageView *IMGV;
+@property(nonatomic,copy)DataBlock picBtnBlock;
+@property(nonatomic,copy)DataBlock upLoadbtnBlock;
 
 +(instancetype)cellWith:(UITableView *)tableView;
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;
@@ -40,10 +43,102 @@
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-//    self.picBtn.alpha = 1;
-//    self.upLoadbtn.alpha = 1;
-    
-//    self.backgroundColor = kRedColor;
+    self.picBtn.alpha = 1;
+    self.upLoadbtn.alpha = 1;
+
+}
+
+-(void)reloadPicBtnIMG:(UIImage *)IMG{
+    [self.IMGV setImage:IMG];
+    [self.picBtn setImage:kIMG(@"透明图标")
+                 forState:UIControlStateNormal];
+}
+
+-(void)actionPicBtnBlock:(DataBlock)block{
+    _picBtnBlock = block;
+}
+
+-(void)actionUpLoadbtnBlock:(DataBlock)block{
+    _upLoadbtnBlock = block;
+}
+
+#pragma mark —— 点击事件
+-(void)upLoadbtnClickEvent:(UIButton *)sender{
+//    NSLog(@"上传");
+    if (_upLoadbtnBlock) {
+        _upLoadbtnBlock(sender);
+    }
+}
+
+-(void)picBtnClickEvent:(UIButton *)sender{
+//    NSLog(@"相册");
+    if (_picBtnBlock) {
+        _picBtnBlock(sender);
+    }
+}
+
+#pragma mark —— lazyLoad
+-(MMButton *)picBtn{
+    if (!_picBtn) {
+        _picBtn = MMButton.new;
+        [_picBtn setImage:kIMG(@"相册")
+                 forState:UIControlStateNormal];
+        [_picBtn addTarget:self
+                    action:@selector(picBtnClickEvent:)
+          forControlEvents:UIControlEventTouchUpInside];
+        _picBtn.imageAlignment = MMImageAlignmentTop;
+        _picBtn.spaceBetweenTitleAndImage = SCALING_RATIO(30);
+        [_picBtn setTitleColor:COLOR_HEX(0x7D7D7D, 1)
+                      forState:UIControlStateNormal];
+        [_picBtn setTitle:@"上传图片必须为原图"
+                 forState:UIControlStateNormal];
+        [self.contentView addSubview:_picBtn];
+        [_picBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.contentView);
+        }];
+    }return _picBtn;
+}
+
+-(UIButton *)upLoadbtn{
+    if (!_upLoadbtn) {
+        _upLoadbtn = UIButton.new;
+        _upLoadbtn.backgroundColor = COLOR_HEX(0x4870EF, 1);
+        [_upLoadbtn addTarget:self
+                       action:@selector(upLoadbtnClickEvent:)
+             forControlEvents:UIControlEventTouchUpInside];
+        [_upLoadbtn setTitleColor:kWhiteColor
+                         forState:UIControlStateNormal];
+        [_upLoadbtn setTitle:@"立即上传"
+                    forState:UIControlStateNormal];
+        [self.contentView addSubview:_upLoadbtn];
+        [_upLoadbtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.contentView);
+            make.height.mas_equalTo(SCALING_RATIO(50));
+            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-25));
+            make.width.mas_equalTo(SCREEN_WIDTH - SCALING_RATIO(100));
+        }];
+        [self.contentView layoutIfNeeded];
+        [UIView appointCornerCutToCircleWithTargetView:_upLoadbtn
+                                           cornerRadii:CGSizeMake(SCALING_RATIO(20),
+                                                                  SCALING_RATIO(20))
+                                  TargetCorner_TopLeft:UIRectCornerTopLeft
+                                 TargetCorner_TopRight:UIRectCornerTopRight
+                               TargetCorner_BottomLeft:UIRectCornerBottomLeft
+                              TargetCorner_BottomRight:UIRectCornerBottomRight];
+    }return _upLoadbtn;
+}
+
+-(UIImageView *)IMGV{
+    if (!_IMGV) {
+        _IMGV = UIImageView.new;
+        [self.contentView addSubview:_IMGV];
+        [_IMGV mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.contentView);
+            make.bottom.equalTo(self.upLoadbtn.mas_top).offset(SCALING_RATIO(-50));
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 1.5,
+                                             SCREEN_WIDTH / 2));
+        }];
+    }return _IMGV;
 }
 
 @end
@@ -51,14 +146,20 @@
 @interface UpLoadCancelReasonVC ()
 <
 UITableViewDelegate,
-UITableViewDataSource
+UITableViewDataSource,
+TZImagePickerControllerDelegate
 >
+{
+//    UpLoadCancelReasonTBVCell *cell;
+}
 
 @property(nonatomic,strong)UIButton *demoPicBtn;
 @property(nonatomic,strong)UIImageView *imageView;
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UILabel *tipLab;
 @property(nonatomic,strong)UILabel *titleLab;
+@property(nonatomic,strong)TZImagePickerController *imagePickerVC;
+@property(nonatomic,strong)UpLoadCancelReasonTBVCell *cell;
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*tipsMutArr;
 @property(nonatomic,strong)id requestParams;
@@ -113,6 +214,48 @@ UITableViewDataSource
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 }
+
+//跳转系统设置
+-(void)pushToSysConfig{
+    NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+    if ([[UIApplication sharedApplication] canOpenURL:url]) {
+        [[UIApplication sharedApplication] openURL:url];
+    }
+}
+#pragma mark —— 点击事件
+-(void)DemoPicBtnClickEvent:(UIButton *)sender{
+    NSLog(@"显示示例图");
+}
+
+-(void)upLoadbtnClickEvent:(UIButton *)sender{
+    NSLog(@"立即上传");
+
+}
+
+-(void)picBtnClickEvent:(UIButton *)sender{
+    NSLog(@"相册");
+    @weakify(self)
+    [ECAuthorizationTools checkAndRequestAccessForType:ECPrivacyType_Photos
+                                          accessStatus:^(ECAuthorizationStatus status,
+                                                         ECPrivacyType type) {
+        @strongify(self)
+        // status 即为权限状态，
+        //状态类型参考：ECAuthorizationStatus
+        NSLog(@"%lu",(unsigned long)status);
+        if (status == ECAuthorizationStatus_Authorized) {
+//            self.isOpenMicrophone = YES;
+            [self presentViewController:self.imagePickerVC
+                               animated:YES
+                             completion:nil];
+        }else{
+            NSLog(@"相册不可用:%lu",(unsigned long)status);
+            [self showAlertViewTitle:@"获取相册权限"
+                             message:@""
+                         btnTitleArr:@[@"去获取"]
+                      alertBtnAction:@[@"pushToSysConfig"]];
+        }
+    }];
+}
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -134,8 +277,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UpLoadCancelReasonTBVCell *cell = [UpLoadCancelReasonTBVCell cellWith:tableView];
+    self.cell = cell;
     [cell richElementsInCellWithModel:nil];
-    return cell;
+    @weakify(self)
+    [cell actionPicBtnBlock:^(id data) {
+        @strongify(self)
+        UIButton *btn = (UIButton *)data;
+        [self picBtnClickEvent:btn];
+    }];
+    [cell actionUpLoadbtnBlock:^(id data) {
+        @strongify(self)
+        UIButton *btn = (UIButton *)data;
+        [self upLoadbtnClickEvent:btn];
+    }];return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -185,6 +339,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                           forState:UIControlStateNormal];
         [_demoPicBtn setTitle:@"    示例图   "
                      forState:UIControlStateNormal];
+        [_demoPicBtn addTarget:self
+                        action:@selector(DemoPicBtnClickEvent:)
+              forControlEvents:UIControlEventTouchUpInside];
         [self.imageView addSubview:_demoPicBtn];
         [_demoPicBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.imageView);
@@ -234,6 +391,30 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             make.bottom.equalTo(self.view).offset(isiPhoneX_series() ? SCALING_RATIO(-80) : SCALING_RATIO(-50));
         }];
     }return _tipLab;
+}
+
+-(TZImagePickerController *)imagePickerVC{
+    if (!_imagePickerVC) {
+        _imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:9
+                                                                        delegate:self];
+        @weakify(self)
+        [_imagePickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos,
+                                                          NSArray *assets, BOOL isSelectOriginalPhoto) {
+            @strongify(self)
+            if (photos.count == 1) {
+                [self.cell reloadPicBtnIMG:photos.lastObject];
+            }else{
+                [self showAlertViewTitle:@"选择一张相片就够啦"
+                                 message:@"不要画蛇添足"
+                             btnTitleArr:@[@"好的"]
+                          alertBtnAction:@[@"OK"]];
+            }
+        }];
+    }return _imagePickerVC;
+}
+
+-(void)OK{
+    NSLog(@"OK");
 }
 
 -(NSMutableArray<NSString *> *)tipsMutArr{

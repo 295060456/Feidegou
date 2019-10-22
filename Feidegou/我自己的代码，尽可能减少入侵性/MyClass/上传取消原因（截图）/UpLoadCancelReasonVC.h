@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UpLoadCancelReasonTBVCell : TBVCell_style_01
 
+-(void)actionPicBtnBlock:(DataBlock)block;
+-(void)actionUpLoadbtnBlock:(DataBlock)block;
+
 @end
 
 @interface UpLoadCancelReasonVC : BaseVC
