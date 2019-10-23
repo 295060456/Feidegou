@@ -43,6 +43,15 @@ UITableViewDataSource
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     self.tableView.alpha = 1;
 }
+//复制
+-(void)copyAction:(UITableViewCell *)cell{
+    //复制到剪贴板
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string = cell.detailTextLabel.text;
+    if (pasteboard.string.length > 0) {
+        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"复制%@成功",cell.textLabel.text]];
+    }
+}
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -53,7 +62,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if (cell.detailTextLabel.text) {
+        [self copyAction:cell];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -159,11 +171,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                               margin:SCALING_RATIO(5)];
         cell.backgroundColor = KGreenColor;//kClearColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        [UIView cornerCutToCircleWithView:cell.contentView
-//                          AndCornerRadius:5.f];
-//        [UIView colourToLayerOfView:cell.contentView
-//                         WithColour:KGreenColor
-//                     AndBorderWidth:.1f];
+        [UIView cornerCutToCircleWithView:cell.contentView
+                          AndCornerRadius:5.f];
+        [UIView colourToLayerOfView:cell.contentView
+                         WithColour:kWhiteColor
+                     AndBorderWidth:.1f];
     }return cell;
 }
 
@@ -172,8 +184,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    
-    self.titleLab.text = @"123";
+    if ([model isKindOfClass:[NSDictionary class]]) {
+        self.titleLab.text = model[@"titleMutArr"][[model[@"index"] intValue]];
+        if ([model[@"index"] boolValue]) {
+            self.contentView.backgroundColor = KLightGrayColor;
+        }else{
+            self.contentView.backgroundColor = kOrangeColor;
+        }
+    }
 }
 
 #pragma mark —— lazyLoad
@@ -199,6 +217,7 @@ UITableViewDataSource
 }
 
 @property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
@@ -237,13 +256,21 @@ UITableViewDataSource
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //    self.navigationItem.title = @"订单详情";
     self.gk_navTitle = @"订单详情";
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
     self.tableView.alpha = 1;
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+}
+#pragma mark —— 点击事件
+//已付款
+-(void)havePaid{
+    NSLog(@"已付款");
+}
+//取消订单
+-(void)cancelOrder{
+    NSLog(@"取消订单");
 }
 #pragma mark —— 私有方法
 // 下拉刷新
@@ -271,6 +298,16 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
+    
+    if (indexPath.section == 0) {
+        
+    }else if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            [self havePaid];
+        }else if (indexPath.row == 1){
+            [self cancelOrder];
+        }else{}
+    }else{}
 
 }
 
@@ -300,7 +337,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }else if (indexPath.section == 1){
         OrderDetail_BuyerTBVCell_02 *cell = [OrderDetail_BuyerTBVCell_02 cellWith:tableView];
         cell.backgroundColor = KGreenColor;
-        [cell richElementsInCellWithModel:nil];
+        [cell richElementsInCellWithModel:@{
+            @"index":@(indexPath.row),
+            @"titleMutArr":self.titleMutArr
+        }];
         return cell;
     }else return UITableViewCell.new;
 }
@@ -342,6 +382,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             make.left.right.bottom.equalTo(self.view);
         }];
     }return _tableView;
+}
+
+-(NSMutableArray<NSString *> *)titleMutArr{
+    if (!_titleMutArr) {
+        _titleMutArr = NSMutableArray.array;
+        [_titleMutArr addObject:@"已付款"];
+        [_titleMutArr addObject:@"取消订单"];
+    }return _titleMutArr;
 }
 
 @end
