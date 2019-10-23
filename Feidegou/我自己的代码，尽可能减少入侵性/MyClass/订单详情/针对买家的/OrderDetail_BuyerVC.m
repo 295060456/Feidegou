@@ -37,13 +37,59 @@ UITableViewDataSource
 }
 
 -(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return 80;
+    return self.titleMutArr.count * SCALING_RATIO(50);
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
+    self.tableView.alpha = 1;
+}
+#pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return SCALING_RATIO(50);
+}
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath
+                             animated:NO];
 
 }
 
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
+    return self.titleMutArr.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                      reuseIdentifier:ReuseIdentifier];
+        cell.backgroundColor = kClearColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if (indexPath.section == 0) {
+            cell.textLabel.text = self.titleMutArr[indexPath.row];
+            if (indexPath.row == 7 ||
+                indexPath.row == 8 ||
+                indexPath.row == 9) {
+                cell.detailTextLabel.text = @"复制";
+                cell.detailTextLabel.textColor = kBlueColor;
+            }
+        }
+        
+//        [UIView cornerCutToCircleWithView:cell.contentView
+//                          AndCornerRadius:5.f];
+//        [UIView colourToLayerOfView:cell.contentView
+//                         WithColour:KGreenColor
+//                     AndBorderWidth:.1f];
+    }return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
 #pragma mark —— lazyload
 -(UITableView *)tableView{
     if (!_tableView) {
@@ -52,8 +98,7 @@ UITableViewDataSource
         _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.mj_header = self.tableViewHeader;
-        _tableView.mj_footer = self.tableViewFooter;
+        _tableView.scrollEnabled = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//去掉cell下划线
         [self.contentView addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -62,9 +107,28 @@ UITableViewDataSource
     }return _tableView;
 }
 
+-(NSMutableArray<NSString *> *)titleMutArr{
+    if (!_titleMutArr) {
+        _titleMutArr = NSMutableArray.array;
+        [_titleMutArr addObject:@"您向厂家1001购买了1000g喵粮"];
+        [_titleMutArr addObject:@"单价:"];
+        [_titleMutArr addObject:@"数量:"];
+        [_titleMutArr addObject:@"订单号:"];
+        [_titleMutArr addObject:@"总额:"];
+        [_titleMutArr addObject:@"时间:"];
+        [_titleMutArr addObject:@"支付方式:"];
+        [_titleMutArr addObject:@"银行卡号:"];
+        [_titleMutArr addObject:@"银行类型:"];
+        [_titleMutArr addObject:@"姓名:"];
+        [_titleMutArr addObject:@"订单状态:"];
+    }return _titleMutArr;
+}
+
 @end
 
 @interface OrderDetail_BuyerTBVCell_02 ()
+
+@property(nonatomic,strong)UILabel *titleLab;
 
 @end
 
@@ -87,11 +151,24 @@ UITableViewDataSource
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-     return 80;
+     return SCALING_RATIO(80);
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
+    
+    self.titleLab.text = @"123";
+}
 
+#pragma mark —— lazyLoad
+-(UILabel *)titleLab{
+    if (!_titleLab) {
+        _titleLab = UILabel.new;
+        _titleLab.textAlignment = NSTextAlignmentCenter;
+        [self.contentView addSubview:_titleLab];
+        [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.contentView);
+        }];
+    }return _titleLab;
 }
 
 @end
@@ -182,7 +259,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    switch (section) {
+        case 0:{
+            return 1;
+        }break;
+        case 1:{
+            return 2;
+        }break;
+        default:
+            return 0.0f;
+            break;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -193,15 +280,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [cell richElementsInCellWithModel:nil];
         OrderDetail_BuyerTBVCell_01_Hight = [cell cellHeightWithModel:nil];
         return cell;
-    }else if (indexPath.section == 1 &&
-              indexPath.row == 0){
-         OrderDetail_BuyerTBVCell_02 *cell = [OrderDetail_BuyerTBVCell_02 cellWith:tableView];
-//        cell.backgroundColor = KGreenColor;
+    }else if (indexPath.section == 1){
+        OrderDetail_BuyerTBVCell_02 *cell = [OrderDetail_BuyerTBVCell_02 cellWith:tableView];
+        cell.backgroundColor = KGreenColor;
         [cell richElementsInCellWithModel:nil];
         return cell;
-    }else{
-        return UITableViewCell.new;
-    }return UITableViewCell.new;
+    }else return UITableViewCell.new;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -220,7 +304,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//去掉cell下划线
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.gk_navigationBar.mas_bottom);
+            make.top.equalTo(self.view);//(self.gk_navigationBar.mas_bottom);
             make.left.right.bottom.equalTo(self.view);
         }];
     }return _tableView;

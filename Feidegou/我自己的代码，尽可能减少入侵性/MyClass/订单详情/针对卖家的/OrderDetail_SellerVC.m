@@ -567,9 +567,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             }];
             return cell;
         }else{}
-    }else{
-        return UITableViewCell.new;
-    }return UITableViewCell.new;
+    }else{}
+    return UITableViewCell.new;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 //承接订单详情
 @interface OrderDetail_BuyerTBVCell_01 : TBVCell_style_01
 
+@property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
+
 +(instancetype)cellWith:(UITableView *)tableView;
 -(CGFloat)cellHeightWithModel:(id _Nullable)model;
 - (void)richElementsInCellWithModel:(id _Nullable)model;
