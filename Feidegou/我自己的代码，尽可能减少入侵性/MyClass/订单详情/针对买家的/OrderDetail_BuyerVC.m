@@ -37,7 +37,7 @@ UITableViewDataSource
 }
 
 -(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return self.titleMutArr.count * SCALING_RATIO(50);
+    return self.titleMutArr.count * SCALING_RATIO(30);
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
@@ -46,7 +46,7 @@ UITableViewDataSource
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return SCALING_RATIO(50);
+    return SCALING_RATIO(30);
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -89,6 +89,23 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
+}
+//给cell添加动画
+-(void)tableView:(UITableView *)tableView
+ willDisplayCell:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath{
+    //设置Cell的动画效果为3D效果
+    //设置x和y的初始值为0.1；
+    cell.layer.transform = CATransform3DMakeScale(0.1,
+                                                  0.1,
+                                                  1);
+    //x和y的最终值为1
+    [UIView animateWithDuration:1
+                     animations:^{
+        cell.layer.transform = CATransform3DMakeScale(1,
+                                                      1,
+                                                      1);
+    }];
 }
 #pragma mark —— lazyload
 -(UITableView *)tableView{
@@ -290,6 +307,23 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
+}
+//给cell添加动画
+-(void)tableView:(UITableView *)tableView
+ willDisplayCell:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath{
+    //设置Cell的动画效果为3D效果
+    //设置x和y的初始值为0.1；
+    cell.layer.transform = CATransform3DMakeScale(0.1,
+                                                  0.1,
+                                                  1);
+    //x和y的最终值为1
+    [UIView animateWithDuration:1
+                     animations:^{
+        cell.layer.transform = CATransform3DMakeScale(1,
+                                                      1,
+                                                      1);
+    }];
 }
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{
