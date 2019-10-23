@@ -100,11 +100,13 @@ UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIButton *fleshBtn;
+@property(nonatomic,strong)NSMutableArray *dataMutArr;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
+@property(nonatomic,assign)BOOL isDelCell;
 
 @end
 
@@ -121,7 +123,7 @@ UITableViewDataSource>
     CatFoodProducingAreaVC *vc = CatFoodProducingAreaVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-
+    vc.isDelCell = NO;
     if (rootVC.navigationController) {
         vc.isPush = YES;
         vc.isPresent = NO;
@@ -175,15 +177,36 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-    [OrderDetail_BuyerVC pushFromVC:self
-                      requestParams:nil
-                            success:^(id data) {}
-                           animated:YES];
+    //
+    //先移除数据源
+    //
+    self.isDelCell = YES;
+    
+    [self.dataMutArr removeObjectAtIndex:indexPath.row];
+    
+    [self.tableView beginUpdates];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+                            withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
+                    withRowAnimation:UITableViewRowAnimationNone];
+
+    @weakify(self)
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
+                                 (int64_t)(0.7 * NSEC_PER_SEC)),
+                   dispatch_get_main_queue(), ^{
+        @strongify(self)
+        [OrderDetail_BuyerVC pushFromVC:self
+        requestParams:nil
+              success:^(id data) {}
+             animated:YES];
+    });
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-    return 4;
+
+    return self.dataMutArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -203,18 +226,20 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(void)tableView:(UITableView *)tableView
  willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath{
-    //设置Cell的动画效果为3D效果
-    //设置x和y的初始值为0.1；
-    cell.layer.transform = CATransform3DMakeScale(0.1,
-                                                  0.1,
-                                                  1);
-    //x和y的最终值为1
-    [UIView animateWithDuration:1
-                     animations:^{
-        cell.layer.transform = CATransform3DMakeScale(1,
-                                                      1,
+    if (!self.isDelCell) {
+        //设置Cell的动画效果为3D效果
+        //设置x和y的初始值为0.1；
+        cell.layer.transform = CATransform3DMakeScale(0.1,
+                                                      0.1,
                                                       1);
-    }];
+        //x和y的最终值为1
+        [UIView animateWithDuration:1
+                         animations:^{
+            cell.layer.transform = CATransform3DMakeScale(1,
+                                                          1,
+                                                          1);
+        }];
+    }
 }
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{
@@ -248,6 +273,21 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _fleshBtn;
 }
 
+-(NSMutableArray *)dataMutArr{
+    if (!_dataMutArr) {
+        _dataMutArr = NSMutableArray.array;
+        [_dataMutArr addObject:@"1"];
+        [_dataMutArr addObject:@"2"];
+        [_dataMutArr addObject:@"3"];
+        [_dataMutArr addObject:@"4"];
+        [_dataMutArr addObject:@"5"];
+        [_dataMutArr addObject:@"6"];
+        [_dataMutArr addObject:@"7"];
+        [_dataMutArr addObject:@"8"];
+        [_dataMutArr addObject:@"9"];
+        [_dataMutArr addObject:@"0"];
+    }return _dataMutArr;
+}
 
 
 @end
