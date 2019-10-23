@@ -7,6 +7,7 @@
 //
 
 #import "CatFoodProducingAreaVC.h"
+#import "OrderDetail_BuyerVC.h"
 
 @interface CatFoodProducingAreaTBVCell ()
 
@@ -161,7 +162,7 @@ UITableViewDataSource>
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
 }
 
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
@@ -174,7 +175,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-    return;
+    [OrderDetail_BuyerVC pushFromVC:self
+                      requestParams:nil
+                            success:^(id data) {}
+                           animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -212,7 +216,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                       1);
     }];
 }
-
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{
     if (!_tableView) {

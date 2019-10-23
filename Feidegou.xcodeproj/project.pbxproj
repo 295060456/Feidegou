@@ -27,6 +27,7 @@
 		8B495D72235C6B03003C0AE1 /* ShopReceiptQRcodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B495D71235C6B03003C0AE1 /* ShopReceiptQRcodeVC.m */; };
 		8B4CB3BC2359ECF5009EFDC5 /* YBNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B4CB3B92359ECF4009EFDC5 /* YBNotificationManager.m */; };
 		8B5A7018235F37B8000373ED /* CatFoodProducingAreaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5A7017235F37B8000373ED /* CatFoodProducingAreaVC.m */; };
+		8B7CEEF12360140300F3CAF5 /* OrderDetail_BuyerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7CEEF02360140300F3CAF5 /* OrderDetail_BuyerVC.m */; };
 		8B83B609235AF46D00FD5D55 /* TBVCell_style_01.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5E8235AF46D00FD5D55 /* TBVCell_style_01.m */; };
 		8B83B60A235AF46D00FD5D55 /* UIView+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5EC235AF46D00FD5D55 /* UIView+Extras.m */; };
 		8B83B60B235AF46D00FD5D55 /* NSArray+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5EE235AF46D00FD5D55 /* NSArray+Extension.m */; };
@@ -49,7 +50,7 @@
 		8BA181AF235B1F8C0021B4DC /* CatFoodsManagementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA181AD235B1F8C0021B4DC /* CatFoodsManagementVC.m */; };
 		8BA181B3235B1FE70021B4DC /* OrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA181B2235B1FE70021B4DC /* OrderListVC.m */; };
 		8BA181B7235B27600021B4DC /* OrderTBVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA181B6235B27600021B4DC /* OrderTBVCell.m */; };
-		8BA181BB235B39410021B4DC /* OrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA181BA235B39410021B4DC /* OrderDetailVC.m */; };
+		8BA181BB235B39410021B4DC /* OrderDetail_SellerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA181BA235B39410021B4DC /* OrderDetail_SellerVC.m */; };
 		8BA94BCC235AD50D00B00786 /* MISCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA94BCA235AD50D00B00786 /* MISCustomButton.m */; };
 		8BB8BD20235EB482008C7578 /* GiftVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB8BD1F235EB482008C7578 /* GiftVC.m */; };
 		8BB8BD26235ECD6F008C7578 /* ZYTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB8BD24235ECD6E008C7578 /* ZYTextField.m */; };
@@ -575,6 +576,8 @@
 		8B4CB3BB2359ECF5009EFDC5 /* YBNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YBNotificationManager.h; sourceTree = "<group>"; };
 		8B5A7016235F37B8000373ED /* CatFoodProducingAreaVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatFoodProducingAreaVC.h; sourceTree = "<group>"; };
 		8B5A7017235F37B8000373ED /* CatFoodProducingAreaVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CatFoodProducingAreaVC.m; sourceTree = "<group>"; };
+		8B7CEEEF2360140300F3CAF5 /* OrderDetail_BuyerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetail_BuyerVC.h; sourceTree = "<group>"; };
+		8B7CEEF02360140300F3CAF5 /* OrderDetail_BuyerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetail_BuyerVC.m; sourceTree = "<group>"; };
 		8B83B5E8235AF46D00FD5D55 /* TBVCell_style_01.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBVCell_style_01.m; sourceTree = "<group>"; };
 		8B83B5E9235AF46D00FD5D55 /* TBVCell_style_01.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBVCell_style_01.h; sourceTree = "<group>"; };
 		8B83B5EB235AF46D00FD5D55 /* UIView+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extras.h"; sourceTree = "<group>"; };
@@ -618,8 +621,8 @@
 		8BA181B2235B1FE70021B4DC /* OrderListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListVC.m; sourceTree = "<group>"; };
 		8BA181B5235B27600021B4DC /* OrderTBVCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderTBVCell.h; sourceTree = "<group>"; };
 		8BA181B6235B27600021B4DC /* OrderTBVCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderTBVCell.m; sourceTree = "<group>"; };
-		8BA181B9235B39410021B4DC /* OrderDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailVC.h; sourceTree = "<group>"; };
-		8BA181BA235B39410021B4DC /* OrderDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailVC.m; sourceTree = "<group>"; };
+		8BA181B9235B39410021B4DC /* OrderDetail_SellerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetail_SellerVC.h; sourceTree = "<group>"; };
+		8BA181BA235B39410021B4DC /* OrderDetail_SellerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetail_SellerVC.m; sourceTree = "<group>"; };
 		8BA94BCA235AD50D00B00786 /* MISCustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MISCustomButton.m; sourceTree = "<group>"; };
 		8BA94BCB235AD50D00B00786 /* MISCustomButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MISCustomButton.h; sourceTree = "<group>"; };
 		8BA94BCE235AE2E900B00786 /* BaseVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseVC.m; sourceTree = "<group>"; };
@@ -1644,6 +1647,7 @@
 		8B7135CF235AF254002EDBAA /* 喵粮订单管理 */ = {
 			isa = PBXGroup;
 			children = (
+				8BA181B4235B27180021B4DC /* 订单单元格 */,
 				8BA181B1235B1FE70021B4DC /* OrderListVC.h */,
 				8BA181B2235B1FE70021B4DC /* OrderListVC.m */,
 			);
@@ -1688,6 +1692,24 @@
 				C42CCCE8213CC0520096675F /* main.m */,
 			);
 			path = Other;
+			sourceTree = "<group>";
+		};
+		8B7CEEED2360132C00F3CAF5 /* 针对卖家的 */ = {
+			isa = PBXGroup;
+			children = (
+				8BA181B9235B39410021B4DC /* OrderDetail_SellerVC.h */,
+				8BA181BA235B39410021B4DC /* OrderDetail_SellerVC.m */,
+			);
+			path = "针对卖家的";
+			sourceTree = "<group>";
+		};
+		8B7CEEEE2360133B00F3CAF5 /* 针对买家的 */ = {
+			isa = PBXGroup;
+			children = (
+				8B7CEEEF2360140300F3CAF5 /* OrderDetail_BuyerVC.h */,
+				8B7CEEF02360140300F3CAF5 /* OrderDetail_BuyerVC.m */,
+			);
+			path = "针对买家的";
 			sourceTree = "<group>";
 		};
 		8B83B5E7235AF46D00FD5D55 /* UITableViewCell */ = {
@@ -1805,8 +1827,8 @@
 		8BA181B8235B31560021B4DC /* 订单详情 */ = {
 			isa = PBXGroup;
 			children = (
-				8BA181B9235B39410021B4DC /* OrderDetailVC.h */,
-				8BA181BA235B39410021B4DC /* OrderDetailVC.m */,
+				8B7CEEEE2360133B00F3CAF5 /* 针对买家的 */,
+				8B7CEEED2360132C00F3CAF5 /* 针对卖家的 */,
 			);
 			path = "订单详情";
 			sourceTree = "<group>";
@@ -1868,7 +1890,6 @@
 				8B9C4D6D235D945D00BBE7D1 /* Q宠 */,
 				8B495D6F235C6AC0003C0AE1 /* 店铺收款码 */,
 				8BA181B8235B31560021B4DC /* 订单详情 */,
-				8BA181B4235B27180021B4DC /* 订单单元格 */,
 				8B7135CF235AF254002EDBAA /* 喵粮订单管理 */,
 				8BA94BD4235AE3A000B00786 /* 钱包 */,
 				8BA94BD3235AE39300B00786 /* 喵粮产地 */,
@@ -3950,7 +3971,7 @@
 				C4062BF4218FFDE700588193 /* SiginShowAdverController.m in Sources */,
 				C42CD098213CC2640096675F /* OrderDiscussController.m in Sources */,
 				C42CD071213CC2640096675F /* CenterController.m in Sources */,
-				8BA181BB235B39410021B4DC /* OrderDetailVC.m in Sources */,
+				8BA181BB235B39410021B4DC /* OrderDetail_SellerVC.m in Sources */,
 				C42CD089213CC2640096675F /* DataVerifier.m in Sources */,
 				8BB8BD20235EB482008C7578 /* GiftVC.m in Sources */,
 				C42CD13D213CC2640096675F /* ReusableViewGoods.m in Sources */,
@@ -3966,6 +3987,7 @@
 				8B83B60B235AF46D00FD5D55 /* NSArray+Extension.m in Sources */,
 				C42CD0BE213CC2640096675F /* CellDiscussOrder.m in Sources */,
 				C4026DC02148164E00D81974 /* ButtonShare.m in Sources */,
+				8B7CEEF12360140300F3CAF5 /* OrderDetail_BuyerVC.m in Sources */,
 				C4614403214386B6000C0CDC /* CellDiscussVendor.m in Sources */,
 				C42CD1AF213CC2640096675F /* JJWaterflowLayout.m in Sources */,
 				C4FC07BB215B2A5C00C6ECF3 /* JJDBHelper+Advertise.m in Sources */,

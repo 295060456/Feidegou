@@ -55,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface OrderDetailVC : BaseVC
+@interface OrderDetail_SellerVC : BaseVC
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
                        requestParams:(nullable id)requestParams

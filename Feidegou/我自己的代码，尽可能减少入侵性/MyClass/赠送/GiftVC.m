@@ -30,6 +30,8 @@ UITextFieldDelegate
         cell = [[GiftTBVCell_01 alloc] initWithStyle:UITableViewCellStyleValue1
                                      reuseIdentifier:ReuseIdentifier
                                               margin:SCALING_RATIO(5)];
+        cell.backgroundColor = kClearColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //        [UIView cornerCutToCircleWithView:cell.contentView
 //                          AndCornerRadius:5.f];
 //        [UIView colourToLayerOfView:cell.contentView
@@ -120,7 +122,7 @@ UITextFieldDelegate
         _textField.delegate = self;
         [UIView colourToLayerOfView:_textField
                          WithColour:KLightGrayColor
-                     AndBorderWidth:0.5f];
+                     AndBorderWidth:1.f];
         [UIView cornerCutToCircleWithView:_textField
                           AndCornerRadius:3.f];
         _textField.placeholder = [NSString stringWithFormat:@"在此输入%@",self.mutArr[0]];
@@ -160,6 +162,8 @@ UITextFieldDelegate
         cell = [[GiftTBVCell_02 alloc] initWithStyle:UITableViewCellStyleValue1
                                      reuseIdentifier:ReuseIdentifier
                                               margin:SCALING_RATIO(5)];
+        cell.backgroundColor = kClearColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //        [UIView cornerCutToCircleWithView:cell.contentView
 //                          AndCornerRadius:5.f];
 //        [UIView colourToLayerOfView:cell.contentView
@@ -208,7 +212,7 @@ UITextFieldDelegate
                           AndCornerRadius:3];
         [UIView colourToLayerOfView:_textField
                          WithColour:KLightGrayColor
-                     AndBorderWidth:0.01f];
+                     AndBorderWidth:1.f];
         _textField.placeholder = @"赠送数量";
         _textField.delegate = self;
         [self.contentView addSubview:_textField];
@@ -234,6 +238,8 @@ UITextFieldDelegate
         cell = [[GiftTBVCell_03 alloc] initWithStyle:UITableViewCellStyleValue1
                                      reuseIdentifier:ReuseIdentifier
                                               margin:SCALING_RATIO(5)];
+        cell.backgroundColor = kClearColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //        [UIView cornerCutToCircleWithView:cell.contentView
 //                          AndCornerRadius:5.f];
 //        [UIView colourToLayerOfView:cell.contentView
@@ -279,6 +285,8 @@ UITextFieldDelegate
         cell = [[GiftTBVCell_04 alloc] initWithStyle:UITableViewCellStyleValue1
                                      reuseIdentifier:ReuseIdentifier
                                               margin:SCALING_RATIO(5)];
+        cell.backgroundColor = kClearColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //        [UIView cornerCutToCircleWithView:cell.contentView
 //                          AndCornerRadius:5.f];
 //        [UIView colourToLayerOfView:cell.contentView
@@ -310,6 +318,7 @@ UITextFieldDelegate
         _cancelBtn = UIButton.new;
         [_cancelBtn setTitle:@"取消"
                     forState:UIControlStateNormal];
+        _cancelBtn.backgroundColor = KLightGrayColor;
         [_cancelBtn setTitleColor:kOrangeColor
                          forState:UIControlStateNormal];
         [_cancelBtn addTarget:self
@@ -319,7 +328,7 @@ UITextFieldDelegate
                           AndCornerRadius:5];
         [UIView colourToLayerOfView:_cancelBtn
                          WithColour:KLightGrayColor
-                     AndBorderWidth:0.1f];
+                     AndBorderWidth:1.f];
         [self.contentView addSubview:_cancelBtn];
         [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.bottom.equalTo(self.contentView);
@@ -479,6 +488,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_tableView) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectZero
                                                  style:UITableViewStylePlain];
+        _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = UIView.new;

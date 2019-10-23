@@ -6,13 +6,15 @@
 //  Copyright © 2019 朝花夕拾. All rights reserved.
 //
 
-#import "OrderDetailVC.h"
+#import "OrderDetail_SellerVC.h"
 #import "UpLoadCancelReasonVC.h"
 
 #pragma mark —— InfoView
 @interface OrderDetailTBVCell_02 ()
-<UITableViewDelegate,
-UITableViewDataSource>
+<
+UITableViewDelegate,
+UITableViewDataSource
+>
 
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
@@ -387,7 +389,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 @end
 
 #pragma mark —— OrderDetailVC
-@interface OrderDetailVC ()
+@interface OrderDetail_SellerVC ()
 <
 UITableViewDelegate,
 UITableViewDataSource
@@ -407,7 +409,7 @@ UITableViewDataSource
 
 @end
 
-@implementation OrderDetailVC
+@implementation OrderDetail_SellerVC
 
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
@@ -418,7 +420,7 @@ UITableViewDataSource
                              success:(DataBlock _Nonnull )block
                             animated:(BOOL)animated{
     
-    OrderDetailVC *vc = OrderDetailVC.new;
+    OrderDetail_SellerVC *vc = OrderDetail_SellerVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
     if (rootVC.navigationController) {
@@ -469,7 +471,7 @@ UITableViewDataSource
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
 }
 
 #pragma mark —— UITableViewDelegate,UITableViewDataSource

@@ -88,7 +88,7 @@ UITableViewDataSource
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-    [self.tableView.mj_header endRefreshing];
+   [self.tableView.mj_footer endRefreshing];
 }
 
 #pragma mark —— UITableViewDelegate,UITableViewDataSource

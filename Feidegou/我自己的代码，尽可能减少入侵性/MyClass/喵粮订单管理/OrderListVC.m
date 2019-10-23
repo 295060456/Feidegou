@@ -8,7 +8,7 @@
 
 #import "OrderListVC.h"
 #import "OrderTBVCell.h"
-#import "OrderDetailVC.h"
+#import "OrderDetail_SellerVC.h"
 
 @interface SearchView ()
 <
@@ -342,7 +342,7 @@ UITableViewDataSource
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
 }
 #pragma mark —— 点击事件
 -(void)filterBtnClickEvent:(UIButton *)sender{
@@ -396,7 +396,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-    [OrderDetailVC pushFromVC:self
+    [OrderDetail_SellerVC pushFromVC:self
                 requestParams:nil
                       success:^(id data) {}
                      animated:YES];
