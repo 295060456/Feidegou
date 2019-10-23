@@ -345,7 +345,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _sureBtn = UIButton.new;
         [_sureBtn.titleLabel sizeToFit];
         _sureBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
-        [_sureBtn setTitle:@"确认发货"
+        [_sureBtn setTitle:@" 确认发货 "
                   forState:UIControlStateNormal];
         [_sureBtn addTarget:self
                      action:@selector(sureBtnClickEvent:)
@@ -372,7 +372,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _cancelBtn.layerBorderColor = kWhiteColor;
         _cancelBtn.layerCornerRadius = 5;
         _cancelBtn.isClipsToBounds = YES;
-        [_cancelBtn.titleLabel sizeToFit];
+//        [_cancelBtn.titleLabel sizeToFit];
         _cancelBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
         [_cancelBtn timeFailBeginFrom:3];
         [_cancelBtn addTarget:self
@@ -382,6 +382,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
             make.centerY.equalTo(self.contentView);
+            make.size.mas_equalTo(self.sureBtn);
         }];
     }return _cancelBtn;
 }

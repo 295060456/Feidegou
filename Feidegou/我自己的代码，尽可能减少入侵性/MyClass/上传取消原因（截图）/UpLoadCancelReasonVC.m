@@ -7,6 +7,7 @@
 //
 
 #import "UpLoadCancelReasonVC.h"
+#import "SamplePicVC.h"
 
 @interface UpLoadCancelReasonTBVCell ()
 
@@ -149,9 +150,6 @@ UITableViewDelegate,
 UITableViewDataSource,
 TZImagePickerControllerDelegate
 >
-{
-//    UpLoadCancelReasonTBVCell *cell;
-}
 
 @property(nonatomic,strong)UIButton *demoPicBtn;
 @property(nonatomic,strong)UIImageView *imageView;
@@ -225,6 +223,10 @@ TZImagePickerControllerDelegate
 #pragma mark —— 点击事件
 -(void)DemoPicBtnClickEvent:(UIButton *)sender{
     NSLog(@"显示示例图");
+    [SamplePicVC pushFromVC:self
+              requestParams:nil
+                    success:^(id data) {}
+                   animated:YES];
 }
 
 -(void)upLoadbtnClickEvent:(UIButton *)sender{
