@@ -308,7 +308,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [self cancelOrder];
         }else{}
     }else{}
-
 }
 
 - (NSInteger)tableView:(UITableView *)tableView

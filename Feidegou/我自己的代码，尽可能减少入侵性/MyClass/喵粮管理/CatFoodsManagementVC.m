@@ -21,6 +21,7 @@ UITableViewDataSource
 @property(nonatomic,strong)UITableView *tableView;
 
 @property(nonatomic,strong)NSMutableArray <NSArray *>*titleMutArr;
+@property(nonatomic,strong)NSMutableArray <NSArray *>*imgMutArr;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
@@ -165,6 +166,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                              reuseIdentifier:ReuseIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = self.titleMutArr[indexPath.section][indexPath.row];
+        cell.imageView.image = kIMG(self.imgMutArr[indexPath.section][indexPath.row]);
         cell.detailTextLabel.textColor = kBlueColor;
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
@@ -227,5 +229,16 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _titleMutArr;
 }
 
+-(NSMutableArray<NSArray *> *)imgMutArr{
+    if (!_imgMutArr) {
+        _imgMutArr = NSMutableArray.array;
+        [_imgMutArr addObject:@[@"余额",
+                                @"出售中"]];
+        [_imgMutArr addObject:@[@"喵粮订单管理",
+                                @"店铺收款码",
+                                @"赠送",
+                                @"喵粮产地"]];
+    }return _imgMutArr;
+}
 
 @end
