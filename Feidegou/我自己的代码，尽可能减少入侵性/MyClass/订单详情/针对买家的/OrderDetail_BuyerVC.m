@@ -268,7 +268,7 @@ UITableViewDataSource
 //已付款
 -(void)havePaid{
     NSLog(@"已付款");
-    //等待后台进行审核 tips
+    //上传成功，等待后台进行审核 tips
     [UpLoadHavePaidVC pushFromVC:self
                    requestParams:nil
                          success:^(id data) {}

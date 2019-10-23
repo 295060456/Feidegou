@@ -78,6 +78,8 @@
 #import "VideoHandleTool.h"
 #import "HQTextField.h"
 #import "ZYTextField.h"
+#import "YKToastView.h"
+#import "ZFMRACNetworkTool.h"
 //Model
 #import "PetsInfoListModel.h"
 #import "AdoptingPetsModel.h"
