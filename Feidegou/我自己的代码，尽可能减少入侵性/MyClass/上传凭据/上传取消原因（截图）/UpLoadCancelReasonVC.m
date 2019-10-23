@@ -197,10 +197,6 @@ TZImagePickerControllerDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.gk_navTitle = @"上传取消凭证";
-    [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
-                                                    NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
-                                                                                        size:17]}];
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.imageView.alpha = 1;
     self.tableView.alpha = 1;
@@ -211,6 +207,10 @@ TZImagePickerControllerDelegate
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.gk_navTitle = @"上传取消凭证";
+    [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
+                                                    NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
+                                                                                        size:17]}];
 }
 
 //跳转系统设置

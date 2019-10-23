@@ -7,6 +7,7 @@
 //
 
 #import "OrderDetail_BuyerVC.h"
+#import "UpLoadHavePaidVC.h"
 
 @interface OrderDetail_BuyerTBVCell_01 ()
 <
@@ -267,12 +268,30 @@ UITableViewDataSource
 //已付款
 -(void)havePaid{
     NSLog(@"已付款");
+    //等待后台进行审核 tips
+    [UpLoadHavePaidVC pushFromVC:self
+                   requestParams:nil
+                         success:^(id data) {}
+                        animated:YES];
 }
 //取消订单
 -(void)cancelOrder{
     NSLog(@"取消订单");
+    [self showAlertViewTitle:@"是否需要取消订单？"
+                     message:@"若是已付款请不要继续进行此操作，否则可能人财两空"
+                 btnTitleArr:@[@"继续取消",
+                               @"手滑，点错了"]
+              alertBtnAction:@[@"continueToCancelOrder",
+                               @"sorry"]];
 }
 #pragma mark —— 私有方法
+-(void)continueToCancelOrder{
+    NSLog(@"继续取消");
+    [self.navigationController popViewControllerAnimated:YES];
+}
+-(void)sorry{
+    NSLog(@"手滑，点错了");
+}
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");

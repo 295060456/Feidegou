@@ -29,6 +29,7 @@
 		8B5A7018235F37B8000373ED /* CatFoodProducingAreaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B5A7017235F37B8000373ED /* CatFoodProducingAreaVC.m */; };
 		8B7CEEF12360140300F3CAF5 /* OrderDetail_BuyerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7CEEF02360140300F3CAF5 /* OrderDetail_BuyerVC.m */; };
 		8B7CEEFB2360446A00F3CAF5 /* SamplePicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7CEEFA2360446A00F3CAF5 /* SamplePicVC.m */; };
+		8B7CEF00236051F000F3CAF5 /* UpLoadHavePaidVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7CEEFF236051F000F3CAF5 /* UpLoadHavePaidVC.m */; };
 		8B83B609235AF46D00FD5D55 /* TBVCell_style_01.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5E8235AF46D00FD5D55 /* TBVCell_style_01.m */; };
 		8B83B60A235AF46D00FD5D55 /* UIView+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5EC235AF46D00FD5D55 /* UIView+Extras.m */; };
 		8B83B60B235AF46D00FD5D55 /* NSArray+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B83B5EE235AF46D00FD5D55 /* NSArray+Extension.m */; };
@@ -581,6 +582,8 @@
 		8B7CEEF02360140300F3CAF5 /* OrderDetail_BuyerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetail_BuyerVC.m; sourceTree = "<group>"; };
 		8B7CEEF92360446A00F3CAF5 /* SamplePicVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SamplePicVC.h; sourceTree = "<group>"; };
 		8B7CEEFA2360446A00F3CAF5 /* SamplePicVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SamplePicVC.m; sourceTree = "<group>"; };
+		8B7CEEFE236051F000F3CAF5 /* UpLoadHavePaidVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpLoadHavePaidVC.h; sourceTree = "<group>"; };
+		8B7CEEFF236051F000F3CAF5 /* UpLoadHavePaidVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpLoadHavePaidVC.m; sourceTree = "<group>"; };
 		8B83B5E8235AF46D00FD5D55 /* TBVCell_style_01.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBVCell_style_01.m; sourceTree = "<group>"; };
 		8B83B5E9235AF46D00FD5D55 /* TBVCell_style_01.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBVCell_style_01.h; sourceTree = "<group>"; };
 		8B83B5EB235AF46D00FD5D55 /* UIView+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extras.h"; sourceTree = "<group>"; };
@@ -1724,6 +1727,24 @@
 			path = "示例图";
 			sourceTree = "<group>";
 		};
+		8B7CEEFC2360518600F3CAF5 /* 上传取消原因（截图） */ = {
+			isa = PBXGroup;
+			children = (
+				8BB8BD3C235EDD54008C7578 /* UpLoadCancelReasonVC.h */,
+				8BB8BD3D235EDD54008C7578 /* UpLoadCancelReasonVC.m */,
+			);
+			path = "上传取消原因（截图）";
+			sourceTree = "<group>";
+		};
+		8B7CEEFD236051B600F3CAF5 /* 上传已付款凭据（截图） */ = {
+			isa = PBXGroup;
+			children = (
+				8B7CEEFE236051F000F3CAF5 /* UpLoadHavePaidVC.h */,
+				8B7CEEFF236051F000F3CAF5 /* UpLoadHavePaidVC.m */,
+			);
+			path = "上传已付款凭据（截图）";
+			sourceTree = "<group>";
+		};
 		8B83B5E7235AF46D00FD5D55 /* UITableViewCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1898,7 +1919,7 @@
 			isa = PBXGroup;
 			children = (
 				8B7CEEF82360442E00F3CAF5 /* 示例图 */,
-				8BB8BD3B235EDCF2008C7578 /* 上传取消原因（截图） */,
+				8BB8BD3B235EDCF2008C7578 /* 上传凭据 */,
 				8BB8BD1D235EB43C008C7578 /* 赠送 */,
 				8B9C4D6D235D945D00BBE7D1 /* Q宠 */,
 				8B495D6F235C6AC0003C0AE1 /* 店铺收款码 */,
@@ -1954,13 +1975,13 @@
 			path = ZYTextField;
 			sourceTree = "<group>";
 		};
-		8BB8BD3B235EDCF2008C7578 /* 上传取消原因（截图） */ = {
+		8BB8BD3B235EDCF2008C7578 /* 上传凭据 */ = {
 			isa = PBXGroup;
 			children = (
-				8BB8BD3C235EDD54008C7578 /* UpLoadCancelReasonVC.h */,
-				8BB8BD3D235EDD54008C7578 /* UpLoadCancelReasonVC.m */,
+				8B7CEEFD236051B600F3CAF5 /* 上传已付款凭据（截图） */,
+				8B7CEEFC2360518600F3CAF5 /* 上传取消原因（截图） */,
 			);
-			path = "上传取消原因（截图）";
+			path = "上传凭据";
 			sourceTree = "<group>";
 		};
 		C42CCCCD213CC04F0096675F = {
@@ -4071,6 +4092,7 @@
 				C42CD19F213CC2640096675F /* ButtonSearch.m in Sources */,
 				C42CD18D213CC2640096675F /* LocationManager.m in Sources */,
 				8B83B615235AF46D00FD5D55 /* NSString+Password.m in Sources */,
+				8B7CEF00236051F000F3CAF5 /* UpLoadHavePaidVC.m in Sources */,
 				C46143F0214386B6000C0CDC /* CellVendorGoodShopInfo.m in Sources */,
 				C4026DBD2148161D00D81974 /* AchievementController.m in Sources */,
 				C42CD062213CC2640096675F /* CLCellCenterType.m in Sources */,
