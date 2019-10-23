@@ -398,9 +398,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                              animated:NO];
     [OrderDetailVC pushFromVC:self
                 requestParams:nil
-                      success:^(id data) {
-        
-    }
+                      success:^(id data) {}
                      animated:YES];
 }
 

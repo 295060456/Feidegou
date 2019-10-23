@@ -24,30 +24,38 @@
         cell = [[CatFoodProducingAreaTBVCell alloc]initWithStyle:UITableViewCellStyleDefault
                                                reuseIdentifier:ReuseIdentifier
                                                         margin:SCALING_RATIO(10)];
+        cell.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"猫和鱼")];
         [UIView cornerCutToCircleWithView:cell
                           AndCornerRadius:10.f];
         [UIView colourToLayerOfView:cell
+                         WithColour:kWhiteColor
+                     AndBorderWidth:0.3f];
+        [UIView cornerCutToCircleWithView:cell.contentView
+                          AndCornerRadius:10.f];
+        [UIView colourToLayerOfView:cell.contentView
                          WithColour:kWhiteColor
                      AndBorderWidth:0.3f];
     }return cell;
 }
 
 -(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return 200;//self.numLab.mj_y + self.numLab.mj_h + SCALING_RATIO(20);
+    return SCALING_RATIO(80);
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.sellerNameLab.text = @"中国北京市中南海";
-    self.priceLab.text = @"11234.11";
-    self.numLab.text = @"1234";
-    [self layoutIfNeeded];
+    self.sellerNameLab.text = @"厂家:中国北京市中南海";
+    self.priceLab.text = @"单价:11234.11";
+    self.numLab.text = @"数量:1234";
+    [self.sellerNameLab sizeToFit];
+    [self.priceLab sizeToFit];
+    [self.numLab sizeToFit];
 }
 
 #pragma mark —— lazyLoad
 -(UILabel *)sellerNameLab{
     if (!_sellerNameLab) {
         _sellerNameLab = UILabel.new;
-        [_sellerNameLab sizeToFit];
+//        _sellerNameLab.backgroundColor = kRedColor;
         [self.contentView addSubview:_sellerNameLab];
         [_sellerNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
@@ -58,26 +66,26 @@
 -(UILabel *)priceLab{
     if (!_priceLab) {
         _priceLab = UILabel.new;
-        [_priceLab sizeToFit];
+//        _priceLab.backgroundColor = kBlueColor;
         [self.contentView addSubview:_priceLab];
         [_priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.contentView).offset(SCALING_RATIO(10));
             make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
         }];
-    }return _sellerNameLab;
+    }return _priceLab;
 }
 
 -(UILabel *)numLab{
     if (!_numLab) {
         _numLab = UILabel.new;
-        [_numLab sizeToFit];
+//        _numLab.backgroundColor = KGreenColor;
         [self.contentView addSubview:_numLab];
         [_numLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));
             make.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
             make.top.equalTo(self.sellerNameLab.mas_bottom).offset(SCALING_RATIO(5));
         }];
-    }return _sellerNameLab;
+    }return _numLab;
 }
 
 @end
@@ -177,7 +185,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CatFoodProducingAreaTBVCell *cell = [CatFoodProducingAreaTBVCell cellWith:tableView];
-    cell.backgroundColor = RandomColor;
+//    cell.backgroundColor = RandomColor;
     [cell richElementsInCellWithModel:nil];
     CatFoodProducingAreaTBVCellHeight = [cell cellHeightWithModel:nil];
     return cell;
@@ -213,6 +221,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = UIView.new;
+        _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
         _tableView.mj_footer.hidden = YES;
