@@ -186,7 +186,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [self.tableView beginUpdates];
     [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                            withRowAnimation:UITableViewRowAnimationFade];
+                            withRowAnimation:UITableViewRowAnimationMiddle];
     [self.tableView endUpdates];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
                     withRowAnimation:UITableViewRowAnimationNone];
