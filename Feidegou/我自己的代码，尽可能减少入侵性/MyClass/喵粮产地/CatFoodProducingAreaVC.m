@@ -14,6 +14,7 @@
 @property(nonatomic,strong)UILabel *sellerNameLab;//卖家名称
 @property(nonatomic,strong)UILabel *priceLab;//单价
 @property(nonatomic,strong)UILabel *numLab;//数量
+@property(nonatomic,strong)UILabel *buyTipsLab;
 
 @end
 
@@ -47,9 +48,11 @@
     self.sellerNameLab.text = @"厂家:中国北京市中南海";
     self.priceLab.text = @"单价:11234.11";
     self.numLab.text = @"数量:1234";
+    self.buyTipsLab.text = @"点击购买";
     [self.sellerNameLab sizeToFit];
     [self.priceLab sizeToFit];
     [self.numLab sizeToFit];
+    [self.buyTipsLab sizeToFit];
 }
 
 #pragma mark —— lazyLoad
@@ -87,6 +90,18 @@
             make.top.equalTo(self.sellerNameLab.mas_bottom).offset(SCALING_RATIO(5));
         }];
     }return _numLab;
+}
+
+-(UILabel *)buyTipsLab{
+    if (!_buyTipsLab) {
+        _buyTipsLab = UILabel.new;
+        [self.contentView addSubview:_buyTipsLab];
+        [_buyTipsLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+            make.top.equalTo(self.sellerNameLab.mas_bottom).offset(SCALING_RATIO(5));
+        }];
+    }return _buyTipsLab;
 }
 
 @end
