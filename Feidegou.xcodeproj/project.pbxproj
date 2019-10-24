@@ -55,7 +55,6 @@
 		8BA181AC235B1F470021B4DC /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA94BCE235AE2E900B00786 /* BaseVC.m */; };
 		8BA181AF235B1F8C0021B4DC /* CatFoodsManagementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA181AD235B1F8C0021B4DC /* CatFoodsManagementVC.m */; };
 		8BA181B3235B1FE70021B4DC /* OrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA181B2235B1FE70021B4DC /* OrderListVC.m */; };
-		8BA181B7235B27600021B4DC /* OrderTBVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA181B6235B27600021B4DC /* OrderTBVCell.m */; };
 		8BA181BB235B39410021B4DC /* OrderDetail_SellerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA181BA235B39410021B4DC /* OrderDetail_SellerVC.m */; };
 		8BA94BCC235AD50D00B00786 /* MISCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA94BCA235AD50D00B00786 /* MISCustomButton.m */; };
 		8BB8BD20235EB482008C7578 /* GiftVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB8BD1F235EB482008C7578 /* GiftVC.m */; };
@@ -639,8 +638,6 @@
 		8BA181AE235B1F8C0021B4DC /* CatFoodsManagementVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CatFoodsManagementVC.h; sourceTree = "<group>"; };
 		8BA181B1235B1FE70021B4DC /* OrderListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListVC.h; sourceTree = "<group>"; };
 		8BA181B2235B1FE70021B4DC /* OrderListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListVC.m; sourceTree = "<group>"; };
-		8BA181B5235B27600021B4DC /* OrderTBVCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderTBVCell.h; sourceTree = "<group>"; };
-		8BA181B6235B27600021B4DC /* OrderTBVCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderTBVCell.m; sourceTree = "<group>"; };
 		8BA181B9235B39410021B4DC /* OrderDetail_SellerVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetail_SellerVC.h; sourceTree = "<group>"; };
 		8BA181BA235B39410021B4DC /* OrderDetail_SellerVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetail_SellerVC.m; sourceTree = "<group>"; };
 		8BA94BCA235AD50D00B00786 /* MISCustomButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MISCustomButton.m; sourceTree = "<group>"; };
@@ -1667,7 +1664,6 @@
 		8B7135CF235AF254002EDBAA /* 喵粮订单管理 */ = {
 			isa = PBXGroup;
 			children = (
-				8BA181B4235B27180021B4DC /* 订单单元格 */,
 				8BA181B1235B1FE70021B4DC /* OrderListVC.h */,
 				8BA181B2235B1FE70021B4DC /* OrderListVC.m */,
 			);
@@ -1908,15 +1904,6 @@
 				8B9C4D6F235D94B400BBE7D1 /* Q_Pet.m */,
 			);
 			path = "Q宠";
-			sourceTree = "<group>";
-		};
-		8BA181B4235B27180021B4DC /* 订单单元格 */ = {
-			isa = PBXGroup;
-			children = (
-				8BA181B5235B27600021B4DC /* OrderTBVCell.h */,
-				8BA181B6235B27600021B4DC /* OrderTBVCell.m */,
-			);
-			path = "订单单元格";
 			sourceTree = "<group>";
 		};
 		8BA181B8235B31560021B4DC /* 订单详情 */ = {
@@ -3983,7 +3970,6 @@
 				C42CD0ED213CC2640096675F /* RegisterInputPswController.m in Sources */,
 				C42CD1B4213CC2640096675F /* MainNavigationController.m in Sources */,
 				C42CD1CB213CC2640096675F /* ModelArea.m in Sources */,
-				8BA181B7235B27600021B4DC /* OrderTBVCell.m in Sources */,
 				C42CD1A1213CC2640096675F /* UITextFieldPassWord.m in Sources */,
 				C42CD103213CC2640096675F /* BrandRoneListController.m in Sources */,
 				C42CD0F1213CC2640096675F /* RegisterCodeController.m in Sources */,
