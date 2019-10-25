@@ -32,97 +32,69 @@
 
 //计时器方法:
 - (void)timerFired {
-
     if (self.count != 1) {
-
         self.count -= 1;
-
         self.enabled = NO;
-
         [self setTitle:[NSString stringWithFormat:@"剩余%ld秒", self.count]
               forState:UIControlStateNormal];
-        
         self.backgroundColor = _bgBeginColor;
-
         //      [self setTitle:[NSString stringWithFormat:@"剩余%ld秒", self.count] forState:UIControlStateDisabled];
     } else {
-
         self.enabled = YES;
-
         [self setTitle:self.titleEndStr
               forState:UIControlStateNormal];
-        
         self.backgroundColor = self.bgEndColor;
-        
         [self.timer invalidate];
     }
 }
 #pragma mark —— Set方法赋值
 -(void)setTitleColor:(UIColor *)titleColor{
-    
     _titleColor = titleColor;
-    
     [self setTitleColor:_titleColor
                forState:UIControlStateNormal];
 }
 
 -(void)setBgBeginColor:(UIColor *)bgColor{
-    
     _bgBeginColor = bgColor;
-    
     self.backgroundColor = _bgBeginColor;
 }
 
 -(void)setLayerBorderColor:(UIColor *)layerBorderColor{
-    
     _layerBorderColor = layerBorderColor;
-    
     self.layer.borderColor = _layerBorderColor.CGColor;
 }
 
 -(void)setTitleLabelFont:(UIFont *)titleLabelFont{
-    
     _titleLabelFont = titleLabelFont;
- 
     self.titleLabel.font = _titleLabelFont;
 }
 
 -(void)setLayerCornerRadius:(CGFloat)layerCornerRadius{
-    
     _layerCornerRadius = layerCornerRadius;
-    
     self.layer.cornerRadius = _layerCornerRadius;
 }
 
 -(void)setLayerBorderWidth:(CGFloat)layerBorderWidth{
-    
     _layerBorderWidth = layerBorderWidth;
-    
     self.layer.borderWidth = _layerBorderWidth;
 }
 
 -(void)setIsClipsToBounds:(BOOL)isClipsToBounds{
-    
     _isClipsToBounds = isClipsToBounds;
-    
     self.clipsToBounds = _isClipsToBounds;
 }
 
 -(void)setTitleBeginStr:(NSString *)titleStr{
-    
     _titleBeginStr = titleStr;
-    
     [self setTitle:_titleBeginStr
           forState:UIControlStateNormal];
 }
 
 -(void)setTitleEndStr:(NSString *)titleEndStr{
-    
     _titleEndStr = titleEndStr;
 }
 
 -(void)setBgEndColor:(UIColor *)bgEndColor{
-    
     _bgEndColor = bgEndColor;
 }
 

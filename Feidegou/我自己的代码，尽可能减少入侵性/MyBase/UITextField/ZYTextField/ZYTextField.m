@@ -30,7 +30,9 @@
     //光标颜色
     self.tintColor = self.textColor;
     //占位符的颜色和大小
-    UILabel *placeholderLabel = object_getIvar(self, class_getInstanceVariable([UITextField class], "_placeholderLabel"));
+    UILabel *placeholderLabel = object_getIvar(self,
+                                               class_getInstanceVariable([UITextField class],
+                                                                         "_placeholderLabel"));
     placeholderLabel.textColor = RGBCOLOR(167,
                                           167,
                                           167);
@@ -43,7 +45,9 @@
  */
 - (BOOL)becomeFirstResponder{
     // 修改占位文字颜色
-    UILabel *placeholderLabel = object_getIvar(self, class_getInstanceVariable([UITextField class], "_placeholderLabel"));
+    UILabel *placeholderLabel = object_getIvar(self,
+                                               class_getInstanceVariable([UITextField class],
+                                                                         "_placeholderLabel"));
     placeholderLabel.textColor = self.textColor;
     return [super becomeFirstResponder];
 }
@@ -52,7 +56,9 @@
  */
 - (BOOL)resignFirstResponder{
     // 修改占位文字颜色
-    UILabel *placeholderLabel = object_getIvar(self, class_getInstanceVariable([UITextField class], "_placeholderLabel"));
+    UILabel *placeholderLabel = object_getIvar(self,
+                                               class_getInstanceVariable([UITextField class],
+                                                                         "_placeholderLabel"));
     placeholderLabel.textColor = [UIColor grayColor];
     return [super resignFirstResponder];
 }

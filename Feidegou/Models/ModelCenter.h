@@ -9,7 +9,6 @@
 #import "JJBaseModel.h"
 
 @interface ModelCenter : JJBaseModel
-
 /**
  *头像
  */

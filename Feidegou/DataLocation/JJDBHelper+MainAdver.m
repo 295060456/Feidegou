@@ -34,7 +34,7 @@
 - (void)saveAdverId:(NSString *)strId{
     NSMutableArray *array = [NSMutableArray arrayWithArray:[self fetchCacheForMainAdverId]];
 //    如果数量大于100，则删除前面的50个
-    if (array.count>100) {
+    if (array.count > 100) {
         [array removeObjectsInRange:NSMakeRange(0, 50)];
     }
     D_NSLog(@"%@",array);

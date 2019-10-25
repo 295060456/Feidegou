@@ -31,8 +31,6 @@
         } else return YES;
     } return NO;
 }
-
-
 /*
  分开来注释一下：
  ^ 匹配一行的开头位置
@@ -101,9 +99,7 @@
      把str字符串转换成了32位的16进制数列（这个过程不可逆转） 存储到了md这个空间中
      */
     CC_MD5(str, (CC_LONG)strlen(str), result);
-    
     NSMutableString *ret = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH];
-    
     for(int i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
         
         [ret appendFormat:@"%02X",result[i]];
@@ -133,15 +129,12 @@
     return [scan scanInt:&value] && [scan isAtEnd];
 }
 
-
-+(BOOL)isHaveWhiteSpace:(NSString *)text
-{
++(BOOL)isHaveWhiteSpace:(NSString *)text{
     NSRange _range = [text rangeOfString:@" "];
     if (_range.location != NSNotFound) {
         //有空格
         return true;
     }else {
-        
         //没有空格
         return false;
     }

@@ -16,7 +16,10 @@
     
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
     
-    return [NSURL URLWithString:(NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]", NULL,kCFStringEncodingUTF8))];
+    return [NSURL URLWithString:(NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                                                      (CFStringRef)self,
+                                                                                                      (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",
+                                                                                                      NULL,kCFStringEncodingUTF8))];
     
 #pragma clang diagnostic pop
     

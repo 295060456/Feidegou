@@ -9,6 +9,7 @@
 #import "ModelAddress.h"
 
 @implementation ModelAddress
+
 + (NSDictionary *)JSONKeyPathsByPropertyKey{
     return @{
              @"area":@"area",
@@ -21,4 +22,5 @@
              @"defaultAddr":@"defaultAddr"
              };
 }
+
 @end

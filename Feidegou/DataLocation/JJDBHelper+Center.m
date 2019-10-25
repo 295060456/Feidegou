@@ -16,7 +16,6 @@
 - (ModelCenter *)fetchCenterMsg{
     
     NSData *data = [self queryCacheDataWithCacheId:CenterMsg];
-    
     NSDictionary *dictionray = [self convertData:data];
     ModelCenter *model = [MTLJSONAdapter modelOfClass:[ModelCenter class]
                                    fromJSONDictionary:dictionray

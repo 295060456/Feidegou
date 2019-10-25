@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		71BE65A43CAAA15ED813BE7F /* libPods-Feidegou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */; };
+		8B070A362362BF6D00462976 /* ThroughTrainToPromoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B070A352362BF6D00462976 /* ThroughTrainToPromoteVC.m */; };
 		8B4781AF235D9C72007CBC63 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781A5235D9C72007CBC63 /* TwitterHeart.json */; };
 		8B4781B0235D9C72007CBC63 /* HamburgerArrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781A6235D9C72007CBC63 /* HamburgerArrow.json */; };
 		8B4781B1235D9C72007CBC63 /* G.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781A7235D9C72007CBC63 /* G.json */; };
@@ -554,6 +555,8 @@
 /* Begin PBXFileReference section */
 		24EEB4BC842F9E07DEEF3F0B /* Pods-Feidegou.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.release.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.release.xcconfig"; sourceTree = "<group>"; };
 		6C32034C23408BE5001794DE /* UIImage+helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+helper.h"; sourceTree = "<group>"; };
+		8B070A342362BF6D00462976 /* ThroughTrainToPromoteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThroughTrainToPromoteVC.h; sourceTree = "<group>"; };
+		8B070A352362BF6D00462976 /* ThroughTrainToPromoteVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThroughTrainToPromoteVC.m; sourceTree = "<group>"; };
 		8B4781A5235D9C72007CBC63 /* TwitterHeart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeart.json; sourceTree = "<group>"; };
 		8B4781A6235D9C72007CBC63 /* HamburgerArrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HamburgerArrow.json; sourceTree = "<group>"; };
 		8B4781A7235D9C72007CBC63 /* G.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = G.json; sourceTree = "<group>"; };
@@ -1587,6 +1590,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8B070A332362BEE400462976 /* 喵粮直通车 */ = {
+			isa = PBXGroup;
+			children = (
+				8B070A342362BF6D00462976 /* ThroughTrainToPromoteVC.h */,
+				8B070A352362BF6D00462976 /* ThroughTrainToPromoteVC.m */,
+			);
+			path = "喵粮直通车";
+			sourceTree = "<group>";
+		};
 		8B4781A4235D9C72007CBC63 /* jsonfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -1635,9 +1647,9 @@
 		8B495D69235C57CF003C0AE1 /* MMButton */ = {
 			isa = PBXGroup;
 			children = (
+				8B495D6C235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） */,
 				8B495D6A235C57CF003C0AE1 /* MMButton.h */,
 				8B495D6B235C57CF003C0AE1 /* MMButton.m */,
-				8B495D6C235C57CF003C0AE1 /* MMButton（自定义图文位置 \ 距离） */,
 			);
 			path = MMButton;
 			sourceTree = "<group>";
@@ -1969,6 +1981,7 @@
 		8BA94BD1235AE34900B00786 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8B070A332362BEE400462976 /* 喵粮直通车 */,
 				8B7CEEF82360442E00F3CAF5 /* 示例图 */,
 				8BB8BD3B235EDCF2008C7578 /* 上传凭据 */,
 				8BB8BD1D235EB43C008C7578 /* 赠送 */,
@@ -3947,6 +3960,7 @@
 				C42CD1CD213CC2650096675F /* ModelLogin.m in Sources */,
 				C42CD122213CC2640096675F /* CLCellGoodNum.m in Sources */,
 				C42CD088213CC2640096675F /* base64.m in Sources */,
+				8B070A362362BF6D00462976 /* ThroughTrainToPromoteVC.m in Sources */,
 				C42CD097213CC2640096675F /* OrderNotPayController.m in Sources */,
 				C42CD0B1213CC2640096675F /* CellGoodMoney.m in Sources */,
 				C42CD14D213CC2640096675F /* CLCellSelectedNo.m in Sources */,

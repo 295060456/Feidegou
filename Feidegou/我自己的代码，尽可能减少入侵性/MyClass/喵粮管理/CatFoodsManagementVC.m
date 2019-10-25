@@ -11,6 +11,7 @@
 #import "ShopReceiptQRcodeVC.h"//店铺收款码"
 #import "GiftVC.h"//赠送
 #import "CatFoodProducingAreaVC.h"//喵粮产地
+#import "ThroughTrainToPromoteVC.h"//喵粮直通车
 
 @interface CatFoodsManagementVC ()
 <
@@ -135,6 +136,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                  requestParams:nil
                                        success:^(id data) {}
                                       animated:YES];
+        }else if (indexPath.row == 4){
+            [ThroughTrainToPromoteVC pushFromVC:self
+                                  requestParams:nil
+                                        success:^(id data) {}
+                                       animated:YES];
         }else{}
     }else{}
 }
@@ -225,7 +231,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [_titleMutArr addObject:@[@"喵粮订单管理",
                                   @"店铺收款码",
                                   @"赠送",
-                                  @"喵粮产地"]];
+                                  @"喵粮产地",
+                                  @"喵粮直通车"]];
     }return _titleMutArr;
 }
 
@@ -237,7 +244,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [_imgMutArr addObject:@[@"喵粮订单管理",
                                 @"店铺收款码",
                                 @"赠送",
-                                @"喵粮产地"]];
+                                @"喵粮产地",
+                                @"喵粮直通车"]];
     }return _imgMutArr;
 }
 

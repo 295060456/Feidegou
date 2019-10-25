@@ -9,6 +9,7 @@
 #import "ModelPerformance.h"
 
 @implementation ModelPerformance
+
 + (NSDictionary *)JSONKeyPathsByPropertyKey{
     return @{
              @"content":@"content",
@@ -16,4 +17,5 @@
              @"addTime":@"addTime"
              };
 }
+
 @end

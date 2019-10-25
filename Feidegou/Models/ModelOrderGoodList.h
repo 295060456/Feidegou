@@ -15,7 +15,6 @@
  *
  */
 @property (nonatomic,strong) NSArray *goodsCart;
-
 /**
  *
  */
@@ -42,7 +41,6 @@
 @property (assign, nonatomic) enumBillType billType;
 //公司发票公司名字
 @property (nonatomic,copy) NSString *strCompanyName;
-
 //商家留言
 @property (nonatomic,copy) NSString *strMsg;
 //支付方式，线上和线下

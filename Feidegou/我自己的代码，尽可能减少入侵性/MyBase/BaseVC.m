@@ -217,9 +217,12 @@
         [_tableViewHeader setImages:@[kIMG(@"猫爪")]
                            forState:MJRefreshStateRefreshing];
         // 设置文字
-        [_tableViewHeader setTitle:@"Click or drag down to refresh" forState:MJRefreshStateIdle];
-        [_tableViewHeader setTitle:@"Loading more ..." forState:MJRefreshStateRefreshing];
-        [_tableViewHeader setTitle:@"No more data" forState:MJRefreshStateNoMoreData];
+        [_tableViewHeader setTitle:@"Click or drag down to refresh"
+                          forState:MJRefreshStateIdle];
+        [_tableViewHeader setTitle:@"Loading more ..."
+                          forState:MJRefreshStateRefreshing];
+        [_tableViewHeader setTitle:@"No more data"
+                          forState:MJRefreshStateNoMoreData];
         // 设置字体
         _tableViewHeader.stateLabel.font = [UIFont systemFontOfSize:17];
         // 设置颜色
@@ -241,9 +244,12 @@
         [_tableViewFooter setImages:@[kIMG(@"猫爪")]
                            forState:MJRefreshStateRefreshing];
         // 设置文字
-        [_tableViewFooter setTitle:@"Click or drag up to refresh" forState:MJRefreshStateIdle];
-        [_tableViewFooter setTitle:@"Loading more ..." forState:MJRefreshStateRefreshing];
-        [_tableViewFooter setTitle:@"No more data" forState:MJRefreshStateNoMoreData];
+        [_tableViewFooter setTitle:@"Click or drag up to refresh"
+                          forState:MJRefreshStateIdle];
+        [_tableViewFooter setTitle:@"Loading more ..."
+                          forState:MJRefreshStateRefreshing];
+        [_tableViewFooter setTitle:@"No more data"
+                          forState:MJRefreshStateNoMoreData];
         // 设置字体
         _tableViewFooter.stateLabel.font = [UIFont systemFontOfSize:17];
         // 设置颜色
