@@ -1,0 +1,6 @@
+module Pods_Feidegou {
+  umbrella header "Pods-Feidegou-umbrella.h"
+
+  export *
+  module * { export * }
+}

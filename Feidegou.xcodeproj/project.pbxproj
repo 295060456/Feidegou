@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		71BE65A43CAAA15ED813BE7F /* libPods-Feidegou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */; };
 		8B070A362362BF6D00462976 /* ThroughTrainToPromoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B070A352362BF6D00462976 /* ThroughTrainToPromoteVC.m */; };
+		8B070A3B2362D19E00462976 /* StallListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B070A3A2362D19E00462976 /* StallListVC.m */; };
+		8B070A3F2362DE8A00462976 /* CountdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B070A3E2362DE8A00462976 /* CountdownView.m */; };
 		8B4781AF235D9C72007CBC63 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781A5235D9C72007CBC63 /* TwitterHeart.json */; };
 		8B4781B0235D9C72007CBC63 /* HamburgerArrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781A6235D9C72007CBC63 /* HamburgerArrow.json */; };
 		8B4781B1235D9C72007CBC63 /* G.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781A7235D9C72007CBC63 /* G.json */; };
@@ -557,6 +559,10 @@
 		6C32034C23408BE5001794DE /* UIImage+helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+helper.h"; sourceTree = "<group>"; };
 		8B070A342362BF6D00462976 /* ThroughTrainToPromoteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThroughTrainToPromoteVC.h; sourceTree = "<group>"; };
 		8B070A352362BF6D00462976 /* ThroughTrainToPromoteVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThroughTrainToPromoteVC.m; sourceTree = "<group>"; };
+		8B070A392362D19E00462976 /* StallListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StallListVC.h; sourceTree = "<group>"; };
+		8B070A3A2362D19E00462976 /* StallListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StallListVC.m; sourceTree = "<group>"; };
+		8B070A3D2362DE8A00462976 /* CountdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountdownView.h; sourceTree = "<group>"; };
+		8B070A3E2362DE8A00462976 /* CountdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountdownView.m; sourceTree = "<group>"; };
 		8B4781A5235D9C72007CBC63 /* TwitterHeart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeart.json; sourceTree = "<group>"; };
 		8B4781A6235D9C72007CBC63 /* HamburgerArrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HamburgerArrow.json; sourceTree = "<group>"; };
 		8B4781A7235D9C72007CBC63 /* G.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = G.json; sourceTree = "<group>"; };
@@ -1593,10 +1599,29 @@
 		8B070A332362BEE400462976 /* 喵粮直通车 */ = {
 			isa = PBXGroup;
 			children = (
+				8B070A372362D15F00462976 /* 喵粮直通车——摊位列表 */,
 				8B070A342362BF6D00462976 /* ThroughTrainToPromoteVC.h */,
 				8B070A352362BF6D00462976 /* ThroughTrainToPromoteVC.m */,
 			);
 			path = "喵粮直通车";
+			sourceTree = "<group>";
+		};
+		8B070A372362D15F00462976 /* 喵粮直通车——摊位列表 */ = {
+			isa = PBXGroup;
+			children = (
+				8B070A392362D19E00462976 /* StallListVC.h */,
+				8B070A3A2362D19E00462976 /* StallListVC.m */,
+			);
+			path = "喵粮直通车——摊位列表";
+			sourceTree = "<group>";
+		};
+		8B070A3C2362DE6500462976 /* 圆形倒计时进度条（中间有字，可点击回调） */ = {
+			isa = PBXGroup;
+			children = (
+				8B070A3D2362DE8A00462976 /* CountdownView.h */,
+				8B070A3E2362DE8A00462976 /* CountdownView.m */,
+			);
+			path = "圆形倒计时进度条（中间有字，可点击回调）";
 			sourceTree = "<group>";
 		};
 		8B4781A4235D9C72007CBC63 /* jsonfile */ = {
@@ -1967,6 +1992,7 @@
 		8BA94BD0235AE30100B00786 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				8B070A3C2362DE6500462976 /* 圆形倒计时进度条（中间有字，可点击回调） */,
 				8B7CEF1023605B1100F3CAF5 /* ToastView */,
 				8B7CEF0123605ABD00F3CAF5 /* 🌍ZFMRACNetworkTool */,
 				8B4781CA235DCEEB007CBC63 /* 视频_图片 处理 */,
@@ -3841,6 +3867,7 @@
 				C42CD08E213CC2640096675F /* DiscussOrderController.m in Sources */,
 				C42CD07E213CC2640096675F /* CLCellOneLbl.m in Sources */,
 				C46D6B5B2143A5C900428D7A /* CellOrderConfilm.m in Sources */,
+				8B070A3F2362DE8A00462976 /* CountdownView.m in Sources */,
 				8B7CEEFB2360446A00F3CAF5 /* SamplePicVC.m in Sources */,
 				C42CD0FE213CC2640096675F /* CellBrandRoneRecommend.m in Sources */,
 				C42CD063213CC2640096675F /* CellCollection.m in Sources */,
@@ -3905,6 +3932,7 @@
 				C42CD0F6213CC2640096675F /* GoodDiscussListController.m in Sources */,
 				C42CD0B0213CC2640096675F /* CellOneButton.m in Sources */,
 				8B4CB3BC2359ECF5009EFDC5 /* YBNotificationManager.m in Sources */,
+				8B070A3B2362D19E00462976 /* StallListVC.m in Sources */,
 				C42CD196213CC2640096675F /* UILabel+helper.m in Sources */,
 				C42CD057213CC2640096675F /* ApplyForVenderController.m in Sources */,
 				C46F8C4A214CF1E600F0C7D1 /* AreaOrderComfilmController.m in Sources */,

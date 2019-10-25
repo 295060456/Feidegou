@@ -7,6 +7,8 @@
 //
 
 #import "ThroughTrainToPromoteVC.h"
+#import "StallListVC.h"
+
 @interface ThroughTrainToPromoteTBVCell()
 <
 UITextFieldDelegate
@@ -29,7 +31,7 @@ UITextFieldDelegate
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCALING_RATIO(80);
+    return SCALING_RATIO(50);
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
@@ -83,7 +85,6 @@ UITextFieldDelegate
 
 @interface ThroughTrainToPromoteVC ()
 <
-
 UITableViewDelegate,
 UITableViewDataSource
 >
@@ -145,12 +146,15 @@ UITableViewDataSource
 #pragma mark —— 点击事件
 -(void)btnClickEvent:(UIButton *)sender{
     NSLog(@"开启直通车抢摊位")
-    
+    [StallListVC pushFromVC:self
+              requestParams:nil
+                    success:^(id data) {}
+                   animated:YES];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return SCALING_RATIO(50);
+    return [ThroughTrainToPromoteTBVCell cellHeightWithModel:nil];
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -200,8 +204,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _btn.backgroundColor = kOrangeColor;
         [self.view addSubview:_btn];
         [_btn mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.centerX.equalTo(self.view);
-//            make.bottom.equalTo(self.view).offset(SCALING_RATIO(50));
             make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(100)));
             make.center.equalTo(self.view);
         }];
