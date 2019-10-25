@@ -11,7 +11,8 @@
 
 @interface StallListTBVCell ()
 
-@property(nonatomic,strong)CountdownView *countdownView;
+@property(nonatomic,copy)ActionBlock blockAnimationFinishedAction;
+@property(nonatomic,copy)ActionBlock blockTapAction;
 
 @end
 
@@ -42,8 +43,12 @@
     self.countdownView.alpha = 1;
 }
 
--(void)createMainView{
-    NSLog(@"动画结束该干嘛？");
+-(void)actionAnimationFinishedBlock:(ActionBlock)block{
+    _blockAnimationFinishedAction = block;
+}
+
+-(void)actionTapBlock:(ActionBlock)block{
+    _blockTapAction = block;
 }
 
 #pragma mark —— lazyLoad
@@ -52,20 +57,20 @@
         _countdownView = CountdownView.new;
         _countdownView.time = 30;
         _countdownView.str = @"抢";
-//        _countdownView.label.text = @"抢";
-        
-//        _countdownView.label.font = [UIFont systemFontOfSize:12];
-//        _countdownView.label.textAlignment = NSTextAlignmentCenter;
-//        _countdownView.label.textColor = [UIColor colorWithRed:0.27f
-//                                                         green:0.27f
-//                                                          blue:0.27f
-//                                                         alpha:1.00f];
-        
-//        _countdownView.backgroundColor = kRedColor;
         @weakify(self)
         _countdownView.blockTapAction = ^{
             @strongify(self)
-            [self createMainView];
+            NSLog(@"主动点击");
+            if (self.blockTapAction) {
+                self.blockTapAction();
+            }
+        };
+        _countdownView.blockAnimationFinishedAction = ^{
+             @strongify(self)
+            NSLog(@"动画结束该干嘛？");
+            if (self.blockAnimationFinishedAction) {
+                self.blockAnimationFinishedAction();
+            }
         };
         [self.contentView addSubview:_countdownView];
         [_countdownView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -141,6 +146,9 @@ UITableViewDataSource
 }
 
 #pragma mark —— 私有方法
+-(void)sure{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
@@ -161,9 +169,45 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-    //
+    StallListTBVCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if (cell.userInteractionEnabled) {
+        [self tableView:tableView
+        deleteIndexPath:indexPath];
+    }
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
+    return self.dataMutArr.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    StallListTBVCell *cell = [StallListTBVCell cellWith:tableView];
+    [cell richElementsInCellWithModel:nil];
+    @weakify(self)
+    [cell actionAnimationFinishedBlock:^{
+        @strongify(self)
+        cell.userInteractionEnabled = NO;
+        cell.countdownView.str = @"废";
+        [self showAlertViewTitle:@"已超时"
+                         message:@"超过规定时间以后不能继续抢摊"
+                     btnTitleArr:@[@"确认"]
+                  alertBtnAction:@[@"sure"]];
+    }];
+    
+    [cell actionTapBlock:^{
+        @strongify(self)
+        if (cell.userInteractionEnabled) {
+            [self tableView:tableView
+            deleteIndexPath:indexPath];
+        }
+    }];return cell;
+}
+
+-(void)tableView:(UITableView *)tableView
+ deleteIndexPath:(NSIndexPath *)indexPath{
     //先移除数据源
-    //
     self.isDelCell = YES;
 
     [self.dataMutArr removeObjectAtIndex:indexPath.row];
@@ -185,18 +229,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                  success:^(id data) {}
                                 animated:YES];
     });
-}
-
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section{
-    return self.dataMutArr.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    StallListTBVCell *cell = [StallListTBVCell cellWith:tableView];
-    [cell richElementsInCellWithModel:nil];
-    return cell;
 }
 //给cell添加动画
 -(void)tableView:(UITableView *)tableView
