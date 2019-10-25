@@ -210,11 +210,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  (int64_t)(0.7 * NSEC_PER_SEC)),
                    dispatch_get_main_queue(), ^{
-        @strongify(self)
-        [OrderDetail_BuyerVC pushFromVC:self
-        requestParams:nil
-              success:^(id data) {}
-             animated:YES];
+        [OrderDetail_BuyerVC pushFromVC:self_weak_
+                          requestParams:nil
+                                success:^(id data) {}
+                               animated:YES];
     });
 }
 

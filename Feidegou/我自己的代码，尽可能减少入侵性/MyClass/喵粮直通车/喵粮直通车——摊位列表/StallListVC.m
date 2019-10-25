@@ -218,13 +218,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableView endUpdates];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
                     withRowAnimation:UITableViewRowAnimationNone];
-
     @weakify(self)
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  (int64_t)(0.7 * NSEC_PER_SEC)),
                    dispatch_get_main_queue(), ^{
-        @strongify(self)
-        [OrderDetail_SellerVC pushFromVC:self
+        [OrderDetail_SellerVC pushFromVC:self_weak_
                            requestParams:nil
                                  success:^(id data) {}
                                 animated:YES];

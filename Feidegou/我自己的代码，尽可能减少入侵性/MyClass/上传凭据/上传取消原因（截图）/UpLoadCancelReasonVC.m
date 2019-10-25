@@ -223,7 +223,8 @@ TZImagePickerControllerDelegate
 #pragma mark —— 点击事件
 -(void)DemoPicBtnClickEvent:(UIButton *)sender{
     NSLog(@"显示示例图");
-    [SamplePicVC pushFromVC:self
+    @weakify(self)
+    [SamplePicVC pushFromVC:self_weak_
               requestParams:nil
                     success:^(id data) {}
                    animated:YES];

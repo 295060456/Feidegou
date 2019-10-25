@@ -193,6 +193,9 @@
 }
 
 #pragma mark —— 子类需要覆写
+-(void)backBtnClickEvent:(UIButton *)sender{
+    NSLog(@"返回");
+}
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
@@ -256,6 +259,19 @@
         _tableViewFooter.stateLabel.textColor = KLightGrayColor;
         _tableViewFooter.hidden = YES;
     }return _tableViewFooter;
+}
+
+-(UIButton *)backBtn{
+    if (!_backBtn) {
+        _backBtn = UIButton.new;
+        [_backBtn setTitle:@"返回"
+                  forState:UIControlStateNormal];
+        [_backBtn setImage:kIMG(@"返回")
+                  forState:UIControlStateNormal];
+        [_backBtn addTarget:self
+                     action:@selector(backBtnClickEvent:)
+           forControlEvents:UIControlEventTouchUpInside];
+    }return _backBtn;
 }
 
 @end

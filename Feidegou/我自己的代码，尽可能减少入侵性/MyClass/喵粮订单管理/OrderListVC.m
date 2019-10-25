@@ -7,7 +7,6 @@
 //
 
 #import "OrderListVC.h"
-//#import "OrderTBVCell.h"
 #import "OrderDetail_SellerVC.h"
 
 #pragma mark —— OrderTBVCell
@@ -516,8 +515,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  (int64_t)(0.7 * NSEC_PER_SEC)),
                    dispatch_get_main_queue(), ^{
-        @strongify(self)
-        [OrderDetail_SellerVC pushFromVC:self
+        [OrderDetail_SellerVC pushFromVC:self_weak_
                     requestParams:nil
                           success:^(id data) {}
                          animated:YES];

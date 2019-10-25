@@ -103,7 +103,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-    
+    @weakify(self)
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             
@@ -114,30 +114,30 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
-            [OrderListVC pushFromVC:self
+            [OrderListVC pushFromVC:self_weak_
                       requestParams:Nil
                             success:^(id data) {
                 
             }
                            animated:YES];
         }else if (indexPath.row == 1){
-            [ShopReceiptQRcodeVC pushFromVC:self
+            [ShopReceiptQRcodeVC pushFromVC:self_weak_
                               requestParams:Nil
                                     success:^(id data) {
             }
                                    animated:YES];
         }else if (indexPath.row == 2){
-            [GiftVC pushFromVC:self
+            [GiftVC pushFromVC:self_weak_
                  requestParams:nil
                        success:^(id data) {}
                       animated:YES];
         }else if (indexPath.row == 3){
-            [CatFoodProducingAreaVC pushFromVC:self
+            [CatFoodProducingAreaVC pushFromVC:self_weak_
                                  requestParams:nil
                                        success:^(id data) {}
                                       animated:YES];
         }else if (indexPath.row == 4){
-            [ThroughTrainToPromoteVC pushFromVC:self
+            [ThroughTrainToPromoteVC pushFromVC:self_weak_
                                   requestParams:nil
                                         success:^(id data) {}
                                        animated:YES];

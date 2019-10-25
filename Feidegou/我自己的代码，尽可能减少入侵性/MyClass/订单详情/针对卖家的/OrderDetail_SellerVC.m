@@ -291,7 +291,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 @property(nonatomic,copy)DataBlock sureBlock;
 @property(nonatomic,copy)DataBlock cancelBlock;
 
-
 @end
 
 @implementation OrderDetailTBVCell_06
@@ -390,6 +389,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 @end
 
 #pragma mark —— OrderDetailVC
+#import "StallListVC.h"
+#import "OrderListVC.h"
 @interface OrderDetail_SellerVC ()
 <
 UITableViewDelegate,
@@ -407,6 +408,8 @@ UITableViewDataSource
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
+@property(nonatomic,strong)id popGestureDelegate; //用来保存系统手势的代理
+@property(nonatomic,assign)BOOL isShowViewFinished;
 
 @end
 
@@ -420,10 +423,10 @@ UITableViewDataSource
                        requestParams:(nullable id)requestParams
                              success:(DataBlock _Nonnull )block
                             animated:(BOOL)animated{
-    
     OrderDetail_SellerVC *vc = OrderDetail_SellerVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
+    vc.isShowViewFinished = NO;
     if (rootVC.navigationController) {
         vc.isPush = YES;
         vc.isPresent = NO;
@@ -440,13 +443,34 @@ UITableViewDataSource
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //    self.navigationItem.title = @"订单详情";
     self.gk_navTitle = @"订单详情";
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
     self.tableView.alpha = 1;
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
+    self.gk_navItemLeftSpace = SCALING_RATIO(30);
+    
+//我们不能直接将代理置空，需要根据当前栈顶控制器是否是根控制器进行判断。
+    //    self.interactivePopGestureRecognizer.delegate = nil;
+//第一步，先保存当前的代理
+    self.popGestureDelegate = self.navigationController.interactivePopGestureRecognizer.delegate;
+
+//第二步，成为自己的代理，去监听pop的过程，pop之前判断是否为根控制器
+    self.navigationController.delegate = self;
+    self.isShowViewFinished = YES;
+}
+
+- (void)navigationController:(UINavigationController *)navigationController
+      willShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated{
+    if ([viewController isKindOfClass:[StallListVC class]] && self.isShowViewFinished) {
+        [navigationController popToViewController:navigationController.viewControllers[navigationController.viewControllers.count - 2]
+                                         animated:YES];
+
+    }else if([viewController isKindOfClass:[OrderListVC class]]){
+    }
 }
 
 -(void)ConfirmDelivery{
@@ -464,6 +488,9 @@ UITableViewDataSource
 }
 
 #pragma mark —— 私有方法
+-(void)backBtnClickEvent:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
@@ -603,9 +630,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //        _stringPickerView.selectValue = textField.text;
         @weakify(self)
         _stringPickerView.resultModelBlock = ^(BRResultModel *resultModel) {
-            @strongify(self)
             NSLog(@"选择的值：%@", resultModel.selectValue);
-            [UpLoadCancelReasonVC pushFromVC:self
+            [UpLoadCancelReasonVC pushFromVC:self_weak_
                                requestParams:Nil
                                      success:^(id data) {}
                                     animated:YES];

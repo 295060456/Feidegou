@@ -269,7 +269,8 @@ UITableViewDataSource
 -(void)havePaid{
     NSLog(@"已付款");
     //上传成功，等待后台进行审核 tips
-    [UpLoadHavePaidVC pushFromVC:self
+    @weakify(self)
+    [UpLoadHavePaidVC pushFromVC:self_weak_
                    requestParams:nil
                          success:^(id data) {}
                         animated:YES];

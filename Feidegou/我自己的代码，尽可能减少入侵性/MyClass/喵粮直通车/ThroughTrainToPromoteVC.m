@@ -26,6 +26,7 @@ UITextFieldDelegate
         cell = [[ThroughTrainToPromoteTBVCell alloc] initWithStyle:UITableViewCellStyleValue1
                                                    reuseIdentifier:ReuseIdentifier
                                                             margin:SCALING_RATIO(0)];
+        cell.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }return cell;
 }
@@ -146,7 +147,8 @@ UITableViewDataSource
 #pragma mark —— 点击事件
 -(void)btnClickEvent:(UIButton *)sender{
     NSLog(@"开启直通车抢摊位")
-    [StallListVC pushFromVC:self
+    @weakify(self)
+    [StallListVC pushFromVC:self_weak_
               requestParams:nil
                     success:^(id data) {}
                    animated:YES];
@@ -224,6 +226,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom);

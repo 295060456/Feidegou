@@ -89,5 +89,6 @@
 #import "GrowthValuePetsModel.h"
 #import "GiftFoodsModel.h"
 
+#import "TestVC.h"
 
 #endif /* PrefixHeader_pch */

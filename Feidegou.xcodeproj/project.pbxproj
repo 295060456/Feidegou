@@ -11,6 +11,7 @@
 		8B070A362362BF6D00462976 /* ThroughTrainToPromoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B070A352362BF6D00462976 /* ThroughTrainToPromoteVC.m */; };
 		8B070A3B2362D19E00462976 /* StallListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B070A3A2362D19E00462976 /* StallListVC.m */; };
 		8B070A3F2362DE8A00462976 /* CountdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B070A3E2362DE8A00462976 /* CountdownView.m */; };
+		8B070A4E236322C000462976 /* TestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B070A4D236322C000462976 /* TestVC.m */; };
 		8B4781AF235D9C72007CBC63 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781A5235D9C72007CBC63 /* TwitterHeart.json */; };
 		8B4781B0235D9C72007CBC63 /* HamburgerArrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781A6235D9C72007CBC63 /* HamburgerArrow.json */; };
 		8B4781B1235D9C72007CBC63 /* G.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B4781A7235D9C72007CBC63 /* G.json */; };
@@ -563,6 +564,8 @@
 		8B070A3A2362D19E00462976 /* StallListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StallListVC.m; sourceTree = "<group>"; };
 		8B070A3D2362DE8A00462976 /* CountdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountdownView.h; sourceTree = "<group>"; };
 		8B070A3E2362DE8A00462976 /* CountdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountdownView.m; sourceTree = "<group>"; };
+		8B070A4C236322C000462976 /* TestVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestVC.h; sourceTree = "<group>"; };
+		8B070A4D236322C000462976 /* TestVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestVC.m; sourceTree = "<group>"; };
 		8B4781A5235D9C72007CBC63 /* TwitterHeart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeart.json; sourceTree = "<group>"; };
 		8B4781A6235D9C72007CBC63 /* HamburgerArrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HamburgerArrow.json; sourceTree = "<group>"; };
 		8B4781A7235D9C72007CBC63 /* G.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = G.json; sourceTree = "<group>"; };
@@ -1611,6 +1614,8 @@
 			children = (
 				8B070A392362D19E00462976 /* StallListVC.h */,
 				8B070A3A2362D19E00462976 /* StallListVC.m */,
+				8B070A4C236322C000462976 /* TestVC.h */,
+				8B070A4D236322C000462976 /* TestVC.m */,
 			);
 			path = "喵粮直通车——摊位列表";
 			sourceTree = "<group>";
@@ -4117,6 +4122,7 @@
 				C42CD0BE213CC2640096675F /* CellDiscussOrder.m in Sources */,
 				C4026DC02148164E00D81974 /* ButtonShare.m in Sources */,
 				8B7CEEF12360140300F3CAF5 /* OrderDetail_BuyerVC.m in Sources */,
+				8B070A4E236322C000462976 /* TestVC.m in Sources */,
 				C4614403214386B6000C0CDC /* CellDiscussVendor.m in Sources */,
 				C42CD1AF213CC2640096675F /* JJWaterflowLayout.m in Sources */,
 				C4FC07BB215B2A5C00C6ECF3 /* JJDBHelper+Advertise.m in Sources */,

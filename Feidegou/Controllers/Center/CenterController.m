@@ -434,7 +434,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
     }
     if (indexPath.section == 6) {
-        [CatFoodsManagementVC pushFromVC:self
+        @weakify(self)
+        [CatFoodsManagementVC pushFromVC:self_weak_
                            requestParams:nil
                                  success:^(id data) {}
                                 animated:YES];
