@@ -1614,8 +1614,6 @@
 			children = (
 				8B070A392362D19E00462976 /* StallListVC.h */,
 				8B070A3A2362D19E00462976 /* StallListVC.m */,
-				8B070A4C236322C000462976 /* TestVC.h */,
-				8B070A4D236322C000462976 /* TestVC.m */,
 			);
 			path = "喵粮直通车——摊位列表";
 			sourceTree = "<group>";
@@ -2104,6 +2102,8 @@
 		C42CCCD8213CC04F0096675F /* Feidegou */ = {
 			isa = PBXGroup;
 			children = (
+				8B070A4C236322C000462976 /* TestVC.h */,
+				8B070A4D236322C000462976 /* TestVC.m */,
 				C42CCF81213CC2620096675F /* PrefixHeader.pch */,
 				8BA94BC8235AD4EF00B00786 /* 我自己的代码，尽可能减少入侵性 */,
 				8B7CA0A22355D7040050EEB6 /* Other */,
