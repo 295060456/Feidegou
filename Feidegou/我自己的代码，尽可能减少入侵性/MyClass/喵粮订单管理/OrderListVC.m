@@ -510,7 +510,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableView endUpdates];
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
                     withRowAnimation:UITableViewRowAnimationNone];
-
+    
     @weakify(self)
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  (int64_t)(0.7 * NSEC_PER_SEC)),
@@ -520,6 +520,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                           success:^(id data) {}
                          animated:YES];
     });
+    
+//    @weakify(self)
+//    [OrderDetail_SellerVC pushFromVC:self_weak_
+//                requestParams:nil
+//                      success:^(id data) {}
+//                     animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView

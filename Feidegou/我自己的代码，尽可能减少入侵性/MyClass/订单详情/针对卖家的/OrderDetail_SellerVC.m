@@ -447,7 +447,6 @@ UITableViewDataSource
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
-    self.tableView.alpha = 1;
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(30);
@@ -460,6 +459,8 @@ UITableViewDataSource
 //第二步，成为自己的代理，去监听pop的过程，pop之前判断是否为根控制器
     self.navigationController.delegate = self;
     self.isShowViewFinished = YES;
+    
+    self.tableView.alpha = 1;
 }
 
 - (void)navigationController:(UINavigationController *)navigationController
@@ -577,7 +578,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             OrderDetailTBVCell_06 *cell = [OrderDetailTBVCell_06 cellWith:tableView];
 //            cell.backgroundColor = KGreenColor;
             [cell richElementsInCellWithModel:nil];
+            @weakify(self)
             [cell actionSureBlock:^(id data) {
+                @strongify(self)
                 [self showAlertViewTitle:@"确认发货？"
                                  message:@"确认以后将货款进行拨付"
                              btnTitleArr:@[@"确认发货",
@@ -586,6 +589,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                            @"Cancel"]];//取消
             }];
             [cell actionCancelBlock:^(id data) {
+                @strongify(self)
                 [self showAlertViewTitle:@"取消发货？"
                                  message:@""
                              btnTitleArr:@[@"取消发货",
