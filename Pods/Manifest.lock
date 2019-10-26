@@ -17,6 +17,7 @@ PODS:
   - BaiduMapKit (5.0.0)
   - BRPickerView (2.3.1)
   - DDProgressView (0.1)
+  - FBRetainCycleDetector (0.1.4)
   - FLEX (3.0.0)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
@@ -40,6 +41,8 @@ PODS:
   - MISFloatingBall (1.1.1)
   - MJExtension (3.2.1)
   - MJRefresh (3.2.0)
+  - MLeaksFinder (1.0.0):
+    - FBRetainCycleDetector
   - mob_sharesdk (4.3.3):
     - mob_sharesdk/ShareSDK (= 4.3.3)
     - MOBFoundation
@@ -103,6 +106,7 @@ DEPENDENCIES:
   - MISFloatingBall
   - MJExtension
   - MJRefresh
+  - MLeaksFinder
   - mob_sharesdk
   - mob_sharesdk/ShareSDKExtension
   - mob_sharesdk/ShareSDKPlatforms/WeChatFull
@@ -134,6 +138,7 @@ SPEC REPOS:
     - BaiduMapKit
     - BRPickerView
     - DDProgressView
+    - FBRetainCycleDetector
     - FLEX
     - FMDB
     - GKNavigationBarViewController
@@ -151,6 +156,7 @@ SPEC REPOS:
     - MISFloatingBall
     - MJExtension
     - MJRefresh
+    - MLeaksFinder
     - mob_sharesdk
     - MOBFoundation
     - PGBanner
@@ -179,6 +185,7 @@ SPEC CHECKSUMS:
   BaiduMapKit: 3a875b001293a9ee6692febd549d8bf82108dbac
   BRPickerView: 46c9c2a5fce2590554402961acca694557521712
   DDProgressView: d5a8983e5585217ee58f4a046bb4038f6e1b6306
+  FBRetainCycleDetector: 46f8179bbb1c587deee3ea838a1a3ee02acf5015
   FLEX: d66c759bce0f6ebbbf472c742380874d846f2883
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   GKNavigationBarViewController: a8c249e20774f19c0c4b20ca976b9bde68710a33
@@ -196,6 +203,7 @@ SPEC CHECKSUMS:
   MISFloatingBall: c2b0c60baaa87cc5675ef33159d3b999f82253a3
   MJExtension: 635f2c663dcb1bf76fa4b715b2570a5710aec545
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
+  MLeaksFinder: 8c435bd2f6d070af18cff082b503b21adc130fc0
   mob_sharesdk: 48cb240a4b9cc393be2d6ff9c5b597ae77a1da73
   MOBFoundation: 08c456357888e4c984fba23bbf04cfd2f4fc1e02
   PGBanner: 0c52ab4ce9e04ad17f8dd0627b45951b96770c67
@@ -219,6 +227,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: 0f2d25d571033fd852b21e79fb755bfeab733b07
+PODFILE CHECKSUM: 62067e2f9470fd6781daa12e32a0f35d6e340773
 
 COCOAPODS: 1.8.4
