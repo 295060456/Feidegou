@@ -7,6 +7,7 @@
 //
 
 #import "YKToastView.h"
+
 #define kYKToastViewFadeinDuration 0.2//渐入动画时间
 #define kYKToastViewDisplayDuration 2.5//停留显示时间
 #define kYKToastViewFadeoutDuration 0.3//渐出动画时间
@@ -21,6 +22,8 @@
 
 @property(nonatomic,copy)NSString *tipText;
 @property(nonatomic,strong)UILabel *tipLabelView;
+@property(nonatomic,strong)CABasicAnimation *fadeInAnimation;
+@property(nonatomic,strong)CABasicAnimation *fadeOutAnimation;
 
 - (void)forceHide;
 
@@ -36,7 +39,6 @@
 
 - (void)touchesBegan:(NSSet *)touches
            withEvent:(UIEvent *)event{
-    
     [super touchesBegan:touches
               withEvent:event];
     [(YKToastView *)self.maskView forceHide];
@@ -45,14 +47,11 @@
 @end
 
 @implementation YKToastView
-
 #pragma mark - --------------------退出清空--------------------
 - (void)dealloc{
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
-
 #pragma mark - --------------------初始化--------------------
-
 - (id)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         [self initBaseView];
@@ -84,6 +83,12 @@
 
 - (void)initBaseView{
     [self setBackgroundColor:[[UIColor blackColor] colorWithAlphaComponent:0.7]];
+    self.tipLabelView.alpha = 1;
+    [self setClipsToBounds:YES];
+    [self.layer setCornerRadius:5];
+}
+#pragma mark —— lazyLoad
+-(UILabel *)tipLabelView{
     if (!_tipLabelView) {
         int edge = 10;
         _tipLabelView = [[UILabel alloc] initWithFrame:UIEdgeInsetsInsetRect(self.bounds,
@@ -96,10 +101,8 @@
         [_tipLabelView setTextColor:[UIColor whiteColor]];
         [_tipLabelView setFont:kYKToastViewTextFont];
         _tipLabelView.numberOfLines = INT_MAX;
-    }
-    [self addSubview:_tipLabelView];
-    [self setClipsToBounds:YES];
-    [self.layer setCornerRadius:5];
+        [self addSubview:_tipLabelView];
+    }return _tipLabelView;
 }
 
 - (void)willMoveToWindow:(UIWindow *)newWindow{
@@ -110,7 +113,6 @@
         }
     }
 }
-
 #pragma mark - --------------------功能函数-------------------
 - (void)showInView:(UIView *)view{
     if (!maskWindow_) {
@@ -150,23 +152,15 @@
     @weakify(self)
     [CATransaction setCompletionBlock:^{
         @strongify(self)
-        [self performSelector:@selector(fadeOutAnimation)
+        [self performSelector:@selector(FadeOut_Animation)
                    withObject:nil
                    afterDelay:kYKToastViewDisplayDuration];
     }];
-    CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    [fadeInAnimation setDuration:kYKToastViewFadeinDuration];
-    [fadeInAnimation setFromValue:[NSNumber numberWithFloat:0.0]];
-    [fadeInAnimation setToValue:[NSNumber numberWithFloat:1.0]];
-    [fadeInAnimation setRemovedOnCompletion:NO];
-    [fadeInAnimation setFillMode:kCAFillModeForwards];
-    [fadeInAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
-    [self.layer addAnimation:fadeInAnimation
+    [self.layer addAnimation:self.fadeInAnimation
                       forKey:@"fadeIn"];
-    [CATransaction commit];
 }
 
-- (void)fadeOutAnimation{
+- (void)FadeOut_Animation{
     maskWindow_.maskView = nil;
     [CATransaction begin];
     @weakify(self)
@@ -174,16 +168,36 @@
         @strongify(self)
         [self forceHide];
     }];
-    CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    [fadeOutAnimation setDuration:kYKToastViewFadeoutDuration];
-    [fadeOutAnimation setFromValue:[NSNumber numberWithFloat:1.0]];
-    [fadeOutAnimation setToValue:[NSNumber numberWithFloat:0.0]];
-    [fadeOutAnimation setRemovedOnCompletion:NO];
-    [fadeOutAnimation setFillMode:kCAFillModeForwards];
-    [fadeOutAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
-    [self.layer addAnimation:fadeOutAnimation
+    [self.layer addAnimation:self.fadeOutAnimation
                       forKey:@"fadeOut"];
-    [CATransaction commit];
+}
+#pragma mark —— lazyLoad
+-(CABasicAnimation *)fadeInAnimation{
+    if (!_fadeInAnimation) {
+        _fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+        [_fadeInAnimation setDuration:kYKToastViewFadeinDuration];
+        [_fadeInAnimation setFromValue:[NSNumber numberWithFloat:0.0]];
+        [_fadeInAnimation setToValue:[NSNumber numberWithFloat:1.0]];
+        [_fadeInAnimation setRemovedOnCompletion:NO];
+        [_fadeInAnimation setFillMode:kCAFillModeForwards];
+        [_fadeInAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
+        [self.layer addAnimation:_fadeInAnimation
+                          forKey:@"fadeIn"];
+        [CATransaction commit];
+    }return _fadeInAnimation;
+}
+
+-(CABasicAnimation *)fadeOutAnimation{
+    if (!_fadeOutAnimation) {
+        _fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+        [_fadeOutAnimation setDuration:kYKToastViewFadeoutDuration];
+        [_fadeOutAnimation setFromValue:[NSNumber numberWithFloat:1.0]];
+        [_fadeOutAnimation setToValue:[NSNumber numberWithFloat:0.0]];
+        [_fadeOutAnimation setRemovedOnCompletion:NO];
+        [_fadeOutAnimation setFillMode:kCAFillModeForwards];
+        [_fadeOutAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear]];
+        [CATransaction commit];
+    }return _fadeOutAnimation;
 }
 
 #pragma mark - --------------------接口API--------------------
@@ -191,7 +205,7 @@
 - (void)forceHide{
     maskWindow_.maskView = nil;
     [NSObject cancelPreviousPerformRequestsWithTarget:self
-                                             selector:@selector(fadeOutAnimation)
+                                             selector:@selector(FadeOut_Animation)
                                                object:nil];
     [self removeFromSuperview];
     [maskWindow_ resignKeyWindow];
