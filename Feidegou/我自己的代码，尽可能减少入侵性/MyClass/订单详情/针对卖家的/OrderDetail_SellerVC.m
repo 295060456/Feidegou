@@ -468,9 +468,10 @@ UITableViewDataSource
                     animated:(BOOL)animated{
     if ([viewController isKindOfClass:[StallListVC class]] && self.isShowViewFinished) {
         [navigationController popToViewController:navigationController.viewControllers[navigationController.viewControllers.count - 2]
-                                         animated:YES];
+                                         animated:NO];
 
     }else if([viewController isKindOfClass:[OrderListVC class]]){
+        
     }
 }
 
