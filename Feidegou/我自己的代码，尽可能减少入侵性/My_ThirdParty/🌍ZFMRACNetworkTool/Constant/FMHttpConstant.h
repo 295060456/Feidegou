@@ -14,7 +14,7 @@
 #define FMHttpConstant_h
 
 /*******URL******/
-#define BaseUrl @"http://googshoping.colors8.com.cn/"
+#define BaseUrl @""//@"http://googshoping.colors8.com.cn/"
 /********ImgBaseURL*****/
 #define ImgBaseURL @""
 ////api

@@ -44,6 +44,7 @@
                              animated:animated
                            completion:^{}];
     }return vc;
+    BaseUrl;
 }
 
 - (void)viewDidLoad {

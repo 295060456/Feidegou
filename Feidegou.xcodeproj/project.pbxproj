@@ -1761,14 +1761,14 @@
 			path = "喵粮订单管理";
 			sourceTree = "<group>";
 		};
-		8B7C75FD23655F9B00F1C8BB /* TZImagePickerController */ = {
+		8B7C75FD23655F9B00F1C8BB /* TZImagePickerController（ 3.2.3） */ = {
 			isa = PBXGroup;
 			children = (
 				8B7C75FE23655F9B00F1C8BB /* LICENSE */,
 				8B7C762023655F9B00F1C8BB /* README.md */,
 				8B7C75FF23655F9B00F1C8BB /* TZImagePickerController */,
 			);
-			path = TZImagePickerController;
+			path = "TZImagePickerController（ 3.2.3）";
 			sourceTree = "<group>";
 		};
 		8B7C75FF23655F9B00F1C8BB /* TZImagePickerController */ = {
@@ -2102,7 +2102,7 @@
 		8BA94BD0235AE30100B00786 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				8B7C75FD23655F9B00F1C8BB /* TZImagePickerController */,
+				8B7C75FD23655F9B00F1C8BB /* TZImagePickerController（ 3.2.3） */,
 				8B070A3C2362DE6500462976 /* 圆形倒计时进度条（中间有字，可点击回调） */,
 				8B7CEF1023605B1100F3CAF5 /* ToastView */,
 				8B7CEF0123605ABD00F3CAF5 /* 🌍ZFMRACNetworkTool */,
