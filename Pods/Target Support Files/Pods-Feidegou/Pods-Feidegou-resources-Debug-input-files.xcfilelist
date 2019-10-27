@@ -8,7 +8,6 @@ ${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle
 ${PODS_ROOT}/PYSearch/PYSearch/PYSearch.bundle
 ${PODS_ROOT}/SGQRCode/SGQRCode/SGQRCode.bundle
 ${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle
-${PODS_ROOT}/TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle
 ${PODS_ROOT}/iOS-AlipaySDK/AlipaySDK.bundle
 ${PODS_CONFIGURATION_BUILD_DIR}/mob_sharesdk/ShareSDK.bundle
 ${PODS_CONFIGURATION_BUILD_DIR}/mob_sharesdk/ShareSDK_JS_WeChat.bundle

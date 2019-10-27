@@ -9,7 +9,10 @@
 
 #import "BaseVC.h"
 
-@interface BaseVC ()<JXCategoryListContentViewDelegate>
+@interface BaseVC ()
+<
+JXCategoryListContentViewDelegate
+>
 
 @end
 

@@ -212,7 +212,6 @@ TZImagePickerControllerDelegate
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
 }
-
 //跳转系统设置
 -(void)pushToSysConfig{
     NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
@@ -246,16 +245,20 @@ TZImagePickerControllerDelegate
         //状态类型参考：ECAuthorizationStatus
         NSLog(@"%lu",(unsigned long)status);
         if (status == ECAuthorizationStatus_Authorized) {
-//            self.isOpenMicrophone = YES;
+            
+//            [self presentViewController:TestVC.new
+//                               animated:YES
+//                             completion:Nil];
+            
             [self presentViewController:self.imagePickerVC
-                               animated:YES
-                             completion:nil];
+                                     animated:YES
+                                   completion:nil];
         }else{
             NSLog(@"相册不可用:%lu",(unsigned long)status);
             [self showAlertViewTitle:@"获取相册权限"
-                             message:@""
-                         btnTitleArr:@[@"去获取"]
-                      alertBtnAction:@[@"pushToSysConfig"]];
+                                   message:@""
+                               btnTitleArr:@[@"去获取"]
+                            alertBtnAction:@[@"pushToSysConfig"]];
         }
     }];
 }
@@ -402,7 +405,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                                                         delegate:self];
         @weakify(self)
         [_imagePickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos,
-                                                          NSArray *assets, BOOL isSelectOriginalPhoto) {
+                                                          NSArray *assets,
+                                                          BOOL isSelectOriginalPhoto) {
             @strongify(self)
             if (photos.count == 1) {
                 [self.cell reloadPicBtnIMG:photos.lastObject];

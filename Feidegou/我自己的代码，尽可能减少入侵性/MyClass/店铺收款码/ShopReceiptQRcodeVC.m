@@ -101,8 +101,7 @@
         //状态类型参考：ECAuthorizationStatus
         NSLog(@"%lu",(unsigned long)status);
         if (status == ECAuthorizationStatus_Authorized) {
-//            self.isOpenMicrophone = YES;
-            [self presentViewController:self.imagePickerVC
+            [self presentViewController:self_weak_.imagePickerVC
                                animated:YES
                              completion:nil];
         }else{
@@ -199,7 +198,8 @@
                                                                         delegate:self];
         @weakify(self)
         [_imagePickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos,
-                                                          NSArray *assets, BOOL isSelectOriginalPhoto) {
+                                                          NSArray *assets,
+                                                          BOOL isSelectOriginalPhoto) {
             @strongify(self)
             if (photos.count == 1) {
 //                UIImageView *imgv = [[UIImageView alloc]initWithImage:photos.lastObject];

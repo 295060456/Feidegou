@@ -38,7 +38,7 @@ UITableViewDataSource
 }
 
 -(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return (self.titleMutArr.count + 1) * SCALING_RATIO(30);
+    return (self.titleMutArr.count + 1.5) * SCALING_RATIO(30);
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
