@@ -462,7 +462,7 @@ UITableViewDataSource
     
     self.tableView.alpha = 1;
 }
-
+#pragma mark —— UINavigationControllerDelegate
 - (void)navigationController:(UINavigationController *)navigationController
       willShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated{
@@ -474,7 +474,11 @@ UITableViewDataSource
         
     }
 }
-
+#pragma mark —— 点击事件
+-(void)backBtnClickEvent:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+#pragma mark —— 私有方法
 -(void)ConfirmDelivery{
     NSLog(@"1");
 }
@@ -489,10 +493,6 @@ UITableViewDataSource
     NSLog(@"3");
 }
 
-#pragma mark —— 私有方法
--(void)backBtnClickEvent:(UIButton *)sender{
-    [self.navigationController popViewControllerAnimated:YES];
-}
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
