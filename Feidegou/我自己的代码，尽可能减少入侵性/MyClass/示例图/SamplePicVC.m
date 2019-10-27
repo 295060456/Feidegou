@@ -53,12 +53,19 @@
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
+    self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.imageView.alpha = 1;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 }
+#pragma mark —— lazyLoad
+-(void)backBtnClickEvent:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark —— lazyLoad
 -(UIImageView *)imageView{
     if (!_imageView) {

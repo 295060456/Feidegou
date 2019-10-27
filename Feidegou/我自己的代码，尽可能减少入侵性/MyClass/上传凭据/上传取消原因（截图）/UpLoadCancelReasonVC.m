@@ -198,6 +198,8 @@ TZImagePickerControllerDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
+    self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.imageView.alpha = 1;
     self.tableView.alpha = 1;
     self.demoPicBtn.alpha = 1;
@@ -220,6 +222,10 @@ TZImagePickerControllerDelegate
     }
 }
 #pragma mark —— 点击事件
+-(void)backBtnClickEvent:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 -(void)DemoPicBtnClickEvent:(UIButton *)sender{
     NSLog(@"显示示例图");
     @weakify(self)

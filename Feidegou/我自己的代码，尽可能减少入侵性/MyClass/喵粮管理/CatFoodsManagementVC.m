@@ -73,6 +73,8 @@ UITableViewDataSource
 //    self.navigationItem.title = @"喵粮管理";
     self.gk_navTitle = @"喵粮管理";
     self.tableView.alpha = 1;
+    self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
+    self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
 }
 
@@ -80,7 +82,10 @@ UITableViewDataSource
     [super viewWillAppear:animated];
     [self.tableView.mj_header beginRefreshing];
 }
-
+#pragma mark —— 点击事件
+-(void)backBtnClickEvent:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 #pragma mark —— 私有方法
 // 下拉刷新
 -(void)pullToRefresh{
@@ -218,7 +223,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.mj_footer = self.tableViewFooter;
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.view);
+//            make.edges.equalTo(self.view);
+            make.left.right.bottom.equalTo(self.view);
+            make.top.equalTo(self.gk_navigationBar.mas_bottom);
         }];
     }return _tableView;
 }

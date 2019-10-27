@@ -161,6 +161,8 @@ UITableViewDataSource>
                                                                                         size:17]}];
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.fleshBtn];
     self.gk_navItemRightSpace = SCALING_RATIO(30);
+    self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
+    self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.tableView.alpha = 1;
 }
@@ -168,6 +170,10 @@ UITableViewDataSource>
 -(void)fleshBtnClickEvent:(UIButton *)sender{
     NSLog(@"刷新");
     [self.tableView.mj_header beginRefreshing];
+}
+
+-(void)backBtnClickEvent:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark —— 私有方法

@@ -137,6 +137,8 @@ UITableViewDataSource
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
+    self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.tableView.alpha = 1;
 }
 
@@ -146,6 +148,10 @@ UITableViewDataSource
 }
 
 #pragma mark —— 私有方法
+-(void)backBtnClickEvent:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 -(void)sure{
     [self.navigationController popViewControllerAnimated:YES];
 }

@@ -449,7 +449,7 @@ UITableViewDataSource
                                                                                         size:17]}];
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
-    self.gk_navItemLeftSpace = SCALING_RATIO(30);
+    self.gk_navItemLeftSpace = SCALING_RATIO(15);
     
 //我们不能直接将代理置空，需要根据当前栈顶控制器是否是根控制器进行判断。
     //    self.interactivePopGestureRecognizer.delegate = nil;

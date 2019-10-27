@@ -69,6 +69,8 @@
     self.gk_navTitle = @"店铺收款码";
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.upLoadBtn];
     self.gk_navItemRightSpace = SCALING_RATIO(30);
+    self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
+    self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     [self QRcode];
     self.pet.alpha = 1;
@@ -90,6 +92,9 @@
     [self QRcode];
 }
 #pragma mark —— 点击事件
+-(void)backBtnClickEvent:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 -(void)upLoadBtnClickEvent:(UIButton *)sender{
     NSLog(@"上传二维码");
     @weakify(self)

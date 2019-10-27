@@ -267,6 +267,8 @@ JXCategoryListContentViewDelegate
 -(UIButton *)backBtn{
     if (!_backBtn) {
         _backBtn = UIButton.new;
+        [_backBtn setTitleColor:kBlackColor
+                       forState:UIControlStateNormal];
         [_backBtn setTitle:@"返回"
                   forState:UIControlStateNormal];
         [_backBtn setImage:kIMG(@"返回")
