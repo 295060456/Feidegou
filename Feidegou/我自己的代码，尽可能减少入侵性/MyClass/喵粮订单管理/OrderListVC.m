@@ -225,7 +225,7 @@ UIScrollViewDelegate
         _scrollView = UIScrollView.new;
         _scrollView.alwaysBounceHorizontal = YES;
         _scrollView.pagingEnabled = YES;
-        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH + SCALING_RATIO(50), self.mj_h);
+        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH + SCALING_RATIO(150), self.mj_h);
 //        _scrollView.backgroundColor = KYellowColor;
         _scrollView.delegate = self;
         _scrollView.showsHorizontalScrollIndicator = NO;
@@ -340,6 +340,9 @@ UIScrollViewDelegate
             [self layoutIfNeeded];
             make.height.mas_equalTo(self.mj_h / 2);
         }];
+        [UIView colourToLayerOfView:_textfield
+                         WithColour:kBlackColor
+                     AndBorderWidth:0.5f];
     }return _textfield;
 }
 

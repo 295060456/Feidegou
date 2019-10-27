@@ -9,6 +9,44 @@
 #import "UIView+Extras.h"
 
 @implementation UIView (Extras)
+
+- (void)setBorderWithView:(UIView *)view
+              borderColor:(UIColor *)color
+              borderWidth:(CGFloat)width
+               borderType:(UIBorderSideType)borderType{
+    /// 左
+    if (borderType & UIBorderSideTypeLeft) {
+        
+        CALayer *layer = [CALayer layer];
+        layer.frame = CGRectMake(0, 0, width, view.frame.size.height);
+        layer.backgroundColor = color.CGColor;
+        [view.layer addSublayer:layer];
+    }
+    /// 右
+    if (borderType & UIBorderSideTypeRight){
+        
+        CALayer *layer = [CALayer layer];
+        layer.frame = CGRectMake(view.frame.size.width - width, 0, width, view.frame.size.height);
+        layer.backgroundColor = color.CGColor;
+        [view.layer addSublayer:layer];
+    }
+    /// 上
+    if (borderType & UIBorderSideTypeTop) {
+        
+        CALayer *layer = [CALayer layer];
+        layer.frame = CGRectMake(0, 0, view.frame.size.width, width);
+        layer.backgroundColor = color.CGColor;
+        [view.layer addSublayer:layer];
+    }
+    /// 下
+    if (borderType & UIBorderSideTypeBottom) {
+        
+        CALayer *layer = [CALayer layer];
+        layer.frame = CGRectMake(0, view.frame.size.height - width, view.frame.size.width, width);
+        layer.backgroundColor = color.CGColor;
+        [view.layer addSublayer:layer];
+    }
+}
 /**
  切角
  
