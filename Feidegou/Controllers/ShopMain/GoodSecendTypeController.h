@@ -10,7 +10,5 @@
 #import "ModelGoodTypeOne.h"
 
 @interface GoodSecendTypeController : JJBaseViewController
-
 @property (strong, nonatomic) ModelGoodTypeOne *model;
-
 @end

@@ -36,7 +36,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 - (void)locationControls{
     [self.scBack setBackgroundColor:[UIColor clearColor]];
     [self.viNum.layer setBorderWidth:1];
@@ -52,50 +51,49 @@
     [self refreshScHeight];
     [self requestData];
 }
-
 - (void)refreshScHeight{
     D_NSLog(@"self.webView.scrollView.contentSize.height is %f",self.webView.scrollView.contentSize.height);
     self.layoutConstraintScHeight.constant = self.layoutConstraintTabHegith.constant + self.webView.scrollView.contentSize.height+150;
 }
-
 - (void)requestData{
     [self showException];
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestShopGoodEreaExchangeDetailIg_goods_id:self.model.ig_goods_id] subscribeNext:^(ModelEreaExchangeDetail *model) {
-        @strongify(self)
-        self.modelDetail = model;
-        [self refreshView];
+    __weak AreaExchangeDetailController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestShopGoodEreaExchangeDetailIg_goods_id:self.model.ig_goods_id] subscribeNext:^(ModelEreaExchangeDetail *model) {
+        myself.modelDetail = model;
+        [myself refreshView];
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
-        [self failedRequestException:enum_exception_timeout];
+        myself.disposable = nil;
+        [myself failedRequestException:enum_exception_timeout];
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
-        [self hideException];
+        myself.disposable = nil;
+        [myself hideException];
     }];
+    
 }
-
 - (void)refreshView{
     [self.tabDetail reloadData];
     [self.lblNumLeave setText:StringFormat(@"库存%@  限购%@",self.modelDetail.ig_goods_count,self.modelDetail.ig_limit_count)];
+    
     [self.webView loadHTMLString:self.modelDetail.ig_content baseURL:nil];
 }
-
 - (void)refreshNum{
     [self.lblNumBuy setText:TransformNSInteger(self.intNum)];
 }
-
-#pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 2;
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
+#pragma mark---tableviewdelegate---
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 2;
+}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.row == 0) {
         return SCREEN_WIDTH;
     }else{
@@ -103,7 +101,8 @@
     }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
         if (indexPath.row == 0) {
             CellImageOnly *cell=[tableView dequeueReusableCellWithIdentifier:@"CellImageOnly"];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -115,25 +114,21 @@
         [cell populateDataAreaExchange:self.modelDetail];
         return cell;
 }
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
-
 - (IBAction)clickButtonReduce:(UIButton *)sender {
 //    if (self.intNum>1) {
 //        self.intNum--;
 //        [self refreshNum];
 //    }
 }
-
 - (IBAction)clickButtonAdd:(UIButton *)sender {
 //    if (self.intNum<[self.modelDetail.ig_goods_count intValue]) {
 //        self.intNum++;
 //        [self refreshNum];
 //    }
 }
-
 - (IBAction)clickButtonCommit:(UIButton *)sender {
     
     if ([[PersonalInfo sharedInstance] isLogined]) {
@@ -145,21 +140,28 @@
     }else{
         [self pushLoginController];
     }
+    
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView{
     D_NSLog(@"webViewDidStartLoad");
     [self refreshScHeight];
 }
-
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     D_NSLog(@"webViewDidFinishLoad");
     [self refreshScHeight];
 }
-
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     D_NSLog(@"webViewDidStartLoad");
 }
+/*
+#pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

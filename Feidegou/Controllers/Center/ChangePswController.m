@@ -10,7 +10,6 @@
 #import "JJHttpClient+FourZero.h"
 
 @interface ChangePswController ()
-
 @property (weak, nonatomic) IBOutlet UITextView *txtPswOld;
 @property (weak, nonatomic) IBOutlet UITextField *txtPswNew;
 @property (weak, nonatomic) IBOutlet UIButton *btnCommit;
@@ -31,7 +30,6 @@
     [self.txtPswNew addTarget:self action:@selector(textFiledDidChanged:) forControlEvents:UIControlEventEditingChanged];
     // Do any additional setup after loading the view.
 }
-
 - (void)textFiledDidChanged:(UITextField *)text{
     NSString *strPswNew = self.txtPswNew.text;
     if (![NSString isPassword:strPswNew]) {
@@ -40,7 +38,10 @@
         [self.btnCommit setBackgroundColor:ColorRed];
     }
 }
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (IBAction)clickButtonCommit:(UIButton *)sender {
     NSString *strPswOld = self.txtPswOld.text;
     NSString *strPswNew = self.txtPswNew.text;
@@ -59,27 +60,30 @@
     [self.view endEditing:YES];
     ModelLogin *model = [[PersonalInfo sharedInstance]  fetchLoginUserInfo];
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestFourZeroChangePswUserName:[NSString stringStandard:model.userName]
-                                                            andpassword_new:strPswNew
-                                                            andpassword_old:strPswOld]
-                       subscribeNext:^(NSDictionary*dictionry) {
-        @strongify(self)
-        if ([dictionry[@"code"] intValue] == 1) {
+    __weak ChangePswController *myself = self;
+    self.disposable = [[[JJHttpClient new] requestFourZeroChangePswUserName:[NSString stringStandard:model.userName] andpassword_new:strPswNew andpassword_old:strPswOld] subscribeNext:^(NSDictionary*dictionry) {
+        if ([dictionry[@"code"] intValue]==1) {
             [SVProgressHUD showSuccessWithStatus:dictionry[@"msg"]];
-            [self.navigationController popViewControllerAnimated:YES];
+            [myself.navigationController popViewControllerAnimated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:dictionry[@"msg"]];
         }
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
     }];
 }
 
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

@@ -9,7 +9,5 @@
 #import "JJBaseViewController.h"
 
 @interface VendorGoosListController : JJBaseViewController
-
-@property (copy, nonatomic) NSString *strStoreID;
-
+@property (strong, nonatomic) NSString *strStoreID;
 @end

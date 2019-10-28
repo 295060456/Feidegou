@@ -9,7 +9,5 @@
 #import "JJBaseViewController.h"
 
 @interface RegisterViewController : JJBaseViewController
-
 @property (assign, nonatomic) BOOL isForgetPsw;
-
 @end

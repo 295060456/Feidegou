@@ -23,22 +23,27 @@
  * @return YES:启用;NO:不启用
  */
 -(BOOL)refreshControlEnableLoadMore;
+
 /*!
  * 下拉刷新改变距离
  */
 -(CGFloat)refreshControlEnableInsetTop;
+
 /*!
  * 上拉加载改变距离
  */
 -(CGFloat)refreshControlEnableInsetBottom;
+
 /*!
  * 刷新数据方法
  */
 - (void)refreshControlForRefreshData;
+
 /*!
  * 加载数据方法
  */
 - (void)refreshControlForLoadMoreData;
+
 /*!
  * 返回远处服务器数据是否加载完成;YES,表示没有数据了；如果不实现此代理，返回NO
  */
@@ -50,6 +55,7 @@
  * 返回RefreshView,RefreshView必须实现RefreshViewDelegate方法
  */
 - (UIView<RefreshViewDelegate>*)refreshControlForRefreshView;
+
 /*!
  * 返回LoadMoreView,LoadMoreView必须实现RefreshViewDelegate方法
  */

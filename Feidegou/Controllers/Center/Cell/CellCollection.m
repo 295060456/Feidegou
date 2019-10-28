@@ -18,7 +18,6 @@
     [self.collectionView registerClass:[CLCellUpImgDownLbl class] forCellWithReuseIdentifier:@"CLCellUpImgDownLbl"];
     // Initialization code
 }
-
 - (void)populateData:(NSIndexPath *)indexPath andModel:(ModelCenter *)model{
     self.arrType = [NSMutableArray array];
     NSMutableDictionary *dic0 = [NSMutableDictionary dictionary];
@@ -52,17 +51,18 @@
 
 #pragma mark --UICollectionViewDelegate
 //定义展示的UICollectionViewCell的个数
--(NSInteger)collectionView:(UICollectionView *)collectionView
-    numberOfItemsInSection:(NSInteger)section{
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     return self.arrType.count;
 }
 //定义展示的Section的个数
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return 1;
 }
 //每个UICollectionView展示的内容
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                 cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *identifier = @"CLCellUpImgDownLbl";
     CLCellUpImgDownLbl *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     NSDictionary *dictionary = self.arrType[indexPath.row];
@@ -83,19 +83,14 @@
 }
 #pragma mark --UICollectionViewDelegateFlowLayout
 //定义每个UICollectionView 的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout*)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     return CGSizeMake(SCREEN_WIDTH/5,CGRectGetHeight(self.frame));
 }
 //定义每个UICollectionView 的 margin
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView
-                       layout:(UICollectionViewLayout *)collectionViewLayout
-       insetForSectionAtIndex:(NSInteger)section{
-    return UIEdgeInsetsMake(0,
-                            0,
-                            0,
-                            0);
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 #pragma mark --UICollectionViewDelegate
 //UICollectionView被选中时调用的方法

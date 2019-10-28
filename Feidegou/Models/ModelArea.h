@@ -9,17 +9,17 @@
 #import "JJBaseModel.h"
 
 @interface ModelArea : JJBaseModel
-/**
- *
- */
-@property (nonatomic,copy) NSString *areaName;
-/**
- *
- */
-@property (nonatomic,copy) NSString *ID;
-/**
- *
- */
-@property (nonatomic,copy) NSString *level;
 
+/**
+ *
+ */
+@property (nonatomic,strong) NSString *areaName;
+/**
+ *
+ */
+@property (nonatomic,strong) NSString *ID;
+/**
+ *
+ */
+@property (nonatomic,strong) NSString *level;
 @end

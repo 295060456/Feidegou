@@ -9,7 +9,6 @@
 #import "JJTableViewCell.h"
 
 @interface CellVendorAddress : JJTableViewCell
-
 @property (weak, nonatomic) IBOutlet UIButton *btnPhone;
 @property (weak, nonatomic) IBOutlet UILabelDarkBig *lblAddress;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintWidthPhone;

@@ -11,20 +11,26 @@
 @implementation UILabelDarkGaryMiddle
 
 - (instancetype)initWithFrame:(CGRect)frame{
-    if (self = [super initWithFrame:frame]) {
+    self = [super initWithFrame:frame];
+    if (self) {
         [self setAttribute];
-    }return self;
+    }
+    return self;
 }
-
 - (void)awakeFromNib{
     [super awakeFromNib];
     [self setAttribute];
 }
-
 - (void)setAttribute{
     [self setTextColor:ColorGaryDark];
     [self setFont:[UIFont systemFontOfSize:13.0]];
 }
-
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
+}
+*/
 
 @end

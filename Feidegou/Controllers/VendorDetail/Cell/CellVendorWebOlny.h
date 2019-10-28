@@ -8,12 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CellVendorWebOlny : UITableViewCell
-<UIWebViewDelegate>
-
+@interface CellVendorWebOlny : UITableViewCell<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (nonatomic ,copy)void(^webViewHeight)(CGFloat fWebHeight);
-
 - (void)populataData:(NSString *)strWebUrl;
-
 @end

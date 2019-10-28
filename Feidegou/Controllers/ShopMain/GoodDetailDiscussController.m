@@ -10,20 +10,15 @@
 #import "GoodDiscussListController.h"
 #import "CLCellTwoLbl.h"
 
-@interface GoodDetailDiscussController ()
-<
-UIPageViewControllerDataSource
-,UIPageViewControllerDelegate,
-DiscussListNumDelegete
->
-
+@interface GoodDetailDiscussController ()<UIPageViewControllerDataSource,UIPageViewControllerDelegate,DiscussListNumDelegete>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIView *viContainer;
+
 @property (strong, nonatomic) NSMutableArray *pages;
 @property (strong, nonatomic) UIPageViewController *pageViewController;
 @property (assign, nonatomic) NSInteger intSelected;
-@property (strong, nonatomic) NSDictionary *dictionary;
 
+@property (strong, nonatomic) NSDictionary *dictionary;
 @end
 
 @implementation GoodDetailDiscussController
@@ -32,22 +27,19 @@ DiscussListNumDelegete
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 - (void)locationControls{
-    [self.collectionView registerClass:[CLCellTwoLbl class]
-            forCellWithReuseIdentifier:@"CLCellTwoLbl"];
+    
+    [self.collectionView registerClass:[CLCellTwoLbl class] forCellWithReuseIdentifier:@"CLCellTwoLbl"];
     [self setLayout];
 }
-
 - (void)discussListNumDictonary:(NSDictionary *)dictionary{
     self.dictionary = [NSDictionary dictionaryWithDictionary:dictionary];
     [self.collectionView reloadData];
 }
-
 - (void)setLayout{
     self.intSelected = 0;
     self.pages = [NSMutableArray array];
-    for (int i = 0 ; i < 4; i++) {
+    for (int i =0 ; i< 4; i++) {
         GoodDiscussListController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"GoodDiscussListController"];
         if (i == 0) {
             [controller setDelegete:self];
@@ -64,9 +56,7 @@ DiscussListNumDelegete
         [self.pages addObject:controller];
     }
     
-    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
-                                                              navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
-                                                                            options:nil];
+    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.view.frame = CGRectMake(0, 0, self.viContainer.frame.size.width, self.viContainer.frame.size.height);
     [self.pageViewController setDataSource:self];
     [self.pageViewController setDelegate:self];
@@ -77,37 +67,42 @@ DiscussListNumDelegete
         [self pageControlValueChanged:self.intSelected];
     }
 }
+#pragma mark -
 #pragma mark - UIPageViewControllerDataSource
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
-      viewControllerBeforeViewController:(UIViewController *)viewController{
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
+{
     NSUInteger index = [self.pages indexOfObject:viewController];
     
-    if ((index == NSNotFound) ||
-        (index == 0)) {
+    if ((index == NSNotFound) || (index == 0)) {
         return nil;
-    }return self.pages[--index];
+    }
+    
+    return self.pages[--index];
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
-       viewControllerAfterViewController:(UIViewController *)viewController{
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
+{
     NSUInteger index = [self.pages indexOfObject:viewController];
     
-    if ((index == NSNotFound)||(index + 1 >= [self.pages count])) {
+    if ((index == NSNotFound)||(index+1 >= [self.pages count])) {
         return nil;
-    }return self.pages[++index];
+    }
+    
+    return self.pages[++index];
 }
 
-- (void)pageViewController:(UIPageViewController *)viewController
-        didFinishAnimating:(BOOL)finished
-   previousViewControllers:(NSArray *)previousViewControllers
-       transitionCompleted:(BOOL)completed{
+- (void)pageViewController:(UIPageViewController *)viewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
+{
     if (!completed){
         return;
     }
     [self refreshSelectedButton:[self.pages indexOfObject:[viewController.viewControllers lastObject]]];
 }
+
+#pragma mark -
 #pragma mark - Callback
-- (void)pageControlValueChanged:(NSInteger)interger{
+- (void)pageControlValueChanged:(NSInteger)interger
+{
     UIPageViewControllerNavigationDirection direction = interger > self.intSelected ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse;
     [self.pageViewController setViewControllers:@[self.pages[interger]]
                                       direction:direction
@@ -120,22 +115,27 @@ DiscussListNumDelegete
     self.intSelected = integer;
     [self.collectionView reloadData];
 }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 #pragma mark --UICollectionViewDelegate
 //定义展示的UICollectionViewCell的个数
--(NSInteger)collectionView:(UICollectionView *)collectionView
-    numberOfItemsInSection:(NSInteger)section{
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     return 4;
 }
 //定义展示的Section的个数
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return 1;
 }
 //每个UICollectionView展示的内容
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                 cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *identifier = @"CLCellTwoLbl";
-    CLCellTwoLbl *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier
-                                                                   forIndexPath:indexPath];
+    CLCellTwoLbl *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     if (indexPath.row == self.intSelected) {
         [cell.lblUp setTextColor:ColorRed];
         [cell.lblDown setTextColor:ColorRed];
@@ -160,25 +160,30 @@ DiscussListNumDelegete
 }
 #pragma mark --UICollectionViewDelegateFlowLayout
 //定义每个UICollectionView 的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout*)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     return CGSizeMake(SCREEN_WIDTH/4,60);
 }
 //定义每个UICollectionView 的 margin
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView
-                       layout:(UICollectionViewLayout *)collectionViewLayout
-       insetForSectionAtIndex:(NSInteger)section{
-    return UIEdgeInsetsMake(0,
-                            0,
-                            0,
-                            0);
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 #pragma mark --UICollectionViewDelegate
 //UICollectionView被选中时调用的方法
--(void)collectionView:(UICollectionView *)collectionView
-didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     [self pageControlValueChanged:indexPath.row];
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

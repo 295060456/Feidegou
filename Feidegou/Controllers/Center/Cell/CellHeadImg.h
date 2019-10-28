@@ -9,7 +9,6 @@
 #import "JJTableViewCell.h"
 
 @interface CellHeadImg : JJTableViewCell
-
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
 @property (weak, nonatomic) IBOutlet UIImageView *imgHead;
 @property (weak, nonatomic) IBOutlet UIImageView *imgArrow;

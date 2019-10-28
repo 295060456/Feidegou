@@ -12,34 +12,33 @@
 /**
  *
  */
-@property (nonatomic,copy) NSString *ID;
+@property (nonatomic,strong) NSString *ID;
 /**
  *
  */
-@property (nonatomic,copy) NSString *selNum;
+@property (nonatomic,strong) NSString *selNum;
 /**
  *
  */
-@property (nonatomic,copy) NSString *distance;
+@property (nonatomic,strong) NSString *distance;
 /**
  *
  */
-@property (nonatomic,copy) NSString *store_evaluate1;
+@property (nonatomic,strong) NSString *store_evaluate1;
 /**
  *
  */
-@property (nonatomic,copy) NSString *store_name;
+@property (nonatomic,strong) NSString *store_name;
 /**
  *
  */
-@property (nonatomic,copy) NSString *path;
+@property (nonatomic,strong) NSString *path;
 /**
  *
  */
-@property (nonatomic,copy) NSString *areaName;
+@property (nonatomic,strong) NSString *areaName;
 /**
  *
  */
-@property (nonatomic,copy) NSString *gift_integral;
-
+@property (nonatomic,strong) NSString *gift_integral;
 @end

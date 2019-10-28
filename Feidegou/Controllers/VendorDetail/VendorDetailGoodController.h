@@ -9,7 +9,5 @@
 #import "JJBaseViewController.h"
 
 @interface VendorDetailGoodController : JJBaseViewController
-
 @property (strong, nonatomic) NSString *strGoodId;
-
 @end

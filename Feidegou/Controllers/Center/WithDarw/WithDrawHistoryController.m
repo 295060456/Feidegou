@@ -10,14 +10,14 @@
 #import "CellWithDraw.h"
 #import "JJHttpClient+ShopGood.h"
 
-@interface WithDrawHistoryController ()
-<RefreshControlDelegate>
-
+@interface WithDrawHistoryController ()<RefreshControlDelegate>
 @property (weak, nonatomic) IBOutlet BaseTableView *tabHistory;
 @property (strong, nonatomic) NSMutableArray *arrHistory;
+
 @property (nonatomic,strong) RefreshControl *refreshControl;
 @property (nonatomic,assign) int intPageIndex;
-@property (nonatomic,assign) NSInteger curCount;//当前页数数量
+//当前页数数量
+@property (nonatomic,assign) NSInteger curCount;
 @end
 
 @implementation WithDrawHistoryController
@@ -26,45 +26,37 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 - (void)locationControls{
     
-    [self.tabHistory registerNib:[UINib nibWithNibName:@"CellWithDraw"
-                                                bundle:nil]
-          forCellReuseIdentifier:@"CellWithDraw"];
-    self.refreshControl = [RefreshControl.new initRefreshControlWithScrollView:self.tabHistory
-                                                                        delegate:self];
+    [self.tabHistory registerNib:[UINib nibWithNibName:@"CellWithDraw" bundle:nil] forCellReuseIdentifier:@"CellWithDraw"];
+    self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabHistory delegate:self];
     [self.refreshControl beginRefreshingMethod];
+    
+    
 }
-
 - (void)requestData{
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestShopGoodWithdrawHistoryLimit:@"20"
-                                                                         andPage:TransformNSInteger(self.intPageIndex)]
-                         subscribeNext:^(NSArray* array) {
-        @strongify(self)
-        self.curCount = array.count;
-        if (self.intPageIndex == 1) {
-            self.arrHistory = [NSMutableArray array];
+    __weak WithDrawHistoryController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestShopGoodWithdrawHistoryLimit:@"20" andPage:TransformNSInteger(self.intPageIndex)] subscribeNext:^(NSArray* array) {
+        myself.curCount = array.count;
+        if (myself.intPageIndex == 1) {
+            myself.arrHistory = [NSMutableArray array];
         }
-        [self.arrHistory addObjectsFromArray:array];
-        [self.tabHistory reloadData];
-        [self.tabHistory checkNoData:self.arrHistory.count];
+        [myself.arrHistory addObjectsFromArray:array];
+        [myself.tabHistory reloadData];
+        [myself.tabHistory checkNoData:myself.arrHistory.count];
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
-        [self.tabHistory checkNoData:self.arrHistory.count];
-        [self.refreshControl endRefreshing];
+        myself.disposable = nil;
+        [myself.tabHistory checkNoData:myself.arrHistory.count];
+        [myself.refreshControl endRefreshing];
         if (error.code!=2) {
 //            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }else{
-            self.curCount = 0;
+            myself.curCount = 0;
         }
     }completed:^{
-        @strongify(self)
-        self.intPageIndex++;
-        [self.refreshControl endRefreshing];
-        self.disposable = nil;
+        myself.intPageIndex++;
+        [myself.refreshControl endRefreshing];
+        myself.disposable = nil;
     }];
     
 }
@@ -76,7 +68,6 @@
         [self requestData];
     }
 }
-
 -(void)refreshControlForLoadMoreData{
     //从远程服务器获取数据
     if ([self respondsToSelector:@selector(requestData)]) {
@@ -92,19 +83,20 @@
     return NO;
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return self.arrHistory.count;
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 60;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     CellWithDraw *cell=[tableView dequeueReusableCellWithIdentifier:@"CellWithDraw"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     cell.fWidthPre = 10;
@@ -124,6 +116,19 @@
     }
     return cell;
 }
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

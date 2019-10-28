@@ -33,12 +33,9 @@
 //#import "AchievementController.h"
 
 
-@interface GoodMainController ()
-<RefreshControlDelegate,
-DidClickDelegeteCollectionViewMainType,
-DidClickDelegeteOnlyCollectionView>
-
+@interface GoodMainController ()<RefreshControlDelegate,DidClickDelegeteCollectionViewMainType,DidClickDelegeteOnlyCollectionView>
 @property (weak, nonatomic) IBOutlet UITableView *tabGood;
+
 @property (strong, nonatomic) NSMutableArray *arrFloorList;
 @property (nonatomic,strong) RACDisposable *disposableType;
 @property (nonatomic,strong) RACDisposable *disposableSubject;
@@ -51,17 +48,19 @@ DidClickDelegeteOnlyCollectionView>
 @property (strong, nonatomic) NSMutableArray *arrAdvertisement;
 @property (strong, nonatomic) NSMutableArray *arrAdvertisementMiddle;
 @property (strong, nonatomic) NSMutableArray *arrTip;
-@property (copy, nonatomic) NSString *strNotice;
+@property (strong, nonatomic) NSString *strNotice;
 @property (nonatomic,strong) RefreshControl *refreshControl;
 @property (nonatomic,assign) int intPageIndex;
-@property (nonatomic,assign) NSInteger curCount;//当前页数数量
+//当前页数数量
+@property (nonatomic,assign) NSInteger curCount;
 @property (nonatomic,strong) UIView *viHeader;
 @property (assign, nonatomic) BOOL isLogined;
 @property (nonatomic, weak) NSTimer *timerRepeat;
 @property (nonatomic,strong) UIView *viMsg;
 @property (nonatomic,strong) UILabel *lblMsg;
-@property (strong, nonatomic) UIView *viShowGetPrize;
 
+
+@property (strong, nonatomic) UIView *viShowGetPrize;
 @end
 
 @implementation GoodMainController
@@ -86,73 +85,62 @@ DidClickDelegeteOnlyCollectionView>
     // Do any additional setup after loading the view.
 }
 - (void)requestAdver{
-    @weakify(self)
-    self.disposableMainAdver = [[[JJHttpClient new] requestFourZeroMainAdver] subscribeNext:^(NSDictionary* dcitiaonry) {
-        @strongify(self)
-        [self addTimerRepeat];
+    
+    __weak GoodMainController *myself = self;
+    myself.disposableMainAdver = [[[JJHttpClient new] requestFourZeroMainAdver] subscribeNext:^(NSDictionary* dcitiaonry) {
+        [myself addTimerRepeat];
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposableMainAdver = nil;
+        myself.disposableMainAdver = nil;
     }completed:^{
-        @strongify(self)
-        self.disposableMainAdver = nil;
+        myself.disposableMainAdver = nil;
     }];
+    
 }
-
 - (void)requestExchangeList{
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestShopGoodMainGoodLimit:@"10"
-                                                                andPage:TransformNSInteger(self.intPageIndex)]
-                         subscribeNext:^(NSDictionary* dcitiaonry) {
-        @strongify(self)
+    
+    __weak GoodMainController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestShopGoodMainGoodLimit:@"10" andPage:TransformNSInteger(self.intPageIndex)] subscribeNext:^(NSDictionary* dcitiaonry) {
         if ([dcitiaonry[@"recommendedGoods"] isKindOfClass:[NSArray class]]) {
             NSArray *arrayGood= dcitiaonry[@"recommendedGoods"];
             RACSequence *sequence=[arrayGood rac_sequence];
             NSArray *array = [[sequence map:^id(NSDictionary *item){
-                ModelGood *model = [MTLJSONAdapter modelOfClass:[ModelGood class] fromJSONDictionary:item
-                                                          error:nil];
+                ModelGood *model = [MTLJSONAdapter modelOfClass:[ModelGood class] fromJSONDictionary:item error:nil];
                 return model;
             }] array];
-            self.curCount = array.count;
-            if (self.intPageIndex == 1) {
-                self.arrGoods = [NSMutableArray array];
+            myself.curCount = array.count;
+            if (myself.intPageIndex == 1) {
+                myself.arrGoods = [NSMutableArray array];
             }
-            [self.arrGoods addObjectsFromArray:array];
+            [myself.arrGoods addObjectsFromArray:array];
         }else{
-            self.curCount = 0;
+            myself.curCount = 0;
         }
-        [self.tabGood reloadData];
+        [myself.tabGood reloadData];
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
-        [self.refreshControl endRefreshing];
+        myself.disposable = nil;
+        [myself.refreshControl endRefreshing];
         if (error.code!=2) {
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }else{
-            self.curCount = 0;
+            myself.curCount = 0;
         }
     }completed:^{
-        @strongify(self)
-        self.intPageIndex++;
-        [self.refreshControl endRefreshing];
-        self.disposable = nil;
+        myself.intPageIndex++;
+        [myself.refreshControl endRefreshing];
+        myself.disposable = nil;
     }];
+    
 }
-
 - (void)requestTypeSubjectWeb{
-   @weakify(self)
-    self.disposableSubject = [[[JJHttpClient new] requestFourZeroMainType] subscribeNext:^(NSDictionary* dictionary) {
-        @strongify(self)
-        [self refreshTabview:dictionary[@"floorList"]];
+    __weak GoodMainController *myself = self;
+    myself.disposableSubject = [[[JJHttpClient new] requestFourZeroMainType] subscribeNext:^(NSDictionary* dictionary) {
+        [myself refreshTabview:dictionary[@"floorList"]];
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposableSubject = nil;
+        myself.disposableSubject = nil;
     }completed:^{
-        @strongify(self)
-        self.disposableSubject = nil;
+        myself.disposableSubject = nil;
     }];
 }
-
 - (void)refreshTabview:(NSArray *)array{
     self.arrFloorList = [NSMutableArray array];
     for (int i = 0; i<array.count; i++) {
@@ -162,7 +150,6 @@ DidClickDelegeteOnlyCollectionView>
     }
     [self.tabGood reloadData];
 }
-
 #pragma mark - RefreshControlDelegate
 -(void)refreshControlForRefreshData{
     //从远程服务器获取数据
@@ -183,9 +170,9 @@ DidClickDelegeteOnlyCollectionView>
     //从服务器返回的每页数据数量,可以判断出服务器是否没有数据了
     if (self.curCount < 10) {
         return YES;
-    }return NO;
+    }
+    return NO;
 }
-
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
@@ -227,34 +214,22 @@ DidClickDelegeteOnlyCollectionView>
     [self.viShowGetPrize removeFromSuperview];
     self.viShowGetPrize = nil;
 }
-
 - (void)clickButtonLingjiang:(UIButton *)sender{
     [self clickButtonColse:nil];
 //    MineTaskListController *controller = [[UIStoryboard storyboardWithName:@"MineTask" bundle:nil] instantiateViewControllerWithIdentifier:@"MineTaskListController"];
 //    [self.navigationController pushViewController:controller animated:YES];
 }
-
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 //    [self removeTimerRepeat];
 }
-
 - (void)initHeaderView{
-    self.viHeader = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                             0,
-                                                             SCREEN_WIDTH,
-                                                             64)];
+    self.viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     [self.view addSubview:self.viHeader];
-    ButtonSearch *buttonSearch = [[ButtonSearch alloc]initWithFrame:CGRectMake(10,
-                                                                               self.viHeader.frame.size.height-44,
-                                                                               self.view.frame.size.width-10-60,
-                                                                               35)];
+    ButtonSearch *buttonSearch=[[ButtonSearch alloc]initWithFrame:CGRectMake(10, self.viHeader.frame.size.height-44, self.view.frame.size.width-10-60, 35)];
     [buttonSearch setTitle:@"搜索商品名称"];
-    @weakify(self)
-    [buttonSearch handleControlEvent:UIControlEventTouchUpInside
-                           withBlock:^{
-        @strongify(self)
+    [buttonSearch handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         D_NSLog(@"clickButtonSearch");
         UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
         SearchGoodController *controller=[storyboard instantiateViewControllerWithIdentifier:@"SearchGoodController"];
@@ -263,33 +238,25 @@ DidClickDelegeteOnlyCollectionView>
     [self.viHeader addSubview:buttonSearch];
     
     
-    ButtonShare *btnSignIn = [[ButtonShare alloc] initWithFrame:CGRectMake(self.view.frame.size.width-53,
-                                                                           self.viHeader.frame.size.height-44,
-                                                                           36,
-                                                                           36)];
+    ButtonShare *btnSignIn = [[ButtonShare alloc] initWithFrame:CGRectMake(self.view.frame.size.width-53, self.viHeader.frame.size.height-44, 36, 36)];
     [btnSignIn setTitle:@"签到送" forState:UIControlStateNormal];
     [btnSignIn.titleLabel setFont:[UIFont systemFontOfSize:6.0]];
-    [btnSignIn addTarget:self
-                  action:@selector(clickButtonSign:)
-        forControlEvents:UIControlEventTouchUpInside];
+    [btnSignIn addTarget:self action:@selector(clickButtonSign:) forControlEvents:UIControlEventTouchUpInside];
     [btnSignIn setImage:ImageNamed(@"img_sign") forState:UIControlStateNormal];
     [btnSignIn setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.4]];
     [btnSignIn setClipsToBounds:YES];
     [btnSignIn.layer setCornerRadius:18.0];
     [self.viHeader addSubview:btnSignIn];
 }
-
 - (void)clickButtonSign:(UIButton *)sender{
     if ([[PersonalInfo sharedInstance] isLogined]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMine bundle:nil];
         SignInController *controller = [storyboard instantiateViewControllerWithIdentifier:@"SignInController"];
-        [self.navigationController pushViewController:controller
-                                             animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }else{
         [self pushLoginController];
     }
 }
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat height = SCREEN_WIDTH*324/720;
     if(self.tabGood.contentOffset.y<-20) {
@@ -299,19 +266,22 @@ DidClickDelegeteOnlyCollectionView>
         self.viHeader.backgroundColor=ColorFromHexRGBA(0xf22a2a, self.tabGood.contentOffset.y /height);
     }
 }
+
+
+
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     if (section == 0) {
         return self.arrFloorList.count;
     }
     return 1;
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 0) {
         return [PublicFunction heightByInfo:self.arrFloorList[indexPath.row]];
     }
@@ -322,10 +292,12 @@ DidClickDelegeteOnlyCollectionView>
             fHeight += fWidth/2+120;
         }
         return fHeight;
-    }return 0.0;
+    }
+    return 0.0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 0) {
         CellMainType *cell=[tableView dequeueReusableCellWithIdentifier:@"CellMainType"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -345,11 +317,10 @@ DidClickDelegeteOnlyCollectionView>
     [cell populateData:[NSArray array]];
     return cell;
 }
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
-
 - (void)didClickDelegeteCollectionViewMainTypeDictionary:(NSDictionary *)dicInfo{
     D_NSLog(@"%@",dicInfo);
 //    <option value="1">专题</option>
@@ -370,66 +341,56 @@ DidClickDelegeteOnlyCollectionView>
         UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
         GoodsListController *controller=[storyboard instantiateViewControllerWithIdentifier:@"GoodsListController"];
         controller.goodActivity = strValue;
-        [self.navigationController pushViewController:controller
-                                             animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }else if (intType == 2){
         UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
         GoodsListController *controller=[storyboard instantiateViewControllerWithIdentifier:@"GoodsListController"];
         controller.goodsType_id = strValue;
-        [self.navigationController pushViewController:controller
-                                             animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }else if (intType == 3){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardWebService bundle:nil];
         WebOnlyController *controller = [storyboard instantiateViewControllerWithIdentifier:@"WebOnlyController"];
         [controller setTitle:@"详情"];
         controller.strWebUrl = strValue;
-        [self.navigationController pushViewController:controller
-                                             animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }else if (intType == 4){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardVendorDetail bundle:nil];
         VendorShopTypeController *controller = [storyboard instantiateViewControllerWithIdentifier:@"VendorShopTypeController"];
         controller.strClas = strValue;
         controller.strTitle = dicInfo[@"title"];
-        [self.navigationController pushViewController:controller
-                                             animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }else if (intType == 6){
         UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
         GoodDetialAllController *controller=[storyboard instantiateViewControllerWithIdentifier:@"GoodDetialAllController"];
         controller.strGood_id = strValue;
-        [self.navigationController pushViewController:controller
-                                             animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }else if (intType == 7){
         if ([strValue intValue]==3) {
             UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardExchageArea bundle:nil];
             AreaExchangeListController *controller=[storyboard instantiateViewControllerWithIdentifier:@"AreaExchangeListController"];
-            [self.navigationController pushViewController:controller
-                                                 animated:YES];
+            [self.navigationController pushViewController:controller animated:YES];
         }else{
             UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
             GoodsListController *controller=[storyboard instantiateViewControllerWithIdentifier:@"GoodsListController"];
             controller.good_area = strValue;
-            [self.navigationController pushViewController:controller
-                                                 animated:YES];
+            [self.navigationController pushViewController:controller animated:YES];
         }
         
     }else if (intType == 8){
         UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
         GoodOtherListController *controller=[storyboard instantiateViewControllerWithIdentifier:@"GoodOtherListController"];
         controller.strGoods_store_id = strValue;
-        [self.navigationController pushViewController:controller
-                                             animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }else if (intType == 9){
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardVendorDetail bundle:nil];
         VendorDetailShopController *controller = [storyboard instantiateViewControllerWithIdentifier:@"VendorDetailShopController"];
         controller.strStoreID = strValue;
-        [self.navigationController pushViewController:controller
-                                             animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }else if (intType == 11){
         if ([[PersonalInfo sharedInstance] isLogined]) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMine bundle:nil];
             AchievementController *controller = [storyboard instantiateViewControllerWithIdentifier:@"AchievementController"];
-            [self.navigationController pushViewController:controller
-                                                 animated:YES];
+            [self.navigationController pushViewController:controller animated:YES];
         }else{
             [self pushLoginController];
         }
@@ -439,16 +400,21 @@ DidClickDelegeteOnlyCollectionView>
 //            
 //        }];
     }
+    
+    
 }
 //每个商品
-- (void)didClickOnlyCollectionViewModel:(ModelGood *)model
-                                 andRow:(NSInteger)row{
+- (void)didClickOnlyCollectionViewModel:(ModelGood *)model andRow:(NSInteger)row{
     UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
     GoodDetialAllController *controller=[storyboard instantiateViewControllerWithIdentifier:@"GoodDetialAllController"];
     controller.strGood_id = model.goods_id;
-    [self.navigationController pushViewController:controller
-                                         animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 /**
  *添加计时器
  */
@@ -456,14 +422,9 @@ DidClickDelegeteOnlyCollectionView>
     D_NSLog(@"addTimer");
     [self removeTimerRepeat];
     self.arrTip = [NSMutableArray arrayWithArray:[[JJDBHelper sharedInstance] fetchMainAdver]];
-    self.timerRepeat = [NSTimer scheduledTimerWithTimeInterval:10
-                                                        target:self
-                                                      selector:@selector(repeatAnimation:)
-                                                      userInfo:nil
-                                                       repeats:YES];
+    self.timerRepeat = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(repeatAnimation:) userInfo:nil repeats:YES];
     //将timer添加到RunLoop中
-    [[NSRunLoop mainRunLoop] addTimer:self.timerRepeat
-                              forMode:NSRunLoopCommonModes];
+    [[NSRunLoop mainRunLoop] addTimer:self.timerRepeat forMode:NSRunLoopCommonModes];
 }
 /**
  *移除计时器
@@ -477,13 +438,11 @@ DidClickDelegeteOnlyCollectionView>
     }
     self.timerRepeat = nil;
 }
-
 - (void)repeatAnimation:(NSTimer *)timer{
-    if (self.arrTip.count > 0) {
+    if (self.arrTip.count>0) {
         if (!self.lblMsg) {
-            self.viMsg = UIView.new;
-            [self.viMsg setBackgroundColor:[UIColor colorWithWhite:0
-                                                             alpha:0.5]];
+            self.viMsg = [[UIView alloc] init];
+            [self.viMsg setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.5]];
             [self.viMsg setClipsToBounds:YES];
             [self.viMsg.layer setCornerRadius:3.0];
             self.lblMsg = [[UILabel alloc] init];
@@ -497,47 +456,29 @@ DidClickDelegeteOnlyCollectionView>
         if ([self.arrTip[0] isKindOfClass:[NSDictionary class]]) {
             strMsg = self.arrTip[0][@"msg"];
             [[JJDBHelper sharedInstance] saveAdverId:self.arrTip[0][@"orderId"]];
-        }else return;
+        }else{
+            return;
+        }
         [self.arrTip removeObjectAtIndex:0];
-        CGFloat fWidth = [NSString conculuteRightCGSizeOfString:strMsg
-                                                       andWidth:SCREEN_WIDTH-10
-                                                        andFont:12.0].width+15;
+        CGFloat fWidth = [NSString conculuteRightCGSizeOfString:strMsg andWidth:SCREEN_WIDTH-10 andFont:12.0].width+15;
         [self.lblMsg setTextNull:strMsg];
         CGFloat fY = SCREEN_WIDTH*324/720-30;
         [self.viMsg setFrame:CGRectMake(-5-fWidth, fY, fWidth, 20)];
-        [self.lblMsg setFrame:CGRectMake(5,
-                                         0,
-                                         CGRectGetWidth(self.viMsg.frame)-5,
-                                         CGRectGetHeight(self.viMsg.frame))];
-        @weakify(self)
-        [UIView animateWithDuration:0.3
-                         animations:^{
-            @strongify(self)
+        [self.lblMsg setFrame:CGRectMake(5, 0, CGRectGetWidth(self.viMsg.frame)-5, CGRectGetHeight(self.viMsg.frame))];
+        [UIView animateWithDuration:0.3 animations:^{
             [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-            [self.viMsg setFrame:CGRectMake(-5,
-                                            fY,
-                                            fWidth,
-                                            20)];
+            [self.viMsg setFrame:CGRectMake(-5, fY, fWidth, 20)];
         }completion:^(BOOL finished){
-            [UIView animateWithDuration:5 
-                             animations:^{
-                @strongify(self)
-                [self.viMsg setFrame:CGRectMake(-6,
-                                                fY,
-                                                fWidth,
-                                                20)];
+            [UIView animateWithDuration:5 animations:^{
+                [self.viMsg setFrame:CGRectMake(-6, fY, fWidth, 20)];
             }completion:^(BOOL finished){
-                [UIView animateWithDuration:0.3
-                                 animations:^{
-                    @strongify(self)
-                    [self.viMsg setFrame:CGRectMake(-5-fWidth,
-                                                    fY,
-                                                    fWidth,
-                                                    20)];
+                [UIView animateWithDuration:0.3 animations:^{
+                    [self.viMsg setFrame:CGRectMake(-5-fWidth, fY, fWidth, 20)];
                 }completion:^(BOOL finished){
                 }];
             }];
         }];
+        
     }else{
         [self removeTimerRepeat];
     }
@@ -569,6 +510,14 @@ DidClickDelegeteOnlyCollectionView>
 //- (void)hiddenSuspension{
 //    [self.btnSuspension setHidden:YES];
 //}
+/*
+#pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

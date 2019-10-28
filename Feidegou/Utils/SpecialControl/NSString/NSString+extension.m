@@ -9,20 +9,20 @@
 #import "NSString+extension.h"
 
 @implementation NSString (extension)
-+ (BOOL)isEmail:(NSString *)email{
++ (BOOL)isEmail:(NSString *)email
+{
     NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     BOOL isEmail = [emailTest evaluateWithObject:email];
     return isEmail;
 }
-
-+ (BOOL)isMoney:(NSString *)email{
++ (BOOL)isMoney:(NSString *)email
+{
     NSString *emailRegex = @"^[0-9]+(\\.[0-9]{1,2})?$";
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
     BOOL isEmail = [emailTest evaluateWithObject:email];
     return isEmail;
 }
-
 + (BOOL)isPhone:(NSString *)strPhone{
     NSString *regex = @"^(1)\\d{10}$";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
@@ -36,16 +36,15 @@
     BOOL isUser = [pred evaluateWithObject:strUser];
     if (strUser.length<6||strUser.length>16) {
         isUser = NO;
-    }return isUser;
+    }
+    return isUser;
 }
-
 + (BOOL)isCardNum:(NSString *)strCardNum{
     NSString *regex = @"^(\\d{15}$|^\\d{18}$|^\\d{17}(\\d|X|x))$";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     BOOL isCardNum = [pred evaluateWithObject:strCardNum];
     return isCardNum;
 }
-
 + (BOOL)isLineTelephone:(NSString *)strPhone{
     NSString *regex = @"^(0[0-9]{2,3}\\-)?([2-9][0-9]{6,7})+(\\-[0-9]{1,4})?$";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
@@ -66,7 +65,6 @@
     BOOL isPassword = [pred evaluateWithObject:strPsw];
     return isPassword;
 }
-
 + (BOOL)isNullString:(NSString*)string{
     
     if (string == nil || string == NULL || [string isKindOfClass:[NSNull class]]) {
@@ -78,7 +76,9 @@
     
     if (string.length == 0) {
         return YES;
-    }   return NO;
+    }
+    
+    return NO;
 }
 
 + (NSString *)clearWhitespaceCharacterSet:(NSString *)strFrom{
@@ -86,26 +86,22 @@
     strFrom = [strFrom stringByTrimmingCharactersInSet:whitespace];
     return strFrom;
 }
-
-+ (NSString *)getStringFromDictionary:(id)dicValue
-                               andKey:(NSString *)strKey{
++ (NSString *)getStringFromDictionary:(id)dicValue andKey:(NSString *)strKey{
     
     NSString *string = [dicValue objectForKey:strKey];
     NSString *strValue = [NSString stringWithFormat:@"%@",string];
-    if (strValue == nil||
-        strValue == NULL||
-        [strValue isEqualToString:@"<null>"]||
-        [strValue isEqualToString:@"(null)"]) {
+    if (strValue == nil||strValue == NULL||[strValue isEqualToString:@"<null>"]||[strValue isEqualToString:@"(null)"]) {
         strValue = @"";
-    }return  strValue;
+    }
+    return  strValue;
 }
-
 + (NSString *)stringStandard:(NSString *)string{
     if ([self isNullString:string]) {
         string = @"";
     }else{
         string = TransformString(string);
-    }return string;
+    }
+    return string;
 }
 
 + (NSString *)stringStandardZero:(NSString *)string{
@@ -113,17 +109,17 @@
         string = @"0";
     }else{
         string = TransformString(string);
-    }return string;
+    }
+    return string;
 }
-
 + (NSString *)stringStandardZanwu:(NSString *)string{
     if ([self isNullString:string]) {
         string = @"暂无";
     }else{
         string = TransformString(string);
-    }return string;
+    }
+    return string;
 }
-
 + (NSString *)stringStandardFloatTwo:(NSString *)string{
     return StringFormat(@"%.2f",[[NSString stringStandardZero:string] floatValue]);
 }
@@ -140,38 +136,71 @@
         string = @"不限";
     }else{
         string = @"女";
-    }return string;
+    }
+    
+    return string;
 }
++ (NSString *)SHA256Hashed_string:(NSString *)input
 
-+ (NSString *)SHA256Hashed_string:(NSString *)input{
+{
+    
     const char *cstr = [input cStringUsingEncoding:NSUTF8StringEncoding];
+    
     NSData *data = [NSData dataWithBytes:cstr length:input.length];
+    
     uint8_t digest[CC_SHA256_DIGEST_LENGTH];
+    
+    
+    
     // This is an iOS5-specific method.
+    
     // It takes in the data, how much data, and then output format, which in this case is an int array.
+    
     CC_SHA256(data.bytes, (int)data.length, digest);
+    
+    
+    
     NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH * 2];
+    
+    
+    
     // Parse through the CC_SHA256 results (stored inside of digest[]).
+    
     for(int i = 0; i < CC_SHA256_DIGEST_LENGTH; i++) {
+        
         [output appendFormat:@"%2s", digest];
-    }return output;
+        
+    }
+    
+    
+    
+    return output;
+    
 }
++ (NSString *)encodeToPercentEscapeString: (NSString *) input
 
-+ (NSString *)encodeToPercentEscapeString: (NSString *) input{
+{
+    
+    
     NSString *outputStr = (NSString *)
+    
     CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                              
                                                               (CFStringRef)input,
+                                                              
                                                               NULL,
+                                                              
                                                               (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                              
                                                               kCFStringEncodingUTF8));
     
-    return outputStr;
+    return outputStr;  
+    
 }
-
-- (BOOL)ContainsString:(NSString *)subString{
+- (BOOL)ContainsString:(NSString *)subString
+{
     return ([self rangeOfString:subString].location == NSNotFound) ? NO : YES;
 }
-
 + (NSString *)countNumAndChangeformat:(NSString *)num{
     int count = 0;
     long long int a = num.longLongValue;
@@ -192,29 +221,24 @@
     [newstring insertString:string atIndex:0];
     return newstring;
 }
-
 #pragma mark------ 计算字符串长度
-+ (CGSize)conculuteRightCGSizeOfString:(NSString *)strContent
-                              andWidth:(float)fWidth
-                               andFont:(float)fFont{
++ (CGSize)conculuteRightCGSizeOfString:(NSString *)strContent andWidth:(float)fWidth andFont:(float)fFont{
     strContent = TransformString(strContent);
-    CGSize sizeExpensive = [strContent boundingRectWithSize:CGSizeMake(fWidth, 0)
-                                                    options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading
-                                                 attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fFont]}
-                                                    context:nil].size;
+    CGSize sizeExpensive = [strContent boundingRectWithSize:CGSizeMake(fWidth, 0) options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:fFont]} context:nil].size;
     sizeExpensive = CGSizeMake(sizeExpensive.width+1, sizeExpensive.height+1);
     return sizeExpensive;
     
 }
 
 + (NSString *)stringStandardToIntegralOrRedPacket:(NSString *)string{
+    
     if ([string intValue]==2) {
         string = @"红包";
     }else{
         string = @"积分";
-    }return string;
+    }
+    return string;
 }
-
 + (int)stringToInt:(NSString *)string {
     unichar hex_char1 = [string characterAtIndex:0]; /* 两位16进制数中的第一位(高位*16) */
     int int_ch1;
@@ -235,6 +259,7 @@
     return int_ch1+int_ch2;
 }
 
+
 + (UIColor *)getColor:(NSString *)hexColor{
     if (hexColor.length<6) {
         return ColorBlack;
@@ -250,12 +275,8 @@
     green = [NSString stringToInt:[hexColor substringWithRange:range]];
     range.location = 4;
     blue = [NSString stringToInt:[hexColor substringWithRange:range]];
-    return [UIColor colorWithRed:(float)(red/255.0f)
-                           green:(float)(green / 255.0f)
-                            blue:(float)(blue / 255.0f)
-                           alpha:1.0f];
+    return [UIColor colorWithRed:(float)(red/255.0f) green:(float)(green / 255.0f) blue:(float)(blue / 255.0f) alpha:1.0f];
 }
-
 + (UIColor *)getColor:(NSString *)hexColor andMoren:(UIColor *)colorMoren{
     //    if (hexColor.length<6) {
     //        return ColorBlack;
@@ -280,10 +301,6 @@
     green = [NSString stringToInt:[hexColor substringWithRange:range]];
     range.location = 4;
     blue = [NSString stringToInt:[hexColor substringWithRange:range]];
-    return [UIColor colorWithRed:(float)(red/255.0f)
-                           green:(float)(green / 255.0f)
-                            blue:(float)(blue / 255.0f)
-                           alpha:1.0f];
+    return [UIColor colorWithRed:(float)(red/255.0f) green:(float)(green / 255.0f) blue:(float)(blue / 255.0f) alpha:1.0f];
 }
-
 @end

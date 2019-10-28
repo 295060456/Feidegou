@@ -14,11 +14,7 @@
 #import "JJHttpClient+FourZero.h"
 #import "JJDBHelper+ShopCart.h"
 
-@interface OrderesAddressController ()
-<
-RefreshControlDelegate
->
-
+@interface OrderesAddressController ()<RefreshControlDelegate>
 @property (weak, nonatomic) IBOutlet BaseTableView *tabAddress;
 @property (weak, nonatomic) IBOutlet UIButton *btnAddAddress;
 @property (strong, nonatomic) NSMutableArray *arrAddress;
@@ -32,16 +28,11 @@ RefreshControlDelegate
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 - (void)locationControls{
     [self.btnAddAddress setBackgroundColor:ColorRed];
-    [self.tabAddress registerNib:[UINib nibWithNibName:@"CellAddress"
-                                                bundle:nil]
-          forCellReuseIdentifier:@"CellAddress"];
-    self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabAddress
-                                                                        delegate:self];
+    [self.tabAddress registerNib:[UINib nibWithNibName:@"CellAddress" bundle:nil] forCellReuseIdentifier:@"CellAddress"];
+    self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabAddress delegate:self];
 }
-
 - (void)clickButtonBack:(UIButton *)sender{
     NSString *strId = StringFormat(@"%@",self.orderAttribute.strAddressId);
     if (![NSString isNullString:strId]) {
@@ -57,14 +48,13 @@ RefreshControlDelegate
             self.orderAttribute.strAddressId = nil;
         }
     }
+    
     [super clickButtonBack:sender];
 }
-
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.refreshControl beginRefreshingMethod];
 }
-
 - (void)reloadTabView{
     bool isContain = NO;
     for (int i = 0; i<self.arrAddress.count; i++) {
@@ -82,7 +72,6 @@ RefreshControlDelegate
     [self.tabAddress reloadData];
     [self.tabAddress checkNoData:self.arrAddress.count];
 }
-
 - (void)requestExchangeList{
     
     __weak OrderesAddressController *myself = self;
@@ -106,33 +95,32 @@ RefreshControlDelegate
         [self requestExchangeList];
     }
 }
-
 -(void)refreshControlForLoadMoreData{
     //从远程服务器获取数据
     if ([self respondsToSelector:@selector(requestExchangeList)]) {
         [self requestExchangeList];
     }
 }
-
 //在此代理方法中判断数据是否加载完成,
 -(BOOL)refreshControlForDataLoadingFinished{
     //从服务器返回的每页数据数量,可以判断出服务器是否没有数据了
     return NO;
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return 1;
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.arrAddress.count;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 85.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     CellAddress *cell=[tableView dequeueReusableCellWithIdentifier:@"CellAddress"];
     ModelAddress *model = self.arrAddress[indexPath.section];
     [cell.btnDefault setSelected:[model.defaultAddr boolValue]];
@@ -147,13 +135,7 @@ RefreshControlDelegate
     [cell.btnDelete handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         
         JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-        [alertView showAlertView:self
-                        andTitle:nil
-                      andMessage:@"是否删除"
-                       andCancel:@"取消"
-                   andCanelIsRed:NO
-                   andOherButton:@"立即删除"
-                      andConfirm:^{
+        [alertView showAlertView:self andTitle:nil andMessage:@"是否删除" andCancel:@"取消" andCanelIsRed:NO andOherButton:@"立即删除" andConfirm:^{
             [self requestDataDeleteAddress:indexPath.section];
         } andCancel:^{
             D_NSLog(@"点击了取消");
@@ -163,15 +145,13 @@ RefreshControlDelegate
         if (!cell.btnDefault.selected) {
             [self requestChangeAddressDefaultID:model.ID];
         }
-    }];return cell;
+    }];
+    return cell;
 }
-
 - (void)requestChangeAddressDefaultID:(NSString *)strId {
     [SVProgressHUD showWithStatus:@"正在修改默认地址..."];
     __weak OrderesAddressController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestFourZeroChangeAddressDefaultID:strId
-                                                                       andUserId:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]
-                       subscribeNext:^(NSDictionary*dictinary) {
+    self.disposable = [[[JJHttpClient new] requestFourZeroChangeAddressDefaultID:strId andUserId:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] subscribeNext:^(NSDictionary*dictinary) {
         D_NSLog(@"msg is %@",dictinary[@"msg"]);
         if ([dictinary[@"code"] intValue]==1) {
             [SVProgressHUD dismiss];
@@ -195,22 +175,13 @@ RefreshControlDelegate
     }completed:^{
         myself.disposable = nil;
     }];
+    
 }
-
 - (void)requestDataDeleteAddress:(NSInteger)deleteRow{
     ModelAddress *model = self.arrAddress[deleteRow];
     [SVProgressHUD showWithStatus:@"正在删除地址..."];
     __weak OrderesAddressController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestFourZeroID:model.ID
-                                                   andDelete:@"1"
-                                                andArea_info:@""
-                                                   andMobile:@""
-                                                andTelephone:@""
-                                                 andTrueName:@""
-                                                      andZip:@""
-                                                  andArea_id:@""
-                                                  andUser_id:@""]
-                       subscribeNext:^(NSDictionary*dictinary) {
+    self.disposable = [[[JJHttpClient new] requestFourZeroID:model.ID andDelete:@"1" andArea_info:@"" andMobile:@"" andTelephone:@"" andTrueName:@"" andZip:@"" andArea_id:@"" andUser_id:@""] subscribeNext:^(NSDictionary*dictinary) {
         D_NSLog(@"msg is %@",dictinary[@"msg"]);
         if ([dictinary[@"code"] intValue]==1) {
             [SVProgressHUD dismiss];
@@ -227,20 +198,19 @@ RefreshControlDelegate
         myself.disposable = nil;
     }];
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         return 0;
-    }return 10;
+    }
+    return 10;
 }
-
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (self.orderAttribute) {
         ModelAddress *model = self.arrAddress[indexPath.section];
@@ -248,7 +218,6 @@ RefreshControlDelegate
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
-
 - (void)refreshOrderDetail:(ModelAddress *)model{
     self.orderAttribute.strAddressId = model.ID;
     self.orderAttribute.strAddressName = model.trueName;
@@ -256,12 +225,24 @@ RefreshControlDelegate
     self.orderAttribute.strAddressErea = model.area;
     self.orderAttribute.strAddressDetail = model.area_info;
 }
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (IBAction)clickButtonAddAddress:(UIButton *)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil];
     AddressAddController *controller = [storyboard instantiateViewControllerWithIdentifier:@"AddressAddController"];
-    [self.navigationController pushViewController:controller
-                                         animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

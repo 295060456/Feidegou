@@ -11,7 +11,9 @@
 
 - (void)discussListNumDictonary:(NSDictionary *)dictionary;
 
+
 @end
+
 
 typedef enum {
     enum_discuss_all,
@@ -19,12 +21,9 @@ typedef enum {
     enum_discuss_middle,
     enum_discuss_bad
 }enumeDiscussState;
-
 @interface GoodDiscussListController : JJBaseViewController
-
 @property (strong, nonatomic) id<DiscussListNumDelegete>delegete;
 @property (assign, nonatomic) enumeDiscussState enumState;
-@property (copy, nonatomic) NSString *strGood_id;
-@property (copy, nonatomic) NSString *store_id;
-
+@property (strong, nonatomic) NSString *strGood_id;
+@property (strong, nonatomic) NSString *store_id;
 @end

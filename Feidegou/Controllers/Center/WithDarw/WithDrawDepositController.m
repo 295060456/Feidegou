@@ -18,7 +18,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnWithDraw;
 @property (weak, nonatomic) IBOutlet UILabel *lblTipMoney;
 @property (weak, nonatomic) IBOutlet UITextField *txtMony;
-@property (copy, nonatomic) NSString *strMoney;
+@property (strong, nonatomic) NSString *strMoney;
+
+
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSMutableArray *arrType;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstraintLeading;
@@ -63,26 +65,23 @@
     self.strMoney = [NSString stringStandardFloatTwo:[[JJDBHelper sharedInstance] fetchCenterMsg].availableBalance];
     [self.lblTipMoney setTextNull:StringFormat(@"可提现金额%@元",self.strMoney)];
 }
-
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self refreshLayout];
 }
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (IBAction)clickButtonAll:(UIButton *)sender {
     [self.view endEditing:YES];
     [self.txtMony setText:self.strMoney];
 }
-
 - (IBAction)clickButtonAlipay:(UIButton *)sender {
     [self.view endEditing:YES];
-    InputApliayController *controller = [[UIStoryboard storyboardWithName:StoryboardWithdrawDeposit
-                                                                   bundle:nil]
-                                         instantiateViewControllerWithIdentifier:@"InputApliayController"];
-    [self.navigationController pushViewController:controller
-                                         animated:YES];
+    InputApliayController *controller = [[UIStoryboard storyboardWithName:StoryboardWithdrawDeposit bundle:nil] instantiateViewControllerWithIdentifier:@"InputApliayController"];
+    [self.navigationController pushViewController:controller animated:YES];
 }
-
 - (IBAction)clickButtonRuleOfWithDarw:(UIButton *)sender {
 //    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardWebService bundle:nil];
 //    WebOnlyController *controller = [storyboard instantiateViewControllerWithIdentifier:@"WebOnlyController"];
@@ -94,7 +93,6 @@
 //    }
 //    [self.navigationController pushViewController:controller animated:YES];
 }
-
 - (IBAction)clickButtonWithDraw:(UIButton *)sender {
     
     NSString *strAlipay= self.txtAlipay.text;
@@ -130,68 +128,58 @@
         strType = @"3";
     }
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestFourZeroWithDrawUserId:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId
-                                                         andcash_account:[[JJDBHelper sharedInstance] fetchAlipayAccount]
-                                                            andcash_info:[[JJDBHelper sharedInstance] fetchAlipayName]
-                                                          andcash_amount:strMoney andcash_type:strType]
-                       subscribeNext:^(NSDictionary*dictionary) {
-        @strongify(self)
+    __weak WithDrawDepositController *myself = self;
+    self.disposable = [[[JJHttpClient new] requestFourZeroWithDrawUserId:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId andcash_account:[[JJDBHelper sharedInstance] fetchAlipayAccount] andcash_info:[[JJDBHelper sharedInstance] fetchAlipayName] andcash_amount:strMoney andcash_type:strType] subscribeNext:^(NSDictionary*dictionary) {
+        
+        
         [SVProgressHUD dismiss];
-        if ([dictionary[@"code"] intValue] == 1) {
+        if ([dictionary[@"code"] intValue]==1) {
             ModelCenter *modelCenter = [[JJDBHelper sharedInstance] fetchCenterMsg];
-            if (self.intSelected == 1) {
+            if (myself.intSelected == 1) {
                 modelCenter.redbags = StringFormat(@"%f",[modelCenter.redbags doubleValue]-[strMoney doubleValue]);
             }else{
-                modelCenter.availableBalance = StringFormat(@"%f",[modelCenter.availableBalance doubleValue] - [strMoney doubleValue]);
+                modelCenter.availableBalance = StringFormat(@"%f",[modelCenter.availableBalance doubleValue]-[strMoney doubleValue]);
             }
             [[JJDBHelper sharedInstance] saveCenterMsg:modelCenter];
-            [self refreshLayout];
+            [myself refreshLayout];
         }
-        [JJAlertViewOneButton.new showAlertView:self
-                                       andTitle:nil
-                                     andMessage:dictionary[@"msg"]
-                                      andCancel:@"确定"
-                                  andCanelIsRed:YES
-                                        andBack:^{
-            [self.navigationController popViewControllerAnimated:YES];
+        JJAlertViewOneButton *alertView = [[JJAlertViewOneButton alloc] init];
+        [alertView showAlertView:self andTitle:nil andMessage:dictionary[@"msg"] andCancel:@"确定" andCanelIsRed:YES andBack:^{
+            [myself.navigationController popViewControllerAnimated:YES];
         }];
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
         [SVProgressHUD dismiss];
-        [JJAlertViewOneButton.new showAlertView:self
-                                       andTitle:nil
-                                     andMessage:error.localizedDescription
-                                      andCancel:@"确定"
-                                  andCanelIsRed:YES
-                                        andBack:^{
+        JJAlertViewOneButton *alertView = [[JJAlertViewOneButton alloc] init];
+        [alertView showAlertView:self andTitle:nil andMessage:error.localizedDescription andCancel:@"确定" andCanelIsRed:YES andBack:^{
         }];
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
     }];
-}
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches
-           withEvent:(UIEvent *)event{
+}
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
+
 
 - (void)refreshLineLocation{
     self.layoutConstraintLeading.constant = self.intSelected * SCREEN_WIDTH/self.arrType.count+(SCREEN_WIDTH/self.arrType.count-self.layoutConstraintWidth.constant)/self.arrType.count;
 }
 #pragma mark --UICollectionViewDelegate
 //定义展示的UICollectionViewCell的个数
--(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     return self.arrType.count;
 }
 //定义展示的Section的个数
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return 1;
 }
 //每个UICollectionView展示的内容
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *identifier = @"CLCellOneLbl";
     CLCellOneLbl *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     [cell.lblContent setTextNull:self.arrType[indexPath.row]];
@@ -201,27 +189,23 @@
         [cell.lblContent setTextColor:ColorRed];
     }else{
         [cell.lblContent setTextColor:ColorBlack];
-    }return cell;
+    }
+    return cell;
 }
 #pragma mark --UICollectionViewDelegateFlowLayout
 //定义每个UICollectionView 的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout*)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return CGSizeMake(SCREEN_WIDTH/self.arrType.count,40);
 }
 //定义每个UICollectionView 的 margin
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView
-                       layout:(UICollectionViewLayout *)collectionViewLayout
-       insetForSectionAtIndex:(NSInteger)section
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 #pragma mark --UICollectionViewDelegate
 //UICollectionView被选中时调用的方法
--(void)collectionView:(UICollectionView *)collectionView
-didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.intSelected!=indexPath.row) {
         self.intSelected = indexPath.row;
@@ -229,5 +213,15 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath
         [self refreshLayout];
     }
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

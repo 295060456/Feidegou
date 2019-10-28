@@ -12,22 +12,22 @@
 /**
  *
  */
-@property (nonatomic,copy) NSString *userName;
+@property (nonatomic,strong) NSString *userName;
 /**
  *
  */
-@property (nonatomic,copy) NSString *trueName;
+@property (nonatomic,strong) NSString *trueName;
 
 /**
  *  
  */
-@property (nonatomic,copy) NSString *password;
+@property (nonatomic,strong) NSString *password;
 /**
  *
  */
-@property (nonatomic,copy) NSString *userId;
+@property (nonatomic,strong) NSString *userId;
 /**
  *
  */
-@property (nonatomic,copy) NSString *head;
+@property (nonatomic,strong) NSString *head;
 @end

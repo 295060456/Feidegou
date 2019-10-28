@@ -10,17 +10,15 @@
 #import "JJHttpClient+FourZero.h"
 
 @interface OrderDiscussController ()
-
 @property (weak, nonatomic) IBOutlet UIImageView *imgHead;
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
 @property (weak, nonatomic) IBOutlet UITextView *textMsg;
 @property (weak, nonatomic) IBOutlet UIButton *btnCommit;
 @property (strong,nonatomic) UILabel *lblPlaceholder;
-@property (copy,nonatomic) NSString *strDiscuss;
-@property (copy,nonatomic) NSString *strMSXF;
-@property (copy,nonatomic) NSString *strFHSU;
-@property (copy,nonatomic) NSString *strFWTD;
-
+@property (strong,nonatomic) NSString *strDiscuss;
+@property (strong,nonatomic) NSString *strMSXF;
+@property (strong,nonatomic) NSString *strFHSU;
+@property (strong,nonatomic) NSString *strFWTD;
 @end
 
 @implementation OrderDiscussController
@@ -29,7 +27,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 - (void)locationControls{
     [self.btnCommit setBackgroundColor:ColorRed];
     [self.imgHead setImagePathHead:self.strImage];
@@ -38,10 +35,7 @@
     self.strMSXF = @"5";
     self.strFHSU = @"5";
     self.strFWTD = @"5";
-    self.lblPlaceholder = [[UILabel alloc] initWithFrame:CGRectMake(5,
-                                                                    8,
-                                                                    CGRectGetWidth(self.textMsg.frame)-20,
-                                                                    self.textMsg.frame.size.height)];
+    self.lblPlaceholder = [[UILabel alloc] initWithFrame:CGRectMake(5, 8, CGRectGetWidth(self.textMsg.frame)-20, self.textMsg.frame.size.height)];
     [self.lblPlaceholder setText:@"写下您购买和使用的感受来帮助其他小伙伴"];
     [self.lblPlaceholder setNumberOfLines:0];
     [self.lblPlaceholder setFont:[UIFont systemFontOfSize:12.0]];
@@ -51,7 +45,6 @@
     [self.lblPlaceholder sizeToFit];
     [self.textMsg addSubview:self.lblPlaceholder];
 }
-
 - (void)textViewDidChange:(UITextView *)textView{
     NSString *str = textView.text;
     if (str.length==0) {
@@ -60,7 +53,6 @@
         [self.lblPlaceholder setHidden:YES];
     }
 }
-
 - (IBAction)clickButtonScore:(UIButton *)sender {
     [self.view endEditing:YES];
     D_NSLog(@"tag is %ld",(long)sender.tag);
@@ -88,9 +80,7 @@
     }
     D_NSLog(@"strDiscuss is %@,msxf is %@,fhsd is %@,wftd is %@",_strDiscuss,_strMSXF,_strFHSU,_strFWTD);
 }
-
-- (void)refreshButtonImage:(int)intMix
-                 andSelect:(int)intseleted{
+- (void)refreshButtonImage:(int)intMix andSelect:(int)intseleted{
     int intMax = intMix+5;
     if (intMix==100) {
         intMax = 103;
@@ -115,17 +105,10 @@
 }
 - (IBAction)clickButtonCommit:(UIButton *)sender {
     [SVProgressHUD showWithStatus:@"正在提交..." maskType:SVProgressHUDMaskTypeBlack];
+    
     [self.view endEditing:YES];
     __weak OrderDiscussController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestFourZeroCommitDiscussevaluate_seller_val:self.strDiscuss
-                                                                          andevaluate_info:[NSString stringStandard:self.textMsg.text]
-                                                                      andevaluate_goods_id:[NSString stringStandard:self.strGoodsId]
-                                                                       andevaluate_user_id:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]
-                                                                                  andof_id:[NSString stringStandard:self.strOrderId]
-                                                                   anddescription_evaluate:self.strMSXF
-                                                                       andservice_evaluate:self.strFWTD
-                                                                          andship_evaluate:self.strFHSU]
-                       subscribeNext:^(NSDictionary*dictionary) {
+    self.disposable = [[[JJHttpClient new] requestFourZeroCommitDiscussevaluate_seller_val:self.strDiscuss andevaluate_info:[NSString stringStandard:self.textMsg.text] andevaluate_goods_id:[NSString stringStandard:self.strGoodsId] andevaluate_user_id:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] andof_id:[NSString stringStandard:self.strOrderId] anddescription_evaluate:self.strMSXF andservice_evaluate:self.strFWTD andship_evaluate:self.strFHSU] subscribeNext:^(NSDictionary*dictionary) {
         if ([dictionary[@"code"] intValue]==1) {
             [SVProgressHUD showSuccessWithStatus:dictionary[@"msg"]];
             [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNameDiscussSucceed object:self.strOrderId];
@@ -140,13 +123,24 @@
         myself.disposable = nil;
     }];
 }
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (IBAction)clickScorviewEditing:(UITapGestureRecognizer *)sender {
     [self.view endEditing:YES];
 }
-
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

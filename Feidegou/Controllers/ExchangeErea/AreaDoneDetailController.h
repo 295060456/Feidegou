@@ -12,5 +12,4 @@
 @interface AreaDoneDetailController : JJBaseViewController
 
 @property (strong, nonatomic) ModelAreaList *modelList;
-
 @end

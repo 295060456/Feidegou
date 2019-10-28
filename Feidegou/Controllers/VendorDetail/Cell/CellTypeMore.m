@@ -22,9 +22,7 @@
     // Initialization code
 }
 
-- (void)populateData:(NSArray *)arrType
-              andRow:(NSInteger)intRow
-              andLie:(NSInteger)intLie{
+- (void)populateData:(NSArray *)arrType andRow:(NSInteger)intRow andLie:(NSInteger)intLie{
 //    self.intLie = intLie;
 //    self.intRow = intRow;
     self.layout.intLie = intLie;
@@ -35,17 +33,18 @@
 
 #pragma mark --UICollectionViewDelegate
 //定义展示的UICollectionViewCell的个数
--(NSInteger)collectionView:(UICollectionView *)collectionView
-    numberOfItemsInSection:(NSInteger)section{
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     return self.arrType.count;
 }
 //定义展示的Section的个数
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return 1;
 }
 //每个UICollectionView展示的内容
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                 cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *identifier = @"CLCellUpImgLbl";
     CLCellUpImgLbl *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     [cell.lblTitle setTextNull:self.arrType[indexPath.row][@"main_name"]];
@@ -67,16 +66,17 @@
 //}
 #pragma mark --UICollectionViewDelegate
 //UICollectionView被选中时调用的方法
--(void)collectionView:(UICollectionView *)collectionView
-didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     if ([self.delegete respondsToSelector:@selector(didClickOnlyCollectionViewDictionary:andRow:)]) {
-        [self.delegete didClickOnlyCollectionViewDictionary:self.arrType[indexPath.row]
-                                                     andRow:indexPath.row];
+        [self.delegete didClickOnlyCollectionViewDictionary:self.arrType[indexPath.row] andRow:indexPath.row];
     }
 }
 
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+
     // Configure the view for the selected state
 }
 

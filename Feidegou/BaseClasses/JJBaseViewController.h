@@ -39,22 +39,23 @@ typedef enum {
 }enumException;
 
 @interface JJBaseViewController : UIViewController
-
 @property (nonatomic,strong) RACDisposable *disposable;
-@property (nonatomic,strong) UIButton *btnBack;
+@property (strong, nonatomic) UIButton *btnBack;
 //返回
--(void)clickButtonBack:(UIButton *)sender;
+- (void)clickButtonBack:(UIButton *)sender;
 //添加控件
--(void)locationControls;
+- (void)locationControls;
 //初始化数据源
 - (void)initData;
 //添加数据
--(void)populateData;
--(void)pushLoginAlert;
--(void)pushLoginController;
+- (void)populateData;
+
+
+- (void)pushLoginAlert;
+- (void)pushLoginController;
+
 -(void)showException;
 -(void)hideException;
 -(void)showExceptionNoHead;
 -(void)failedRequestException:(enumException)exception;
-
 @end

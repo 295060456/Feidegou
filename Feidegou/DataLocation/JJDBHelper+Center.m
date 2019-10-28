@@ -16,13 +16,11 @@
 - (ModelCenter *)fetchCenterMsg{
     
     NSData *data = [self queryCacheDataWithCacheId:CenterMsg];
+    
     NSDictionary *dictionray = [self convertData:data];
-    ModelCenter *model = [MTLJSONAdapter modelOfClass:[ModelCenter class]
-                                   fromJSONDictionary:dictionray
-                                                error:nil];
+    ModelCenter *model = [MTLJSONAdapter modelOfClass:[ModelCenter class] fromJSONDictionary:dictionray error:nil];
     return model;
 }
-
 - (void)saveCenterMsg:(ModelCenter *)model{
     NSDictionary *dicInfo = [model toDictionary];
     if (!dicInfo) {
@@ -60,12 +58,13 @@
     }
     return strAccount;
 }
+
+
 /**
  *  保存支付宝信息
  *
  */
-- (void)saveAlipayName:(NSString *)strName
-            andAccount:(NSString *)strAccount{
+- (void)saveAlipayName:(NSString *)strName andAccount:(NSString *)strAccount{
     if (![NSString isNullString:strName]&&![NSString isNullString:strAccount]) {
         NSMutableDictionary *dicInfo = [NSMutableDictionary dictionary];
         [dicInfo setObject:strName forKey:@"name"];
@@ -79,12 +78,9 @@
     NSData *data = [self queryCacheDataWithCacheId:PersonalInfo];
     
     NSDictionary *dictionray = [self convertData:data];
-    ModelInfo *model = [MTLJSONAdapter modelOfClass:[ModelInfo class]
-                                 fromJSONDictionary:dictionray
-                                              error:nil];
+    ModelInfo *model = [MTLJSONAdapter modelOfClass:[ModelInfo class] fromJSONDictionary:dictionray error:nil];
     return model;
 }
-
 - (void)savePersonalInfo:(ModelInfo *)model{
     NSDictionary *dicInfo = [model toDictionary];
     if (!dicInfo) {
@@ -92,5 +88,4 @@
     }
     [self updateCacheForId:PersonalInfo cacheDictionry:dicInfo];
 }
-
 @end

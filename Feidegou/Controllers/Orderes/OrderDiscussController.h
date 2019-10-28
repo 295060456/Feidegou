@@ -10,9 +10,8 @@
 
 @interface OrderDiscussController : JJBaseViewController
 
-@property (copy, nonatomic) NSString *strOrderId;
-@property (copy, nonatomic) NSString *strGoodsId;
-@property (copy, nonatomic) NSString *strGoodsName;
-@property (copy, nonatomic) NSString *strImage;
-
+@property (strong, nonatomic) NSString *strOrderId;
+@property (strong, nonatomic) NSString *strGoodsId;
+@property (strong, nonatomic) NSString *strGoodsName;
+@property (strong, nonatomic) NSString *strImage;
 @end

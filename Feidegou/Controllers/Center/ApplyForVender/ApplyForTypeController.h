@@ -10,7 +10,6 @@
 #import "ApplyForVenderAttribute.h"
 
 @interface ApplyForTypeController : JJBaseViewController
-
 @property (strong, nonatomic) ApplyForVenderAttribute *applyForVenderAttribute;
 
 @end

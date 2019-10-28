@@ -31,13 +31,14 @@
 
 
 @interface OrderDetailController ()
-
 @property (weak, nonatomic) IBOutlet UITableView *tabOrderDetail;
 @property (weak, nonatomic) IBOutlet UIView *viTimes;
 @property (weak, nonatomic) IBOutlet UIButton *btnOne;
 @property (weak, nonatomic) IBOutlet UIButton *btnTwo;
 @property (weak, nonatomic) IBOutlet UIButton *btnThree;
+
 @property (strong, nonatomic) ModelOrderDtail *modelOrderDetail;
+
 @property (assign, nonatomic) enumOrderState orderState;
 @property (strong, nonatomic) NSDictionary *dicPost;
 @property (strong, nonatomic) NSMutableArray *arrPost;
@@ -47,7 +48,6 @@
 //四种状态：第一种是等待商家确认信息，第二种是拒绝退货，第三种是填写退货订单号，第四种是填写成功之后查看物流信息
 //intstate大于0，则显示这四种状态
 @property (assign, nonatomic) int intState;
-
 @end
 
 @implementation OrderDetailController
@@ -56,7 +56,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 - (void)locationControls{
     
     [self.btnOne.layer setBorderWidth:0.5];
@@ -95,7 +94,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotificationPaySucceedChangeData:) name:NotificationNamePaySucceedChangeData object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotificationDiscussSucceed:) name:NotificationNameDiscussSucceed object:nil];
 }
-
 - (void)NotificationPaySucceedChangeData:(NSNotification *)notification{
     NSString *strOrderId = TransformString((NSString *)notification.object);
     NSString *strOrderIdMiddle = TransformString(self.modelList.order_id);
@@ -106,7 +104,6 @@
     }
     [self refreshButtonTitle];
 }
-
 - (void)NotificationDiscussSucceed:(NSNotification *)notification{
     NSString *strOrderId = TransformString((NSString *)notification.object);
     NSString *strOrderIdMiddle = TransformString(self.modelList.order_id);
@@ -117,15 +114,16 @@
     }
     [self refreshButtonTitle];
 }
-
 - (void)requestLogisticsInformation{
-    if (self.isShowMoreDetail) return;
-    if ([NSString isNullString:self.modelOrderDetail.courierCode]) return;
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestShopGoodOrderDetailLogisticsInformationType:[NSString stringStandard:self.modelOrderDetail.company_mark]
-                                                                                      andPostid:self.modelOrderDetail.courierCode]
-                         subscribeNext:^(NSDictionary* dictionary) {
-        @strongify(self)
+    
+    if (self.isShowMoreDetail) {
+        return;
+    }
+    if ([NSString isNullString:self.modelOrderDetail.courierCode]) {
+        return;
+    }
+    __weak OrderDetailController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderDetailLogisticsInformationType:[NSString stringStandard:self.modelOrderDetail.company_mark] andPostid:self.modelOrderDetail.courierCode] subscribeNext:^(NSDictionary* dictionary) {
 //        如果是字典，则表示有物流信息
 //        如果数组有数据，则表示有具体的物流信息
         self.arrPost = [NSMutableArray array];
@@ -138,43 +136,35 @@
         }else{
             self.dicPost = nil;
         }
-        [self.tabOrderDetail reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0
-                                                                         inSection:0]]
-                                   withRowAnimation:UITableViewRowAnimationFade];
+        [self.tabOrderDetail reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+        
+        
     }error:^(NSError *error) {
-        @strongify(self)
-        [self failedRequestException:enum_exception_timeout];
-        self.disposable = nil;
+        [myself failedRequestException:enum_exception_timeout];
+        myself.disposable = nil;
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
     }];
 }
-
 - (void)requestData{
     [self showException];
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestShopGoodOrderDetailOrderId:[NSString stringStandard:self.modelList.ID]]
-                       subscribeNext:^(ModelOrderDtail* model) {
-        @strongify(self)
-        self.modelOrderDetail = model;
-        [self refreshButtonTitle];
-        [self hideException];
+    
+    __weak OrderDetailController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderDetailOrderId:[NSString stringStandard:self.modelList.ID]] subscribeNext:^(ModelOrderDtail* model) {
+        myself.modelOrderDetail = model;
+        [myself refreshButtonTitle];
+        [myself hideException];
     }error:^(NSError *error) {
-        @strongify(self)
-        [self failedRequestException:enum_exception_timeout];
-        self.disposable = nil;
+        [myself failedRequestException:enum_exception_timeout];
+        myself.disposable = nil;
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
     }];
+    
 }
-
 - (void)refreshButtonTitle{
     self.orderState = [PublicFunction returnStateByNum:self.modelOrderDetail.order_status];
-    if (self.orderState == enumOrder_dfk||
-        self.orderState == enumOrder_yfk||
-        self.orderState == enumOrder_tksh) {
+    if (self.orderState == enumOrder_dfk||self.orderState == enumOrder_yfk||self.orderState == enumOrder_tksh) {
         self.isShowMoreDetail = YES;
     }else{
         self.isShowMoreDetail = NO;
@@ -197,9 +187,7 @@
     [self.tabOrderDetail reloadData];
     
     NSMutableArray *
-    arrButton = [PublicFunction returnButtonNameByNum:self.modelOrderDetail.order_status
-                                      andIsNeedDetail:NO
-                                       andcourierCode:self.modelOrderDetail.courierCode];
+    arrButton = [PublicFunction returnButtonNameByNum:self.modelOrderDetail.order_status andIsNeedDetail:NO andcourierCode:self.modelOrderDetail.courierCode];
     [self.btnOne setHidden:YES];
     [self.btnTwo setHidden:YES];
     [self.btnThree setHidden:YES];
@@ -257,8 +245,8 @@
 //    }
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     if (self.isShowMoreDetail) {
         if (section == 0) {
 //            订单号
@@ -319,19 +307,19 @@
             //            订单信息
             return 1;
         }
-    }return 0;
+    }
+    return 0;
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if (self.isShowMoreDetail) {
         return 8;
     }else{
         return 8;
-    }return 0;
+    }
+    return 0;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (self.isShowMoreDetail) {
         if (indexPath.section == 0) {
             return 40.0f;
@@ -351,14 +339,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             return 40.0f;
         }else if (indexPath.section == 6) {
             if (indexPath.row == 0) {
-                return [NSString conculuteRightCGSizeOfString:self.modelOrderDetail.refund[@"refund_log"]
-                                                     andWidth:SCREEN_WIDTH-20
-                                                      andFont:13.0].height+40;
+                return [NSString conculuteRightCGSizeOfString:self.modelOrderDetail.refund[@"refund_log"] andWidth:SCREEN_WIDTH-20 andFont:13.0].height+40;
             }
             if (indexPath.row == 1) {
-                return [NSString conculuteRightCGSizeOfString:self.modelOrderDetail.refund[@"seller_info"]
-                                                     andWidth:SCREEN_WIDTH-20
-                                                      andFont:13.0].height+40;
+                return [NSString conculuteRightCGSizeOfString:self.modelOrderDetail.refund[@"seller_info"] andWidth:SCREEN_WIDTH-20 andFont:13.0].height+40;
             }
             if (indexPath.row ==2) {
                 return 60;
@@ -373,18 +357,15 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 NSDictionary *dicInfo = self.arrPost[0];
                 if ([dicInfo isKindOfClass:[NSDictionary class]]) {
                     NSString *strContent = dicInfo[@"context"];
-                    CGFloat fHeight = [NSString conculuteRightCGSizeOfString:strContent
-                                                                    andWidth:SCREEN_WIDTH-65
-                                                                     andFont:15.0].height+40;
+                    CGFloat fHeight = [NSString conculuteRightCGSizeOfString:strContent andWidth:SCREEN_WIDTH-65 andFont:15.0].height+40;
                     return fHeight;
+                    
                 }
             }
             return 0.0f;
         }else if (indexPath.section == 1) {
             NSString *strAddress = StringFormat(@"收货地址:%@",self.modelOrderDetail.area_info);
-            CGFloat fHeight = [NSString conculuteRightCGSizeOfString:strAddress
-                                                            andWidth:SCREEN_WIDTH-40
-                                                             andFont:13.0].height+40;
+            CGFloat fHeight = [NSString conculuteRightCGSizeOfString:strAddress andWidth:SCREEN_WIDTH-40 andFont:13.0].height+40;
             return fHeight;
         }else if (indexPath.section == 2) {
             return 30.0f;
@@ -401,12 +382,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         }else{
             return 105.0f;
         }
-    }return 0;
+    }
+    return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    @weakify(self)
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
     if (self.isShowMoreDetail) {
         if (indexPath.section == 0) {
             CellOrderTwoLbl *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderTwoLbl"];
@@ -455,11 +437,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             return cell;
         }
         if (indexPath.section == 4) {
+            
             CellOneButton *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOneButton"];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-            [cell.btnCommit handleControlEvent:UIControlEventTouchUpInside
-                                     withBlock:^{
-                @strongify(self)
+            [cell.btnCommit handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                 NSString *strPhone = self.modelOrderDetail.store_telephone;
                 if ([NSString isNullString:strPhone]) {
                     [SVProgressHUD showErrorWithStatus:@"该商家未填写电话"];
@@ -527,18 +508,21 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     return cell;
                 }
                 if (self.intState == 4) {
+                    
                     CellTuihuoWuliu *cell=[tableView dequeueReusableCellWithIdentifier:@"CellTuihuoWuliu"];
-                    [cell.btnCheck handleControlEvent:UIControlEventTouchUpInside
-                                            withBlock:^{
-                        @strongify(self)
+                    [cell.btnCheck handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                         [self pushToOrderLogisticsDetailTuihuo];
                     }];
-                    [cell.btnChange handleControlEvent:UIControlEventTouchUpInside
-                                             withBlock:^{
-                        @strongify(self)                        [self pushChangeInfo];
-                    }]; return cell;
+                    [cell.btnChange handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+                        
+                        [self pushChangeInfo];
+                    }];
+                    
+                    return cell;
                 }
             }
+            
+            
         }
         if (indexPath.section == 7) {
             if (indexPath.row == 0) {
@@ -612,11 +596,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             return cell;
         }
         if (indexPath.section == 4) {
-            CellOneButton *cell = [tableView dequeueReusableCellWithIdentifier:@"CellOneButton"];
+            
+            CellOneButton *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOneButton"];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-            [cell.btnCommit handleControlEvent:UIControlEventTouchUpInside
-                                     withBlock:^{
-                @strongify(self)
+            [cell.btnCommit handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                 NSString *strPhone = self.modelOrderDetail.store_telephone;
                 if ([NSString isNullString:strPhone]) {
                     [SVProgressHUD showErrorWithStatus:@"该商家未填写电话"];
@@ -626,7 +609,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 UIWebView * callWebview = [[UIWebView alloc] init];
                 [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
                 [self.view addSubview:callWebview];
-            }];return cell;
+            }];
+            return cell;
         }
         if (indexPath.section == 5) {
             if (indexPath.row == 0) {
@@ -643,7 +627,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     [cell.lblRight setTextNull:@"商家配送"];
                 }else{
                     [cell.lblRight setTextNull:self.modelOrderDetail.transport];
-                }return cell;
+                }
+                return cell;
             }else{
                 CellOrderTwoLbl *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderTwoLbl"];
                 [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -659,6 +644,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 return cell;
             }
         }
+
         if (indexPath.section == 6) {
             
             CellGoodMoney *cell=[tableView dequeueReusableCellWithIdentifier:@"CellGoodMoney"];
@@ -686,21 +672,22 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             [cell.lblTimeCreate setText:StringFormat(@"创建时间: %@",[NSString stringStandardZanwu:self.modelOrderDetail.addTime])];;
             [cell.lblTimePay setText:StringFormat(@"付款时间: %@",[NSString stringStandardZanwu:self.modelOrderDetail.payTime])];;
             [cell.lblTimeSend setText:StringFormat(@"发货时间: %@",[NSString stringStandardZanwu:self.modelOrderDetail.shipTime])];
-            [cell.btnCopy handleControlEvent:UIControlEventTouchUpInside
-                                   withBlock:^{
-                @strongify(self)
+            [cell.btnCopy handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                 UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
                 pasteboard.string = self.modelOrderDetail.order_id;
                 [SVProgressHUD showSuccessWithStatus:@"复制成功"];
-            }];return cell;
+            }];
+            return cell;
         }
+        
     }
-    CellOrderTwoLbl *cell = [tableView dequeueReusableCellWithIdentifier:@"CellOrderTwoLbl"];
+    CellOrderTwoLbl *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderTwoLbl"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     [cell.lblLeft setText:@""];
     [cell.lblRight setText:@""];
     return cell;
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (self.isShowMoreDetail) {
@@ -714,14 +701,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     return 10;
 }
-
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (![NSString isNullString:self.modelOrderDetail.courierCode] && indexPath.row == 0 && indexPath.section == 0) {
 //        跳到物流详情
@@ -739,6 +726,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 
                 [self pushChangeInfo];
             }
+            
         }
     }else{
         if (indexPath.section == 1&&indexPath.row == 0) {
@@ -746,7 +734,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         }
     }
 }
-
 - (void)pushChangeInfo{
     
     UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil];
@@ -754,14 +741,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     controller.modelOrderDetail = self.modelOrderDetail;
     [self.navigationController pushViewController:controller animated:YES];
 }
-
 - (void)pushControllerOtherList{
     UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
     GoodOtherListController *controller=[storyboard instantiateViewControllerWithIdentifier:@"GoodOtherListController"];
     controller.strGoods_store_id = self.modelList.store_id;
     [self.navigationController pushViewController:controller animated:YES];
 }
-
 - (void)pushToOrderLogisticsDetail{
 //     跳到物流详情
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil];
@@ -785,18 +770,18 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     controller.strCompanyName = self.modelOrderDetail.return_company;
     [self.navigationController pushViewController:controller animated:YES];
 }
- 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (IBAction)clickButtonOne:(UIButton *)sender {
     [self clickButtonForListName:sender.titleLabel.text andIndexPath:self.modelOrderDetail];
 }
-
 - (IBAction)clickButtonTwo:(UIButton *)sender {
     [self clickButtonForListName:sender.titleLabel.text andIndexPath:self.modelOrderDetail];
 }
 
-- (void)clickButtonForListName:(NSString *)strTitle
-                  andIndexPath:(ModelOrderDtail *)model{
-    @weakify(self)
+- (void)clickButtonForListName:(NSString *)strTitle andIndexPath:(ModelOrderDtail *)model{
     if ([TransformString(strTitle) isEqualToString:@"去支付"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil];
         PayMonyForGoodController *controller = [storyboard instantiateViewControllerWithIdentifier:@"PayMonyForGoodController"];
@@ -804,39 +789,31 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         controller.strTotalPrice = model.totalPrice;
         [self.navigationController pushViewController:controller animated:YES];
     }else if ([TransformString(strTitle) isEqualToString:@"取消订单"]) {
-        [JJAlertViewTwoButton.new showAlertView:self
-                                       andTitle:nil
-                                     andMessage:@"是否删除"
-                                      andCancel:@"取消"
-                                  andCanelIsRed:NO
-                                  andOherButton:@"立即删除"
-                                     andConfirm:^{
+        
+        JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
+        [alertView showAlertView:self andTitle:nil andMessage:@"是否删除" andCancel:@"取消" andCanelIsRed:NO andOherButton:@"立即删除" andConfirm:^{
             D_NSLog(@"点击了立即发布");
-            
             [SVProgressHUD showWithStatus:@"正在删除..."];
-            self.disposableDelete = [[[JJHttpClient new] requestFourZeroDeleteOrderId:[NSString stringStandard:model.order_id]
-                                                                               andState:@"1"]
-                                       subscribeNext:^(NSDictionary* dictionary) {
-                @strongify(self)
+            __weak OrderDetailController *myself = self;
+            myself.disposableDelete = [[[JJHttpClient new] requestFourZeroDeleteOrderId:[NSString stringStandard:model.order_id] andState:@"1"] subscribeNext:^(NSDictionary* dictionary) {
                 if ([dictionary[@"code"] intValue]==1) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNameOrderDelete
-                                                                        object:model.order_id];
-                    [self.navigationController popViewControllerAnimated:YES];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNameOrderDelete object:model.order_id];
+                    [myself.navigationController popViewControllerAnimated:YES];
                 }else{
                     [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];
                 }
+                
             }error:^(NSError *error) {
-                @strongify(self)
-                self.disposableDelete = nil;
+                myself.disposableDelete = nil;
                 [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             }completed:^{
-                @strongify(self)
                 [SVProgressHUD dismiss];
-                self.disposableDelete = nil;
+                myself.disposableDelete = nil;
             }];
         } andCancel:^{
             D_NSLog(@"点击了取消");
         }];
+        
     }else if ([TransformString(strTitle) isEqualToString:@"去评价"]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil];
         DiscussOrderController *controller = [storyboard instantiateViewControllerWithIdentifier:@"DiscussOrderController"];
@@ -865,42 +842,28 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         [self.navigationController pushViewController:controller animated:YES];
     }else if ([TransformString(strTitle) isEqualToString:@"确认收货"]) {
         [SVProgressHUD showWithStatus:@"正在提交信息..."];
-        self.disposableShouhuo = [[[JJHttpClient new] requestFourZeroDeleteOrderId:TransformString(model.order_id)
-                                                                          andState:@""]
-                                  subscribeNext:^(NSDictionary* dictionary) {
-            @strongify(self)
+        self.disposableShouhuo = [[[JJHttpClient new] requestFourZeroDeleteOrderId:TransformString(model.order_id) andState:@""] subscribeNext:^(NSDictionary* dictionary) {
             if ([dictionary[@"code"] intValue]==1) {
                 model.order_status = @"40";
                 [self refreshButtonTitle];
-                [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNameOrderGetSucceed
-                                                                    object:model.order_id];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNameOrderGetSucceed object:model.order_id];
                 [SVProgressHUD dismiss];
             }else{
                 [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];
             }
         }error:^(NSError *error) {
-            @strongify(self)
             self.disposableShouhuo = nil;
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }completed:^{
-            @strongify(self)
             self.disposableShouhuo = nil;
         }];
     }else if ([TransformString(strTitle) isEqualToString:@"查看物流"]) {
         [self pushToOrderLogisticsDetail];
     }else if ([TransformString(strTitle) isEqualToString:@"确认收货"]) {
-        [JJAlertViewTwoButton.new showAlertView:self
-                                       andTitle:nil
-                                     andMessage:@"确认收货后不可退款"
-                                      andCancel:@"取消"
-                                  andCanelIsRed:NO
-                                  andOherButton:@"确认收货"
-                                     andConfirm:^{
+        JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
+        [alertView showAlertView:self andTitle:nil andMessage:@"确认收货后不可退款" andCancel:@"取消" andCanelIsRed:NO andOherButton:@"确认收货" andConfirm:^{
             [SVProgressHUD showWithStatus:@"正在提交信息..."];
-            self.disposableShouhuo = [[[JJHttpClient new] requestFourZeroDeleteOrderId:TransformString(model.order_id)
-                                                                              andState:@"2"]
-                                      subscribeNext:^(NSDictionary* dictionary) {
-                @strongify(self)
+            self.disposableShouhuo = [[[JJHttpClient new] requestFourZeroDeleteOrderId:TransformString(model.order_id) andState:@"2"] subscribeNext:^(NSDictionary* dictionary) {
                 if ([dictionary[@"code"] intValue]==1) {
                     [SVProgressHUD dismiss];
                     [SVProgressHUD showSuccessWithStatus:dictionary[@"msg"]];
@@ -908,11 +871,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];
                 }
             }error:^(NSError *error) {
-                @strongify(self)
                 self.disposableShouhuo = nil;
                 [SVProgressHUD showErrorWithStatus:error.localizedDescription];
             }completed:^{
-                @strongify(self)
                 self.disposableShouhuo = nil;
             }];
         } andCancel:^{
@@ -921,6 +882,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }
 }
 
+/*
+#pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

@@ -13,11 +13,10 @@
 #import "JJHttpClient+ShopGood.h"
 
 @interface OrderLogisticsDetailController ()
-
 @property (weak, nonatomic) IBOutlet UITableView *tabLogistics;
+
 @property (strong, nonatomic) NSDictionary *dicPost;
 @property (strong, nonatomic) NSMutableArray *arrPost;
-
 @end
 
 @implementation OrderLogisticsDetailController
@@ -26,7 +25,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 - (void)locationControls{
     
     [self.tabLogistics setBackgroundColor:ColorBackground];
@@ -39,9 +37,7 @@
 
 - (void)requestData{
     __weak OrderLogisticsDetailController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderDetailLogisticsInformationType:[NSString stringStandard:self.strCompanyCode]
-                                                                                      andPostid:self.strGoodCode]
-                         subscribeNext:^(NSDictionary* dictionary) {
+    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderDetailLogisticsInformationType:[NSString stringStandard:self.strCompanyCode] andPostid:self.strGoodCode] subscribeNext:^(NSDictionary* dictionary) {
         //        如果是字典，则表示有物流信息
         //        如果数组有数据，则表示有具体的物流信息
         self.arrPost = [NSMutableArray array];
@@ -55,6 +51,8 @@
             self.dicPost = nil;
         }
         [self.tabLogistics reloadData];
+        
+        
     }error:^(NSError *error) {
         [myself failedRequestException:enum_exception_timeout];
         myself.disposable = nil;
@@ -64,19 +62,18 @@
     }];
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     if (section == 2) {
         return self.arrPost.count;
-    }return 1;
+    }
+    return 1;
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 0) {
         return 100.0f;
     }else if (indexPath.section == 1){
@@ -86,15 +83,15 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *dicInfo = self.arrPost[indexPath.row];
     if ([dicInfo isKindOfClass:[NSDictionary class]]) {
         NSString *strContent = dicInfo[@"context"];
-        CGFloat fHeight = [NSString conculuteRightCGSizeOfString:strContent
-                                                        andWidth:SCREEN_WIDTH-55
-                                                         andFont:15.0].height+40;
+        CGFloat fHeight = [NSString conculuteRightCGSizeOfString:strContent andWidth:SCREEN_WIDTH-55 andFont:15.0].height+40;
         return fHeight;
-    }return 0;
+        
+    }
+    return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 0) {
         CellLogisticsGood *cell=[tableView dequeueReusableCellWithIdentifier:@"CellLogisticsGood"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -199,24 +196,38 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView
-heightForHeaderInSection:(NSInteger)section{
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 1) {
         return 10;
-    }return 0;
+    }
+    return 0;
 }
-- (nullable UIView *)tableView:(UITableView *)tableView
-        viewForHeaderInSection:(NSInteger)section{
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
 
-- (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
 //    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 //    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

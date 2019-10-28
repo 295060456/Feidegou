@@ -29,29 +29,30 @@ typedef enum{
     GoodCart,
     GoodOrder
 }GoodCartOrOrder;
-@interface GoodDetialAllController ()
-<
-UIPageViewControllerDataSource
-,UIPageViewControllerDelegate
-,UICollectionViewDelegate
-,UICollectionViewDataSource
->
-
+@interface GoodDetialAllController ()<UIPageViewControllerDataSource,UIPageViewControllerDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UIView *viContainer;
 @property (weak, nonatomic) IBOutlet UIButton *btnConmmit;
 @property (weak, nonatomic) IBOutlet UIButton *btnBuy;
-@property (strong, nonatomic) NSDictionary *dicDetail;//商品详情
+//商品详情
+@property (strong, nonatomic) NSDictionary *dicDetail;
+
 @property (strong, nonatomic) NSMutableArray *pages;
 @property (strong, nonatomic) UIPageViewController *pageViewController;
 @property (assign, nonatomic) NSInteger intSelected;
 @property (strong, nonatomic) UILabel *lblLine;
 @property (strong, nonatomic) UIView *viHeader;
+
+
+
+
 @property (strong, nonatomic) UIView *viCreateBack;
 @property (strong, nonatomic) UIView *viCreateOrder;
 @property (strong, nonatomic) UICollectionView *collectionSelectType;
 @property (strong, nonatomic) NSMutableArray *arrSelectType;
-@property (copy, nonatomic) NSString *strGoodNum;//库存
-@property (copy, nonatomic) NSString *strGoodPrice;//价格
+//库存
+@property (strong, nonatomic) NSString *strGoodNum;
+//价格
+@property (strong, nonatomic) NSString *strGoodPrice;
 @property (strong, nonatomic) UILabel *lblPrice;
 @property (assign, nonatomic) int intBuyNum;
 @property (nonatomic,strong) RACDisposable *disposableGoodNum;
@@ -60,33 +61,31 @@ UIPageViewControllerDataSource
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstraintCartAddWidth;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstraintCartAddTrailing;
 
-@end
 
+
+@end
 @implementation GoodDetialAllController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 - (void)locationControls{
     self.goodCartOrOrder = GoodNone;
     [self.btnBuy setBackgroundColor:ColorRed];
     [self.btnConmmit setBackgroundColor:ColorYellow];
     [self requestData];
 }
-
 - (void)requestData{
     [self showException];
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestShopGoodDetailGoods_id:[NSString stringStandard:self.strGood_id]]
-                         subscribeNext:^(NSDictionary *dictionary) {
-        @strongify(self)
-        if ([dictionary[@"code"] intValue] == 0) {
-            [self failedRequestException:enum_exception_timeout];
+    __weak GoodDetialAllController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestShopGoodDetailGoods_id:[NSString stringStandard:self.strGood_id]] subscribeNext:^(NSDictionary* dictionary) {
+        if ([dictionary[@"code"] intValue]==0) {
+            [myself failedRequestException:enum_exception_timeout];
             return ;
         }
-        self.dicDetail = [NSDictionary dictionaryWithDictionary:dictionary];
+        myself.dicDetail = [NSDictionary dictionaryWithDictionary:dictionary];
+        
         NSArray *arrProperty = self.dicDetail[@"property"];
         if ([arrProperty isKindOfClass:[NSArray class]]) {
             self.arrSelectType = [NSMutableArray arrayWithArray:arrProperty];
@@ -94,18 +93,17 @@ UIPageViewControllerDataSource
             self.strGoodPrice = self.dicDetail[@"goods"][@"store_price"];
             self.intBuyNum = 1;
         }
-        [self initHeaderView];
-        [self hideException];
+        [myself initHeaderView];
+        [myself hideException];
     }error:^(NSError *error) {
-        @strongify(self)
-        [self failedRequestException:enum_exception_timeout];
-        self.disposable = nil;
+        [myself failedRequestException:enum_exception_timeout];
+        myself.disposable = nil;
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
+        
+        myself.disposable = nil;
     }];
+    
 }
-
 - (void)initHeaderView{
     
     NSString *strShareUrl = self.dicDetail[@"shareGoodsUrl"];
@@ -147,11 +145,9 @@ UIPageViewControllerDataSource
     self.navigationItem.titleView = self.viHeader;
     [self setLayout];
 }
-
 - (void)clickButtonHeader:(UIButton *)sender{
     [self pageControlValueChanged:sender.tag];
 }
-
 - (void)setLayout{
     /**
      *100代表商品，101代表详情，102代表评价
@@ -189,36 +185,39 @@ UIPageViewControllerDataSource
         [self pageControlValueChanged:self.intSelected];
     }
 }
-
+#pragma mark -
 #pragma mark - UIPageViewControllerDataSource
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
-      viewControllerBeforeViewController:(UIViewController *)viewController{
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
+{
     NSUInteger index = [self.pages indexOfObject:viewController];
     
     if ((index == NSNotFound) || (index == 0)) {
         return nil;
-    }return self.pages[--index];
+    }
+    
+    return self.pages[--index];
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
-       viewControllerAfterViewController:(UIViewController *)viewController{
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
+{
     NSUInteger index = [self.pages indexOfObject:viewController];
     
     if ((index == NSNotFound)||(index+1 >= [self.pages count])) {
         return nil;
-    }return self.pages[++index];
+    }
+    
+    return self.pages[++index];
 }
 #pragma mark - UIPageViewControllerDelegate
-- (void)pageViewController:(UIPageViewController *)viewController
-        didFinishAnimating:(BOOL)finished
-   previousViewControllers:(NSArray *)previousViewControllers
-       transitionCompleted:(BOOL)completed{
+- (void)pageViewController:(UIPageViewController *)viewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
+{
     if (!completed){
         return;
     }
-    [self refreshSelectedButton:[self.pages indexOfObject:[viewController.viewControllers lastObject]] + 100];
+    [self refreshSelectedButton:[self.pages indexOfObject:[viewController.viewControllers lastObject]]+100];
 }
 
+#pragma mark -
 #pragma mark - Callback
 - (void)pageControlValueChanged:(NSInteger)interger
 {
@@ -233,87 +232,59 @@ UIPageViewControllerDataSource
 - (void)refreshSelectedButton:(NSInteger)integer{
     self.intSelected = integer;
     CGRect rectLine = self.lblLine.frame;
-    rectLine.origin.x = (integer - 100) * 60;
-    @weakify(self)
-    [UIView animateWithDuration:0.27
-                     animations:^{
-        @strongify(self)
+    rectLine.origin.x = (integer-100)*60;
+    [UIView animateWithDuration:0.27 animations:^{
         [self.lblLine setFrame:rectLine];
     }];
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (void)initCreateOrder{
     //    生成背景黑色
-    self.viCreateBack = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                 0,
-                                                                 SCREEN_WIDTH,
-                                                                 SCREEN_HEIGHT)];
-    [self.viCreateBack setBackgroundColor:[UIColor colorWithWhite:0
-                                                            alpha:0.4]];
+    self.viCreateBack = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [self.viCreateBack setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.4]];
     [self.viCreateBack setAlpha:0];
     //    背景黑色点击隐藏
-    UIButton *btnHidden = [[UIButton alloc] initWithFrame:CGRectMake(0,
-                                                                     0,
-                                                                     SCREEN_WIDTH,
-                                                                     SCREEN_HEIGHT)];
+    UIButton *btnHidden = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [btnHidden setBackgroundColor:[UIColor clearColor]];
     [btnHidden addTarget:self action:@selector(animationHiddenViCreateOrder) forControlEvents:UIControlEventTouchUpInside];
     [self.viCreateBack addSubview:btnHidden];
     
     //    生成放控件的view
-    self.viCreateOrder = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                  SCREEN_HEIGHT,
-                                                                  SCREEN_WIDTH,
-                                                                  SCREEN_HEIGHT*2/3)];
+    self.viCreateOrder = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT*2/3)];
     [self.viCreateOrder setBackgroundColor:[UIColor clearColor]];
     [self.viCreateBack addSubview:self.viCreateOrder];
     //    生成头部资料的view
-    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                0,
-                                                                SCREEN_WIDTH,
-                                                                95)];
+    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 95)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
-    UIView *viHeaderColor = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                     15,
-                                                                     SCREEN_WIDTH,
-                                                                     CGRectGetHeight(viHeader.frame) - 15)];
+    UIView *viHeaderColor = [[UIView alloc] initWithFrame:CGRectMake(0, 15, SCREEN_WIDTH, CGRectGetHeight(viHeader.frame)-15)];
     [viHeaderColor setBackgroundColor:[UIColor whiteColor]];
-    UIImageView *imgHead = [[UIImageView alloc] initWithFrame:CGRectMake(10,
-                                                                         0,
-                                                                         90,
-                                                                         90)];
+    UIImageView *imgHead = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 90, 90)];
     [imgHead setImagePathHead:self.dicDetail[@"goods"][@"icon"]];
     [imgHead.layer setCornerRadius:3.0];
     [imgHead setClipsToBounds:YES];
-    self.lblPrice = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imgHead.frame) + 15,
-                                                              10,
-                                                              200,
-                                                              20)];
+    self.lblPrice = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imgHead.frame)+15, 10, 200, 20)];
     [self.lblPrice setFont:[UIFont systemFontOfSize:16.0]];
     [self.lblPrice setTextColor:ColorFromRGB(255, 0, 0)];
     [self.lblPrice setTextNull:StringFormat(@"￥%@",[NSString stringStandardFloatTwo:self.strGoodPrice])];
     NSString *strNum = self.dicDetail[@"goods"][@"goods_serial"];
     if (![NSString isNullString:strNum]) {
-        UILabel *lblNum = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imgHead.frame) + 15,
-                                                                    CGRectGetMaxY(self.lblPrice.frame),
-                                                                    200,
-                                                                    20)];
+        UILabel *lblNum = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imgHead.frame)+15, CGRectGetMaxY(self.lblPrice.frame), 200, 20)];
         [lblNum setFont:[UIFont systemFontOfSize:13.0]];
         [lblNum setTextColor:ColorGary];
         [lblNum setTextNull:StringFormat(@"商品编号: %@",strNum)];
         [viHeaderColor addSubview:lblNum];
     }
-    UIButton *btnClose = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(viHeaderColor.frame) - 40,
-                                                                    0,
-                                                                    40,
-                                                                    40)];
+    
+    
+    UIButton *btnClose = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(viHeaderColor.frame)-40, 0, 40, 40)];
     [btnClose setImage:ImageNamed(@"img_close") forState:UIControlStateNormal];
     [btnClose addTarget:self action:@selector(animationHiddenViCreateOrder) forControlEvents:UIControlEventTouchUpInside];
     
-    UIView *viLine = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                              CGRectGetHeight(viHeaderColor.frame) - 1,
-                                                              SCREEN_WIDTH,
-                                                              0.5)];
+    UIView *viLine = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(viHeaderColor.frame)-1, SCREEN_WIDTH, 0.5)];
     [viLine setBackgroundColor:ColorLine];
     
     [viHeader addSubview:viHeaderColor];
@@ -322,11 +293,11 @@ UIPageViewControllerDataSource
     [viHeaderColor addSubview:btnClose];
     [viHeaderColor addSubview:viLine];
     [self.viCreateOrder addSubview:viHeader];
+    
+    
     //    生成订单的按钮
-    UIButton *btnOrder = [[UIButton alloc] initWithFrame:CGRectMake(0,
-                                                                    CGRectGetHeight(self.viCreateOrder.frame) - 40,
-                                                                    CGRectGetWidth(self.viCreateOrder.frame),
-                                                                    40)];
+    
+    UIButton *btnOrder = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.viCreateOrder.frame)-40, CGRectGetWidth(self.viCreateOrder.frame), 40)];
     [btnOrder setBackgroundColor:ColorRed];
     [btnOrder.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
     [btnOrder setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -342,23 +313,15 @@ UIPageViewControllerDataSource
     layout.minimumLineSpacing = 0; //上下的间距 可以设置0看下效果
     layout.sectionInset = UIEdgeInsetsMake(0.f, 0, 0.f, 0);
     
-    self.collectionSelectType = [[UICollectionView alloc]initWithFrame:CGRectMake(0,
-                                                                                  CGRectGetMaxY(viHeader.frame),
-                                                                                  CGRectGetWidth(self.viCreateOrder.frame),
-                                                                                  CGRectGetHeight(self.viCreateOrder.frame) - CGRectGetMaxY(viHeader.frame) - CGRectGetHeight(btnOrder.frame))
-                                                  collectionViewLayout:layout];
+    self.collectionSelectType = [[UICollectionView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(viHeader.frame), CGRectGetWidth(self.viCreateOrder.frame), CGRectGetHeight(self.viCreateOrder.frame)-CGRectGetMaxY(viHeader.frame)-CGRectGetHeight(btnOrder.frame)) collectionViewLayout:layout];
     [self.collectionSelectType setBackgroundColor:[UIColor whiteColor]];
     self.collectionSelectType.delegate = self;
     self.collectionSelectType.dataSource =self;
     [self.viCreateOrder addSubview:self.collectionSelectType];
     
-    [self.collectionSelectType registerClass:[CLCellGoodProperty class]
-                  forCellWithReuseIdentifier:@"CLCellGoodProperty"];
-    [self.collectionSelectType registerClass:[CLCellGoodNum class]
-                  forCellWithReuseIdentifier:@"CLCellGoodNum"];
-    [self.collectionSelectType registerClass:[ReusableViewProperty class]
-                  forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                         withReuseIdentifier:@"ReusableViewProperty"];
+    [self.collectionSelectType registerClass:[CLCellGoodProperty class] forCellWithReuseIdentifier:@"CLCellGoodProperty"];
+    [self.collectionSelectType registerClass:[CLCellGoodNum class] forCellWithReuseIdentifier:@"CLCellGoodNum"];
+    [self.collectionSelectType registerClass:[ReusableViewProperty class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableViewProperty"];
     [self.view.window addSubview:self.viCreateBack];
     [self animationShowViCreateOrder];
 }
@@ -372,6 +335,7 @@ UIPageViewControllerDataSource
         [self.viCreateOrder setFrame:rectOrder];
     }];
     
+    
     [UIView animateWithDuration:0.3 animations:^{
         [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
         controller.view.layer.transform = [self getFirstTransform];
@@ -383,7 +347,6 @@ UIPageViewControllerDataSource
         }];
     }];
 }
-
 - (void)animationHiddenViCreateOrder{
     CGRect rectOrder = self.viCreateOrder.frame;
     rectOrder.origin.y = SCREEN_HEIGHT;
@@ -395,6 +358,7 @@ UIPageViewControllerDataSource
     } completion:^(BOOL finished){
         [self.viCreateBack removeFromSuperview];
     }];
+    
     
     [UIView animateWithDuration:0.25 animations:^{
         [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
@@ -408,7 +372,6 @@ UIPageViewControllerDataSource
         }];
     }];
 }
-
 - (CATransform3D)getFirstTransform{
     CATransform3D transform = CATransform3DIdentity;
     transform.m34 = 1.0 / -900.0;
@@ -417,7 +380,6 @@ UIPageViewControllerDataSource
     transform = CATransform3DTranslate(transform, 0, 0, -100.0);
     return transform;
 }
-
 - (CATransform3D)getSecondTransform{
     CATransform3D transform = CATransform3DIdentity;
     transform.m34 = [self getFirstTransform].m34;
@@ -458,6 +420,7 @@ UIPageViewControllerDataSource
         [dictionary setObject:[NSString stringStandard:self.dicDetail[@"goods"][@"express_trans_fee"]] forKey:@"express_trans_fee"];
         [dictionary setObject:[NSString stringStandard:self.dicDetail[@"goods"][@"mail_trans_fee"]] forKey:@"mail_trans_fee"];
         
+        
         NSMutableDictionary *dicCart = [NSMutableDictionary dictionary];
         [dicCart setObject:self.strGoodPrice forKey:@"price"];
         [dicCart setObject:self.dicDetail[@"goods"][@"gift_d_coins"] forKey:@"gift_d_coins"];
@@ -489,18 +452,11 @@ UIPageViewControllerDataSource
         [self pushLoginController];
     }
 }
-
 - (void)requestAddCart{
     
     [SVProgressHUD showWithStatus:@"正在加入购物车..." maskType:SVProgressHUDMaskTypeBlack];
     __weak GoodDetialAllController *myself = self;
-    myself.disposable = [[[JJHttpClient new] requestFourZeroAddCartGoods_id:self.strGood_id
-                                                                   andcount:TransformNSInteger(self.intBuyNum)
-                                                                andsotre_id:self.dicDetail[@"goods"][@"goods_store_id"]
-                                                                andproperty:[self fetchStringGoodsspecpropertyId]
-                                                               andspec_info:[self fetchStringGoodsspecpropertyValueAndName]
-                                                                 andUser_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]
-                         subscribeNext:^(NSDictionary* dictionary) {
+    myself.disposable = [[[JJHttpClient new] requestFourZeroAddCartGoods_id:self.strGood_id andcount:TransformNSInteger(self.intBuyNum) andsotre_id:self.dicDetail[@"goods"][@"goods_store_id"] andproperty:[self fetchStringGoodsspecpropertyId] andspec_info:[self fetchStringGoodsspecpropertyValueAndName] andUser_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] subscribeNext:^(NSDictionary* dictionary) {
         if ([dictionary[@"code"] intValue]==1) {
             [SVProgressHUD showSuccessWithStatus:@"加入购物车成功"];
         }else{
@@ -513,7 +469,6 @@ UIPageViewControllerDataSource
         myself.disposable = nil;
     }];
 }
-
 - (void)addCartHistory{
     
     NSMutableDictionary *dicHistory = [NSMutableDictionary dictionaryWithDictionary:self.dicDetail];
@@ -522,17 +477,12 @@ UIPageViewControllerDataSource
     [dicHistory setObject:[self fetchStringGoodsspecpropertyId] forKey:@"historyAttribute"];
     [dicHistory setObject:[self fetchStringGoodsspecpropertyValueAndName] forKey:@"historyAttributeName"];
     [dicHistory setObject:self.strGood_id forKey:@"historyGood_id"];
-    [[JJDBHelper sharedInstance] saveShopCart:self.dicDetail
-                                 andIntBuyNum:TransformNSInteger(self.intBuyNum)
-                          andhistoryAttribute:[self fetchStringGoodsspecpropertyId]
-                      andhistoryAttributeName:[self fetchStringGoodsspecpropertyValueAndName]
-                            andhistoryGood_id:self.strGood_id
-                              andhistoryPrice:self.strGoodPrice];
+    [[JJDBHelper sharedInstance] saveShopCart:self.dicDetail andIntBuyNum:TransformNSInteger(self.intBuyNum) andhistoryAttribute:[self fetchStringGoodsspecpropertyId] andhistoryAttributeName:[self fetchStringGoodsspecpropertyValueAndName] andhistoryGood_id:self.strGood_id andhistoryPrice:self.strGoodPrice];
 }
 #pragma mark --UICollectionViewDelegate
 //定义展示的UICollectionViewCell的个数
--(NSInteger)collectionView:(UICollectionView *)collectionView
-    numberOfItemsInSection:(NSInteger)section{
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     
     if (section<self.arrSelectType.count){
         NSArray *arrClasss = [NSArray arrayWithArray:self.arrSelectType[section][@"items"]];
@@ -540,19 +490,20 @@ UIPageViewControllerDataSource
     }else{
         return 1;
     }
+    
 }
 //定义展示的Section的个数
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return self.arrSelectType.count+1;
 }
 //每个UICollectionView展示的内容
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                 cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     
     if (indexPath.section<self.arrSelectType.count) {
         static NSString *identifier = @"CLCellGoodProperty";
-        CLCellGoodProperty *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier
-                                                                             forIndexPath:indexPath];
+        CLCellGoodProperty *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
         NSArray *arrClasss = [NSArray arrayWithArray:self.arrSelectType[indexPath.section][@"items"]];
         [cell populateData:arrClasss[indexPath.row]];
         return cell;
@@ -575,18 +526,15 @@ UIPageViewControllerDataSource
     [cell.lblNum setTextNull:StringFormat(@"%d",self.intBuyNum)];
     return cell;
 }
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
-           viewForSupplementaryElementOfKind:(NSString *)kind
-                                 atIndexPath:(NSIndexPath *)indexPath{
+{
     
     UICollectionReusableView *reusableview = nil;
     if (indexPath.section<self.arrSelectType.count) {
         if (kind == UICollectionElementKindSectionHeader){
             
-            ReusableViewProperty *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                                                                                  withReuseIdentifier:@"ReusableViewProperty"
-                                                                                         forIndexPath:indexPath];
+            ReusableViewProperty *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableViewProperty" forIndexPath:indexPath];
             [headerView setBackgroundColor:[UIColor whiteColor]];
             UILabel *lblHead = (UILabel *)[headerView viewWithTag:100];
             UILabel *lblLine = (UILabel *)[headerView viewWithTag:101];
@@ -599,12 +547,11 @@ UIPageViewControllerDataSource
             [lblHead setText:TransformString(self.arrSelectType[indexPath.section][@"name"])];
             [headerView addSubview:lblHead];
             reusableview = headerView;
+            
         }
     }else{
         if (kind == UICollectionElementKindSectionHeader){
-            ReusableViewProperty *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                                                                                  withReuseIdentifier:@"ReusableViewProperty"
-                                                                                         forIndexPath:indexPath];
+            ReusableViewProperty *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableViewProperty" forIndexPath:indexPath];
             [headerView setBackgroundColor:[UIColor whiteColor]];
             UILabel *lblHead = (UILabel *)[headerView viewWithTag:100];
             UILabel *lblLine = (UILabel *)[headerView viewWithTag:101];
@@ -617,12 +564,13 @@ UIPageViewControllerDataSource
             [headerView addSubview:lblLine];
             reusableview = headerView;
         }
-    }return reusableview;
+    }
+    return reusableview;
+    
+    
+    
 }
-
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout*)collectionViewLayout
-referenceSizeForHeaderInSection:(NSInteger)section{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     
     if (section<self.arrSelectType.count) {
         return CGSizeMake(SCREEN_WIDTH, 30);
@@ -632,9 +580,8 @@ referenceSizeForHeaderInSection:(NSInteger)section{
 }
 #pragma mark --UICollectionViewDelegateFlowLayout
 //定义每个UICollectionView 的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout*)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section < self.arrSelectType.count) {
         CGFloat fWithd = 60;
         return CGSizeMake(fWithd,40);
@@ -643,22 +590,17 @@ referenceSizeForHeaderInSection:(NSInteger)section{
     }
 }
 //定义每个UICollectionView 的 margin
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView
-                       layout:(UICollectionViewLayout *)collectionViewLayout
-       insetForSectionAtIndex:(NSInteger)section{
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
     
-    return UIEdgeInsetsMake(0,
-                            10,
-                            10,
-                            10);
+    return UIEdgeInsetsMake(0, 10, 10, 10);
 }
 #pragma mark --UICollectionViewDelegate
 //UICollectionView被选中时调用的方法
--(void)collectionView:(UICollectionView *)collectionView
-didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     [self didSelectedItemAtIndexPath:indexPath];
 }
-
 - (void)didSelectedItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section<self.arrSelectType.count) {
         NSMutableArray *array = [NSMutableArray arrayWithArray:self.arrSelectType[indexPath.section][@"items"]];
@@ -691,7 +633,6 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
         [self requestNum];
     }
 }
-
 - (BOOL)isSelectedAll{
     BOOL selectedAll = YES;
     for (int i = 0; i<self.arrSelectType.count; i++) {
@@ -708,37 +649,32 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
                 return NO;
             }
         }
-    }return selectedAll;
+    }
+    return selectedAll;
 }
-
 - (void)requestNum{
     if ([self isSelectedAll] && self.arrSelectType.count>0) {
         NSString *strGoodsspecpropertyId = [self fetchStringGoodsspecpropertyId];
         D_NSLog(@"已全部选择完毕，可以请求库存%@",strGoodsspecpropertyId);
-        @weakify(self)
-        [self.disposableGoodNum dispose];
-        self.disposableGoodNum = [[[JJHttpClient new] requestShopGoodGoodNumGoodsspecpropertyId:strGoodsspecpropertyId
-                                                                                       andGoodsId:[NSString stringStandard:self.strGood_id]]
-                                    subscribeNext:^(NSDictionary* dictionary) {
-            @strongify(self)
+        __weak GoodDetialAllController *myself = self;
+        [myself.disposableGoodNum dispose];
+        myself.disposableGoodNum = [[[JJHttpClient new] requestShopGoodGoodNumGoodsspecpropertyId:strGoodsspecpropertyId andGoodsId:[NSString stringStandard:self.strGood_id]] subscribeNext:^(NSDictionary* dictionary) {
             D_NSLog(@"msg is %@",dictionary[@"msg"]);
-            self.strGoodPrice = dictionary[@"store_price"];
-            self.strGoodNum = dictionary[@"goods_inventory"];
-            [self.lblPrice setTextNull:StringFormat(@"￥%@",[NSString stringStandardFloatTwo:self.strGoodPrice])];
-            [self.collectionSelectType reloadData];
+            myself.strGoodPrice = dictionary[@"store_price"];
+            myself.strGoodNum = dictionary[@"goods_inventory"];
+            [myself.lblPrice setTextNull:StringFormat(@"￥%@",[NSString stringStandardFloatTwo:myself.strGoodPrice])];
+            [myself.collectionSelectType reloadData];
         }error:^(NSError *error) {
-            @strongify(self)
-            [self failedRequestException:enum_exception_timeout];
-            self.disposableGoodNum = nil;
+            [myself failedRequestException:enum_exception_timeout];
+            myself.disposableGoodNum = nil;
         }completed:^{
-            @strongify(self)
-            self.disposableGoodNum = nil;
+            myself.disposableGoodNum = nil;
         }];
+        
     }else{
         D_NSLog(@"未全部选择完毕，不需请求库存");
     }
 }
-
 - (NSString *)fetchStringGoodsspecpropertyId{
     NSString *strAttribut = @"";
     for (int i = 0; i<self.arrSelectType.count; i++) {
@@ -751,9 +687,9 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
                 }
             }
         }
-    }return strAttribut;
+    }
+    return strAttribut;
 }
-
 - (NSString *)fetchStringGoodsspecpropertyValueAndName{
     NSString *strAttribut = @"";
     for (int i = 0; i<self.arrSelectType.count; i++) {
@@ -770,9 +706,9 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
                 }
             }
         }
-    }return strAttribut;
+    }
+    return strAttribut;
 }
-
 - (IBAction)clickButtonShare:(UIButton *)sender {
     
     UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
@@ -824,7 +760,6 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 //        }];
 //    }
 }
-
 - (IBAction)clickButtonLianximaijia:(UIButton *)sender {
     NSString *strPhone = self.dicDetail[@"goods"][@"store_telephone"];
     if ([NSString isNullString:strPhone]) {
@@ -843,20 +778,26 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     controller.strGoods_store_id = self.dicDetail[@"goods"][@"goods_store_id"];
     [self.navigationController pushViewController:controller animated:YES];
 }
-
 - (IBAction)clickButtonGuanzhu:(UIButton *)sender {
     [sender setSelected:!sender.selected];
 }
-
 - (IBAction)clickButtonGouwuche:(UIButton *)sender {
     self.goodCartOrOrder = GoodCart;
     [self initCreateOrder];
 }
-
 - (IBAction)clickButtonBuy:(UIButton *)sender {
     self.goodCartOrOrder = GoodOrder;
     [self initCreateOrder];
 }
 
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

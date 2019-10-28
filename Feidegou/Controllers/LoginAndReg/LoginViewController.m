@@ -13,7 +13,6 @@
 #import "UITextFieldPassWord.h"
 
 @interface LoginViewController ()
-
 @property (weak, nonatomic) IBOutlet UITextField *txtUserName;
 @property (weak, nonatomic) IBOutlet UITextFieldPassWord *txtPsw;
 @property (weak, nonatomic) IBOutlet UIButton *btnLogin;
@@ -28,23 +27,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 - (void)locationControls{
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    [self.btnRegister setTitleColor:ColorGary
-                           forState:UIControlStateNormal];
-    [self.btnForgetPsw setTitleColor:ColorGary
-                            forState:UIControlStateNormal];
-    [self.btnLogin setTitleColor:ColorGary
-                        forState:UIControlStateNormal];
+    [self.btnRegister setTitleColor:ColorGary forState:UIControlStateNormal];
+    [self.btnForgetPsw setTitleColor:ColorGary forState:UIControlStateNormal];
+    [self.btnLogin setTitleColor:ColorGary forState:UIControlStateNormal];
     [self.btnLogin setBackgroundColor:ColorGaryButtom];
     [self.txtUserName setClearButtonMode:UITextFieldViewModeWhileEditing];
-    [self.txtUserName addTarget:self
-                         action:@selector(textFiledDidChanged:)
-               forControlEvents:UIControlEventEditingChanged];
-    [self.txtPsw addTarget:self
-                    action:@selector(textFiledDidChanged:)
-          forControlEvents:UIControlEventEditingChanged];
+    [self.txtUserName addTarget:self action:@selector(textFiledDidChanged:) forControlEvents:UIControlEventEditingChanged];
+    [self.txtPsw addTarget:self action:@selector(textFiledDidChanged:) forControlEvents:UIControlEventEditingChanged];
 }
 - (void)textFiledDidChanged:(UITextField *)text{
     NSString *strUserNum = self.txtUserName.text;
@@ -57,7 +48,10 @@
         [self.btnLogin setBackgroundColor:ColorGaryButtom];
     }
 }
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (IBAction)clickButtonLogin:(UIButton *)sender {
     NSString *strUserNum = self.txtUserName.text;
     NSString *strPsw = self.txtPsw.text;
@@ -73,52 +67,50 @@
         [SVProgressHUD showErrorWithStatus:@"请输入密码"];
         return;
     }
-    if (strPsw.length < 6) {
+    if (strPsw.length<6) {
         [SVProgressHUD showErrorWithStatus:@"请输入正确的密码"];
         return;
     }
     [self.view endEditing:YES];
     [SVProgressHUD showWithStatus:@"正在登录..."];
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestLoginUSERNAME:strUserNum
-                                                    andPASSWORD:strPsw
-                                                andIsChangedPsw:NO]
-                       subscribeNext:^(ModelLogin*model) {
-        @strongify(self)
+    __weak LoginViewController *myself = self;
+    self.disposable = [[[JJHttpClient new] requestLoginUSERNAME:strUserNum andPASSWORD:strPsw andIsChangedPsw:NO] subscribeNext:^(ModelLogin*model) {
         if (model) {
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             [appDelegate setAlias];
             [SVProgressHUD showSuccessWithStatus:@"登录成功"];
-            [self.navigationController popViewControllerAnimated:YES];
+            [myself.navigationController popViewControllerAnimated:YES];
         }
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
     }];
-}
 
+}
 - (IBAction)clickButtonReg:(UIButton *)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister
-                                                         bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
     RegisterViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
-    [self.navigationController pushViewController:controller
-                                         animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
-
 - (IBAction)clickButtonForgetPsw:(UIButton *)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
     RegisterViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
     controller.isForgetPsw = YES;
     [self.navigationController pushViewController:controller animated:YES];
 }
-
 //- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
 //    [self.view endEditing:YES];
 //}
+/*
+#pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

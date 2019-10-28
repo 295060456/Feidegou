@@ -11,9 +11,7 @@
 @interface JJHttpClient (TwoZero)
 
 //修改昵称
--(RACSignal *)requestLeftNickname:(NSString *)nickname
-                       andUserid:(NSString *)userid;
+-(RACSignal*)requestLeftNickname:(NSString *)nickname andUserid:(NSString *)userid;
 //修改头像
--(RACSignal *)requestHeadImageHead:(NSData *)data
-                        andUserid:(NSString *)user_id;
+-(RACSignal*)requestHeadImageHead:(NSData *)data andUserid:(NSString *)user_id;
 @end

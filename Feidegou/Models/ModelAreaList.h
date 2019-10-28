@@ -12,38 +12,37 @@
 /**
  *
  */
-@property (nonatomic,copy) NSString *count;
+@property (nonatomic,strong) NSString *count;
 /**
  *
  */
-@property (nonatomic,copy) NSString *ig_goods_name;
+@property (nonatomic,strong) NSString *ig_goods_name;
 /**
  *
  */
-@property (nonatomic,copy) NSString *igo_status;
+@property (nonatomic,strong) NSString *igo_status;
 /**
  *
  */
-@property (nonatomic,copy) NSString *integral;
+@property (nonatomic,strong) NSString *integral;
 /**
  *
  */
-@property (nonatomic,copy) NSString *orderId;
+@property (nonatomic,strong) NSString *orderId;
 /**
  *
  */
-@property (nonatomic,copy) NSString *path;
+@property (nonatomic,strong) NSString *path;
 /**
  *
  */
-@property (nonatomic,copy) NSString *ship_code;
+@property (nonatomic,strong) NSString *ship_code;
 /**
  *
  */
-@property (nonatomic,copy) NSString *ship_name;
+@property (nonatomic,strong) NSString *ship_name;
 /**
  *
  */
-@property (nonatomic,copy) NSString *igo_ship_code;
-
+@property (nonatomic,strong) NSString *igo_ship_code;
 @end

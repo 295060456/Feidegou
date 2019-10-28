@@ -12,14 +12,15 @@
 #import "LocationManager.h"
 #import "VendorDetailShopController.h"
 
-@interface VendorMainShopController ()
-<RefreshControlDelegate>
-
+@interface VendorMainShopController ()<RefreshControlDelegate>
 @property (weak, nonatomic) IBOutlet BaseTableView *tabVendor;
+
 @property (nonatomic,strong) RefreshControl *refreshControl;
 @property (strong, nonatomic) NSMutableArray *arrVendor;
+
 @property (nonatomic,assign) int intPageIndex;
-@property (nonatomic,assign) NSInteger curCount;//当前页数数量
+//当前页数数量
+@property (nonatomic,assign) NSInteger curCount;
 
 @end
 
@@ -33,36 +34,28 @@
     [[LocationManager sharedInstance] updateLocation];
     // Do any additional setup after loading the view.
 }
-
 - (void)requestExchangeList{
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestShopGoodVendorNearByLimit:@"10"
-                                                                      andPage:TransformNSInteger(self.intPageIndex)
-                                                                       andlat:[[LocationManager sharedInstance] fetchLocationLatitude]
-                                                                       andlng:[[LocationManager sharedInstance] fetchLocationLongitude] andkey:@""]
-                         subscribeNext:^(NSArray* array) {
-        @strongify(self)
-        if (self.intPageIndex == 1) {
-            self.arrVendor = [NSMutableArray array];
+    __weak VendorMainShopController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestShopGoodVendorNearByLimit:@"10" andPage:TransformNSInteger(self.intPageIndex) andlat:[[LocationManager sharedInstance] fetchLocationLatitude] andlng:[[LocationManager sharedInstance] fetchLocationLongitude] andkey:@""] subscribeNext:^(NSArray* array) {
+        if (myself.intPageIndex == 1) {
+            myself.arrVendor = [NSMutableArray array];
         }
-        [self.arrVendor addObjectsFromArray:array];
-        [self.tabVendor reloadData];
+        [myself.arrVendor addObjectsFromArray:array];
+        [myself.tabVendor reloadData];
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
-        [self.refreshControl endRefreshing];
+        myself.disposable = nil;
+        [myself.refreshControl endRefreshing];
 //        if (error.code!=2) {
 //            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
 //        }else{
 //            myself.curCount = 0;
 //        }
-        [self.tabVendor checkNoData:self.arrVendor.count];
+        [myself.tabVendor checkNoData:myself.arrVendor.count];
     }completed:^{
-        @strongify(self)
-        self.intPageIndex++;
-        [self.refreshControl endRefreshing];
-        self.disposable = nil;
-        [self.tabVendor checkNoData:self.arrVendor.count];
+        myself.intPageIndex++;
+        [myself.refreshControl endRefreshing];
+        myself.disposable = nil;
+        [myself.tabVendor checkNoData:myself.arrVendor.count];
     }];
     
 }
@@ -81,28 +74,33 @@
 -(BOOL)refreshControlEnableLoadMore{
     return NO;
 }
-
-#pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.arrVendor.count;
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
+#pragma mark---tableviewdelegate---
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.arrVendor.count;
+}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 90.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
     CellVendorShop *cell=[tableView dequeueReusableCellWithIdentifier:@"CellVendorShop"];
     [cell populataData:self.arrVendor[indexPath.row]];
     return cell;
 }
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self.navigationItem.titleView endEditing:YES];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardVendorDetail bundle:nil];
@@ -112,5 +110,14 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

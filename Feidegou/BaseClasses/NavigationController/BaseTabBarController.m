@@ -22,16 +22,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.tabBar.backgroundColor = [UIColor whiteColor];
-    [self dropShadowWithOffset:CGSizeMake(5.0, 5.0)
-                        radius:10.0 color:ColorBlack
-                       opacity:0.5];
+    [self dropShadowWithOffset:CGSizeMake(5.0, 5.0) radius:10.0 color:ColorBlack opacity:0.5];
     //设置tabbar字体颜色
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_DEFAULT,
-                                                       NSForegroundColorAttributeName, nil]
-                                             forState:UIControlStateNormal];
-    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_SELECT,
-                                                       NSForegroundColorAttributeName, nil]
-                                             forState:UIControlStateSelected];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_DEFAULT,                                                                                                              NSForegroundColorAttributeName, nil] forState:UIControlStateNormal];
+    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:COLOR_SELECT,                                                                                                              NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
     
     //首页
     UIViewController *controller_ShopMain = [self controllerWithStoryboardName:StoryboardShopMain
@@ -84,27 +78,32 @@
  *
  *  @return UIViewController
  */
--(UIViewController *)controllerWithStoryboardName:(NSString *)name
-                                            title:(NSString *)title
-                                  normalImageName:(NSString *)normalImageName
-                                       identifier:(NSString *)identifier
-                                selectedImageName:(NSString *)selectedImageName{
+-(UIViewController*)controllerWithStoryboardName:(NSString*)name
+                                           title:(NSString*)title
+                                 normalImageName:(NSString*)normalImageName
+                                      identifier:(NSString*)identifier
+                               selectedImageName:(NSString*)selectedImageName
+{
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:name bundle:nil];
+    UIStoryboard *storyboard            = [UIStoryboard storyboardWithName:name bundle:nil];
     
     UIViewController *controller;
     if (identifier) {
-        controller = [storyboard instantiateViewControllerWithIdentifier:identifier];
+        controller        = [storyboard instantiateViewControllerWithIdentifier:identifier];
     }else{
-        controller = [storyboard instantiateInitialViewController];
+        controller        = [storyboard instantiateInitialViewController];
+        
     }
     
-    controller.tabBarItem.title = title;
-    controller.tabBarItem.image = [[UIImage imageNamed:normalImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    controller.tabBarItem.title         = title;
+    controller.tabBarItem.image         = [[UIImage imageNamed:normalImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     controller.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImageName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     return controller;
 }
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (void)dropShadowWithOffset:(CGSize)offset
                       radius:(CGFloat)radius
                        color:(UIColor *)color
@@ -125,6 +124,14 @@
     // Default clipsToBounds is YES, will clip off the shadow, so we disable it.
     self.tabBar.clipsToBounds = NO;
 }
+/*
+#pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

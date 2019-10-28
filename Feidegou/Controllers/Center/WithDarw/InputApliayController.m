@@ -11,7 +11,6 @@
 #import "JJHttpClient+FourZero.h"
 
 @interface InputApliayController ()
-
 @property (weak, nonatomic) IBOutlet UITextField *txtApliyAccount;
 @property (weak, nonatomic) IBOutlet UITextField *txtApliyName;
 @property (weak, nonatomic) IBOutlet UILabel *lblTip;
@@ -31,6 +30,10 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (IBAction)clickButtonCommit:(UIButton *)sender {
     NSString *strName = self.txtApliyName.text;
     if ([NSString isNullString:strName]) {
@@ -42,34 +45,39 @@
         [SVProgressHUD showErrorWithStatus:@"请输入支付宝账号"];
         return;
     }
+    
     [self.view endEditing:YES];
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestFourZeroChangeAlipy:strAccount andalipayName:strName] subscribeNext:^(NSDictionary *dictionry) {
-        @strongify(self)
-        if ([dictionry[@"code"] intValue] == 1) {
+    __weak InputApliayController *myself = self;
+    self.disposable = [[[JJHttpClient new] requestFourZeroChangeAlipy:strAccount andalipayName:strName] subscribeNext:^(NSDictionary*dictionry) {
+        if ([dictionry[@"code"] intValue]==1) {
             [SVProgressHUD dismiss];
-            self.model.alipayName = strName;
-            self.model.alipay = strAccount;
+            myself.model.alipayName = strName;
+            myself.model.alipay = strAccount;
             [[JJDBHelper sharedInstance] saveCenterMsg:self.model];
-            [self.navigationController popViewControllerAnimated:YES];
+            [myself.navigationController popViewControllerAnimated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:dictionry[@"msg"]];
         }
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
     }];
+    
 }
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches
-           withEvent:(UIEvent *)event{
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
+/*
+#pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

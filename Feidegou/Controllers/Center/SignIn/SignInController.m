@@ -22,19 +22,15 @@
 #import "AreaExchangeListController.h"
 #import "SiginShowAdverController.h"
 
-@interface SignInController ()
-<
-FDAlertViewDelegate,
-RefreshControlDelegate
->
-
+@interface SignInController ()<FDAlertViewDelegate,RefreshControlDelegate>
 @property (weak, nonatomic) IBOutlet BaseTableView *tabSignIn;
 @property (nonatomic,strong) NSMutableArray *arrSignIn;
 @property (weak, nonatomic) IBOutlet UIButton *btnSignIn;
 @property (nonatomic,assign) BOOL share;
 @property (nonatomic,strong) NSDictionary *dicShare;
-@property (nonatomic,strong) RefreshControl *refreshControl;
 
+
+@property (nonatomic,strong) RefreshControl *refreshControl;
 @end
 
 @implementation SignInController
@@ -66,26 +62,23 @@ RefreshControlDelegate
 
 }
 - (void)requestExchangeList{
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestShopGoodSignIn] subscribeNext:^(NSDictionary* dictionary) {
-        @strongify(self)
-        self.share = [dictionary[@"share"] boolValue];
-        [self refrehsButton];
+    __weak SignInController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestShopGoodSignIn] subscribeNext:^(NSDictionary* dictionary) {
+        myself.share = [dictionary[@"share"] boolValue];
+        [myself refrehsButton];
         if ([dictionary[@"signGoods"] isKindOfClass:[NSArray class]]) {
-            self.arrSignIn = [NSMutableArray arrayWithArray:dictionary[@"signGoods"]];
+            myself.arrSignIn = [NSMutableArray arrayWithArray:dictionary[@"signGoods"]];
         }
     }error:^(NSError *error) {
-        @strongify(self)
-        [self.refreshControl endRefreshing];
-        [self.tabSignIn reloadData];
-        [self.tabSignIn checkNoData:self.arrSignIn.count];
-        self.disposable = nil;
+        [myself.refreshControl endRefreshing];
+        [myself.tabSignIn reloadData];
+        [myself.tabSignIn checkNoData:myself.arrSignIn.count];
+        myself.disposable = nil;
     }completed:^{
-        @strongify(self)
-        [self.refreshControl endRefreshing];
-        [self.tabSignIn reloadData];
-        [self.tabSignIn checkNoData:self.arrSignIn.count];
-        self.disposable = nil;
+        [myself.refreshControl endRefreshing];
+        [myself.tabSignIn reloadData];
+        [myself.tabSignIn checkNoData:myself.arrSignIn.count];
+        myself.disposable = nil;
     }];
 }
 #pragma mark - RefreshControlDelegate
@@ -95,30 +88,26 @@ RefreshControlDelegate
         [self requestExchangeList];
     }
 }
-
 -(BOOL)refreshControlEnableLoadMore{
     return NO;
 }
-
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return self.arrSignIn.count;
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 130.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    @weakify(self)
-    CellSignIn *cell = [tableView dequeueReusableCellWithIdentifier:@"CellSignIn"];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    CellSignIn *cell=[tableView dequeueReusableCellWithIdentifier:@"CellSignIn"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     [cell.imgGood setImagePathListSquare:self.arrSignIn[indexPath.row][@"path"]];
     [cell.lblTitle setTextNull:self.arrSignIn[indexPath.row][@"goods_name"]];
@@ -129,41 +118,35 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }else{
         [cell.viBtn setBackgroundColor:ColorRed];
         [cell.btnSign setTitle:@"签到" forState:UIControlStateNormal];
-        
         [cell.btnSign handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-            @strongify(self)
             [self requestSignIn:indexPath.row];
         }];
     }
+    
     [cell.lblLeftUp setText:StringFormat(@"%@/天",self.arrSignIn[indexPath.row][@"signed_day"])];
     [cell.lblMiddleUp setText:StringFormat(@"%d/天",[self.arrSignIn[indexPath.row][@"sign_day"] intValue]-[self.arrSignIn[indexPath.row][@"signed_day"] intValue])];
     [cell.lblRightUp setTextNull:self.arrSignIn[indexPath.row][@"signed_money"]];
     return cell;
 }
-
 - (void)requestSignIn:(NSInteger)intRow{
     [SVProgressHUD showWithStatus:@"正在请求数据..."];
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestFourZeroSignInGoodId:self.arrSignIn[intRow][@"id"]] subscribeNext:^(NSDictionary* dictionary) {
-        @strongify(self)
-        if ([dictionary[@"code"] intValue] == 1) {
-            self.share = YES;
-            [self refrehsButton];
+    __weak SignInController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestFourZeroSignInGoodId:self.arrSignIn[intRow][@"id"]] subscribeNext:^(NSDictionary* dictionary) {
+        if ([dictionary[@"code"] intValue]==1) {
+            myself.share = YES;
+            [myself refrehsButton];
             
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMine
-                                                                 bundle:nil];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMine bundle:nil];
             SiginShowAdverController *controller = [storyboard instantiateViewControllerWithIdentifier:@"SiginShowAdverController"];
             controller.dicShare = [NSDictionary dictionaryWithDictionary:dictionary];
-            [self.navigationController pushViewController:controller
-                                                 animated:YES];
+            [self.navigationController pushViewController:controller animated:YES];
 
+            
             NSMutableDictionary  *dicInfo = [NSMutableDictionary dictionaryWithDictionary:self.arrSignIn[intRow]];
-            [dicInfo setObject:StringFormat(@"%d",[dicInfo[@"signed_day"] intValue]+1)
-                        forKey:@"signed_day"];
-            [dicInfo setObject:StringFormat(@"%.2f",[dicInfo[@"signed_money"] doubleValue]+[dictionary[@"money"] doubleValue])
-                        forKey:@"signed_money"];
-            [self.arrSignIn replaceObjectAtIndex:intRow withObject:dicInfo];
-            [self.tabSignIn reloadData];
+            [dicInfo setObject:StringFormat(@"%d",[dicInfo[@"signed_day"] intValue]+1) forKey:@"signed_day"];
+            [dicInfo setObject:StringFormat(@"%.2f",[dicInfo[@"signed_money"] doubleValue]+[dictionary[@"money"] doubleValue]) forKey:@"signed_money"];
+            [myself.arrSignIn replaceObjectAtIndex:intRow withObject:dicInfo];
+            [myself.tabSignIn reloadData];
             
 //            myself.dicShare = [NSDictionary dictionaryWithDictionary:dictionary];
 //            [myself showSignTip];
@@ -172,21 +155,18 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];
         }
     }error:^(NSError *error) {
-        @strongify(self)
-        [self.refreshControl endRefreshing];
-        [self.tabSignIn reloadData];
+        [myself.refreshControl endRefreshing];
+        [myself.tabSignIn reloadData];
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-        [self.tabSignIn checkNoData:self.arrSignIn.count];
-        self.disposable = nil;
+        [myself.tabSignIn checkNoData:myself.arrSignIn.count];
+        myself.disposable = nil;
     }completed:^{
-        @strongify(self)
-        [self.refreshControl endRefreshing];
-        [self.tabSignIn reloadData];
-        [self.tabSignIn checkNoData:self.arrSignIn.count];
-        self.disposable = nil;
+        [myself.refreshControl endRefreshing];
+        [myself.tabSignIn reloadData];
+        [myself.tabSignIn checkNoData:myself.arrSignIn.count];
+        myself.disposable = nil;
     }];
 }
-
 - (void)showSignTip{
     FDAlertView *alert = [[FDAlertView alloc] init];
     SignInTip *contentView = [[NSBundle mainBundle] loadNibNamed:@"SignInTip" owner:nil options:nil].lastObject;
@@ -197,18 +177,19 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     alert.contentView = contentView;
     [alert show];
 }
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
-
 - (void)alertView:(FDAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
         [self didClickDelegeteCollectionViewMainTypeDictionary];
     }
 }
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (IBAction)clickButtonSignIn:(UIButton *)sender {
     if (!self.share) {
         return;
@@ -217,7 +198,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     AchievementController *controller = [storyboard instantiateViewControllerWithIdentifier:@"AchievementController"];
     [self.navigationController pushViewController:controller animated:YES];
 }
-
 - (void)didClickDelegeteCollectionViewMainTypeDictionary{
     //    <option value="1">专题</option>
     //    <option value="2">分类</option>
@@ -284,6 +264,17 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 //            
 //        }];
     }
+    
+    
 }
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

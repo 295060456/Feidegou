@@ -11,8 +11,7 @@
 @implementation NSSet (HYBUnicodeReadable)
 
 #if DEBUG
-- (NSString *)descriptionWithLocale:(id)locale
-                             indent:(NSUInteger)level {
+- (NSString *)descriptionWithLocale:(id)locale indent:(NSUInteger)level {
   NSMutableString *desc = [NSMutableString string];
   
   NSMutableString *tabString = [[NSMutableString alloc] initWithCapacity:level];

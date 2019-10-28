@@ -16,31 +16,36 @@
  * @param controlEvent 事件类型
  * @param action action block
  */
-- (void) handleControlEvent:(UIControlEvents)controlEvent
-                  withBlock:(ActionBlock)action;
+- (void) handleControlEvent:(UIControlEvents)controlEvent withBlock:(ActionBlock)action;
 
+#pragma mark -
 #pragma mark - UIButton title
 -(void)setNormalTitle:(NSString*)title;
 -(void)sethighlightedTitle:(NSString*)title;
 -(void)setSelectedTitle:(NSString*)title;
 -(void)setDisabledTitle:(NSString*)title;
 
+#pragma mark -
 #pragma mark - UIButton title color
 -(void)setNormalTitleColor:(UIColor*)color;
 -(void)sethighlightedTitleColor:(UIColor*)color;
 -(void)setSelectedTitleColor:(UIColor*)color;
 -(void)setDisabledTitleColor:(UIColor*)color;
 
+#pragma mark -
 #pragma mark - UIButton background iamge
 -(void)setNormalBackgroundImage:(UIImage*)image;
 -(void)sethighlightedBackgroundImage:(UIImage*)image;
 -(void)setSelectedBackgroundImage:(UIImage*)image;
 -(void)setDisabledBackgroundImage:(UIImage*)image;
 
+#pragma mark -
 #pragma mark - UIButton image
 - (void)setNormalImage:(UIImage *)image;
 - (void)setHightlightedImage:(UIImage *)image;
 - (void)setSelectedImage:(UIImage *)image;
 - (void)setDisabledImage:(UIImage *)image;
+
+
 
 @end

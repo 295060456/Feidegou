@@ -20,16 +20,32 @@ static const int JPDefaultColumsCount = 3;
 @property (nonatomic, strong) NSMutableArray *columnMaxYs;
 /** 存放所有cell的布局属性 */
 @property (nonatomic, strong) NSMutableArray *attrsArray;
-
 @end
-
 @implementation JJWaterflowLayout
+
+#pragma mark - 懒加载
+- (NSMutableArray *)columnMaxYs
+{
+    if (!_columnMaxYs) {
+        _columnMaxYs = [[NSMutableArray alloc] init];
+    }
+    return _columnMaxYs;
+}
+
+- (NSMutableArray *)attrsArray
+{
+    if (!_attrsArray) {
+        _attrsArray = [[NSMutableArray alloc] init];
+    }
+    return _attrsArray;
+}
 
 #pragma mark - 实现内部的方法
 /**
  * 决定了collectionView的contentSize
  */
-- (CGSize)collectionViewContentSize{
+- (CGSize)collectionViewContentSize
+{
     // 找出最长那一列的最大Y值
     CGFloat destMaxY = [self.columnMaxYs[0] doubleValue];
     for (NSUInteger i = 1; i<self.columnMaxYs.count; i++) {
@@ -44,7 +60,8 @@ static const int JPDefaultColumsCount = 3;
     return CGSizeMake(0, destMaxY + JPDefaultInsets.bottom);
 }
 
-- (void)prepareLayout{
+- (void)prepareLayout
+{
     [super prepareLayout];
     
     // 重置每一列的最大Y值
@@ -62,17 +79,20 @@ static const int JPDefaultColumsCount = 3;
         [self.attrsArray addObject:attrs];
     }
 }
+
 /**
  * 说明所有元素（比如cell、补充控件、装饰控件）的布局属性
  */
-- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect{
+- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
+{
     return self.attrsArray;
 }
 
 /**
  * 说明cell的布局属性
  */
-- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     UICollectionViewLayoutAttributes *attrs = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
     CGFloat w;
     CGFloat h;
@@ -106,17 +126,4 @@ static const int JPDefaultColumsCount = 3;
     attrs.frame = CGRectMake(x, y, w, h);
     return attrs;
 }
-#pragma mark - 懒加载
-- (NSMutableArray *)columnMaxYs{
-    if (!_columnMaxYs) {
-        _columnMaxYs = NSMutableArray.array;
-    }return _columnMaxYs;
-}
-
-- (NSMutableArray *)attrsArray{
-    if (!_attrsArray) {
-        _attrsArray = NSMutableArray.array;
-    }return _attrsArray;
-}
-
 @end

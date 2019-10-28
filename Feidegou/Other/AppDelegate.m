@@ -28,19 +28,18 @@
 // 如果需要使用idfa功能所需要引入的头文件（可选）
 #import <AdSupport/AdSupport.h>
 
+
+
 #import "LocationManager.h"
 BMKMapManager* _mapManager;
 
-@interface AppDelegate ()
-<
-WXApiDelegate,
-BMKGeneralDelegate,
-JPUSHRegisterDelegate
->
+@interface AppDelegate ()<WXApiDelegate,BMKGeneralDelegate,JPUSHRegisterDelegate>
 
 @end
 
 @implementation AppDelegate
+
+
 
 static NSInteger seq = 0;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -71,30 +70,25 @@ static NSInteger seq = 0;
     // Override point for customization after application launch.
     return YES;
 }
-
 - (void)loginAgin{
+    
     if (![[PersonalInfo sharedInstance] isLogined]) {
         return;
     }
     ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-    @weakify(self)
-    self.disposableLogin = [[[JJHttpClient new] requestLoginUSERNAME:modelLogin.userName
-                                                         andPASSWORD:modelLogin.password
-                                                     andIsChangedPsw:YES]
-                            subscribeNext:^(ModelLogin*model) {
+    self.disposableLogin = [[[JJHttpClient new] requestLoginUSERNAME:modelLogin.userName andPASSWORD:modelLogin.password andIsChangedPsw:YES] subscribeNext:^(ModelLogin*model) {
         
     }error:^(NSError *error) {
-        @strongify(self)
         self.disposableLogin = nil;
     }completed:^{
-        @strongify(self)
         self.disposableLogin = nil;
     }];
 }
 
+
 - (void)requestAdverMain{
     NSArray *arrImage = [[JJDBHelper sharedInstance] fetchCacheForAdvertisementStart];
-    if (arrImage.count > 0) {
+    if (arrImage.count>0) {
         NSString *strPath = arrImage[0][@"photo_url"];
         UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:strPath];
         if (image == nil) {
@@ -102,8 +96,11 @@ static NSInteger seq = 0;
             [self downloadImage:strPath];
         }else{
             //            显示广告照片
+            
             [self downloadImage:strPath];
+            
             CATransition *transition = [CATransition animation];
+            
             transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
             transition.duration = 1.5f;
             transition.type = @"rippleEffect";
@@ -114,21 +111,19 @@ static NSInteger seq = 0;
             controller.image = image;
             controller.strUrl = arrImage[0][@"ad_url"];
             self.window.rootViewController = controller;
+            
         }
     }else{
         [self setEntryByIsLogined];
     }
-    @weakify(self)
     self.disposableAdver = [[[JJHttpClient new] requestAdverStart] subscribeNext:^(NSArray* array) {
-        @strongify(self)
-        if (array.count > 0) {
+        if (array.count>0) {
             [self downloadImage:array[0][@"photo_url"]];
         }
+        
     }error:^(NSError *error) {
-        @strongify(self)
         self.disposableAdver = nil;
     }completed:^{
-        @strongify(self)
         self.disposableAdver = nil;
     }];
 }
@@ -181,8 +176,7 @@ static NSInteger seq = 0;
 - (void)shareWeixin{
     [ShareSDK registPlatforms:^(SSDKRegister *platformsRegister) {
         //微信
-//        [platformsRegister setupWeChatWithAppId:@"wx7d314006a5998a80"
-//                                      appSecret:@"36f4c00f85dfeef68df209402ff9c726"];
+//        [platformsRegister setupWeChatWithAppId:@"wx7d314006a5998a80" appSecret:@"36f4c00f85dfeef68df209402ff9c726"];
         
     }];
 //    [ShareSDK registerActivePlatforms:@[
@@ -211,8 +205,7 @@ static NSInteger seq = 0;
 //         }
 //     }];
 }
-- (void)registPushapplication:(UIApplication *)application
-didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (void)registPushapplication:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     //Required
     //notice: 3.0.0及以后版本注册可以这样写，也可以继续用之前的注册方式
@@ -223,8 +216,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         // NSSet<UNNotificationCategory *> *categories for iOS10 or later
         // NSSet<UIUserNotificationCategory *> *categories for iOS8 and iOS9
     }
-    [JPUSHService registerForRemoteNotificationConfig:entity
-                                             delegate:self];
+    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
     
     // Optional
     // 获取IDFA
@@ -275,9 +267,7 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 #pragma mark- JPUSHRegisterDelegate
 
 // iOS 10 Support
-- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center
-        willPresentNotification:(UNNotification *)notification
-          withCompletionHandler:(void (^)(NSInteger))completionHandler {
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler {
     // Required
     NSDictionary * userInfo = notification.request.content.userInfo;
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
@@ -287,9 +277,7 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 }
 
 // iOS 10 Support
-- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center
- didReceiveNotificationResponse:(UNNotificationResponse *)response
-          withCompletionHandler:(void (^)(void))completionHandler {
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler {
     // Required
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
@@ -298,9 +286,7 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     completionHandler();  // 系统要求执行这个方法
 }
 
-- (void)application:(UIApplication *)application
-didReceiveRemoteNotification:(NSDictionary *)userInfo
-fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
     // Required, iOS 7 Support
     [JPUSHService handleRemoteNotification:userInfo];
@@ -312,19 +298,13 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     // Required,For systems with less than or equal to iOS6
     [JPUSHService handleRemoteNotification:userInfo];
 }
-
 - (NSInteger)seq {
     return ++ seq;
 }
-
 - (void)getAlias{
     //    获取别名，如果别名和当前登录的id不一样，则重新设置别名
     if ([[PersonalInfo sharedInstance] isLogined]){
-        @weakify(self)
-        [JPUSHService getAlias:^(NSInteger iResCode,
-                                 NSString *iAlias,
-                                 NSInteger seq) {
-            @strongify(self)
+        [JPUSHService getAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
             NSString *strUerId = TransformString([[PersonalInfo sharedInstance] fetchLoginUserInfo].userId);
             D_NSLog(@"setAlias code:%ld iAlias:%@ seq:%ld", iResCode, iAlias, seq);
             if (![TransformString(iAlias) isEqualToString:strUerId]) {
@@ -333,27 +313,20 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
         } seq:[self seq]];
     }
 }
-
 - (void)setAlias{
     if ([[PersonalInfo sharedInstance] isLogined]) {
         NSString *strUerId = TransformString([[PersonalInfo sharedInstance] fetchLoginUserInfo].userId);
-        [JPUSHService setAlias:strUerId completion:^(NSInteger iResCode,
-                                                     NSString *iAlias,
-                                                     NSInteger seq) {
+        [JPUSHService setAlias:strUerId completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
             D_NSLog(@"setAlias code:%ld iAlias:%@ seq:%ld", iResCode, iAlias, seq);
         } seq:[self seq]];
     }
 }
-
 - (void)shareSucceed{
-    @weakify(self)
     self.disposableShareSucceed = [[[JJHttpClient new] requestFourZeroShare] subscribeNext:^(NSDictionary* dictionray) {
         D_NSLog(@"分享成功 %@",dictionray[@"msg"]);
     }error:^(NSError *error) {
-        @strongify(self)
         self.disposableShareSucceed = nil;
     }completed:^{
-        @strongify(self)
         self.disposableShareSucceed = nil;
     }];
 }
@@ -389,8 +362,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
             int intStatus = [resultDic[@"resultStatus"] intValue];
             if (intStatus==9000) {
                 //                [SVProgressHUD showErrorWithStatus:@"订单支付成功"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNamePaySucceed
-                                                                    object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNamePaySucceed object:nil];
             }else if (intStatus == 8000){
                 [SVProgressHUD showErrorWithStatus:@"订单正在处理中"];
             }else if (intStatus == 4000){
@@ -408,13 +380,13 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
         if (isWXApi) {
             return [WXApi handleOpenURL:url delegate:self];
         }
-    }return YES;
+    }
+    return YES;
 }
 
 // NOTE: 9.0以后使用新API接口
-- (BOOL)application:(UIApplication *)app
-            openURL:(NSURL *)url
-            options:(NSDictionary<NSString*, id> *)options{
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
+{
     if ([url.host isEqualToString:@"safepay"]) {
         //跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
@@ -423,8 +395,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
             int intStatus = [resultDic[@"resultStatus"] intValue];
             if (intStatus==9000) {
                 //                [SVProgressHUD showErrorWithStatus:@"订单支付成功"];
-                [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNamePaySucceed
-                                                                    object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNamePaySucceed object:nil];
             }else if (intStatus == 8000){
                 [SVProgressHUD showErrorWithStatus:@"订单正在处理中"];
             }else if (intStatus == 4000){
@@ -442,25 +413,23 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
         if (isWXApi) {
             return [WXApi handleOpenURL:url delegate:self];
         }
-    }return YES;
+    }
+    return YES;
 }
-
 - (void)ChangeStateForPay:(NSString *)strOrderId{
-    @weakify(self)
     self.disposablePaySucceed = [[[JJHttpClient new] requestFourZeroPayout_trade_no:TransformString(strOrderId)] subscribeNext:^(NSDictionary* dictionray) {
         D_NSLog(@"更新支付状态 msg is %@",dictionray[@"msg"]);
     }error:^(NSError *error) {
-        @strongify(self)
         self.disposablePaySucceed = nil;
     }completed:^{
-        @strongify(self)
         self.disposablePaySucceed = nil;
     }];
 }
 
+
 - (void)sendPay:(NSDictionary *)dict{
     
-    if(dict){
+    if(dict != nil){
         
         NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
         
@@ -479,12 +448,10 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
         D_NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
     }
 }
-
 -(void) onReq:(BaseReq*)req{
     
     D_NSLog(@"onReq is %@",req);
 }
-
 //收到一个来自微信的处理结果。调用一次sendReq后会收到onResp。
 - (void)onResp:(BaseResp *)resp
 {

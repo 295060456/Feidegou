@@ -11,17 +11,22 @@
 #import "ModelInfo.h"
 
 @interface JJDBHelper (Center)
+
 /**
  *  查询个人中心
  *
  *  @return NSDictionary
  */
 - (ModelCenter *)fetchCenterMsg;
+
+
 /**
  *  保存个人中心数据
  *
  */
 - (void)saveCenterMsg:(ModelCenter *)model;
+
+
 /**
  *  查询支付宝名字
  *
@@ -34,22 +39,26 @@
  *  @return NSString
  */
 - (NSString *)fetchAlipayAccount;
+
+
 /**
  *  保存支付宝信息
  *
  */
-- (void)saveAlipayName:(NSString *)strName
-            andAccount:(NSString *)strAccount;
+- (void)saveAlipayName:(NSString *)strName andAccount:(NSString *)strAccount;
+
+
 /**
  *  查询个人资料
  *
  *  @return NSDictionary
  */
 - (ModelInfo *)fetchPersonalInfo;
+
+
 /**
  *  保存个人资料
  *
  */
 - (void)savePersonalInfo:(ModelInfo *)model;
-
 @end

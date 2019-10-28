@@ -13,22 +13,21 @@
 /**
  *
  */
-@property (nonatomic,copy) NSString *level;
+@property (nonatomic,strong) NSString *level;
 /**
  *
  */
-@property (nonatomic,copy) NSString *lastLoginDate;
+@property (nonatomic,strong) NSString *lastLoginDate;
 /**
  *
  */
-@property (nonatomic,copy) NSString *commission;
+@property (nonatomic,strong) NSString *commission;
 /**
  *
  */
-@property (nonatomic,copy) NSString *userName;
+@property (nonatomic,strong) NSString *userName;
 /**
  *
  */
-@property (nonatomic,copy) NSString *head;
-
+@property (nonatomic,strong) NSString *head;
 @end

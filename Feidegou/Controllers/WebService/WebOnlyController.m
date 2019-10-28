@@ -10,14 +10,11 @@
 #import "NJKWebViewProgressView.h"
 #import "NJKWebViewProgress.h"
 
-@interface WebOnlyController ()
-<NJKWebViewProgressDelegate,
-UIWebViewDelegate>
-{
+@interface WebOnlyController ()<NJKWebViewProgressDelegate,UIWebViewDelegate>{
+    
     NJKWebViewProgressView *_progressView;
     NJKWebViewProgress *_progressProxy;
 }
-
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (strong, nonatomic) UIButton *btnShutDown;
@@ -49,7 +46,6 @@ UIWebViewDelegate>
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
-
 - (void)clickButtonBack:(UIButton *)sender{
     if (self.webView.canGoBack) {
         [self.webView goBack];
@@ -61,7 +57,6 @@ UIWebViewDelegate>
         }
     }
 }
-
 - (void)locationControls{
     
     _progressProxy = [[NJKWebViewProgress alloc] init];
@@ -71,12 +66,10 @@ UIWebViewDelegate>
     
     CGFloat progressBarHeight = 2.f;
     CGRect navigationBarBounds = self.navigationController.navigationBar.bounds;
-    CGRect barFrame = CGRectMake(0,
-                                 navigationBarBounds.size.height - progressBarHeight,
-                                 navigationBarBounds.size.width,
-                                 progressBarHeight);
+    CGRect barFrame = CGRectMake(0, navigationBarBounds.size.height - progressBarHeight, navigationBarBounds.size.width, progressBarHeight);
     _progressView = [[NJKWebViewProgressView alloc] initWithFrame:barFrame];
     _progressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     if (self.type == enum_web_companyqualification){
@@ -119,31 +112,32 @@ UIWebViewDelegate>
     self.activityIndicator.hidden = NO;
     [self.activityIndicator startAnimating];
 }
-
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     self.activityIndicator.hidden = YES;
     [self.activityIndicator stopAnimating];
-    if (self.type == enum_web_advertisementDetail||
-        self.type ==  enum_web_adverUrl||
-        self.type == enum_web_setName) {
+    if (self.type == enum_web_advertisementDetail||self.type ==enum_web_adverUrl||self.type == enum_web_setName) {
         
         self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     }
     [self.btnShutDown setHidden:!self.webView.canGoBack];
 }
-
-- (void)webView:(UIWebView *)webView
-didFailLoadWithError:(NSError *)error{
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     self.activityIndicator.hidden = YES;
     [self.activityIndicator stopAnimating];
 }
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar addSubview:_progressView];
 }
 
--(void)viewWillDisappear:(BOOL)animated{
+-(void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
     // Remove progress view
     // because UINavigationBar is shared with other ViewControllers
@@ -151,10 +145,18 @@ didFailLoadWithError:(NSError *)error{
 }
 
 #pragma mark - NJKWebViewProgressDelegate
--(void)webViewProgress:(NJKWebViewProgress *)webViewProgress
-        updateProgress:(float)progress{
+-(void)webViewProgress:(NJKWebViewProgress *)webViewProgress updateProgress:(float)progress
+{
     [_progressView setProgress:progress animated:YES];
 }
+/*
+#pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

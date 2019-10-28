@@ -11,7 +11,6 @@
 #import "PayMonyForGoodController.h"
 
 @interface VendorPayTheBillController ()
-
 @property (weak, nonatomic) IBOutlet UITextField *txtPrice;
 @property (weak, nonatomic) IBOutlet UILabel *lblPrice;
 @property (weak, nonatomic) IBOutlet UIButton *btnPrice;
@@ -27,6 +26,7 @@
     [self.txtPrice addTarget:self action:@selector(textFieldChange:) forControlEvents:UIControlEventEditingChanged];
     [self textFieldChange:self.txtPrice];
     
+    
     if ([self.strTip floatValue]>0) {
         NSString *strDiscount = TransformString(self.strTip);
         NSMutableAttributedString * atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"线下买单送%@%%积分",strDiscount)];
@@ -35,8 +35,10 @@
     }else{
         [self.lblTip setText:@""];
     }
+    
+    
+    // Do any additional setup after loading the view.
 }
-
 - (void)textFieldChange:(UITextField *)textField{
     NSString *strPrice = textField.text;
     if ([NSString isNullString:strPrice]) {
@@ -46,7 +48,10 @@
     }
     [self.lblPrice setText:StringFormat(@"￥%@",[NSString stringStandardFloatTwo:strPrice])];
 }
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (IBAction)clickButtonBuy:(UIButton *)sender {
     NSString *strPrice = self.txtPrice.text;
     if ([NSString isNullString:strPrice]) {
@@ -58,35 +63,36 @@
         return;
     }
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestFourZeroBuyTheBillbuy_user_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId
-                                                                andseller_user_id:[NSString stringStandard:self.seller_user_id]
-                                                                     andbuy_money:[NSString stringStandard:strPrice] anddirectPurchase:@"1"]
-                         subscribeNext:^(NSDictionary* dictionary) {
-        @strongify(self)
-        if ([dictionary[@"code"] intValue] == 1) {
+    __weak VendorPayTheBillController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestFourZeroBuyTheBillbuy_user_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId andseller_user_id:[NSString stringStandard:self.seller_user_id] andbuy_money:[NSString stringStandard:strPrice] anddirectPurchase:@"1"] subscribeNext:^(NSDictionary* dictionary) {
+        if ([dictionary[@"code"] intValue]==1) {
             [SVProgressHUD dismiss];
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder
-                                                                 bundle:nil];
+            
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil];
             PayMonyForGoodController *controller = [storyboard instantiateViewControllerWithIdentifier:@"PayMonyForGoodController"];
             controller.strOrderId = dictionary[@"order_id"];
             controller.strTotalPrice = strPrice;
             controller.isPayTheBill = YES;
-            [self.navigationController pushViewController:controller
-                                                 animated:YES];
+            [self.navigationController pushViewController:controller animated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];
         }
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
     }];
 }
 
+/*
+#pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

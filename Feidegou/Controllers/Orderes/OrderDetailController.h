@@ -8,9 +8,6 @@
 
 #import "JJBaseViewController.h"
 #import "JJHttpClient+ShopGood.h"
-
 @interface OrderDetailController : JJBaseViewController
-
 @property (strong, nonatomic) ModelOrderList *modelList;
-
 @end

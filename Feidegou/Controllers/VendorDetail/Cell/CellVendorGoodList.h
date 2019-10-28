@@ -10,7 +10,6 @@
 #import "ModelGood.h"
 
 @interface CellVendorGoodList : JJTableViewCell
-
 @property (weak, nonatomic) IBOutlet UIImageView *imgHead;
 @property (weak, nonatomic) IBOutlet UILabelBlackBig *lblTitle;
 @property (weak, nonatomic) IBOutlet UILabelDarkBig *lblPrice;
@@ -19,7 +18,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblTip;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstraintY;
 @property (weak, nonatomic) IBOutlet UILabelDarkMiddel *lblGive;
-
 - (void)populataData:(ModelGood *)model;
-
 @end

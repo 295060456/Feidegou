@@ -43,9 +43,7 @@ extern NSString * const DB_TABLE_NAME_CALL_IMAGE_AD_CACHE;
 @interface JJDBHelper : NSObject
 
 @property (nonatomic,strong) FMDatabaseQueue *databaseQueue;
-
 +(JJDBHelper*)sharedInstance;
-
 -(BOOL)deleteTableName:(NSString*)tableName;
 
 
@@ -55,18 +53,11 @@ extern NSString * const DB_TABLE_NAME_CALL_IMAGE_AD_CACHE;
  *  @param cacheId   缓存id
  *  @param cacheData 缓存数据
  */
--(void)updateCacheForId:(NSString*)cacheId
-              cacheData:(NSData*)cacheData;
-
--(void)updateCacheForId:(NSString*)cacheId
-         cacheDictionry:(NSDictionary *)dictionray;
-
--(void)updateCacheForId:(NSString*)cacheId
-             cacheArray:(NSArray *)array;
-
+-(void)updateCacheForId:(NSString*)cacheId cacheData:(NSData*)cacheData;
+-(void)updateCacheForId:(NSString*)cacheId cacheDictionry:(NSDictionary *)dictionray;
+-(void)updateCacheForId:(NSString*)cacheId cacheArray:(NSArray *)array;
 -(id)convertData:(NSData*)data;
 -(NSData*)queryCacheDataWithCacheId:(NSString*)cacheId;
-
 @end
 
 

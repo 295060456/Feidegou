@@ -10,12 +10,11 @@
 #import <objc/runtime.h>
 
 @interface UITextField (EditChanged)
+
 /*!
  * Event事件处理
  * @param controlEvent 事件类型
  * @param action action block
  */
-- (void) handleTextFieldControlEvent:(UIControlEvents)controlEvent
-                           withBlock:(ActionBlock)action;
-
+- (void) handleTextFieldControlEvent:(UIControlEvents)controlEvent withBlock:(ActionBlock)action;
 @end

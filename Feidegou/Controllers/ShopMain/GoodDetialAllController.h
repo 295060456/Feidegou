@@ -9,7 +9,8 @@
 #import "JJBaseViewController.h"
 
 @interface GoodDetialAllController : JJBaseViewController
+@property (strong, nonatomic) NSString *strGood_id;
 
-@property (copy, nonatomic) NSString *strGood_id;
+
 
 @end

@@ -9,7 +9,6 @@
 #import "JJTableViewCell.h"
 
 @interface CellImageOnly : JJTableViewCell
-
 @property (weak, nonatomic) IBOutlet UIImageView *imgOnly;
 
 @end

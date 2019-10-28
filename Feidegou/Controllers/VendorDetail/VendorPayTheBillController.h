@@ -13,5 +13,4 @@
 @property (strong, nonatomic) NSString *seller_user_id;
 @property (strong, nonatomic) NSString *store_name;
 @property (strong, nonatomic) NSString *strTip;
-
 @end

@@ -8,33 +8,52 @@
 
 #import "WaterflowLayout.h"
 @interface WaterflowLayout();
+/** 这个字典用来存储每一列最大的Y值(每一列的高度) */
+@property (nonatomic, strong) NSMutableDictionary *maxYDict;
 
-@property (nonatomic, strong) NSMutableDictionary *maxYDict;/** 这个字典用来存储每一列最大的Y值(每一列的高度) */
-@property (nonatomic, strong) NSMutableArray *attrsArray;/** 存放所有的布局属性 */
-
+/** 存放所有的布局属性 */
+@property (nonatomic, strong) NSMutableArray *attrsArray;
 @end
 
 @implementation WaterflowLayout
 
-- (instancetype)init{
+- (NSMutableDictionary *)maxYDict
+{
+    if (!_maxYDict) {
+        self.maxYDict = [[NSMutableDictionary alloc] init];
+    }
+    return _maxYDict;
+}
+
+- (NSMutableArray *)attrsArray
+{
+    if (!_attrsArray) {
+        self.attrsArray = [[NSMutableArray alloc] init];
+    }
+    return _attrsArray;
+}
+
+- (instancetype)init
+{
     if (self = [super init]) {
         self.columnMargin = 0;
         self.rowMargin = 0;
-        self.sectionInset = UIEdgeInsetsMake(0,
-                                             0,
-                                             0,
-                                             0);
+        self.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
         self.columnsCount = 3;
-    }return self;
+    }
+    return self;
 }
 
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds{
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
+{
     return YES;
 }
+
 /**
  *  每次布局之前的准备
  */
-- (void)prepareLayout{
+- (void)prepareLayout
+{
     [super prepareLayout];
     
     // 1.清空最大的Y值
@@ -51,14 +70,14 @@
         [self.attrsArray addObject:attrs];
     }
 }
+
 /**
  *  返回所有的尺寸
  */
-- (CGSize)collectionViewContentSize{
+- (CGSize)collectionViewContentSize
+{
     __block NSString *maxColumn = @"0";
-    [self.maxYDict enumerateKeysAndObjectsUsingBlock:^(NSString *column,
-                                                       NSNumber *maxY,
-                                                       BOOL *stop) {
+    [self.maxYDict enumerateKeysAndObjectsUsingBlock:^(NSString *column, NSNumber *maxY, BOOL *stop) {
         if ([maxY floatValue] > [self.maxYDict[maxColumn] floatValue]) {
             maxColumn = column;
         }
@@ -69,13 +88,12 @@
 /**
  *  返回indexPath这个位置Item的布局属性
  */
-- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     // 假设最短的那一列的第0列
     __block NSString *minColumn = @"0";
     // 找出最短的那一列
-    [self.maxYDict enumerateKeysAndObjectsUsingBlock:^(NSString *column,
-                                                       NSNumber *maxY,
-                                                       BOOL *stop) {
+    [self.maxYDict enumerateKeysAndObjectsUsingBlock:^(NSString *column, NSNumber *maxY, BOOL *stop) {
         if ([maxY floatValue] < [self.maxYDict[minColumn] floatValue]) {
             minColumn = column;
         }
@@ -101,21 +119,9 @@
 /**
  *  返回rect范围内的布局属性
  */
-- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect{
+- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
+{
     return self.attrsArray;
-}
-
-#pragma mark —— Lazyload
-- (NSMutableDictionary *)maxYDict{
-    if (!_maxYDict) {
-        self.maxYDict = NSMutableDictionary.dictionary;
-    }return _maxYDict;
-}
-
-- (NSMutableArray *)attrsArray{
-    if (!_attrsArray) {
-        self.attrsArray = NSMutableArray.array;
-    }return _attrsArray;
 }
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 typedef enum {
     //    are.put("0","已取消");
     //    are.put("10","待付款");
@@ -55,21 +54,15 @@ typedef enum {
  *  获取渐变颜色的图片
  *  enumColorDirectionFrom方向为起点的位置
  */
-+ (UIImage *)getImageWithRect:(CGRect)rectBegin
-                andColorBegin:(UIColor *)colorBegin
-                  andColorEnd:(UIColor *)colorEnd
-                 andDerection:(enumColorDirectionFrom)derection;
-
++ (UIImage *)getImageWithRect:(CGRect)rectBegin andColorBegin:(UIColor *)colorBegin andColorEnd:(UIColor *)colorEnd andDerection:(enumColorDirectionFrom)derection;
 + (NSInteger)heightByInfo:(NSDictionary *)dicInfo;
 
 /*
  根据传入的字符串数字转为按钮
  */
-+ (NSMutableArray *)returnButtonNameByNum:(NSString *)strState
-                          andIsNeedDetail:(BOOL)isDetail
-                           andcourierCode:(NSString *)courierCode;
+
++ (NSMutableArray *)returnButtonNameByNum:(NSString *)strState andIsNeedDetail:(BOOL)isDetail andcourierCode:(NSString *)courierCode;
 
 //获取分享的图片
 + (UIImage *)fetchImageForShareAchievement:(NSDictionary *)dicInfo;
-
 @end

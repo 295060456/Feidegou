@@ -17,15 +17,13 @@
 #import "VendorShopTypeController.h"
 #import "VendorDetailShopController.h"
 #import "LocationManager.h"
-#import "ButtonSearch.h"
-#import "SearchGoodController.h"
 //#import "UIViewController+Cloudox.h"
 //#import "UINavigationController+Cloudox.h"
+#import "ButtonSearch.h"
+#import "SearchGoodController.h"
 
 
-@interface VendorMainGoodController ()
-<RefreshControlDelegate,
-DidClickDelegeteCollectionViewType>{
+@interface VendorMainGoodController ()<RefreshControlDelegate,DidClickDelegeteCollectionViewType>{
 }
 
 @property (weak, nonatomic) IBOutlet BaseTableView *tabGood;
@@ -35,10 +33,11 @@ DidClickDelegeteCollectionViewType>{
 @property (strong, nonatomic) NSMutableArray *arrphotoUrl;
 @property (strong, nonatomic) NSMutableArray *arrrecommendedGoods;
 @property (nonatomic,assign) int intPageIndex;
-@property (nonatomic,assign) NSInteger curCount;//当前页数数量
+//当前页数数量
+@property (nonatomic,assign) NSInteger curCount;
 @property (nonatomic,strong) RACDisposable *disposableVendor;
-@property (nonatomic,strong) UIView *viHeader;
 
+@property (nonatomic,strong) UIView *viHeader;
 @end
 
 @implementation VendorMainGoodController
@@ -67,30 +66,19 @@ DidClickDelegeteCollectionViewType>{
 }
 
 - (void)initHeaderView{
-    self.viHeader = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                             0,
-                                                             SCREEN_WIDTH,
-                                                             64)];
+    self.viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
     [self.view addSubview:self.viHeader];
-    ButtonSearch *buttonSearch=[[ButtonSearch alloc]initWithFrame:CGRectMake(10,
-                                                                             self.viHeader.frame.size.height-44,
-                                                                             self.view.frame.size.width-20,
-                                                                             35)];
+    ButtonSearch *buttonSearch=[[ButtonSearch alloc]initWithFrame:CGRectMake(10, self.viHeader.frame.size.height-44, self.view.frame.size.width-20, 35)];
     [buttonSearch setTitle:@"搜索附近的吃喝玩乐"];
-    @weakify(self)
-    [buttonSearch handleControlEvent:UIControlEventTouchUpInside
-                           withBlock:^{
-        @strongify(self)
+    [buttonSearch handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         D_NSLog(@"clickButtonSearch");
         UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
         SearchGoodController *controller=[storyboard instantiateViewControllerWithIdentifier:@"SearchGoodController"];
         controller.isVendor = YES;
-        [self.navigationController pushViewController:controller
-                                             animated:NO];
+        [self.navigationController pushViewController:controller animated:NO];
     }];
     [self.viHeader addSubview:buttonSearch];
 }
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat height = SCREEN_WIDTH*324/720;
     if(self.tabGood.contentOffset.y<-20) {
@@ -101,85 +89,71 @@ DidClickDelegeteCollectionViewType>{
         self.viHeader.backgroundColor=ColorFromHexRGBA(0xff9c00, self.tabGood.contentOffset.y /height);
     }
 }
-
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
 //    [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
-
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 //    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
-
 - (void)requestExchangeList{
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestShopGoodVenderMain] subscribeNext:^(NSDictionary* dictioanry) {
-        @strongify(self)
+    __weak VendorMainGoodController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestShopGoodVenderMain] subscribeNext:^(NSDictionary* dictioanry) {
         NSArray *arrPicUp = dictioanry[@"photoUrl"];
         if ([arrPicUp isKindOfClass:[NSArray class]]) {
-            self.arrphotoUrlSlider = [NSMutableArray arrayWithArray:arrPicUp];
+            myself.arrphotoUrlSlider = [NSMutableArray arrayWithArray:arrPicUp];
         }
         NSArray *arrType = dictioanry[@"classification"];
         if ([arrType isKindOfClass:[NSArray class]]) {
-            self.arrclassification = [NSMutableArray arrayWithArray:arrType];
+            myself.arrclassification = [NSMutableArray arrayWithArray:arrType];
         }
         NSArray *arrPicMiddle = dictioanry[@"photoUrlSlider"];
         if ([arrPicMiddle isKindOfClass:[NSArray class]]) {
-            self.arrphotoUrl = [NSMutableArray arrayWithArray:arrPicMiddle];
+            myself.arrphotoUrl = [NSMutableArray arrayWithArray:arrPicMiddle];
         }
 //        NSArray *arrGood = dictioanry[@"recommendedGoods"];
 //        if ([arrGood isKindOfClass:[NSArray class]]) {
 //            myself.arrrecommendedGoods = [NSMutableArray arrayWithArray:arrGood];
 //        }
-        [self.tabGood reloadData];
+        [myself.tabGood reloadData];
+        
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
 //        [myself.refreshControl endRefreshing];
-        [self checkNum];
+        [myself checkNum];
     }completed:^{
-         @strongify(self)
 //        [myself.refreshControl endRefreshing];
-        self.disposable = nil;
-        [self checkNum];
+        myself.disposable = nil;
+        [myself checkNum];
     }];
+    
 }
 
 - (void)requestVendorList{
-    @weakify(self)
-    self.disposableVendor = [[[JJHttpClient new] requestShopGoodVendorNearByLimit:@"10"
-                                                                            andPage:TransformNSInteger(self.intPageIndex)
-                                                                             andlat:[[LocationManager sharedInstance] fetchLocationLatitude]
-                                                                             andlng:[[LocationManager sharedInstance] fetchLocationLongitude] andkey:@""]
-                               subscribeNext:^(NSArray* array) {
-        @strongify(self)
-        if (self.intPageIndex == 1) {
-            self.arrrecommendedGoods = [NSMutableArray array];
+    __weak VendorMainGoodController *myself = self;
+    myself.disposableVendor = [[[JJHttpClient new] requestShopGoodVendorNearByLimit:@"10" andPage:TransformNSInteger(self.intPageIndex) andlat:[[LocationManager sharedInstance] fetchLocationLatitude] andlng:[[LocationManager sharedInstance] fetchLocationLongitude] andkey:@""] subscribeNext:^(NSArray* array) {
+        if (myself.intPageIndex == 1) {
+            myself.arrrecommendedGoods = [NSMutableArray array];
         }
-        [self.arrrecommendedGoods addObjectsFromArray:array];
-        [self.tabGood reloadData];
+        [myself.arrrecommendedGoods addObjectsFromArray:array];
+        [myself.tabGood reloadData];
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposableVendor = nil;
-        [self checkNum];
+        myself.disposableVendor = nil;
+        [myself checkNum];
     }completed:^{
-        @strongify(self)
-        self.intPageIndex++;
-        self.disposableVendor = nil;
-        [self checkNum];
+        myself.intPageIndex++;
+        myself.disposableVendor = nil;
+        [myself checkNum];
     }];
+    
 }
-
 - (void)requestNerBy{
     D_NSLog(@"requestNerBy");
 }
 - (void)checkNum{
-    if (self.arrphotoUrlSlider.count==0 &&
-        self.arrclassification.count==0 &&
-        self.arrphotoUrl.count==0 &&
-        self.arrrecommendedGoods.count==0) {
+    if (self.arrphotoUrlSlider.count==0&&self.arrclassification.count==0&&self.arrphotoUrl.count==0&&self.arrrecommendedGoods.count==0) {
         [self.tabGood checkNoData:0];
     }else{
         [self.tabGood checkNoData:1];
@@ -212,6 +186,11 @@ DidClickDelegeteCollectionViewType>{
     }
     return NO;
 }
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 #pragma mark---tableviewdelegate---
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -240,13 +219,11 @@ DidClickDelegeteCollectionViewType>{
     }
     return 0;
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 5;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 0) {
         if (self.arrphotoUrlSlider.count>0) {
             return SCREEN_WIDTH/2;
@@ -274,11 +251,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         }else{
             return 110;
         }
-    }return 0.0;
+    }
+    return 0.0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 0) {
         CellPicture *cell=[tableView dequeueReusableCellWithIdentifier:@"CellPicture"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -317,27 +295,24 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return cell;
 }
 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 2&&self.arrphotoUrl.count > 0) {
+    if (section == 2&&self.arrphotoUrl.count>0) {
         return 10;
     }
-    if (section == 3&&self.arrrecommendedGoods.count > 0) {
+    if (section == 3&&self.arrrecommendedGoods.count>0) {
         return 10;
-    }return 0;
+    }
+    return 0;
 }
-
-- (nullable UIView *)tableView:(UITableView *)tableView
-        viewForHeaderInSection:(NSInteger)section{
-    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                0,
-                                                                SCREEN_WIDTH,
-                                                                10)];
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
 
-- (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self.navigationItem.titleView endEditing:YES];
     if (indexPath.section == 4) {
@@ -349,17 +324,23 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }
 }
 //上面八个小分类
-- (void)didClickOnlyCollectionViewDictionary:(NSDictionary *)model
-                                      andRow:(NSInteger)row{
+- (void)didClickOnlyCollectionViewDictionary:(NSDictionary *)model andRow:(NSInteger)row{
     D_NSLog(@"%@",model);
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardVendorDetail
-                                                         bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardVendorDetail bundle:nil];
     VendorShopTypeController *controller = [storyboard instantiateViewControllerWithIdentifier:@"VendorShopTypeController"];
     controller.strClas = model[@"type_value"];
     controller.strTitle = model[@"main_name"];
-    [self.navigationController pushViewController:controller
-                                         animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
     
 }
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

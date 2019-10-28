@@ -20,12 +20,12 @@
         [self.viDiscount setHidden:NO];
         NSString *strDiscount = TransformString(model.gift_integral);
         NSMutableAttributedString * atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"线下买单送%@%%积分",strDiscount)];
-        [atrStringPrice addAttributes:@{NSForegroundColorAttributeName:ColorRed}
-                                range:NSMakeRange(5, strDiscount.length+1)];
+        [atrStringPrice addAttributes:@{NSForegroundColorAttributeName:ColorRed} range:NSMakeRange(5, strDiscount.length+1)];
         [self.lblDiscount setAttributedText:atrStringPrice];
     }else{
         [self.viDiscount setHidden:YES];
     }
+    
     
     [self.imgHead setImagePathHead:model.path];
     
@@ -56,7 +56,6 @@
 //        }
 //    }
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

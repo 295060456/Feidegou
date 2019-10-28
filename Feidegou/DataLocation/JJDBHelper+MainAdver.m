@@ -8,11 +8,13 @@
 
 #import "JJDBHelper+MainAdver.h"
 #define MainAdverId @"mainAdverId"
-
 @implementation JJDBHelper (MainAdver)
 - (NSArray *)fetchMainAdver{
     NSData *data = [self queryCacheDataWithCacheId:@"3059"];
+    
     NSArray *array = [self convertData:data];
+    
+    
 //    如果存在了，那么就不添加了
     NSMutableArray *arrAdver = [NSMutableArray array];
     NSMutableArray *arrayId = [NSMutableArray arrayWithArray:[self fetchCacheForMainAdverId]];
@@ -28,26 +30,28 @@
         if (!isHad) {
             [arrAdver addObject:array[i]];
         }
-    }return arrAdver;
+    }
+    return arrAdver;
 }
 
 - (void)saveAdverId:(NSString *)strId{
     NSMutableArray *array = [NSMutableArray arrayWithArray:[self fetchCacheForMainAdverId]];
 //    如果数量大于100，则删除前面的50个
-    if (array.count > 100) {
+    if (array.count>100) {
         [array removeObjectsInRange:NSMakeRange(0, 50)];
     }
     D_NSLog(@"%@",array);
     [array addObject:strId];
     [self updateCacheForId:MainAdverId cacheArray:array];
 }
-
 - (NSArray *)fetchCacheForMainAdverId{
+    
     NSData *data = [self queryCacheDataWithCacheId:MainAdverId];
+    
     NSArray *array = [self convertData:data];
     if (![array isKindOfClass:[NSArray class]]) {
         array = [NSArray array];
-    }return array;
+    }
+    return array;
 }
-
 @end

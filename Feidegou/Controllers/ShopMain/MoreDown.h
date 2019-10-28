@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface MoreDown : UIView
-
 @property (weak, nonatomic) IBOutlet UILabel *lblContent;
 
 @end

@@ -21,14 +21,9 @@
 #import "CellVendorGoodType.h"
 #import "OrderesComfilmController.h"
 
-@interface VendorDetailGoodController ()
-<
-RefreshControlDelegate,
-DidClickCollectionViewDelegete,
-UIWebViewDelegate
->
-
+@interface VendorDetailGoodController ()<RefreshControlDelegate,DidClickCollectionViewDelegete,UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet BaseTableView *tabGood;
+
 @property (nonatomic,strong) RefreshControl *refreshControl;
 @property (nonatomic,strong) RACDisposable *disposableDiscuss;
 @property (nonatomic,strong) RACDisposable *disposableGoodNum;
@@ -40,24 +35,31 @@ UIWebViewDelegate
 @property (strong, nonatomic) NSString *strDiscussNum;
 @property (strong, nonatomic) NSMutableArray *arrProperty;
 @property (strong, nonatomic) UIWebView *webDetail;
+
+
 //请求价格获得的参数
-@property (strong, nonatomic) NSString *strAttributeName;//属性名字
-@property (strong, nonatomic) NSString *strAttribute;//属性值（用于下单）
-@property (strong, nonatomic) NSString *strGoodPrice;//价格
-@property (strong, nonatomic) NSString *strGoodPriceOld;//价格
-@property (strong, nonatomic) NSString *strGive_integral;//价格
-@property (assign, nonatomic) BOOL isSelectedAll;//是否选择了全部属性
+//属性名字
+@property (strong, nonatomic) NSString *strAttributeName;
+
+//属性值（用于下单）
+@property (strong, nonatomic) NSString *strAttribute;
+//价格
+@property (strong, nonatomic) NSString *strGoodPrice;
+//价格
+@property (strong, nonatomic) NSString *strGoodPriceOld;
+//价格
+@property (strong, nonatomic) NSString *strGive_integral;
+//是否选择了全部属性
+@property (assign, nonatomic) BOOL isSelectedAll;
 //立即抢购
 @property (strong, nonatomic) UIView *viBuy;
 @property (strong, nonatomic) UILabel *lblMoney;
 @property (strong, nonatomic) UIView *viSend;
 @property (strong, nonatomic) UILabel *lblSend;
 @property (strong, nonatomic) UILabel *lblLinePrice;
-
 @end
 
 @implementation VendorDetailGoodController
-
 - (void)refreshWebview:(NSString *)strWebUrl{
     [self.webDetail setDelegate:self];
 //    [self.webDetail.scrollView setScrollEnabled:NO];
@@ -72,11 +74,9 @@ UIWebViewDelegate
     NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:strWebUrl]];
     [self.webDetail loadData:data MIMEType:@"text/html" textEncodingName:@"UTF-8" baseURL:[NSURL URLWithString:strWebUrl]];
 }
-
 - (void)webViewDidStartLoad:(UIWebView *)webView{
     D_NSLog(@"webViewDidStartLoad");
 }
-
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     CGFloat webViewHeight = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] floatValue];
     D_NSLog(@"webViewDidFinishLoad须知的高度%f",webViewHeight);
@@ -84,23 +84,19 @@ UIWebViewDelegate
     [self.webDetail.scrollView setScrollEnabled:NO];
     [self reloadDataOfTabView];
 }
-
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     
     D_NSLog(@"didFailLoadWithError");
 }
-
 - (void)reloadDataOfTabView{
     [self initPriceView];
     [self.tabGood reloadData];
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.webDetail = [[UIWebView alloc] initWithFrame:CGRectMake(0,
-                                                                 0,
-                                                                 SCREEN_WIDTH,
-                                                                 200)];
+    self.webDetail = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 200)];
+    
+    
 //    self.fDetailHeight = -1;
     self.fTypeHeight = -1;
     [self.tabGood setBackgroundColor:ColorBackground];
@@ -117,50 +113,29 @@ UIWebViewDelegate
     [self showException];
     // Do any additional setup after loading the view.
 }
-
 - (void)initPriceView{
-    @weakify(self)
     if (!self.viBuy) {
-        self.viBuy = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                              SCREEN_WIDTH,
-                                                              SCREEN_WIDTH,
-                                                              80)];
+        self.viBuy = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_WIDTH, SCREEN_WIDTH, 80)];
         [self.viBuy setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.95]];
         [self.tabGood addSubview:self.viBuy];
-        UIButton *btnBuy = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-75-10,
-                                                                      10,
-                                                                      75,
-                                                                      35)];
+        UIButton *btnBuy = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-75-10, 10, 75, 35)];
         [btnBuy.layer setCornerRadius:3.0];
         [btnBuy setClipsToBounds:YES];
         [btnBuy setBackgroundColor:ColorHeader];
-        [btnBuy setTitleColor:[UIColor whiteColor]
-                     forState:UIControlStateNormal];
-        [btnBuy setTitleColor:[UIColor darkGrayColor]
-                     forState:UIControlStateHighlighted];
+        [btnBuy setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btnBuy setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
         [btnBuy setTitle:@"立即抢购" forState:UIControlStateNormal];
         [btnBuy.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
-        [btnBuy handleControlEvent:UIControlEventTouchUpInside
-                         withBlock:^{
-            @strongify(self)
+        [btnBuy handleControlEvent:UIControlEventTouchUpInside withBlock:^{
             [self clickButtonCreateOrder:btnBuy];
         }];
         [self.viBuy addSubview:btnBuy];
-        self.lblMoney = [[UILabel alloc] initWithFrame:CGRectMake(10,
-                                                                  17,
-                                                                  CGRectGetMinX(btnBuy.frame)-10,
-                                                                  20)];
+        self.lblMoney = [[UILabel alloc] initWithFrame:CGRectMake(10, 17, CGRectGetMinX(btnBuy.frame)-10, 20)];
         [self.lblMoney setTextColor:ColorRed];
         [self.viBuy addSubview:self.lblMoney];
         
-        self.viSend = [[UIView alloc] initWithFrame:CGRectMake(10,
-                                                               CGRectGetHeight(self.viBuy.frame),
-                                                               SCREEN_WIDTH-20,
-                                                               20)];
-        UILabel *lblTip = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                                    (CGRectGetHeight(self.viSend.frame)-16)/2,
-                                                                    16,
-                                                                    16)];
+        self.viSend = [[UIView alloc] initWithFrame:CGRectMake(10, CGRectGetHeight(self.viBuy.frame), SCREEN_WIDTH-20, 20)];
+        UILabel *lblTip = [[UILabel alloc] initWithFrame:CGRectMake(0, (CGRectGetHeight(self.viSend.frame)-16)/2, 16, 16)];
         [lblTip.layer setCornerRadius:3.0];
         [lblTip setClipsToBounds:YES];
         [lblTip setText:@"送"];
@@ -170,24 +145,17 @@ UIWebViewDelegate
         [lblTip setTextAlignment:NSTextAlignmentCenter];
         [self.viSend addSubview:lblTip];
         
-        self.lblSend = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(lblTip.frame)+2,
-                                                                 0,
-                                                                 SCREEN_WIDTH-100,
-                                                                 CGRectGetHeight(self.viSend.frame))];
+        self.lblSend = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(lblTip.frame)+2, 0, SCREEN_WIDTH-100, CGRectGetHeight(self.viSend.frame))];
         [self.lblSend setFont:[UIFont systemFontOfSize:13]];
         [self.lblSend setTextColor:ColorGaryDark];
         [self.viSend addSubview:self.lblSend];
         
         [self.viBuy addSubview:self.viSend];
-        self.lblLinePrice = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                                      CGRectGetHeight(self.viBuy.frame)-0.5,
-                                                                      CGRectGetWidth(self.viBuy.frame),
-                                                                      0.5)];
+        self.lblLinePrice = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.viBuy.frame)-0.5, CGRectGetWidth(self.viBuy.frame), 0.5)];
         [self.lblLinePrice setBackgroundColor:ColorLine];
         [self.viBuy addSubview:self.lblLinePrice];
     }
-    [self.lblMoney setTextVendorPrice:self.strGoodPrice
-                          andOldPrice:self.strGoodPriceOld];
+    [self.lblMoney setTextVendorPrice:self.strGoodPrice andOldPrice:self.strGoodPriceOld];
     
     CGFloat fHeight;
     if ([self.strGive_integral floatValue]>0) {
@@ -197,19 +165,12 @@ UIWebViewDelegate
         fHeight = 60;
         [self.viSend setHidden:YES];
     }
-    [self.viBuy setFrame:CGRectMake(0,
-                                    SCREEN_WIDTH,
-                                    SCREEN_WIDTH,
-                                    fHeight)];
-    [self.viSend setFrame:CGRectMake(10,
-                                     CGRectGetHeight(self.viBuy.frame)-30,
-                                     SCREEN_WIDTH-20,
-                                     20)];
-    [self.lblLinePrice setFrame:CGRectMake(0,
-                                           CGRectGetHeight(self.viBuy.frame)-1,
-                                           CGRectGetWidth(self.viBuy.frame),
-                                           0.5)];
+    [self.viBuy setFrame:CGRectMake(0, SCREEN_WIDTH, SCREEN_WIDTH, fHeight)];
+    [self.viSend setFrame:CGRectMake(10, CGRectGetHeight(self.viBuy.frame)-30, SCREEN_WIDTH-20, 20)];
+    [self.lblLinePrice setFrame:CGRectMake(0, CGRectGetHeight(self.viBuy.frame)-1, CGRectGetWidth(self.viBuy.frame), 0.5)];
     [self.lblSend setTextNull:StringFormat(@"购买后送%@",self.strGive_integral)];
+    
+    
 //    NSDictionary *dicInfo = self.dicInfo[@"goods"];
     
 //    NSString *strPriceNow = [NSString stringStandardFloatTwo:self.strGoodPrice];
@@ -223,73 +184,67 @@ UIWebViewDelegate
 //        [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17.0]} range:NSMakeRange(1, strPriceNow.length)];
 //        [self.lblMoney setAttributedText:atrStringPrice];
 //    }
+    
 }
-
 - (void)requestDetail{
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestShopGoodDetailGoods_id:[NSString stringStandard:self.strGoodId]]
-                         subscribeNext:^(NSDictionary* dictionary) {
-        @strongify(self)
+    __weak VendorDetailGoodController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestShopGoodDetailGoods_id:[NSString stringStandard:self.strGoodId]] subscribeNext:^(NSDictionary* dictionary) {
         if ([dictionary[@"code"] intValue]==1) {
             self.strGoodPrice = dictionary[@"goods"][@"store_price"];
             self.strGoodPriceOld = dictionary[@"goods"][@"goods_price"];
             self.strGive_integral = dictionary[@"goods"][@"give_integral"];
             NSArray *arrPic = dictionary[@"photoUrl"];
             if ([arrPic isKindOfClass:[NSArray class]]) {
-                self.arrPicture = [NSMutableArray arrayWithArray:arrPic];
+                myself.arrPicture = [NSMutableArray arrayWithArray:arrPic];
             }
             NSArray *arrProperty = dictionary[@"property"];
             if ([arrProperty isKindOfClass:[NSArray class]]) {
-                self.arrProperty = [NSMutableArray arrayWithArray:arrProperty];
+                
+                
+                myself.arrProperty = [NSMutableArray arrayWithArray:arrProperty];
             }
             if ([dictionary isKindOfClass:[NSDictionary class]]) {
-                self.dicInfo = [NSMutableDictionary dictionaryWithDictionary:dictionary];
-                if (![NSString isNullString:self.dicInfo[@"goods"][@"detailURL"]]) {
-                    [self refreshWebview:self.dicInfo[@"goods"][@"detailURL"]];
+                myself.dicInfo = [NSMutableDictionary dictionaryWithDictionary:dictionary];
+                if (![NSString isNullString:myself.dicInfo[@"goods"][@"detailURL"]]) {
+                    [myself refreshWebview:myself.dicInfo[@"goods"][@"detailURL"]];
                 }
             }
-            [self reloadDataOfTabView];
-            [self hideException];
+            [myself reloadDataOfTabView];
+            [myself hideException];
+            
         }else{
-            [self failedRequestException:enum_exception_timeout];
+            [myself failedRequestException:enum_exception_timeout];
         }
+        
     }error:^(NSError *error) {
-        @strongify(self)
-        [self failedRequestException:enum_exception_timeout];
-        self.disposable = nil;
-        [self.refreshControl endRefreshing];
+        [myself failedRequestException:enum_exception_timeout];
+        myself.disposable = nil;
+        [myself.refreshControl endRefreshing];
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
-        [self.refreshControl endRefreshing];
+        
+        myself.disposable = nil;
+        [myself.refreshControl endRefreshing];
     }];
+    
+    
 }
-
 - (void)requestDiscuss{
-    @weakify(self)
-    self.disposableDiscuss = [[[JJHttpClient new] requestShopGoodDiscussListGoods_id:[NSString stringStandard:self.strGoodId]
-                                                                              andLimit:@"3"
-                                                                               andPage:@"1"
-                                                                              andState:@""
-                                                                           andstore_id:@""]
-                                subscribeNext:^(NSDictionary* dictionary) {
-        @strongify(self)
+    __weak VendorDetailGoodController *myself = self;
+    myself.disposableDiscuss = [[[JJHttpClient new] requestShopGoodDiscussListGoods_id:[NSString stringStandard:self.strGoodId] andLimit:@"3" andPage:@"1" andState:@"" andstore_id:@""] subscribeNext:^(NSDictionary* dictionary) {
         NSArray *array;
-        self.strDiscussNum = [NSString stringStandardZero:dictionary[@"all"]];
+        myself.strDiscussNum = [NSString stringStandardZero:dictionary[@"all"]];
         if ([dictionary[@"evaluate"] isKindOfClass:[NSArray class]]) {
             array = [NSArray arrayWithArray:dictionary[@"evaluate"]];
         }else{
             array = [NSArray array];
         }
-        self.arrDiscuss = [NSMutableArray arrayWithArray:array];
-        [self reloadDataOfTabView];
+        myself.arrDiscuss = [NSMutableArray arrayWithArray:array];
+        [myself reloadDataOfTabView];
         
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposableDiscuss = nil;
+        myself.disposableDiscuss = nil;
     }completed:^{
-        @strongify(self)
-        self.disposableDiscuss = nil;
+        myself.disposableDiscuss = nil;
     }];
 }
 #pragma mark - RefreshControlDelegate
@@ -302,12 +257,18 @@ UIWebViewDelegate
 -(BOOL)refreshControlEnableRefresh{
     return YES;
 }
-
 -(BOOL)refreshControlEnableLoadMore{
     return NO;
 }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     //    图片
     if (section == 0) {
         if (self.dicInfo.count>0) {
@@ -367,15 +328,14 @@ UIWebViewDelegate
         if (self.arrDiscuss.count>0) {
             return 1;
         }
-    }return 0;
+    }
+    return 0;
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 10;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     //    图片
     if (indexPath.section == 0) {
         return SCREEN_WIDTH;
@@ -438,9 +398,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 0.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    @weakify(self)
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 0) {
         CellVendorGoodPic *cell=[tableView dequeueReusableCellWithIdentifier:@"CellVendorGoodPic"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -469,37 +428,40 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         return cell;
     }
     if (indexPath.section == 3) {
-        CellVendorGoodType *cell = [tableView dequeueReusableCellWithIdentifier:@"CellVendorGoodType"];
+        CellVendorGoodType *cell=[tableView dequeueReusableCellWithIdentifier:@"CellVendorGoodType"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         [cell populateDataArray:self.arrProperty];
         [cell setDelegete:self];
+        
         [cell.collectionView performBatchUpdates:^{
             //更新collection的约束一定要写在reload完成之前,否则会导致crash
+            
         } completion:^(BOOL finished) {
-            @strongify(self)
             //这里为了防止循环调用该方法,引入isNeedRefresh属性来做控制
-            if (self.fTypeHeight < 0) {
+            
+            if (self.fTypeHeight<0) {
                 self.fTypeHeight = cell.collectionView.collectionViewLayout.collectionViewContentSize.height;
                 D_NSLog(@"须知的高度%f",self.fTypeHeight);
                 [self reloadDataOfTabView];
             }
-        }];return cell;
+        }];
+        
+        return cell;
     }
     if (indexPath.section == 4) {
-        CellTwoLblArrow *cell = [tableView dequeueReusableCellWithIdentifier:@"CellTwoLblArrow"];
+        CellTwoLblArrow *cell=[tableView dequeueReusableCellWithIdentifier:@"CellTwoLblArrow"];
         [cell.lblName setTextNull:@"商家信息"];
         [cell.lblContent setTextNull:@""];
         [cell.imgArrow setHidden:NO];
         return cell;
     }
     if (indexPath.section == 5) {
-        CellVendorGoodShopInfo *cell = [tableView dequeueReusableCellWithIdentifier:@"CellVendorGoodShopInfo"];
+        CellVendorGoodShopInfo *cell=[tableView dequeueReusableCellWithIdentifier:@"CellVendorGoodShopInfo"];
         [cell populataData:self.dicInfo];
-        [cell.btnPhone handleControlEvent:UIControlEventTouchUpInside
-                                withBlock:^{
-            @strongify(self)
+        [cell.btnPhone handleControlEvent:UIControlEventTouchUpInside withBlock:^{
             [self dail];
-        }];return cell;
+        }];
+        return cell;
     }
     if (indexPath.section == 6) {
         CellTwoLblArrow *cell=[tableView dequeueReusableCellWithIdentifier:@"CellTwoLblArrow"];
@@ -509,9 +471,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         [cell.imgArrow setHidden:YES];
         return cell;
     }
+    
     if (indexPath.section == 7) {
-        CellVendorWebOlny *cell = [tableView dequeueReusableCellWithIdentifier:@"CellVendorWebOlny"];
+        CellVendorWebOlny *cell=[tableView dequeueReusableCellWithIdentifier:@"CellVendorWebOlny"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        
         [cell addSubview:self.webDetail];
 //        [cell populataData:self.dicInfo[@"goods"][@"detailURL"]];
 //        cell.webViewHeight = ^(CGFloat fWebHeight){
@@ -544,56 +508,42 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     [cell.imgArrow setHidden:YES];
     return cell;
 }
-
 - (void)dail{
     NSString *strPhone = self.dicInfo[@"goods"][@"store_telephone"];
     if ([NSString isNullString:strPhone]) {
         JJAlertViewOneButton *alertView = [[JJAlertViewOneButton alloc] init];
-        [alertView showAlertView:self
-                        andTitle:nil
-                      andMessage:@"暂无商家电话"
-                       andCancel:@"确定"
-                   andCanelIsRed:YES
-                         andBack:^{
+        [alertView showAlertView:self andTitle:nil andMessage:@"暂无商家电话"  andCancel:@"确定" andCanelIsRed:YES andBack:^{
             D_NSLog(@"点击了确定");
             [[PersonalInfo sharedInstance] deleteLoginUserInfo];
         }];
     }else{
         JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-        [alertView showAlertView:self
-                        andTitle:nil
-                      andMessage:@"是否拨打电话"
-                       andCancel:@"取消"
-                   andCanelIsRed:NO
-                   andOherButton:@"立即拨打"
-                      andConfirm:^{
+        [alertView showAlertView:self andTitle:nil andMessage:@"是否拨打电话" andCancel:@"取消" andCanelIsRed:NO andOherButton:@"立即拨打" andConfirm:^{
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:StringFormat(@"tel://%@",strPhone)]]; //拨号
         } andCancel:^{
         }];
     }
 }
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+    
     if (indexPath.section == 8) {
-
-        UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain
-                                                           bundle:nil];
+        
+        UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
         GoodDetailDiscussController *controller = [storyboard instantiateViewControllerWithIdentifier:@"GoodDetailDiscussController"];
         controller.strGood_id = self.strGoodId;
         
-        [self.navigationController pushViewController:controller
-                                             animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }
     if (indexPath.section == 4||indexPath.section == 5) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardVendorDetail
-                                                             bundle:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardVendorDetail bundle:nil];
         VendorDetailShopController *controller = [storyboard instantiateViewControllerWithIdentifier:@"VendorDetailShopController"];
         controller.strStoreID = self.dicInfo[@"goods"][@"goods_store_id"];
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 3&&self.arrProperty.count>0) {
         return 10;
@@ -609,17 +559,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     return 0;
 }
-
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
-
-- (void)didClickCollectionViewSectionDetail:(NSArray *)arrAttribute
-                     andGoodsspecpropertyId:(NSString *)GoodsspecpropertyId
-           andGoodsspecpropertyValueAndName:(NSString *)GoodsspecpropertyValueAndName
-                             andIsSelectAll:(BOOL)isSelected{
+- (void)didClickCollectionViewSectionDetail:(NSArray *)arrAttribute andGoodsspecpropertyId:(NSString *)GoodsspecpropertyId andGoodsspecpropertyValueAndName:(NSString *)GoodsspecpropertyValueAndName andIsSelectAll:(BOOL)isSelected{
     self.arrProperty = [NSMutableArray arrayWithArray:arrAttribute];
     self.strAttribute = GoodsspecpropertyId;
     self.strAttributeName = GoodsspecpropertyValueAndName;
@@ -628,9 +573,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         D_NSLog(@"已全部选择完毕，可以请求库存%@",GoodsspecpropertyId);
         __weak VendorDetailGoodController *myself = self;
         [myself.disposableGoodNum dispose];
-        myself.disposableGoodNum = [[[JJHttpClient new] requestShopGoodGoodNumGoodsspecpropertyId:GoodsspecpropertyId
-                                                                                       andGoodsId:[NSString stringStandard:self.strGoodId]]
-                                    subscribeNext:^(NSDictionary* dictionary) {
+        myself.disposableGoodNum = [[[JJHttpClient new] requestShopGoodGoodNumGoodsspecpropertyId:GoodsspecpropertyId andGoodsId:[NSString stringStandard:self.strGoodId]] subscribeNext:^(NSDictionary* dictionary) {
             D_NSLog(@"msg is %@",dictionary[@"msg"]);
             myself.strGoodPrice = dictionary[@"store_price"];
             myself.strGoodPriceOld = dictionary[@"goods_price"];
@@ -642,6 +585,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         }completed:^{
             myself.disposableGoodNum = nil;
         }];
+        
     }else{
         D_NSLog(@"未全部选择完毕，不需请求库存");
     }
@@ -673,7 +617,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         [self pushLoginController];
     }
 }
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     D_NSLog(@"self.tabGood.contentOffset.y is %f",self.tabGood.contentOffset.y);
     CGFloat fOffSet = self.tabGood.contentOffset.y;
@@ -685,6 +628,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     [self.viBuy setFrame:rect];
 }
+/*
+#pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

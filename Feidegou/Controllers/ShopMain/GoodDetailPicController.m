@@ -9,7 +9,6 @@
 #import "GoodDetailPicController.h"
 
 @interface GoodDetailPicController ()
-
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @end
@@ -20,7 +19,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 - (void)locationControls{
     [self.webView setScalesPageToFit:YES];
 //    [self.webView loadHTMLString:self.dicDetail[@"goods"][@"goods_details"] baseURL:[[NSBundle mainBundle] bundleURL]];
@@ -35,10 +33,23 @@
     //加载文件
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
-
-- (void)webViewDidFinishLoad:(UIWebView *)theWebView{
+- (void)webViewDidFinishLoad:(UIWebView *)theWebView
+{
     
 }
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

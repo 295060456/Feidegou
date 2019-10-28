@@ -10,9 +10,7 @@
 #define SearchHistory @"searchHistory"
 #define SearchHot @"searchHot"
 #define SearchHistoryVendor @"searchHistoryVendor"
-
 @implementation JJDBHelper (History)
-
 - (NSArray *)fetchSearchHistoryIsVendor:(BOOL)isVendor{
     NSData *data;
     if (isVendor) {
@@ -20,12 +18,13 @@
     }else{
         data = [self queryCacheDataWithCacheId:SearchHistory];
     }
+    
     NSArray *array = [self convertData:data];
     if (![array isKindOfClass:[NSArray class]]) {
         array = [NSArray array];
-    }return array;
+    }
+    return array;
 }
-
 - (NSArray *)fetchSearchHot{
     
     NSData *data = [self queryCacheDataWithCacheId:SearchHot];
@@ -33,25 +32,18 @@
     NSArray *array = [self convertData:data];
     if (![array isKindOfClass:[NSArray class]]) {
         array = [NSArray array];
-    }return array;
+    }
+    return array;
 }
-
-- (void)saveSearchHistory:(NSArray *)array
-              andIsVendor:(BOOL)isVenor{
+- (void)saveSearchHistory:(NSArray *)array andIsVendor:(BOOL)isVenor{
     if (isVenor) {
         [self updateCacheForId:SearchHistoryVendor cacheArray:array];
     }else{
         [self updateCacheForId:SearchHistory cacheArray:array];
     }
 }
-
 - (void)saveSearchHot:(NSArray *)array{
     NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:&error];
-    [self updateCacheForId:SearchHot
-                 cacheData:jsonData];
-}
-
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:&error];
+    [self updateCacheForId:SearchHot cacheData:jsonData];}
 @end

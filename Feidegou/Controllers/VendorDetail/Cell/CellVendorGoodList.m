@@ -15,7 +15,6 @@
     [self.lblTip setBackgroundColor:ColorRed];
     // Initialization code
 }
-
 - (void)populataData:(ModelGood *)model{
     [self.imgHead setImagePathHead:model.path];
     
@@ -31,10 +30,8 @@
         self.layoutConstraintY.constant = 25;
     }
     
-    [self.lblPrice setTextVendorPrice:model.store_price
-                          andOldPrice:model.goods_price];
+    [self.lblPrice setTextVendorPrice:model.store_price andOldPrice:model.goods_price];
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

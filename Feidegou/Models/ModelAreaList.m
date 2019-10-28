@@ -9,7 +9,6 @@
 #import "ModelAreaList.h"
 
 @implementation ModelAreaList
-
 + (NSDictionary *)JSONKeyPathsByPropertyKey{
     return @{
              @"count":@"count",
@@ -23,5 +22,4 @@
              @"igo_ship_code":@"igo_ship_code"
              };
 }
-
 @end

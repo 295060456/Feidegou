@@ -21,9 +21,9 @@
  *
  *  @return RACSignal
  */
-- (RACSignal *)requestPOSTWithRelativePathByBaseURL:(NSString *)strBaseUrl
-                                    andRelativePath:(NSString *)relativePath
-                                         parameters:(NSDictionary *)parameters;
+- (RACSignal *)requestPOSTWithRelativePathByBaseURL:(NSString *)strBaseUrl andRelativePath:(NSString *)relativePath
+                                parameters:(NSDictionary *)parameters;
+
 /**
 *  POST请求
 *
@@ -34,6 +34,7 @@
 */
 - (RACSignal *)requestPOSTWithRelativePath:(NSString *)relativePath
                                 parameters:(NSDictionary *)parameters;
+
 /**
  *  拼接参数
  *
@@ -42,15 +43,13 @@
  *
  *  @return 参数字符串
  */
--(NSDictionary *)paramStringWithStype:(NSString *)stype
-                                 data:(NSDictionary *)data;
+-(NSDictionary*)paramStringWithStype:(NSString*)stype data:(NSDictionary*)data;
 //MD5大写加密
-- (NSString *)md5HexDigestUpper:(NSString *)input;
+- (NSString *)md5HexDigestUpper:(NSString*)input;
 //MD5小写加密
-- (NSString *)md5HexDigestSmall:(NSString *)input;
+- (NSString *)md5HexDigestSmall:(NSString*)input;
 //转化为json
--(NSString *)DataTOjsonString:(id)object;
-
+-(NSString*)DataTOjsonString:(id)object;
 @end
 
 

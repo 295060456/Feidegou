@@ -21,13 +21,7 @@
 #import "GoodDetialAllController.h"
 #import "GoodOtherListController.h"
 
-@interface GoodDetailController ()
-<
-UIScrollViewDelegate,
-UICollectionViewDelegate,
-UICollectionViewDataSource
->
-
+@interface GoodDetailController ()<UIScrollViewDelegate,UICollectionViewDelegate,UICollectionViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tabDetail;
 @property (weak, nonatomic) IBOutlet UIButton *btnBuy;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstraintTop;
@@ -35,12 +29,18 @@ UICollectionViewDataSource
 @property (weak, nonatomic) IBOutlet UIView *viUp;
 @property (weak, nonatomic) IBOutlet UIWebView *webDetail;
 @property (weak, nonatomic) IBOutlet UIView *viDown;
+
+
 @property (strong, nonatomic) UIView *viCreateBack;
 @property (strong, nonatomic) UIView *viCreateOrder;
 @property (strong, nonatomic) UICollectionView *collectionSelectType;
+
+
 @property (strong, nonatomic) NSMutableArray *arrSelectType;
-@property (strong, nonatomic) NSString *strGoodNum;//库存
-@property (copy, nonatomic) NSString *strGoodPrice;//价格
+//库存
+@property (strong, nonatomic) NSString *strGoodNum;
+//价格
+@property (strong, nonatomic) NSString *strGoodPrice;
 @property (strong, nonatomic) UILabel *lblPrice;
 @property (assign, nonatomic) int intBuyNum;
 @property (nonatomic,strong) RACDisposable *disposableGoodNum;
@@ -52,7 +52,6 @@ UICollectionViewDataSource
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 - (void)locationControls{
     [self.webDetail.scrollView setDelegate:self];
     [self.btnBuy setBackgroundColor:ColorRed];
@@ -64,7 +63,6 @@ UICollectionViewDataSource
     [self.view layoutIfNeeded];
     [self addViewOfMore];
 }
-
 - (void)addViewOfMore{
     CGFloat height = MAX(self.tabDetail.contentSize.height, self.tabDetail.bounds.size.height);
     
@@ -77,7 +75,6 @@ UICollectionViewDataSource
     [self.tabDetail addSubview:viewMore];
     [self addViewOfDetail];
 }
-
 - (void)addViewOfDetail{
     
     NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"MoreDown"
@@ -92,35 +89,35 @@ UICollectionViewDataSource
     [self.webDetail sendSubviewToBack:viewMore];
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     if (section == 2) {
         if ([self.dicDetail[@"goods"][@"name_suffix"] isKindOfClass:[NSDictionary class]]) {
             return 1;
-        }return 0;
-    }return 1;
+        }
+        return 0;
+    }
+    return 1;
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 4;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 0) {
         return SCREEN_WIDTH;
     }else if (indexPath.section == 1) {
         return 95;
     }else if (indexPath.section == 2) {
         return 60;
-    }return 80;
+    }
+    return 80;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    @weakify(self)
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 0) {
-        CellPicture *cell = [tableView dequeueReusableCellWithIdentifier:@"CellPicture"];
+        CellPicture *cell=[tableView dequeueReusableCellWithIdentifier:@"CellPicture"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
         NSArray *arrPic = self.dicDetail[@"photoUrl"];
         if ([arrPic isKindOfClass:[NSArray class]]) {
@@ -151,21 +148,18 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 [atrString appendAttributedString:atrMiddle];
             }
             [cell.lblDown setAttributedText:atrString];
-        }return cell;
+        }
+        return cell;
     }
     CellGoodEnterIn *cell=[tableView dequeueReusableCellWithIdentifier:@"CellGoodEnterIn"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-    [cell.btnCheck handleControlEvent:UIControlEventTouchUpInside
-                            withBlock:^{
-        @strongify(self)
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
+    [cell.btnCheck handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
         GoodOtherListController *controller=[storyboard instantiateViewControllerWithIdentifier:@"GoodOtherListController"];
         controller.strGoods_store_id = self.dicDetail[@"goods"][@"goods_store_id"];
         [self.navigationController pushViewController:controller animated:YES];
     }];
-    [cell.btnPhone handleControlEvent:UIControlEventTouchUpInside
-                            withBlock:^{
-        @strongify(self)
+    [cell.btnPhone handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         NSString *strPhone = self.dicDetail[@"goods"][@"store_telephone"];
         if ([NSString isNullString:strPhone]) {
             [SVProgressHUD showErrorWithStatus:@"该商家未填写电话"];
@@ -175,24 +169,25 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         UIWebView * callWebview = [[UIWebView alloc] init];
         [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
         [self.view addSubview:callWebview];
-    }];return cell;
+    }];
+    return cell;
 }
-
-- (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath
-                             animated:NO];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (indexPath.section == 2) {
         
     }
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
 }
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView
-                  willDecelerate:(BOOL)decelerate{
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     if (scrollView == self.tabDetail) {
         
         float fOriginY = self.tabDetail.contentSize.height;
@@ -208,16 +203,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
     }
 }
-
 - (void)animaitonShowDetailMore{
-    @weakify(self)
-    [UIView animateWithDuration:0.27
-                     animations:^{
-        @strongify(self)
+    [UIView animateWithDuration:0.27 animations:^{
         self.layoutConstraintTop.constant = -CGRectGetHeight(self.tabDetail.frame);
         [self.view layoutIfNeeded];
     } completion:^(BOOL finished){
-        @strongify(self)
         D_NSLog(@"detail is %@",self.dicDetail[@"goods"][@"goods_details"]);
         [self.webDetail setScalesPageToFit:YES];
 //        [self.webDetail loadHTMLString:self.dicDetail[@"goods"][@"goods_details"] baseURL:[[NSBundle mainBundle] bundleURL]];
@@ -243,78 +233,46 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    theWebView.scrollView.maximumZoomScale = rw;
 //    theWebView.scrollView.zoomScale = rw;
 //}
-
 - (void)animaitonHidenDetailMore{
-    @weakify(self)
-    [UIView animateWithDuration:0.27
-                     animations:^{
-        @strongify(self)
+    [UIView animateWithDuration:0.27 animations:^{
         self.layoutConstraintTop.constant = 0;
         [self.view layoutIfNeeded];
     }];
 }
-
 - (IBAction)clickButtonBuy:(UIButton *)sender {
     [self initCreateOrder];
 }
-
 - (void)initCreateOrder{
 //    生成背景黑色
-    self.viCreateBack = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                 0,
-                                                                 SCREEN_WIDTH,
-                                                                 SCREEN_HEIGHT)];
-    [self.viCreateBack setBackgroundColor:[UIColor colorWithWhite:0
-                                                            alpha:0.4]];
+    self.viCreateBack = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    [self.viCreateBack setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.4]];
     [self.viCreateBack setAlpha:0];
 //    背景黑色点击隐藏
-    UIButton *btnHidden = [[UIButton alloc] initWithFrame:CGRectMake(0,
-                                                                     0,
-                                                                     SCREEN_WIDTH,
-                                                                     SCREEN_HEIGHT)];
+    UIButton *btnHidden = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     [btnHidden setBackgroundColor:[UIColor clearColor]];
-    [btnHidden addTarget:self action:@selector(animationHiddenViCreateOrder)
-        forControlEvents:UIControlEventTouchUpInside];
+    [btnHidden addTarget:self action:@selector(animationHiddenViCreateOrder) forControlEvents:UIControlEventTouchUpInside];
     [self.viCreateBack addSubview:btnHidden];
     
 //    生成放控件的view
-    self.viCreateOrder = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                  SCREEN_HEIGHT,
-                                                                  SCREEN_WIDTH,
-                                                                  SCREEN_HEIGHT*2/3)];
+    self.viCreateOrder = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT*2/3)];
     [self.viCreateOrder setBackgroundColor:[UIColor clearColor]];
     [self.viCreateBack addSubview:self.viCreateOrder];
 //    生成头部资料的view
-    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                0,
-                                                                SCREEN_WIDTH,
-                                                                95)];
+    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 95)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
-    UIView *viHeaderColor = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                     15,
-                                                                     SCREEN_WIDTH,
-                                                                     CGRectGetHeight(viHeader.frame)-15)];
+    UIView *viHeaderColor = [[UIView alloc] initWithFrame:CGRectMake(0, 15, SCREEN_WIDTH, CGRectGetHeight(viHeader.frame)-15)];
     [viHeaderColor setBackgroundColor:[UIColor whiteColor]];
-    UIImageView *imgHead = [[UIImageView alloc] initWithFrame:CGRectMake(10,
-                                                                         0,
-                                                                         90,
-                                                                         90)];
+    UIImageView *imgHead = [[UIImageView alloc] initWithFrame:CGRectMake(10, 0, 90, 90)];
     [imgHead setImagePathHead:self.dicDetail[@"goods"][@"icon"]];
     [imgHead.layer setCornerRadius:3.0];
     [imgHead setClipsToBounds:YES];
-    self.lblPrice = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imgHead.frame)+15,
-                                                              10,
-                                                              200,
-                                                              20)];
+    self.lblPrice = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imgHead.frame)+15, 10, 200, 20)];
     [self.lblPrice setFont:[UIFont systemFontOfSize:16.0]];
     [self.lblPrice setTextColor:ColorFromRGB(255, 0, 0)];
     [self.lblPrice setTextNull:StringFormat(@"￥%@",[NSString stringStandardFloatTwo:self.strGoodPrice])];
     NSString *strNum = self.dicDetail[@"goods"][@"goods_serial"];
     if (![NSString isNullString:strNum]) {
-        UILabel *lblNum = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imgHead.frame)+15,
-                                                                    CGRectGetMaxY(self.lblPrice.frame),
-                                                                    200,
-                                                                    20)];
+        UILabel *lblNum = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imgHead.frame)+15, CGRectGetMaxY(self.lblPrice.frame), 200, 20)];
         [lblNum setFont:[UIFont systemFontOfSize:13.0]];
         [lblNum setTextColor:ColorGary];
         [lblNum setTextNull:StringFormat(@"商品编号: %@",strNum)];
@@ -322,17 +280,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     
     
-    UIButton *btnClose = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(viHeaderColor.frame)-40,
-                                                                    0,
-                                                                    40,
-                                                                    40)];
+    UIButton *btnClose = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(viHeaderColor.frame)-40, 0, 40, 40)];
     [btnClose setImage:ImageNamed(@"img_close") forState:UIControlStateNormal];
     [btnClose addTarget:self action:@selector(animationHiddenViCreateOrder) forControlEvents:UIControlEventTouchUpInside];
     
-    UIView *viLine = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                              CGRectGetHeight(viHeaderColor.frame)-1,
-                                                              SCREEN_WIDTH,
-                                                              0.5)];
+    UIView *viLine = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(viHeaderColor.frame)-1, SCREEN_WIDTH, 0.5)];
     [viLine setBackgroundColor:ColorLine];
     
     [viHeader addSubview:viHeaderColor];
@@ -345,10 +297,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
 //    生成订单的按钮
     
-    UIButton *btnOrder = [[UIButton alloc] initWithFrame:CGRectMake(0,
-                                                                    CGRectGetHeight(self.viCreateOrder.frame) - 40,
-                                                                    CGRectGetWidth(self.viCreateOrder.frame),
-                                                                    40)];
+    UIButton *btnOrder = [[UIButton alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.viCreateOrder.frame)-40, CGRectGetWidth(self.viCreateOrder.frame), 40)];
     [btnOrder setBackgroundColor:ColorRed];
     [btnOrder.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
     [btnOrder setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -376,34 +325,24 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.view.window addSubview:self.viCreateBack];
     [self animationShowViCreateOrder];
 }
-
 - (void)animationShowViCreateOrder{
     CGRect rectOrder = self.viCreateOrder.frame;
     rectOrder.origin.y = SCREEN_HEIGHT-CGRectGetHeight(self.viCreateOrder.frame);
-    @weakify(self)
-    [UIView animateWithDuration:0.27
-                     animations:^{
-        @strongify(self)
+    [UIView animateWithDuration:0.27 animations:^{
         [self.viCreateBack setAlpha:1];
         [self.viCreateOrder setFrame:rectOrder];
     }];
 }
-
 - (void)animationHiddenViCreateOrder{
     CGRect rectOrder = self.viCreateOrder.frame;
     rectOrder.origin.y = SCREEN_HEIGHT;
-    @weakify(self)
-    [UIView animateWithDuration:0.27
-                     animations:^{
-        @strongify(self)
+    [UIView animateWithDuration:0.27 animations:^{
         [self.viCreateBack setAlpha:0];
         [self.viCreateOrder setFrame:rectOrder];
     } completion:^(BOOL finished){
-        @strongify(self)
         [self.viCreateBack removeFromSuperview];
     }];
 }
-
 #pragma mark--  选择了属性后跳到订单详情页面
 - (void)clickButtonCreateOrder:(UIButton *)sender{
     if (![self isSelectedAll]) {
@@ -434,10 +373,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [self pushLoginController];
     }
 }
+
+
 #pragma mark --UICollectionViewDelegate
 //定义展示的UICollectionViewCell的个数
--(NSInteger)collectionView:(UICollectionView *)collectionView
-    numberOfItemsInSection:(NSInteger)section{
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     
     if (section<self.arrSelectType.count){
         NSArray *arrClasss = [NSArray arrayWithArray:self.arrSelectType[section][@"items"]];
@@ -445,16 +386,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }else{
         return 1;
     }
+    
 }
 //定义展示的Section的个数
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return self.arrSelectType.count+1;
 }
 //每个UICollectionView展示的内容
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                 cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    @weakify(self)
-    if (indexPath.section < self.arrSelectType.count) {
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    if (indexPath.section<self.arrSelectType.count) {
         static NSString *identifier = @"CLCellGoodProperty";
         CLCellGoodProperty *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
         NSArray *arrClasss = [NSArray arrayWithArray:self.arrSelectType[indexPath.section][@"items"]];
@@ -464,18 +407,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *identifier = @"CLCellGoodNum";
     CLCellGoodNum *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     [cell.lblLeave setTextNull:StringFormat(@"库存%@",[NSString stringStandardZero:self.strGoodNum])];
-    [cell.btnAdd handleControlEvent:UIControlEventTouchUpInside
-                          withBlock:^{
-        @strongify(self)
+    [cell.btnAdd handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         if ([self.strGoodNum intValue]>self.intBuyNum) {
             self.intBuyNum++;
             [self.collectionSelectType reloadData];
         }
     }];
-    [cell.btnReduce handleControlEvent:UIControlEventTouchUpInside
-                             withBlock:^{
-        @strongify(self)
-        if (self.intBuyNum > 1) {
+    [cell.btnReduce handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        if (self.intBuyNum>1) {
             self.intBuyNum--;
             [self.collectionSelectType reloadData];
         }
@@ -483,18 +422,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [cell.lblNum setTextNull:StringFormat(@"%d",self.intBuyNum)];
     return cell;
 }
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
-           viewForSupplementaryElementOfKind:(NSString *)kind
-                                 atIndexPath:(NSIndexPath *)indexPath{
+{
     
     UICollectionReusableView *reusableview = nil;
     if (indexPath.section<self.arrSelectType.count) {
         if (kind == UICollectionElementKindSectionHeader){
             
-            ReusableViewProperty *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                                                                                  withReuseIdentifier:@"ReusableViewProperty"
-                                                                                         forIndexPath:indexPath];
+            ReusableViewProperty *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableViewProperty" forIndexPath:indexPath];
             [headerView setBackgroundColor:[UIColor whiteColor]];
             UILabel *lblHead = (UILabel *)[headerView viewWithTag:100];
             UILabel *lblLine = (UILabel *)[headerView viewWithTag:101];
@@ -507,12 +443,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [lblHead setText:TransformString(self.arrSelectType[indexPath.section][@"name"])];
             [headerView addSubview:lblHead];
             reusableview = headerView;
+            
         }
     }else{
         if (kind == UICollectionElementKindSectionHeader){
-            ReusableViewProperty *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                                                                                  withReuseIdentifier:@"ReusableViewProperty"
-                                                                                         forIndexPath:indexPath];
+            ReusableViewProperty *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableViewProperty" forIndexPath:indexPath];
             [headerView setBackgroundColor:[UIColor whiteColor]];
             UILabel *lblHead = (UILabel *)[headerView viewWithTag:100];
             UILabel *lblLine = (UILabel *)[headerView viewWithTag:101];
@@ -527,11 +462,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
     }
     return reusableview;
+    
+    
+    
 }
-
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout*)collectionViewLayout
-referenceSizeForHeaderInSection:(NSInteger)section{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
+    
     if (section<self.arrSelectType.count) {
         return CGSizeMake(SCREEN_WIDTH, 30);
     }else{
@@ -540,9 +476,7 @@ referenceSizeForHeaderInSection:(NSInteger)section{
 }
 #pragma mark --UICollectionViewDelegateFlowLayout
 //定义每个UICollectionView 的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout*)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section < self.arrSelectType.count) {
         CGFloat fWithd = 60;
@@ -552,20 +486,17 @@ referenceSizeForHeaderInSection:(NSInteger)section{
     }
 }
 //定义每个UICollectionView 的 margin
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView
-                       layout:(UICollectionViewLayout *)collectionViewLayout
-       insetForSectionAtIndex:(NSInteger)section{
-    return UIEdgeInsetsMake(0,
-                            10,
-                            10,
-                            10);
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    
+    return UIEdgeInsetsMake(0, 10, 10, 10);
 }
 #pragma mark --UICollectionViewDelegate
 //UICollectionView被选中时调用的方法
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     [self didSelectedItemAtIndexPath:indexPath];
 }
-
 - (void)didSelectedItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section<self.arrSelectType.count) {
         NSMutableArray *array = [NSMutableArray arrayWithArray:self.arrSelectType[indexPath.section][@"items"]];
@@ -598,7 +529,6 @@ referenceSizeForHeaderInSection:(NSInteger)section{
         [self requestNum];
     }
 }
-
 - (BOOL)isSelectedAll{
     BOOL selectedAll = YES;
     for (int i = 0; i<self.arrSelectType.count; i++) {
@@ -615,37 +545,32 @@ referenceSizeForHeaderInSection:(NSInteger)section{
                 return NO;
             }
         }
-    }return selectedAll;
+    }
+    return selectedAll;
 }
-
 - (void)requestNum{
     if ([self isSelectedAll] && self.arrSelectType.count>0) {
         NSString *strGoodsspecpropertyId = [self fetchStringGoodsspecpropertyId];
         D_NSLog(@"已全部选择完毕，可以请求库存%@",strGoodsspecpropertyId);
-        @weakify(self)
-        [self.disposableGoodNum dispose];
-        self.disposableGoodNum = [[[JJHttpClient new] requestShopGoodGoodNumGoodsspecpropertyId:strGoodsspecpropertyId
-                                                                                       andGoodsId:[NSString stringStandard:self.strGood_id]]
-                                    subscribeNext:^(NSDictionary* dictionary) {
-            @strongify(self)
+        __weak GoodDetailController *myself = self;
+        [myself.disposableGoodNum dispose];
+        myself.disposableGoodNum = [[[JJHttpClient new] requestShopGoodGoodNumGoodsspecpropertyId:strGoodsspecpropertyId andGoodsId:[NSString stringStandard:self.strGood_id]] subscribeNext:^(NSDictionary* dictionary) {
             D_NSLog(@"msg is %@",dictionary[@"msg"]);
-            self.strGoodPrice = dictionary[@"store_price"];
-            self.strGoodNum = dictionary[@"goods_inventory"];
-            [self.lblPrice setTextNull:StringFormat(@"￥%@",[NSString stringStandardFloatTwo:self.strGoodPrice])];
-            [self.collectionSelectType reloadData];
+            myself.strGoodPrice = dictionary[@"store_price"];
+            myself.strGoodNum = dictionary[@"goods_inventory"];
+            [myself.lblPrice setTextNull:StringFormat(@"￥%@",[NSString stringStandardFloatTwo:myself.strGoodPrice])];
+            [myself.collectionSelectType reloadData];
         }error:^(NSError *error) {
-            @strongify(self)
-            [self failedRequestException:enum_exception_timeout];
-            self.disposableGoodNum = nil;
+            [myself failedRequestException:enum_exception_timeout];
+            myself.disposableGoodNum = nil;
         }completed:^{
-            @strongify(self)
-            self.disposableGoodNum = nil;
+            myself.disposableGoodNum = nil;
         }];
+        
     }else{
         D_NSLog(@"未全部选择完毕，不需请求库存");
     }
 }
-
 - (NSString *)fetchStringGoodsspecpropertyId{
     NSString *strAttribut = @"";
     for (int i = 0; i<self.arrSelectType.count; i++) {
@@ -658,9 +583,9 @@ referenceSizeForHeaderInSection:(NSInteger)section{
                 }
             }
         }
-    }return strAttribut;
+    }
+    return strAttribut;
 }
-
 - (NSString *)fetchStringGoodsspecpropertyValueAndName{
     NSString *strAttribut = @"";
     for (int i = 0; i<self.arrSelectType.count; i++) {
@@ -677,8 +602,17 @@ referenceSizeForHeaderInSection:(NSInteger)section{
                 }
             }
         }
-    }return strAttribut;
+    }
+    return strAttribut;
 }
+/*
+#pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

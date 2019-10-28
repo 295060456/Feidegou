@@ -69,10 +69,7 @@
     return strTimeBack;
 }
 //黑色背景显示
-+ (UIImage *)getImageWithRect:(CGRect)rectBegin
-                andColorBegin:(UIColor *)colorBegin
-                  andColorEnd:(UIColor *)colorEnd
-                 andDerection:(enumColorDirectionFrom)derection{
++ (UIImage *)getImageWithRect:(CGRect)rectBegin andColorBegin:(UIColor *)colorBegin andColorEnd:(UIColor *)colorEnd andDerection:(enumColorDirectionFrom)derection{
     CGRect rect = CGRectMake(0, 0, CGRectGetWidth(rectBegin), CGRectGetHeight(rectBegin));
     
     CIFilter *ciFilter = [CIFilter filterWithName:@"CILinearGradient"];
@@ -106,8 +103,7 @@
     return resultUIImage;
 }
 //黑色背景显示
-- (UIImage *)getImageShowClear:(CGRect)rectBegin
-                  andIsBeginUp:(BOOL)isBeginUp{
+- (UIImage *)getImageShowClear:(CGRect)rectBegin andIsBeginUp:(BOOL)isBeginUp{
     UIColor *colorUp = [UIColor colorWithWhite:0 alpha:0];
     UIColor *colorDown = [UIColor colorWithWhite:0 alpha:0.3];
     CGRect rect = CGRectMake(0, 0, CGRectGetWidth(rectBegin), CGRectGetHeight(rectBegin));
@@ -136,7 +132,6 @@
     [resultUIImage drawInRect:rect];
     return resultUIImage;
 }
-
 + (NSInteger)heightByInfo:(NSDictionary *)dicInfo{
     
     NSString *strType = TransformString(dicInfo[@"type"]);
@@ -200,9 +195,7 @@
     return 0;
 }
 
-+ (NSMutableArray *)returnButtonNameByNum:(NSString *)strState
-                          andIsNeedDetail:(BOOL)isDetail
-                           andcourierCode:(NSString *)courierCode{
++ (NSMutableArray *)returnButtonNameByNum:(NSString *)strState andIsNeedDetail:(BOOL)isDetail andcourierCode:(NSString *)courierCode{
 //    orderStateNameMap.put("0", "已取消");
 //    orderStateNameMap.put("10", "待付款");     去支付、取消订单
 //    orderStateNameMap.put("20", "已付款");      申请退款
@@ -260,38 +253,26 @@
     return array;
 }
 
+
 + (UIImage *)fetchImageForShareAchievement:(NSDictionary *)dicInfo{
-    UIColor *colorBack = ColorFromRGB(48,
-                                      45,
-                                      65);
+    UIColor *colorBack = ColorFromRGB(48, 45, 65);
     UIImage *image;
-    UIView *viShare = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                               0,
-                                                               640,
-                                                               1136)];
+    UIView *viShare = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 640, 1136)];
     [viShare setBackgroundColor:colorBack];
     ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
     //        背景图片
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0,
-                                                                           0,
-                                                                           640,
-                                                                           1136)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 640, 1136)];
     [imageView setImage:[UIImage imageNamed:@"achievement"]];
     [viShare addSubview:imageView];
     //        头像
-    UIView *viHead = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(viShare.frame) / 2 - 45,
-                                                              55,
-                                                              90,
-                                                              90)];
-    [viHead.layer setCornerRadius:CGRectGetWidth(viHead.frame) / 2];
+    UIView *viHead = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetWidth(viShare.frame)/2-45, 55, 90, 90)];
+    [viHead.layer setCornerRadius:CGRectGetWidth(viHead.frame)/2];
     [viHead setClipsToBounds:YES];
     [viHead setBackgroundColor:ColorFromRGB(251, 194, 205)];
     [viShare addSubview:viHead];
     
-    UIImageView *imageHead = [[UIImageView alloc] initWithFrame:CGRectMake(2,
-                                                                           2,
-                                                                           CGRectGetWidth(viHead.frame) - 4,
-                                                                           CGRectGetWidth(viHead.frame) - 4)];
+    
+    UIImageView *imageHead = [[UIImageView alloc] initWithFrame:CGRectMake(2, 2, CGRectGetWidth(viHead.frame)-4, CGRectGetWidth(viHead.frame)-4)];
     UIImage *imgHead = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:model.head];
     if (imgHead) {
         [imageHead setImage:imgHead];
@@ -305,10 +286,7 @@
     if (dicInfo.count>1) {
         CGFloat fX = 100;
         
-        UILabel *lblTipUp = [[UILabel alloc] initWithFrame:CGRectMake(fX,
-                                                                      CGRectGetMaxY(viHead.frame),
-                                                                      CGRectGetWidth(viShare.frame) - 2 * fX,
-                                                                      50)];
+        UILabel *lblTipUp = [[UILabel alloc] initWithFrame:CGRectMake(fX, CGRectGetMaxY(viHead.frame), CGRectGetWidth(viShare.frame)-2*fX, 50)];
         [lblTipUp setFont:[UIFont systemFontOfSize:22.0]];
         [lblTipUp setTextColor:ColorRed];
         [lblTipUp setTextAlignment:NSTextAlignmentCenter];
@@ -318,14 +296,8 @@
         //        金额
         NSString *strMoney = [NSString stringStandardFloatTwo:dicInfo[@"today"]];
         NSMutableAttributedString * atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"%@元",strMoney)];
-        [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
-                                                                            size:80],
-                                        NSForegroundColorAttributeName:ColorRed}
-                                range:NSMakeRange(0, strMoney.length)];
-        UILabel *lblMoney = [[UILabel alloc] initWithFrame:CGRectMake(fX,
-                                                                      CGRectGetMaxY(lblTipUp.frame),
-                                                                      CGRectGetWidth(viShare.frame) - 2 * fX,
-                                                                      280-CGRectGetMaxY(lblTipUp.frame))];
+        [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:80],NSForegroundColorAttributeName:ColorRed} range:NSMakeRange(0, strMoney.length)];
+        UILabel *lblMoney = [[UILabel alloc] initWithFrame:CGRectMake(fX, CGRectGetMaxY(lblTipUp.frame), CGRectGetWidth(viShare.frame)-2*fX, 280-CGRectGetMaxY(lblTipUp.frame))];
         [lblMoney setFont:[UIFont systemFontOfSize:22.0]];
         [lblMoney setTextColor:ColorFromRGB(241, 242, 217)];
         [lblMoney setTextAlignment:NSTextAlignmentCenter];
@@ -339,42 +311,26 @@
         NSString *strFour = [NSString stringStandardZero:dicInfo[@"average"]];
         NSString *strFive = [NSString stringStandardZero:dicInfo[@"ranking"]];
         
-        UILabel *lblTipTwo = [[UILabel alloc] initWithFrame:CGRectMake(fX,
-                                                                       415,
-                                                                       CGRectGetWidth(viShare.frame) - 2 * fX,
-                                                                       80)];
+        UILabel *lblTipTwo = [[UILabel alloc] initWithFrame:CGRectMake(fX, 415, CGRectGetWidth(viShare.frame)-2*fX, 80)];
         [lblTipTwo setFont:[UIFont systemFontOfSize:82.0]];
         [lblTipTwo setTextColor:ColorFromRGB(241, 242, 217)];
         [lblTipTwo setTextAlignment:NSTextAlignmentCenter];
         [lblTipTwo setTextNull:StringFormat(@"%@元",strOne)];
         [viShare addSubview:lblTipTwo];
         
-        UIView *viMoney = [[UIView alloc] initWithFrame:CGRectMake(fX,
-                                                                   590,
-                                                                   CGRectGetWidth(viShare.frame) - 2 * fX,
-                                                                   210)];
+        UIView *viMoney = [[UIView alloc] initWithFrame:CGRectMake(fX, 590, CGRectGetWidth(viShare.frame)-2*fX, 210)];
         [viMoney setBackgroundColor:ColorFromRGB(221, 189, 128)];
         [viMoney.layer setCornerRadius:5.0];
         [viMoney setClipsToBounds:YES];
         [viShare addSubview:viMoney];
         
         NSMutableAttributedString * atrDes = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"累计报销%@元,\n超过了全国%@的用户\n累计购买%@笔 平均每月消费%@笔\n全国排名%@名",strOne,strTwo,strThree,strFour,strFive)];
-        [atrDes addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HYXiDengXianJ" size:30],
-                                NSForegroundColorAttributeName:ColorBlack}
-                        range:NSMakeRange(4, strOne.length)];
-        [atrDes addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HYXiDengXianJ" size:30],
-                                NSForegroundColorAttributeName:ColorBlack}
-                        range:NSMakeRange(4+strOne.length+8, strTwo.length)];
-        [atrDes addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HYXiDengXianJ" size:30],
-                                NSForegroundColorAttributeName:ColorBlack}
-                        range:NSMakeRange(5+strOne.length+8+strTwo.length+7, strThree.length)];
-        [atrDes addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HYXiDengXianJ" size:30],
-                                NSForegroundColorAttributeName:ColorBlack}
-                        range:NSMakeRange(5+strOne.length+8+strTwo.length+7+strThree.length+8, strFour.length)];
-        [atrDes addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HYXiDengXianJ" size:30],
-                                NSForegroundColorAttributeName:ColorBlack}
-                        range:NSMakeRange(5+strOne.length+8+strTwo.length+7+strThree.length+8+strFour.length+6, strFive.length)];
-        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        [atrDes addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HYXiDengXianJ" size:30],NSForegroundColorAttributeName:ColorBlack} range:NSMakeRange(4, strOne.length)];
+        [atrDes addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HYXiDengXianJ" size:30],NSForegroundColorAttributeName:ColorBlack} range:NSMakeRange(4+strOne.length+8, strTwo.length)];
+        [atrDes addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HYXiDengXianJ" size:30],NSForegroundColorAttributeName:ColorBlack} range:NSMakeRange(5+strOne.length+8+strTwo.length+7, strThree.length)];
+        [atrDes addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HYXiDengXianJ" size:30],NSForegroundColorAttributeName:ColorBlack} range:NSMakeRange(5+strOne.length+8+strTwo.length+7+strThree.length+8, strFour.length)];
+        [atrDes addAttributes:@{NSFontAttributeName:[UIFont fontWithName:@"HYXiDengXianJ" size:30],NSForegroundColorAttributeName:ColorBlack} range:NSMakeRange(5+strOne.length+8+strTwo.length+7+strThree.length+8+strFour.length+6, strFive.length)];
+        NSMutableParagraphStyle  *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
         [paragraphStyle  setLineSpacing:8];
         [atrDes  addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [atrDes length])];
         //        [atrDes  addAttribute:NSKernAttributeName value:@3 range:NSMakeRange(0, [atrDes length])];
@@ -384,22 +340,21 @@
         [lblDes setAttributedText:atrDes];
         [lblDes setNumberOfLines:0];
         [viMoney addSubview:lblDes];
+        
+        
+        
         //        二维码
-        UIImage *imgCode = [UIImage createNonInterpolatedUIImageFormString:StringFormat(@"%@/inviter.htm?user_id=%@",BASE_URL,[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId)
-                                                                  withSize:128];
-        UIImageView *imgVi = [[UIImageView alloc] initWithFrame:CGRectMake(392,
-                                                                           856,
-                                                                           128,
-                                                                           128)];
+
+        UIImage *imgCode = [UIImage createNonInterpolatedUIImageFormString:StringFormat(@"%@/inviter.htm?user_id=%@",BASE_URL,[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId) withSize:128];
+        UIImageView *imgVi = [[UIImageView alloc] initWithFrame:CGRectMake(392, 856, 128, 128)];
         [imgVi setBackgroundColor:[UIColor whiteColor]];
         [imgVi setImage:imgCode];
         [viShare addSubview:imgVi];
     }
-    UIGraphicsBeginImageContextWithOptions(viShare.bounds.size, YES, 0);//设置截屏大小
+    UIGraphicsBeginImageContextWithOptions(viShare.bounds.size, YES, 0);     //设置截屏大小
     [[viShare layer] renderInContext:UIGraphicsGetCurrentContext()];
     image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
 }
-
 @end

@@ -11,7 +11,6 @@
 #import "StarView.h"
 
 @interface CellVendorShop : JJTableViewCell
-
 @property (weak, nonatomic) IBOutlet UIView *viDiscount;
 @property (weak, nonatomic) IBOutlet UIView *viLine;
 @property (weak, nonatomic) IBOutlet UILabelDarkMiddel *lblDiscount;
@@ -21,7 +20,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblMoney;
 @property (weak, nonatomic) IBOutlet UIView *viStar;
 @property (weak, nonatomic) IBOutlet StarView *viStarNew;
-
 - (void)populataData:(ModelVendorNear *)model;
-
 @end

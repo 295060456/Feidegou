@@ -11,7 +11,6 @@
 #import "JJDBHelper+Center.h"
 
 @interface ChangeNameController ()
-
 @property (weak, nonatomic) IBOutlet UITextField *txtName;
 @property (weak, nonatomic) IBOutlet UIButton *btnCommit;
 @property (weak, nonatomic) IBOutlet UILabel *lblTip;
@@ -50,7 +49,6 @@
 }
 - (IBAction)clickButtonCommit:(UIButton *)sender {
     [self.view endEditing:YES];
-    @weakify(self)
     ModelInfo *model = [[JJDBHelper sharedInstance]  fetchPersonalInfo];
     if (self.personalInfo == enum_personalInfo_phone) {
         NSString *strPhone = self.txtName.text;
@@ -63,30 +61,24 @@
             return;
         }
         [SVProgressHUD showWithStatus:@"正在提交信息..."];
-        self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName]
-                                                                    andtelePhone:strPhone
-                                                                      andarea_id:@""
-                                                                          andsex:@""
-                                                                     andbirthday:@""
-                                                                        andemail:@""]
-                           subscribeNext:^(NSDictionary*dictionry) {
-            @strongify(self)
+        __weak ChangeNameController *myself = self;
+        self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName] andtelePhone:strPhone andarea_id:@"" andsex:@"" andbirthday:@"" andemail:@""] subscribeNext:^(NSDictionary*dictionry) {
             if ([dictionry[@"code"] intValue]==1) {
                 [SVProgressHUD dismiss];
                 model.mobile = strPhone;
                 [[JJDBHelper sharedInstance] savePersonalInfo:model];
-                [self.navigationController popViewControllerAnimated:YES];
+                [myself.navigationController popViewControllerAnimated:YES];
             }else{
                 [SVProgressHUD showErrorWithStatus:dictionry[@"msg"]];
             }
         }error:^(NSError *error) {
-            @strongify(self)
-            self.disposable = nil;
+            myself.disposable = nil;
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }completed:^{
-            @strongify(self)
-            self.disposable = nil;
+            myself.disposable = nil;
         }];
+        
+        
     }else if (self.personalInfo == enum_personalInfo_email){
         NSString *strEmail = self.txtName.text;
         if ([NSString isNullString:strEmail]) {
@@ -98,29 +90,21 @@
             return;
         }
         [SVProgressHUD showWithStatus:@"正在提交信息..."];
-        self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName]
-                                                                    andtelePhone:@""
-                                                                      andarea_id:@""
-                                                                          andsex:@""
-                                                                     andbirthday:@""
-                                                                        andemail:strEmail]
-                           subscribeNext:^(NSDictionary*dictionry) {
-            @strongify(self)
+        __weak ChangeNameController *myself = self;
+        self.disposable = [[[JJHttpClient new] requestFourZeroChangeInfoUserName:[NSString stringStandard:model.userName] andtelePhone:@"" andarea_id:@"" andsex:@"" andbirthday:@"" andemail:strEmail] subscribeNext:^(NSDictionary*dictionry) {
             if ([dictionry[@"code"] intValue]==1) {
                 [SVProgressHUD dismiss];
                 model.email = strEmail;
                 [[JJDBHelper sharedInstance] savePersonalInfo:model];
-                [self.navigationController popViewControllerAnimated:YES];
+                [myself.navigationController popViewControllerAnimated:YES];
             }else{
                 [SVProgressHUD showErrorWithStatus:dictionry[@"msg"]];
             }
         }error:^(NSError *error) {
-            @strongify(self)
-            self.disposable = nil;
+            myself.disposable = nil;
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }completed:^{
-            @strongify(self)
-            self.disposable = nil;
+            myself.disposable = nil;
         }];
     }else if (self.personalInfo == enum_personalInfo_chongzhi){
         NSString *strEmail = self.txtName.text;
@@ -129,30 +113,39 @@
             return;
         }
         [SVProgressHUD showWithStatus:@"正在提交信息..."];
-        self.disposable = [[[JJHttpClient new] requestFourZeroAddInteger:[NSString stringStandard:strEmail]]
-                           subscribeNext:^(NSDictionary*dictionry) {
-            if ([dictionry[@"code"] intValue] == 1) {
+        __weak ChangeNameController *myself = self;
+        self.disposable = [[[JJHttpClient new] requestFourZeroAddInteger:[NSString stringStandard:strEmail]] subscribeNext:^(NSDictionary*dictionry) {
+            if ([dictionry[@"code"] intValue]==1) {
                 [SVProgressHUD dismiss];
-                @strongify(self)
-                [self.navigationController popViewControllerAnimated:YES];
+                [myself.navigationController popViewControllerAnimated:YES];
             }else{
                 [SVProgressHUD showErrorWithStatus:dictionry[@"msg"]];
             }
         }error:^(NSError *error) {
-            @strongify(self)
-            self.disposable = nil;
+            myself.disposable = nil;
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }completed:^{
-            @strongify(self)
-            self.disposable = nil;
+            myself.disposable = nil;
         }];
     }
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches
-           withEvent:(UIEvent *)event{
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

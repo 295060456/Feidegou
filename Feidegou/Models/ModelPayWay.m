@@ -9,7 +9,6 @@
 #import "ModelPayWay.h"
 
 @implementation ModelPayWay
-
 + (NSDictionary *)JSONKeyPathsByPropertyKey{
     return @{
              @"mark":@"mark",
@@ -17,5 +16,4 @@
              @"recommend":@"recommend"
              };
 }
-
 @end

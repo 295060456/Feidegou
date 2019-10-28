@@ -11,25 +11,15 @@
 #import "collectionLandScape.h"
 
 @protocol DidClickDelegeteCollectionViewType<NSObject>
-
 @optional
-- (void)didClickOnlyCollectionViewDictionary:(NSDictionary *)model
-                                      andRow:(NSInteger)row;
+- (void)didClickOnlyCollectionViewDictionary:(NSDictionary *)model andRow:(NSInteger)row;
 @end
-
-@interface CellTypeMore : JJTableViewCell
-<
-UICollectionViewDelegate,
-UICollectionViewDataSource
->
+@interface CellTypeMore : JJTableViewCell<UICollectionViewDelegate,UICollectionViewDataSource>
 @property (assign, nonatomic) id<DidClickDelegeteCollectionViewType> delegete;
+//@property (assign, nonatomic) NSInteger intRow;
+//@property (assign, nonatomic) NSInteger intLie;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionType;
 @property (strong, nonatomic) NSMutableArray *arrType;
 @property (strong, nonatomic) collectionLandScape *layout;
-//@property (assign, nonatomic) NSInteger intRow;
-//@property (assign, nonatomic) NSInteger intLie;
-- (void)populateData:(NSArray *)arrType
-              andRow:(NSInteger)intRow
-              andLie:(NSInteger)intLie;
-
+- (void)populateData:(NSArray *)arrType andRow:(NSInteger)intRow andLie:(NSInteger)intLie;
 @end

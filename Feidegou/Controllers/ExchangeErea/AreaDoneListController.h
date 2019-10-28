@@ -11,5 +11,4 @@
 @interface AreaDoneListController : JJBaseViewController
 
 @property (assign, nonatomic) enumOrderState orderState;
-
 @end

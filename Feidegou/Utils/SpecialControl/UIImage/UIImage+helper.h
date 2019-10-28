@@ -12,8 +12,7 @@
 @interface UIImage(helper)
 
 +(UIImage *)createRRcode:(NSString *)sourceString;
-+(UIImage *)createNonInterpolatedUIImageFormString:(NSString *)string
-                                           withSize:(CGFloat) size;
++ (UIImage *)createNonInterpolatedUIImageFormString:(NSString *)string withSize:(CGFloat) size;
 //根据颜色生成图片
-+(UIImage *)imageWithColor:(UIColor *)color;
++ (UIImage *)imageWithColor:(UIColor *)color;
 @end

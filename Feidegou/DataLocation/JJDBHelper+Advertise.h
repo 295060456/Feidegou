@@ -9,11 +9,11 @@
 #import "JJDBHelper.h"
 
 @interface JJDBHelper (Advertise)
+
 /**
  *  获取启动看广告
  *
  *  @return NSArray
  */
 - (NSArray *)fetchCacheForAdvertisementStart;
-
 @end

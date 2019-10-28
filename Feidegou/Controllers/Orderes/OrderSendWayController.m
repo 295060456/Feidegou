@@ -11,11 +11,10 @@
 #import "UIButton+Joker.h"
 
 @interface OrderSendWayController ()
-
 @property (weak, nonatomic) IBOutlet UITableView *tabSendWay;
 @property (weak, nonatomic) IBOutlet UIButton *btnConfilm;
-@property (assign, nonatomic) enumSendWay sendWay;
 
+@property (assign, nonatomic) enumSendWay sendWay;
 @end
 
 @implementation OrderSendWayController
@@ -24,34 +23,30 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 - (void)locationControls{
     [self.btnConfilm setBackgroundColor:ColorRed];
     [self.tabSendWay setBackgroundColor:ColorBackground];
-    [self.tabSendWay registerNib:[UINib nibWithNibName:@"CellSendWay"
-                                                bundle:nil]
-          forCellReuseIdentifier:@"CellSendWay"];
+    [self.tabSendWay registerNib:[UINib nibWithNibName:@"CellSendWay" bundle:nil] forCellReuseIdentifier:@"CellSendWay"];
     self.sendWay = self.model.sendWay;
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return 1;
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 2;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 0) {
         return 190.0f;
-    }return 166.0f;
+    }
+    return 166.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     CellSendWay *cell=[tableView dequeueReusableCellWithIdentifier:@"CellSendWay"];
     [cell populataData:self.model.goodsCart];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -87,16 +82,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             [cell.viOne.layer setBorderColor:ColorRed.CGColor];
             
         }else{
-            [cell.btnOne handleControlEvent:UIControlEventTouchUpInside
-                                  withBlock:^{
+            [cell.btnOne handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                 [self refreshTabBySendWay:enum_sendWay_mail];
             }];
-            [cell.btnTwo handleControlEvent:UIControlEventTouchUpInside
-                                  withBlock:^{
+            [cell.btnTwo handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                 [self refreshTabBySendWay:enum_sendWay_express];
             }];
-            [cell.btnThree handleControlEvent:UIControlEventTouchUpInside
-                                    withBlock:^{
+            [cell.btnThree handleControlEvent:UIControlEventTouchUpInside withBlock:^{
                 [self refreshTabBySendWay:enum_sendWay_ems];
             }];
             [cell.viOne setHidden:NO];
@@ -134,34 +126,33 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 [cell.imgThree setImage:imgSelected];
                 [cell.lblThree.layer setBorderColor:ColorRed.CGColor];
             }
+            
+            
         }
-    }return cell;
+        
+    }
+    return cell;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView
-heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         return 0;
     }else{
         return 10;
     }
 }
-
-- (nullable UIView *)tableView:(UITableView *)tableView
-        viewForHeaderInSection:(NSInteger)section{
-    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                0,
-                                                                SCREEN_WIDTH,
-                                                                10)];
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
-
 - (void)refreshTabBySendWay:(enumSendWay)sendWay{
     self.sendWay = sendWay;
     [self.tabSendWay reloadData];
 }
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (IBAction)clickButtonConfilm:(UIButton *)sender {
     if (self.sendWay != enum_sendWay_no) {
         self.model.sendWay = self.sendWay;
@@ -169,6 +160,14 @@ heightForHeaderInSection:(NSInteger)section{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

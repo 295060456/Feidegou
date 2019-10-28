@@ -9,17 +9,17 @@
 #import "JJBaseModel.h"
 
 @interface ModelPayWay : JJBaseModel
-/**
- *
- */
-@property (nonatomic,copy) NSString *mark;
-/**
- *
- */
-@property (nonatomic,copy) NSString *name;
-/**
- *
- */
-@property (nonatomic,copy) NSString *recommend;
 
+/**
+ *
+ */
+@property (nonatomic,strong) NSString *mark;
+/**
+ *
+ */
+@property (nonatomic,strong) NSString *name;
+/**
+ *
+ */
+@property (nonatomic,strong) NSString *recommend;
 @end

@@ -11,15 +11,14 @@
 
 @interface OrderLogisticsDetailController : JJBaseViewController
 //商品图片
-@property (copy, nonatomic) NSString *strPath;
+@property (strong, nonatomic) NSString *strPath;
 //购买数量
-@property (copy, nonatomic) NSString *strCount;
+@property (strong, nonatomic) NSString *strCount;
 
 //承运公司名字
-@property (copy, nonatomic) NSString *strCompanyName;
+@property (strong, nonatomic) NSString *strCompanyName;
 //运单编号
-@property (copy, nonatomic) NSString *strGoodCode;
+@property (strong, nonatomic) NSString *strGoodCode;
 //承运公司拼音
-@property (copy, nonatomic) NSString *strCompanyCode;
-
+@property (strong, nonatomic) NSString *strCompanyCode;
 @end

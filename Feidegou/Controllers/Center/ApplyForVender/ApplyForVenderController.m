@@ -18,12 +18,7 @@
 #import "JJDBHelper+Center.h"
 #import "CellProtocol.h"
 
-@interface ApplyForVenderController ()
-<
-UIActionSheetDelegate,
-UIImagePickerControllerDelegate,
-UINavigationControllerDelegate
->
+@interface ApplyForVenderController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet BaseTableView *tabApplyForVender;
 @property (weak, nonatomic) IBOutlet UIButton *btnCommit;
 @property (strong, nonatomic) ApplyForVenderAttribute *attribute;
@@ -38,25 +33,20 @@ UINavigationControllerDelegate
     [super viewDidLoad];
     self.isSelected = YES;
     self.attribute = [[ApplyForVenderAttribute alloc] init];
-    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTip" bundle:nil]
-                 forCellReuseIdentifier:@"CellTip"];
-    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellProtocol" bundle:nil]
-                 forCellReuseIdentifier:@"CellProtocol"];
-    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTextField" bundle:nil]
-                 forCellReuseIdentifier:@"CellTextField"];
-    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTwoImg" bundle:nil]
-                 forCellReuseIdentifier:@"CellTwoImg"];
-    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTwoLblArrow" bundle:nil]
-                 forCellReuseIdentifier:@"CellTwoLblArrow"];
+    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTip" bundle:nil] forCellReuseIdentifier:@"CellTip"];
+    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellProtocol" bundle:nil] forCellReuseIdentifier:@"CellProtocol"];
+    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTextField" bundle:nil] forCellReuseIdentifier:@"CellTextField"];
+    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTwoImg" bundle:nil] forCellReuseIdentifier:@"CellTwoImg"];
+    [self.tabApplyForVender registerNib:[UINib nibWithNibName:@"CellTwoLblArrow" bundle:nil] forCellReuseIdentifier:@"CellTwoLblArrow"];
+    // Do any additional setup after loading the view.
 }
-
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.tabApplyForVender reloadData];
 }
-
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     if (section == 0) {
         return 1;
     }else if (section == 1){
@@ -66,13 +56,11 @@ UINavigationControllerDelegate
     }
     return 0;
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 3;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 0) {
         return 30.0f;
     }else if (indexPath.section == 1){
@@ -86,13 +74,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    @weakify(self)
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.section == 1) {
-        if (indexPath.row == 3||
-            indexPath.row == 4) {
+        if (indexPath.row == 3||indexPath.row == 4) {
             CellTwoLblArrow *cell=[tableView dequeueReusableCellWithIdentifier:@"CellTwoLblArrow"];
+            
             NSString *strTip = @"";
             NSString *strPlaceholder = @"";
             NSString *strText = @"";
@@ -111,7 +98,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 [cell.lblContent setText:strPlaceholder];
             }else{
                 [cell.lblContent setText:strText];
-            }return cell;
+            }
+            return cell;
         }
         CellTextField *cell=[tableView dequeueReusableCellWithIdentifier:@"CellTextField"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -151,9 +139,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         [cell.lblTip setText:strTip];
         [cell.txtContent setPlaceholder:strPlaceholder];
         [cell.txtContent setText:strText];
-        [cell.txtContent handleTextFieldControlEvent:UIControlEventEditingChanged
-                                           withBlock:^{
-            @strongify(self)
+        [cell.txtContent handleTextFieldControlEvent:UIControlEventEditingChanged withBlock:^{
             NSLog(@"content is %@",cell.txtContent.text);
             
             NSString *strTextChange = cell.txtContent.text;
@@ -175,15 +161,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             if (indexPath.row == 7) {
                 self.attribute.strPhone = strTextChange;
             }
-        }];return cell;
+        }];
+        return cell;
     }
     if (indexPath.section == 2) {
         
         CellProtocol *cell=[tableView dequeueReusableCellWithIdentifier:@"CellProtocol"];
         [cell.btnSelect setSelected:self.isSelected];
-        [cell.btnSelect handleControlEvent:UIControlEventTouchUpInside
-                                 withBlock:^{
-            @strongify(self)
+        [cell.btnSelect handleControlEvent:UIControlEventTouchUpInside withBlock:^{
             self.isSelected = !self.isSelected;
             [self.tabApplyForVender reloadData];
         }];
@@ -213,7 +198,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 //        }];
 //        return cell;
 //    }
-    CellTip *cell = [tableView dequeueReusableCellWithIdentifier:@"CellTip"];
+    CellTip *cell=[tableView dequeueReusableCellWithIdentifier:@"CellTip"];
     [cell.lblTip setTextColor:ColorGary];
     [cell.lblTip setText:@"请填写您的真实信息,通过后将不能修改"];
     [cell setBackgroundColor:ColorFromRGB(254, 248, 241)];
@@ -221,22 +206,19 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0||
-        section == 1) {
+    if (section == 0||section == 1) {
         return 0;
-    }else return 10;
+    }else{
+        return 10;
+    }
 }
-
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                0,
-                                                                SCREEN_WIDTH,
-                                                                10)];
+    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     [self.view endEditing:YES];
     if (indexPath.section == 1) {
@@ -245,16 +227,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardApplyForVender bundle:nil];
             ApplyForTypeController *controller = [storyboard instantiateViewControllerWithIdentifier:@"ApplyForTypeController"];
             controller.applyForVenderAttribute = self.attribute;
-            [self.navigationController pushViewController:controller
-                                                 animated:YES];
+            [self.navigationController pushViewController:controller animated:YES];
         }
         if (indexPath.row == 4) {
             
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMyOrder bundle:nil];
             AreaSelectController *controller = [storyboard instantiateViewControllerWithIdentifier:@"AreaSelectController"];
             controller.applyForVenderAttribute = self.attribute;
-            [self.navigationController pushViewController:controller
-                                                 animated:YES];
+            [self.navigationController pushViewController:controller animated:YES];
         }
     }
     if (indexPath.section == 2) {
@@ -262,49 +242,36 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         WebOnlyController *controller = [storyboard instantiateViewControllerWithIdentifier:@"WebOnlyController"];
         [controller setTitle:@"商家入驻协议"];
         controller.strWebUrl = @"http://feidegou.com/doc_store.htm";
-        [self.navigationController pushViewController:controller
-                                             animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }
 }
+
+
 
 - (void)clickButtonPic:(NSIndexPath *)indexPath {
     self.indexPath = indexPath;
     if (IOS_VERSION>=8.0) {
         UIAlertController *alert;
         if (isIPhone) {
-            alert = [UIAlertController alertControllerWithTitle:@"上传头像"
-                                                        message:nil
-                                                 preferredStyle:UIAlertControllerStyleActionSheet];
+            alert = [UIAlertController alertControllerWithTitle:@"上传头像" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         }else{
-            alert = [UIAlertController alertControllerWithTitle:@"上传头像"
-                                                        message:nil
-                                                 preferredStyle:UIAlertControllerStyleAlert];
+            alert = [UIAlertController alertControllerWithTitle:@"上传头像" message:nil preferredStyle:UIAlertControllerStyleAlert];
         }
         
-        [self presentViewController:alert
-                           animated:YES
-                         completion:nil];
-        @weakify(self)
-        UIAlertAction *actionZX = [UIAlertAction actionWithTitle:@"马上照一张"
-                                                           style:UIAlertActionStyleDestructive
-                                                         handler:^(UIAlertAction *action){
-            @strongify(self)
+        [self presentViewController:alert animated:YES completion:nil];
+        UIAlertAction *actionZX = [UIAlertAction actionWithTitle:@"马上照一张" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action){
             UIImagePickerController *pickerImage = [[UIImagePickerController alloc] init];
             if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
                 pickerImage.sourceType = UIImagePickerControllerSourceTypeCamera;
                 pickerImage.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:pickerImage.sourceType];
             }
             [pickerImage setVideoQuality:UIImagePickerControllerQualityTypeLow];
-            pickerImage.delegate = self;
-            pickerImage.allowsEditing = YES;//自定义照片样式
-            [self presentViewController:pickerImage
-                               animated:YES
-                             completion:nil];
+            pickerImage.delegate =self;
+            pickerImage.allowsEditing =YES;//自定义照片样式
+            [self presentViewController:pickerImage animated:YES completion:nil];
         }];
-        UIAlertAction *actionXC = [UIAlertAction actionWithTitle:@"从相册中选择一张"
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction *action){
-            @strongify(self)
+        UIAlertAction *actionXC = [UIAlertAction actionWithTitle:@"从相册中选择一张" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            
             UIImagePickerController *pickerImage = [[UIImagePickerController alloc] init];
             if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
                 pickerImage.sourceType= UIImagePickerControllerSourceTypePhotoLibrary;;
@@ -313,34 +280,25 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             pickerImage.allowsEditing = YES;
             [pickerImage setVideoQuality:UIImagePickerControllerQualityTypeLow];
             pickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            [self presentViewController:pickerImage
-                               animated:YES
-                             completion:^{}];
+            [self presentViewController:pickerImage animated:YES completion:^{}];
         }];
-        UIAlertAction *actionCancell = [UIAlertAction actionWithTitle:@"取消"
-                                                                style:UIAlertActionStyleCancel
-                                                              handler:nil];
+        UIAlertAction *actionCancell = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
         [alert addAction:actionZX];
         [alert addAction:actionXC];
         [alert addAction:actionCancell];
     }else{
         
-        UIActionSheet *as = [[UIActionSheet alloc]initWithTitle:@"上传头像"
-                                                       delegate:self
-                                              cancelButtonTitle:@"取消"
-                                         destructiveButtonTitle:@"马上照一张"
-                                              otherButtonTitles:@"从相册中选择一张",
-                             nil];
+        UIActionSheet *as=[[UIActionSheet alloc]initWithTitle:@"上传头像" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"马上照一张" otherButtonTitles:@"从相册中选择一张", nil ];
         [as showInView:[[[UIApplication sharedApplication] delegate] window]];
     }
+    
 }
 
 #pragma mark ------------UIActionSheetDelegate-------------
-- (void)actionSheet:(UIActionSheet *)actionSheet
-clickedButtonAtIndex:(NSInteger)buttonIndex{
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     UIImagePickerController *pickerImage;
     switch (buttonIndex) {
-        case 0:{
+        case 0:
             // for iphone
             pickerImage = [[UIImagePickerController alloc] init];
             if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -352,8 +310,8 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
             pickerImage.allowsEditing =YES;//自定义照片样式
             [self presentViewController:pickerImage animated:YES completion:nil];
             break;
-        }
-        case 1:{
+        case 1:
+            
             pickerImage = [[UIImagePickerController alloc] init];
             if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]){
                 pickerImage.sourceType= UIImagePickerControllerSourceTypePhotoLibrary;;
@@ -362,19 +320,17 @@ clickedButtonAtIndex:(NSInteger)buttonIndex{
             pickerImage.allowsEditing = YES;
             [pickerImage setVideoQuality:UIImagePickerControllerQualityTypeLow];
             pickerImage.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            [self presentViewController:pickerImage
-                               animated:YES
-                             completion:^{}];
+            [self presentViewController:pickerImage animated:YES completion:^{}];
+            
             break;
-        }
         default:
             break;
     }
 }
 
 #pragma mark - image picker delegte
-- (void)imagePickerController:(UIImagePickerController *)picker
-didFinishPickingMediaWithInfo:(NSDictionary *)info{
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
     
     UIImage *image= [info objectForKey:UIImagePickerControllerEditedImage];//获取图
     D_NSLog(@"-----------image is %@ ; image.size.width is %d;image.size.height is %d",image,(int)image.size.width,(int)image.size.height);
@@ -386,10 +342,13 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info{
     }else{
         self.attribute.imgBusiness = image;
     }
-    [picker dismissViewControllerAnimated:YES
-                               completion:nil];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
 }
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (IBAction)clickButtonCommit:(UIButton *)sender {
     
     if ([NSString isNullString:self.attribute.strName]) {
@@ -437,37 +396,33 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info{
 //        return;
 //    }
     [SVProgressHUD showWithStatus:@"正在提交信息..."];
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestFourZeroApplyForVenderuser_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId
-                                                                  andstore_ower:self.attribute.strName
-                                                             andstore_ower_card:self.attribute.strMemberNum
-                                                                  andstore_name:self.attribute.strVendorName
-                                                                       andsc_id:self.attribute.strVendorTypeID
-                                                                     andarea_id:self.attribute.strAreaID
-                                                               andstore_address:self.attribute.strAddressDetail
-                                                                   andstore_zip:self.attribute.strZIPCode
-                                                              andstore_telphone:self.attribute.strPhone
-                                                                   andcard_file:self.attribute.imgMemberCard
-                                                                andlicense_file:self.attribute.imgBusiness]
-                       subscribeNext:^(NSDictionary*dictionary) {
-        @strongify(self)
-        if ([dictionary[@"code"] intValue] == 1) {
+    __weak ApplyForVenderController *myself = self;
+    self.disposable = [[[JJHttpClient new] requestFourZeroApplyForVenderuser_id:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId andstore_ower:self.attribute.strName andstore_ower_card:self.attribute.strMemberNum andstore_name:self.attribute.strVendorName andsc_id:self.attribute.strVendorTypeID andarea_id:self.attribute.strAreaID andstore_address:self.attribute.strAddressDetail andstore_zip:self.attribute.strZIPCode andstore_telphone:self.attribute.strPhone andcard_file:self.attribute.imgMemberCard andlicense_file:self.attribute.imgBusiness] subscribeNext:^(NSDictionary*dictionary) {
+        if ([dictionary[@"code"] intValue]==1) {
             [SVProgressHUD showSuccessWithStatus:@"提交成功"];
             ModelCenter *modelCenter = [[JJDBHelper sharedInstance] fetchCenterMsg];
             modelCenter.store_status = @"1";
             [[JJDBHelper sharedInstance] saveCenterMsg:modelCenter];
-            [self.navigationController popViewControllerAnimated:YES];
+            [myself.navigationController popViewControllerAnimated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:dictionary[@"msg"]];
         }
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
     }];
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

@@ -19,6 +19,7 @@
  *是否为钱，正整数，一位和两位小数点
  */
 + (BOOL)isMoney:(NSString *)email;
+
 /*
  *是否为电话
  */
@@ -46,7 +47,7 @@
 /*
  *字符串是否为空
  */
-+ (BOOL)isNullString:(NSString *)string;
++ (BOOL)isNullString:(NSString*)string;
 /*
  *取出字符串两边的空白
  */
@@ -54,8 +55,7 @@
 /*
  *根据key从Dictionary取出字符串
  */
-+ (NSString *)getStringFromDictionary:(id)dicValue
-                               andKey:(NSString *)strKey;
++ (NSString *)getStringFromDictionary:(id)dicValue andKey:(NSString *)strKey;
 /*
  *如果string为空返回@""
  */
@@ -84,9 +84,8 @@
 + (NSString *)countNumAndChangeformat:(NSString *)num;
 
 //计算字符串长度
-+ (CGSize)conculuteRightCGSizeOfString:(NSString *)strContent
-                              andWidth:(float)fWidth
-                               andFont:(float)fFont;
++ (CGSize)conculuteRightCGSizeOfString:(NSString *)strContent andWidth:(float)fWidth andFont:(float)fFont;
+
 /*
  *根据类型返回积分还是红包
  */
@@ -95,7 +94,5 @@
 + (UIColor *)getColor:(NSString *)hexColor;
 
 //字符串转为颜色
-+ (UIColor *)getColor:(NSString *)hexColor
-             andMoren:(UIColor *)colorMoren;
-
++ (UIColor *)getColor:(NSString *)hexColor andMoren:(UIColor *)colorMoren;
 @end

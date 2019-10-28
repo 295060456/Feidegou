@@ -9,7 +9,6 @@
 #import "ModelArea.h"
 
 @implementation ModelArea
-
 + (NSDictionary *)JSONKeyPathsByPropertyKey{
     return @{
              @"areaName":@"areaName",
@@ -17,5 +16,4 @@
              @"level":@"level"
              };
 }
-
 @end

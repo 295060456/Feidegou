@@ -14,7 +14,7 @@
 
 @property (strong, nonatomic) ModelOrderGoodList *model;
 //@property (strong, nonatomic) NSArray *arrImage;
-//@property (copy, nonatomic) NSString *strPingyou;
-//@property (copy, nonatomic) NSString *strKuaidi;
-//@property (copy, nonatomic) NSString *strEMS;
+//@property (strong, nonatomic) NSString *strPingyou;
+//@property (strong, nonatomic) NSString *strKuaidi;
+//@property (strong, nonatomic) NSString *strEMS;
 @end

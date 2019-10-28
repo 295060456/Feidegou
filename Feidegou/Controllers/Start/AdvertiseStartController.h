@@ -11,6 +11,5 @@
 @interface AdvertiseStartController : JJBaseViewController
 
 @property (strong, nonatomic) UIImage *image;
-@property (copy, nonatomic) NSString *strUrl;
-
+@property (strong, nonatomic) NSString *strUrl;
 @end

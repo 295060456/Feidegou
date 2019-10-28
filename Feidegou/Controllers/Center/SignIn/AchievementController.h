@@ -9,7 +9,5 @@
 #import "JJBaseViewController.h"
 
 @interface AchievementController : JJBaseViewController
-
 @property (assign, nonatomic) BOOL isHadTitle;
-
 @end

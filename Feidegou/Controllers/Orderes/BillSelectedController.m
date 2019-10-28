@@ -9,7 +9,6 @@
 #import "BillSelectedController.h"
 
 @interface BillSelectedController ()
-
 @property (weak, nonatomic) IBOutlet UIView *viTxt;
 @property (weak, nonatomic) IBOutlet UITextField *txtCompnyName;
 @property (weak, nonatomic) IBOutlet UIButton *btnConfilm;
@@ -26,7 +25,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 - (void)locationControls{
     [self.txtCompnyName setBackgroundColor:ColorBackground];
     [self.btnConfilm setBackgroundColor:ColorHeader];
@@ -34,7 +32,6 @@
     [self.txtCompnyName setText:self.model.strCompanyName];
     [self refreshView];
 }
-
 - (void)refreshView{
     if (self.billType == enum_billType_personal) {
         [self.btnPersonal setSelected:YES];
@@ -53,7 +50,10 @@
         [self.viTxt setHidden:YES];
     }
 }
- 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (IBAction)clickButtonSelectedType:(UIButton *)sender {
     [self.view endEditing:YES];
     if (sender.tag == 100) {
@@ -65,7 +65,6 @@
     }
     [self refreshView];
 }
-
 - (IBAction)clickButtonConfilm:(UIButton *)sender {
     if (self.billType == enum_billType_company) {
         NSString *strCompnyName = self.txtCompnyName.text;
@@ -80,11 +79,17 @@
     self.model.billType = self.billType;
     [self.navigationController popViewControllerAnimated:YES];
 }
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches
-           withEvent:(UIEvent *)event{
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
-
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

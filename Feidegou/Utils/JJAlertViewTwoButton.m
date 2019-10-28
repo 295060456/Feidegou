@@ -7,33 +7,20 @@
 //
 
 #import "JJAlertViewTwoButton.h"
-
-typedef void (^confirm)(void);
-typedef void (^cancle)(void);
-
+typedef void (^confirm)();
+typedef void (^cancle)();
 @interface JJAlertViewTwoButton(){
     confirm confirmParam;
     cancle  cancleParam;
 }
-
 @end
-
 @implementation JJAlertViewTwoButton
 
--(void)showAlertView:(UIViewController *)viewController
-            andTitle:(NSString *)title
-          andMessage:(NSString *)message
-           andCancel:(NSString *)cancelButtonTitle
-       andCanelIsRed:(BOOL)isRed
-       andOherButton:(NSString *)otherButtonTitle
-          andConfirm:(void (^)(void))confirm
-           andCancel:(void (^)(void))cancle{
+-(void)showAlertView:(UIViewController *)viewController andTitle:(NSString *)title andMessage:(NSString *)message andCancel:(NSString *)cancelButtonTitle andCanelIsRed:(BOOL)isRed andOherButton:(NSString *)otherButtonTitle andConfirm:(void (^)())confirm andCancel:(void (^)())cancle{
     confirmParam=confirm;
     cancleParam=cancle;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
-                                                                                 message:message
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
         // Create the actions.
         if (cancelButtonTitle) {
             
@@ -41,42 +28,31 @@ typedef void (^cancle)(void);
             if (isRed) {
                 style = UIAlertActionStyleDestructive;
             }
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelButtonTitle
-                                                                   style:style
-                                                                 handler:^(UIAlertAction *action) {
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:cancelButtonTitle style:style handler:^(UIAlertAction *action) {
                 cancle();
             }];
             [alertController addAction:cancelAction];
         }
         if (otherButtonTitle) {
-            UIAlertAction *otherAction = [UIAlertAction actionWithTitle:otherButtonTitle
-                                                                  style:UIAlertActionStyleDefault
-                                                                handler:^(UIAlertAction *action) {
+            UIAlertAction *otherAction = [UIAlertAction actionWithTitle:otherButtonTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                 confirm();
             }];
             // Add the actions.
             [alertController addAction:otherAction];
         }
-        [viewController presentViewController:alertController
-                                     animated:YES
-                                   completion:nil];
-    }else{
-        UIAlertView *TitleAlert = [[UIAlertView alloc] initWithTitle:title
-                                                             message:message
-                                                            delegate:self
-                                                   cancelButtonTitle:otherButtonTitle
-                                                   otherButtonTitles:cancelButtonTitle,nil];
+        [viewController presentViewController:alertController animated:YES completion:nil];
+    }
+    else{
+        UIAlertView *TitleAlert = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:otherButtonTitle otherButtonTitles:cancelButtonTitle,nil];
         [TitleAlert show];
     }
 }
-
--(void)alertView:(UIAlertView *)alertView
-clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 0) {
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex==0) {
         confirmParam();
-    }else{
+    }
+    else{
         cancleParam();
     }
 }
-
 @end

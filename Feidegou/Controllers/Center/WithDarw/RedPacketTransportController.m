@@ -11,7 +11,6 @@
 #import "JJHttpClient+FourZero.h"
 
 @interface RedPacketTransportController ()
-
 @property (weak, nonatomic) IBOutlet UITextField *txtUser;
 @property (weak, nonatomic) IBOutlet UITextField *txtMoney;
 @property (weak, nonatomic) IBOutlet UILabel *lblMoney;
@@ -23,20 +22,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    @weakify(self)
-    [self.txtUser handleTextFieldControlEvent:UIControlEventEditingChanged
-                                    withBlock:^{
-        @strongify(self)
+    [self.txtUser handleTextFieldControlEvent:UIControlEventEditingChanged withBlock:^{
         [self textFieldChanged];
     }];
-    [self.txtMoney handleTextFieldControlEvent:UIControlEventEditingChanged
-                                     withBlock:^{
-        @strongify(self)
+    [self.txtMoney handleTextFieldControlEvent:UIControlEventEditingChanged withBlock:^{
         [self.lblMoney setText:StringFormat(@"￥%@",[NSString stringStandardFloatTwo:self.txtMoney.text])];
         [self textFieldChanged];
     }];
+    // Do any additional setup after loading the view.
 }
-
 - (void)textFieldChanged{
     if ([NSString isNullString:self.txtUser.text]||[NSString isNullString:self.txtMoney.text]) {
         [self.btnComfirlm setTitleColor:ColorGary forState:UIControlStateNormal];
@@ -46,7 +40,10 @@
         [self.btnComfirlm setBackgroundColor:ColorRed];
     }
 }
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (IBAction)clcikButtonComfilrm:(UIButton *)sender {
     NSString *strUserNum = self.txtUser.text;
     NSString *strMoney = self.txtMoney.text;
@@ -63,30 +60,31 @@
         return;
     }
     [self.view endEditing:YES];
-    [SVProgressHUD showWithStatus:@"正在登录..."
-                         maskType:SVProgressHUDMaskTypeBlack];
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestFourZeroRedPacketTransportuserId:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId]
-                                                                       andaccounts:strUserNum
-                                                                         andredbag:strMoney]
-                       subscribeNext:^(NSDictionary*dictionray) {
-        @strongify(self)
-        if ([dictionray[@"code"] intValue] == 1) {
+    [SVProgressHUD showWithStatus:@"正在登录..." maskType:SVProgressHUDMaskTypeBlack];
+    __weak RedPacketTransportController *myself = self;
+    self.disposable = [[[JJHttpClient new] requestFourZeroRedPacketTransportuserId:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] andaccounts:strUserNum andredbag:strMoney] subscribeNext:^(NSDictionary*dictionray) {
+        if ([dictionray[@"code"] intValue]==1) {
             [SVProgressHUD showSuccessWithStatus:@"转账成功"];
-            [self.navigationController popViewControllerAnimated:YES];
+            [myself.navigationController popViewControllerAnimated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:dictionray[@"msg"]];
         }
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
     }];
 }
 
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end
-

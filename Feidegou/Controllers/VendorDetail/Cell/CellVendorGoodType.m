@@ -16,11 +16,8 @@
     [super awakeFromNib];
     [self.collectionView setDelegate:self];
     [self.collectionView setDataSource:self];
-    [self.collectionView registerClass:[CLCellGoodProperty class]
-            forCellWithReuseIdentifier:@"CLCellGoodProperty"];
-    [self.collectionView registerClass:[ReusableViewProperty class]
-            forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                   withReuseIdentifier:@"ReusableViewProperty"];
+    [self.collectionView registerClass:[CLCellGoodProperty class] forCellWithReuseIdentifier:@"CLCellGoodProperty"];
+    [self.collectionView registerClass:[ReusableViewProperty class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableViewProperty"];
     // Initialization code
 }
 - (void)populateDataArray:(NSArray *)array{
@@ -29,18 +26,21 @@
 }
 #pragma mark --UICollectionViewDelegate
 //定义展示的UICollectionViewCell的个数
--(NSInteger)collectionView:(UICollectionView *)collectionView
-    numberOfItemsInSection:(NSInteger)section{
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    
     NSArray *arrClasss = [NSArray arrayWithArray:self.arrSelectType[section][@"items"]];
     return arrClasss.count;
+    
 }
 //定义展示的Section的个数
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return self.arrSelectType.count;
 }
 //每个UICollectionView展示的内容
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                 cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     
     static NSString *identifier = @"CLCellGoodProperty";
     CLCellGoodProperty *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
@@ -48,17 +48,15 @@
     [cell populateData:arrClasss[indexPath.row]];
     return cell;
 }
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
-           viewForSupplementaryElementOfKind:(NSString *)kind
-                                 atIndexPath:(NSIndexPath *)indexPath{
+{
+    
     UICollectionReusableView *reusableview = nil;
     if (indexPath.section<self.arrSelectType.count) {
         if (kind == UICollectionElementKindSectionHeader){
             
-            ReusableViewProperty *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                                                                                  withReuseIdentifier:@"ReusableViewProperty"
-                                                                                         forIndexPath:indexPath];
+            ReusableViewProperty *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableViewProperty" forIndexPath:indexPath];
             [headerView setBackgroundColor:[UIColor whiteColor]];
             UILabel *lblHead = (UILabel *)[headerView viewWithTag:100];
             UILabel *lblLine = (UILabel *)[headerView viewWithTag:101];
@@ -75,9 +73,7 @@
         }
     }else{
         if (kind == UICollectionElementKindSectionHeader){
-            ReusableViewProperty *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                                                                                  withReuseIdentifier:@"ReusableViewProperty"
-                                                                                         forIndexPath:indexPath];
+            ReusableViewProperty *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableViewProperty" forIndexPath:indexPath];
             [headerView setBackgroundColor:[UIColor whiteColor]];
             UILabel *lblHead = (UILabel *)[headerView viewWithTag:100];
             UILabel *lblLine = (UILabel *)[headerView viewWithTag:101];
@@ -92,42 +88,34 @@
         }
     }
     return reusableview;
+    
+    
+    
 }
-
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout*)collectionViewLayout
-referenceSizeForHeaderInSection:(NSInteger)section{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
     
     return CGSizeMake(SCREEN_WIDTH, 30);
 }
 #pragma mark --UICollectionViewDelegateFlowLayout
 //定义每个UICollectionView 的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout*)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     NSString *strClass = self.arrSelectType[indexPath.section][@"items"][indexPath.row][@"value"];
-    CGFloat fWidth = [NSString conculuteRightCGSizeOfString:strClass
-                                                   andWidth:200
-                                                    andFont:15].width+20;
+    CGFloat fWidth = [NSString conculuteRightCGSizeOfString:strClass andWidth:200 andFont:15].width+20;
     return CGSizeMake(fWidth,40);
 }
 //定义每个UICollectionView 的 margin
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView
-                       layout:(UICollectionViewLayout *)collectionViewLayout
-       insetForSectionAtIndex:(NSInteger)section{
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
     
-    return UIEdgeInsetsMake(10,
-                            10,
-                            10,
-                            10);
+    return UIEdgeInsetsMake(10, 10, 10, 10);
 }
 #pragma mark --UICollectionViewDelegate
 //UICollectionView被选中时调用的方法
--(void)collectionView:(UICollectionView *)collectionView
-didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     [self didSelectedItemAtIndexPath:indexPath];
 }
-
 - (void)didSelectedItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section<self.arrSelectType.count) {
         NSMutableArray *array = [NSMutableArray arrayWithArray:self.arrSelectType[indexPath.section][@"items"]];
@@ -160,7 +148,6 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
         [self requestNum];
     }
 }
-
 - (BOOL)isSelectedAll{
     BOOL selectedAll = YES;
     for (int i = 0; i<self.arrSelectType.count; i++) {
@@ -177,18 +164,12 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
                 return NO;
             }
         }
-    }return selectedAll;
+    }
+    return selectedAll;
 }
-
 - (void)requestNum{
-    if ([self.delegete respondsToSelector:@selector(didClickCollectionViewSectionDetail:
-                                                    andGoodsspecpropertyId:
-                                                    andGoodsspecpropertyValueAndName:
-                                                    andIsSelectAll:)]) {
-        [self.delegete didClickCollectionViewSectionDetail:self.arrSelectType
-                                    andGoodsspecpropertyId:[self fetchStringGoodsspecpropertyId]
-                          andGoodsspecpropertyValueAndName:[self fetchStringGoodsspecpropertyValueAndName]
-                                            andIsSelectAll:[self isSelectedAll]];
+    if ([self.delegete respondsToSelector:@selector(didClickCollectionViewSectionDetail:andGoodsspecpropertyId:andGoodsspecpropertyValueAndName:andIsSelectAll:)]) {
+        [self.delegete didClickCollectionViewSectionDetail:self.arrSelectType andGoodsspecpropertyId:[self fetchStringGoodsspecpropertyId] andGoodsspecpropertyValueAndName:[self fetchStringGoodsspecpropertyValueAndName] andIsSelectAll:[self isSelectedAll]];
     }
     
 //    if ([self isSelectedAll] && self.arrSelectType.count>0) {
@@ -213,7 +194,6 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 //        D_NSLog(@"未全部选择完毕，不需请求库存");
 //    }
 }
-
 - (NSString *)fetchStringGoodsspecpropertyId{
     NSString *strAttribut = @"";
     for (int i = 0; i<self.arrSelectType.count; i++) {
@@ -226,9 +206,9 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
                 }
             }
         }
-    }return strAttribut;
+    }
+    return strAttribut;
 }
-
 - (NSString *)fetchStringGoodsspecpropertyValueAndName{
     NSString *strAttribut = @"";
     for (int i = 0; i<self.arrSelectType.count; i++) {
@@ -245,7 +225,8 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
                 }
             }
         }
-    }return strAttribut;
+    }
+    return strAttribut;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

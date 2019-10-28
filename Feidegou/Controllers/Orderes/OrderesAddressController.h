@@ -13,5 +13,4 @@
 @interface OrderesAddressController : JJBaseViewController
 
 @property (strong, nonatomic) OrderAttribute *orderAttribute;
-
 @end

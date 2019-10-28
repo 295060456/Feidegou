@@ -13,14 +13,19 @@
 
 static LocationManager *sharedManager;
 +(LocationManager*)sharedInstance{
+    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        
         sharedManager = [[LocationManager alloc] init];
         
-    });return sharedManager;
+    });
+    return sharedManager;
+    
 }
 
 -(instancetype)init{
+    
     if (self = [super init]) {
         //初始化BMKLocationService
 //        self.geoCodeSearch = [[BMKGeoCodeSearch alloc]init];
@@ -48,6 +53,7 @@ static LocationManager *sharedManager;
     _offlineMap.delegate = nil; // 不用时，置nil
 }
 - (void)dealloc {
+    
     if (_offlineMap != nil) {
         _offlineMap = nil;
     }
@@ -70,7 +76,8 @@ static LocationManager *sharedManager;
     D_NSLog(@"heading is %@",userLocation.heading);
 }
 //处理位置坐标更新
-- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation{
+- (void)didUpdateBMKUserLocation:(BMKUserLocation *)userLocation
+{
     
     D_NSLog(@"didUpdateUserLocation lat %f,long %f",userLocation.location.coordinate.latitude,userLocation.location.coordinate.longitude);
     
@@ -92,6 +99,7 @@ static LocationManager *sharedManager;
 //    }
 }
 
+#pragma mark -
 #pragma mark - BMKGeoCodeSearchDelegate
 //-(void) onGetReverseGeoCodeResult:(BMKGeoCodeSearch *)searcher result:(BMKReverseGeoCodeResult *)result errorCode:(BMKSearchErrorCode)error{
 //
@@ -113,8 +121,7 @@ static LocationManager *sharedManager;
 //    }
 //}
 
-- (void)onGetOfflineMapState:(int)type
-                   withState:(int)state{
+- (void)onGetOfflineMapState:(int)type withState:(int)state{
     
 }
 /**
@@ -124,16 +131,13 @@ static LocationManager *sharedManager;
 - (void)didFailToLocateUserWithError:(NSError *)error{
     D_NSLog(@"error is %@",error);
 }
-
-- (void)updateLocalLocationLongitude:(double)longitude
-                         andLatitude:(double)latidude{
+- (void)updateLocalLocationLongitude:(double)longitude andLatitude:(double)latidude{
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:StringFormat(@"%f",longitude) forKey:USERLOCATION_LONGITUDE];
     [userDefaults setObject:StringFormat(@"%f",latidude) forKey:USERLOCATION_LATITUDE];
     [userDefaults synchronize];
 }
-
 - (NSString *)fetchLocationLatitude{
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -141,7 +145,8 @@ static LocationManager *sharedManager;
     if ([NSString isNullString:strLATITUDE]) {
         strLATITUDE = @"0";
         [self updateLocation];
-    }return strLATITUDE;
+    }
+    return strLATITUDE;
 }
 /**
  *  获取longitude
@@ -153,11 +158,11 @@ static LocationManager *sharedManager;
     if ([NSString isNullString:strLONGITUDE]) {
         strLONGITUDE = @"0";
         [self updateLocation];
-    }return strLONGITUDE;
+    }
+    return strLONGITUDE;
 }
-
-+ (CLLocationCoordinate2D)bd09Decrypt:(double)bdLat
-                                bdLon:(double)bdLon{
++ (CLLocationCoordinate2D)bd09Decrypt:(double)bdLat bdLon:(double)bdLon
+{
     CLLocationCoordinate2D gcjPt;
     double x = bdLon - 0.0065, y = bdLat - 0.006;
     double z = sqrt(x * x + y * y) - 0.00002 * sin(y * M_PI);
@@ -166,5 +171,4 @@ static LocationManager *sharedManager;
     gcjPt.latitude = z * sin(theta);
     return gcjPt;
 }
-
 @end

@@ -41,40 +41,33 @@
     self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabInteger delegate:self];
     // Do any additional setup after loading the view.
 }
-
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.refreshControl beginRefreshingMethod];
 }
-
 - (void)requestExchangeList{
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestShopGoodOrderListAreaExchangeLimit:@"20"
-                                                                               andPage:TransformNSInteger(self.intPageIndex)]
-                         subscribeNext:^(NSArray* array) {
-        @strongify(self)
-        self.curCount = array.count;
-        if (self.intPageIndex == 1) {
-            self.arrInteger = [NSMutableArray array];
+    __weak IntegerGoodDetailController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderListAreaExchangeLimit:@"20" andPage:TransformNSInteger(self.intPageIndex)] subscribeNext:^(NSArray* array) {
+        myself.curCount = array.count;
+        if (myself.intPageIndex == 1) {
+            myself.arrInteger = [NSMutableArray array];
         }
-        [self.arrInteger addObjectsFromArray:array];
-        [self.tabInteger reloadData];
-        [self.tabInteger checkNoData:self.arrInteger.count];
+        [myself.arrInteger addObjectsFromArray:array];
+        [myself.tabInteger reloadData];
+        [myself.tabInteger checkNoData:myself.arrInteger.count];
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
-        [self.refreshControl endRefreshing];
+        myself.disposable = nil;
+        [myself.refreshControl endRefreshing];
         if (error.code!=2) {
             //                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }else{
-            self.curCount = 0;
+            myself.curCount = 0;
         }
-        [self.tabInteger checkNoData:self.arrInteger.count];
+        [myself.tabInteger checkNoData:myself.arrInteger.count];
     }completed:^{
-        @strongify(self)
-        self.intPageIndex++;
-        [self.refreshControl endRefreshing];
-        self.disposable = nil;
+        myself.intPageIndex++;
+        [myself.refreshControl endRefreshing];
+        myself.disposable = nil;
     }];
 }
 #pragma mark - RefreshControlDelegate
@@ -85,7 +78,6 @@
         [self requestExchangeList];
     }
 }
-
 -(void)refreshControlForLoadMoreData{
     //从远程服务器获取数据
     if ([self respondsToSelector:@selector(requestExchangeList)]) {
@@ -100,15 +92,13 @@
     }
     return NO;
 }
-
-- (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
-
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     
     int intState = [self.arrInteger[section][@"igo_status"] intValue];
     if (intState == 20) {
@@ -120,8 +110,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.arrInteger.count;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.row == 0) {
         return 40.0f;
     }
@@ -136,10 +126,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     if (indexPath.row == 4) {
         return 40.0f;
-    }return 0;
+    }
+    return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.row == 0) {
         CellOrderTwoLbl *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderTwoLbl"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -209,13 +201,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [cell.btnOne setHidden:NO];
             [cell.btnOne setTitle:@"查看物流" forState:UIControlStateNormal];
         }
-        @weakify(self)
-        [cell.btnOne handleControlEvent:UIControlEventTouchUpInside
-                              withBlock:^{
-            @strongify(self)
+        [cell.btnOne handleControlEvent:UIControlEventTouchUpInside withBlock:^{
             if (intState == 10) {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder"
-                                                                     bundle:nil];
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder" bundle:nil];
                 PayMonyForGoodController *controller = [storyboard instantiateViewControllerWithIdentifier:@"PayMonyForGoodController"];
                 controller.strOrderId = self.arrInteger[indexPath.section][@"igo_order_sn"];
                 controller.isJifen = YES;
@@ -223,8 +211,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 controller.not_cash_total = StringFormat(@"%.2f",([self.arrInteger[indexPath.section][@"igo_total_integral"] floatValue]+[self.arrInteger[indexPath.section][@"ig_transfee"] floatValue]));
                 [self.navigationController pushViewController:controller animated:YES];
             }else{
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder"
-                                                                     bundle:nil];
+                
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder" bundle:nil];
                 OrderLogisticsDetailController *controller = [storyboard instantiateViewControllerWithIdentifier:@"OrderLogisticsDetailController"];
                 controller.strPath = self.arrInteger[indexPath.section][@"icon"];
                 controller.strCount = @"1";
@@ -234,7 +222,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 controller.strCompanyName = self.arrInteger[indexPath.section][@"company_name"];
                 [self.navigationController pushViewController:controller animated:YES];
             }
-        }];return cell;
+        }];
+        return cell;
     }
     CellOrderMoney *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderMoney"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -242,24 +231,31 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [cell.lblDown setTextNull:@""];
     return cell;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView
-heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0||section == 4) {
         return 0;
     }else{
         return 10;
     }
 }
-
-- (nullable UIView *)tableView:(UITableView *)tableView
-        viewForHeaderInSection:(NSInteger)section{
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
+/*
+#pragma mark - Navigation
 
-
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

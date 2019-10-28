@@ -10,7 +10,6 @@
 
 @interface RegisterCodeController : JJBaseViewController
 
-@property (copy, nonatomic) NSString *strPhone;
+@property (strong, nonatomic) NSString *strPhone;
 @property (assign, nonatomic) BOOL isForgetPsw;
-
 @end

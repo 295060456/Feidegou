@@ -10,13 +10,7 @@
 #import "CLCellOneLblNoLine.h"
 #import "MyOrderListController.h"
 
-@interface OrderListMainController ()
-<
-UIPageViewControllerDataSource,
-UIPageViewControllerDelegate,
-UIGestureRecognizerDelegate
->
-
+@interface OrderListMainController ()<UIPageViewControllerDataSource,UIPageViewControllerDelegate,UIGestureRecognizerDelegate>
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionType;
 @property (weak, nonatomic) IBOutlet UIView *viContainer;
 @property (assign, nonatomic) NSInteger intRow;
@@ -52,22 +46,27 @@ UIGestureRecognizerDelegate
     // Do any additional setup after loading the view.
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 #pragma mark --UICollectionViewDelegate
 //定义展示的UICollectionViewCell的个数
--(NSInteger)collectionView:(UICollectionView *)collectionView
-    numberOfItemsInSection:(NSInteger)section{
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     return 6;
 }
 //定义展示的Section的个数
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return 1;
 }
 //每个UICollectionView展示的内容
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                 cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     static NSString *identifier = @"CLCellOneLblNoLine";
-    CLCellOneLblNoLine *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier
-                                                                         forIndexPath:indexPath];
+    CLCellOneLblNoLine *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     if (indexPath.row == 1){
         [cell.lblContent setTextNull:@"待付款"];
     }else if (indexPath.row == 2){
@@ -90,26 +89,20 @@ UIGestureRecognizerDelegate
 }
 #pragma mark --UICollectionViewDelegateFlowLayout
 //定义每个UICollectionView 的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout*)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     return CGSizeMake(SCREEN_WIDTH/6,60);
 }
 //定义每个UICollectionView 的 margin
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView
-                       layout:(UICollectionViewLayout *)collectionViewLayout
-       insetForSectionAtIndex:(NSInteger)section{
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
     
-    return UIEdgeInsetsMake(0,
-                            0,
-                            0,
-                            0);
+    return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 #pragma mark --UICollectionViewDelegate
 //UICollectionView被选中时调用的方法
--(void)collectionView:(UICollectionView *)collectionView
-didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
 //    if (indexPath.row == 1){
 //        self.orderState = enumOrder_dfk;
 //    }else if (indexPath.row == 2){
@@ -126,6 +119,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     self.intRow = indexPath.row;
     [self pageControlValueChanged:self.intRow];
 }
+
 
 - (void)setLayout{
     self.pages = [NSMutableArray array];
@@ -147,9 +141,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
         [self.pages addObject:controller];
     }
     
-    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll
-                                                              navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal
-                                                                            options:nil];
+    self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.view.frame = CGRectMake(0, 0, self.viContainer.frame.size.width, self.viContainer.frame.size.height);
     [self.pageViewController setDataSource:self];
     [self.pageViewController setDelegate:self];
@@ -159,42 +151,44 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if ([self.pages count]>0) {
         [self pageControlValueChanged:self.intRow];
     }
+    
 }
 #pragma mark -
 #pragma mark - UIPageViewControllerDataSource
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
-      viewControllerBeforeViewController:(UIViewController *)viewController{
-    NSUInteger index = [self.pages indexOfObject:viewController];
-
-    if ((index == NSNotFound) ||
-        (index == 0)) {
-        return nil;
-    } return self.pages[--index];
-}
-
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
-       viewControllerAfterViewController:(UIViewController *)viewController
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
     NSUInteger index = [self.pages indexOfObject:viewController];
 
-    if ((index == NSNotFound)||
-        (index+1 >= [self.pages count])) {
+    if ((index == NSNotFound) || (index == 0)) {
         return nil;
-    }return self.pages[++index];
+    }
+
+    return self.pages[--index];
 }
 
-- (void)pageViewController:(UIPageViewController *)viewController
-        didFinishAnimating:(BOOL)finished
-   previousViewControllers:(NSArray *)previousViewControllers
-       transitionCompleted:(BOOL)completed{
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
+{
+    NSUInteger index = [self.pages indexOfObject:viewController];
+
+    if ((index == NSNotFound)||(index+1 >= [self.pages count])) {
+        return nil;
+    }
+
+    return self.pages[++index];
+}
+
+- (void)pageViewController:(UIPageViewController *)viewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed
+{
     if (!completed){
         return;
     }
     [self refreshSelectedButton:[self.pages indexOfObject:[viewController.viewControllers lastObject]]];
 }
 
+#pragma mark -
 #pragma mark - Callback
-- (void)pageControlValueChanged:(NSInteger)interger{
+- (void)pageControlValueChanged:(NSInteger)interger
+{
     UIPageViewControllerNavigationDirection direction = interger > self.intRow ? UIPageViewControllerNavigationDirectionForward : UIPageViewControllerNavigationDirectionReverse;
     [self.pageViewController setViewControllers:@[self.pages[interger]]
                                       direction:direction
@@ -212,5 +206,16 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     [self.collectionType reloadData];
 }
 
+
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

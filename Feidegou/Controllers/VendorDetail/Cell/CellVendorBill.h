@@ -9,7 +9,6 @@
 #import "JJTableViewCell.h"
 
 @interface CellVendorBill : JJTableViewCell
-
 @property (weak, nonatomic) IBOutlet UIImageView *imgHead;
 @property (weak, nonatomic) IBOutlet UILabelBlackBig *lblTitle;
 @property (weak, nonatomic) IBOutlet UILabelDarkMiddel *lblPrice;

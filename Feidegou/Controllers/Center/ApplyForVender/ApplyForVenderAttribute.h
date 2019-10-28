@@ -12,27 +12,27 @@
 
 
 //店主姓名
-@property (copy, nonatomic) NSString *strName;
+@property (strong, nonatomic) NSString *strName;
 //身份证号
-@property (copy, nonatomic) NSString *strMemberNum;
+@property (strong, nonatomic) NSString *strMemberNum;
 //店铺名称
-@property (copy, nonatomic) NSString *strVendorName;
+@property (strong, nonatomic) NSString *strVendorName;
 //店铺分类名称
-@property (copy, nonatomic) NSString *strVendorTypeName;
+@property (strong, nonatomic) NSString *strVendorTypeName;
 //店铺分类ID
-@property (copy, nonatomic) NSString *strVendorTypeID;
+@property (strong, nonatomic) NSString *strVendorTypeID;
 //所在区域ID
-@property (copy, nonatomic) NSString *strAreaID;
+@property (strong, nonatomic) NSString *strAreaID;
 //所在区域名字
-@property (copy, nonatomic) NSString *strAreaName;
+@property (strong, nonatomic) NSString *strAreaName;
 //详细地址
-@property (copy, nonatomic) NSString *strAddressDetail;
+@property (strong, nonatomic) NSString *strAddressDetail;
 //邮政编码
-@property (copy, nonatomic) NSString *strZIPCode;
+@property (strong, nonatomic) NSString *strZIPCode;
 //联系电话
-@property (copy, nonatomic) NSString *strPhone;
+@property (strong, nonatomic) NSString *strPhone;
 //身份证照片正面
-@property (copy, nonatomic) UIImage *imgMemberCard;
+@property (strong, nonatomic) UIImage *imgMemberCard;
 //营业执照照片
-@property (copy, nonatomic) UIImage *imgBusiness;
+@property (strong, nonatomic) UIImage *imgBusiness;
 @end

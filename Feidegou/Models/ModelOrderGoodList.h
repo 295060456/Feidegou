@@ -15,6 +15,7 @@
  *
  */
 @property (nonatomic,strong) NSArray *goodsCart;
+
 /**
  *
  */
@@ -22,29 +23,33 @@
 /**
  *
  */
-@property (nonatomic,copy) NSString *isPackageMail;
+@property (nonatomic,strong) NSString *isPackageMail;
 /**
  *
  */
-@property (nonatomic,copy) NSString *ems_trans_fee;
+@property (nonatomic,strong) NSString *ems_trans_fee;
+
 /**
  *
  */
-@property (nonatomic,copy) NSString *express_trans_fee;
+@property (nonatomic,strong) NSString *express_trans_fee;
 /**
  *
  */
-@property (nonatomic,copy) NSString *mail_trans_fee;
+@property (nonatomic,strong) NSString *mail_trans_fee;
+
+
 //配送方式
 @property (assign, nonatomic) enumSendWay sendWay;
 //发票类型
 @property (assign, nonatomic) enumBillType billType;
 //公司发票公司名字
-@property (nonatomic,copy) NSString *strCompanyName;
+@property (strong, nonatomic) NSString *strCompanyName;
+
 //商家留言
-@property (nonatomic,copy) NSString *strMsg;
+@property (strong, nonatomic) NSString *strMsg;
 //支付方式，线上和线下
-@property (nonatomic,copy) NSString *strPayway;
+@property (strong, nonatomic) NSString *strPayway;
 //InviteID
-@property (nonatomic,copy) NSString *strInviter;
+@property (strong, nonatomic) NSString *strInviter;
 @end

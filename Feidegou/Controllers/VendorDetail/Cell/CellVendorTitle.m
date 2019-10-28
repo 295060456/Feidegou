@@ -15,13 +15,11 @@
     [self.btnBuy setBackgroundColor:ColorRed];
     // Initialization code
 }
-
 - (void)populateData:(NSDictionary *)dicInfo{
     [self.lblTitle setTextNull:dicInfo[@"store_name"]];
     self.viStar.show_star = [dicInfo[@"store_evaluate1"] floatValue]*100;
     [self.viStar refreshView];
 }
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

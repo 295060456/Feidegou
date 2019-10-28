@@ -12,34 +12,33 @@
 /**
  *
  */
-@property (nonatomic,copy) NSString *ig_exchange_count;
+@property (nonatomic,strong) NSString *ig_exchange_count;
 /**
  *
  */
-@property (nonatomic,copy) NSString *ig_goods_id;
+@property (nonatomic,strong) NSString *ig_goods_id;
 /**
  *
  */
-@property (nonatomic,copy) NSString *ig_goods_integral;
+@property (nonatomic,strong) NSString *ig_goods_integral;
 /**
  *
  */
-@property (nonatomic,copy) NSString *ig_goods_name;
+@property (nonatomic,strong) NSString *ig_goods_name;
 /**
  *
  */
-@property (nonatomic,copy) NSString *img;
+@property (nonatomic,strong) NSString *img;
 /**
  *
  */
-@property (nonatomic,copy) NSString *ig_limit_count;
+@property (nonatomic,strong) NSString *ig_limit_count;
 /**
  *
  */
-@property (nonatomic,copy) NSString *ig_goods_price;
+@property (nonatomic,strong) NSString *ig_goods_price;
 /**
  *
  */
-@property (nonatomic,copy) NSString *ig_goods_count;
-
+@property (nonatomic,strong) NSString *ig_goods_count;
 @end

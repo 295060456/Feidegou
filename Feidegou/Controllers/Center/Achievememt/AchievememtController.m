@@ -56,51 +56,44 @@
         [self.tabIncome reloadData];
         return;
     }
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestShopGoodChivement:@"online"] subscribeNext:^(NSDictionary *dictionary) {
-        @strongify(self)
+    __weak AchievememtController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestShopGoodChivement:@"online"] subscribeNext:^(NSDictionary *dictionary) {
         if ([dictionary isKindOfClass:[NSDictionary class]]) {
             self.dicOnline = [NSDictionary dictionaryWithDictionary:dictionary];
         }
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
-        [self.tabIncome reloadData];
-        [self failedRequestException:enum_exception_timeout];
+        myself.disposable = nil;
+        [myself.tabIncome reloadData];
+        [myself failedRequestException:enum_exception_timeout];
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
-        [self.tabIncome reloadData];
-        [self hideException];
+        myself.disposable = nil;
+        [myself.tabIncome reloadData];
+        [myself hideException];
     }];
+    
 }
-
 - (void)requestOutline{
-    if (self.disposableOutline ||
-        self.dicOutline) {
+    if (self.disposableOutline||self.dicOutline) {
         [self.tabIncome reloadData];
         return;
     }
-    @weakify(self)
-    self.disposableOutline = [[[JJHttpClient new] requestShopGoodChivement:@"outline"] subscribeNext:^(NSDictionary *dictionary) {
+    __weak AchievememtController *myself = self;
+    myself.disposableOutline = [[[JJHttpClient new] requestShopGoodChivement:@"outline"] subscribeNext:^(NSDictionary *dictionary) {
         if ([dictionary isKindOfClass:[NSDictionary class]]) {
-            @strongify(self)
             self.dicOutline = [NSDictionary dictionaryWithDictionary:dictionary];
         }
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposableOutline = nil;
-        [self.tabIncome reloadData];
+        myself.disposableOutline = nil;
+        [myself.tabIncome reloadData];
     }completed:^{
-        @strongify(self)
-        self.disposableOutline = nil;
-        [self.tabIncome reloadData];
+        myself.disposableOutline = nil;
+        [myself.tabIncome reloadData];
     }];
     
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     if (section == 0||section == 1) {
         return 1;
     }
@@ -109,13 +102,10 @@
     }
     return 0;
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 5;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
         return 160;
@@ -135,9 +125,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
     return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     NSDictionary *dictionary;
-    @weakify(self)
     if (self.isOutline) {
         dictionary = [NSDictionary dictionaryWithDictionary:self.dicOutline];
     }else{
@@ -152,18 +142,15 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
         NSMutableAttributedString * atrStringPrice = [[NSMutableAttributedString alloc] initWithString:StringFormat(@"%@\n累计结算收益",strMoney)];
         [atrStringPrice addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:20.0]} range:NSMakeRange(0, strMoney.length)];
         [cell.lblMoney setAttributedText:atrStringPrice];
-        [cell.btnOnline handleControlEvent:UIControlEventTouchUpInside
-                                 withBlock:^{
-            @strongify(self)
+        [cell.btnOnline handleControlEvent:UIControlEventTouchUpInside withBlock:^{
             self.isOutline = NO;
             [self.tabIncome reloadData];
         }];
-        [cell.btnOutLine handleControlEvent:UIControlEventTouchUpInside
-                                  withBlock:^{
-            @strongify(self)
+        [cell.btnOutLine handleControlEvent:UIControlEventTouchUpInside withBlock:^{
             self.isOutline = YES;
             [self.tabIncome reloadData];
-        }];return cell;
+        }];
+        return cell;
     }
     if (indexPath.section == 1) {
         CellIncomeAll *cell=[tableView dequeueReusableCellWithIdentifier:@"CellIncomeAll"];
@@ -222,7 +209,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
     }
     return cell;
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (section == 0) {
         return 0;
@@ -230,13 +216,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
         return 10;
     }
 }
-
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
     return viHeader;
 }
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -255,12 +239,24 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath
         
     }
 }
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (IBAction)clickButtonDetail:(UIButton *)sender {
     UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardWithdrawDeposit bundle:nil];
     WithDrawDepositController *controller=[storyboard instantiateViewControllerWithIdentifier:@"WithDrawDepositController"];
     [self.navigationController pushViewController:controller animated:YES];
 }
 
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

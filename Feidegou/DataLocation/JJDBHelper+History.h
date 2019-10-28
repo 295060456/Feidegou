@@ -9,6 +9,7 @@
 #import "JJDBHelper.h"
 
 @interface JJDBHelper (History)
+
 /**
  *  查询搜索历史记录
  *
@@ -21,13 +22,14 @@
  *  @return NSDictionary
  */
 - (NSArray *)fetchSearchHot;
+
+
 /**
  *  保存搜索历史记录
  *
  *  @return NSDictionary
  */
-- (void)saveSearchHistory:(NSArray *)array
-              andIsVendor:(BOOL)isVenor;
+- (void)saveSearchHistory:(NSArray *)array andIsVendor:(BOOL)isVenor;
 /**
  *  保存搜索热词
  *

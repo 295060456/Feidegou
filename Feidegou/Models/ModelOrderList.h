@@ -13,63 +13,63 @@
 /**
  *
  */
-@property (nonatomic,copy) NSString *count;
+@property (nonatomic,strong) NSString *count;
 /**
  *
  */
-@property (nonatomic,copy) NSString *goods_name;
+@property (nonatomic,strong) NSString *goods_name;
 /**
  *
  */
-@property (nonatomic,copy) NSString *orderId;
+@property (nonatomic,strong) NSString *orderId;
 /**
  *
  */
-@property (nonatomic,copy) NSString *order_status;
+@property (nonatomic,strong) NSString *order_status;
 /**
  *
  */
-@property (nonatomic,copy) NSString *outline;
+@property (nonatomic,strong) NSString *outline;
 /**
  *
  */
-@property (nonatomic,copy) NSString *path;
+@property (nonatomic,strong) NSString *path;
 /**
  *
  */
-@property (nonatomic,copy) NSString *state;
+@property (nonatomic,strong) NSString *state;
 /**
  *
  */
-@property (nonatomic,copy) NSString *store_id;
+@property (nonatomic,strong) NSString *store_id;
 /**
  *
  */
-@property (nonatomic,copy) NSString *store_name;
+@property (nonatomic,strong) NSString *store_name;
 /**
  *
  */
-@property (nonatomic,copy) NSString *totalPrice;
+@property (nonatomic,strong) NSString *totalPrice;
 /**
  *
  */
-@property (nonatomic,copy) NSString *order_id;
+@property (nonatomic,strong) NSString *order_id;
 /**
  *
  */
-@property (nonatomic,copy) NSString *goodsId;
+@property (nonatomic,strong) NSString *goodsId;
 /**
  *
  */
-@property (nonatomic,copy) NSString *company_mark;
+@property (nonatomic,strong) NSString *company_mark;
 /**
  *
  */
-@property (nonatomic,copy) NSString *company_name;
+@property (nonatomic,strong) NSString *company_name;
 /**
  *
  */
-@property (nonatomic,copy) NSString *courierCode;
+@property (nonatomic,strong) NSString *courierCode;
 /**
  *
  */
@@ -77,7 +77,7 @@
 /**
  *
  */
-@property (nonatomic,copy) NSString *if_cart;
+@property (nonatomic,strong) NSString *if_cart;
 /**
  *
  */
@@ -85,9 +85,9 @@
 /**
  *
  */
-@property (nonatomic,copy) NSString *gift_d_coins;
+@property (nonatomic,strong) NSString *gift_d_coins;
 /**
  *
  */
-@property (nonatomic,copy) NSString *ID;
+@property (nonatomic,strong) NSString *ID;
 @end

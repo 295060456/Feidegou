@@ -28,26 +28,23 @@
 }
 
 - (void)requestExchangeList{
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestShopGoodVenderType] subscribeNext:^(NSArray* array) {
-        @strongify(self)
+    __weak ApplyForTypeController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestShopGoodVenderType] subscribeNext:^(NSArray* array) {
         if ([array isKindOfClass:[NSArray class]]) {
-            self.arrType = [NSMutableArray arrayWithArray:array];
+            myself.arrType = [NSMutableArray arrayWithArray:array];
         }
-        [self.tabType reloadData];
-        [self.tabType checkNoData:self.arrType.count];
+        [myself.tabType reloadData];
+        [myself.tabType checkNoData:myself.arrType.count];
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
-        [self.tabType checkNoData:self.arrType.count];
-        [self.refreshControl endRefreshing];
+        myself.disposable = nil;
+        [myself.tabType checkNoData:myself.arrType.count];
+        [myself.refreshControl endRefreshing];
         if (error.code!=2) {
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }
     }completed:^{
-        @strongify(self)
-        [self.refreshControl endRefreshing];
-        self.disposable = nil;
+        [myself.refreshControl endRefreshing];
+        myself.disposable = nil;
     }];
     
 }
@@ -63,26 +60,28 @@
     return NO;
 }
 
+
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return self.arrType.count;
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 40.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     CellOneLabel *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOneLabel"];
     [cell.lblContent setTextNull:self.arrType[indexPath.row][@"className"]];
     return cell;
 }
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     self.applyForVenderAttribute.strVendorTypeID = self.arrType[indexPath.row][@"id"];
     self.applyForVenderAttribute.strVendorTypeName = self.arrType[indexPath.row][@"className"];
@@ -90,5 +89,19 @@
     
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

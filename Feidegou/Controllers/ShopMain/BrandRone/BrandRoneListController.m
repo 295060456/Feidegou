@@ -12,16 +12,12 @@
 #import "CellBrandRoneRecommend.h"
 #import "GoodsListController.h"
 
-@interface BrandRoneListController ()
-<RefreshControlDelegate,
-BrandCollectionView>
-
+@interface BrandRoneListController ()<RefreshControlDelegate,BrandCollectionView>
 @property (weak, nonatomic) IBOutlet BaseTableView *tabBrandRone;
 @property (strong, nonatomic) NSMutableArray *arrBrandRone;
 @property (strong, nonatomic) NSMutableArray *arrBrandRecommend;
 @property (strong, nonatomic) NSMutableArray *arrTitle;
 @property (nonatomic,strong) RefreshControl *refreshControl;
-
 @end
 
 @implementation BrandRoneListController
@@ -36,46 +32,52 @@ BrandCollectionView>
     [self.tabBrandRone setBackgroundColor:ColorBackground];
     [self.tabBrandRone registerNib:[UINib nibWithNibName:@"CellBrandRone" bundle:nil] forCellReuseIdentifier:@"CellBrandRone"];
     [self.tabBrandRone registerNib:[UINib nibWithNibName:@"CellBrandRoneRecommend" bundle:nil] forCellReuseIdentifier:@"CellBrandRoneRecommend"];
+    
+    
     self.refreshControl = [[RefreshControl new] initRefreshControlWithScrollView:self.tabBrandRone delegate:self];
     [self.refreshControl beginRefreshingMethod];
+    
+    
 }
-
 - (void)requestExchangeList{
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestShopGoodBrandRone] subscribeNext:^(NSDictionary* dictionary) {
-        @strongify(self)
-        self.arrBrandRecommend = [NSMutableArray array];
+    __weak BrandRoneListController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestShopGoodBrandRone] subscribeNext:^(NSDictionary* dictionary) {
+        myself.arrBrandRecommend = [NSMutableArray array];
 //        先确认推荐的列表
         if ([dictionary[@"brandRecommendList"] isKindOfClass:[NSArray class]]) {
-            [self.arrBrandRecommend addObjectsFromArray:dictionary[@"brandRecommendList"]];
+            [myself.arrBrandRecommend addObjectsFromArray:dictionary[@"brandRecommendList"]];
         }
         
 //        生成总的列表
         if ([dictionary[@"brandList"] isKindOfClass:[NSArray class]]) {
-            [self orderTheBrandListByArray:dictionary[@"brandList"]];
+            [myself orderTheBrandListByArray:dictionary[@"brandList"]];
         }
-        [self.tabBrandRone reloadData];
+        
+        [myself.tabBrandRone reloadData];
+        
+        
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
-        [self.refreshControl endRefreshing];
-        [self.tabBrandRone checkNoData:self.arrBrandRecommend.count];
+        myself.disposable = nil;
+        [myself.refreshControl endRefreshing];
+        [myself.tabBrandRone checkNoData:myself.arrBrandRecommend.count];
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
-        [self.refreshControl endRefreshing];
-        [self.tabBrandRone checkNoData:self.arrBrandRecommend.count];
+        myself.disposable = nil;
+        [myself.refreshControl endRefreshing];
+        [myself.tabBrandRone checkNoData:myself.arrBrandRecommend.count];
     }];
+    
 }
-
 - (void)orderTheBrandListByArray:(NSArray *)array{
     NSMutableDictionary *sectionDic = [[NSMutableDictionary alloc] initWithCapacity:100];
-    for (int i = 0; i < 26; i++){
-        [sectionDic setObject:[NSMutableArray array]
-                       forKey:[NSString stringWithFormat:@"%c",'A'+i]];
+
+    
+    for (int i = 0; i < 26; i++)
+    {
+        [sectionDic setObject:[NSMutableArray array] forKey:[NSString stringWithFormat:@"%c",'A'+i]];
     }
-    [sectionDic setObject:[NSMutableArray array]
-                   forKey:[NSString stringWithFormat:@"%c",'#']];
+    
+    [sectionDic setObject:[NSMutableArray array] forKey:[NSString stringWithFormat:@"%c",'#']];
+    
     
     for (NSDictionary *placeInfoDic in array) {
 //        char first= pinyinFirstLetter([placeInfoDic[@"flag"] characterAtIndex:0]);
@@ -88,6 +90,7 @@ BrandCollectionView>
         }
         
         [[sectionDic objectForKey:sectionName] addObject:placeInfoDic];
+        
     }
     
     self.arrBrandRone = [NSMutableArray array];
@@ -124,9 +127,14 @@ BrandCollectionView>
 -(BOOL)refreshControlEnableLoadMore{
     return NO;
 }
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     
     if (self.arrBrandRecommend.count != 0 &&section == 0) {
         return 1;
@@ -134,11 +142,9 @@ BrandCollectionView>
     NSArray *arrSection = self.arrBrandRone[section];
     return arrSection.count;
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.arrBrandRone.count;
 }
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.arrBrandRecommend.count != 0 &&indexPath.section == 0) {
@@ -147,7 +153,8 @@ BrandCollectionView>
             intHang ++;
         }
         return intHang*100+2;
-    }return 60.0f;
+    }
+    return 60.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -164,7 +171,6 @@ BrandCollectionView>
     [cell.lblName setTextNull:self.arrBrandRone[indexPath.section][indexPath.row][@"name"]];
     return cell;
 }
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (self.arrBrandRecommend.count != 0 &&indexPath.section == 0) {
@@ -177,25 +183,16 @@ BrandCollectionView>
     GoodsListController *controller=[storyboard instantiateViewControllerWithIdentifier:@"GoodsListController"];
     controller.isShow = YES;
     controller.strGoods_brand_id = dictionary[@"id"];
-    [self.navigationController pushViewController:controller
-                                         animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView
-heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 35;
 }
-
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                0,
-                                                                SCREEN_WIDTH,
-                                                                30)];
+    UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 30)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
-    UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(10,
-                                                                  10,
-                                                                  SCREEN_WIDTH-20,
-                                                                  20)];
+    UILabel *lblTitle = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, SCREEN_WIDTH-20, 20)];
     [lblTitle setTextColor:ColorBlack];
     [lblTitle setFont:[UIFont systemFontOfSize:15.0]];
     NSString *strTitle = self.arrTitle[section];
@@ -207,10 +204,10 @@ heightForHeaderInSection:(NSInteger)section{
     return viHeader;
 }
 
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView{
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
     return self.arrTitle;
 }
-
 - (void)didSelectedBrandDictionary:(NSDictionary *)dictionary{
     D_NSLog(@"dictionary name is %@",dictionary[@"name"]);
     
@@ -220,6 +217,14 @@ heightForHeaderInSection:(NSInteger)section{
     controller.strGoods_brand_id = dictionary[@"id"];
     [self.navigationController pushViewController:controller animated:YES];
 }
+/*
+#pragma mark - Navigation
 
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

@@ -9,12 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface CellVendorGoodShopInfo : UITableViewCell
-
 @property (weak, nonatomic) IBOutlet UILabelBlackBig *lblName;
 @property (weak, nonatomic) IBOutlet UILabelDarkMiddel *lblAddress;
 @property (weak, nonatomic) IBOutlet UIButton *btnPhone;
 @property (weak, nonatomic) IBOutlet UILabel *lblLine;
 
 - (void)populataData:(NSDictionary *)dicInfo;
-
 @end

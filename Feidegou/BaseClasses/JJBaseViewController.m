@@ -9,9 +9,7 @@
 #import "JJBaseViewController.h"
 #import "LoginViewController.h"
 
-@interface JJBaseViewController ()
-<UIGestureRecognizerDelegate>
-
+@interface JJBaseViewController ()<UIGestureRecognizerDelegate>
 @property (nonatomic,strong) UIView *exceptionView;
 @property (nonatomic,strong) UIImageView *imgFailed;
 @property (nonatomic,strong) UILabel *lblTip;
@@ -47,7 +45,6 @@
     [self populateData];
     // Do any additional setup after loading the view.
 }
-
 - (void)clickButtonBack:(UIButton *)sender{
     if (self.navigationController) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -55,7 +52,6 @@
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
-
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 //    侧滑返回
@@ -65,13 +61,11 @@
     }
     D_NSLog(@"进入----------------------------cName is %@",self.class);
 }
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     NSString* cName = [NSString stringWithFormat:@"%@",  self.tabBarItem.title, nil];
     D_NSLog(@"cName is %@",cName);
 }
-
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     NSString* cName = [NSString stringWithFormat:@"%@", self.tabBarItem.title, nil];
@@ -89,19 +83,22 @@
 - (void)populateData{
     
 }
-
 - (void)dealloc{
     [self.disposable dispose];
     self.disposable = nil;
     D_NSLog(@"%@",NSStringFromClass([self class]));
     
 }
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 #pragma mark -正在加载
 -(void)showExceptionNoHead{
     self.integerHead = 64;
     [self showException];
 }
-
 -(void)showException{
     
     if (!self.exceptionView) {
@@ -112,18 +109,13 @@
     }
     [self.view bringSubviewToFront:self.exceptionView];
 }
-
 -(void)hideException{
     if (self.exceptionView) {
         [self.exceptionView setHidden:YES];
     }
 }
-
 - (void)initException{
-    self.exceptionView = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                  self.integerHead,
-                                                                  CGRectGetWidth(self.view.frame),
-                                                                  CGRectGetHeight(self.view.frame) - self.integerHead)];
+    self.exceptionView = [[UIView alloc] initWithFrame:CGRectMake(0, self.integerHead, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)-self.integerHead)];
     [self.exceptionView setBackgroundColor:ColorFromRGB(240, 240, 240)];
     [self.view addSubview:self.exceptionView];
     self.activity = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];//指定进度轮的大小
@@ -134,31 +126,24 @@
     [self.activity startAnimating];
     [self.exceptionView addSubview:self.activity];
     
-    self.lblTip = [[UILabel alloc] initWithFrame:CGRectMake(10,
-                                                            CGRectGetMaxY(self.activity.frame) + 10,
-                                                            CGRectGetWidth(self.exceptionView.frame),
-                                                            20)];
+    self.lblTip = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(self.activity.frame)+10, CGRectGetWidth(self.exceptionView.frame), 20)];
     [self.lblTip setTextColor:ColorFromRGB(32, 32, 32)];
     [self.lblTip setText:@"正在加载中..."];
     [self.lblTip setTextAlignment:NSTextAlignmentCenter];
     [self.lblTip setFont:[UIFont systemFontOfSize:14.0]];
     [self.exceptionView addSubview:self.lblTip];
+    
 }
-
 -(void)failedRequestException:(enumException)exception{
     [self.lblTip setHidden:YES];
     [self.activity stopAnimating];
-    UIImageView *imgError = [[UIImageView alloc] initWithFrame:CGRectMake(0,
-                                                                          0,
-                                                                          160,
-                                                                          160)];
+    UIImageView *imgError = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 160, 160)];
     [imgError setCenter:CGPointMake(self.view.center.x, self.view.center.y-50)];
     [imgError setContentMode:UIViewContentModeScaleAspectFit];
     [imgError setImage:ImageNamed(@"img_error")];
     [self.exceptionView addSubview:imgError];
     
 }
-
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
     if (self.navigationController.viewControllers.count == 1) {
         return NO;
@@ -166,35 +151,31 @@
         return YES;
     }
 }
-
 - (void)pushLoginAlert{
-    @weakify(self)
-    [JJAlertViewTwoButton.new showAlertView:self
-                                   andTitle:nil
-                                 andMessage:@"您当前没有登录，是否登录"
-                                  andCancel:@"取消"
-                              andCanelIsRed:NO
-                              andOherButton:@"立即登录"
-                                 andConfirm:^{
-        @strongify(self)
+    JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
+    [alertView showAlertView:self andTitle:nil andMessage:@"您当前没有登录，是否登录"  andCancel:@"取消" andCanelIsRed:NO andOherButton:@"立即登录" andConfirm:^{
         D_NSLog(@"点击了登录");
         [self pushLoginController];
     } andCancel:^{
         D_NSLog(@"点击了取消");
     }];
 }
-
 - (void)pushLoginController{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister
-                                                         bundle:nil];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
     LoginViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-    [self.navigationController pushViewController:controller
-                                         animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
 }
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches
-           withEvent:(UIEvent *)event{
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

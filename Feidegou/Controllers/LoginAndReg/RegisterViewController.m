@@ -11,13 +11,14 @@
 #import "JJHttpClient+Login.h"
 #import "RegisterInviterController.h"
 
+
 @interface RegisterViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *txtPhoneNum;
 @property (weak, nonatomic) IBOutlet UIView *viPhone;
 @property (weak, nonatomic) IBOutlet UIButton *btnRegister;
+@property (strong, nonatomic) NSString *strPhone;
 @property (weak, nonatomic) IBOutlet UIButton *btnDelegete;
 @property (weak, nonatomic) IBOutlet UIButton *btnUrl;
-@property (copy, nonatomic) NSString *strPhone;
 
 @end
 
@@ -39,14 +40,11 @@
     [self.viPhone.layer setBorderWidth:0.5];
     [self.viPhone.layer setBorderColor:ColorLine.CGColor];
     [self.txtPhoneNum setClearButtonMode:UITextFieldViewModeWhileEditing];
-    [self.txtPhoneNum addTarget:self action:@selector(textFiledDidChanged:)
-               forControlEvents:UIControlEventEditingChanged];
+    [self.txtPhoneNum addTarget:self action:@selector(textFiledDidChanged:) forControlEvents:UIControlEventEditingChanged];
 }
-
 - (void)textFiledDidChanged:(UITextField *)text{
     [self refrehButtonNextState];
 }
-
 - (void)refrehButtonNextState{
     NSString *strUserNum = self.txtPhoneNum.text;
     if (strUserNum.length>6&&self.btnDelegete.selected) {
@@ -57,9 +55,11 @@
         [self.btnRegister setBackgroundColor:ColorGaryButtom];
     }
 }
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (IBAction)clickButtonNext:(UIButton *)sender {
-    @weakify(self)
     if (self.isForgetPsw) {
         NSString *strUserNum = self.txtPhoneNum.text;
         if ([NSString isNullString:strUserNum]) {
@@ -70,34 +70,34 @@
             [SVProgressHUD showErrorWithStatus:@"请输入正确的手机号码"];
             return;
         }
+        
         [SVProgressHUD showWithStatus:@"正在请求数据,请稍后..."];
+        
         NSString *strType = @"reg";
         if (self.isForgetPsw) {
             strType = @"forget";
         }
-        self.disposable = [[[JJHttpClient new] requestPswGetBackPHONE:strUserNum
-                                                              andType:strType]
-                           subscribeNext:^(NSDictionary*dictionary) {
-            @strongify(self)
+        __weak RegisterViewController *myself = self;
+        self.disposable = [[[JJHttpClient new] requestPswGetBackPHONE:strUserNum andType:strType] subscribeNext:^(NSDictionary*dictionary) {
             D_NSLog(@"msg is %@",dictionary[@"msg"]);
             [SVProgressHUD dismiss];
             if ([dictionary[@"code"] intValue]==1) {
                 RegisterCodeController *controller = [[self storyboard] instantiateViewControllerWithIdentifier:@"RegisterCodeController"];
                 controller.strPhone = strUserNum;
                 controller.isForgetPsw = self.isForgetPsw;
-                [self.navigationController pushViewController:controller
-                                                     animated:YES];
+                [self.navigationController pushViewController:controller animated:YES];
             }else{
                 [SVProgressHUD showErrorWithStatus:[NSString stringStandard:dictionary[@"msg"]]];
             }
         }error:^(NSError *error) {
-            @strongify(self)
-            self.disposable = nil;
+            myself.disposable = nil;
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }completed:^{
-            @strongify(self)
-            self.disposable = nil;
-        }];return;
+            myself.disposable = nil;
+        }];
+        
+        
+        return;
     }
     NSString *strUserNum = self.txtPhoneNum.text;
     if ([NSString isNullString:strUserNum]) {
@@ -113,29 +113,29 @@
         return;
     }
     [SVProgressHUD showWithStatus:@"正在请求数据,请稍后..."];
+    __weak RegisterViewController *myself = self;
     self.disposable = [[[JJHttpClient new] requestIsRegisterPHONE:strUserNum] subscribeNext:^(NSDictionary*dictionary) {
         D_NSLog(@"msg is %@",dictionary[@"msg"]);
-        @strongify(self)
         [SVProgressHUD dismiss];
         if ([dictionary[@"code"] intValue]==1) {
             RegisterCodeController *controller = [[self storyboard] instantiateViewControllerWithIdentifier:@"RegisterCodeController"];
             controller.strPhone = strUserNum;
             controller.isForgetPsw = self.isForgetPsw;
-            [self.navigationController pushViewController:controller
-                                                 animated:YES];
+            [self.navigationController pushViewController:controller animated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:[NSString stringStandard:dictionary[@"msg"]]];
         }
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
     }];
+    
 }
-
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+//    [self.view endEditing:YES];
+//}
 - (IBAction)clickButtonDelegete:(UIButton *)sender {
     if (sender.selected) {
         [sender setSelected:NO];
@@ -144,7 +144,6 @@
     }
     [self refrehButtonNextState];
 }
-
 - (IBAction)clickButtonDelegeteDetail:(UIButton *)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardWebService bundle:nil];
     WebOnlyController *controller = [storyboard instantiateViewControllerWithIdentifier:@"WebOnlyController"];
@@ -152,10 +151,14 @@
     controller.strWebUrl = @"http://feidegou.com/doc_agree.htm";
     [self.navigationController pushViewController:controller animated:YES];
 }
+/*
+#pragma mark - Navigation
 
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-//    [self.view endEditing:YES];
-//}
-
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

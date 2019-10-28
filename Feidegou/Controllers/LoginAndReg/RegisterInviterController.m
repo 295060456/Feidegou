@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblTip;
 @property (weak, nonatomic) IBOutlet UIButton *btnService;
 
+
 @end
 
 @implementation RegisterInviterController
@@ -26,23 +27,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 - (void)locationControls{
     [self refrehButtonNextState];
     [self.lblTip setTextColor:ColorGary];
-    [self.btnService setTitleColor:ColorBlack
-                          forState:UIControlStateNormal];
+    [self.btnService setTitleColor:ColorBlack forState:UIControlStateNormal];
     [self.viCode.layer setBorderWidth:0.5];
     [self.viCode.layer setBorderColor:ColorLine.CGColor];
     [self.txtCode setClearButtonMode:UITextFieldViewModeWhileEditing];
-    [self.txtCode addTarget:self action:@selector(textFiledDidChanged:)
-           forControlEvents:UIControlEventEditingChanged];
+    [self.txtCode addTarget:self action:@selector(textFiledDidChanged:) forControlEvents:UIControlEventEditingChanged];
 }
-
 - (void)textFiledDidChanged:(UITextField *)text{
     [self refrehButtonNextState];
 }
-
 - (void)refrehButtonNextState{
     NSString *strUserNum = self.txtCode.text;
     if ([NSString isNullString:strUserNum]) {
@@ -53,17 +49,20 @@
         [self.btnNext setBackgroundColor:ColorRed];
     }
 }
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
 - (IBAction)clickButtonNext:(UIButton *)sender {
-    @weakify(self)
+    
     NSString *strCode = self.txtCode.text;
     if ([NSString isNullString:strCode]) {
         [SVProgressHUD showErrorWithStatus:@"请输邀请码"];
         return;
     }
     [SVProgressHUD showWithStatus:@"正在请求数据,请稍后..."];
+    __weak RegisterInviterController *myself = self;
     self.disposable = [[[JJHttpClient new] requestIsRegisterinviterCode:strCode] subscribeNext:^(NSDictionary*dictionary) {
-        @strongify(self)
         D_NSLog(@"msg is %@",dictionary[@"msg"]);
         [SVProgressHUD dismiss];
         if ([dictionary[@"code"] intValue]==1) {
@@ -76,25 +75,17 @@
             [SVProgressHUD showErrorWithStatus:[NSString stringStandard:dictionary[@"msg"]]];
         }
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
     }];
+    
 }
-
 - (IBAction)clickButtonService:(UIButton *)sender {
     
     JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-    [alertView showAlertView:self
-                    andTitle:nil
-                  andMessage:@"是否拨打电话"
-                   andCancel:@"取消"
-               andCanelIsRed:NO
-               andOherButton:@"立即拨打"
-                  andConfirm:^{
+    [alertView showAlertView:self andTitle:nil andMessage:@"是否拨打电话" andCancel:@"取消" andCanelIsRed:NO andOherButton:@"立即拨打" andConfirm:^{
         D_NSLog(@"点击了确定");
         Tel(ServicePhone);
     } andCancel:^{
@@ -102,5 +93,14 @@
     }];
 }
 
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

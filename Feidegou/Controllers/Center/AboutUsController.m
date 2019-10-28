@@ -10,7 +10,6 @@
 #import "CellTwoLblArrow.h"
 
 @interface AboutUsController ()
-
 @property (weak, nonatomic) IBOutlet UIView *viHead;
 @property (weak, nonatomic) IBOutlet UIImageView *imgHead;
 @property (weak, nonatomic) IBOutlet UILabel *lblVersion;
@@ -32,27 +31,25 @@
     NSDictionary *dicInfo = [[NSBundle mainBundle] infoDictionary];
     D_NSLog(@"dicInfo is %@",dicInfo);
     [self.lblVersion setText:StringFormat(@"当前版本:v%@",dicInfo[@"CFBundleShortVersionString"])];
-    [self.tabAboutUs registerNib:[UINib nibWithNibName:@"CellTwoLblArrow"
-                                                bundle:nil]
-          forCellReuseIdentifier:@"CellTwoLblArrow"];
+    [self.tabAboutUs registerNib:[UINib nibWithNibName:@"CellTwoLblArrow" bundle:nil] forCellReuseIdentifier:@"CellTwoLblArrow"];
 }
 
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return 1;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     return 50.0f;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
 //    if (indexPath.row == 0) {
 //        CellTwoLblArrow *cell = [tableView dequeueReusableCellWithIdentifier:@"CellTwoLblArrow"];
 //        cell.fWidthPre = 10;
@@ -69,11 +66,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 1) {
         [cell.lblName setText:@"官方网址"];
         [cell.lblContent setText:self.strUrl];
-    }return cell;
+    }
+    return cell;
+    
 }
-
-- (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 //    if (indexPath.row == 0) {
 //        JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
@@ -89,9 +87,23 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         WebOnlyController *controller = [storyboard instantiateViewControllerWithIdentifier:@"WebOnlyController"];
         [controller setTitle:@"官方网站"];
         controller.strWebUrl = self.strUrl;
-        [self.navigationController pushViewController:controller
-                                             animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
 //    }
 }
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

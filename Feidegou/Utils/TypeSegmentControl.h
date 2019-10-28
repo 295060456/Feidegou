@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^SelectionBlock)(NSUInteger segmentIndex,
-                              BOOL select);
+typedef void(^SelectionBlock)(NSUInteger segmentIndex, BOOL select);
 typedef enum {
     IconPositionRight,
     IconPositionLeft,
@@ -19,17 +18,11 @@ typedef enum {
     IconStateNomer,
     IconStateOther
 } IconState;
-
 @interface TypeSegmentControl : UIView
 
 @property (nonatomic,strong) NSMutableArray *arrImage;
 @property (nonatomic,strong) NSMutableArray *arrButton;
 @property (nonatomic) NSUInteger currentSelected;
 @property (nonatomic,copy) SelectionBlock selectionBlock;
-
-- (id)initWithFrame:(CGRect)frame
-              items:(NSArray*)items
-       iconPosition:(IconPosition)position
-  andSelectionBlock:(SelectionBlock)block;
-
+- (id)initWithFrame:(CGRect)frame items:(NSArray*)items iconPosition:(IconPosition)position andSelectionBlock:(SelectionBlock)block;
 @end

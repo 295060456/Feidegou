@@ -12,11 +12,11 @@
 #import "AppDelegate.h"
 
 @interface QRCodeController ()
-
 @property (weak, nonatomic) IBOutlet UILabelBlackMiddle *lblTip;
 @property (weak, nonatomic) IBOutlet UIImageView *imgCode;
 @property (weak, nonatomic) IBOutlet UIButton *btnSend;
-@property (copy, nonatomic) NSString *strImage;
+@property (strong, nonatomic) NSString *strImage;
+
 
 @end
 
@@ -30,25 +30,20 @@
 //    [self.imgCode setImage:[UIImage createNonInterpolatedUIImageFormString:StringFormat(@"%@/register.htm?id=%@",BASE_URL,strInviter) withSize:SCREEN_WIDTH-80]];
     // Do any additional setup after loading the view.
 }
-
 - (void)locationControls{
     [self showException];
-    @weakify(self)
+    __weak QRCodeController *myself = self;
     self.disposable = [[[JJHttpClient new] requestShopGoodInviteFriend] subscribeNext:^(NSString*string) {
-        @strongify(self)
-        self.strImage = string;
-        [self.imgCode setImagePathListSquare:string];
+        myself.strImage = string;
+        [myself.imgCode setImagePathListSquare:string];
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
-        [self failedRequestException:enum_exception_timeout];
+        myself.disposable = nil;
+        [myself failedRequestException:enum_exception_timeout];
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
-        [self hideException];
+        myself.disposable = nil;
+        [myself hideException];
     }];
 }
-
 - (IBAction)clickButtonSend:(UIButton *)sender {
     if ([NSString isNullString:self.strImage]) {
         return;
@@ -63,16 +58,7 @@
                                           title:@"7商城"
                                            type:SSDKContentTypeImage];
         //2、分享（可以弹出我们的分享菜单和编辑界面）
-        [ShareSDK showShareActionSheet:nil
-                           customItems:nil
-                           shareParams:shareParams
-                    sheetConfiguration:nil
-                        onStateChanged:^(SSDKResponseState state,
-                                         SSDKPlatformType platformType,
-                                         NSDictionary *userData,
-                                         SSDKContentEntity *contentEntity,
-                                         NSError *error,
-                                         BOOL end) {
+        [ShareSDK showShareActionSheet:nil customItems:nil shareParams:shareParams sheetConfiguration:nil onStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
             
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             [appDelegate shareSucceed];
@@ -120,5 +106,19 @@
 
 }
 
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

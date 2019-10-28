@@ -24,6 +24,8 @@
 //#define RELATIVE_PATH_QUERY @"APP/appShop7/query.do?"
 //#define RELATIVE_PATH_WRITE @"APP/appShop7/write.do?"
 
+
+
 //sotryBoradName
 #define StoryboardExchageArea @"ExhangeArea"
 #define StoryboardWebService @"WebService"
@@ -69,11 +71,14 @@
 #define ColorGreen ColorFromHexRGB(0x4dc273)
 #define ColorYellow ColorFromHexRGB(0xfa9426)
 
+
+
 #pragma mark - ===================获取设备大小=====================
 //获取屏幕宽度
 #define SCREEN_WIDTH ([UIScreen mainScreen].bounds.size.width)
 //获取屏幕高度
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
+
 
 #pragma mark - ===================系统版本========================
 
@@ -82,6 +87,7 @@
 
 //获取设备当前语言
 #define CurrentLanguage ([[NSLocale preferredLanguages] objectAtIndex:0])
+
 
 #pragma mark - ===================UIImage图片=====================
 //读取本地图片
@@ -94,7 +100,9 @@
 
 #define ERROR_Description(error) [error.userInfo objectForKey:NSLocalizedDescriptionKey]
 
+
 #pragma mark - ===================颜色类===========================
+
 //清除背景色
 #define CLEARCOLOR [UIColor clearColor]
 //RGB的颜色
@@ -138,6 +146,8 @@
 //#define D_NSLog(format, ...)
 //#endif
 
+
+
 #define _po(o) DLOG(@"%@", (o))
 #define _pn(o) DLOG(@"%d", (o))
 #define _pf(o) DLOG(@"%f", (o))
@@ -145,6 +155,7 @@
 #define _pr(o) DLOG(@"NSRect: {{%.0f, %.0f}, {%.0f, %.0f}}", (o).origin.x, (o).origin.x, (o).size.width, (o).size.height)
 #define DOBJ(obj)  DLOG(@"%s: %@", #obj, [(obj) description])
 #define MARK    NSLog(@"\nMARK: %s, %d", __PRETTY_FUNCTION__, __LINE__)
+
 
 #pragma mark - ===================其它===========================
 //
@@ -164,5 +175,4 @@
 //判断是否为手机
 #define isIPhone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
 #define DEFAULTS [NSUserDefaults standardUserDefaults]
-
 #endif

@@ -14,5 +14,4 @@
 
 @property (strong, nonatomic) ModelAddress *model;
 @property (strong, nonatomic) ApplyForVenderAttribute *applyForVenderAttribute;
-
 @end

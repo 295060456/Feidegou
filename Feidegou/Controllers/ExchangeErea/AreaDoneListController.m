@@ -19,13 +19,13 @@
 #import "OrderLogisticsDetailController.h"
 #import "AreaDoneDetailController.h"
 
-@interface AreaDoneListController ()
-<
-RefreshControlDelegate
->
+@interface AreaDoneListController ()<RefreshControlDelegate>
 @property (weak, nonatomic) IBOutlet BaseTableView *tabAreaOrder;
 @property (strong, nonatomic) NSMutableArray *arrGoods;
+
 @property (nonatomic,strong) RACDisposable *disposableDelete;
+
+
 @property (nonatomic,strong) RefreshControl *refreshControl;
 @property (nonatomic,assign) int intPageIndex;
 //当前页数数量
@@ -53,7 +53,6 @@ RefreshControlDelegate
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotificationOrderDelete:) name:NotificationNameOrderDelete object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(NotificationOrderGetSucceed:) name:NotificationNameOrderGetSucceed object:nil];
 }
-
 - (void)NotificationPaySucceedChangeData:(NSNotification *)notification{
     NSString *strOrderId = TransformString((NSString *)notification.object);
     for (int i = 0; i<self.arrGoods.count; i++) {
@@ -70,7 +69,6 @@ RefreshControlDelegate
         }
     }
 }
-
 - (void)NotificationDiscussSucceed:(NSNotification *)notification{
     NSString *strOrderId = TransformString((NSString *)notification.object);
     for (int i = 0; i<self.arrGoods.count; i++) {
@@ -122,34 +120,30 @@ RefreshControlDelegate
     if (self.orderState != enumOrder_quanbu) {
         strOrderState = TransformNSInteger(self.orderState);
     }
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestShopGoodOrderListAreaExchangeLimit:@"10"
-                                                                               andPage:TransformNSInteger(self.intPageIndex)]
-                         subscribeNext:^(NSArray* array) {
-        @strongify(self)
-        self.curCount = array.count;
-        if (self.intPageIndex == 1) {
-            self.arrGoods = [NSMutableArray array];
+    __weak AreaDoneListController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestShopGoodOrderListAreaExchangeLimit:@"10" andPage:TransformNSInteger(self.intPageIndex)] subscribeNext:^(NSArray* array) {
+        myself.curCount = array.count;
+        if (myself.intPageIndex == 1) {
+            myself.arrGoods = [NSMutableArray array];
         }
-        [self.arrGoods addObjectsFromArray:array];
-        [self.tabAreaOrder reloadData];
-        [self.tabAreaOrder checkNoData:self.arrGoods.count];
+        [myself.arrGoods addObjectsFromArray:array];
+        [myself.tabAreaOrder reloadData];
+        [myself.tabAreaOrder checkNoData:myself.arrGoods.count];
     }error:^(NSError *error) {
-        @strongify(self)
-        self.disposable = nil;
-        [self.tabAreaOrder checkNoData:self.arrGoods.count];
-        [self.refreshControl endRefreshing];
+        myself.disposable = nil;
+        [myself.tabAreaOrder checkNoData:myself.arrGoods.count];
+        [myself.refreshControl endRefreshing];
         if (error.code!=2) {
 //            [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }else{
-            self.curCount = 0;
+            myself.curCount = 0;
         }
     }completed:^{
-        @strongify(self)
-        self.intPageIndex++;
-        [self.refreshControl endRefreshing];
-        self.disposable = nil;
+        myself.intPageIndex++;
+        [myself.refreshControl endRefreshing];
+        myself.disposable = nil;
     }];
+    
 }
 #pragma mark - RefreshControlDelegate
 -(void)refreshControlForRefreshData{
@@ -159,7 +153,6 @@ RefreshControlDelegate
         [self requestExchangeList];
     }
 }
-
 -(void)refreshControlForLoadMoreData{
     //从远程服务器获取数据
     if ([self respondsToSelector:@selector(requestExchangeList)]) {
@@ -175,17 +168,15 @@ RefreshControlDelegate
     return NO;
 }
 #pragma mark---tableviewdelegate---
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return 4;
 }
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.arrGoods.count;
 }
-
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     if (indexPath.row == 0) {
         return 40.0f;
     }else if (indexPath.row == 1){
@@ -194,11 +185,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         return 40.0f;
     }else if (indexPath.row == 3){
         return 40.0f;
-    }return 0;
+    }
+    return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
     if (indexPath.row == 0) {
         CellOrderVendorTitle *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderVendorTitle"];
@@ -222,54 +214,42 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         [cell populateDataArea:self.arrGoods[indexPath.section]];
         return cell;
     }
-    CellOrderButtones *cell = [tableView dequeueReusableCellWithIdentifier:@"CellOrderButtones"];
+    CellOrderButtones *cell=[tableView dequeueReusableCellWithIdentifier:@"CellOrderButtones"];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 //    [cell populateDataArea:self.arrGoods[indexPath.section]];
-    @weakify(self)
+    
     [cell populateDataOrderList:self.arrGoods[indexPath.section]];
-    [cell.btnOne handleControlEvent:UIControlEventTouchUpInside
-                          withBlock:^{
-        @strongify(self)
-        [self clickButtonForListName:cell.btnOne.titleLabel.text
-                        andIndexPath:self.arrGoods[indexPath.section]];
+    [cell.btnOne handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [self clickButtonForListName:cell.btnOne.titleLabel.text andIndexPath:self.arrGoods[indexPath.section]];
     }];
-    [cell.btnTwo handleControlEvent:UIControlEventTouchUpInside
-                          withBlock:^{
-        @strongify(self)
-        [self clickButtonForListName:cell.btnTwo.titleLabel.text
-                        andIndexPath:self.arrGoods[indexPath.section]];
-    }];return cell;
+    [cell.btnTwo handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        [self clickButtonForListName:cell.btnTwo.titleLabel.text andIndexPath:self.arrGoods[indexPath.section]];
+    }];
+    return cell;
 }
-
-- (void)clickButtonForListName:(NSString *)strTitle
-                  andIndexPath:(ModelAreaList *)model{
+- (void)clickButtonForListName:(NSString *)strTitle andIndexPath:(ModelAreaList *)model{
     if ([TransformString(strTitle) isEqualToString:@"查看订单"]) {
         
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardExchageArea
-                                                             bundle:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardExchageArea bundle:nil];
         AreaDoneDetailController *controller = [storyboard instantiateViewControllerWithIdentifier:@"AreaDoneDetailController"];
         controller.modelList = model;
-        [self.navigationController pushViewController:controller
-                                             animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }else if ([TransformString(strTitle) isEqualToString:@"查看物流"]) {
         
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder"
-                                                             bundle:nil];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MyOrder" bundle:nil];
         OrderLogisticsDetailController *controller = [storyboard instantiateViewControllerWithIdentifier:@"OrderLogisticsDetailController"];
         controller.strPath = model.path;
         controller.strCount = model.count;
         controller.strGoodCode = model.igo_ship_code;
         controller.strCompanyCode = model.ship_code;
         controller.strCompanyName = model.ship_name;
-        [self.navigationController pushViewController:controller
-                                             animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 10;
 }
-
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *viHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 10)];
     [viHeader setBackgroundColor:[UIColor clearColor]];
@@ -291,5 +271,21 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         [self.navigationController pushViewController:controller animated:YES];
     }
 }
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

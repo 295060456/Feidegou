@@ -9,9 +9,7 @@
 #import "ModelRankList.h"
 
 @implementation ModelRankList
-
 + (NSDictionary *)JSONKeyPathsByPropertyKey{
-    
     return @{
              @"level":@"level",
              @"lastLoginDate":@"lastLoginDate",
@@ -20,5 +18,4 @@
              @"head":@"head"
              };
 }
-
 @end

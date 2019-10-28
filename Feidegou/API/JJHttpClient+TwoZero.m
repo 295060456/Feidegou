@@ -10,8 +10,7 @@
 
 @implementation JJHttpClient (TwoZero)
 
--(RACSignal *)requestLeftNickname:(NSString *)nickname
-                        andUserid:(NSString *)userid{
+-(RACSignal*)requestLeftNickname:(NSString *)nickname andUserid:(NSString *)userid{
     NSDictionary *param = [self paramStringWithStype:@"2068"
                                                 data:@{@"nickname":nickname,
                                                        @"userid":userid}];
@@ -22,8 +21,7 @@
     }];
 }
 
--(RACSignal *)requestHeadImageHead:(NSData *)data
-                         andUserid:(NSString *)user_id{
+-(RACSignal*)requestHeadImageHead:(NSData *)data andUserid:(NSString *)user_id{
     NSString *_encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     NSDictionary *param = [self paramStringWithStype:@"4021"
                                                 data:@{@"head":_encodedImageStr}];
@@ -33,5 +31,4 @@
         return dictionary;
     }];
 }
-
 @end

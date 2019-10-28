@@ -15,10 +15,8 @@
 #import "GoodsListController.h"
 
 @interface GoodSecendTypeController ()
-
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong,nonatomic) NSMutableArray *arrType;
-
 @end
 
 @implementation GoodSecendTypeController
@@ -27,7 +25,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
-
 - (void)locationControls{
     [self.collectionView setBackgroundColor:[UIColor whiteColor]];
     [self.collectionView registerClass:[CLCellGoodType class] forCellWithReuseIdentifier:@"CLCellGoodType"];
@@ -36,41 +33,41 @@
     collectionViewLayout.headerReferenceSize = CGSizeMake(375, 20);
     [self requestData];
 }
-
 - (void)requestData{
     [self showException];
-    @weakify(self)
-    self.disposable = [[[JJHttpClient new] requestShopGoodTypeTwoGoodsType_id:TransformString(self.model.goodsType_id)]
-                         subscribeNext:^(NSArray *array) {
-        @strongify(self)
-        self.arrType = [NSMutableArray arrayWithArray:array];
-        [self.collectionView reloadData];
-        [self hideException];
+    __weak GoodSecendTypeController *myself = self;
+    myself.disposable = [[[JJHttpClient new] requestShopGoodTypeTwoGoodsType_id:TransformString(self.model.goodsType_id)] subscribeNext:^(NSArray* array) {
+        
+        myself.arrType = [NSMutableArray arrayWithArray:array];
+        [myself.collectionView reloadData];
+        [myself hideException];
     }error:^(NSError *error) {
-        @strongify(self)
-        [self failedRequestException:enum_exception_timeout];
-        self.disposable = nil;
+        [myself failedRequestException:enum_exception_timeout];
+        myself.disposable = nil;
     }completed:^{
-        @strongify(self)
-        self.disposable = nil;
+        myself.disposable = nil;
     }];
+    
 }
 #pragma mark --UICollectionViewDelegate
 //定义展示的UICollectionViewCell的个数
--(NSInteger)collectionView:(UICollectionView *)collectionView
-    numberOfItemsInSection:(NSInteger)section{
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
     NSArray *arrClasss = [NSArray arrayWithArray:self.arrType[section][@"goodsClassList"]];
     D_NSLog(@"row is %ld",(long)arrClasss.count);
     return arrClasss.count;
+    
 }
 //定义展示的Section的个数
--(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     D_NSLog(@"section is %ld",(long)self.arrType.count);
     return self.arrType.count;
 }
 //每个UICollectionView展示的内容
--(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                 cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+-(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
     NSArray *arrClasss = [NSArray arrayWithArray:self.arrType[indexPath.section][@"goodsClassList"]];
     if ([NSString isNullString:arrClasss[0][@"photoUrl"]]) {
         static NSString *identifier = @"CLCellGoodTypeNoPic";
@@ -83,23 +80,18 @@
     [cell populateData:arrClasss[indexPath.row]];
     return cell;
 }
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
-           viewForSupplementaryElementOfKind:(NSString *)kind
-                                 atIndexPath:(NSIndexPath *)indexPath{
+{
+    
     UICollectionReusableView *reusableview = nil;
     if (kind == UICollectionElementKindSectionHeader){
         
-        ReusableViewType *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader
-                                                                          withReuseIdentifier:@"ReusableViewType"
-                                                                                 forIndexPath:indexPath];
+        ReusableViewType *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"ReusableViewType" forIndexPath:indexPath];
         [headerView setBackgroundColor:ColorBackground];
         UILabel *lblHead = (UILabel *)[headerView viewWithTag:100];
         if (!lblHead) {
-            lblHead = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                                0,
-                                                                CGRectGetWidth(headerView.frame),
-                                                                CGRectGetHeight(headerView.frame))];
+            lblHead = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(headerView.frame), CGRectGetHeight(headerView.frame))];
             [lblHead setFont:[UIFont systemFontOfSize:10]];
             [lblHead setTag:100];
         }
@@ -107,39 +99,52 @@
         [headerView addSubview:lblHead];
         reusableview = headerView;
         
-    }return reusableview;
+    }
+    return reusableview;
+    
+    
+    
 }
 #pragma mark --UICollectionViewDelegateFlowLayout
 //定义每个UICollectionView 的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout*)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
     
-    CGFloat fWithd = (SCREEN_WIDTH - 75 - 10 - 5) / 3;
+    CGFloat fWithd = (SCREEN_WIDTH-75-10-5)/3;
     NSArray *arrClasss = [NSArray arrayWithArray:self.arrType[indexPath.section][@"goodsClassList"]];
     if ([NSString isNullString:arrClasss[0][@"photoUrl"]]) {
         return CGSizeMake(fWithd,50);
-    }return CGSizeMake(fWithd,fWithd + 20);
+    }
+    return CGSizeMake(fWithd,fWithd+20);
 }
 //定义每个UICollectionView 的 margin
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView
-                       layout:(UICollectionViewLayout *)collectionViewLayout
-       insetForSectionAtIndex:(NSInteger)section{
-    return UIEdgeInsetsMake(0,
-                            0,
-                            0,
-                            0);
+-(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    
+    return UIEdgeInsetsMake(0, 0, 0, 0);
 }
 #pragma mark --UICollectionViewDelegate
 //UICollectionView被选中时调用的方法
--(void)collectionView:(UICollectionView *)collectionView
-didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
     UIStoryboard *storyboard=[UIStoryboard storyboardWithName:StoryboardShopMain bundle:nil];
-    GoodsListController *controller = [storyboard instantiateViewControllerWithIdentifier:@"GoodsListController"];
+    GoodsListController *controller=[storyboard instantiateViewControllerWithIdentifier:@"GoodsListController"];
     controller.dicInfo = [NSDictionary dictionaryWithDictionary:self.arrType[indexPath.section][@"goodsClassList"][indexPath.row]];
-    [self.navigationController pushViewController:controller
-                                         animated:YES];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

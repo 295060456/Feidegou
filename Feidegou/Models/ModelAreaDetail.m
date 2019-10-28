@@ -9,7 +9,6 @@
 #import "ModelAreaDetail.h"
 
 @implementation ModelAreaDetail
-
 + (NSDictionary *)JSONKeyPathsByPropertyKey{
     return @{
              @"addTime":@"addTime",
@@ -30,5 +29,4 @@
              @"igo_ship_time":@"igo_ship_time"
              };
 }
-
 @end

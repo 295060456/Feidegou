@@ -16,13 +16,13 @@
 }
 - (void)populateData:(NSArray *)arrPicture{
     NSMutableArray *arrImage = [NSMutableArray array];
-    for (int i = 0; i < arrPicture.count; i++) {
+    for (int i = 0; i<arrPicture.count; i++) {
         [arrImage addObject:[NSString stringStandard:arrPicture[i][@"photo_url"]]];
     }
     self.cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
     self.cycleScrollView.delegate = self;
     self.cycleScrollView.placeholderImage = [UIImage imageNamed:@"img_defult_head"];
-    if (arrImage.count <= 1) {
+    if (arrImage.count<=1) {
         self.cycleScrollView.autoScroll = NO;
         self.cycleScrollView.showPageControl = NO;
     }else{
@@ -31,16 +31,11 @@
         self.cycleScrollView.autoScrollTimeInterval = 5;
     }
     //             --- 模拟加载延迟
-    @weakify(self)
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-                                 (int64_t)(0 * NSEC_PER_SEC)),
-                   dispatch_get_main_queue(), ^{
-        @strongify(self)
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.cycleScrollView.imageURLStringsGroup = arrImage;
     });
 }
-- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView
-   didSelectItemAtIndex:(NSInteger)index{
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
 //    if ([self.delegeteBanner respondsToSelector:@selector(didClickDelegeteCollectionViewBannerDictionary:)]) {
 //        [self.delegeteBanner didClickDelegeteCollectionViewBannerDictionary:self.array[index]];
 //    }

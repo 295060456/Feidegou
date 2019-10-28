@@ -15,5 +15,4 @@
 - (void)setImagePathHead:(NSString *)strPath;
 - (void)setImageWebp:(NSString *)strPath;
 - (void)setImageNoHolder:(NSString *)strPath;
-
 @end

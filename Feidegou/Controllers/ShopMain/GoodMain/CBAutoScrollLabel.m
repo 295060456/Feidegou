@@ -21,8 +21,7 @@
 #define kDefaultPauseTime 1.5f
 
 // shortcut method for NSArray iterations
-static void each_object(NSArray *objects,
-                        void (^block)(id object)) {
+static void each_object(NSArray *objects, void (^block)(id object)) {
     for (id obj in objects) {
         block(obj);
     }
@@ -41,21 +40,18 @@ static void each_object(NSArray *objects,
 
 @implementation CBAutoScrollLabel
 
-- (void)dealloc {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super initWithCoder:aDecoder])) {
         [self commonInit];
-    }return self;
+    }
+    return self;
 }
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
         [self commonInit];
-    }return self;
+    }
+    return self;
 }
 
 - (void)commonInit {
@@ -90,6 +86,11 @@ static void each_object(NSArray *objects,
     self.fadeLength = kDefaultFadeLength;
 }
 
+- (void)dealloc {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)setFrame:(CGRect)frame {
     [super setFrame:frame];
 
@@ -115,8 +116,7 @@ static void each_object(NSArray *objects,
         _fadeLength = fadeLength;
 
         [self refreshLabels];
-        [self applyGradientMaskForFadeLength:fadeLength
-                                  enableFade:NO];
+        [self applyGradientMaskForFadeLength:fadeLength enableFade:NO];
     }
 }
 
@@ -240,16 +240,15 @@ static void each_object(NSArray *objects,
 }
 
 - (void)scrollLabelIfNeeded {
-    if (!self.text.length) return;
-    CGFloat labelWidth = CGRectGetWidth(self.mainLabel.bounds);
-    if (labelWidth <= CGRectGetWidth(self.bounds)) return;
+    if (!self.text.length)
+        return;
 
-    [NSObject cancelPreviousPerformRequestsWithTarget:self
-                                             selector:@selector(scrollLabelIfNeeded)
-                                               object:nil];
-    [NSObject cancelPreviousPerformRequestsWithTarget:self
-                                             selector:@selector(enableShadow)
-                                               object:nil];
+    CGFloat labelWidth = CGRectGetWidth(self.mainLabel.bounds);
+    if (labelWidth <= CGRectGetWidth(self.bounds))
+        return;
+
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(scrollLabelIfNeeded) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(enableShadow) object:nil];
 
     [self.scrollView.layer removeAllAnimations];
 
@@ -257,26 +256,19 @@ static void each_object(NSArray *objects,
     self.scrollView.contentOffset = (doScrollLeft ? CGPointZero : CGPointMake(labelWidth + self.labelSpacing, 0));
 
     // Add the left shadow after delay
-    [self performSelector:@selector(enableShadow)
-               withObject:nil
-               afterDelay:self.pauseInterval];
+    [self performSelector:@selector(enableShadow) withObject:nil afterDelay:self.pauseInterval];
 
     // animate the scrolling
     NSTimeInterval duration = labelWidth / self.scrollSpeed;
-    @weakify(self)
-    [UIView animateWithDuration:duration
-                          delay:self.pauseInterval
-                        options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction
-                     animations: ^{
-        @strongify(self)
+    [UIView animateWithDuration:duration delay:self.pauseInterval options:self.animationOptions | UIViewAnimationOptionAllowUserInteraction animations: ^{
          // adjust offset
          self.scrollView.contentOffset = (doScrollLeft ? CGPointMake(labelWidth + self.labelSpacing, 0) : CGPointZero);
      } completion: ^(BOOL finished) {
-         @strongify(self)
-         self->_scrolling = NO;
+         _scrolling = NO;
+
          // remove the left shadow
-         [self applyGradientMaskForFadeLength:self.fadeLength
-                                   enableFade:NO];
+         [self applyGradientMaskForFadeLength:self.fadeLength enableFade:NO];
+
          // setup pause delay/loop
          if (finished) {
              [self performSelector:@selector(scrollLabelIfNeeded) withObject:nil];
@@ -325,6 +317,7 @@ static void each_object(NSArray *objects,
         self.mainLabel.frame = self.bounds;
         self.mainLabel.hidden = NO;
         self.mainLabel.textAlignment = self.textAlignment;
+
         // cleanup animation
         [self.scrollView.layer removeAllAnimations];
 

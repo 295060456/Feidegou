@@ -9,7 +9,6 @@
 #import "JJCollectionViewCell.h"
 
 @interface CLCellUpImgDownLbl : JJCollectionViewCell
-
 @property (weak, nonatomic) IBOutlet UIImageView *imgTip;
 @property (weak, nonatomic) IBOutlet UILabel *lblType;
 @property (weak, nonatomic) IBOutlet UILabel *lblNum;

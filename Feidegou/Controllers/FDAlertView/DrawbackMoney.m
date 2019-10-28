@@ -9,17 +9,14 @@
 #import "DrawbackMoney.h"
 
 @implementation DrawbackMoney
-
 - (void)awakeFromNib{
     [super awakeFromNib];
     [self setBackgroundColor:[UIColor clearColor]];
 }
-
 - (IBAction)clickButtonCancel:(UIButton *)sender {
     FDAlertView *alert = (FDAlertView *)self.superview;
     [alert hide];
 }
-
 - (IBAction)clickButtonConfilm:(UIButton *)sender {
     if ([NSString isNullString:self.txtInput.text]) {
         [SVProgressHUD showErrorWithStatus:@"请输入退款理由"];
@@ -27,8 +24,14 @@
     }
     FDAlertView *alert = (FDAlertView *)self.superview;
     [alert hide];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNameDrawbackMoneySucceed
-                                                        object:self.txtInput.text];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NotificationNameDrawbackMoneySucceed object:self.txtInput.text];
 }
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
+}
+*/
 
 @end

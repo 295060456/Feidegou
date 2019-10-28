@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ButtonUpDown : UIButton
-
 - (void)refreshNumber:(NSString *)strNumber;
 
 @end
