@@ -14,13 +14,17 @@
 #define Alipay_url_invite_code [NSString stringWithFormat:@"%@/alipay/inviteCode.do", BASE_URL]
 //商城服务器正式地址
 //#define BASE_URL @"http://feidegou.com"
-#define BASE_URL @"http://116.62.46.26"
-#define RELATIVE_PATH_QUERY @"APP/appShop7/query.do?"
+//#define BASE_URL @"http://116.62.46.26"
+
+//#define RELATIVE_PATH_QUERY @"APP/appShop7/query.do?"
+//#define RELATIVE_PATH_WRITE @"APP/appShop7/write.do?"
+
+#define RELATIVE_PATH_QUERY @"SHOPAPP2.0/appShop7/query.do?"
 #define RELATIVE_PATH_WRITE @"APP/appShop7/write.do?"
 
 
 //商城服务器测试地址
-//#define BASE_URL @"http://feidegou.com:8081"
+#define BASE_URL @"http://10.1.41.174:8080"
 //#define RELATIVE_PATH_QUERY @"APP/appShop7/query.do?"
 //#define RELATIVE_PATH_WRITE @"APP/appShop7/write.do?"
 
