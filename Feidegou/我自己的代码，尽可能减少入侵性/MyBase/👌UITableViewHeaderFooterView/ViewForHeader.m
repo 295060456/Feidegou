@@ -22,6 +22,10 @@
     }return self;
 }
 
+-(void)drawRect:(CGRect)rect{
+
+}
+
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
           withEvent:(UIEvent *)event{
     if (self.block) {

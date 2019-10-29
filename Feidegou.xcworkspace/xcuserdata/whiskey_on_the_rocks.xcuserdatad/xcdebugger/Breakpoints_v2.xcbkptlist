@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "28835E55-2EE6-47AE-9FDC-30DD3CE868C8"
+            uuid = "C313E743-1F95-4AB5-AD30-F212D4BC6EA9"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/TestView.m"
+            filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x55b5;&#x7cae;&#x6279;&#x53d1;&#x5e02;&#x573a;/Vip&#x5546;&#x5bb6;&#x89d2;&#x8272;/WholesaleMarket_VipVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "-motionEnded:withEvent:"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "-richElementsInCellWithModel:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

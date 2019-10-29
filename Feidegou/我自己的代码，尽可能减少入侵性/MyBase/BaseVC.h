@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ViewForHeader.h"
+#import "ViewForFooter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -18,6 +20,8 @@ UIGestureRecognizerDelegate
 
 @property(nonatomic,strong)MJRefreshAutoGifFooter *tableViewFooter;
 @property(nonatomic,strong)MJRefreshGifHeader *tableViewHeader;
+//@property(nonatomic,strong)ViewForHeader *viewForHeader;
+//@property(nonatomic,strong)ViewForFooter *viewForFooter;
 @property(nonatomic,strong)UIButton *backBtn;
 @property(nonatomic,assign)BOOL isRequestFinish;//数据请求是否完毕
 @property(nonatomic,copy)void (^UnknownNetWorking)(void);

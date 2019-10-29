@@ -12,6 +12,8 @@
 #import "GiftVC.h"//赠送
 #import "CatFoodProducingAreaVC.h"//喵粮产地
 #import "ThroughTrainToPromoteVC.h"//喵粮直通车
+#import "WholesaleMarket_AdvanceVC.h"//喵粮批发市场_仅高级商家可见
+#import "WholesaleMarket_VipVC.h"//喵粮批发市场_仅Vip可见
 
 @interface CatFoodsManagementVC ()
 <
@@ -146,6 +148,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                   requestParams:nil
                                         success:^(id data) {}
                                        animated:YES];
+        }else if (indexPath.row == 5){
+//            [WholesaleMarket_AdvanceVC pushFromVC:self_weak_
+//                                  requestParams:nil
+//                                        success:^(id data) {}
+//                                       animated:YES];
+            
+            [WholesaleMarket_VipVC pushFromVC:self_weak_
+                                requestParams:nil
+                                      success:^(id data) {}
+                                     animated:YES];
         }else{}
     }else{}
 }
@@ -239,7 +251,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                   @"店铺收款码",
                                   @"赠送",
                                   @"喵粮产地",
-                                  @"喵粮直通车"]];
+                                  @"喵粮直通车",
+                                  @"喵粮批发市场"]];
     }return _titleMutArr;
 }
 
@@ -252,7 +265,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                 @"店铺收款码",
                                 @"赠送",
                                 @"喵粮产地",
-                                @"喵粮直通车"]];
+                                @"喵粮直通车",
+                                @"喵粮批发市场"]];
     }return _imgMutArr;
 }
 

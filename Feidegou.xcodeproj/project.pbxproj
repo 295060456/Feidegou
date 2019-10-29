@@ -22,6 +22,9 @@
 		8B8B0D8C236828BB0040EE53 /* right_menu_sendFile@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B8B0D86236828BB0040EE53 /* right_menu_sendFile@3x.png */; };
 		8B8B0D8D236828BB0040EE53 /* right_menu_multichat@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B8B0D87236828BB0040EE53 /* right_menu_multichat@3x.png */; };
 		8B8B0D8E236828BB0040EE53 /* right_menu_payMoney@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B8B0D88236828BB0040EE53 /* right_menu_payMoney@3x.png */; };
+		8B8B0D922368395D0040EE53 /* WholesaleMarket_AdvanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D912368395D0040EE53 /* WholesaleMarket_AdvanceVC.m */; };
+		8B8B0D9723683A480040EE53 /* WholesaleMarket_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D9623683A480040EE53 /* WholesaleMarket_VipVC.m */; };
+		8B8B0D9A236845540040EE53 /* WholesaleMarketTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D99236845540040EE53 /* WholesaleMarketTBViewForHeader.m */; };
 		8BB2D2812366C6990047D0E2 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2772366C6990047D0E2 /* TwitterHeart.json */; };
 		8BB2D2822366C6990047D0E2 /* HamburgerArrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */; };
 		8BB2D2832366C6990047D0E2 /* G.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2792366C6990047D0E2 /* G.json */; };
@@ -606,6 +609,12 @@
 		8B8B0D86236828BB0040EE53 /* right_menu_sendFile@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_menu_sendFile@3x.png"; sourceTree = "<group>"; };
 		8B8B0D87236828BB0040EE53 /* right_menu_multichat@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_menu_multichat@3x.png"; sourceTree = "<group>"; };
 		8B8B0D88236828BB0040EE53 /* right_menu_payMoney@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_menu_payMoney@3x.png"; sourceTree = "<group>"; };
+		8B8B0D902368395D0040EE53 /* WholesaleMarket_AdvanceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_AdvanceVC.h; sourceTree = "<group>"; };
+		8B8B0D912368395D0040EE53 /* WholesaleMarket_AdvanceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_AdvanceVC.m; sourceTree = "<group>"; };
+		8B8B0D9523683A480040EE53 /* WholesaleMarket_VipVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_VipVC.h; sourceTree = "<group>"; };
+		8B8B0D9623683A480040EE53 /* WholesaleMarket_VipVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_VipVC.m; sourceTree = "<group>"; };
+		8B8B0D98236845540040EE53 /* WholesaleMarketTBViewForHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleMarketTBViewForHeader.h; sourceTree = "<group>"; };
+		8B8B0D99236845540040EE53 /* WholesaleMarketTBViewForHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarketTBViewForHeader.m; sourceTree = "<group>"; };
 		8BB2D2772366C6990047D0E2 /* TwitterHeart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeart.json; sourceTree = "<group>"; };
 		8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HamburgerArrow.json; sourceTree = "<group>"; };
 		8BB2D2792366C6990047D0E2 /* G.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = G.json; sourceTree = "<group>"; };
@@ -1700,6 +1709,35 @@
 			path = PopMenuView;
 			sourceTree = "<group>";
 		};
+		8B8B0D8F2368392D0040EE53 /* 喵粮批发市场 */ = {
+			isa = PBXGroup;
+			children = (
+				8B8B0D94236839E80040EE53 /* Vip商家角色 */,
+				8B8B0D93236839D80040EE53 /* 高级商家角色 */,
+			);
+			path = "喵粮批发市场";
+			sourceTree = "<group>";
+		};
+		8B8B0D93236839D80040EE53 /* 高级商家角色 */ = {
+			isa = PBXGroup;
+			children = (
+				8B8B0D902368395D0040EE53 /* WholesaleMarket_AdvanceVC.h */,
+				8B8B0D912368395D0040EE53 /* WholesaleMarket_AdvanceVC.m */,
+			);
+			path = "高级商家角色";
+			sourceTree = "<group>";
+		};
+		8B8B0D94236839E80040EE53 /* Vip商家角色 */ = {
+			isa = PBXGroup;
+			children = (
+				8B8B0D9523683A480040EE53 /* WholesaleMarket_VipVC.h */,
+				8B8B0D9623683A480040EE53 /* WholesaleMarket_VipVC.m */,
+				8B8B0D98236845540040EE53 /* WholesaleMarketTBViewForHeader.h */,
+				8B8B0D99236845540040EE53 /* WholesaleMarketTBViewForHeader.m */,
+			);
+			path = "Vip商家角色";
+			sourceTree = "<group>";
+		};
 		8BB2D2732366C6410047D0E2 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -1904,6 +1942,7 @@
 		8BB2D2DC2366C7310047D0E2 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8B8B0D8F2368392D0040EE53 /* 喵粮批发市场 */,
 				8BB2D2DD2366C7310047D0E2 /* 喵粮产地 */,
 				8BB2D2E02366C7310047D0E2 /* 示例图 */,
 				8BB2D2E32366C7310047D0E2 /* 钱包 */,
@@ -4078,6 +4117,7 @@
 				8BB2D33E2366CB170047D0E2 /* MMButton.m in Sources */,
 				C42CD0EB213CC2640096675F /* CellCartHead.m in Sources */,
 				C4614412214386B6000C0CDC /* VendorDetailGoodController.m in Sources */,
+				8B8B0D9723683A480040EE53 /* WholesaleMarket_VipVC.m in Sources */,
 				C42CD076213CC2640096675F /* RedPacketTransportController.m in Sources */,
 				C42CD1B7213CC2640096675F /* JJCollectionViewCell.m in Sources */,
 				8BB2D3422366CB3E0047D0E2 /* FMHttpRequest.m in Sources */,
@@ -4100,6 +4140,7 @@
 				C42CD0F6213CC2640096675F /* GoodDiscussListController.m in Sources */,
 				C42CD0B0213CC2640096675F /* CellOneButton.m in Sources */,
 				C42CD196213CC2640096675F /* UILabel+helper.m in Sources */,
+				8B8B0D922368395D0040EE53 /* WholesaleMarket_AdvanceVC.m in Sources */,
 				C42CD057213CC2640096675F /* ApplyForVenderController.m in Sources */,
 				C46F8C4A214CF1E600F0C7D1 /* AreaOrderComfilmController.m in Sources */,
 				C42CD1C7213CC2640096675F /* ModelIncome.m in Sources */,
@@ -4163,6 +4204,7 @@
 				C42CD1CC213CC2640096675F /* ModelGoodTypeOne.m in Sources */,
 				8BB2D38F2366CC3A0047D0E2 /* NSString+File.m in Sources */,
 				C46143EB214386B6000C0CDC /* VendorMainGoodController.m in Sources */,
+				8B8B0D9A236845540040EE53 /* WholesaleMarketTBViewForHeader.m in Sources */,
 				C42CD194213CC2640096675F /* UILabelBlackBig.m in Sources */,
 				C42CD0A6213CC2640096675F /* CellLogisticsTitle.m in Sources */,
 				C4FC07C1215B2B1B00C6ECF3 /* AdvertiseStartController.m in Sources */,
