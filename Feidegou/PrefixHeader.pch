@@ -81,6 +81,7 @@
 #import "YKToastView.h"
 #import "ZFMRACNetworkTool.h"
 #import "CountdownView.h"
+#import "WBPopMenuSingleton.h"
 //Model
 #import "PetsInfoListModel.h"
 #import "AdoptingPetsModel.h"
@@ -90,5 +91,6 @@
 #import "GiftFoodsModel.h"
 
 #import "TestVC.h"
+#import "TestView.h"
 
 #endif /* PrefixHeader_pch */

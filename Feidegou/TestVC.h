@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TestVC : BaseVC
 
++ (instancetype)pushFromVC:(UIViewController *)rootVC
+             requestParams:(nullable id)requestParams
+                   success:(DataBlock)block
+                  animated:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END

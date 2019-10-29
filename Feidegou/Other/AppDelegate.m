@@ -33,13 +33,14 @@
 #import "LocationManager.h"
 BMKMapManager* _mapManager;
 
-@interface AppDelegate ()<WXApiDelegate,BMKGeneralDelegate,JPUSHRegisterDelegate>
+@interface AppDelegate ()
+<WXApiDelegate,
+BMKGeneralDelegate,
+JPUSHRegisterDelegate>
 
 @end
 
 @implementation AppDelegate
-
-
 
 static NSInteger seq = 0;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -516,6 +517,5 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
         }
     }
 }
-
 
 @end

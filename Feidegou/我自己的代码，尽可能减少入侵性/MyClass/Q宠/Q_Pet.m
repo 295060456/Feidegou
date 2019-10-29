@@ -7,6 +7,7 @@
 //
 
 #import "Q_Pet.h"
+#import <CoreMotion/CoreMotion.h>
 
 typedef NS_ENUM  (NSInteger,DYAnimationType){
     kDYAnimationOne     = 1,
@@ -21,10 +22,14 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
     kDYAnimationTen     = 10,
 };
 
-@interface Q_Pet (){
+@interface Q_Pet ()
+{
     NSString *jsonString;
     int d;
 }
+
+@property(nonatomic,strong)NSMutableArray <NSString *>*titlesMutArr;
+@property(nonatomic,strong)NSMutableArray <NSString *>*imagesMutArr;
 
 @end
 
@@ -32,9 +37,52 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        [self setContent:kIMG(@"新机器猫")
-             contentType:MISFloatingBallContentTypeImage];
+
     }return self;
+}
+
+-(void)drawRect:(CGRect)rect{
+    [self setContent:kIMG(@"新机器猫")
+         contentType:MISFloatingBallContentTypeImage];
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (void)motionBegan:(UIEventSubtype)motion
+          withEvent:(nullable UIEvent *)event{
+    NSLog(@"摇晃");
+    NSMutableArray *obj = NSMutableArray.array;
+    for (NSInteger i = 0; i < self.titlesMutArr.count; i++) {
+        WBPopMenuModel *info = [WBPopMenuModel new];
+        info.image = [self imagesMutArr][i];
+        info.title = [self titlesMutArr][i];
+        [obj addObject:info];
+    }
+    
+    [[WBPopMenuSingleton shareManager] showPopMenuSelecteWithFrame:self.bounds
+                                                         menuWidth:150
+                                                              item:obj
+                                                            action:^(NSInteger index) {
+        NSLog(@"index:%ld",(long)index);
+    }];
+//    [[WBPopMenuSingleton shareManager] showPopMenuSelecteWithFrame:150
+//                                                              item:obj
+//                                                            action:^(NSInteger index) {
+//        NSLog(@"index:%ld",(long)index);
+// }];
+}
+
+- (void)motionEnded:(UIEventSubtype)motion
+          withEvent:(UIEvent *)event {
+    if (event.subtype == UIEventSubtypeMotionShake) {
+        NSLog(@"Shake!");
+    }
+    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
+        [super motionEnded:motion
+                 withEvent:event];
+    }
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
@@ -98,7 +146,6 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
             break;
     }
 }
-
 #pragma mark —— lazyload
 -(LOTAnimationView *)laAnimation{
     if (!_laAnimation) {
@@ -112,4 +159,31 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
     }return _laAnimation;
 }
 
+-(NSMutableArray<NSString *> *)titlesMutArr{
+    if (!_titlesMutArr) {
+        _titlesMutArr = NSMutableArray.array;
+        [_titlesMutArr addObject:@"扫一扫"];
+        [_titlesMutArr addObject:@"加好友"];
+        [_titlesMutArr addObject:@"创建讨论组"];
+        [_titlesMutArr addObject:@"发送到电脑"];
+        [_titlesMutArr addObject:@"面对面快传"];
+        [_titlesMutArr addObject:@"收钱"];
+        
+    }return _titlesMutArr;
+}
+
+-(NSMutableArray<NSString *> *)imagesMutArr{
+    if (!_imagesMutArr) {
+        _imagesMutArr = NSMutableArray.array;
+        [_imagesMutArr addObject:@"right_menu_QR@3x"];
+        [_imagesMutArr addObject:@"right_menu_addFri@3x"];
+        [_imagesMutArr addObject:@"right_menu_sendFile@3x"];
+        [_imagesMutArr addObject:@"right_menu_multichat@3x"];
+        [_imagesMutArr addObject:@"right_menu_facetoface@3x"];
+        [_imagesMutArr addObject:@"right_menu_payMoney@3x"];
+    }return _imagesMutArr;
+}
+
 @end
+
+

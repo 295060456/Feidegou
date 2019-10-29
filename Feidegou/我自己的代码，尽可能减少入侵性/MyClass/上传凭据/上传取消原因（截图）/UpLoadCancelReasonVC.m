@@ -156,7 +156,7 @@ TZImagePickerControllerDelegate
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UILabel *tipLab;
 @property(nonatomic,strong)UILabel *titleLab;
-@property(nonatomic,strong)TZImagePickerController *imagePickerVC;
+@property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 @property(nonatomic,strong)UpLoadCancelReasonTBVCell *cell;
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*tipsMutArr;

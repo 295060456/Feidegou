@@ -1,8 +1,8 @@
 //
-//  Q_Pet.h
+//  TestView.h
 //  Feidegou
 //
-//  Created by Kite on 2019/10/21.
+//  Created by Kite on 2019/10/29.
 //  Copyright © 2019 朝花夕拾. All rights reserved.
 //
 
@@ -10,9 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Q_Pet : MISFloatingBall
-
-@property(nonatomic,strong)LOTAnimationView *laAnimation;//MISFloatingBall
+@interface TestView : UIView
 
 @end
 

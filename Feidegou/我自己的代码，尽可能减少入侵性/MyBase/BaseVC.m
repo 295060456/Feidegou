@@ -186,7 +186,6 @@ JXCategoryListContentViewDelegate
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
 }
-
 //设置状态栏背景颜色
 - (void)setStatusBarBackgroundColor:(UIColor *)color {
     UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
@@ -194,7 +193,6 @@ JXCategoryListContentViewDelegate
         statusBar.backgroundColor = color;
     }
 }
-
 #pragma mark —— 子类需要覆写
 -(void)backBtnClickEvent:(UIButton *)sender{
     NSLog(@"返回");

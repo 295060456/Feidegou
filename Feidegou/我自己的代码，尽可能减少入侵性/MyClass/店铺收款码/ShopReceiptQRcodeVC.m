@@ -9,10 +9,15 @@
 #import "ShopReceiptQRcodeVC.h"
 
 @interface ShopReceiptQRcodeVC ()
-<TZImagePickerControllerDelegate>
+<
+TZImagePickerControllerDelegate
+>
+{
+
+}
 
 @property(nonatomic,strong)UIImageView *QRcodeIMGV;
-@property(nonatomic,strong)TZImagePickerController *imagePickerVC;
+@property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 @property(nonatomic,assign)int tap;
 @property(nonatomic,copy)NSString *QRcodeStr;
 
@@ -74,6 +79,7 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     [self QRcode];
     self.pet.alpha = 1;
+    [self.pet becomeFirstResponder];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -82,8 +88,8 @@
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.pet hide];
-    [self.pet.laAnimation removeFromSuperview];
+//    [self.pet hide];
+//    [self.pet.laAnimation removeFromSuperview];
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
@@ -95,6 +101,7 @@
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 -(void)upLoadBtnClickEvent:(UIButton *)sender{
     NSLog(@"上传二维码");
     @weakify(self)
@@ -118,7 +125,6 @@
         }
     }];
 }
-
 //跳转系统设置
 -(void)pushToSysConfig{
     NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
@@ -183,6 +189,8 @@
                                                       100)];
         _pet.autoCloseEdge = YES;
         [_pet show];
+        [self.view addSubview:_pet];
+        [_pet becomeFirstResponder];
     }return _pet;
 }
 

@@ -8,6 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		71BE65A43CAAA15ED813BE7F /* libPods-Feidegou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */; };
+		8B8B0D0A236814960040EE53 /* TestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2912366C7290047D0E2 /* TestVC.m */; };
+		8B8B0D0D236815140040EE53 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D0C236815140040EE53 /* TestView.m */; };
+		8B8B0D7D236827FB0040EE53 /* WBPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D72236827FA0040EE53 /* WBPopMenuView.m */; };
+		8B8B0D7E236827FB0040EE53 /* WBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D75236827FA0040EE53 /* WBTableViewCell.m */; };
+		8B8B0D7F236827FB0040EE53 /* WBTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D76236827FA0040EE53 /* WBTableViewDataSource.m */; };
+		8B8B0D80236827FB0040EE53 /* WBTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D78236827FA0040EE53 /* WBTableViewDelegate.m */; };
+		8B8B0D81236827FB0040EE53 /* WBPopMenuSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D79236827FB0040EE53 /* WBPopMenuSingleton.m */; };
+		8B8B0D82236827FB0040EE53 /* WBPopMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D7A236827FB0040EE53 /* WBPopMenuModel.m */; };
+		8B8B0D89236828BB0040EE53 /* right_menu_facetoface@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B8B0D83236828BB0040EE53 /* right_menu_facetoface@3x.png */; };
+		8B8B0D8A236828BB0040EE53 /* right_menu_addFri@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B8B0D84236828BB0040EE53 /* right_menu_addFri@3x.png */; };
+		8B8B0D8B236828BB0040EE53 /* right_menu_QR@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B8B0D85236828BB0040EE53 /* right_menu_QR@3x.png */; };
+		8B8B0D8C236828BB0040EE53 /* right_menu_sendFile@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B8B0D86236828BB0040EE53 /* right_menu_sendFile@3x.png */; };
+		8B8B0D8D236828BB0040EE53 /* right_menu_multichat@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B8B0D87236828BB0040EE53 /* right_menu_multichat@3x.png */; };
+		8B8B0D8E236828BB0040EE53 /* right_menu_payMoney@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B8B0D88236828BB0040EE53 /* right_menu_payMoney@3x.png */; };
 		8BB2D2812366C6990047D0E2 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2772366C6990047D0E2 /* TwitterHeart.json */; };
 		8BB2D2822366C6990047D0E2 /* HamburgerArrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */; };
 		8BB2D2832366C6990047D0E2 /* G.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2792366C6990047D0E2 /* G.json */; };
@@ -78,6 +92,7 @@
 		8BB2D3932366CC4A0047D0E2 /* HQTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3352366C7310047D0E2 /* HQTextField.m */; };
 		8BB2D3942366CC500047D0E2 /* ZYTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3372366C7310047D0E2 /* ZYTextField.m */; };
 		8BB2D3952366CC550047D0E2 /* UIView+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D31A2366C7310047D0E2 /* UIView+Extras.m */; };
+		8BB2D43E2367F9BB0047D0E2 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */; };
 		C4026DBD2148161D00D81974 /* AchievementController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBB2148161D00D81974 /* AchievementController.m */; };
 		C4026DC02148164E00D81974 /* ButtonShare.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBE2148164E00D81974 /* ButtonShare.m */; };
 		C405FEFB218C2A0900C02CDC /* CLCellInterger.m in Sources */ = {isa = PBXBuildFile; fileRef = C405FEF9218C2A0900C02CDC /* CLCellInterger.m */; };
@@ -571,6 +586,26 @@
 /* Begin PBXFileReference section */
 		24EEB4BC842F9E07DEEF3F0B /* Pods-Feidegou.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.release.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.release.xcconfig"; sourceTree = "<group>"; };
 		6C32034C23408BE5001794DE /* UIImage+helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+helper.h"; sourceTree = "<group>"; };
+		8B8B0D0B236815140040EE53 /* TestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
+		8B8B0D0C236815140040EE53 /* TestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
+		8B8B0D71236827FA0040EE53 /* WBPopMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuModel.h; sourceTree = "<group>"; };
+		8B8B0D72236827FA0040EE53 /* WBPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuView.m; sourceTree = "<group>"; };
+		8B8B0D73236827FA0040EE53 /* WBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTableViewCell.h; sourceTree = "<group>"; };
+		8B8B0D74236827FA0040EE53 /* WBPopMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuView.h; sourceTree = "<group>"; };
+		8B8B0D75236827FA0040EE53 /* WBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTableViewCell.m; sourceTree = "<group>"; };
+		8B8B0D76236827FA0040EE53 /* WBTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTableViewDataSource.m; sourceTree = "<group>"; };
+		8B8B0D77236827FA0040EE53 /* WBTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTableViewDataSource.h; sourceTree = "<group>"; };
+		8B8B0D78236827FA0040EE53 /* WBTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTableViewDelegate.m; sourceTree = "<group>"; };
+		8B8B0D79236827FB0040EE53 /* WBPopMenuSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuSingleton.m; sourceTree = "<group>"; };
+		8B8B0D7A236827FB0040EE53 /* WBPopMenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuModel.m; sourceTree = "<group>"; };
+		8B8B0D7B236827FB0040EE53 /* WBPopMenuSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuSingleton.h; sourceTree = "<group>"; };
+		8B8B0D7C236827FB0040EE53 /* WBTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTableViewDelegate.h; sourceTree = "<group>"; };
+		8B8B0D83236828BB0040EE53 /* right_menu_facetoface@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_menu_facetoface@3x.png"; sourceTree = "<group>"; };
+		8B8B0D84236828BB0040EE53 /* right_menu_addFri@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_menu_addFri@3x.png"; sourceTree = "<group>"; };
+		8B8B0D85236828BB0040EE53 /* right_menu_QR@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_menu_QR@3x.png"; sourceTree = "<group>"; };
+		8B8B0D86236828BB0040EE53 /* right_menu_sendFile@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_menu_sendFile@3x.png"; sourceTree = "<group>"; };
+		8B8B0D87236828BB0040EE53 /* right_menu_multichat@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_menu_multichat@3x.png"; sourceTree = "<group>"; };
+		8B8B0D88236828BB0040EE53 /* right_menu_payMoney@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_menu_payMoney@3x.png"; sourceTree = "<group>"; };
 		8BB2D2772366C6990047D0E2 /* TwitterHeart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeart.json; sourceTree = "<group>"; };
 		8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HamburgerArrow.json; sourceTree = "<group>"; };
 		8BB2D2792366C6990047D0E2 /* G.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = G.json; sourceTree = "<group>"; };
@@ -709,6 +744,7 @@
 		8BB2D3652366CBA60047D0E2 /* TZGifPhotoPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZGifPhotoPreviewController.m; sourceTree = "<group>"; };
 		8BB2D3662366CBA60047D0E2 /* TZImageRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageRequestOperation.m; sourceTree = "<group>"; };
 		8BB2D3672366CBA60047D0E2 /* TZProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZProgressView.h; sourceTree = "<group>"; };
+		8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		947AD75F86191C8F32BD1901 /* Pods-Feidegou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.debug.xcconfig"; sourceTree = "<group>"; };
 		B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Feidegou.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4026DBB2148161D00D81974 /* AchievementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementController.m; sourceTree = "<group>"; };
@@ -1599,6 +1635,7 @@
 				C42CD190213CC2640096675F /* jcore-ios-1.1.5.a in Frameworks */,
 				C42CD082213CC2640096675F /* libcrypto.a in Frameworks */,
 				71BE65A43CAAA15ED813BE7F /* libPods-Feidegou.a in Frameworks */,
+				8BB2D43E2367F9BB0047D0E2 /* CoreMotion.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1622,6 +1659,7 @@
 		32C7D48EC2AC09650D7CAE57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */,
 				C4D95F27213CC60100462531 /* CFNetwork.framework */,
 				C4D95F25213CC5FB00462531 /* CoreFoundation.framework */,
 				C4D95F23213CC5F400462531 /* CoreTelephony.framework */,
@@ -1641,6 +1679,25 @@
 				24EEB4BC842F9E07DEEF3F0B /* Pods-Feidegou.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		8B8B0D702368278E0040EE53 /* PopMenuView */ = {
+			isa = PBXGroup;
+			children = (
+				8B8B0D71236827FA0040EE53 /* WBPopMenuModel.h */,
+				8B8B0D7A236827FB0040EE53 /* WBPopMenuModel.m */,
+				8B8B0D7B236827FB0040EE53 /* WBPopMenuSingleton.h */,
+				8B8B0D79236827FB0040EE53 /* WBPopMenuSingleton.m */,
+				8B8B0D74236827FA0040EE53 /* WBPopMenuView.h */,
+				8B8B0D72236827FA0040EE53 /* WBPopMenuView.m */,
+				8B8B0D73236827FA0040EE53 /* WBTableViewCell.h */,
+				8B8B0D75236827FA0040EE53 /* WBTableViewCell.m */,
+				8B8B0D77236827FA0040EE53 /* WBTableViewDataSource.h */,
+				8B8B0D76236827FA0040EE53 /* WBTableViewDataSource.m */,
+				8B8B0D7C236827FB0040EE53 /* WBTableViewDelegate.h */,
+				8B8B0D78236827FA0040EE53 /* WBTableViewDelegate.m */,
+			);
+			path = PopMenuView;
 			sourceTree = "<group>";
 		};
 		8BB2D2732366C6410047D0E2 /* Resource */ = {
@@ -1726,6 +1783,7 @@
 		8BB2D2942366C7310047D0E2 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				8B8B0D702368278E0040EE53 /* PopMenuView */,
 				8BB2D3482366CBA60047D0E2 /* TZImagePickerController */,
 				8BB2D2952366C7310047D0E2 /* MMButton */,
 				8BB2D2992366C7310047D0E2 /* ToastView */,
@@ -1927,6 +1985,12 @@
 			children = (
 				8BB2D2F02366C7310047D0E2 /* Q_Pet.h */,
 				8BB2D2EF2366C7310047D0E2 /* Q_Pet.m */,
+				8B8B0D84236828BB0040EE53 /* right_menu_addFri@3x.png */,
+				8B8B0D83236828BB0040EE53 /* right_menu_facetoface@3x.png */,
+				8B8B0D87236828BB0040EE53 /* right_menu_multichat@3x.png */,
+				8B8B0D88236828BB0040EE53 /* right_menu_payMoney@3x.png */,
+				8B8B0D85236828BB0040EE53 /* right_menu_QR@3x.png */,
+				8B8B0D86236828BB0040EE53 /* right_menu_sendFile@3x.png */,
 			);
 			path = "Q宠";
 			sourceTree = "<group>";
@@ -2186,9 +2250,11 @@
 		C42CCCD8213CC04F0096675F /* Feidegou */ = {
 			isa = PBXGroup;
 			children = (
+				C42CCF81213CC2620096675F /* PrefixHeader.pch */,
 				8BB2D2922366C7290047D0E2 /* TestVC.h */,
 				8BB2D2912366C7290047D0E2 /* TestVC.m */,
-				C42CCF81213CC2620096675F /* PrefixHeader.pch */,
+				8B8B0D0B236815140040EE53 /* TestView.h */,
+				8B8B0D0C236815140040EE53 /* TestView.m */,
 				8BB2D2932366C7310047D0E2 /* 我自己的代码，尽可能减少入侵性 */,
 				8BB2D28B2366C6BB0047D0E2 /* Other */,
 				8BB2D2732366C6410047D0E2 /* Resource */,
@@ -3732,6 +3798,7 @@
 				8BB2D2842366C6990047D0E2 /* vcTransition1.json in Resources */,
 				C42CD127213CC2640096675F /* CLCellGoodProperty.xib in Resources */,
 				C42CD0CE213CC2640096675F /* CellOnlyOneLbl.xib in Resources */,
+				8B8B0D8B236828BB0040EE53 /* right_menu_QR@3x.png in Resources */,
 				C42CD0A4213CC2640096675F /* CellLogisticsFirst.xib in Resources */,
 				C42CD17B213CC2640096675F /* ShopMain.storyboard in Resources */,
 				8BB2D2852366C6990047D0E2 /* F.json in Resources */,
@@ -3757,9 +3824,12 @@
 				8BB2D28A2366C6990047D0E2 /* W.json in Resources */,
 				C4614401214386B6000C0CDC /* CellHeader.xib in Resources */,
 				C46143FA214386B6000C0CDC /* CellVendorGoodBuy.xib in Resources */,
+				8B8B0D8D236828BB0040EE53 /* right_menu_multichat@3x.png in Resources */,
 				C42CD155213CC2640096675F /* CellOneImage.xib in Resources */,
 				C461440F214386B6000C0CDC /* CellVendorGoodList.xib in Resources */,
+				8B8B0D8A236828BB0040EE53 /* right_menu_addFri@3x.png in Resources */,
 				C42CD0D7213CC2640096675F /* CellOrderDetailGood.xib in Resources */,
+				8B8B0D89236828BB0040EE53 /* right_menu_facetoface@3x.png in Resources */,
 				C42CD12C213CC2640096675F /* CLCellGoods.xib in Resources */,
 				C42CD0D0213CC2640096675F /* CellOrderAddressYes.xib in Resources */,
 				C42CD0D5213CC2640096675F /* CellOrderThreeLbl.xib in Resources */,
@@ -3806,6 +3876,7 @@
 				C42CD0DC213CC2640096675F /* CellImageMore.xib in Resources */,
 				C42CD0B3213CC2640096675F /* CellGoodMoney.xib in Resources */,
 				C42CD053213CC2640096675F /* CellTextField.xib in Resources */,
+				8B8B0D8C236828BB0040EE53 /* right_menu_sendFile@3x.png in Resources */,
 				C46D6B652143BA2E00428D7A /* CLCellOneLblNoLine.xib in Resources */,
 				C4614408214386B6000C0CDC /* CellMyService.xib in Resources */,
 				C42CD0A1213CC2640096675F /* CellAddress.xib in Resources */,
@@ -3850,6 +3921,7 @@
 				C42CD0AD213CC2640096675F /* CellOrderAddressNo.xib in Resources */,
 				C42CD09A213CC2640096675F /* CellDistributionInfo.xib in Resources */,
 				C47D09842148DB720098ED3A /* 汉仪细等线简.ttf in Resources */,
+				8B8B0D8E236828BB0040EE53 /* right_menu_payMoney@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3946,6 +4018,7 @@
 				8BB2D3442366CB450047D0E2 /* VerifyCodeButton.m in Sources */,
 				C42CD093213CC2640096675F /* AreaSelectController.m in Sources */,
 				8BB2D33D2366CB080047D0E2 /* ThroughTrainToPromoteVC.m in Sources */,
+				8B8B0D81236827FB0040EE53 /* WBPopMenuSingleton.m in Sources */,
 				8BB2D3802366CBF10047D0E2 /* UpLoadCancelReasonVC.m in Sources */,
 				C42CD064213CC2640096675F /* CellTwoLblArrow.m in Sources */,
 				C42CD04A213CC2640096675F /* JJHttpClient+FourZero.m in Sources */,
@@ -3953,6 +4026,7 @@
 				C42CD185213CC2640096675F /* DefaultLoadMoreView.m in Sources */,
 				C42CD1B2213CC2640096675F /* JJBaseNavigationController.m in Sources */,
 				C4614416214386B6000C0CDC /* BillHistoryController.m in Sources */,
+				8B8B0D0D236815140040EE53 /* TestView.m in Sources */,
 				C42CD1B6213CC2640096675F /* JJHttpClient.m in Sources */,
 				C42CD08E213CC2640096675F /* DiscussOrderController.m in Sources */,
 				C42CD07E213CC2640096675F /* CLCellOneLbl.m in Sources */,
@@ -3969,6 +4043,7 @@
 				8BB2D38B2366CC2C0047D0E2 /* NSArray+Extend.m in Sources */,
 				C42CD094213CC2640096675F /* OrderNotSendOutController.m in Sources */,
 				C46368DE213FBE6C006922D5 /* CLCellTitle.m in Sources */,
+				8B8B0D7F236827FB0040EE53 /* WBTableViewDataSource.m in Sources */,
 				C42CD08F213CC2640096675F /* DiscussAttribute.m in Sources */,
 				C461440E214386B6000C0CDC /* CellMyService.m in Sources */,
 				C42CD13F213CC2640096675F /* CellGoodDetai.m in Sources */,
@@ -4013,6 +4088,7 @@
 				C42CD0C0213CC2640096675F /* CellMsgForVendor.m in Sources */,
 				C42CD0AE213CC2640096675F /* CellOrderGiftYes.m in Sources */,
 				C41628112171B0C100DC0D10 /* CellProtocol.m in Sources */,
+				8B8B0D0A236814960040EE53 /* TestVC.m in Sources */,
 				C42CD1BC213CC2640096675F /* WaterflowLayout.m in Sources */,
 				8BB2D3932366CC4A0047D0E2 /* HQTextField.m in Sources */,
 				C42CD1C9213CC2640096675F /* ModelOrderDtail.m in Sources */,
@@ -4035,6 +4111,7 @@
 				C42CD18E213CC2640096675F /* TypeSegmentControl.m in Sources */,
 				C42CD11F213CC2640096675F /* ReusableViewType.m in Sources */,
 				C42CD084213CC2640096675F /* MD5DataSigner.m in Sources */,
+				8B8B0D80236827FB0040EE53 /* WBTableViewDelegate.m in Sources */,
 				8BB2D3942366CC500047D0E2 /* ZYTextField.m in Sources */,
 				C4824261214F99FA00A9D432 /* CellHeaderMore.m in Sources */,
 				C42CD182213CC2640096675F /* DefaultRefreshView.m in Sources */,
@@ -4166,6 +4243,7 @@
 				8BB2D36A2366CBA70047D0E2 /* TZVideoPlayerController.m in Sources */,
 				8BB2D3912366CC3F0047D0E2 /* NSString+Url_Chinese.m in Sources */,
 				C41628162171C14300DC0D10 /* CellTuihuoInfo.m in Sources */,
+				8B8B0D82236827FB0040EE53 /* WBPopMenuModel.m in Sources */,
 				C42CD1D1213CC2650096675F /* ModelRankList.m in Sources */,
 				C42CD1AD213CC2640096675F /* PersonalInfo.m in Sources */,
 				C42CD0C4213CC2640096675F /* CellAddress.m in Sources */,
@@ -4184,6 +4262,7 @@
 				C42CD184213CC2640096675F /* RefreshControl.m in Sources */,
 				C42CD13A213CC2640096675F /* CLCellGoodTypeNoPic.m in Sources */,
 				C46368EF213FBE6C006922D5 /* CLCellBanner.m in Sources */,
+				8B8B0D7E236827FB0040EE53 /* WBTableViewCell.m in Sources */,
 				C42CD0B4213CC2640096675F /* CellOrderOneLbl.m in Sources */,
 				C42CD0C5213CC2640096675F /* CellOrderVendorTitle.m in Sources */,
 				C42CD199213CC2640096675F /* UILabelDarkGaryMiddle.m in Sources */,
@@ -4295,6 +4374,7 @@
 				C4026DBD2148161D00D81974 /* AchievementController.m in Sources */,
 				C42CD062213CC2640096675F /* CLCellCenterType.m in Sources */,
 				C42CD1CA213CC2640096675F /* ModelEreaExchangeDetail.m in Sources */,
+				8B8B0D7D236827FB0040EE53 /* WBPopMenuView.m in Sources */,
 				C4614411214386B6000C0CDC /* VendorGoosListController.m in Sources */,
 				C42CD0F7213CC2640096675F /* GoodOtherListController.m in Sources */,
 				8BB2D38A2366CC220047D0E2 /* ViewForHeader.m in Sources */,
