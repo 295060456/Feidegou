@@ -7,6 +7,7 @@
 //
 
 #import "WholesaleMarket_VipVC.h"
+#import "ReleaseOrderVC.h"
 
 @interface WholesaleMarket_VipVC ()
 <
@@ -224,6 +225,10 @@ StockViewDelegate
 #pragma mark —— 点击事件
 -(void)releaseBtnClickEvent:(UIButton *)sender{
     NSLog(@"发布订单");
+    [ReleaseOrderVC pushFromVC:self
+                 requestParams:nil
+                       success:^(id data) {}
+                      animated:YES];
 }
 #pragma mark —— lazyLoad
 -(JJStockView *)stockView{

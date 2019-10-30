@@ -492,7 +492,6 @@ UITableViewDataSource
 -(void)Cancel{
     NSLog(@"3");
 }
-
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
@@ -503,7 +502,6 @@ UITableViewDataSource
     NSLog(@"上拉加载更多");
     [self.tableView.mj_footer endRefreshing];
 }
-
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{

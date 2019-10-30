@@ -83,6 +83,7 @@
 #import "ZFMRACNetworkTool.h"
 #import "CountdownView.h"
 #import "WBPopMenuSingleton.h"
+#import "HistoryDataListTBV.h"
 //Model
 #import "PetsInfoListModel.h"
 #import "AdoptingPetsModel.h"

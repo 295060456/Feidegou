@@ -24,6 +24,9 @@
 		8B8B0D8E236828BB0040EE53 /* right_menu_payMoney@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B8B0D88236828BB0040EE53 /* right_menu_payMoney@3x.png */; };
 		8B8B0D922368395D0040EE53 /* WholesaleMarket_AdvanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D912368395D0040EE53 /* WholesaleMarket_AdvanceVC.m */; };
 		8B8B0D9723683A480040EE53 /* WholesaleMarket_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D9623683A480040EE53 /* WholesaleMarket_VipVC.m */; };
+		8B8B0D9E236960960040EE53 /* ReleaseOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D9D236960960040EE53 /* ReleaseOrderVC.m */; };
+		8B8B0DA42369635E0040EE53 /* HistoryDataListTBVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0DA22369635E0040EE53 /* HistoryDataListTBVCell.m */; };
+		8B8B0DA52369635E0040EE53 /* HistoryDataListTBV.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0DA32369635E0040EE53 /* HistoryDataListTBV.m */; };
 		8BB2D2812366C6990047D0E2 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2772366C6990047D0E2 /* TwitterHeart.json */; };
 		8BB2D2822366C6990047D0E2 /* HamburgerArrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */; };
 		8BB2D2832366C6990047D0E2 /* G.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2792366C6990047D0E2 /* G.json */; };
@@ -612,6 +615,12 @@
 		8B8B0D912368395D0040EE53 /* WholesaleMarket_AdvanceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_AdvanceVC.m; sourceTree = "<group>"; };
 		8B8B0D9523683A480040EE53 /* WholesaleMarket_VipVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_VipVC.h; sourceTree = "<group>"; };
 		8B8B0D9623683A480040EE53 /* WholesaleMarket_VipVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_VipVC.m; sourceTree = "<group>"; };
+		8B8B0D9C236960960040EE53 /* ReleaseOrderVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReleaseOrderVC.h; sourceTree = "<group>"; };
+		8B8B0D9D236960960040EE53 /* ReleaseOrderVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReleaseOrderVC.m; sourceTree = "<group>"; };
+		8B8B0DA02369635E0040EE53 /* HistoryDataListTBVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDataListTBVCell.h; sourceTree = "<group>"; };
+		8B8B0DA12369635E0040EE53 /* HistoryDataListTBV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDataListTBV.h; sourceTree = "<group>"; };
+		8B8B0DA22369635E0040EE53 /* HistoryDataListTBVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDataListTBVCell.m; sourceTree = "<group>"; };
+		8B8B0DA32369635E0040EE53 /* HistoryDataListTBV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDataListTBV.m; sourceTree = "<group>"; };
 		8BB2D2772366C6990047D0E2 /* TwitterHeart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeart.json; sourceTree = "<group>"; };
 		8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HamburgerArrow.json; sourceTree = "<group>"; };
 		8BB2D2792366C6990047D0E2 /* G.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = G.json; sourceTree = "<group>"; };
@@ -1733,6 +1742,26 @@
 			path = "Vip商家角色";
 			sourceTree = "<group>";
 		};
+		8B8B0D9B2369606A0040EE53 /* 发布订单 */ = {
+			isa = PBXGroup;
+			children = (
+				8B8B0D9C236960960040EE53 /* ReleaseOrderVC.h */,
+				8B8B0D9D236960960040EE53 /* ReleaseOrderVC.m */,
+			);
+			path = "发布订单";
+			sourceTree = "<group>";
+		};
+		8B8B0D9F2369635E0040EE53 /* HistoryDataList */ = {
+			isa = PBXGroup;
+			children = (
+				8B8B0DA12369635E0040EE53 /* HistoryDataListTBV.h */,
+				8B8B0DA32369635E0040EE53 /* HistoryDataListTBV.m */,
+				8B8B0DA02369635E0040EE53 /* HistoryDataListTBVCell.h */,
+				8B8B0DA22369635E0040EE53 /* HistoryDataListTBVCell.m */,
+			);
+			path = HistoryDataList;
+			sourceTree = "<group>";
+		};
 		8BB2D2732366C6410047D0E2 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -1816,6 +1845,7 @@
 		8BB2D2942366C7310047D0E2 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				8B8B0D9F2369635E0040EE53 /* HistoryDataList */,
 				8B8B0D702368278E0040EE53 /* PopMenuView */,
 				8BB2D3482366CBA60047D0E2 /* TZImagePickerController */,
 				8BB2D2952366C7310047D0E2 /* MMButton */,
@@ -1937,6 +1967,7 @@
 		8BB2D2DC2366C7310047D0E2 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8B8B0D9B2369606A0040EE53 /* 发布订单 */,
 				8B8B0D8F2368392D0040EE53 /* 喵粮批发市场 */,
 				8BB2D2DD2366C7310047D0E2 /* 喵粮产地 */,
 				8BB2D2E02366C7310047D0E2 /* 示例图 */,
@@ -4070,6 +4101,7 @@
 				C42CD06F213CC2640096675F /* SettingController.m in Sources */,
 				C46143EF214386B6000C0CDC /* CellHeader.m in Sources */,
 				C42CD198213CC2640096675F /* UILabelDarkBig.m in Sources */,
+				8B8B0DA52369635E0040EE53 /* HistoryDataListTBV.m in Sources */,
 				C42CD0EA213CC2640096675F /* CellCartGood.m in Sources */,
 				C42CD0DB213CC2640096675F /* CellOnlyOneLbl.m in Sources */,
 				8BB2D3842366CC020047D0E2 /* FeedPetsModel.m in Sources */,
@@ -4262,6 +4294,7 @@
 				C42CD12B213CC2640096675F /* CLCellTwoLbl.m in Sources */,
 				8BB2D3822366CBFD0047D0E2 /* AdoptingPetsModel.m in Sources */,
 				C46368E5213FBE6C006922D5 /* CLCellTypeSmall.m in Sources */,
+				8B8B0D9E236960960040EE53 /* ReleaseOrderVC.m in Sources */,
 				C42CD0F3213CC2640096675F /* MoreDown.m in Sources */,
 				C42CD1B9213CC2640096675F /* JJBaseModel.m in Sources */,
 				C416281A2171CBC800DC0D10 /* OrderTuihuoController.m in Sources */,
@@ -4405,6 +4438,7 @@
 				C42CD04E213CC2640096675F /* QRCodeController.m in Sources */,
 				C42CD061213CC2640096675F /* CellNotLogin.m in Sources */,
 				C42CD19F213CC2640096675F /* ButtonSearch.m in Sources */,
+				8B8B0DA42369635E0040EE53 /* HistoryDataListTBVCell.m in Sources */,
 				C42CD18D213CC2640096675F /* LocationManager.m in Sources */,
 				C46143F0214386B6000C0CDC /* CellVendorGoodShopInfo.m in Sources */,
 				C4026DBD2148161D00D81974 /* AchievementController.m in Sources */,
