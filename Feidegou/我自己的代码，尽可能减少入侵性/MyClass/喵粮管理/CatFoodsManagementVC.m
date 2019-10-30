@@ -99,7 +99,6 @@ UITableViewDataSource
     NSLog(@"上拉加载更多");
    [self.tableView.mj_footer endRefreshing];
 }
-
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{

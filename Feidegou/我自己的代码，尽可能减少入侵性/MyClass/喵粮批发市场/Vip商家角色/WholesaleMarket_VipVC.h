@@ -10,14 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WholesaleMarketTBVCell : TBVCell_style_01
-
-+(instancetype)cellWith:(UITableView *)tableView;
-+(CGFloat)cellHeightWithModel:(id _Nullable)model;
-- (void)richElementsInCellWithModel:(id _Nullable)model;
-
-@end
-
 @interface WholesaleMarket_VipVC : BaseVC
 
 + (instancetype)pushFromVC:(UIViewController *)rootVC

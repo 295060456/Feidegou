@@ -7,176 +7,22 @@
 //
 
 #import "WholesaleMarket_VipVC.h"
-#import "WholesaleMarketTBViewForHeader.h"
-
-@interface WholesaleMarketTBVCell ()
-
-@property(nonatomic,strong)UILabel *orderIdLab;//订单号
-@property(nonatomic,strong)UILabel *numLab;//数量
-@property(nonatomic,strong)UILabel *priceLab;//单价
-@property(nonatomic,strong)UILabel *typeLab;//类型
-@property(nonatomic,strong)UILabel *styleLab;//状态
-@property(nonatomic,strong)NSMutableArray <UILabel *>*labMutArr;
-
-@end
-
-@implementation WholesaleMarketTBVCell
-
-+(instancetype)cellWith:(UITableView *)tableView{
-    WholesaleMarketTBVCell *cell = (WholesaleMarketTBVCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
-    if (!cell) {
-        cell = [[WholesaleMarketTBVCell alloc] initWithStyle:UITableViewCellStyleValue1
-                                                  reuseIdentifier:ReuseIdentifier
-                                                           margin:SCALING_RATIO(5)];
-        cell.backgroundColor = RandomColor;//kClearColor;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        [UIView cornerCutToCircleWithView:cell.contentView
-//                          AndCornerRadius:5.f];
-//        [UIView colourToLayerOfView:cell.contentView
-//                         WithColour:KGreenColor
-//                     AndBorderWidth:.1f];
-    }return cell;
-}
-
-+(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCALING_RATIO(50);
-}
-
-- (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.orderIdLab.text = @"11111111111111111111111111111111111111qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq1111112";
-    self.numLab.text = @"13";
-    self.priceLab.text = @"14";
-    self.typeLab.text = @"15";
-    self.styleLab.text = @"16";
-     //计算lab之间的相隔距离
-    __block CGFloat width = 0;
-     for (int i = 0; i < self.labMutArr.count; i++) {
-         [self.labMutArr[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-             make.top.bottom.equalTo(self.contentView);
-         }];
-     }
-    [self layoutIfNeeded];
-    //加约束以后刷新得出真正的值
-    __block CGFloat w = 0;
-    for (int i = 0; i < self.labMutArr.count; i++) {
-        width += self.labMutArr[i].mj_w;
-    }
-     w = (SCREEN_WIDTH - width) / self.labMutArr.count;
-    //     加约束
-    if (width > SCREEN_WIDTH) {
-//        label.lineBreakMode =NSLineBreakByCharWrapping;//其中lineBreakMode可选值为
-        for (int i = 0; i < self.labMutArr.count; i++) {
-            self.labMutArr[i].lineBreakMode = NSLineBreakByTruncatingMiddle;//省略中间，以省略号代替
-            self.labMutArr[i].numberOfLines = 1;
-            [self.labMutArr[i] mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / self.labMutArr.count, self.mj_h));
-                if (i == 0) {
-                    make.left.equalTo(self.contentView);
-                }else{
-                    make.left.equalTo(self.labMutArr[i - 1].mas_right);
-                }
-            }];
-        }
-    }else{
-        for (int i = 0; i < self.labMutArr.count; i++) {
-            self.labMutArr[i].backgroundColor = RandomColor;
-            [self.labMutArr[i] mas_updateConstraints:^(MASConstraintMaker *make) {
-                if (i == 0) {
-                    make.left.equalTo(self.contentView).offset(w / 2);
-                }else{
-                    make.left.equalTo(self.labMutArr[i - 1].mas_right).offset(w);
-                }
-            }];
-        }
-
-    }
-
-}
-#pragma mark —— lazyLoad
--(UILabel *)orderIdLab{
-    if (!_orderIdLab) {
-        _orderIdLab = UILabel.new;
-        _orderIdLab.text = @"没有值";
-        _orderIdLab.numberOfLines = 0;
-        _orderIdLab.textAlignment = NSTextAlignmentCenter;
-        [_orderIdLab sizeToFit];
-        [self.contentView addSubview:_orderIdLab];
-    }return _orderIdLab;
-}
-
--(UILabel *)numLab{
-    if (!_numLab) {
-        _numLab = UILabel.new;
-        _numLab.text = @"没有值";
-        _numLab.numberOfLines = 0;
-        _numLab.textAlignment = NSTextAlignmentCenter;
-        [_numLab sizeToFit];
-        [self.contentView addSubview:_numLab];
-    }return _numLab;
-}
-
--(UILabel *)priceLab{
-    if (!_priceLab) {
-        _priceLab = UILabel.new;
-        _priceLab.text = @"没有值";
-        _priceLab.numberOfLines = 0;
-        _priceLab.textAlignment = NSTextAlignmentCenter;
-        [_priceLab sizeToFit];
-        [self.contentView addSubview:_priceLab];
-    }return _priceLab;
-}
-
--(UILabel *)typeLab{
-    if (!_typeLab) {
-        _typeLab = UILabel.new;
-        _typeLab.text = @"没有值";
-        _typeLab.numberOfLines = 0;
-        _typeLab.textAlignment = NSTextAlignmentCenter;
-        [_typeLab sizeToFit];
-        [self.contentView addSubview:_typeLab];
-    }return _typeLab;
-}
-
--(UILabel *)styleLab{
-    if (!_styleLab) {
-        _styleLab = UILabel.new;
-        _styleLab.text = @"没有值";
-        _styleLab.numberOfLines = 0;
-        _styleLab.textAlignment = NSTextAlignmentCenter;
-        [_styleLab sizeToFit];
-        [self.contentView addSubview:_styleLab];
-    }return _styleLab;
-}
-
--(NSMutableArray<UILabel *> *)labMutArr{
-    if (!_labMutArr) {
-        _labMutArr = NSMutableArray.array;
-        [_labMutArr addObject:_orderIdLab];
-        [_labMutArr addObject:_numLab];
-        [_labMutArr addObject:_priceLab];
-        [_labMutArr addObject:_typeLab];
-        [_labMutArr addObject:_styleLab];
-    }return _labMutArr;
-}
-
-@end
 
 @interface WholesaleMarket_VipVC ()
 <
-UITableViewDelegate,
-UITableViewDataSource
+StockViewDataSource,
+StockViewDelegate
 >
 
-@property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,weak)JJStockView *stockView;
 @property(nonatomic,strong)UIButton *releaseBtn;
 @property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
-@property(nonatomic,strong)WholesaleMarketTBViewForHeader *viewForHeader;
+@property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
-@property(nonatomic,assign)BOOL isDelCell;
 
 @end
 
@@ -194,7 +40,6 @@ UITableViewDataSource
     WholesaleMarket_VipVC *vc = WholesaleMarket_VipVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-    vc.isDelCell = NO;
     if (rootVC.navigationController) {
         vc.isPush = YES;
         vc.isPresent = NO;
@@ -219,164 +64,194 @@ UITableViewDataSource
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-//    self.navigationItem.title = @"喵粮管理";
-    self.gk_navTitle = @"喵粮管理";
-    self.tableView.alpha = 1;
+    self.gk_navTitle = @"喵粮批发市场管理";
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.releaseBtn];
     self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    self.stockView.alpha = 1;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.tableView.mj_header beginRefreshing];
-}
-#pragma mark —— 点击事件
--(void)backBtnClickEvent:(UIButton *)sender{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
--(void)releaseBtnClickEvent:(UIButton *)sender{
-    NSLog(@"发布订单");
+    
 }
 #pragma mark —— 私有方法
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
-    [self.tableView.mj_header endRefreshing];
+    [self.stockView.jjStockTableView.mj_header endRefreshing];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-   [self.tableView.mj_footer endRefreshing];
+   [self.stockView.jjStockTableView.mj_footer endRefreshing];
 }
+#pragma mark —— StockViewDataSource,StockViewDelegate
+#pragma mark —— StockViewDataSource
+/**
+ 控件内容的总行数
 
-#pragma mark —— UITableViewDelegate,UITableViewDataSource
-- (UIView *)tableView:(UITableView *)tableView
-viewForHeaderInSection:(NSInteger)section {
-    self.viewForHeader = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:ReuseIdentifier];
-    [self.viewForHeader actionBlock:^(MMButton *btn) {
-        switch (btn.tag) {
-            case 0:{//orderIdBtn 订单号
-                NSLog(@"订单号");
-            }
-                break;
-            case 1:{//numBtn 数量
-                NSLog(@"数量");
-            }
-                break;
-            case 2:{//priceBtn 单价
-                NSLog(@"单价");
-            }
-                break;
-            case 3:{//typeBtn 类型
-                NSLog(@"类型");
-            }
-                break;
-            case 4:{//styleBtn 状态
-                NSLog(@"状态");
-            }
-                break;
-            default:
-                break;
-        }
-    }];
-    return self.viewForHeader;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return SCALING_RATIO(40);
-}
-
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [WholesaleMarketTBVCell cellHeightWithModel:nil];
-}
-
-- (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath
-                             animated:NO];
-    //
-    //先移除数据源
-    //
-    self.isDelCell = YES;
-    
-    [self.dataMutArr removeObjectAtIndex:indexPath.row];
-    
-    [self.tableView beginUpdates];
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                            withRowAnimation:UITableViewRowAnimationMiddle];
-    [self.tableView endUpdates];
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
-                    withRowAnimation:UITableViewRowAnimationNone];
-    
-    @weakify(self)
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-                                 (int64_t)(0.7 * NSEC_PER_SEC)),
-                   dispatch_get_main_queue(), ^{
-//        [OrderDetail_SellerVC pushFromVC:self_weak_
-//                    requestParams:nil
-//                          success:^(id data) {}
-//                         animated:YES];
-    });
-}
-
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section{
+ @param stockView JJStockView
+ @return 总行数
+ */
+- (NSUInteger)countForStockView:(JJStockView*)stockView{
     return self.dataMutArr.count;
 }
+/**
+ 内容左边自定义View
 
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    WholesaleMarketTBVCell *cell = [WholesaleMarketTBVCell cellWith:tableView];
-    [cell richElementsInCellWithModel:nil];
-    return cell;
+ @param stockView JJStockView
+ @param row 当前行的索引值
+ @return 返回自定义View
+ */
+- (UIView*)titleCellForStockView:(JJStockView*)stockView
+                       atRowPath:(NSUInteger)row{
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                               0,
+                                                               100,
+                                                               30)];
+    label.text = [NSString stringWithFormat:@"订单号:%ld",row];
+    label.textColor = kGrayColor;
+    label.backgroundColor = COLOR_RGB(223.0f,
+                                      223.0f,
+                                      223.0f,
+                                      1.f);
+    label.textAlignment = NSTextAlignmentCenter;
+    return label;
 }
+/**
+ 内容右边可滑动自定义View
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
+ @param stockView JJStockView
+ @param row 当前行的索引值
+ @return 返回自定义View
+ */
+- (UIView*)contentCellForStockView:(JJStockView*)stockView
+                         atRowPath:(NSUInteger)row{
+    UIView *bg = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                          0,
+                                                          1000,
+                                                          30)];
+    bg.backgroundColor = row % 2 == 0 ? kWhiteColor : COLOR_RGB(240.f,
+                                                                240.f,
+                                                                240.f,
+                                                                1.f);
+    for (int i = 0; i < self.titleMutArr.count - 1; i++) {
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i * 100,
+                                                                   0,
+                                                                   100,
+                                                                   30)];
+        label.text = [NSString stringWithFormat:@"内容:%d",i];
+        label.textAlignment = NSTextAlignmentCenter;
+        [bg addSubview:label];
+    }return bg;
 }
+#pragma mark —— StockViewDelegate
+/**
+ 左上角的固定不动的自定义View
 
-//给cell添加动画
--(void)tableView:(UITableView *)tableView
- willDisplayCell:(UITableViewCell *)cell
-forRowAtIndexPath:(NSIndexPath *)indexPath{
-    //设置Cell的动画效果为3D效果
-    //设置x和y的初始值为0.1；
-    cell.layer.transform = CATransform3DMakeScale(0.1,
-                                                  0.1,
-                                                  1);
-    //x和y的最终值为1
-    [UIView animateWithDuration:1
-                     animations:^{
-        cell.layer.transform = CATransform3DMakeScale(1,
-                                                      1,
-                                                      1);
-    }];
+ @param stockView JJStockView
+ @return 自定义View
+ */
+- (UIView *)headRegularTitle:(JJStockView *)stockView{
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                               0,
+                                                               100,
+                                                               40)];
+    label.text = self.titleMutArr[0];
+    label.backgroundColor = kWhiteColor;
+    label.textColor = kGrayColor;
+    label.textAlignment = NSTextAlignmentCenter;
+    return label;
 }
+/**
+ 可滑动头部View
 
+ @param stockView JJStockView
+ @return 自定义View
+ */
+- (UIView*)headTitle:(JJStockView*)stockView{
+    UIView* bg = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                          0,
+                                                          1000,
+                                                          40)];
+    bg.backgroundColor = COLOR_RGB(223.0f,
+                                   223.0f,
+                                   223.0f,
+                                   1.f);
+//    for (int i = 1; i < self.titleMutArr.count; i++) {
+//        UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake((i - 1) * 100,
+//                                                                   0,
+//                                                                   100,
+//                                                                   40)];
+//        label.text = self.titleMutArr[i];
+//        label.textAlignment = NSTextAlignmentCenter;
+//        label.textColor = kGrayColor;
+//        [bg addSubview:label];
+//    }
+    
+    for (int i = 0; i < self.titleMutArr.count - 1; i++) {
+        UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(i * 100,
+                                                                   0,
+                                                                   100,
+                                                                   40)];
+        label.text = self.titleMutArr[i + 1];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.textColor = kGrayColor;
+        [bg addSubview:label];
+    }
+    
+    return bg;
+}
+/**
+ 头部高度，headRegularTitle，headTitle共用这个高度
+ 保持头部的高度一致
+
+ @param stockView JJStockView
+ @return 返回指定高度
+ */
+- (CGFloat)heightForHeadTitle:(JJStockView*)stockView{
+    return 40;
+}
+/**
+ 内容部分高度，左边和右边共用这个高度
+
+ @param stockView JJStockView
+ @param row 当前行的索引值
+ @return 返回指定高度
+ */
+- (CGFloat)heightForCell:(JJStockView*)stockView atRowPath:(NSUInteger)row{
+    return 30.0f;
+}
+/**
+ 点击行事件
+
+ @param stockView JJStockView
+ @param row 当前行的索引值
+ */
+- (void)didSelect:(JJStockView*)stockView atRowPath:(NSUInteger)row{
+    NSLog(@"DidSelect Row:%ld",row);
+}
+#pragma mark —— 点击事件
+-(void)releaseBtnClickEvent:(UIButton *)sender{
+    NSLog(@"发布订单");
+}
 #pragma mark —— lazyLoad
--(UITableView *)tableView{
-    if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectZero
-                                                 style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.mj_header = self.tableViewHeader;
-        _tableView.mj_footer = self.tableViewFooter;
-        [_tableView registerClass:[WholesaleMarketTBViewForHeader class]
-forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
-        [self.view addSubview:_tableView];
-        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.edges.equalTo(self.view);
+-(JJStockView *)stockView{
+    if (!_stockView) {
+        _stockView = JJStockView.new;
+        _stockView.jjStockTableView.mj_header = self.tableViewHeader;
+        _stockView.jjStockTableView.mj_footer = self.tableViewFooter;
+        _stockView.dataSource = self;
+        _stockView.delegate = self;
+        [self.view addSubview:_stockView];
+        [_stockView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
         }];
-    }return _tableView;
+    }return _stockView;
 }
 
 -(UIButton *)releaseBtn{
@@ -406,6 +281,17 @@ forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
         [_dataMutArr addObject:@"8"];
         [_dataMutArr addObject:@"9"];
     }return _dataMutArr;
+}
+
+-(NSMutableArray<NSString *> *)titleMutArr{
+    if (!_titleMutArr) {
+        _titleMutArr = NSMutableArray.array;
+        [_titleMutArr addObject:@"订单号"];
+        [_titleMutArr addObject:@"数量"];
+        [_titleMutArr addObject:@"单价"];
+        [_titleMutArr addObject:@"类型"];
+        [_titleMutArr addObject:@"状态"];
+    }return _titleMutArr;
 }
 
 @end

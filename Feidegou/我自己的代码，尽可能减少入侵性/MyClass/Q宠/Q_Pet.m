@@ -67,7 +67,7 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
 //                                                            action:^(NSInteger index) {
 //        NSLog(@"index:%ld",(long)index);
 //    }];
-//
+
 ////    [[WBPopMenuSingleton shareManager] showPopMenuSelecteWithFrame:150
 ////                                                              item:obj
 ////                                                            action:^(NSInteger index) {
