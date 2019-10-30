@@ -25,8 +25,6 @@
 		8B8B0D922368395D0040EE53 /* WholesaleMarket_AdvanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D912368395D0040EE53 /* WholesaleMarket_AdvanceVC.m */; };
 		8B8B0D9723683A480040EE53 /* WholesaleMarket_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D9623683A480040EE53 /* WholesaleMarket_VipVC.m */; };
 		8B8B0D9E236960960040EE53 /* ReleaseOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D9D236960960040EE53 /* ReleaseOrderVC.m */; };
-		8B8B0DA42369635E0040EE53 /* HistoryDataListTBVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0DA22369635E0040EE53 /* HistoryDataListTBVCell.m */; };
-		8B8B0DA52369635E0040EE53 /* HistoryDataListTBV.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0DA32369635E0040EE53 /* HistoryDataListTBV.m */; };
 		8BB2D2812366C6990047D0E2 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2772366C6990047D0E2 /* TwitterHeart.json */; };
 		8BB2D2822366C6990047D0E2 /* HamburgerArrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */; };
 		8BB2D2832366C6990047D0E2 /* G.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2792366C6990047D0E2 /* G.json */; };
@@ -4101,7 +4099,6 @@
 				C42CD06F213CC2640096675F /* SettingController.m in Sources */,
 				C46143EF214386B6000C0CDC /* CellHeader.m in Sources */,
 				C42CD198213CC2640096675F /* UILabelDarkBig.m in Sources */,
-				8B8B0DA52369635E0040EE53 /* HistoryDataListTBV.m in Sources */,
 				C42CD0EA213CC2640096675F /* CellCartGood.m in Sources */,
 				C42CD0DB213CC2640096675F /* CellOnlyOneLbl.m in Sources */,
 				8BB2D3842366CC020047D0E2 /* FeedPetsModel.m in Sources */,
@@ -4438,7 +4435,6 @@
 				C42CD04E213CC2640096675F /* QRCodeController.m in Sources */,
 				C42CD061213CC2640096675F /* CellNotLogin.m in Sources */,
 				C42CD19F213CC2640096675F /* ButtonSearch.m in Sources */,
-				8B8B0DA42369635E0040EE53 /* HistoryDataListTBVCell.m in Sources */,
 				C42CD18D213CC2640096675F /* LocationManager.m in Sources */,
 				C46143F0214386B6000C0CDC /* CellVendorGoodShopInfo.m in Sources */,
 				C4026DBD2148161D00D81974 /* AchievementController.m in Sources */,

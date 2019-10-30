@@ -16,6 +16,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ReleaseOrderTBVCell : TBVCell_style_01
 
++(instancetype)cellWith:(UITableView *)tableView;
++(CGFloat)cellHeightWithModel:(id _Nullable)model;
+- (void)richElementsInCellWithModel:(id _Nullable)model;
+
 @end
 
 @interface ReleaseOrderVC : BaseVC
