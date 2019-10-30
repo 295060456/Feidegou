@@ -181,17 +181,6 @@ StockViewDelegate
                                    223.0f,
                                    223.0f,
                                    1.f);
-//    for (int i = 1; i < self.titleMutArr.count; i++) {
-//        UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake((i - 1) * 100,
-//                                                                   0,
-//                                                                   100,
-//                                                                   40)];
-//        label.text = self.titleMutArr[i];
-//        label.textAlignment = NSTextAlignmentCenter;
-//        label.textColor = kGrayColor;
-//        [bg addSubview:label];
-//    }
-    
     for (int i = 0; i < self.titleMutArr.count - 1; i++) {
         UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(i * 100,
                                                                    0,
@@ -201,9 +190,7 @@ StockViewDelegate
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = kGrayColor;
         [bg addSubview:label];
-    }
-    
-    return bg;
+    }return bg;
 }
 /**
  头部高度，headRegularTitle，headTitle共用这个高度
