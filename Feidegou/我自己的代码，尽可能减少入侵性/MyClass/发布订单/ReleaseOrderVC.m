@@ -358,7 +358,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }else if(indexPath.row == 3){//单价
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Lab];
-    }else if (indexPath.row == 4){//付款方式
+    }else if (indexPath.row == 4){//收款方式
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
         self.historyDataListTBV = cell.historyDataListTBV;
@@ -377,34 +377,36 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 //            [_titleMutArr addObject:@"最低限额"];
 //            [_titleMutArr addObject:@"最高限额"];
 //            [_titleMutArr addObject:@"单价"];
-//            [_titleMutArr addObject:@"付款方式"];//7
+//            [_titleMutArr addObject:@"收款方式"];//7
 
             if ([data isEqualToString:@"银行卡"]) {
                 if (self.titleMutArr.count == 7) {//首次
                     [self.titleMutArr removeLastObject];
                     [self.placeholderMutArr removeLastObject];
-                }else if (self.titleMutArr.count == 7 + 3){//点击银行卡,再次点击银行卡
+                }else if (self.titleMutArr.count == 7 + 3){
                     [self.titleMutArr removeObjectsInRange:NSMakeRange(6, 4)];
                     [self.placeholderMutArr removeObjectsInRange:NSMakeRange(4, 4)];
                     NSLog(@"");
                 }else if (self.titleMutArr.count == 7 + 1){//先点击微信/支付宝,再点击银行卡
                     [self.titleMutArr removeLastObject];
                     [self.placeholderMutArr removeLastObject];
-                }else if(self.titleMutArr.count == 11){
-                    NSLog(@"");
-                    [self.titleMutArr removeObjectsInRange:NSMakeRange(7, 4)];
-                    [self.placeholderMutArr removeObjectsInRange:NSMakeRange(4, 4)];
+                    [self.titleMutArr removeLastObject];
+                    [self.placeholderMutArr removeLastObject];
+                }else if(self.titleMutArr.count == 11){//首次，点击银行卡,再次点击银行卡
+                    [self.titleMutArr removeObjectsInRange:NSMakeRange(6, 5)];
+                    [self.placeholderMutArr removeObjectsInRange:NSMakeRange(4, 5)];
                 }
-                
-                [self.titleMutArr addObject:[NSString stringWithFormat:@"%@账户",data]];
+                [self.titleMutArr addObject:@"收款方式"];
+                [self.titleMutArr addObject:@"银行卡号"];
                 [self.titleMutArr addObject:@"姓名"];
                 [self.titleMutArr addObject:@"银行类型"];
                 [self.titleMutArr addObject:@"支行信息"];
                 
-                [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
-                [self.placeholderMutArr addObject:@"姓名"];
-                [self.placeholderMutArr addObject:@"银行类型"];
-                [self.placeholderMutArr addObject:@"支行信息"];
+                [self.placeholderMutArr addObject:@"请选择收款方式"];
+                [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@",data]];//银行卡号
+                [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写姓名"]];
+                [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写银行类型"]];
+                [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写支行信息"]];
                 NSLog(@"");
             }else{
                 if (self.titleMutArr.count == 7) {//首次
@@ -416,16 +418,17 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     [self.placeholderMutArr removeLastObject];
                     [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
                 }else if (self.titleMutArr.count == 7 + 3){
-                    [self.titleMutArr removeObjectsInRange:NSMakeRange(7, 3)];
+                    [self.titleMutArr removeObjectsInRange:NSMakeRange(6, 4)];
                     [self.titleMutArr addObject:[NSString stringWithFormat:@"%@账户",data]];
                     [self.placeholderMutArr removeObjectsInRange:NSMakeRange(4, 3)];
                     [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
                 }else if (self.titleMutArr.count == 11){//支付宝/微信 - 银行卡 - 支付宝/微信
                     [self.titleMutArr removeObjectsInRange:NSMakeRange(7, 4)];
                     [self.titleMutArr addObject:[NSString stringWithFormat:@"%@账户",data]];
-                    [self.placeholderMutArr removeObjectsInRange:NSMakeRange(4, 5)];
+                    [self.placeholderMutArr removeObjectsInRange:NSMakeRange(5, 4)];
                     [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
                 }
+                NSLog(@"");
             }
             [self.tableView reloadData];
         }];
@@ -515,7 +518,7 @@ forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
         [_titleMutArr addObject:@"最低限额"];
         [_titleMutArr addObject:@"最高限额"];
         [_titleMutArr addObject:@"单价"];
-        [_titleMutArr addObject:@"付款方式"];
+        [_titleMutArr addObject:@"收款方式"];
     }return _titleMutArr;
 }
 
