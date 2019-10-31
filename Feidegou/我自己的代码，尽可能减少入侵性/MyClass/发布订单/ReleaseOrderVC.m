@@ -69,7 +69,9 @@ UITextFieldDelegate
 {}
 
 @property(nonatomic,strong)UITextField *textfield;
-@property(nonatomic,copy)DataBlock block;
+@property(nonatomic,strong)HistoryDataListTBV *historyDataListTBV;
+@property(nonatomic,strong)NSMutableArray <NSString *>*listTitleDataMutArr;
+//@property(nonatomic,copy)DataBlock block;
 
 @end
 
@@ -123,15 +125,32 @@ UITextFieldDelegate
     }
 }
 
--(void)actionBlock:(DataBlock)block{
-    self.block = block;
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    UIView *view = [super hitTest:point withEvent:event];
+    if (!view) {
+        //将坐标由当前视图发送到 指定视图 fromView是无法响应的范围小父视图
+        CGPoint stationPoint = [self.historyDataListTBV convertPoint:point
+                                                                     fromView:self];
+        if (CGRectContainsPoint(self.historyDataListTBV.bounds, stationPoint)){
+            view = self.historyDataListTBV;
+        }
+    }return view;
 }
+//-(void)actionBlock:(DataBlock)block{
+//    self.block = block;
+//}
 #pragma mark —— 点击事件
 -(void)btnClickEvent:(UIButton *)sender{
     NSLog(@"收款方式");
-    if (self.block) {
-        self.block(@1);
-    }
+//    if (self.block) {
+//        self.block(@1);
+//    }
+    [self.contentView addSubview:self.historyDataListTBV];
+    //[self.view addSubview:self->_historyDataListTBV];
+    self.historyDataListTBV.frame = CGRectMake(self.btn.mj_x,
+                                               self.btn.mj_y + self.btn.mj_h,
+                                               self.btn.mj_w,
+                                               self.listTitleDataMutArr.count * [HistoryDataListTBVCell cellHeightWithModel:Nil]);
 }
 #pragma mark —— UITextFieldDelegate
 //询问委托人是否应该在指定的文本字段中开始编辑
@@ -187,6 +206,23 @@ UITextFieldDelegate
     }return _btn;
 }
 
+-(HistoryDataListTBV *)historyDataListTBV{
+    if (!_historyDataListTBV) {
+        _historyDataListTBV = [HistoryDataListTBV initWithRequestParams:self.listTitleDataMutArr];
+        _historyDataListTBV.tableFooterView = UIView.new;
+        
+    }return _historyDataListTBV;
+}
+
+-(NSMutableArray<NSString *> *)listTitleDataMutArr{
+    if (!_listTitleDataMutArr) {
+        _listTitleDataMutArr = NSMutableArray.array;
+        [_listTitleDataMutArr addObject:@"支付宝"];
+        [_listTitleDataMutArr addObject:@"微信"];
+        [_listTitleDataMutArr addObject:@"银行卡"];
+    }return _listTitleDataMutArr;
+}
+
 @end
 
 @interface ReleaseOrderVC ()
@@ -196,11 +232,11 @@ UITableViewDataSource
 >
 
 @property(nonatomic,strong)UITableView *tableView;
-@property(nonatomic,strong)HistoryDataListTBV *historyDataListTBV;
+
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*placeholderMutArr;
-@property(nonatomic,strong)NSMutableArray <NSString *>*listTitleDataMutArr;
+
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -306,16 +342,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }else if (indexPath.row == 4){
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
-        @weakify(self)
-        [cell actionBlock:^(id data) {
-            @strongify(self)
-            [cell.contentView addSubview:self->_historyDataListTBV];
-            self.historyDataListTBV.frame = CGRectMake(cell.btn.mj_x,
-                                                       cell.btn.mj_y + cell.btn.mj_h,
-                                                       cell.btn.mj_w,
-                                                       self.listTitleDataMutArr.count * [HistoryDataListTBVCell cellHeightWithModel:Nil]);
-            
-        }];
+//        @weakify(self)
+//        [cell actionBlock:^(id data) {
+//            @strongify(self)
+//
+//            
+//        }];
     }else{}
     return cell;
 }
@@ -341,6 +373,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                       1);
     }];
 }
+
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{
     if (!_tableView) {
@@ -360,23 +393,6 @@ forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
         }];
     }return _tableView;
-}
-
--(HistoryDataListTBV *)historyDataListTBV{
-    if (!_historyDataListTBV) {
-        _historyDataListTBV = [HistoryDataListTBV initWithRequestParams:self.listTitleDataMutArr];
-        _historyDataListTBV.tableFooterView = UIView.new;
-        
-    }return _historyDataListTBV;
-}
-
--(NSMutableArray<NSString *> *)listTitleDataMutArr{
-    if (!_listTitleDataMutArr) {
-        _listTitleDataMutArr = NSMutableArray.array;
-        [_listTitleDataMutArr addObject:@"支付宝"];
-        [_listTitleDataMutArr addObject:@"微信"];
-        [_listTitleDataMutArr addObject:@"银行卡"];
-    }return _listTitleDataMutArr;
 }
 
 -(NSMutableArray<NSString *> *)titleMutArr{

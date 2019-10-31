@@ -7,7 +7,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C76DB731-FA76-4A9F-8041-52ECEBC02F01"
+            uuid = "B1752DAE-8254-4B71-B5D6-9BE7EF10D828"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -17,22 +17,6 @@
             startingLineNumber = "63"
             endingLineNumber = "63"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9C6781AA-FDDD-4F4B-8CDA-488D9F284CCE"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x53d1;&#x5e03;&#x8ba2;&#x5355;/ReleaseOrderVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "313"
-            endingLineNumber = "313"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
