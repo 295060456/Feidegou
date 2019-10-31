@@ -365,19 +365,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         @weakify(self)
         [cell actionBlock:^(id data) {
             @strongify(self)
-//            [_placeholderMutArr addObject:@"请输入数量"];
-//            [_placeholderMutArr addObject:@"请输入最低限额"];
-//            [_placeholderMutArr addObject:@"请输入最高限额"];
-//            [_placeholderMutArr addObject:@"1g / CNY"];
-//            [_placeholderMutArr addObject:@"请选择收款方式"];//5
-            
-//            [_titleMutArr addObject:@"商品"];
-//            [_titleMutArr addObject:@"喵粮"];
-//            [_titleMutArr addObject:@"数量"];
-//            [_titleMutArr addObject:@"最低限额"];
-//            [_titleMutArr addObject:@"最高限额"];
-//            [_titleMutArr addObject:@"单价"];
-//            [_titleMutArr addObject:@"收款方式"];//7
 
             if ([data isEqualToString:@"银行卡"]) {
                 if (self.titleMutArr.count == 7) {//首次
@@ -402,7 +389,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 [self.titleMutArr addObject:@"银行类型"];
                 [self.titleMutArr addObject:@"支行信息"];
                 
-                [self.placeholderMutArr addObject:@"请选择收款方式"];
+                [self.placeholderMutArr addObject:data];//收款方式===========
                 [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@",data]];//银行卡号
                 [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写姓名"]];
                 [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写银行类型"]];
@@ -411,21 +398,27 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             }else{
                 if (self.titleMutArr.count == 7) {//首次
                     [self.titleMutArr addObject:[NSString stringWithFormat:@"%@账户",data]];
+                    [self.placeholderMutArr removeLastObject];
+                    [self.placeholderMutArr addObject:data];//收款方式
                     [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
                 }else if(self.titleMutArr.count == 7 + 1){
                     [self.titleMutArr removeLastObject];
                     [self.titleMutArr addObject:[NSString stringWithFormat:@"%@账户",data]];
                     [self.placeholderMutArr removeLastObject];
+                    [self.placeholderMutArr removeLastObject];
+                    [self.placeholderMutArr addObject:data];//收款方式
                     [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
                 }else if (self.titleMutArr.count == 7 + 3){
                     [self.titleMutArr removeObjectsInRange:NSMakeRange(6, 4)];
                     [self.titleMutArr addObject:[NSString stringWithFormat:@"%@账户",data]];
                     [self.placeholderMutArr removeObjectsInRange:NSMakeRange(4, 3)];
+                    [self.placeholderMutArr addObject:data];//收款方式
                     [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
                 }else if (self.titleMutArr.count == 11){//支付宝/微信 - 银行卡 - 支付宝/微信
                     [self.titleMutArr removeObjectsInRange:NSMakeRange(7, 4)];
                     [self.titleMutArr addObject:[NSString stringWithFormat:@"%@账户",data]];
-                    [self.placeholderMutArr removeObjectsInRange:NSMakeRange(5, 4)];
+                    [self.placeholderMutArr removeObjectsInRange:NSMakeRange(4, 5)];
+                    [self.placeholderMutArr addObject:data];//收款方式
                     [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
                 }
                 NSLog(@"");
