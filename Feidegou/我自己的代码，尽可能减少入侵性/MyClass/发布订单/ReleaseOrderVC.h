@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)richElementsInCellWithModel:(id _Nullable)model
             ReleaseOrderTBVCellType:(ReleaseOrderTBVCellType)type;
 -(void)actionBlock:(DataBlock)block;
+-(void)btnClickEventBlock:(ThreeDataBlock)block;
 
 @end
 

@@ -34,7 +34,7 @@
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCALING_RATIO(30);
+    return SCALING_RATIO(50);
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{

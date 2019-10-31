@@ -71,6 +71,7 @@ UITextFieldDelegate
 @property(nonatomic,strong)UITextField *textfield;
 @property(nonatomic,strong)NSMutableArray <NSString *>*listTitleDataMutArr;
 @property(nonatomic,copy)DataBlock block;
+@property(nonatomic,copy)ThreeDataBlock block2;
 
 @end
 
@@ -136,6 +137,11 @@ UITextFieldDelegate
 -(void)actionBlock:(DataBlock)block{
     self.block = block;
 }
+
+-(void)btnClickEventBlock:(ThreeDataBlock)block{
+    self.block2 = block;
+}
+
 //超出父控件点击事件响应链断裂解决方案
 //若A是父视图,B是子视图,（B加在A上）,B超出A的范围,把这个方法写在A上
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
@@ -151,13 +157,23 @@ UITextFieldDelegate
 }
 #pragma mark —— 点击事件
 -(void)btnClickEvent:(UIButton *)sender{
+    if (self.block2) {
+        self.block2(sender,
+                    self.listTitleDataMutArr,
+                    @(SCALING_RATIO(50)));
+    }
     NSLog(@"收款方式");
-    [self.contentView addSubview:self.historyDataListTBV];
-    //[self.view addSubview:self->_historyDataListTBV];
-    self.historyDataListTBV.frame = CGRectMake(self.btn.mj_x,
-                                               self.btn.mj_y + self.btn.mj_h,
-                                               self.btn.mj_w,
-                                               self.listTitleDataMutArr.count * [HistoryDataListTBVCell cellHeightWithModel:Nil]);
+    if (!sender.selected) {
+        [self.contentView addSubview:self.historyDataListTBV];
+        //[self.view addSubview:self->_historyDataListTBV];
+        self.historyDataListTBV.frame = CGRectMake(self.btn.mj_x,
+                                                   self.btn.mj_y + self.btn.mj_h,
+                                                   self.btn.mj_w,
+                                                   self.listTitleDataMutArr.count * [HistoryDataListTBVCell cellHeightWithModel:Nil]);
+    }else{
+        [self.historyDataListTBV removeFromSuperview];
+    }
+    sender.selected = !sender.selected;
 }
 #pragma mark —— UITextFieldDelegate
 //询问委托人是否应该在指定的文本字段中开始编辑
@@ -247,6 +263,7 @@ UITableViewDataSource
 
 @property(nonatomic,strong)BaseTableViewer *tableView;
 @property(nonatomic,strong)HistoryDataListTBV *historyDataListTBV;
+@property(nonatomic,strong)UIButton *releaseBtn;
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*placeholderMutArr;
@@ -301,7 +318,6 @@ UITableViewDataSource
     NSLog(@"上拉加载更多");
     [self.tableView.mj_footer endRefreshing];
 }
-
 #pragma mark —— Lifecycle
 -(instancetype)init{
     
@@ -319,12 +335,24 @@ UITableViewDataSource
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.tableView.alpha = 1;
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    self.releaseBtn.alpha = 1;
+    [self.releaseBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
+                                           (self.titleMutArr.count - 2) * SCALING_RATIO(50) +
+                                           SCALING_RATIO(40) +
+                                           SCALING_RATIO(50));//附加值
+    }];
 }
+#pragma mark —— 点击事件
+-(void)releaseBtnClickEvent:(UIButton *)sender{
+    NSLog(@"发布");
+}
+
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section {
@@ -363,9 +391,38 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
         self.historyDataListTBV = cell.historyDataListTBV;
         @weakify(self)
+        [cell btnClickEventBlock:^(id data,
+                                   id data2,
+                                   id data3) {
+            @strongify(self)
+            UIButton *btn = (UIButton *)data;
+            NSArray *arr = (NSArray *)data2;
+            if (btn.selected) {
+                NSLog(@"关");
+                [self.releaseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self.view.mas_centerX);
+                    make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(100)));
+                    make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
+                                                       (self.titleMutArr.count - 2) * SCALING_RATIO(50) +
+                                                       SCALING_RATIO(40) +
+                                                       SCALING_RATIO(50));//附加值
+                }];
+            }else{
+                NSLog(@"开");
+                [self.releaseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self.view.mas_centerX);
+                    make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(100)));
+                    make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
+                                                       (self.titleMutArr.count - 2) * SCALING_RATIO(50) +
+                                                       SCALING_RATIO(40) +
+                                                       arr.count * [data3 floatValue] +
+                                                       SCALING_RATIO(50));//附加值
+                }];
+            }
+            }];
+
         [cell actionBlock:^(id data) {
             @strongify(self)
-
             if ([data isEqualToString:@"银行卡"]) {
                 if (self.titleMutArr.count == 7) {//首次
                     [self.titleMutArr removeLastObject];
@@ -424,6 +481,15 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 NSLog(@"");
             }
             [self.tableView reloadData];
+            
+            [self.releaseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.centerX.equalTo(self.view.mas_centerX);
+                make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(100)));
+                make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
+                                                   (self.titleMutArr.count - 2) * SCALING_RATIO(50) +
+                                                   SCALING_RATIO(40) +
+                                                   SCALING_RATIO(50));//附加值
+            }];
         }];
     }else if(indexPath.row == 5){//
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
@@ -500,6 +566,23 @@ forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
         }];
     }return _tableView;
+}
+
+-(UIButton *)releaseBtn{
+    if (!_releaseBtn) {
+        _releaseBtn = UIButton.new;
+        _releaseBtn.backgroundColor = kRedColor;
+        [_releaseBtn setTitle:@"发布"
+                     forState:UIControlStateNormal];
+        [_releaseBtn addTarget:self
+                        action:@selector(releaseBtnClickEvent:)
+              forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:_releaseBtn];
+        [_releaseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.view.mas_centerX);
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(100)));
+        }];
+    }return _releaseBtn;
 }
 
 -(NSMutableArray<NSString *> *)titleMutArr{
