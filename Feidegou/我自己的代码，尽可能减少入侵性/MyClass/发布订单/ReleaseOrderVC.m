@@ -409,15 +409,26 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 }];
             }else{
                 NSLog(@"开");
-                [self.releaseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.centerX.equalTo(self.view.mas_centerX);
-                    make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(100)));
-                    make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
-                                                       (self.titleMutArr.count - 2) * SCALING_RATIO(50) +
-                                                       SCALING_RATIO(40) +
-                                                       arr.count * [data3 floatValue] +
-                                                       SCALING_RATIO(50));//附加值
-                }];
+                if (self.titleMutArr.count == 11) {
+                    [self.releaseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.centerX.equalTo(self.view.mas_centerX);
+                        make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(100)));
+                        make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
+                                                           (self.titleMutArr.count - 2) * SCALING_RATIO(50) +
+                                                           SCALING_RATIO(40) +
+                                                           SCALING_RATIO(50));//附加值
+                    }];
+                }else{
+                    [self.releaseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.centerX.equalTo(self.view.mas_centerX);
+                        make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(100)));
+                        make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
+                                                           (self.titleMutArr.count - 2) * SCALING_RATIO(50) +
+                                                           SCALING_RATIO(40) +
+                                                           arr.count * [data3 floatValue] +
+                                                           SCALING_RATIO(50));//附加值
+                    }];
+                }
             }
             }];
 
