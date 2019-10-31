@@ -60,6 +60,7 @@
 #import "YBNotificationManager.h"
 #import "MISCustomButton.h"
 #import "BaseVC.h"
+#import "BaseTableViewer.h"
 #import "ViewForHeader.h"
 #import "ViewForFooter.h"
 #import "NSArray+Extend.h"

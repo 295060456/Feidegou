@@ -79,6 +79,10 @@ StockViewDelegate
     
 }
 #pragma mark —— 私有方法
+-(void)backBtnClickEvent:(UIButton *)sender{
+    NSLog(@"返回");
+    [self.navigationController popViewControllerAnimated:YES];
+}
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");

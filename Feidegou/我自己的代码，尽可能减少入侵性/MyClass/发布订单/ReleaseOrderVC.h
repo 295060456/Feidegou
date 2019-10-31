@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ReleaseOrderTBVCell : TBVCell_style_01
 
+@property(nonatomic,strong)HistoryDataListTBV *historyDataListTBV;
+
 @property(nonatomic,strong)UIButton *btn;
 +(instancetype)cellWith:(UITableView *)tableView;
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;

@@ -69,7 +69,6 @@ UITextFieldDelegate
 {}
 
 @property(nonatomic,strong)UITextField *textfield;
-@property(nonatomic,strong)HistoryDataListTBV *historyDataListTBV;
 @property(nonatomic,strong)NSMutableArray <NSString *>*listTitleDataMutArr;
 @property(nonatomic,copy)DataBlock block;
 
@@ -246,8 +245,8 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
-@property(nonatomic,strong)UITableView *tableView;
-
+@property(nonatomic,strong)BaseTableViewer *tableView;
+@property(nonatomic,strong)HistoryDataListTBV *historyDataListTBV;
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*placeholderMutArr;
@@ -288,6 +287,10 @@ UITableViewDataSource
     }return vc;
 }
 #pragma mark —— 私有方法
+-(void)backBtnClickEvent:(UIButton *)sender{
+    NSLog(@"返回");
+    [self.navigationController popViewControllerAnimated:YES];
+}
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
@@ -358,6 +361,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }else if (indexPath.row == 4){//付款方式
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
+        self.historyDataListTBV = cell.historyDataListTBV;
         @weakify(self)
         [cell actionBlock:^(id data) {
             @strongify(self)
@@ -375,9 +379,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 //            [_titleMutArr addObject:@"单价"];
 //            [_titleMutArr addObject:@"付款方式"];//7
 
-            
-
-//
             if ([data isEqualToString:@"银行卡"]) {
                 if (self.titleMutArr.count == 7) {//首次
                     [self.titleMutArr removeLastObject];
@@ -479,16 +480,22 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 #pragma mark —— lazyLoad
--(UITableView *)tableView{
+-(BaseTableViewer *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectZero
-                                                 style:UITableViewStyleGrouped];
+        _tableView = [[BaseTableViewer alloc]initWithFrame:CGRectZero
+                                                   style:UITableViewStyleGrouped];
+        _tableView.userInteractionEnabled = YES;
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
         _tableView.mj_footer.hidden = YES;
         _tableView.tableFooterView = UIView.new;
+        @weakify(self)
+        [_tableView actionBlock:^{
+            @strongify(self)
+            [self.historyDataListTBV removeFromSuperview];
+        }];
         [_tableView registerClass:[ReleaseOrder_viewForHeader class]
 forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
         [self.view addSubview:_tableView];

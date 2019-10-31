@@ -10,6 +10,7 @@
 		71BE65A43CAAA15ED813BE7F /* libPods-Feidegou.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */; };
 		8B05F84A236AA98900DCE40C /* HistoryDataListTBV.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0DA32369635E0040EE53 /* HistoryDataListTBV.m */; };
 		8B05F84B236AA99900DCE40C /* HistoryDataListTBVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0DA22369635E0040EE53 /* HistoryDataListTBVCell.m */; };
+		8B05F854236AF15500DCE40C /* BaseTableViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B05F853236AF15500DCE40C /* BaseTableViewer.m */; };
 		8B62732C236A88D000749F09 /* RSAUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B62731B236A88D000749F09 /* RSAUtil.m */; };
 		8B62732D236A88D000749F09 /* EncryptUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B62731E236A88D000749F09 /* EncryptUtils.m */; };
 		8B62732E236A88D000749F09 /* AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B627320236A88D000749F09 /* AES.m */; };
@@ -599,6 +600,9 @@
 /* Begin PBXFileReference section */
 		24EEB4BC842F9E07DEEF3F0B /* Pods-Feidegou.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.release.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.release.xcconfig"; sourceTree = "<group>"; };
 		6C32034C23408BE5001794DE /* UIImage+helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+helper.h"; sourceTree = "<group>"; };
+		8B05F852236AF15500DCE40C /* BaseTableViewer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseTableViewer.h; sourceTree = "<group>"; };
+		8B05F853236AF15500DCE40C /* BaseTableViewer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewer.m; sourceTree = "<group>"; };
+		8B05F855236AF33D00DCE40C /* 专治UITableView相应链断裂 */ = {isa = PBXFileReference; lastKnownFileType = text; path = "专治UITableView相应链断裂"; sourceTree = "<group>"; };
 		8B62731B236A88D000749F09 /* RSAUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAUtil.m; sourceTree = "<group>"; };
 		8B62731C236A88D000749F09 /* EncryptUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncryptUtils.h; sourceTree = "<group>"; };
 		8B62731D236A88D000749F09 /* RSAUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAUtil.h; sourceTree = "<group>"; };
@@ -1719,6 +1723,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8B05F84C236AEF1200DCE40C /* UITableView */ = {
+			isa = PBXGroup;
+			children = (
+				8B05F855236AF33D00DCE40C /* 专治UITableView相应链断裂 */,
+				8B05F852236AF15500DCE40C /* BaseTableViewer.h */,
+				8B05F853236AF15500DCE40C /* BaseTableViewer.m */,
+			);
+			path = UITableView;
+			sourceTree = "<group>";
+		};
 		8B62731A236A88D000749F09 /* 加密体系 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2218,6 +2232,7 @@
 		8BB2D3142366C7310047D0E2 /* MyBase */ = {
 			isa = PBXGroup;
 			children = (
+				8B05F84C236AEF1200DCE40C /* UITableView */,
 				8BB2D31B2366C7310047D0E2 /* BaseVC.h */,
 				8BB2D32C2366C7310047D0E2 /* BaseVC.m */,
 				8BB2D31C2366C7310047D0E2 /* 👌UITableViewHeaderFooterView */,
@@ -4179,6 +4194,7 @@
 				C42CD13F213CC2640096675F /* CellGoodDetai.m in Sources */,
 				C42CD056213CC2640096675F /* ApplyForVenderAttribute.m in Sources */,
 				8B62732F236A88D000749F09 /* NSString+Base64.m in Sources */,
+				8B05F854236AF15500DCE40C /* BaseTableViewer.m in Sources */,
 				C42CD083213CC2640096675F /* openssl_wrapper.m in Sources */,
 				8BB2D3872366CC110047D0E2 /* PetsInfoListModel.m in Sources */,
 				C42CD0BF213CC2640096675F /* CellOrderMoney.m in Sources */,
