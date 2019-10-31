@@ -11,7 +11,8 @@
 typedef enum : NSUInteger {
     ReleaseOrderTBVCellType_Textfield = 0,
     ReleaseOrderTBVCellType_Lab,
-    ReleaseOrderTBVCellType_Btn
+    ReleaseOrderTBVCellType_Btn,
+    ReleaseOrderTBVCellType_TextfieldOnly
 } ReleaseOrderTBVCellType;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -27,8 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;
 - (void)richElementsInCellWithModel:(id _Nullable)model
             ReleaseOrderTBVCellType:(ReleaseOrderTBVCellType)type;
-
-//-(void)actionBlock:(DataBlock)block;
+-(void)actionBlock:(DataBlock)block;
 
 @end
 

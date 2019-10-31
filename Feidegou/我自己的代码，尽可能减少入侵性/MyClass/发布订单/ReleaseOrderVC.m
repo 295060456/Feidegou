@@ -71,7 +71,7 @@ UITextFieldDelegate
 @property(nonatomic,strong)UITextField *textfield;
 @property(nonatomic,strong)HistoryDataListTBV *historyDataListTBV;
 @property(nonatomic,strong)NSMutableArray <NSString *>*listTitleDataMutArr;
-//@property(nonatomic,copy)DataBlock block;
+@property(nonatomic,copy)DataBlock block;
 
 @end
 
@@ -120,11 +120,25 @@ UITextFieldDelegate
             [self.btn setTitle:model
                       forState:normal];
         }break;
+        case ReleaseOrderTBVCellType_TextfieldOnly:{
+            self.textfield.placeholder = model;
+            [self layoutIfNeeded];
+            [_textfield mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.bottom.equalTo(self.contentView);
+                make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(40));
+                make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+            }];
+        }break;
         default:
             break;
     }
 }
 
+-(void)actionBlock:(DataBlock)block{
+    self.block = block;
+}
+//超出父控件点击事件响应链断裂解决方案
+//若A是父视图,B是子视图,（B加在A上）,B超出A的范围,把这个方法写在A上
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *view = [super hitTest:point withEvent:event];
     if (!view) {
@@ -136,15 +150,9 @@ UITextFieldDelegate
         }
     }return view;
 }
-//-(void)actionBlock:(DataBlock)block{
-//    self.block = block;
-//}
 #pragma mark —— 点击事件
 -(void)btnClickEvent:(UIButton *)sender{
     NSLog(@"收款方式");
-//    if (self.block) {
-//        self.block(@1);
-//    }
     [self.contentView addSubview:self.historyDataListTBV];
     //[self.view addSubview:self->_historyDataListTBV];
     self.historyDataListTBV.frame = CGRectMake(self.btn.mj_x,
@@ -210,7 +218,14 @@ UITextFieldDelegate
     if (!_historyDataListTBV) {
         _historyDataListTBV = [HistoryDataListTBV initWithRequestParams:self.listTitleDataMutArr];
         _historyDataListTBV.tableFooterView = UIView.new;
-        
+        @weakify(self)
+        [_historyDataListTBV showSelectedData:^(id data) {
+            @strongify(self)
+            [self.btn setTitle:data
+                      forState:UIControlStateNormal];
+            [self.historyDataListTBV removeFromSuperview];
+            self.block(data);
+        }];
     }return _historyDataListTBV;
 }
 
@@ -241,7 +256,7 @@ UITableViewDataSource
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
-@property(nonatomic,assign)BOOL isDelCell;
+@property(nonatomic,assign)BOOL isFirstComing;
 
 @end
 
@@ -294,6 +309,7 @@ UITableViewDataSource
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    self.isFirstComing = YES;
     self.gk_navTitle = @"发布订单";
     self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
@@ -324,31 +340,101 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-    return self.titleMutArr.count - 3;
+    return self.titleMutArr.count - 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ReleaseOrderTBVCell *cell = [ReleaseOrderTBVCell cellWith:tableView];
     cell.textLabel.text = self.titleMutArr[indexPath.row + 2];
-    if (indexPath.row == 0 ||
-        indexPath.row == 1 ||
-        indexPath.row == 2) {
+    if (indexPath.row == 0 ||//数量
+        indexPath.row == 1 ||//最低限额
+        indexPath.row == 2) {//最高限额
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Textfield];
-    }else if(indexPath.row == 3){
+    }else if(indexPath.row == 3){//单价
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Lab];
-    }else if (indexPath.row == 4){
+    }else if (indexPath.row == 4){//付款方式
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
-//        @weakify(self)
-//        [cell actionBlock:^(id data) {
-//            @strongify(self)
+        @weakify(self)
+        [cell actionBlock:^(id data) {
+            @strongify(self)
+//            [_placeholderMutArr addObject:@"请输入数量"];
+//            [_placeholderMutArr addObject:@"请输入最低限额"];
+//            [_placeholderMutArr addObject:@"请输入最高限额"];
+//            [_placeholderMutArr addObject:@"1g / CNY"];
+//            [_placeholderMutArr addObject:@"请选择收款方式"];//5
+            
+//            [_titleMutArr addObject:@"商品"];
+//            [_titleMutArr addObject:@"喵粮"];
+//            [_titleMutArr addObject:@"数量"];
+//            [_titleMutArr addObject:@"最低限额"];
+//            [_titleMutArr addObject:@"最高限额"];
+//            [_titleMutArr addObject:@"单价"];
+//            [_titleMutArr addObject:@"付款方式"];//7
+
+            
+
 //
-//            
-//        }];
-    }else{}
+            if ([data isEqualToString:@"银行卡"]) {
+                if (self.titleMutArr.count == 7) {//首次
+                    [self.titleMutArr removeLastObject];
+                    [self.placeholderMutArr removeLastObject];
+                }else if (self.titleMutArr.count == 7 + 3){//点击银行卡,再次点击银行卡
+                    [self.titleMutArr removeObjectsInRange:NSMakeRange(6, 4)];
+                    [self.placeholderMutArr removeObjectsInRange:NSMakeRange(4, 4)];
+                    NSLog(@"");
+                }else if (self.titleMutArr.count == 7 + 1){//先点击微信/支付宝,再点击银行卡
+                    [self.titleMutArr removeLastObject];
+                    [self.placeholderMutArr removeLastObject];
+                }else if(self.titleMutArr.count == 11){
+                    NSLog(@"");
+                    [self.titleMutArr removeObjectsInRange:NSMakeRange(7, 4)];
+                    [self.placeholderMutArr removeObjectsInRange:NSMakeRange(4, 4)];
+                }
+                
+                [self.titleMutArr addObject:[NSString stringWithFormat:@"%@账户",data]];
+                [self.titleMutArr addObject:@"姓名"];
+                [self.titleMutArr addObject:@"银行类型"];
+                [self.titleMutArr addObject:@"支行信息"];
+                
+                [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
+                [self.placeholderMutArr addObject:@"姓名"];
+                [self.placeholderMutArr addObject:@"银行类型"];
+                [self.placeholderMutArr addObject:@"支行信息"];
+                NSLog(@"");
+            }else{
+                if (self.titleMutArr.count == 7) {//首次
+                    [self.titleMutArr addObject:[NSString stringWithFormat:@"%@账户",data]];
+                    [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
+                }else if(self.titleMutArr.count == 7 + 1){
+                    [self.titleMutArr removeLastObject];
+                    [self.titleMutArr addObject:[NSString stringWithFormat:@"%@账户",data]];
+                    [self.placeholderMutArr removeLastObject];
+                    [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
+                }else if (self.titleMutArr.count == 7 + 3){
+                    [self.titleMutArr removeObjectsInRange:NSMakeRange(7, 3)];
+                    [self.titleMutArr addObject:[NSString stringWithFormat:@"%@账户",data]];
+                    [self.placeholderMutArr removeObjectsInRange:NSMakeRange(4, 3)];
+                    [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
+                }else if (self.titleMutArr.count == 11){//支付宝/微信 - 银行卡 - 支付宝/微信
+                    [self.titleMutArr removeObjectsInRange:NSMakeRange(7, 4)];
+                    [self.titleMutArr addObject:[NSString stringWithFormat:@"%@账户",data]];
+                    [self.placeholderMutArr removeObjectsInRange:NSMakeRange(4, 5)];
+                    [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
+                }
+            }
+            [self.tableView reloadData];
+        }];
+    }else if(indexPath.row == 5){//
+        [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
+                  ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_TextfieldOnly];
+    }else{//
+        [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
+                  ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_TextfieldOnly];
+    }
     return cell;
 }
 
@@ -360,18 +446,36 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 -(void)tableView:(UITableView *)tableView
  willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath{
-    //设置Cell的动画效果为3D效果
-    //设置x和y的初始值为0.1；
-    cell.layer.transform = CATransform3DMakeScale(0.1,
-                                                  0.1,
-                                                  1);
-    //x和y的最终值为1
-    [UIView animateWithDuration:1
-                     animations:^{
-        cell.layer.transform = CATransform3DMakeScale(1,
-                                                      1,
+    if (self.isFirstComing) {
+        //设置Cell的动画效果为3D效果
+        //设置x和y的初始值为0.1；
+        cell.layer.transform = CATransform3DMakeScale(0.1,
+                                                      0.1,
                                                       1);
-    }];
+        //x和y的最终值为1
+        [UIView animateWithDuration:1
+                         animations:^{
+            cell.layer.transform = CATransform3DMakeScale(1,
+                                                          1,
+                                                          1);
+        }];
+        self.isFirstComing = NO;
+    }else{
+        if (indexPath.row == self.titleMutArr.count) {
+            //设置Cell的动画效果为3D效果
+            //设置x和y的初始值为0.1；
+            cell.layer.transform = CATransform3DMakeScale(0.1,
+                                                          0.1,
+                                                          1);
+            //x和y的最终值为1
+            [UIView animateWithDuration:1
+                             animations:^{
+                cell.layer.transform = CATransform3DMakeScale(1,
+                                                              1,
+                                                              1);
+            }];
+        }
+    }
 }
 
 #pragma mark —— lazyLoad
@@ -405,7 +509,6 @@ forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
         [_titleMutArr addObject:@"最高限额"];
         [_titleMutArr addObject:@"单价"];
         [_titleMutArr addObject:@"付款方式"];
-        [_titleMutArr addObject:@"发布"];
     }return _titleMutArr;
 }
 
