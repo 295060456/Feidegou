@@ -9,12 +9,17 @@
 #import "HistoryDataListTBV.h"
 #import "HistoryDataListTBVCell.h"
 
-@interface HistoryDataListTBV ()<UITableViewDelegate,UITableViewDataSource>{
+@interface HistoryDataListTBV ()
+<
+UITableViewDelegate,
+UITableViewDataSource
+>
+{
 }
 
 @property(nonatomic,strong)NSArray *dataArr;
-@property(nonatomic,copy)ActionBlock block;
-@property(nonatomic,copy)ActionBlock block2;
+@property(nonatomic,copy)DataBlock block;
+@property(nonatomic,copy)DataBlock block2;
 
 @end
 
@@ -26,16 +31,12 @@
 }
 
 +(instancetype)initWithRequestParams:(id)requestParams{
-    
     HistoryDataListTBV *tbv = [[HistoryDataListTBV alloc]initWithFrame:CGRectZero
                                                                  style:UITableViewStylePlain];
     
     if ([requestParams isKindOfClass:[NSArray class]]) {
-        
         tbv.dataArr = requestParams;
-    }
-    
-    return tbv;
+    } return tbv;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame
@@ -43,67 +44,41 @@
     
     if (self = [super initWithFrame:frame
                               style:style]) {
-        
         self.delegate = self;
-        
         self.dataSource = self;
-    }
-    
-    return self;
+    }return self;
 }
 
--(void)deleteData:(ActionBlock)block{
-    
-    self.block = block;
-}
-
--(void)showSelectedData:(ActionBlock)block{
-    
+-(void)showSelectedData:(DataBlock)block{
     self.block2 = block;
 }
-
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return [HistoryDataListTBVCell cellHeightWithModel:NULL];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.block2) {
-        
         self.block2(self.dataArr[indexPath.row]);
     }
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
     
     return self.dataArr.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HistoryDataListTBVCell *cell = [HistoryDataListTBVCell cellWith:tableView];
-    
     [cell richElementsInCellWithModel:self.dataArr[indexPath.row]];
-    
-    @weakify(self)
-    
-    [cell deleteData:^(id data) {
-        
-        @strongify(self)
-        
-        if (self.block) {
-            
-            self.block(data);
-        } 
-    }];
-    
     return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
     return 1;
 }
 

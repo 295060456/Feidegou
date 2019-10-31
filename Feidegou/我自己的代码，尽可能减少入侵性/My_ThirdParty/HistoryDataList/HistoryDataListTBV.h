@@ -13,10 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface HistoryDataListTBV : UITableView
 
 +(instancetype)initWithRequestParams:(id)requestParams;
-
--(void)deleteData:(ActionBlock)block;
-
--(void)showSelectedData:(ActionBlock)block;
+-(void)showSelectedData:(DataBlock)block;
 
 @end
 

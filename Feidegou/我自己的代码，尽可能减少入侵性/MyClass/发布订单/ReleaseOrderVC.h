@@ -8,6 +8,12 @@
 
 #import "BaseVC.h"
 
+typedef enum : NSUInteger {
+    ReleaseOrderTBVCellType_Textfield = 0,
+    ReleaseOrderTBVCellType_Lab,
+    ReleaseOrderTBVCellType_Btn
+} ReleaseOrderTBVCellType;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ReleaseOrder_viewForHeader : ViewForHeader
@@ -16,9 +22,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ReleaseOrderTBVCell : TBVCell_style_01
 
+@property(nonatomic,strong)UIButton *btn;
 +(instancetype)cellWith:(UITableView *)tableView;
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;
-- (void)richElementsInCellWithModel:(id _Nullable)model;
+- (void)richElementsInCellWithModel:(id _Nullable)model
+            ReleaseOrderTBVCellType:(ReleaseOrderTBVCellType)type;
+
+-(void)actionBlock:(DataBlock)block;
 
 @end
 

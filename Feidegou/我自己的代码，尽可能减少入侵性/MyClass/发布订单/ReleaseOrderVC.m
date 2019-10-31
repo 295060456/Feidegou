@@ -62,11 +62,14 @@
 
 @end
 
-@interface ReleaseOrderTBVCell (){}
+@interface ReleaseOrderTBVCell ()
+<
+UITextFieldDelegate
+>
+{}
 
 @property(nonatomic,strong)UITextField *textfield;
-@property(nonatomic,strong)UILabel *lab;
-@property(nonatomic,strong)UIButton *btn;
+@property(nonatomic,copy)DataBlock block;
 
 @end
 
@@ -78,7 +81,7 @@
         cell = [[ReleaseOrderTBVCell alloc] initWithStyle:UITableViewCellStyleValue1
                                           reuseIdentifier:ReuseIdentifier
                                                    margin:SCALING_RATIO(5)];
-        cell.backgroundColor = RandomColor;//kClearColor;
+        cell.backgroundColor = kClearColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //        [UIView cornerCutToCircleWithView:cell.contentView
 //                          AndCornerRadius:5.f];
@@ -92,8 +95,96 @@
     return SCALING_RATIO(50);
 }
 
-- (void)richElementsInCellWithModel:(id _Nullable)model{
+- (void)richElementsInCellWithModel:(id _Nullable)model
+            ReleaseOrderTBVCellType:(ReleaseOrderTBVCellType)type{
+    [self.textLabel sizeToFit];
+    switch (type) {
+        case ReleaseOrderTBVCellType_Textfield:{
+            self.detailTextLabel.text = @"g";
+            self.textfield.placeholder = model;
+            [self layoutIfNeeded];
+            if ([model isEqualToString:@"请输入数量"]) {
+                [_textfield mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.bottom.equalTo(self.contentView);
+                    make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(40));
+                    make.right.equalTo(self.detailTextLabel.mas_left).offset(SCALING_RATIO(-10));
+                }];
+            }else{}
+        }break;
+        case ReleaseOrderTBVCellType_Lab:{
+            self.detailTextLabel.text = model;
+        }break;
+        case ReleaseOrderTBVCellType_Btn:{
+            [self.btn setTitle:model
+                      forState:normal];
+        }break;
+        default:
+            break;
+    }
+}
+
+-(void)actionBlock:(DataBlock)block{
+    self.block = block;
+}
+#pragma mark —— 点击事件
+-(void)btnClickEvent:(UIButton *)sender{
+    NSLog(@"收款方式");
+    if (self.block) {
+        self.block(@1);
+    }
+}
+#pragma mark —— UITextFieldDelegate
+//询问委托人是否应该在指定的文本字段中开始编辑
+//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
+//告诉委托人在指定的文本字段中开始编辑
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+
+}
+//询问委托人是否应在指定的文本字段中停止编辑
+//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
+//告诉委托人对指定的文本字段停止编辑
+- (void)textFieldDidEndEditing:(UITextField *)textField{
     
+}
+//告诉委托人对指定的文本字段停止编辑
+//- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
+//询问委托人是否应该更改指定的文本
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
+//询问委托人是否应删除文本字段的当前内容
+//- (BOOL)textFieldShouldClear:(UITextField *)textField;
+//询问委托人文本字段是否应处理按下返回按钮
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    return YES;
+}
+#pragma mark —— lazyLoad
+-(UITextField *)textfield{
+    if (!_textfield) {
+        _textfield = UITextField.new;
+        _textfield.backgroundColor = KLightGrayColor;
+        _textfield.delegate = self;
+        [self.contentView addSubview:_textfield];
+        [_textfield mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self.contentView);
+            make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(10));
+            make.right.equalTo(self.detailTextLabel.mas_left).offset(SCALING_RATIO(-10));
+        }];
+    }return _textfield;
+}
+
+-(UIButton *)btn{
+    if (!_btn) {
+        _btn = UIButton.new;
+        _btn.backgroundColor = KLightGrayColor;
+        [_btn addTarget:self
+                 action:@selector(btnClickEvent:)
+       forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:_btn];
+        [_btn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(10));
+            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+            make.top.bottom.equalTo(self.contentView);
+        }];
+    }return _btn;
 }
 
 @end
@@ -105,8 +196,11 @@ UITableViewDataSource
 >
 
 @property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,strong)HistoryDataListTBV *historyDataListTBV;
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
+@property(nonatomic,strong)NSMutableArray <NSString *>*placeholderMutArr;
+@property(nonatomic,strong)NSMutableArray <NSString *>*listTitleDataMutArr;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -201,7 +295,28 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ReleaseOrderTBVCell *cell = [ReleaseOrderTBVCell cellWith:tableView];
     cell.textLabel.text = self.titleMutArr[indexPath.row + 2];
-    [cell richElementsInCellWithModel:nil];
+    if (indexPath.row == 0 ||
+        indexPath.row == 1 ||
+        indexPath.row == 2) {
+        [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
+                  ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Textfield];
+    }else if(indexPath.row == 3){
+        [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
+                  ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Lab];
+    }else if (indexPath.row == 4){
+        [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
+                  ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
+        @weakify(self)
+        [cell actionBlock:^(id data) {
+            @strongify(self)
+            [cell.contentView addSubview:self->_historyDataListTBV];
+            self.historyDataListTBV.frame = CGRectMake(cell.btn.mj_x,
+                                                       cell.btn.mj_y + cell.btn.mj_h,
+                                                       cell.btn.mj_w,
+                                                       self.listTitleDataMutArr.count * [HistoryDataListTBVCell cellHeightWithModel:Nil]);
+            
+        }];
+    }else{}
     return cell;
 }
 
@@ -247,6 +362,23 @@ forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
     }return _tableView;
 }
 
+-(HistoryDataListTBV *)historyDataListTBV{
+    if (!_historyDataListTBV) {
+        _historyDataListTBV = [HistoryDataListTBV initWithRequestParams:self.listTitleDataMutArr];
+        _historyDataListTBV.tableFooterView = UIView.new;
+        
+    }return _historyDataListTBV;
+}
+
+-(NSMutableArray<NSString *> *)listTitleDataMutArr{
+    if (!_listTitleDataMutArr) {
+        _listTitleDataMutArr = NSMutableArray.array;
+        [_listTitleDataMutArr addObject:@"支付宝"];
+        [_listTitleDataMutArr addObject:@"微信"];
+        [_listTitleDataMutArr addObject:@"银行卡"];
+    }return _listTitleDataMutArr;
+}
+
 -(NSMutableArray<NSString *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
@@ -259,6 +391,17 @@ forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
         [_titleMutArr addObject:@"付款方式"];
         [_titleMutArr addObject:@"发布"];
     }return _titleMutArr;
+}
+
+-(NSMutableArray<NSString *> *)placeholderMutArr{
+    if (!_placeholderMutArr) {
+        _placeholderMutArr = NSMutableArray.array;
+        [_placeholderMutArr addObject:@"请输入数量"];
+        [_placeholderMutArr addObject:@"请输入最低限额"];
+        [_placeholderMutArr addObject:@"请输入最高限额"];
+        [_placeholderMutArr addObject:@"1g / CNY"];
+        [_placeholderMutArr addObject:@"请选择收款方式"];
+    }return _placeholderMutArr;
 }
 
 @end
