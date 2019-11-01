@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithRequestParams:(id)requestParams;
 -(void)actionBlock:(ActionBlock)block;
+-(void)clickBlock:(DataBlock)block;
 
 @end
 

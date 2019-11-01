@@ -8,6 +8,7 @@
 
 #import "WholesaleMarket_AdvanceVC.h"
 #import "ReleaseOrderVC.h"
+#import "WholesaleOrders_AdvanceVC.h"
 
 @interface WholesaleMarket_AdvancePopView ()
 <
@@ -23,6 +24,7 @@ UITextFieldDelegate
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,assign)CGRect framer;
 @property(nonatomic,copy)ActionBlock block;
+@property(nonatomic,copy)DataBlock dataBlock;
 
 @end
 
@@ -50,6 +52,10 @@ UITextFieldDelegate
     _block = block;
 }
 
+-(void)clickBlock:(DataBlock)block{
+    _dataBlock = block;
+}
+
 - (void)touchesMoved:(NSSet<UITouch *> *)touches
            withEvent:(UIEvent *)event {
 //    NSLog(@"touchesMoved");
@@ -63,16 +69,15 @@ UITextFieldDelegate
     //Y轴偏移的量
     CGFloat offsetY = currentP.y - preP.y;
     
-    self.transform = CGAffineTransformTranslate(self.transform, offsetX, 0);
-    
     if (offsetX < 0) {//向左滑
-//        NSLog(@"向左滑");
+        NSLog(@"向左滑");
+        self.transform = CGAffineTransformTranslate(self.transform, offsetX, 0);
         
     }
 }
 
--(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
+-(void)touchesEnded:(NSSet<UITouch *> *)touches
+          withEvent:(UIEvent *)event{
     NSLog(@"%f",self.mj_x);
 
     if (self.mj_x > (100 - SCREEN_WIDTH) / 2) {
@@ -88,7 +93,12 @@ UITextFieldDelegate
         }
     }
 }
-
+#pragma mark —— 点击事件
+-(void)clickPurchaseBtnEvent:(UIButton *)sender{
+    if (self.dataBlock) {
+        self.dataBlock(sender);
+    }
+}
 #pragma mark —— UITextFieldDelegate
 //询问委托人是否应该在指定的文本字段中开始编辑
 //- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
@@ -157,6 +167,9 @@ UITextFieldDelegate
         _purchaseBtn.backgroundColor = kRedColor;
         [_purchaseBtn setTitle:@"购买"
                       forState:UIControlStateNormal];
+        [_purchaseBtn addTarget:self
+                         action:@selector(clickPurchaseBtnEvent:)
+               forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_purchaseBtn];
         [_purchaseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(SCALING_RATIO(5));
@@ -524,6 +537,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             @strongify(self)
             [self->_popView removeFromSuperview];
             self->_popView = nil;
+        }];
+        [_popView clickBlock:^(id data) {
+            @strongify(self)
+            [WholesaleOrders_AdvanceVC pushFromVC:self
+                                    requestParams:nil
+                                          success:^(id data) {}
+                                         animated:YES];
         }];
     }return _popView;
 }

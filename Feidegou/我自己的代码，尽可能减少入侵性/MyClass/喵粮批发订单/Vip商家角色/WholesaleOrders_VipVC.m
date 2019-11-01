@@ -6,7 +6,7 @@
 //  Copyright © 2019 朝花夕拾. All rights reserved.
 //
 
-#import "WholesaleOrdersVC.h"
+#import "WholesaleOrders_VipVC.h"
 
 @interface WholesaleOrdersTBVCell ()
 
@@ -80,7 +80,7 @@
 
 @end
 
-@interface WholesaleOrdersVC ()
+@interface WholesaleOrders_VipVC ()
 <
 UITableViewDelegate,
 UITableViewDataSource,
@@ -101,7 +101,7 @@ TZImagePickerControllerDelegate
 
 @end
 
-@implementation WholesaleOrdersVC
+@implementation WholesaleOrders_VipVC
 
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
@@ -112,7 +112,7 @@ TZImagePickerControllerDelegate
                    success:(DataBlock)block
                   animated:(BOOL)animated{
 
-    WholesaleOrdersVC *vc = WholesaleOrdersVC.new;
+    WholesaleOrders_VipVC *vc = WholesaleOrders_VipVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
     if (rootVC.navigationController) {

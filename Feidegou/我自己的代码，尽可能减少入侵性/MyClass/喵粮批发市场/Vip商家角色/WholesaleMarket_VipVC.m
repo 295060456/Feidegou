@@ -8,7 +8,7 @@
 
 #import "WholesaleMarket_VipVC.h"
 #import "ReleaseOrderVC.h"
-#import "WholesaleOrdersVC.h"
+#import "WholesaleOrders_VipVC.h"
 
 @interface WholesaleMarket_VipVC ()
 <
@@ -227,7 +227,7 @@ StockViewDelegate
 - (void)didSelect:(JJStockView*)stockView atRowPath:(NSUInteger)row{
     NSLog(@"DidSelect Row:%ld",row);
     @weakify(self)
-    [WholesaleOrdersVC pushFromVC:self_weak_
+    [WholesaleOrders_VipVC pushFromVC:self_weak_
                     requestParams:Nil
                           success:^(id data) {}
                          animated:YES];
