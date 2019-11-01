@@ -8,6 +8,7 @@
 
 #import "WholesaleMarket_VipVC.h"
 #import "ReleaseOrderVC.h"
+#import "WholesaleOrdersVC.h"
 
 @interface WholesaleMarket_VipVC ()
 <
@@ -225,11 +226,17 @@ StockViewDelegate
  */
 - (void)didSelect:(JJStockView*)stockView atRowPath:(NSUInteger)row{
     NSLog(@"DidSelect Row:%ld",row);
+    @weakify(self)
+    [WholesaleOrdersVC pushFromVC:self_weak_
+                    requestParams:Nil
+                          success:^(id data) {}
+                         animated:YES];
 }
 #pragma mark —— 点击事件
 -(void)releaseBtnClickEvent:(UIButton *)sender{
     NSLog(@"发布订单");
-    [ReleaseOrderVC pushFromVC:self
+    @weakify(self)
+    [ReleaseOrderVC pushFromVC:self_weak_
                  requestParams:nil
                        success:^(id data) {}
                       animated:YES];

@@ -107,8 +107,10 @@
 @end
 
 @interface CatFoodProducingAreaVC ()
-<UITableViewDelegate,
-UITableViewDataSource>
+<
+UITableViewDelegate,
+UITableViewDataSource
+>
 {
     CGFloat CatFoodProducingAreaTBVCellHeight;
 }

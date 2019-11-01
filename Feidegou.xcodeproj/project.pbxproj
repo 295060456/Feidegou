@@ -36,6 +36,7 @@
 		8B8B0D922368395D0040EE53 /* WholesaleMarket_AdvanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D912368395D0040EE53 /* WholesaleMarket_AdvanceVC.m */; };
 		8B8B0D9723683A480040EE53 /* WholesaleMarket_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D9623683A480040EE53 /* WholesaleMarket_VipVC.m */; };
 		8B8B0D9E236960960040EE53 /* ReleaseOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D9D236960960040EE53 /* ReleaseOrderVC.m */; };
+		8BB0F6CE236BDAC2009498B6 /* WholesaleOrdersVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB0F6CD236BDAC2009498B6 /* WholesaleOrdersVC.m */; };
 		8BB2D2812366C6990047D0E2 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2772366C6990047D0E2 /* TwitterHeart.json */; };
 		8BB2D2822366C6990047D0E2 /* HamburgerArrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */; };
 		8BB2D2832366C6990047D0E2 /* G.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2792366C6990047D0E2 /* G.json */; };
@@ -648,6 +649,8 @@
 		8B8B0DA12369635E0040EE53 /* HistoryDataListTBV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDataListTBV.h; sourceTree = "<group>"; };
 		8B8B0DA22369635E0040EE53 /* HistoryDataListTBVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDataListTBVCell.m; sourceTree = "<group>"; };
 		8B8B0DA32369635E0040EE53 /* HistoryDataListTBV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDataListTBV.m; sourceTree = "<group>"; };
+		8BB0F6CC236BDAC2009498B6 /* WholesaleOrdersVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleOrdersVC.h; sourceTree = "<group>"; };
+		8BB0F6CD236BDAC2009498B6 /* WholesaleOrdersVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleOrdersVC.m; sourceTree = "<group>"; };
 		8BB2D2772366C6990047D0E2 /* TwitterHeart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeart.json; sourceTree = "<group>"; };
 		8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HamburgerArrow.json; sourceTree = "<group>"; };
 		8BB2D2792366C6990047D0E2 /* G.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = G.json; sourceTree = "<group>"; };
@@ -1838,6 +1841,15 @@
 			path = HistoryDataList;
 			sourceTree = "<group>";
 		};
+		8BB0F6CB236BDA77009498B6 /* 喵粮批发订单 */ = {
+			isa = PBXGroup;
+			children = (
+				8BB0F6CC236BDAC2009498B6 /* WholesaleOrdersVC.h */,
+				8BB0F6CD236BDAC2009498B6 /* WholesaleOrdersVC.m */,
+			);
+			path = "喵粮批发订单";
+			sourceTree = "<group>";
+		};
 		8BB2D2732366C6410047D0E2 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -2044,6 +2056,7 @@
 		8BB2D2DC2366C7310047D0E2 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8BB0F6CB236BDA77009498B6 /* 喵粮批发订单 */,
 				8B8B0D9B2369606A0040EE53 /* 发布订单 */,
 				8B8B0D8F2368392D0040EE53 /* 喵粮批发市场 */,
 				8BB2D2DD2366C7310047D0E2 /* 喵粮产地 */,
@@ -4264,6 +4277,7 @@
 				C42CD084213CC2640096675F /* MD5DataSigner.m in Sources */,
 				8B8B0D80236827FB0040EE53 /* WBTableViewDelegate.m in Sources */,
 				8BB2D3942366CC500047D0E2 /* ZYTextField.m in Sources */,
+				8BB0F6CE236BDAC2009498B6 /* WholesaleOrdersVC.m in Sources */,
 				C4824261214F99FA00A9D432 /* CellHeaderMore.m in Sources */,
 				C42CD182213CC2640096675F /* DefaultRefreshView.m in Sources */,
 				C42F5D25213F842300114E0E /* AchievememtController.m in Sources */,

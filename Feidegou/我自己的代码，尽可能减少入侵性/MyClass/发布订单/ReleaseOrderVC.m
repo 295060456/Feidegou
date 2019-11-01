@@ -352,7 +352,6 @@ UITableViewDataSource
 -(void)releaseBtnClickEvent:(UIButton *)sender{
     NSLog(@"发布");
 }
-
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section {
@@ -551,7 +550,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         }
     }
 }
-
 #pragma mark —— lazyLoad
 -(BaseTableViewer *)tableView{
     if (!_tableView) {
@@ -621,3 +619,6 @@ forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
 }
 
 @end
+
+
+
