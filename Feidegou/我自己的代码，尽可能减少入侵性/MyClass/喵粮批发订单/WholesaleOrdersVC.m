@@ -45,9 +45,10 @@
         self.textLabel.text = @"";
         [self.titleLab sizeToFit];
         self.imageViewer.image = (UIImage *)model;
+        self.accessoryType = UITableViewCellAccessoryNone;
+        self.detailTextLabel.text = @"";
     }
 }
-
 #pragma mark —— lazyLoad
 -(UILabel *)titleLab{
     if (!_titleLab) {
@@ -62,6 +63,11 @@
 -(UIImageView *)imageViewer{
     if (!_imageViewer) {
         _imageViewer = UIImageView.new;
+        [UIView cornerCutToCircleWithView:_imageViewer
+                          AndCornerRadius:5.f];
+        [UIView colourToLayerOfView:_imageViewer
+                         WithColour:KGreenColor
+                     AndBorderWidth:.1f];
         [self.contentView addSubview:_imageViewer];
         [_imageViewer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.contentView).offset(SCALING_RATIO(15));
@@ -83,8 +89,9 @@ TZImagePickerControllerDelegate
 
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,weak)TZImagePickerController *imagePickerVC;
-@property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)__block UIImage *img;
+@property(nonatomic,strong)UIButton *deliverBtn;//发货
+@property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
@@ -130,13 +137,24 @@ TZImagePickerControllerDelegate
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.tableView.alpha = 1;
+    self.deliverBtn.alpha = 1;
     self.isFirstComing = YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [_deliverBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
+                                           self.titleMutArr.count * [WholesaleOrdersTBVCell cellHeightWithModel:nil] +
+                                           SCALING_RATIO(30));//附加值
+    }];
 }
 #pragma mark —— 私有方法
+#pragma mark —— 点击事件
+-(void)deliverBtnClickEvent:(UIButton *)sender{
+    NSLog(@"发货");
+}
+
 -(void)backBtnClickEvent:(UIButton *)sender{
     NSLog(@"返回");
     [self.navigationController popViewControllerAnimated:YES];
@@ -246,6 +264,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             if (photos.count == 1) {
                 self.img = photos.lastObject;
                 [self.tableView reloadData];
+                [self.deliverBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
+                                                       (self.titleMutArr.count - 1) * [WholesaleOrdersTBVCell cellHeightWithModel:nil] +
+                                                       [WholesaleOrdersTBVCell cellHeightWithModel:self.img] +
+                                                       SCALING_RATIO(30));//附加值
+                }];
             }else{
                 [self showAlertViewTitle:@"选择一张相片就够啦"
                                  message:@"不要画蛇添足"
@@ -254,6 +278,29 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             }
         }];
     }return _imagePickerVC;
+}
+
+-(UIButton *)deliverBtn{
+    if (!_deliverBtn) {
+        _deliverBtn = UIButton.new;
+        _deliverBtn.backgroundColor = kOrangeColor;
+        [_deliverBtn addTarget:self
+                        action:@selector(deliverBtnClickEvent:)
+              forControlEvents:UIControlEventTouchUpInside];
+        [_deliverBtn setTitle:@"发货"
+                     forState:UIControlStateNormal];
+        [UIView cornerCutToCircleWithView:_deliverBtn
+                          AndCornerRadius:5.f];
+        [UIView colourToLayerOfView:_deliverBtn
+                         WithColour:KGreenColor
+                     AndBorderWidth:.1f];
+        [self.view addSubview:_deliverBtn];
+        [_deliverBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.view);
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100),
+                                             SCALING_RATIO(100)));
+        }];
+    }return _deliverBtn;
 }
 
 -(NSMutableArray<NSString *> *)titleMutArr{
@@ -266,6 +313,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [_titleMutArr addObject:@"支付方式"];
         [_titleMutArr addObject:@"付款账户"];
         [_titleMutArr addObject:@"凭证"];
+        [_titleMutArr addObject:@"状态"];//已付款/已完成/待购
     }return _titleMutArr;
 }
 

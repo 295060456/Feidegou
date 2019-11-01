@@ -580,7 +580,12 @@ forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
 -(UIButton *)releaseBtn{
     if (!_releaseBtn) {
         _releaseBtn = UIButton.new;
-        _releaseBtn.backgroundColor = kRedColor;
+        _releaseBtn.backgroundColor = kOrangeColor;
+        [UIView cornerCutToCircleWithView:_releaseBtn
+                          AndCornerRadius:5.f];
+        [UIView colourToLayerOfView:_releaseBtn
+                         WithColour:KGreenColor
+                     AndBorderWidth:.1f];
         [_releaseBtn setTitle:@"发布"
                      forState:UIControlStateNormal];
         [_releaseBtn addTarget:self
