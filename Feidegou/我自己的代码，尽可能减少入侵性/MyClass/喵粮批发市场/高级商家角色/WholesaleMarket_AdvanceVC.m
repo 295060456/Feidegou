@@ -14,7 +14,6 @@
 UITextFieldDelegate
 >
 {
-    
 }
 
 @property(nonatomic,strong)UILabel *numLab;
@@ -22,10 +21,16 @@ UITextFieldDelegate
 @property(nonatomic,strong)UITextField *textfield;
 @property(nonatomic,strong)UIButton *purchaseBtn;
 @property(nonatomic,strong)id requestParams;
+@property(nonatomic,assign)CGRect framer;
+@property(nonatomic,copy)ActionBlock block;
 
 @end
 
 @implementation WholesaleMarket_AdvancePopView
+
+- (void)dealloc {
+    NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
+}
 
 - (instancetype)initWithRequestParams:(id)requestParams{
     if (self = [super init]) {
@@ -38,7 +43,52 @@ UITextFieldDelegate
     self.purchaseBtn.alpha = 1;
     self.textfield.alpha = 1;
     self.paymentMethodLab.text = @"支付方式";
+    self.framer = self.frame;
 }
+
+-(void)actionBlock:(ActionBlock)block{
+    _block = block;
+}
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches
+           withEvent:(UIEvent *)event {
+//    NSLog(@"touchesMoved");
+    UITouch *touch = [touches anyObject];
+    //当前的point
+    CGPoint currentP = [touch locationInView:self];
+    //以前的point
+    CGPoint preP = [touch previousLocationInView:self];
+    //x轴偏移的量
+    CGFloat offsetX = currentP.x - preP.x;
+    //Y轴偏移的量
+    CGFloat offsetY = currentP.y - preP.y;
+    
+    self.transform = CGAffineTransformTranslate(self.transform, offsetX, 0);
+    
+    if (offsetX < 0) {//向左滑
+//        NSLog(@"向左滑");
+        
+    }
+}
+
+-(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    NSLog(@"%f",self.mj_x);
+
+    if (self.mj_x > (100 - SCREEN_WIDTH) / 2) {
+        self.frame = self.framer;
+    }else{
+        NSLog(@"");
+        self.frame = CGRectMake(-self.mj_w,
+                                self.mj_y,
+                                self.mj_w,
+                                self.mj_h);
+        if (self.block) {
+            self.block();
+        }
+    }
+}
+
 #pragma mark —— UITextFieldDelegate
 //询问委托人是否应该在指定的文本字段中开始编辑
 //- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
@@ -469,6 +519,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         }
                          completion:^(BOOL finished) {
 //            @strongify(self)
+        }];
+        [_popView actionBlock:^{
+            @strongify(self)
+            [self->_popView removeFromSuperview];
+            self->_popView = nil;
         }];
     }return _popView;
 }

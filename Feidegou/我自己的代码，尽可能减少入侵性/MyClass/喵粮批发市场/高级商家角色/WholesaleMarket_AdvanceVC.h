@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WholesaleMarket_AdvancePopView : UIView
 
 - (instancetype)initWithRequestParams:(id)requestParams;
+-(void)actionBlock:(ActionBlock)block;
 
 @end
 
