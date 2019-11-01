@@ -9,6 +9,116 @@
 #import "WholesaleMarket_AdvanceVC.h"
 #import "ReleaseOrderVC.h"
 
+@interface WholesaleMarket_AdvancePopView ()
+<
+UITextFieldDelegate
+>
+{
+    
+}
+
+@property(nonatomic,strong)UILabel *numLab;
+@property(nonatomic,strong)UILabel *paymentMethodLab;
+@property(nonatomic,strong)UITextField *textfield;
+@property(nonatomic,strong)UIButton *purchaseBtn;
+@property(nonatomic,strong)id requestParams;
+
+@end
+
+@implementation WholesaleMarket_AdvancePopView
+
+- (instancetype)initWithRequestParams:(id)requestParams{
+    if (self = [super init]) {
+        self.requestParams = requestParams;//支付方式
+    }return self;
+}
+
+-(void)drawRect:(CGRect)rect{
+    self.numLab.alpha = 1;
+    self.purchaseBtn.alpha = 1;
+    self.textfield.alpha = 1;
+    self.paymentMethodLab.text = @"支付方式";
+}
+#pragma mark —— UITextFieldDelegate
+//询问委托人是否应该在指定的文本字段中开始编辑
+//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
+//告诉委托人在指定的文本字段中开始编辑
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+
+}
+//询问委托人是否应在指定的文本字段中停止编辑
+//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
+//告诉委托人对指定的文本字段停止编辑
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    
+}
+//告诉委托人对指定的文本字段停止编辑
+//- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
+//询问委托人是否应该更改指定的文本
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
+//询问委托人是否应删除文本字段的当前内容
+//- (BOOL)textFieldShouldClear:(UITextField *)textField;
+//询问委托人文本字段是否应处理按下返回按钮
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    return YES;
+}
+#pragma mark —— lazyLoad
+-(UILabel *)numLab{
+    if (!_numLab) {
+        _numLab = UILabel.new;
+        _numLab.text = @"欲购数量:";
+        [_numLab sizeToFit];
+        [self addSubview:_numLab];
+        [_numLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.equalTo(self).offset(SCALING_RATIO(5));
+        }];
+    }return _numLab;
+}
+
+-(UILabel *)paymentMethodLab{
+    if (!_paymentMethodLab) {
+        _paymentMethodLab = UILabel.new;
+        [self addSubview:_paymentMethodLab];
+        [_paymentMethodLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.numLab);
+            make.bottom.equalTo(self).offset(SCALING_RATIO(-5));
+        }];
+    }return _paymentMethodLab;
+}
+
+-(UITextField *)textfield{
+    if (!_textfield) {
+        _textfield = UITextField.new;
+        _textfield.placeholder = @"在此输入数量";
+        _textfield.backgroundColor = KGreenColor;
+        _textfield.delegate = self;
+        [self addSubview:_textfield];
+        [_textfield mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).offset(SCALING_RATIO(5));
+            make.right.equalTo(self.purchaseBtn.mas_left).offset(SCALING_RATIO(-5));
+            make.left.equalTo(self.numLab.mas_right);
+        }];
+    }return _textfield;
+}
+
+-(UIButton *)purchaseBtn{
+    if (!_purchaseBtn) {
+        _purchaseBtn = UIButton.new;
+        _purchaseBtn.backgroundColor = kRedColor;
+        [_purchaseBtn setTitle:@"购买"
+                      forState:UIControlStateNormal];
+        [self addSubview:_purchaseBtn];
+        [_purchaseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).offset(SCALING_RATIO(5));
+            make.right.equalTo(self).offset(SCALING_RATIO(-5));
+            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(50),
+                                             SCALING_RATIO(20)));
+        }];
+    }return _purchaseBtn;
+}
+
+@end
+
 @interface WholesaleMarket_AdvanceTBVCell (){
     
 }
@@ -45,7 +155,7 @@
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCALING_RATIO(100);
+    return SCALING_RATIO(130);
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
@@ -145,6 +255,7 @@ UITableViewDataSource
 
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIButton *refreshBtn;
+@property(nonatomic,strong)WholesaleMarket_AdvancePopView *popView;
 
 @property(nonatomic,strong)NSMutableArray *dataMutArr;
 @property(nonatomic,strong)id requestParams;
@@ -234,6 +345,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
+    self.popView.alpha = 1;
+    NSLog(@"123");
 //    //
 //    //先移除数据源
 //    //
@@ -324,6 +437,40 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                         action:@selector(refreshBtnClickEvent:)
               forControlEvents:UIControlEventTouchUpInside];
     }return _refreshBtn;
+}
+
+-(WholesaleMarket_AdvancePopView *)popView{
+    if (!_popView) {
+        _popView = [[WholesaleMarket_AdvancePopView alloc]initWithRequestParams:@""];//支付方式
+        _popView.backgroundColor = KLightGrayColor;
+        [UIView cornerCutToCircleWithView:_popView
+                          AndCornerRadius:10.f];
+        [UIView colourToLayerOfView:_popView
+                         WithColour:kWhiteColor
+                     AndBorderWidth:0.3f];
+        [self.view addSubview:_popView];
+        [self.view bringSubviewToFront:_popView];
+        _popView.frame = CGRectMake(SCALING_RATIO(50),
+                                    self.view.mj_h,
+                                    SCREEN_WIDTH - SCALING_RATIO(100),
+                                    SCALING_RATIO(50));
+        @weakify(self)
+        [UIView animateWithDuration:0.5f
+                              delay:0.1f
+             usingSpringWithDamping:0.1//弹簧动画的阻尼值 当该属性为1时，表示阻尼非常大，可以看到几乎是没有什么弹动的幅度
+              initialSpringVelocity:1.f//值越小弹簧的动力越小，弹簧拉伸的幅度越小，反之动力越大，弹簧拉伸的幅度越大
+                            options:UIViewAnimationOptionCurveEaseOut//时间曲线函数，由快到慢(快入缓出)
+                         animations:^{
+            @strongify(self)
+            self->_popView.frame = CGRectMake(SCALING_RATIO(50),
+                                              self.view.mj_h - SCALING_RATIO(170),
+                                              SCREEN_WIDTH - SCALING_RATIO(100),
+                                              SCALING_RATIO(60));//弹出框高度
+        }
+                         completion:^(BOOL finished) {
+//            @strongify(self)
+        }];
+    }return _popView;
 }
 
 -(NSMutableArray *)dataMutArr{

@@ -10,6 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface WholesaleMarket_AdvancePopView : UIView
+
+- (instancetype)initWithRequestParams:(id)requestParams;
+
+@end
+
 @interface WholesaleMarket_AdvanceTBVCell : TBVCell_style_01
 
 +(instancetype)cellWith:(UITableView *)tableView;
