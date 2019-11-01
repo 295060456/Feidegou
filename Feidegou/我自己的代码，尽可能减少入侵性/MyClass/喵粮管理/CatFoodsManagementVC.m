@@ -148,15 +148,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                         success:^(id data) {}
                                        animated:YES];
         }else if (indexPath.row == 5){
-//            [WholesaleMarket_AdvanceVC pushFromVC:self_weak_
-//                                  requestParams:nil
-//                                        success:^(id data) {}
-//                                       animated:YES];
+            //切换
+            [WholesaleMarket_AdvanceVC pushFromVC:self_weak_
+                                    requestParams:nil
+                                          success:^(id data) {}
+                                         animated:YES];
             
-            [WholesaleMarket_VipVC pushFromVC:self_weak_
-                                requestParams:nil
-                                      success:^(id data) {}
-                                     animated:YES];
+//            [WholesaleMarket_VipVC pushFromVC:self_weak_
+//                                requestParams:nil
+//                                      success:^(id data) {}
+//                                     animated:YES];
         }else{}
     }else{}
 }
