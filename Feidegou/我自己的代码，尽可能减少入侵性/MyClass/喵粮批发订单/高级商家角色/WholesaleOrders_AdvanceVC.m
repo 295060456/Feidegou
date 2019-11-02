@@ -27,7 +27,6 @@ TZImagePickerControllerDelegate
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
-@property(nonatomic,copy)ActionBlock block;
 
 @end
 
@@ -75,20 +74,13 @@ TZImagePickerControllerDelegate
     [super viewWillAppear:animated];
 
 }
-
--(void)actionBlock:(ActionBlock)block{
-    _block = block;
-}
-
 #pragma mark —— 截取返回手势
 - (void)didMoveToParentViewController:(UIViewController*)parent{
     [super didMoveToParentViewController:parent];
     NSLog(@"%s,%@",__FUNCTION__,parent);
     if(!parent){
       NSLog(@"页面pop成功了");
-        [[WholesaleMarket_AdvancePopView shareManager] removeFromSuperview];
-        WholesaleMarket_AdvancePopView *wholesaleMarket_AdvancePopView = [WholesaleMarket_AdvancePopView shareManager];
-        wholesaleMarket_AdvancePopView = nil;
+        [self removeWholesaleMarket_AdvancePopView];
     }
 }
 #pragma mark —— 私有方法
@@ -105,11 +97,6 @@ TZImagePickerControllerDelegate
             //状态类型参考：ECAuthorizationStatus
             NSLog(@"%lu",(unsigned long)status);
             if (status == ECAuthorizationStatus_Authorized) {
-                
-    //            [self presentViewController:TestVC.new
-    //                               animated:YES
-    //                             completion:Nil];
-
                 [self presentViewController:self.imagePickerVC
                                          animated:YES
                                        completion:nil];
@@ -143,9 +130,9 @@ TZImagePickerControllerDelegate
 }
 
 -(void)removeWholesaleMarket_AdvancePopView{
-    if (self.block) {
-        self.block();
-    }
+    WholesaleMarket_AdvancePopView *wholesaleMarket_AdvancePopView = [WholesaleMarket_AdvancePopView shareManager];
+    [wholesaleMarket_AdvancePopView removeFromSuperview];
+    wholesaleMarket_AdvancePopView = Nil;
 }
 
 #pragma mark —— UITableViewDelegate,UITableViewDataSource

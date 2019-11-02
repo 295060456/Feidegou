@@ -35,11 +35,13 @@ UITextFieldDelegate
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
 
-+ (WholesaleMarket_AdvancePopView *) shareManager {
++ (WholesaleMarket_AdvancePopView *)shareManager {
     static WholesaleMarket_AdvancePopView *wholesaleMarket_AdvancePopView;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        wholesaleMarket_AdvancePopView = WholesaleMarket_AdvancePopView.new;
+        if (!wholesaleMarket_AdvancePopView) {
+            wholesaleMarket_AdvancePopView = WholesaleMarket_AdvancePopView.new;
+        }
     });return wholesaleMarket_AdvancePopView;
 }
 
@@ -58,10 +60,6 @@ UITextFieldDelegate
     self.framer = self.frame;
 }
 
--(void)actionBlock:(ActionBlock)block{
-    _block = block;
-}
-
 -(void)clickBlock:(DataBlock)block{
     _dataBlock = block;
 }
@@ -70,15 +68,10 @@ UITextFieldDelegate
            withEvent:(UIEvent *)event {
 //    NSLog(@"touchesMoved");
     UITouch *touch = [touches anyObject];
-    //当前的point
-    CGPoint currentP = [touch locationInView:self];
-    //以前的point
-    CGPoint preP = [touch previousLocationInView:self];
-    //x轴偏移的量
-    CGFloat offsetX = currentP.x - preP.x;
-    //Y轴偏移的量
-    CGFloat offsetY = currentP.y - preP.y;
-    
+    CGPoint currentP = [touch locationInView:self];//当前的point
+    CGPoint preP = [touch previousLocationInView:self];//以前的point
+    CGFloat offsetX = currentP.x - preP.x;//x轴偏移的量
+//    CGFloat offsetY = currentP.y - preP.y;//Y轴偏移的量
     if (offsetX < 0) {//向左滑
         NSLog(@"向左滑");
         self.transform = CGAffineTransformTranslate(self.transform, offsetX, 0);
@@ -89,7 +82,6 @@ UITextFieldDelegate
 -(void)touchesEnded:(NSSet<UITouch *> *)touches
           withEvent:(UIEvent *)event{
     NSLog(@"%f",self.mj_x);
-
     if (self.mj_x > (100 - SCREEN_WIDTH) / 2) {
         self.frame = self.framer;
     }else{
@@ -98,9 +90,7 @@ UITextFieldDelegate
                                 self.mj_y,
                                 self.mj_w,
                                 self.mj_h);
-        if (self.block) {
-            self.block();
-        }
+        [[WholesaleMarket_AdvancePopView shareManager] removeFromSuperview] ;
     }
 }
 #pragma mark —— 点击事件
@@ -401,8 +391,16 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
 }
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if (_popView) {
+        [_popView removeFromSuperview];
+        _popView = Nil;
+    }
+}
+
 #pragma mark —— 私有方法
 -(void)refreshBtnClickEvent:(UIButton *)sender{
     [self.tableView.mj_header beginRefreshing];
@@ -432,32 +430,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-    _popView = nil;
+    if (_popView) {
+        _popView = nil;
+    }
     self.popView.alpha = 1;
-    NSLog(@"123");
-//    //
-//    //先移除数据源
-//    //
-//    self.isDelCell = YES;
-//
-//    [self.dataMutArr removeObjectAtIndex:indexPath.row];
-//
-//    [self.tableView beginUpdates];
-//    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-//                            withRowAnimation:UITableViewRowAnimationMiddle];
-//    [self.tableView endUpdates];
-//    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
-//                    withRowAnimation:UITableViewRowAnimationNone];
-//
-//    @weakify(self)
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-//                                 (int64_t)(0.7 * NSEC_PER_SEC)),
-//                   dispatch_get_main_queue(), ^{
-//        [OrderDetail_BuyerVC pushFromVC:self_weak_
-//                          requestParams:nil
-//                                success:^(id data) {}
-//                               animated:YES];
-//    });
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -477,7 +453,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-
 //给cell添加动画
 -(void)tableView:(UITableView *)tableView
  willDisplayCell:(UITableViewCell *)cell
@@ -558,25 +533,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                          completion:^(BOOL finished) {
 //            @strongify(self)
         }];
-        [_popView actionBlock:^{
-            @strongify(self)
-            [self->_popView removeFromSuperview];
-            self->_popView = nil;
-            NSLog(@"");
-        }];
         [_popView clickBlock:^(id data) {
-            @strongify(self)
-            
-            WholesaleOrders_AdvanceVC *wholesaleOrders_AdvanceVC = [WholesaleOrders_AdvanceVC pushFromVC:self
-                                                                                           requestParams:nil
-                                                                                                 success:^(id data) {}
-                                                                                                animated:YES];
-            @weakify(self)
-            [wholesaleOrders_AdvanceVC actionBlock:^{
-                @strongify(self)
-                [self.popView removeFromSuperview];
-                self.popView = Nil;
-            }];
+            [WholesaleOrders_AdvanceVC pushFromVC:self_weak_
+                                    requestParams:nil
+                                          success:^(id data) {}
+                                         animated:YES];
         }];
     }return _popView;
 }
