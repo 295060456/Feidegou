@@ -13,10 +13,7 @@
  */
 typedef void(^TableViewDidSelectRowAtIndexPath)(NSInteger indexRow);
 
-
 @interface WBTableViewDelegate : NSObject <UITableViewDelegate>
-
-
 /**
  * 对 cell 代理初始化
  */

@@ -53,26 +53,20 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
 - (void)motionBegan:(UIEventSubtype)motion
           withEvent:(nullable UIEvent *)event{
     NSLog(@"摇晃");
-//    NSMutableArray *obj = NSMutableArray.array;
-//    for (NSInteger i = 0; i < self.titlesMutArr.count; i++) {
-//        WBPopMenuModel *info = [WBPopMenuModel new];
-//        info.image = [self imagesMutArr][i];
-//        info.title = [self titlesMutArr][i];
-//        [obj addObject:info];
-//    }
-//
-//    [[WBPopMenuSingleton shareManager] showPopMenuSelecteWithFrame:self.bounds
-//                                                         menuWidth:150
-//                                                              item:obj
-//                                                            action:^(NSInteger index) {
-//        NSLog(@"index:%ld",(long)index);
-//    }];
+    NSMutableArray *obj = NSMutableArray.array;
+    for (NSInteger i = 0; i < self.titlesMutArr.count; i++) {
+        WBPopMenuModel *info = WBPopMenuModel.new;
+        info.image = [self imagesMutArr][i];
+        info.title = [self titlesMutArr][i];
+        [obj addObject:info];
+    }
 
-////    [[WBPopMenuSingleton shareManager] showPopMenuSelecteWithFrame:150
-////                                                              item:obj
-////                                                            action:^(NSInteger index) {
-////        NSLog(@"index:%ld",(long)index);
-//// }];
+    [[WBPopMenuSingleton shareManager] showPopMenuSelecteWithFrame:self.frame
+                                                         menuWidth:150
+                                                              item:obj
+                                                            action:^(NSInteger index) {
+        NSLog(@"index:%ld",(long)index);
+    }];
 }
 
 - (void)motionEnded:(UIEventSubtype)motion

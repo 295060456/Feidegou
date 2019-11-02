@@ -9,34 +9,23 @@
 
 @implementation WBTableViewCell
 
++ (instancetype)cellAllocWithTableView:(UITableView *)tableView {
+    WBTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([self class])];
+    if (!cell) {
+        cell = [[[self class] alloc] initWithStyle:0
+                                   reuseIdentifier:NSStringFromClass([self class])];
+    }return cell;
+}
 
-- (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+- (instancetype)initWithStyle:(UITableViewCellStyle)style
+              reuseIdentifier:(NSString *)reuseIdentifier {
+    if (self = [super initWithStyle:style
+                    reuseIdentifier:reuseIdentifier]) {
         self.textLabel.font = [UIFont systemFontOfSize:15];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    return self;
-}
-
-+ (instancetype) cellAllocWithTableView:(UITableView *)tableView {
-    
-    WBTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([self class])];
-    if (cell == nil) {
-        cell = [[[self class] alloc] initWithStyle:0 reuseIdentifier:NSStringFromClass([self class])];
-    }
-    return cell;
+    }return self;
 }
 
 
-- (void)awakeFromNib {
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
 
 @end

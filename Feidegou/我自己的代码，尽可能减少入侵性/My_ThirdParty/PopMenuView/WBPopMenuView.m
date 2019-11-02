@@ -13,107 +13,112 @@
 #import "WBPopMenuModel.h"
 #import "WBPopMenuSingleton.h"
 
-#define WBNUMBER 6
-
 @interface WBPopMenuView ()
-@property (nonatomic, strong) WBTableViewDataSource * tableViewDataSource;
-@property (nonatomic, strong) WBTableViewDelegate   * tableViewDelegate;
+
+@property(nonatomic,strong)WBTableViewDataSource *tableViewDataSource;
+@property(nonatomic,strong)WBTableViewDelegate   *tableViewDelegate;
+@property(nonatomic,assign)CGRect framer;
+
 @end
 
 @implementation WBPopMenuView
 
-- (instancetype) init {
+- (instancetype)initWithFrame:(CGRect)frame//悬浮宠物的frame
+                    menuWidth:(CGFloat)menuWidth
+               menuCellHeight:(CGFloat)menuCellHeight
+                        items:(NSArray *)items
+                       action:(void(^)(NSInteger index))action{
     if (self = [super init]) {
-        
-    }
-    return self;
+        self.framer = frame;
+        self.menuWidth = menuWidth;
+        self.menuCellHeight = menuCellHeight;
+        self.menuItem = items;
+        self.action = action;
+    }return self;
 }
 
-- (instancetype) initWithFrame:(CGRect)frame
-                     menuWidth:(CGFloat)menuWidth
-                         items:(NSArray *)items
-                        action:(void(^)(NSInteger index))action {
-    if (self = [super initWithFrame:frame]) {
-        self.menuWidth = menuWidth;
-        self.menuItem = items;
-        self.action = [action copy];
+-(void)drawRect:(CGRect)rect{
+    self.tableView.alpha = 1;
+}
 
-        self.tableViewDataSource = [[WBTableViewDataSource alloc]initWithItems:items cellClass:[WBTableViewCell class] configureCellBlock:^(WBTableViewCell *cell, WBPopMenuModel *model) {
-            WBTableViewCell * tableViewCell = (WBTableViewCell *)cell;
+- (CGRect)menuFrame {//KKK
+    //因为是靠边停靠模式，所以x只有两个值
+    CGFloat menuX = 0.f;
+    CGFloat menuY = 0.f;
+    CGFloat width = self.menuWidth;
+    CGFloat heigh = self.menuCellHeight * self.menuItem.count;
+    if (self.framer.origin.x == 0) {//Q宠在左边
+        menuX = self.menuWidth;
+        if (self.framer.origin.y < SCREEN_HEIGHT / 2) {//菜单出现在下边 OK
+            menuY = self.framer.size.height;
+        }else{//菜单出现在上边
+            menuY = self.framer.origin.y - self.framer.size.height - self.menuItem.count * self.menuCellHeight;
+        }
+    }else{//Q宠在右边
+        menuX = SCREEN_WIDTH - self.menuWidth;
+        if (self.framer.origin.y < SCREEN_HEIGHT / 2) {//菜单出现在下边
+            menuY = self.framer.size.height;
+        }else{//菜单出现在上边
+            menuY = self.framer.origin.y - self.framer.size.height - self.menuItem.count * self.menuCellHeight;
+        }
+    }return (CGRect){
+        menuX,
+        menuY,
+        width,
+        heigh
+    };
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches
+           withEvent:(UIEvent *)event {
+    
+    [[WBPopMenuSingleton shareManager] hideMenu];
+}
+
+#pragma mark —— lazyLoad
+-(UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:[self menuFrame]
+                                                 style:UITableViewStylePlain];
+        _tableView.dataSource = self.tableViewDataSource;
+        _tableView.delegate = self.tableViewDelegate;
+        _tableView.layer.cornerRadius = 10.0f;
+        _tableView.layer.anchorPoint = CGPointMake(1.0, 0);
+        _tableView.transform = CGAffineTransformMakeScale(0.0001, 0.0001);
+        _tableView.rowHeight = 40;
+        [self addSubview:_tableView];
+        if ([_tableView respondsToSelector:@selector(setSeparatorInset:)]) {
+            [_tableView setSeparatorInset:UIEdgeInsetsZero];
+        }
+        if ([_tableView respondsToSelector:@selector(setLayoutMargins:)]) {
+            [_tableView setLayoutMargins:UIEdgeInsetsZero];
+        }
+    }return _tableView;
+}
+
+-(WBTableViewDataSource *)tableViewDataSource{
+    if (!_tableViewDataSource) {
+        _tableViewDataSource = [[WBTableViewDataSource alloc]initWithItems:self.menuItem
+                                                                 cellClass:[WBTableViewCell class]
+                                                        configureCellBlock:^(WBTableViewCell *cell,
+                                                                             WBPopMenuModel *model) {
+            WBTableViewCell *tableViewCell = (WBTableViewCell *)cell;
             tableViewCell.textLabel.text = model.title;
             tableViewCell.imageView.image = [UIImage imageNamed:model.image];
         }];
-        self.tableViewDelegate = [[WBTableViewDelegate alloc]initWithDidSelectRowAtIndexPath:^(NSInteger indexRow) {
+    }return _tableViewDataSource;
+}
+
+-(WBTableViewDelegate *)tableViewDelegate{
+    if (!_tableViewDelegate) {
+        @weakify(self)
+        _tableViewDelegate = [[WBTableViewDelegate alloc] initWithDidSelectRowAtIndexPath:^(NSInteger indexRow) {
+            @strongify(self)
             if (self.action) {
                 self.action(indexRow);
             }
         }];
-
-
-        self.tableView = [[UITableView alloc]initWithFrame:[self menuFrame] style:UITableViewStylePlain];
-        self.tableView.dataSource = self.tableViewDataSource;
-        self.tableView.delegate   = self.tableViewDelegate;
-        self.tableView.layer.cornerRadius = 10.0f;
-        self.tableView.layer.anchorPoint = CGPointMake(1.0, 0);
-        self.tableView.transform = CGAffineTransformMakeScale(0.0001, 0.0001);
-        self.tableView.rowHeight = 40;
-        [self addSubview:self.tableView];
-        
-        if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) {
-            [self.tableView setSeparatorInset:UIEdgeInsetsZero];
-        }
-        if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) {
-            [self.tableView setLayoutMargins:UIEdgeInsetsZero];
-        }
-        
-    }
-    return self;
-}
-
-- (CGRect)menuFrame {
-    CGFloat menuX = [UIScreen mainScreen].bounds.size.width - 130;
-    CGFloat menuY = 180 - 20 * WBNUMBER;
-    CGFloat width = self.menuWidth;
-    CGFloat heigh = 40 * WBNUMBER;
-    return (CGRect){menuX,menuY,width,heigh};
-}
-
-#pragma mark 绘制三角形
-- (void)drawRect:(CGRect)rect
-
-{
-    // 设置背景色
-    [[UIColor whiteColor] set];
-    //拿到当前视图准备好的画板
-    
-    CGContextRef  context = UIGraphicsGetCurrentContext();
-    
-    //利用path进行绘制三角形
-    
-    CGContextBeginPath(context);//标记
-    CGFloat location = [UIScreen mainScreen].bounds.size.width-55;
-    CGContextMoveToPoint(context,
-                         location -  10 - 10, 180);//设置起点
-    
-    CGContextAddLineToPoint(context,
-                            location - 2*10 - 10 ,  170);
-    
-    CGContextAddLineToPoint(context,
-                            location - 10 * 3 - 10, 180);
-    
-    CGContextClosePath(context);//路径结束标志，不写默认封闭
-    
-    [[UIColor whiteColor] setFill];  //设置填充色
-    
-    [[UIColor whiteColor] setStroke]; //设置边框颜色
-    
-    CGContextDrawPath(context,
-                      kCGPathFillStroke);//绘制路径path
-    
-}
-
-- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [[WBPopMenuSingleton shareManager]hideMenu];
+    }return _tableViewDelegate;
 }
 
 @end

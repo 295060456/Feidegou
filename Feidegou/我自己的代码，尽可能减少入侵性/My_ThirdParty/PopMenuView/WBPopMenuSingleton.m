@@ -11,19 +11,24 @@
 
 @interface WBPopMenuSingleton ()
 
-@property (nonatomic, strong) WBPopMenuView * popMenuView;
+@property(nonatomic,strong)WBPopMenuView *popMenuView;
+@property(nonatomic,strong)NSArray *item;
+@property(nonatomic,assign)CGFloat width;
+@property(nonatomic,assign)CGRect framer;
+@property(nonatomic,copy)void (^action)(NSInteger);
 
 @end
 
 @implementation WBPopMenuSingleton
 
 + (WBPopMenuSingleton *) shareManager {
-    static WBPopMenuSingleton *_PopMenuSingleton;
+    static WBPopMenuSingleton *popMenuSingleton;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _PopMenuSingleton = [[WBPopMenuSingleton alloc]init];
-    });
-    return _PopMenuSingleton;
+        if (!popMenuSingleton) {
+            popMenuSingleton = WBPopMenuSingleton.new;
+        }
+    });return popMenuSingleton;
 }
 
 - (void)showPopMenuSelecteWithFrame:(CGRect)frame
@@ -31,21 +36,13 @@
                                 item:(NSArray *)item
                               action:(void (^)(NSInteger))action {
     @weakify(self)
-    if (self.popMenuView != nil) {
+    self.item = item;
+    self.width = width;
+    self.framer = frame;
+    if (_popMenuView) {
         [self_weak_ hideMenu];
     }
-    UIWindow * window = [[[UIApplication sharedApplication] windows] firstObject];
-    self.popMenuView = [[WBPopMenuView alloc]initWithFrame:window.bounds
-                                             menuWidth:width
-                                                 items:item
-                                                action:^(NSInteger index) {
-        @strongify(self)
-        action(index);
-        [self hideMenu];
-                                                }];
-    self.popMenuView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.1];
-    [window addSubview:self.popMenuView];
-    
+    self.action = action;
     [UIView animateWithDuration:0.3f
                      animations:^{
         @strongify(self)
@@ -53,9 +50,9 @@
     }];
 }
 
-- (void) hideMenu {
+- (void)hideMenu {
     @weakify(self)
-    [UIView animateWithDuration:0.15
+    [UIView animateWithDuration:0.15f
                      animations:^{
         @strongify(self)
         self.popMenuView.tableView.transform = CGAffineTransformMakeScale(0.0001, 0.0001);
@@ -66,6 +63,23 @@
         self.popMenuView.tableView = nil;
         self.popMenuView = nil;
     }];
+}
+#pragma mark —— lazyLoad
+-(WBPopMenuView *)popMenuView{
+    if (!_popMenuView) {
+        @weakify(self)
+        _popMenuView = [[WBPopMenuView alloc]initWithFrame:self.framer 
+                                                 menuWidth:self.width
+                                            menuCellHeight:SCALING_RATIO(40.f)
+                                                     items:self.item
+                                                    action:^(NSInteger index) {
+            @strongify(self)
+            self.action(index);
+            [self hideMenu];
+        }];
+        _popMenuView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.1f];
+        [[[UIApplication sharedApplication] windows].firstObject addSubview:_popMenuView];
+    }return _popMenuView;
 }
 
 
