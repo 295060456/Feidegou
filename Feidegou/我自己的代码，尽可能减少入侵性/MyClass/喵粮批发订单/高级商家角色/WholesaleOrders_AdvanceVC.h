@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
                    success:(DataBlock)block
                   animated:(BOOL)animated;
 
+-(void)actionBlock:(ActionBlock)block;
+
 @end
 
 NS_ASSUME_NONNULL_END

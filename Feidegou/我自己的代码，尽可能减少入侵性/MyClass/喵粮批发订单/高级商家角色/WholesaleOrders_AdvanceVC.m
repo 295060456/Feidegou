@@ -27,6 +27,7 @@ TZImagePickerControllerDelegate
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
+@property(nonatomic,copy)ActionBlock block;
 
 @end
 
@@ -74,6 +75,11 @@ TZImagePickerControllerDelegate
     [super viewWillAppear:animated];
 
 }
+
+-(void)actionBlock:(ActionBlock)block{
+    _block = block;
+}
+
 #pragma mark —— 截取返回手势
 - (void)didMoveToParentViewController:(UIViewController*)parent{
     [super didMoveToParentViewController:parent];
@@ -119,9 +125,7 @@ TZImagePickerControllerDelegate
         if (self.img) {
             NSLog(@"网络请求 传 self.img");
             [self.navigationController popViewControllerAnimated:YES];
-            [[WholesaleMarket_AdvancePopView shareManager] removeFromSuperview];
-            WholesaleMarket_AdvancePopView *wholesaleMarket_AdvancePopView = [WholesaleMarket_AdvancePopView shareManager];
-            wholesaleMarket_AdvancePopView = nil;
+            [self removeWholesaleMarket_AdvancePopView];
         }
     }
 }
@@ -129,18 +133,21 @@ TZImagePickerControllerDelegate
 -(void)cancelBtnClickEvent:(UIButton *)sender{
     NSLog(@"取消");
     [self.navigationController popViewControllerAnimated:YES];
-    [[WholesaleMarket_AdvancePopView shareManager] removeFromSuperview];
-    WholesaleMarket_AdvancePopView *wholesaleMarket_AdvancePopView = [WholesaleMarket_AdvancePopView shareManager];
-    wholesaleMarket_AdvancePopView = nil;
+    [self removeWholesaleMarket_AdvancePopView];
 }
 
 -(void)backBtnClickEvent:(UIButton *)sender{
     NSLog(@"返回");
     [self.navigationController popViewControllerAnimated:YES];
-    [[WholesaleMarket_AdvancePopView shareManager] removeFromSuperview];
-    WholesaleMarket_AdvancePopView *wholesaleMarket_AdvancePopView = [WholesaleMarket_AdvancePopView shareManager];
-    wholesaleMarket_AdvancePopView = nil;
+    [self removeWholesaleMarket_AdvancePopView];
 }
+
+-(void)removeWholesaleMarket_AdvancePopView{
+    if (self.block) {
+        self.block();
+    }
+}
+
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{

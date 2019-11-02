@@ -342,7 +342,7 @@ UITableViewDataSource
 
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIButton *refreshBtn;
-@property(nonatomic,strong)WholesaleMarket_AdvancePopView *popView;
+@property(nonatomic,weak)WholesaleMarket_AdvancePopView *popView;
 
 @property(nonatomic,strong)NSMutableArray *dataMutArr;
 @property(nonatomic,strong)id requestParams;
@@ -432,6 +432,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
+    _popView = nil;
     self.popView.alpha = 1;
     NSLog(@"123");
 //    //
@@ -561,13 +562,21 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             @strongify(self)
             [self->_popView removeFromSuperview];
             self->_popView = nil;
+            NSLog(@"");
         }];
         [_popView clickBlock:^(id data) {
             @strongify(self)
-            [WholesaleOrders_AdvanceVC pushFromVC:self
-                                    requestParams:nil
-                                          success:^(id data) {}
-                                         animated:YES];
+            
+            WholesaleOrders_AdvanceVC *wholesaleOrders_AdvanceVC = [WholesaleOrders_AdvanceVC pushFromVC:self
+                                                                                           requestParams:nil
+                                                                                                 success:^(id data) {}
+                                                                                                animated:YES];
+            @weakify(self)
+            [wholesaleOrders_AdvanceVC actionBlock:^{
+                @strongify(self)
+                [self.popView removeFromSuperview];
+                self.popView = Nil;
+            }];
         }];
     }return _popView;
 }
