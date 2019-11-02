@@ -35,6 +35,14 @@ UITextFieldDelegate
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
 
++ (WholesaleMarket_AdvancePopView *) shareManager {
+    static WholesaleMarket_AdvancePopView *wholesaleMarket_AdvancePopView;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        wholesaleMarket_AdvancePopView = WholesaleMarket_AdvancePopView.new;
+    });return wholesaleMarket_AdvancePopView;
+}
+
 - (instancetype)initWithRequestParams:(id)requestParams{
     if (self = [super init]) {
         self.requestParams = requestParams;//支付方式
@@ -520,7 +528,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(WholesaleMarket_AdvancePopView *)popView{
     if (!_popView) {
-        _popView = [[WholesaleMarket_AdvancePopView alloc]initWithRequestParams:@""];//支付方式
+        _popView = [[WholesaleMarket_AdvancePopView shareManager] initWithRequestParams:@""];//支付方式
         _popView.backgroundColor = KLightGrayColor;
         [UIView cornerCutToCircleWithView:_popView
                           AndCornerRadius:10.f];

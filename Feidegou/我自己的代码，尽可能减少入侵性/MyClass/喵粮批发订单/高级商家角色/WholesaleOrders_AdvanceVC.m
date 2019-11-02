@@ -7,6 +7,7 @@
 //
 
 #import "WholesaleOrders_AdvanceVC.h"
+#import "WholesaleMarket_AdvanceVC.h"
 
 @interface WholesaleOrders_AdvanceVC ()
 <
@@ -107,6 +108,9 @@ TZImagePickerControllerDelegate
         if (self.img) {
             NSLog(@"网络请求 传 self.img");
             [self.navigationController popViewControllerAnimated:YES];
+            [[WholesaleMarket_AdvancePopView shareManager] removeFromSuperview];
+            WholesaleMarket_AdvancePopView *wholesaleMarket_AdvancePopView = [WholesaleMarket_AdvancePopView shareManager];
+            wholesaleMarket_AdvancePopView = nil;
         }
     }
 }
