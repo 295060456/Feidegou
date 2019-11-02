@@ -7,32 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "43FC3BB2-989B-4F07-9BB1-4B9FE5CBD452"
+            uuid = "A93F4754-5845-4F28-A629-EC1307E91D26"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x55b5;&#x7cae;&#x6279;&#x53d1;&#x5e02;&#x573a;/&#x9ad8;&#x7ea7;&#x5546;&#x5bb6;&#x89d2;&#x8272;/WholesaleMarket_AdvanceVC.m"
+            filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x55b5;&#x7cae;&#x6279;&#x53d1;&#x8ba2;&#x5355;/&#x9ad8;&#x7ea7;&#x5546;&#x5bb6;&#x89d2;&#x8272;/WholesaleOrders_AdvanceVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "WholesaleMarket_AdvancePopView"
-            landmarkType = "3">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "74D6D0FA-4C81-412D-9462-35FAFD868BC1"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x55b5;&#x7cae;&#x6279;&#x53d1;&#x5e02;&#x573a;/&#x9ad8;&#x7ea7;&#x5546;&#x5bb6;&#x89d2;&#x8272;/WholesaleMarket_AdvanceVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "567"
-            endingLineNumber = "567"
-            landmarkName = "-popView"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "-didMoveToParentViewController:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

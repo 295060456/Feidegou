@@ -74,6 +74,18 @@ TZImagePickerControllerDelegate
     [super viewWillAppear:animated];
 
 }
+- (void)willMoveToParentViewController:(UIViewController*)parent{
+    [super willMoveToParentViewController:parent];
+    NSLog(@"%s,%@",__FUNCTION__,parent);
+}
+- (void)didMoveToParentViewController:(UIViewController*)parent{
+    [super didMoveToParentViewController:parent];
+    NSLog(@"%s,%@",__FUNCTION__,parent);
+    if(!parent){
+      NSLog(@"页面pop成功了");
+    }
+}
+
 #pragma mark —— 私有方法
 #pragma mark —— 点击事件
 -(void)paidBtnClickEvent:(UIButton *)sender{
@@ -117,11 +129,18 @@ TZImagePickerControllerDelegate
 
 -(void)cancelBtnClickEvent:(UIButton *)sender{
     NSLog(@"取消");
+    [self.navigationController popViewControllerAnimated:YES];
+    [[WholesaleMarket_AdvancePopView shareManager] removeFromSuperview];
+    WholesaleMarket_AdvancePopView *wholesaleMarket_AdvancePopView = [WholesaleMarket_AdvancePopView shareManager];
+    wholesaleMarket_AdvancePopView = nil;
 }
 
 -(void)backBtnClickEvent:(UIButton *)sender{
     NSLog(@"返回");
     [self.navigationController popViewControllerAnimated:YES];
+    [[WholesaleMarket_AdvancePopView shareManager] removeFromSuperview];
+    WholesaleMarket_AdvancePopView *wholesaleMarket_AdvancePopView = [WholesaleMarket_AdvancePopView shareManager];
+    wholesaleMarket_AdvancePopView = nil;
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
