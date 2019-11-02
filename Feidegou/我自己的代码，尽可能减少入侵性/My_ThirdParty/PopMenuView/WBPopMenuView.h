@@ -11,15 +11,15 @@
 @interface WBPopMenuView : UIView
 
 @property(nonatomic,assign)CGFloat menuWidth;
-@property(nonatomic,assign)CGFloat menuCellHeight;
 @property(nonatomic,copy)void(^action)(NSInteger index);
-@property(nonatomic,copy)NSArray *menuItem;
-@property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,copy)NSArray * menuItem;
+@property(nonatomic,strong)UITableView * tableView;
 
-- (instancetype)initWithFrame:(CGRect)frame//悬浮宠物的frame
-                    menuWidth:(CGFloat)menuWidth
+
+- (instancetype)initWithFrame:(CGRect)frame
+                    QPetFrame:(CGRect)QPetFrame
                menuCellHeight:(CGFloat)menuCellHeight
+                    menuWidth:(CGFloat)menuWidth
                         items:(NSArray *)items
                        action:(void(^)(NSInteger index))action;
-
 @end

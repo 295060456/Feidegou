@@ -13,12 +13,16 @@
 /**
  * 由model 设置cell 的回调
  */
-typedef void(^TableViewCellConfigureBlock)(WBTableViewCell * cell,WBPopMenuModel * model);
+typedef void(^TableViewCellConfigureBlock)(WBTableViewCell *cell,
+                                           WBPopMenuModel *model);
 
 /**
  * 数据源管理类的封装
  */
-@interface WBTableViewDataSource : NSObject <UITableViewDataSource>
+@interface WBTableViewDataSource : NSObject
+<
+UITableViewDataSource
+>
 
 /**
  *  创建数据源管理
@@ -27,8 +31,8 @@ typedef void(^TableViewCellConfigureBlock)(WBTableViewCell * cell,WBPopMenuModel
  *  @param cellClass           cell 类
  *  @param aConfigureCellBlock 设置cell的回调
  */
-- (instancetype) initWithItems:(NSArray *)anItems
-                     cellClass:(Class)cellClass
-            configureCellBlock:(TableViewCellConfigureBlock)aConfigureCellBlock;
+- (instancetype)initWithItems:(NSArray *)anItems
+                    cellClass:(Class)cellClass
+           configureCellBlock:(TableViewCellConfigureBlock)aConfigureCellBlock;
 
 @end

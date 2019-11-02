@@ -19,14 +19,14 @@
 		8B627331236A88D000749F09 /* File in Resources */ = {isa = PBXBuildFile; fileRef = 8B627324236A88D000749F09 /* File */; };
 		8B627332236A88D000749F09 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B62732A236A88D000749F09 /* NSData+CommonCrypto.m */; };
 		8B627333236A88D000749F09 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B62732B236A88D000749F09 /* NSData+Base64.m */; };
+		8B7A54E8236D6DD1006B12F8 /* WBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A54DC236D6DCF006B12F8 /* WBTableViewCell.m */; };
+		8B7A54E9236D6DD1006B12F8 /* WBPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A54DE236D6DD0006B12F8 /* WBPopMenuView.m */; };
+		8B7A54EA236D6DD1006B12F8 /* WBTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A54DF236D6DD0006B12F8 /* WBTableViewDelegate.m */; };
+		8B7A54EB236D6DD1006B12F8 /* WBPopMenuSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A54E1236D6DD0006B12F8 /* WBPopMenuSingleton.m */; };
+		8B7A54EC236D6DD1006B12F8 /* WBPopMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A54E2236D6DD0006B12F8 /* WBPopMenuModel.m */; };
+		8B7A54ED236D6DD1006B12F8 /* WBTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A54E3236D6DD0006B12F8 /* WBTableViewDataSource.m */; };
 		8B8B0D0A236814960040EE53 /* TestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2912366C7290047D0E2 /* TestVC.m */; };
 		8B8B0D0D236815140040EE53 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D0C236815140040EE53 /* TestView.m */; };
-		8B8B0D7D236827FB0040EE53 /* WBPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D72236827FA0040EE53 /* WBPopMenuView.m */; };
-		8B8B0D7E236827FB0040EE53 /* WBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D75236827FA0040EE53 /* WBTableViewCell.m */; };
-		8B8B0D7F236827FB0040EE53 /* WBTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D76236827FA0040EE53 /* WBTableViewDataSource.m */; };
-		8B8B0D80236827FB0040EE53 /* WBTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D78236827FA0040EE53 /* WBTableViewDelegate.m */; };
-		8B8B0D81236827FB0040EE53 /* WBPopMenuSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D79236827FB0040EE53 /* WBPopMenuSingleton.m */; };
-		8B8B0D82236827FB0040EE53 /* WBPopMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D7A236827FB0040EE53 /* WBPopMenuModel.m */; };
 		8B8B0D89236828BB0040EE53 /* right_menu_facetoface@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B8B0D83236828BB0040EE53 /* right_menu_facetoface@3x.png */; };
 		8B8B0D8A236828BB0040EE53 /* right_menu_addFri@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B8B0D84236828BB0040EE53 /* right_menu_addFri@3x.png */; };
 		8B8B0D8B236828BB0040EE53 /* right_menu_QR@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B8B0D85236828BB0040EE53 /* right_menu_QR@3x.png */; };
@@ -620,20 +620,20 @@
 		8B627329236A88D000749F09 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
 		8B62732A236A88D000749F09 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
 		8B62732B236A88D000749F09 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		8B7A54DC236D6DCF006B12F8 /* WBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTableViewCell.m; sourceTree = "<group>"; };
+		8B7A54DD236D6DD0006B12F8 /* WBTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTableViewDataSource.h; sourceTree = "<group>"; };
+		8B7A54DE236D6DD0006B12F8 /* WBPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuView.m; sourceTree = "<group>"; };
+		8B7A54DF236D6DD0006B12F8 /* WBTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTableViewDelegate.m; sourceTree = "<group>"; };
+		8B7A54E0236D6DD0006B12F8 /* WBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTableViewCell.h; sourceTree = "<group>"; };
+		8B7A54E1236D6DD0006B12F8 /* WBPopMenuSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuSingleton.m; sourceTree = "<group>"; };
+		8B7A54E2236D6DD0006B12F8 /* WBPopMenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuModel.m; sourceTree = "<group>"; };
+		8B7A54E3236D6DD0006B12F8 /* WBTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTableViewDataSource.m; sourceTree = "<group>"; };
+		8B7A54E4236D6DD1006B12F8 /* WBTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTableViewDelegate.h; sourceTree = "<group>"; };
+		8B7A54E5236D6DD1006B12F8 /* WBPopMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuModel.h; sourceTree = "<group>"; };
+		8B7A54E6236D6DD1006B12F8 /* WBPopMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuView.h; sourceTree = "<group>"; };
+		8B7A54E7236D6DD1006B12F8 /* WBPopMenuSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuSingleton.h; sourceTree = "<group>"; };
 		8B8B0D0B236815140040EE53 /* TestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
 		8B8B0D0C236815140040EE53 /* TestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
-		8B8B0D71236827FA0040EE53 /* WBPopMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuModel.h; sourceTree = "<group>"; };
-		8B8B0D72236827FA0040EE53 /* WBPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuView.m; sourceTree = "<group>"; };
-		8B8B0D73236827FA0040EE53 /* WBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTableViewCell.h; sourceTree = "<group>"; };
-		8B8B0D74236827FA0040EE53 /* WBPopMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuView.h; sourceTree = "<group>"; };
-		8B8B0D75236827FA0040EE53 /* WBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTableViewCell.m; sourceTree = "<group>"; };
-		8B8B0D76236827FA0040EE53 /* WBTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTableViewDataSource.m; sourceTree = "<group>"; };
-		8B8B0D77236827FA0040EE53 /* WBTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTableViewDataSource.h; sourceTree = "<group>"; };
-		8B8B0D78236827FA0040EE53 /* WBTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTableViewDelegate.m; sourceTree = "<group>"; };
-		8B8B0D79236827FB0040EE53 /* WBPopMenuSingleton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuSingleton.m; sourceTree = "<group>"; };
-		8B8B0D7A236827FB0040EE53 /* WBPopMenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuModel.m; sourceTree = "<group>"; };
-		8B8B0D7B236827FB0040EE53 /* WBPopMenuSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuSingleton.h; sourceTree = "<group>"; };
-		8B8B0D7C236827FB0040EE53 /* WBTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTableViewDelegate.h; sourceTree = "<group>"; };
 		8B8B0D83236828BB0040EE53 /* right_menu_facetoface@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_menu_facetoface@3x.png"; sourceTree = "<group>"; };
 		8B8B0D84236828BB0040EE53 /* right_menu_addFri@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_menu_addFri@3x.png"; sourceTree = "<group>"; };
 		8B8B0D85236828BB0040EE53 /* right_menu_QR@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_menu_QR@3x.png"; sourceTree = "<group>"; };
@@ -1781,18 +1781,18 @@
 		8B8B0D702368278E0040EE53 /* PopMenuView */ = {
 			isa = PBXGroup;
 			children = (
-				8B8B0D7B236827FB0040EE53 /* WBPopMenuSingleton.h */,
-				8B8B0D79236827FB0040EE53 /* WBPopMenuSingleton.m */,
-				8B8B0D74236827FA0040EE53 /* WBPopMenuView.h */,
-				8B8B0D72236827FA0040EE53 /* WBPopMenuView.m */,
-				8B8B0D73236827FA0040EE53 /* WBTableViewCell.h */,
-				8B8B0D75236827FA0040EE53 /* WBTableViewCell.m */,
-				8B8B0D77236827FA0040EE53 /* WBTableViewDataSource.h */,
-				8B8B0D76236827FA0040EE53 /* WBTableViewDataSource.m */,
-				8B8B0D7C236827FB0040EE53 /* WBTableViewDelegate.h */,
-				8B8B0D78236827FA0040EE53 /* WBTableViewDelegate.m */,
-				8B8B0D71236827FA0040EE53 /* WBPopMenuModel.h */,
-				8B8B0D7A236827FB0040EE53 /* WBPopMenuModel.m */,
+				8B7A54E7236D6DD1006B12F8 /* WBPopMenuSingleton.h */,
+				8B7A54E1236D6DD0006B12F8 /* WBPopMenuSingleton.m */,
+				8B7A54E6236D6DD1006B12F8 /* WBPopMenuView.h */,
+				8B7A54DE236D6DD0006B12F8 /* WBPopMenuView.m */,
+				8B7A54E0236D6DD0006B12F8 /* WBTableViewCell.h */,
+				8B7A54DC236D6DCF006B12F8 /* WBTableViewCell.m */,
+				8B7A54DD236D6DD0006B12F8 /* WBTableViewDataSource.h */,
+				8B7A54E3236D6DD0006B12F8 /* WBTableViewDataSource.m */,
+				8B7A54E4236D6DD1006B12F8 /* WBTableViewDelegate.h */,
+				8B7A54DF236D6DD0006B12F8 /* WBTableViewDelegate.m */,
+				8B7A54E5236D6DD1006B12F8 /* WBPopMenuModel.h */,
+				8B7A54E2236D6DD0006B12F8 /* WBPopMenuModel.m */,
 			);
 			path = PopMenuView;
 			sourceTree = "<group>";
@@ -4196,11 +4196,12 @@
 				8BB2D3442366CB450047D0E2 /* VerifyCodeButton.m in Sources */,
 				C42CD093213CC2640096675F /* AreaSelectController.m in Sources */,
 				8BB2D33D2366CB080047D0E2 /* ThroughTrainToPromoteVC.m in Sources */,
-				8B8B0D81236827FB0040EE53 /* WBPopMenuSingleton.m in Sources */,
 				8BB2D3802366CBF10047D0E2 /* UpLoadCancelReasonVC.m in Sources */,
 				C42CD064213CC2640096675F /* CellTwoLblArrow.m in Sources */,
 				C42CD04A213CC2640096675F /* JJHttpClient+FourZero.m in Sources */,
 				C42CD087213CC2640096675F /* DataSigner.m in Sources */,
+				8B7A54ED236D6DD1006B12F8 /* WBTableViewDataSource.m in Sources */,
+				8B7A54E8236D6DD1006B12F8 /* WBTableViewCell.m in Sources */,
 				C42CD185213CC2640096675F /* DefaultLoadMoreView.m in Sources */,
 				C42CD1B2213CC2640096675F /* JJBaseNavigationController.m in Sources */,
 				C4614416214386B6000C0CDC /* BillHistoryController.m in Sources */,
@@ -4222,7 +4223,6 @@
 				8BB2D38B2366CC2C0047D0E2 /* NSArray+Extend.m in Sources */,
 				C42CD094213CC2640096675F /* OrderNotSendOutController.m in Sources */,
 				C46368DE213FBE6C006922D5 /* CLCellTitle.m in Sources */,
-				8B8B0D7F236827FB0040EE53 /* WBTableViewDataSource.m in Sources */,
 				C42CD08F213CC2640096675F /* DiscussAttribute.m in Sources */,
 				C461440E214386B6000C0CDC /* CellMyService.m in Sources */,
 				C42CD13F213CC2640096675F /* CellGoodDetai.m in Sources */,
@@ -4297,7 +4297,6 @@
 				C42CD18E213CC2640096675F /* TypeSegmentControl.m in Sources */,
 				C42CD11F213CC2640096675F /* ReusableViewType.m in Sources */,
 				C42CD084213CC2640096675F /* MD5DataSigner.m in Sources */,
-				8B8B0D80236827FB0040EE53 /* WBTableViewDelegate.m in Sources */,
 				8BB2D3942366CC500047D0E2 /* ZYTextField.m in Sources */,
 				8BB0F6CE236BDAC2009498B6 /* WholesaleOrders_VipVC.m in Sources */,
 				C4824261214F99FA00A9D432 /* CellHeaderMore.m in Sources */,
@@ -4337,6 +4336,7 @@
 				8BB2D3692366CBA70047D0E2 /* TZAssetCell.m in Sources */,
 				C42CD12E213CC2640096675F /* CellGoodEnterIn.m in Sources */,
 				C4614404214386B6000C0CDC /* CellVendorTitle.m in Sources */,
+				8B7A54EC236D6DD1006B12F8 /* WBPopMenuModel.m in Sources */,
 				C46D6B50214388CD00428D7A /* ModelGood.m in Sources */,
 				C42CD05A213CC2640096675F /* AboutUsController.m in Sources */,
 				C42CD105213CC2640096675F /* GoodMainController.m in Sources */,
@@ -4391,6 +4391,7 @@
 				8BB2D3782366CBB80047D0E2 /* CatFoodProducingAreaVC.m in Sources */,
 				C42CD0B9213CC2640096675F /* CellTwoImgOneLbl.m in Sources */,
 				C42CD1A0213CC2640096675F /* UITextField+EditChanged.m in Sources */,
+				8B7A54E9236D6DD1006B12F8 /* WBPopMenuView.m in Sources */,
 				C42CD1BD213CC2640096675F /* JJDBHelper+ShopCart.m in Sources */,
 				C42CD0CA213CC2640096675F /* CellOrderDetailGiftYes.m in Sources */,
 				C42CD143213CC2640096675F /* SearchGoodController.m in Sources */,
@@ -4433,9 +4434,9 @@
 				8BB2D36A2366CBA70047D0E2 /* TZVideoPlayerController.m in Sources */,
 				8BB2D3912366CC3F0047D0E2 /* NSString+Url_Chinese.m in Sources */,
 				C41628162171C14300DC0D10 /* CellTuihuoInfo.m in Sources */,
-				8B8B0D82236827FB0040EE53 /* WBPopMenuModel.m in Sources */,
 				C42CD1D1213CC2650096675F /* ModelRankList.m in Sources */,
 				C42CD1AD213CC2640096675F /* PersonalInfo.m in Sources */,
+				8B7A54EB236D6DD1006B12F8 /* WBPopMenuSingleton.m in Sources */,
 				C42CD0C4213CC2640096675F /* CellAddress.m in Sources */,
 				C42CD12D213CC2640096675F /* CellDiscuss.m in Sources */,
 				C42CD0F8213CC2640096675F /* GoodsListController.m in Sources */,
@@ -4452,7 +4453,6 @@
 				C42CD184213CC2640096675F /* RefreshControl.m in Sources */,
 				C42CD13A213CC2640096675F /* CLCellGoodTypeNoPic.m in Sources */,
 				C46368EF213FBE6C006922D5 /* CLCellBanner.m in Sources */,
-				8B8B0D7E236827FB0040EE53 /* WBTableViewCell.m in Sources */,
 				C42CD0B4213CC2640096675F /* CellOrderOneLbl.m in Sources */,
 				C42CD0C5213CC2640096675F /* CellOrderVendorTitle.m in Sources */,
 				C42CD199213CC2640096675F /* UILabelDarkGaryMiddle.m in Sources */,
@@ -4468,6 +4468,7 @@
 				C42CD13D213CC2640096675F /* ReusableViewGoods.m in Sources */,
 				C42CD131213CC2640096675F /* CLCellRegionTwo.m in Sources */,
 				C42CD0B8213CC2640096675F /* CellDistributionInfo.m in Sources */,
+				8B7A54EA236D6DD1006B12F8 /* WBTableViewDelegate.m in Sources */,
 				8BB2D2902366C6E00047D0E2 /* YBNotificationManager.m in Sources */,
 				C42CD180213CC2640096675F /* JJAlertViewTwoButton.m in Sources */,
 				C42F5D29213F855E00114E0E /* CellIncomeHeader.m in Sources */,
@@ -4567,7 +4568,6 @@
 				C4026DBD2148161D00D81974 /* AchievementController.m in Sources */,
 				C42CD062213CC2640096675F /* CLCellCenterType.m in Sources */,
 				C42CD1CA213CC2640096675F /* ModelEreaExchangeDetail.m in Sources */,
-				8B8B0D7D236827FB0040EE53 /* WBPopMenuView.m in Sources */,
 				C4614411214386B6000C0CDC /* VendorGoosListController.m in Sources */,
 				C42CD0F7213CC2640096675F /* GoodOtherListController.m in Sources */,
 				8BB2D38A2366CC220047D0E2 /* ViewForHeader.m in Sources */,

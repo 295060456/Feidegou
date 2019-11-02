@@ -163,7 +163,6 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
         [_titlesMutArr addObject:@"发送到电脑"];
         [_titlesMutArr addObject:@"面对面快传"];
         [_titlesMutArr addObject:@"收钱"];
-        
     }return _titlesMutArr;
 }
 

@@ -12,15 +12,15 @@
 
 @property(nonatomic,copy)TableViewCellConfigureBlock configureCellBlock;
 @property(nonatomic,strong)Class Cellclass;
-@property(nonatomic,strong)NSArray * modelArray;
+@property(nonatomic,strong) NSArray *modelArray;
 
 @end
 
 @implementation WBTableViewDataSource
 
-- (instancetype)initWithItems:(NSArray *)anItems
-                    cellClass:(Class)cellClass
-           configureCellBlock:(TableViewCellConfigureBlock)aConfigureCellBlock {
+- (instancetype) initWithItems:(NSArray *)anItems
+                     cellClass:(Class)cellClass
+            configureCellBlock:(TableViewCellConfigureBlock)aConfigureCellBlock {
     if (self = [super init]) {
         self.modelArray = anItems;
         self.configureCellBlock = [aConfigureCellBlock copy];
@@ -30,13 +30,12 @@
 
 - (NSInteger) tableView:(UITableView *)tableView
   numberOfRowsInSection:(NSInteger)section {
-    
     return self.modelArray.count;
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView
           cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    WBTableViewCell *cell = [[self.Cellclass class] cellAllocWithTableView:tableView];
+    WBTableViewCell * cell = [[self.Cellclass class]cellAllocWithTableView:tableView];
     self.configureCellBlock(cell,self.modelArray[indexPath.row]);
     return cell;
 }

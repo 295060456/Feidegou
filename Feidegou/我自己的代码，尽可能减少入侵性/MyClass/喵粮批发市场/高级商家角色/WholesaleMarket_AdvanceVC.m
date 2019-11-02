@@ -18,6 +18,7 @@ UITextFieldDelegate
 }
 
 @property(nonatomic,strong)UILabel *numLab;
+@property(nonatomic,strong)UILabel *userNameLab;
 @property(nonatomic,strong)UILabel *paymentMethodLab;
 @property(nonatomic,strong)UITextField *textfield;
 @property(nonatomic,strong)UIButton *purchaseBtn;
@@ -42,6 +43,7 @@ UITextFieldDelegate
 
 -(void)drawRect:(CGRect)rect{
     self.numLab.alpha = 1;
+    self.userNameLab.text = @"用户名:江泽民";
     self.purchaseBtn.alpha = 1;
     self.textfield.alpha = 1;
     self.paymentMethodLab.text = @"支付方式";
@@ -127,6 +129,7 @@ UITextFieldDelegate
     if (!_numLab) {
         _numLab = UILabel.new;
         _numLab.text = @"欲购数量:";
+        _numLab.font = [UIFont systemFontOfSize:15];
         [_numLab sizeToFit];
         [self addSubview:_numLab];
         [_numLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -135,9 +138,22 @@ UITextFieldDelegate
     }return _numLab;
 }
 
+-(UILabel *)userNameLab{
+    if (!_userNameLab) {
+        _userNameLab = UILabel.new;
+        _userNameLab.font = [UIFont systemFontOfSize:15];
+        [self addSubview:_userNameLab];
+        [_userNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.numLab);
+            make.top.equalTo(self.numLab.mas_bottom).offset(SCALING_RATIO(5));
+        }];
+    }return _userNameLab;
+}
+
 -(UILabel *)paymentMethodLab{
     if (!_paymentMethodLab) {
         _paymentMethodLab = UILabel.new;
+        _paymentMethodLab.font = [UIFont systemFontOfSize:15];
         [self addSubview:_paymentMethodLab];
         [_paymentMethodLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.numLab);
@@ -515,8 +531,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [self.view bringSubviewToFront:_popView];
         _popView.frame = CGRectMake(SCALING_RATIO(50),
                                     self.view.mj_h,
-                                    SCREEN_WIDTH - SCALING_RATIO(100),
-                                    SCALING_RATIO(50));
+                                    SCREEN_WIDTH - SCALING_RATIO(90),
+                                    SCALING_RATIO(100));
         @weakify(self)
         [UIView animateWithDuration:0.5f
                               delay:0.1f
@@ -526,9 +542,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                          animations:^{
             @strongify(self)
             self->_popView.frame = CGRectMake(SCALING_RATIO(50),
-                                              self.view.mj_h - SCALING_RATIO(170),
-                                              SCREEN_WIDTH - SCALING_RATIO(100),
-                                              SCALING_RATIO(60));//弹出框高度
+                                              self.view.mj_h - SCALING_RATIO(200),
+                                              SCREEN_WIDTH - SCALING_RATIO(90),
+                                              SCALING_RATIO(100));//弹出框高度
         }
                          completion:^(BOOL finished) {
 //            @strongify(self)

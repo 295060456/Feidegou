@@ -11,13 +11,17 @@
 @interface WholesaleOrders_AdvanceVC ()
 <
 UITableViewDelegate,
-UITableViewDataSource
+UITableViewDataSource,
+TZImagePickerControllerDelegate
 >
 
 @property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 @property(nonatomic,strong)UIButton *paidBtn;
 @property(nonatomic,strong)UIButton *cancelBtn;
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
+@property(nonatomic,strong)__block UIImage *img;
+
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -72,7 +76,39 @@ UITableViewDataSource
 #pragma mark —— 私有方法
 #pragma mark —— 点击事件
 -(void)paidBtnClickEvent:(UIButton *)sender{
-    NSLog(@"已付款");
+    if ([sender.titleLabel.text isEqualToString:@"上传付款凭证"]) {
+        NSLog(@"上传付款凭证");
+        @weakify(self)
+        [ECAuthorizationTools checkAndRequestAccessForType:ECPrivacyType_Photos
+                                              accessStatus:^(ECAuthorizationStatus status,
+                                                             ECPrivacyType type) {
+            @strongify(self)
+            // status 即为权限状态，
+            //状态类型参考：ECAuthorizationStatus
+            NSLog(@"%lu",(unsigned long)status);
+            if (status == ECAuthorizationStatus_Authorized) {
+                
+    //            [self presentViewController:TestVC.new
+    //                               animated:YES
+    //                             completion:Nil];
+
+                [self presentViewController:self.imagePickerVC
+                                         animated:YES
+                                       completion:nil];
+            }else{
+                NSLog(@"相册不可用:%lu",(unsigned long)status);
+                [self showAlertViewTitle:@"获取相册权限"
+                                       message:@""
+                                   btnTitleArr:@[@"去获取"]
+                                alertBtnAction:@[@"pushToSysConfig"]];
+            }
+        }];
+    }else if ([sender.titleLabel.text isEqualToString:@"已付款"]){
+        if (self.img) {
+            NSLog(@"网络请求 传 self.img");
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
 }
 
 -(void)cancelBtnClickEvent:(UIButton *)sender{
@@ -153,7 +189,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_paidBtn) {
         _paidBtn = UIButton.new;
         _paidBtn.backgroundColor = kOrangeColor;
-        [_paidBtn setTitle:@"已付款"
+        [_paidBtn setTitle:@"上传付款凭证"
                     forState:UIControlStateNormal];
         [_paidBtn addTarget:self
                      action:@selector(paidBtnClickEvent:)
@@ -197,6 +233,29 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             make.top.equalTo(self.paidBtn.mas_bottom).offset(SCALING_RATIO(10));
         }];
     }return _cancelBtn;
+}
+
+-(TZImagePickerController *)imagePickerVC{
+    if (!_imagePickerVC) {
+        _imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:9
+                                                                        delegate:self];
+        @weakify(self)
+        [_imagePickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos,
+                                                          NSArray *assets,
+                                                          BOOL isSelectOriginalPhoto) {
+            @strongify(self)
+            if (photos.count == 1) {
+                self.img = photos.lastObject;//拿到值
+                [self.paidBtn setTitle:@"已付款"
+                              forState:UIControlStateNormal];
+            }else{
+                [self showAlertViewTitle:@"选择一张相片就够啦"
+                                 message:@"不要画蛇添足"
+                             btnTitleArr:@[@"好的"]
+                          alertBtnAction:@[@"OK"]];
+            }
+        }];
+    }return _imagePickerVC;
 }
 
 -(NSMutableArray<NSString *> *)titleMutArr{

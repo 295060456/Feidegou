@@ -21,11 +21,6 @@
     }return self;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return SCALING_RATIO(40);
-}
-
 - (void)tableView:(UITableView *)tableView
   willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -37,10 +32,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }
 }
 
+- (CGFloat) tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return SCALING_RATIO(40);
+}
+
 - (void) tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath
-                             animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (self.tableViewDidSelectRowAtIndexPath) {
         self.tableViewDidSelectRowAtIndexPath(indexPath.row);
     }

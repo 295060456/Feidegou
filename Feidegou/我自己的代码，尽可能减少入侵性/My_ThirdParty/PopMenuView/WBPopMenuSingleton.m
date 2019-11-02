@@ -7,26 +7,26 @@
 //
 
 #import "WBPopMenuSingleton.h"
+#import "WBPopMenuView.h"
 
 @interface WBPopMenuSingleton ()
 
-@property(nonatomic,strong)NSArray *item;
-@property(nonatomic,assign)CGFloat width;
+@property(nonatomic,strong)WBPopMenuView * popMenuView;
 @property(nonatomic,assign)CGRect framer;
+@property(nonatomic,assign)CGFloat width;
+@property(nonatomic,strong)NSArray *item;
 @property(nonatomic,copy)void (^action)(NSInteger);
 
 @end
 
 @implementation WBPopMenuSingleton
 
-+ (WBPopMenuSingleton *)shareManager{
-    static WBPopMenuSingleton *popMenuSingleton;
++ (WBPopMenuSingleton *) shareManager {
+    static WBPopMenuSingleton *_PopMenuSingleton;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        if (!popMenuSingleton) {
-            popMenuSingleton = WBPopMenuSingleton.new;
-        }
-    });return popMenuSingleton;
+        _PopMenuSingleton = WBPopMenuSingleton.new;
+    });return _PopMenuSingleton;
 }
 
 - (void)showPopMenuSelecteWithFrame:(CGRect)frame
@@ -34,13 +34,13 @@
                                 item:(NSArray *)item
                               action:(void (^)(NSInteger))action {
     @weakify(self)
-    self.item = item;
-    self.width = width;
     self.framer = frame;
+    self.width = width;
+    self.item = item;
+    self.action = [action copy];
     if (_popMenuView) {
         [self_weak_ hideMenu];
     }
-    self.action = action;
     [UIView animateWithDuration:0.3f
                      animations:^{
         @strongify(self)
@@ -50,7 +50,7 @@
 
 - (void)hideMenu {
     @weakify(self)
-    [UIView animateWithDuration:0.15f
+    [UIView animateWithDuration:0.15
                      animations:^{
         @strongify(self)
         self.popMenuView.tableView.transform = CGAffineTransformMakeScale(0.0001, 0.0001);
@@ -62,25 +62,25 @@
         self.popMenuView = nil;
     }];
 }
+
 #pragma mark —— lazyLoad
 -(WBPopMenuView *)popMenuView{
     if (!_popMenuView) {
-        @weakify(self)
-        _popMenuView = [[WBPopMenuView alloc]initWithFrame:self.framer 
-                                                 menuWidth:self.width
-                                            menuCellHeight:SCALING_RATIO(40.f)
-                                                     items:self.item
-                                                    action:^(NSInteger index) {
-            @strongify(self)
-            self.action(index);
-            [self hideMenu];
-        }];
-        _popMenuView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1f];
-        [[[UIApplication sharedApplication] windows].firstObject addSubview:_popMenuView];
-
+         @weakify(self)
+        _popMenuView = [[WBPopMenuView alloc] initWithFrame:[[UIApplication sharedApplication] windows].firstObject.bounds
+                                                  QPetFrame:self.framer
+                                             menuCellHeight:SCALING_RATIO(40)
+                                                  menuWidth:self.width
+                                                      items:self.item
+                                                     action:^(NSInteger index) {
+        @strongify(self)
+        self.action(index);
+        [self hideMenu];
+    }];
+    _popMenuView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1];
+    [[[UIApplication sharedApplication] windows].firstObject addSubview:_popMenuView];
     }return _popMenuView;
 }
-
 
 
 @end

@@ -9,18 +9,14 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "WBPopMenuModel.h"
-#import "WBPopMenuView.h"
 
 @interface WBPopMenuSingleton : NSObject
-
-@property(nonatomic,strong)WBPopMenuView *popMenuView;
 /** 创建单例
  *
  *
  */
 + (WBPopMenuSingleton *) shareManager;
 /** 创建一个弹出菜单
-
  */
 - (void)showPopMenuSelecteWithFrame:(CGRect)frame
                           menuWidth:(CGFloat)width

@@ -16,51 +16,49 @@
 @interface WBPopMenuView ()
 
 @property(nonatomic,strong)WBTableViewDataSource *tableViewDataSource;
-@property(nonatomic,strong)WBTableViewDelegate   *tableViewDelegate;
-@property(nonatomic,assign)CGRect framer;
+@property(nonatomic,strong)WBTableViewDelegate *tableViewDelegate;
+@property(nonatomic,assign)CGRect QPetFrame;
+@property(nonatomic,assign)CGFloat menuCellHeight;
 
 @end
 
 @implementation WBPopMenuView
 
-- (instancetype)initWithFrame:(CGRect)frame//悬浮宠物的frame
-                    menuWidth:(CGFloat)menuWidth
-               menuCellHeight:(CGFloat)menuCellHeight
-                        items:(NSArray *)items
-                       action:(void(^)(NSInteger index))action{
-    if (self = [super init]) {
-        self.framer = frame;
-        self.menuWidth = menuWidth;
+- (instancetype) initWithFrame:(CGRect)frame
+                     QPetFrame:(CGRect)QPetFrame
+                menuCellHeight:(CGFloat)menuCellHeight
+                     menuWidth:(CGFloat)menuWidth
+                         items:(NSArray *)items
+                        action:(void(^)(NSInteger index))action {
+    if (self = [super initWithFrame:frame]) {
+        self.QPetFrame = QPetFrame;
         self.menuCellHeight = menuCellHeight;
+        self.menuWidth = menuWidth;
         self.menuItem = items;
-        self.action = action;
+        self.action = [action copy];
+        self.tableView.alpha = 1;
     }return self;
 }
 
--(void)drawRect:(CGRect)rect{
-//    self.backgroundColor = kRedColor;
-    self.tableView.alpha = 1;
-}
-
-- (CGRect)menuFrame {//KKK
+- (CGRect)menuFrame {
     //因为是靠边停靠模式，所以x只有两个值
     CGFloat menuX = 0.f;
     CGFloat menuY = 0.f;
     CGFloat width = self.menuWidth;
     CGFloat heigh = self.menuCellHeight * self.menuItem.count;
-    if (self.framer.origin.x == 0) {//Q宠在左边
+    if (self.QPetFrame.origin.x == 0) {//Q宠在左边
         menuX = self.menuWidth;
-        if (self.framer.origin.y < SCREEN_HEIGHT / 2) {//菜单出现在下边 OK
-            menuY = self.framer.size.height;
+        if (self.QPetFrame.origin.y < SCREEN_HEIGHT / 2) {//菜单出现在下边 OK
+            menuY = self.QPetFrame.size.height;
         }else{//菜单出现在上边
-            menuY = self.framer.origin.y - self.framer.size.height - self.menuItem.count * self.menuCellHeight;
+            menuY = self.QPetFrame.origin.y - self.QPetFrame.size.height - self.menuItem.count * self.menuCellHeight;
         }
     }else{//Q宠在右边
         menuX = SCREEN_WIDTH - self.menuWidth;
-        if (self.framer.origin.y < SCREEN_HEIGHT / 2) {//菜单出现在下边
-            menuY = self.framer.size.height;
+        if (self.QPetFrame.origin.y < SCREEN_HEIGHT / 2) {//菜单出现在下边
+            menuY = self.QPetFrame.size.height;
         }else{//菜单出现在上边
-            menuY = self.framer.origin.y - self.framer.size.height - self.menuItem.count * self.menuCellHeight;
+            menuY = self.QPetFrame.origin.y - self.QPetFrame.size.height - self.menuItem.count * self.menuCellHeight;
         }
     }return (CGRect){
         menuX,
@@ -70,18 +68,15 @@
     };
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches
-           withEvent:(UIEvent *)event {
-    
-    [[WBPopMenuSingleton shareManager] hideMenu];
+- (void) touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [[WBPopMenuSingleton shareManager]hideMenu];
 }
-
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView alloc]initWithFrame:[self menuFrame]
                                                  style:UITableViewStylePlain];
-        _tableView.backgroundColor = kRedColor;
+//        _tableView.backgroundColor = kRedColor;
         _tableView.dataSource = self.tableViewDataSource;
         _tableView.delegate = self.tableViewDelegate;
         _tableView.layer.cornerRadius = 10.0f;
