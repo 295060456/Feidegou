@@ -1771,9 +1771,9 @@
 		8B627322236A88D000749F09 /* AESCipher */ = {
 			isa = PBXGroup;
 			children = (
+				8B627324236A88D000749F09 /* File */,
 				8B627325236A88D000749F09 /* AESCipher.h */,
 				8B627323236A88D000749F09 /* AESCipher.m */,
-				8B627324236A88D000749F09 /* File */,
 			);
 			path = AESCipher;
 			sourceTree = "<group>";
@@ -1781,8 +1781,6 @@
 		8B8B0D702368278E0040EE53 /* PopMenuView */ = {
 			isa = PBXGroup;
 			children = (
-				8B8B0D71236827FA0040EE53 /* WBPopMenuModel.h */,
-				8B8B0D7A236827FB0040EE53 /* WBPopMenuModel.m */,
 				8B8B0D7B236827FB0040EE53 /* WBPopMenuSingleton.h */,
 				8B8B0D79236827FB0040EE53 /* WBPopMenuSingleton.m */,
 				8B8B0D74236827FA0040EE53 /* WBPopMenuView.h */,
@@ -1793,6 +1791,8 @@
 				8B8B0D76236827FA0040EE53 /* WBTableViewDataSource.m */,
 				8B8B0D7C236827FB0040EE53 /* WBTableViewDelegate.h */,
 				8B8B0D78236827FA0040EE53 /* WBTableViewDelegate.m */,
+				8B8B0D71236827FA0040EE53 /* WBPopMenuModel.h */,
+				8B8B0D7A236827FB0040EE53 /* WBPopMenuModel.m */,
 			);
 			path = PopMenuView;
 			sourceTree = "<group>";

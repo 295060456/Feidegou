@@ -7,11 +7,9 @@
 //
 
 #import "WBPopMenuSingleton.h"
-#import "WBPopMenuView.h"
 
 @interface WBPopMenuSingleton ()
 
-@property(nonatomic,strong)WBPopMenuView *popMenuView;
 @property(nonatomic,strong)NSArray *item;
 @property(nonatomic,assign)CGFloat width;
 @property(nonatomic,assign)CGRect framer;
@@ -21,7 +19,7 @@
 
 @implementation WBPopMenuSingleton
 
-+ (WBPopMenuSingleton *) shareManager {
++ (WBPopMenuSingleton *)shareManager{
     static WBPopMenuSingleton *popMenuSingleton;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -77,8 +75,9 @@
             self.action(index);
             [self hideMenu];
         }];
-        _popMenuView.backgroundColor = [[UIColor blackColor]colorWithAlphaComponent:0.1f];
+        _popMenuView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1f];
         [[[UIApplication sharedApplication] windows].firstObject addSubview:_popMenuView];
+
     }return _popMenuView;
 }
 
