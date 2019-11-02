@@ -74,18 +74,17 @@ TZImagePickerControllerDelegate
     [super viewWillAppear:animated];
 
 }
-- (void)willMoveToParentViewController:(UIViewController*)parent{
-    [super willMoveToParentViewController:parent];
-    NSLog(@"%s,%@",__FUNCTION__,parent);
-}
+#pragma mark —— 截取返回手势
 - (void)didMoveToParentViewController:(UIViewController*)parent{
     [super didMoveToParentViewController:parent];
     NSLog(@"%s,%@",__FUNCTION__,parent);
     if(!parent){
       NSLog(@"页面pop成功了");
+        [[WholesaleMarket_AdvancePopView shareManager] removeFromSuperview];
+        WholesaleMarket_AdvancePopView *wholesaleMarket_AdvancePopView = [WholesaleMarket_AdvancePopView shareManager];
+        wholesaleMarket_AdvancePopView = nil;
     }
 }
-
 #pragma mark —— 私有方法
 #pragma mark —— 点击事件
 -(void)paidBtnClickEvent:(UIButton *)sender{
