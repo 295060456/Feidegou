@@ -53,7 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(CGFloat)calculateTextWidth:(NSString *)string withFontSize:(float)fontSize withWidth:(float)width;
 +(CGFloat)calculateAttributeTextWidth:(NSAttributedString *)atributedString withFontSize:(float)fontSize withWidth:(float)width;
-+(NSString *)convertToJsonData:(NSDictionary *)dict;
++(NSString *)convertToJsonData:(NSDictionary *)dict;//NSDictionary转JSON
++(NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;//JSON转NSDictionary
 
 +(float)textHitWithStirng:(NSString*)stingS font:(float)font widt:(float)wid;
 // 根据字体大小 和高度计算文字的宽

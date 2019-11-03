@@ -15,13 +15,13 @@
 #import "WholesaleMarket_AdvanceVC.h"//喵粮批发市场_仅高级商家可见
 #import "WholesaleMarket_VipVC.h"//喵粮批发市场_仅Vip可见
 
+#import "CatFoodsManagementVC+VM.h"
+
 @interface CatFoodsManagementVC ()
 <
 UITableViewDelegate,
 UITableViewDataSource
 >
-
-@property(nonatomic,strong)UITableView *tableView;
 
 @property(nonatomic,strong)NSMutableArray <NSArray *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSArray *>*imgMutArr;
@@ -64,15 +64,12 @@ UITableViewDataSource
 
 #pragma mark - Lifecycle
 -(instancetype)init{
-    
     if (self = [super init]) {
-        
     }return self;
 }
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-//    self.navigationItem.title = @"喵粮管理";
     self.gk_navTitle = @"喵粮管理";
     self.tableView.alpha = 1;
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
@@ -92,12 +89,12 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
-    [self.tableView.mj_header endRefreshing];
+    [self networking];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-   [self.tableView.mj_footer endRefreshing];
+    [self networking];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
@@ -149,10 +146,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                        animated:YES];
         }else if (indexPath.row == 5){
             //切换
-            WholesaleMarket_AdvanceVC *vc = [WholesaleMarket_AdvanceVC pushFromVC:self_weak_
-                                                                    requestParams:nil
-                                                                          success:^(id data) {}
-                                                                         animated:YES];
+            [WholesaleMarket_AdvanceVC pushFromVC:self_weak_
+                                    requestParams:nil
+                                          success:^(id data) {}
+                                         animated:YES];
             
 //            [WholesaleMarket_VipVC pushFromVC:self_weak_
 //                                requestParams:nil

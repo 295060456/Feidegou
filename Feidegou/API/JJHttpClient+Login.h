@@ -45,7 +45,7 @@
 -(RACSignal*)requestFindBackPswPHONE:(NSString *)PHONE andPASSWORD:(NSString *)PASSWORD andCODE:(NSString *)CODE;
 //极光推送ID
 -(RACSignal*)requestJPUSHServiceRegistrationId:(NSString *)registrationId andUserid:(NSString *)userid;
-
 //启动广告
 -(RACSignal*)requestAdverStart;
+
 @end

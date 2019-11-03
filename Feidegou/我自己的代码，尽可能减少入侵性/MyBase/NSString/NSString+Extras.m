@@ -511,9 +511,7 @@
 }
 
 // 字典转json字符串方法//==[dic mj_JSONString]
-+(NSString *)convertToJsonData:(NSDictionary *)dict
-
-{
++(NSString *)convertToJsonData:(NSDictionary *)dict{
     
     NSError *error;
     
@@ -548,7 +546,24 @@
     return mutStr;
     
 }
+//JSON转NSDictionary
++ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString{
+    if (jsonString == nil) {
+        return nil;
+    }
 
+    NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                        options:NSJSONReadingMutableContainers
+                                                          error:&err];
+    if(err)
+    {
+        NSLog(@"json解析失败：%@",err);
+        return nil;
+    }
+    return dic;
+}
 
 //判断是否含有表情符号 yes-有 no-没有
 + (BOOL)stringContainsEmoji:(NSString *)string {

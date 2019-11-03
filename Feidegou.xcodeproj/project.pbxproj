@@ -25,6 +25,7 @@
 		8B7A54EB236D6DD1006B12F8 /* WBPopMenuSingleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A54E1236D6DD0006B12F8 /* WBPopMenuSingleton.m */; };
 		8B7A54EC236D6DD1006B12F8 /* WBPopMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A54E2236D6DD0006B12F8 /* WBPopMenuModel.m */; };
 		8B7A54ED236D6DD1006B12F8 /* WBTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A54E3236D6DD0006B12F8 /* WBTableViewDataSource.m */; };
+		8B7A552C236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A552B236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m */; };
 		8B8B0D0A236814960040EE53 /* TestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2912366C7290047D0E2 /* TestVC.m */; };
 		8B8B0D0D236815140040EE53 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D0C236815140040EE53 /* TestView.m */; };
 		8B8B0D89236828BB0040EE53 /* right_menu_facetoface@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B8B0D83236828BB0040EE53 /* right_menu_facetoface@3x.png */; };
@@ -632,6 +633,8 @@
 		8B7A54E5236D6DD1006B12F8 /* WBPopMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuModel.h; sourceTree = "<group>"; };
 		8B7A54E6236D6DD1006B12F8 /* WBPopMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuView.h; sourceTree = "<group>"; };
 		8B7A54E7236D6DD1006B12F8 /* WBPopMenuSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBPopMenuSingleton.h; sourceTree = "<group>"; };
+		8B7A552A236EC3FF006B12F8 /* CatFoodsManagementVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CatFoodsManagementVC+VM.h"; sourceTree = "<group>"; };
+		8B7A552B236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CatFoodsManagementVC+VM.m"; sourceTree = "<group>"; };
 		8B8B0D0B236815140040EE53 /* TestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
 		8B8B0D0C236815140040EE53 /* TestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
 		8B8B0D83236828BB0040EE53 /* right_menu_facetoface@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right_menu_facetoface@3x.png"; sourceTree = "<group>"; };
@@ -1973,9 +1976,9 @@
 		8BB2D2952366C7310047D0E2 /* MMButton */ = {
 			isa = PBXGroup;
 			children = (
+				8BB2D2982366C7310047D0E2 /* MMButton（自定义图文位置 \ 距离） */,
 				8BB2D2962366C7310047D0E2 /* MMButton.h */,
 				8BB2D2972366C7310047D0E2 /* MMButton.m */,
-				8BB2D2982366C7310047D0E2 /* MMButton（自定义图文位置 \ 距离） */,
 			);
 			path = MMButton;
 			sourceTree = "<group>";
@@ -2204,6 +2207,8 @@
 			children = (
 				8BB2D2FB2366C7310047D0E2 /* CatFoodsManagementVC.h */,
 				8BB2D2FC2366C7310047D0E2 /* CatFoodsManagementVC.m */,
+				8B7A552A236EC3FF006B12F8 /* CatFoodsManagementVC+VM.h */,
+				8B7A552B236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m */,
 			);
 			path = "喵粮管理";
 			sourceTree = "<group>";
@@ -2366,6 +2371,7 @@
 		8BB2D3482366CBA60047D0E2 /* TZImagePickerController */ = {
 			isa = PBXGroup;
 			children = (
+				8BB2D3552366CBA60047D0E2 /* TZImagePickerController.bundle */,
 				8BB2D35E2366CBA60047D0E2 /* NSBundle+TZImagePicker.h */,
 				8BB2D3502366CBA60047D0E2 /* NSBundle+TZImagePicker.m */,
 				8BB2D3592366CBA60047D0E2 /* TZAssetCell.h */,
@@ -2378,7 +2384,6 @@
 				8BB2D34B2366CBA60047D0E2 /* TZImageCropManager.m */,
 				8BB2D34C2366CBA60047D0E2 /* TZImageManager.h */,
 				8BB2D35A2366CBA60047D0E2 /* TZImageManager.m */,
-				8BB2D3552366CBA60047D0E2 /* TZImagePickerController.bundle */,
 				8BB2D3522366CBA60047D0E2 /* TZImagePickerController.h */,
 				8BB2D3632366CBA60047D0E2 /* TZImagePickerController.m */,
 				8BB2D3582366CBA60047D0E2 /* TZImageRequestOperation.h */,
@@ -4234,6 +4239,7 @@
 				C42CD0BF213CC2640096675F /* CellOrderMoney.m in Sources */,
 				C42CD090213CC2640096675F /* OrderDetailController.m in Sources */,
 				C46368DB213FBE6C006922D5 /* CLCellTipMsg.m in Sources */,
+				8B7A552C236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m in Sources */,
 				C42CD1C1213CC2640096675F /* ModelInfo.m in Sources */,
 				C42CD0E4213CC2640096675F /* OrderesAddressController.m in Sources */,
 				C42CD052213CC2640096675F /* CellTip.m in Sources */,

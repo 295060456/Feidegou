@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CatFoodsManagementVC : BaseVC
 
+@property(nonatomic,strong)UITableView *tableView;
+
 + (instancetype)pushFromVC:(UIViewController *)rootVC
              requestParams:(nullable id)requestParams
                    success:(DataBlock)block

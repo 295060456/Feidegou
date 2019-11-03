@@ -18,6 +18,7 @@ UIGestureRecognizerDelegate
 ,UINavigationControllerDelegate
 >
 
+@property(nonatomic,strong)RACSignal *reqSignal;
 @property(nonatomic,strong)MJRefreshAutoGifFooter *tableViewFooter;
 @property(nonatomic,strong)MJRefreshGifHeader *tableViewHeader;
 //@property(nonatomic,strong)ViewForHeader *viewForHeader;
