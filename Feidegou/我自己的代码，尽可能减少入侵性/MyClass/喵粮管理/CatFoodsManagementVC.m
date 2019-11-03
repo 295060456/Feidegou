@@ -30,6 +30,7 @@ UITableViewDataSource
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
+@property(nonatomic,assign)BOOL isFirstComing;
 
 @end
 
@@ -51,6 +52,7 @@ UITableViewDataSource
     if (rootVC.navigationController) {
         vc.isPush = YES;
         vc.isPresent = NO;
+        vc.isFirstComing = YES;
         [rootVC.navigationController pushViewController:vc
                                                animated:animated];
     }else{
@@ -161,7 +163,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-    
     switch (section) {
         case 0:{
             return self.titleMutArr[0].count;
@@ -179,7 +180,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
@@ -188,14 +188,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         cell.textLabel.text = self.titleMutArr[indexPath.section][indexPath.row];
         cell.imageView.image = kIMG(self.imgMutArr[indexPath.section][indexPath.row]);
         cell.detailTextLabel.textColor = kBlueColor;
-        if (indexPath.section == 0) {
-            if (indexPath.row == 0) {
-                cell.detailTextLabel.text = @"0.1";
-            }else{
-                cell.detailTextLabel.text = @"2.1";
-            }
+    }
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            cell.detailTextLabel.text = self.dataMutArr.count != 0 ? self.dataMutArr[0] : @"";
+        }else{
+            cell.detailTextLabel.text = self.dataMutArr.count != 0 ? self.dataMutArr[1] : @"";
         }
-    } return cell;
+    }return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -206,18 +206,20 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(void)tableView:(UITableView *)tableView
  willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath{
-    //设置Cell的动画效果为3D效果
-    //设置x和y的初始值为0.1；
-    cell.layer.transform = CATransform3DMakeScale(0.1,
-                                                  0.1,
-                                                  1);
-    //x和y的最终值为1
-    [UIView animateWithDuration:1
-                     animations:^{
-        cell.layer.transform = CATransform3DMakeScale(1,
-                                                      1,
+    if (self.isFirstComing) {
+            //设置Cell的动画效果为3D效果
+        //设置x和y的初始值为0.1；
+        cell.layer.transform = CATransform3DMakeScale(0.1,
+                                                      0.1,
                                                       1);
-    }];
+        //x和y的最终值为1
+        [UIView animateWithDuration:1
+                         animations:^{
+            cell.layer.transform = CATransform3DMakeScale(1,
+                                                          1,
+                                                          1);
+        }];
+    }self.isFirstComing = NO;
 }
 
 #pragma mark —— lazyLoad
@@ -265,6 +267,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                 @"喵粮直通车",
                                 @"喵粮批发市场"]];
     }return _imgMutArr;
+}
+
+-(NSMutableArray *)dataMutArr{
+    if (!_dataMutArr) {
+        _dataMutArr = NSMutableArray.array;
+    }return _dataMutArr;
 }
 
 @end

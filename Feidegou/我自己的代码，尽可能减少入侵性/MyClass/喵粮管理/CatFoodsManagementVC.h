@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CatFoodsManagementVC : BaseVC
 
 @property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,strong)NSMutableArray *dataMutArr;
 
 + (instancetype)pushFromVC:(UIViewController *)rootVC
              requestParams:(nullable id)requestParams
