@@ -42,19 +42,23 @@
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.imgV.alpha = 1;
     if ([model isKindOfClass:[OrderListModel class]]) {
         OrderListModel *orderListModel = (OrderListModel *)model;
         self.titleLab.text = [NSString stringWithFormat:@"喵粮:%d g",orderListModel.quantity];
         self.timeLab.text = orderListModel.addTime;
-        self.typeImgV.image = kIMG(@"Mf_旌旗_红色");//Mf_旌旗_绿色
+        if (orderListModel.seller == 1) {//APQ
+            self.typeImgV.image = kIMG(@"Mf_旌旗_红色");
+            self.imgV.backgroundColor = kRedColor;
+        }else{
+            self.typeImgV.image = kIMG(@"Mf_旌旗_绿色");
+            self.imgV.backgroundColor = KGreenColor;
+        }
     }
 }
 #pragma mark —— lazyLoad
 -(UIImageView *)imgV{
     if (!_imgV) {
         _imgV = UIImageView.new;
-        _imgV.backgroundColor = kRedColor;
         [UIView cornerCutToCircleWithView:_imgV
                           AndCornerRadius:SCALING_RATIO(5) / 2];
         [self.contentView addSubview:_imgV];
@@ -108,8 +112,6 @@
 
 @end
 
-
-
 #pragma mark —— SearchView
 
 @interface SearchView ()
@@ -124,9 +126,8 @@ UIScrollViewDelegate
 @property(nonatomic,strong)MMButton *typeBtn;//按类型（目前进行中(挂牌出售中)、已经取消的）
 @property(nonatomic,strong)MMButton *tradeTypeBtn;//交易类型(买/卖)
 @property(nonatomic,strong)UITextField *textfield;
-
+@property(nonatomic,copy)DataBlock block;
 @property(nonatomic,strong)NSMutableArray <UIView *>*viewMutArr;
-@property(nonatomic,strong)NSMutableArray <NSString *>*btnTitleMutArr;
 
 @end
 
@@ -134,7 +135,6 @@ UIScrollViewDelegate
 
 - (instancetype)init{
     if (self = [super init]) {
-        
     }return self;
 }
 
@@ -182,6 +182,10 @@ UIScrollViewDelegate
     NSLog(@"");
 }
 
+-(void)conditionalQueryBlock:(DataBlock)block{
+    _block = block;
+}
+
 #pragma mark —— UITextFieldDelegate
 //询问委托人是否应该在指定的文本字段中开始编辑
 //- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
@@ -193,7 +197,9 @@ UIScrollViewDelegate
 //- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
 //告诉委托人对指定的文本字段停止编辑
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    
+    if (self.block) {
+        self.block(textField);
+    }
 }
 //告诉委托人对指定的文本字段停止编辑
 //- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
@@ -209,20 +215,31 @@ UIScrollViewDelegate
 #pragma mark —— 点击事件
 -(void)defaultBtnClickEvent:(UIButton *)sender{
     NSLog(@"默认");
+    if (self.block) {
+        self.block(sender);
+    }
 }
 
 -(void)timeBtnClickEvent:(UIButton *)sender{
     NSLog(@"时间");
+    if (self.block) {
+        self.block(sender);
+    }
 }
 
 -(void)typeBtnClickEvent:(UIButton *)sender{
     NSLog(@"买卖");
+    if (self.block) {
+        self.block(sender);
+    }
 }
 
 -(void)tradeTypeBtnClickEvent:(UIButton *)sender{
     NSLog(@"交易状态");
+    if (self.block) {
+        self.block(sender);
+    }
 }
-
 #pragma mark —— lazyLoad
 -(UIScrollView *)scrollView{
     if (!_scrollView) {
@@ -449,14 +466,14 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
-    [self networking];
+    [self networking_default];
     [self.tableView.mj_header endRefreshing];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
     self.page++;
-    [self networking];
+    [self networking_default];
     [self.tableView.mj_footer endRefreshing];
 }
 #pragma mark —— 点击事件
@@ -556,7 +573,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-
 //给cell添加动画
 -(void)tableView:(UITableView *)tableView
  willDisplayCell:(UITableViewCell *)cell
@@ -576,12 +592,32 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         }];
     }
 }
-
 #pragma mark —— lazyLoad
 -(SearchView *)viewer{
     if (!_viewer) {
         _viewer = SearchView.new;
         _viewer.backgroundColor = kWhiteColor;
+        @weakify(self)
+        [_viewer conditionalQueryBlock:^(id data) {
+            @strongify(self)
+            if ([data isKindOfClass:[UIButton class]]) {
+                UIButton *btn = (UIButton *)data;
+                if ([btn.titleLabel.text isEqualToString:self->_viewer.btnTitleMutArr[0]]) {//默认排序
+                    [self networking_default];
+                }else if ([btn.titleLabel.text isEqualToString:self->_viewer.btnTitleMutArr[1]]){//按时间
+                    [self networking_time];
+                }else if ([btn.titleLabel.text isEqualToString:self->_viewer.btnTitleMutArr[2]]){//按按买/卖
+                    [self networking_tradeType];
+                }else if ([btn.titleLabel.text isEqualToString:self->_viewer.btnTitleMutArr[3]]){//按交易状态
+                    [self networking_type];
+                }else{}
+            }else if ([data isKindOfClass:[UITextField class]]){
+                UITextField *textField = (UITextField *)data;
+                if ([textField.placeholder isEqualToString:self->_viewer.btnTitleMutArr[4]]) {//输入的🆔
+                    [self networking_ID:textField.text];
+                }
+            }else{}
+        }];
         [self.view addSubview:_viewer];
         [_viewer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);

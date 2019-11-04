@@ -10,7 +10,7 @@
 
 @implementation OrderListVC (VM)
 
--(void)networking{
+-(void)networking_default{//默认
     NSDictionary *dic = @{
         @"user_id":@"1",
         @"currentPage":[NSString stringWithFormat:@"%d",self.page],//分页数
@@ -22,6 +22,44 @@
         @"endTime":@"",//到*
         @"order_type":@""//订单类型 —— 1、摊位;2、批发;3、产地
     };
+    [self networkingWithArgument:dic];
+}
+
+-(void)networking_time{//按时间
+    
+}
+
+-(void)networking_tradeType{//按买/卖
+    
+}
+
+-(void)networking_type{//按交易状态
+    
+}
+
+-(void)networking_ID:(NSString *)identity{//按输入的查询ID
+    if (self.dataMutArr.count) {
+        [self.dataMutArr removeAllObjects];
+    }
+    if (![NSString isNullString:identity]) {
+        NSDictionary *dic = @{
+            @"user_id":@"1",
+            @"currentPage":[NSString stringWithFormat:@"%d",self.page],//分页数
+            @"pagesize":@"10",
+            @"order_status":@"",//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            @"type":@"",//买家1;卖家0
+            @"user_id":identity,//搜索用户
+            @"beginTime":@"",//时间从*
+            @"endTime":@"",//到*
+            @"order_type":@""//订单类型 —— 1、摊位;2、批发;3、产地
+        };
+        [self networkingWithArgument:dic];
+    }else{
+        [YKToastView showToastText:@"请键入查询内容"];
+    }
+}
+
+-(void)networkingWithArgument:(NSDictionary *)dic{
     extern NSString *randomStr;
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:buyer_CatfoodRecord_listURL
@@ -36,7 +74,6 @@
         if (response) {
             NSLog(@"--%@",response);
             NSArray *array = [OrderListModel mj_objectArrayWithKeyValuesArray:response];
-            NSLog(@"123");
             if (array) {
                 [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
                                                     NSUInteger idx,
@@ -51,5 +88,6 @@
         }
     }];
 }
+
 
 @end
