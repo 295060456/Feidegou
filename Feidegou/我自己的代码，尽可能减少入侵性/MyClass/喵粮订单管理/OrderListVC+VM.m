@@ -23,13 +23,32 @@
         @"user_id":@"",//搜索用户
         @"beginTime":@"",//时间从*
         @"endTime":@"",//到*
-        @"order_type":@""//订单类型 —— 1、摊位;2、批发;3、产地
+        @"order_type":@"",//订单类型 —— 1、摊位;2、批发;3、产地
+        @"Order_code":@"",//搜索订单号
+        @"time_order":@""//1升2降
     };
     [self networkingWithArgument:dic];
 }
 
--(void)networking_time{//按时间
-    
+-(void)networking_time:(UIButton *)sender{//按时间
+    if (self.dataMutArr.count) {
+        [self.dataMutArr removeAllObjects];
+    }
+    NSDictionary *dic = @{
+        @"user_id":@"1",
+        @"currentPage":[NSString stringWithFormat:@"%d",self.page],//分页数
+        @"pagesize":@"10",
+        @"order_status":@"",//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+        @"type":@"",//买家1;卖家0
+        @"user_id":@"",//搜索用户
+        @"beginTime":@"",//时间从*
+        @"endTime":@"",//到*
+        @"order_type":@"",//订单类型 —— 1、摊位;2、批发;3、产地
+        @"Order_code":@"",//搜索订单号
+        @"time_order":[NSString stringWithFormat:@"%d",sender.selected + 1]//1升2降
+    };
+//    NSLog(@"KKK = %@",[NSString stringWithFormat:@"%d",sender.selected]);
+    [self networkingWithArgument:dic];
 }
 
 -(void)networking_tradeType:(UIButton *)sender{//按买/卖
@@ -41,11 +60,13 @@
         @"currentPage":[NSString stringWithFormat:@"%d",self.page],//分页数
         @"pagesize":@"10",
         @"order_status":@"",//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-        @"type":[NSString stringWithFormat:@"%d",sender.selected],//买家1;卖家0
+        @"type":[NSString stringWithFormat:@"%d",sender.selected + 1],//买家1;卖家2
         @"user_id":@"",//搜索用户
         @"beginTime":@"",//时间从*
         @"endTime":@"",//到*
-        @"order_type":@""//订单类型 —— 1、摊位;2、批发;3、产地
+        @"order_type":@"",//订单类型 —— 1、摊位;2、批发;3、产地
+        @"Order_code":@"",//搜索订单号
+        @"time_order":@""//1升2降
     };
 //    NSLog(@"KKK = %@",[NSString stringWithFormat:@"%d",sender.selected]);
     [self networkingWithArgument:dic];
@@ -64,7 +85,9 @@
         @"user_id":@"",//搜索用户
         @"beginTime":@"",//时间从*
         @"endTime":@"",//到*
-        @"order_type":@""//订单类型 —— 1、摊位;2、批发;3、产地
+        @"order_type":@"",//订单类型 —— 1、摊位;2、批发;3、产地
+        @"Order_code":@"",//搜索订单号
+        @"time_order":@""//1升2降
     };
     [self networkingWithArgument:dic];
 }
@@ -83,7 +106,9 @@
             @"user_id":identity,//搜索用户
             @"beginTime":@"",//时间从*
             @"endTime":@"",//到*
-            @"order_type":@""//订单类型 —— 1、摊位;2、批发;3、产地
+            @"order_type":@"",//订单类型 —— 1、摊位;2、批发;3、产地
+            @"Order_code":identity,//搜索订单号
+            @"time_order":@""//1升2降
         };
         [self networkingWithArgument:dic];
     }else{

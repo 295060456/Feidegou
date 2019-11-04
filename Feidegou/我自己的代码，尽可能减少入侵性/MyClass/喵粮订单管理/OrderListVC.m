@@ -324,8 +324,10 @@ UIScrollViewDelegate
         [_defaultBtn addTarget:self
                         action:@selector(defaultBtnClickEvent:)
               forControlEvents:UIControlEventTouchUpInside];
-        [_defaultBtn setImage:kIMG(@"双向箭头_2")
+        [_defaultBtn setImage:kIMG(@"双向箭头_1")
                      forState:UIControlStateNormal];
+        [_defaultBtn setImage:kIMG(@"双向箭头_2")
+                     forState:UIControlStateSelected];
         [_defaultBtn setTitleColor:kBlackColor
                           forState:UIControlStateNormal];
         [UIView cornerCutToCircleWithView:_defaultBtn
@@ -347,8 +349,10 @@ UIScrollViewDelegate
         [_timeBtn addTarget:self
                      action:@selector(timeBtnClickEvent:)
            forControlEvents:UIControlEventTouchUpInside];
-        [_timeBtn setImage:kIMG(@"双向箭头_2")
+        [_timeBtn setImage:kIMG(@"双向箭头_1")
                   forState:UIControlStateNormal];
+        [_timeBtn setImage:kIMG(@"双向箭头_2")
+                  forState:UIControlStateSelected];
         [_timeBtn setTitleColor:kBlackColor
                        forState:UIControlStateNormal];
         [UIView cornerCutToCircleWithView:_timeBtn
@@ -370,8 +374,10 @@ UIScrollViewDelegate
         [_typeBtn addTarget:self
                      action:@selector(typeBtnClickEvent:)
            forControlEvents:UIControlEventTouchUpInside];
-        [_typeBtn setImage:kIMG(@"双向箭头_2")
+        [_typeBtn setImage:kIMG(@"双向箭头_1")
                   forState:UIControlStateNormal];
+        [_typeBtn setImage:kIMG(@"双向箭头_2")
+                  forState:UIControlStateSelected];
         [_typeBtn setTitleColor:kBlackColor
                        forState:UIControlStateNormal];
         [UIView cornerCutToCircleWithView:_typeBtn
@@ -393,8 +399,10 @@ UIScrollViewDelegate
         [_tradeTypeBtn addTarget:self
                           action:@selector(tradeTypeBtnClickEvent:)
                 forControlEvents:UIControlEventTouchUpInside];
-        [_tradeTypeBtn setImage:kIMG(@"双向箭头_2")
+        [_tradeTypeBtn setImage:kIMG(@"双向箭头_1")
                        forState:UIControlStateNormal];
+        [_tradeTypeBtn setImage:kIMG(@"双向箭头_2")
+                       forState:UIControlStateSelected];
         [_tradeTypeBtn setTitleColor:kBlackColor
                             forState:UIControlStateNormal];
         [UIView cornerCutToCircleWithView:_tradeTypeBtn
@@ -535,7 +543,7 @@ UITableViewDataSource
             [self networking_default];
         }break;
         case NetworkingTpye_time:{//时间
-            [self networking_time];
+            [self networking_time:self.viewer.timeBtn];
         }break;
         case NetworkingTpye_tradeType:{//买卖
             [self networking_tradeType:self.viewer.tradeTypeBtn];
