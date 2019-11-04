@@ -57,7 +57,7 @@
 /// 状态码key
 #define HTTPServiceResponseCodeKey @"code"
 /// 消息key
-#define HTTPServiceResponseMsgKey @"msg"
+#define HTTPServiceResponseMsgKey @"message"
 /// 数据data
 #define HTTPServiceResponseDataKey  @"data"
 

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 //宠物成长值
-@interface GrowthValuePetsModel : NSObject
+@interface GrowthValuePetsModel : BaseModel
 
 @property(nonatomic,assign)int code;
 @property(nonatomic,copy)NSString *message;

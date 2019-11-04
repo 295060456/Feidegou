@@ -26,15 +26,14 @@ NSString *randomStr;
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) { 
-        if (response.isSuccess) {
-            NSLog(@"%p",response.reqResult);
-            [self.dataMutArr addObject:[NSString stringWithFormat:@"%@",response.reqResult[@"Foodsell"]]];
-            [self.dataMutArr addObject:[NSString stringWithFormat:@"%@",response.reqResult[@"Foodstuff"]]];
+        if (response) {
+            NSLog(@"--%@",response);
+            NSDictionary *dic = (NSDictionary *)response;
+            [self.dataMutArr addObject:[NSString stringWithFormat:@"%@",dic[@"Foodsell"]]];
+            [self.dataMutArr addObject:[NSString stringWithFormat:@"%@",dic[@"Foodstuff"]]];
             [self.tableView reloadData];
             [self.tableView.mj_header endRefreshing];
             [self.tableView.mj_footer endRefreshing];
-            NSLog(@"--%@",response.reqResult);
-
         }
     }];
 }

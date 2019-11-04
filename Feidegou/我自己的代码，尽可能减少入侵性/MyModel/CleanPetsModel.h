@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 //宠物清洁
-@interface CleanPetsModel : NSObject
+@interface CleanPetsModel : BaseModel
 
 @property(nonatomic,assign)int code;
 @property(nonatomic,copy)NSString *message;

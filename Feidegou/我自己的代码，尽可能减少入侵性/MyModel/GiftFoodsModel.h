@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 //用户赠送喵粮
-@interface GiftFoodsModel : NSObject
+@interface GiftFoodsModel : BaseModel
 
 @property(nonatomic,assign)int code;
 @property(nonatomic,copy)NSString *message;

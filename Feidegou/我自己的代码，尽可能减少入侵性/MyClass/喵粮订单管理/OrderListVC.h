@@ -24,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderListVC : BaseVC
 
+@property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,assign)int page;//分页面
+@property(nonatomic,strong)NSMutableArray <OrderListModel *>*dataMutArr;
+
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
                        requestParams:(nullable id)requestParams
                              success:(DataBlock _Nonnull )block

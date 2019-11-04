@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 //用户宠物详细信息
-@interface PetsInfoListModel : NSObject
+@interface PetsInfoListModel : BaseModel
 
 @property(nonatomic,copy)NSString *petsName;//宠物名称
 @property(nonatomic,assign)int sex;//宠物性别

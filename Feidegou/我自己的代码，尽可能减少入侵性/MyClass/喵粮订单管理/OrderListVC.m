@@ -8,6 +8,7 @@
 
 #import "OrderListVC.h"
 #import "OrderDetail_SellerVC.h"
+#import "OrderListVC+VM.h"
 
 #pragma mark —— OrderTBVCell
 @interface OrderTBVCell ()
@@ -42,9 +43,12 @@
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.imgV.alpha = 1;
-    self.titleLab.text = @"猫粮200g";
-    self.timeLab.text = @"2019年10月20日 17:23:11";
-    self.typeImgV.image = kIMG(@"Mf_旌旗_红色");//Mf_旌旗_绿色
+    if ([model isKindOfClass:[OrderListModel class]]) {
+        OrderListModel *orderListModel = (OrderListModel *)model;
+        self.titleLab.text = [NSString stringWithFormat:@"喵粮:%d g",orderListModel.quantity];
+        self.timeLab.text = orderListModel.addTime;
+        self.typeImgV.image = kIMG(@"Mf_旌旗_红色");//Mf_旌旗_绿色
+    }
 }
 #pragma mark —— lazyLoad
 -(UIImageView *)imgV{
@@ -379,10 +383,8 @@ UITableViewDataSource
 >
 
 @property(nonatomic,strong)SearchView *viewer;
-@property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIButton *filterBtn;
 
-@property(nonatomic,strong)NSMutableArray *dataMutArr;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -405,7 +407,7 @@ UITableViewDataSource
     OrderListVC *vc = OrderListVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-
+    vc.page = 1;
     if (rootVC.navigationController) {
         vc.isPush = YES;
         vc.isPresent = NO;
@@ -447,11 +449,14 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
+    [self networking];
     [self.tableView.mj_header endRefreshing];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
+    self.page++;
+    [self networking];
     [self.tableView.mj_footer endRefreshing];
 }
 #pragma mark —— 点击事件
@@ -497,7 +502,6 @@ UITableViewDataSource
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     return [OrderTBVCell cellHeightWithModel:nil];
 }
 
@@ -545,12 +549,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     OrderTBVCell *cell = [OrderTBVCell cellWith:tableView];
-    [cell richElementsInCellWithModel:nil];
+    [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
     return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
     return 1;
 }
 
@@ -615,22 +618,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _filterBtn;
 }
 
--(NSMutableArray *)dataMutArr{
+-(NSMutableArray<OrderListModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
-        [_dataMutArr addObject:@"1"];
-        [_dataMutArr addObject:@"2"];
-        [_dataMutArr addObject:@"3"];
-        [_dataMutArr addObject:@"4"];
-        [_dataMutArr addObject:@"5"];
-        [_dataMutArr addObject:@"6"];
-        [_dataMutArr addObject:@"7"];
-        [_dataMutArr addObject:@"8"];
-        [_dataMutArr addObject:@"9"];
-        [_dataMutArr addObject:@"0"];
     }return _dataMutArr;
 }
-
-
 
 @end

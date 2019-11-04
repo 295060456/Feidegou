@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 //用户领养宠物
-@interface AdoptingPetsModel : NSObject
+@interface AdoptingPetsModel : BaseModel
 
 @property(nonatomic,assign)int code;
 @property(nonatomic,copy)NSString *message;
