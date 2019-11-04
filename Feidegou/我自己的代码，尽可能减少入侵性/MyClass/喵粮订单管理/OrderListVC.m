@@ -183,13 +183,11 @@ UIScrollViewDelegate
         }
     }
     [self layoutIfNeeded];
-    NSLog(@"");
 }
 
 -(void)conditionalQueryBlock:(DataBlock)block{
     _block = block;
 }
-
 #pragma mark —— UITextFieldDelegate
 //询问委托人是否应该在指定的文本字段中开始编辑
 //- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
@@ -220,13 +218,13 @@ UIScrollViewDelegate
     scrollViewContentOffsetX = scrollView.contentOffset.x;
     [_historyDataListTBV removeFromSuperview];
 }
-
 #pragma mark —— 点击事件
 -(void)defaultBtnClickEvent:(UIButton *)sender{
     NSLog(@"默认");
     if (self.block) {
         self.block(sender);
     }
+    sender.selected = !sender.selected;
 }
 
 -(void)timeBtnClickEvent:(UIButton *)sender{
@@ -234,6 +232,7 @@ UIScrollViewDelegate
     if (self.block) {
         self.block(sender);
     }
+    sender.selected = !sender.selected;
 }
 
 -(void)typeBtnClickEvent:(UIButton *)sender{
@@ -241,6 +240,7 @@ UIScrollViewDelegate
     if (self.block) {
         self.block(sender);
     }
+    sender.selected = !sender.selected;
 }
 
 -(void)tradeTypeBtnClickEvent:(UIButton *)sender{
@@ -531,19 +531,19 @@ UITableViewDataSource
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
     switch (networking_tpye) {
-        case NetworkingTpye_default:{
+        case NetworkingTpye_default:{//默认
             [self networking_default];
         }break;
-        case NetworkingTpye_time:{
+        case NetworkingTpye_time:{//时间
             [self networking_time];
         }break;
-        case NetworkingTpye_tradeType:{
-            [self networking_tradeType];
+        case NetworkingTpye_tradeType:{//买卖
+            [self networking_tradeType:self.viewer.tradeTypeBtn];
         }break;
-        case NetworkingTpye_businessType:{
+        case NetworkingTpye_businessType:{//交易状态
             [self networking_type:r];
         }break;
-        case NetworkingTpye_ID:{
+        case NetworkingTpye_ID:{//ID查询
             [self networking_ID:self.viewer.textfield.text];
         }break;
         default:
@@ -684,26 +684,27 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             if ([data isKindOfClass:[UIButton class]]) {
                 UIButton *btn = (UIButton *)data;
                 if ([btn.titleLabel.text isEqualToString:self->_viewer.btnTitleMutArr[0]]) {//默认排序
-                    [self networking_default];
+                    self->networking_tpye = NetworkingTpye_default;
                 }else if ([btn.titleLabel.text isEqualToString:self->_viewer.btnTitleMutArr[1]]){//按时间
-                    [self networking_time];
+                    self->networking_tpye = NetworkingTpye_time;
                 }else if ([btn.titleLabel.text isEqualToString:self->_viewer.btnTitleMutArr[2]]){//按按买/卖
-                    [self networking_tradeType];
+                    self->networking_tpye = NetworkingTpye_tradeType;
                 }else{}
             }else if ([data isKindOfClass:[UITextField class]]){
                 UITextField *textField = (UITextField *)data;
                 if ([textField.placeholder isEqualToString:self->_viewer.btnTitleMutArr[4]]) {//输入的🆔
-                    [self networking_ID:textField.text];
+                    self->networking_tpye = NetworkingTpye_ID;
                 }
-            }else if([data isKindOfClass:[NSString class]]){
+            }else if([data isKindOfClass:[NSString class]]){//按交易状态
                 self->r = 0;
                 for (int d = 0; d < self->_viewer.listTitleDataMutArr.count; d++) {
                     if ([data isEqualToString:self->_viewer.listTitleDataMutArr[d]]) {
                         self->r = d;
+                        self->networking_tpye = NetworkingTpye_businessType;
                     }
                 }
-                [self networking_type:self->r];
             }else{}
+            [self.tableView.mj_header beginRefreshing];
         }];
         [self.view addSubview:_viewer];
         [_viewer mas_makeConstraints:^(MASConstraintMaker *make) {
