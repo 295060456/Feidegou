@@ -119,8 +119,12 @@
 UITextFieldDelegate,
 UIScrollViewDelegate
 >
+{
+    CGFloat scrollViewContentOffsetX;
+}
 
 @property(nonatomic,strong)UIScrollView *scrollView;
+@property(nonatomic,strong)HistoryDataListTBV *historyDataListTBV;
 @property(nonatomic,strong)MMButton *defaultBtn;
 @property(nonatomic,strong)MMButton *timeBtn;//按时间
 @property(nonatomic,strong)MMButton *typeBtn;//按类型（目前进行中(挂牌出售中)、已经取消的）
@@ -211,6 +215,11 @@ UIScrollViewDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     return YES;
 }
+#pragma mark —— UIScrollViewDelegate
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    scrollViewContentOffsetX = scrollView.contentOffset.x;
+    [_historyDataListTBV removeFromSuperview];
+}
 
 #pragma mark —— 点击事件
 -(void)defaultBtnClickEvent:(UIButton *)sender{
@@ -236,9 +245,30 @@ UIScrollViewDelegate
 
 -(void)tradeTypeBtnClickEvent:(UIButton *)sender{
     NSLog(@"交易状态");
-    if (self.block) {
-        self.block(sender);
+    NSLog(@"KKK = %d",sender.selected);
+    if (!sender.selected) {
+        [self addSubview:self.historyDataListTBV];
+        self.historyDataListTBV.frame = CGRectMake(self.tradeTypeBtn.mj_x - scrollViewContentOffsetX,
+                                                   self.tradeTypeBtn.mj_y + self.tradeTypeBtn.mj_h,
+                                                   self.tradeTypeBtn.mj_w,
+                                                   self.listTitleDataMutArr.count * [HistoryDataListTBVCell cellHeightWithModel:Nil]);
+    }else{
+        [self.historyDataListTBV removeFromSuperview];
     }
+    sender.selected = !sender.selected;
+}
+//超出父控件点击事件响应链断裂解决方案
+//若A是父视图,B是子视图,（B加在A上）,B超出A的范围,把这个方法写在A上
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    UIView *view = [super hitTest:point withEvent:event];
+    if (!view) {
+        //将坐标由当前视图发送到 指定视图 fromView是无法响应的范围小父视图
+        CGPoint stationPoint = [self.historyDataListTBV convertPoint:point
+                                                                     fromView:self];
+        if (CGRectContainsPoint(self.historyDataListTBV.bounds, stationPoint)){
+            view = self.historyDataListTBV;
+        }
+    }return view;
 }
 #pragma mark —— lazyLoad
 -(UIScrollView *)scrollView{
@@ -256,6 +286,36 @@ UIScrollViewDelegate
             make.right.equalTo(self.textfield.mas_left).offset(SCALING_RATIO(-10));
         }];
     }return _scrollView;
+}
+
+-(HistoryDataListTBV *)historyDataListTBV{
+    if (!_historyDataListTBV) {
+        _historyDataListTBV = [HistoryDataListTBV initWithRequestParams:self.listTitleDataMutArr];
+        _historyDataListTBV.tableFooterView = UIView.new;
+        @weakify(self)
+        [_historyDataListTBV showSelectedData:^(id data) {
+            @strongify(self)
+//            [self.btn setTitle:data
+//                      forState:UIControlStateNormal];
+            [self.historyDataListTBV removeFromSuperview];
+            self.tradeTypeBtn.selected = !self.tradeTypeBtn.selected;
+            if (self.block) {
+                self.block(data);
+            }
+        }];
+    }return _historyDataListTBV;
+}
+
+-(NSMutableArray<NSString *> *)listTitleDataMutArr{
+    if (!_listTitleDataMutArr) {
+        _listTitleDataMutArr = NSMutableArray.array;
+        [_listTitleDataMutArr addObject:@"已支付"];
+        [_listTitleDataMutArr addObject:@"已发单"];
+        [_listTitleDataMutArr addObject:@"已接单"];
+        [_listTitleDataMutArr addObject:@"已作废"];
+        [_listTitleDataMutArr addObject:@"已发货"];
+        [_listTitleDataMutArr addObject:@"已完成"];
+    }return _listTitleDataMutArr;
 }
 
 -(MMButton *)defaultBtn{
@@ -398,6 +458,10 @@ UIScrollViewDelegate
 UITableViewDelegate,
 UITableViewDataSource
 >
+{
+    Networking_tpye networking_tpye;
+    NSUInteger r;
+}
 
 @property(nonatomic,strong)SearchView *viewer;
 @property(nonatomic,strong)UIButton *filterBtn;
@@ -441,7 +505,6 @@ UITableViewDataSource
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-//    self.navigationItem.title = @"订单管理";
     self.gk_navTitle = @"订单管理";
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
@@ -452,6 +515,7 @@ UITableViewDataSource
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.tableView.alpha = 1;
+    networking_tpye = NetworkingTpye_default;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -466,14 +530,31 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
-    [self networking_default];
-    [self.tableView.mj_header endRefreshing];
+    switch (networking_tpye) {
+        case NetworkingTpye_default:{
+            [self networking_default];
+        }break;
+        case NetworkingTpye_time:{
+            [self networking_time];
+        }break;
+        case NetworkingTpye_tradeType:{
+            [self networking_tradeType];
+        }break;
+        case NetworkingTpye_businessType:{
+            [self networking_type:r];
+        }break;
+        case NetworkingTpye_ID:{
+            [self networking_ID:self.viewer.textfield.text];
+        }break;
+        default:
+            break;
+    }[self.tableView.mj_header endRefreshing];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
     self.page++;
-    [self networking_default];
+    [self pullToRefresh];
     [self.tableView.mj_footer endRefreshing];
 }
 #pragma mark —— 点击事件
@@ -608,14 +689,20 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     [self networking_time];
                 }else if ([btn.titleLabel.text isEqualToString:self->_viewer.btnTitleMutArr[2]]){//按按买/卖
                     [self networking_tradeType];
-                }else if ([btn.titleLabel.text isEqualToString:self->_viewer.btnTitleMutArr[3]]){//按交易状态
-                    [self networking_type];
                 }else{}
             }else if ([data isKindOfClass:[UITextField class]]){
                 UITextField *textField = (UITextField *)data;
                 if ([textField.placeholder isEqualToString:self->_viewer.btnTitleMutArr[4]]) {//输入的🆔
                     [self networking_ID:textField.text];
                 }
+            }else if([data isKindOfClass:[NSString class]]){
+                self->r = 0;
+                for (int d = 0; d < self->_viewer.listTitleDataMutArr.count; d++) {
+                    if ([data isEqualToString:self->_viewer.listTitleDataMutArr[d]]) {
+                        self->r = d;
+                    }
+                }
+                [self networking_type:self->r];
             }else{}
         }];
         [self.view addSubview:_viewer];

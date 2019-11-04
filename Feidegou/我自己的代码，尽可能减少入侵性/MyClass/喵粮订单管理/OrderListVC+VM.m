@@ -30,11 +30,28 @@
 }
 
 -(void)networking_tradeType{//按买/卖
+    if (self.dataMutArr.count) {
+        [self.dataMutArr removeAllObjects];
+    }
     
 }
 
--(void)networking_type{//按交易状态
-    
+-(void)networking_type:(BusinessType)businessType{//按交易状态
+    if (self.dataMutArr.count) {
+        [self.dataMutArr removeAllObjects];
+    }
+    NSDictionary *dic = @{
+        @"user_id":@"1",
+        @"currentPage":[NSString stringWithFormat:@"%d",self.page],//分页数
+        @"pagesize":@"10",
+        @"order_status":[NSString stringWithFormat:@"%lu",(unsigned long)businessType],//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+        @"type":@"",//买家1;卖家0
+        @"user_id":@"",//搜索用户
+        @"beginTime":@"",//时间从*
+        @"endTime":@"",//到*
+        @"order_type":@""//订单类型 —— 1、摊位;2、批发;3、产地
+    };
+    [self networkingWithArgument:dic];
 }
 
 -(void)networking_ID:(NSString *)identity{//按输入的查询ID

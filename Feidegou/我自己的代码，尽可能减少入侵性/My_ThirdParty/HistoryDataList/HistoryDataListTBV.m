@@ -7,7 +7,6 @@
 //
 
 #import "HistoryDataListTBV.h"
-#import "HistoryDataListTBVCell.h"
 
 @interface HistoryDataListTBV ()
 <
