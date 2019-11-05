@@ -14,7 +14,7 @@ NSString *randomStr;
 
 -(void)networking{
     NSDictionary *dataDic = @{
-        @"user_id":@"1"
+        @"user_id":@"1"//KKK
     };
     randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST

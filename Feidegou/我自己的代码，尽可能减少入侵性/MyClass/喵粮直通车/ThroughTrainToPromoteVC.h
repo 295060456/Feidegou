@@ -7,6 +7,7 @@
 //
 
 #import "BaseVC.h"
+#import "StallListVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @interface ThroughTrainToPromoteTBVCell : TBVCell_style_01
@@ -14,10 +15,13 @@ NS_ASSUME_NONNULL_BEGIN
 +(instancetype)cellWith:(UITableView *)tableView;
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;
 - (void)richElementsInCellWithModel:(id _Nullable)model;
+-(void)actionBlock:(DataBlock)block;
 
 @end
 
 @interface ThroughTrainToPromoteVC : BaseVC
+
+@property(nonatomic,copy)__block NSString *quantity;
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
                        requestParams:(nullable id)requestParams

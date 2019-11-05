@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(instancetype)cellWith:(UITableView *)tableView;
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;
 - (void)richElementsInCellWithModel:(id _Nullable)model;
+-(void)actionBlock:(DataBlock)block;
 
 @end
 
@@ -23,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(instancetype)cellWith:(UITableView *)tableView;
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;
 - (void)richElementsInCellWithModel:(id _Nullable)model;
+-(void)actionBlock:(DataBlock)block;
 
 @end
 
@@ -39,10 +41,15 @@ NS_ASSUME_NONNULL_BEGIN
 +(instancetype)cellWith:(UITableView *)tableView;
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;
 - (void)richElementsInCellWithModel:(id _Nullable)model;
+-(void)actionBlock:(DataBlock)block;
 
 @end
 
 @interface GiftVC : BaseVC
+
+@property(nonatomic,strong)id requestParams;
+@property(nonatomic,copy)__block NSString *User_phone;
+@property(nonatomic,copy)__block NSString *value;
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
                        requestParams:(nullable id)requestParams

@@ -7,6 +7,7 @@
 //
 
 #import "GiftVC.h"
+#import "GiftVC+VM.h"
 
 #pragma mark —— GiftTBVCell
 //输入用户🆔 & 手机号码
@@ -17,6 +18,7 @@ UITextFieldDelegate
 
 @property(nonatomic,strong)UIButton *btn;
 @property(nonatomic,strong)ZYTextField *textField;
+@property(nonatomic,copy)DataBlock block;
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*mutArr;
 
@@ -49,6 +51,10 @@ UITextFieldDelegate
     self.textField.alpha = 1;
 }
 
+-(void)actionBlock:(DataBlock)block{
+    _block = block;
+}
+
 #pragma mark —— UITextFieldDelegate
 //询问委托人是否应该在指定的文本字段中开始编辑
 //- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
@@ -60,7 +66,9 @@ UITextFieldDelegate
 //- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
 //告诉委托人对指定的文本字段停止编辑
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    
+    if (self.block) {
+        self.block(textField.text);
+    }
 }
 //告诉委托人对指定的文本字段停止编辑
 //- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
@@ -72,7 +80,6 @@ UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
     return YES;
 }
-
 #pragma mark —— 点击事件
 -(void)btnClickEvent:(UIButton *)sender{
     sender.selected = !sender.selected;
@@ -151,6 +158,7 @@ UITextFieldDelegate
 >
 
 @property(nonatomic,strong)ZYTextField *textField;
+@property(nonatomic,copy)DataBlock block;
 
 @end
 
@@ -180,6 +188,10 @@ UITextFieldDelegate
     self.textField.alpha = 1;
 }
 
+-(void)actionBlock:(DataBlock)block{
+    _block = block;
+}
+
 #pragma mark —— UITextFieldDelegate
 //询问委托人是否应该在指定的文本字段中开始编辑
 //- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
@@ -191,7 +203,9 @@ UITextFieldDelegate
 //- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
 //告诉委托人对指定的文本字段停止编辑
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    
+    if (self.block) {
+        self.block(textField.text);
+    }
 }
 //告诉委托人对指定的文本字段停止编辑
 //- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
@@ -274,6 +288,7 @@ UITextFieldDelegate
 
 @property(nonatomic,strong)UIButton *cancelBtn;
 @property(nonatomic,strong)UIButton *giftBtn;
+@property(nonatomic,copy)DataBlock block;
 
 @end
 
@@ -304,12 +319,22 @@ UITextFieldDelegate
     self.giftBtn.alpha = 1;
 }
 
+-(void)actionBlock:(DataBlock)block{
+    _block = block;
+}
+
 -(void)cancelBtnClickEvent:(UIButton *)sender{
     NSLog(@"取消");
+    if (self.block) {
+        self.block(sender);
+    }
 }
 
 -(void)giftBtnclickEvent:(UIButton *)sender{
     NSLog(@"赠送");
+    if (self.block) {
+        self.block(sender);
+    }
 }
 
 #pragma mark —— lazyLaod
@@ -370,7 +395,6 @@ UITableViewDataSource>
 
 @property(nonatomic,strong)UITableView *tableView;
 
-@property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
@@ -462,11 +486,25 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         case 0:{
             GiftTBVCell_01 *cell = [GiftTBVCell_01 cellWith:tableView];
             [cell richElementsInCellWithModel:nil];
+            @weakify(self)
+            [cell actionBlock:^(id data) {
+                @strongify(self)
+                if ([data isKindOfClass:[NSString class]]) {
+                    self.User_phone = data;
+                }
+            }];
             return cell;
         }break;
         case 1:{
             GiftTBVCell_02 *cell = [GiftTBVCell_02 cellWith:tableView];
             [cell richElementsInCellWithModel:nil];
+            @weakify(self)
+            [cell actionBlock:^(id data) {
+                 @strongify(self)
+                if ([data isKindOfClass:[NSString class]]) {
+                    self.value = data;
+                }
+            }];
             return cell;
         }break;
         case 2:{
@@ -477,6 +515,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         case 3:{
             GiftTBVCell_04 *cell = [GiftTBVCell_04 cellWith:tableView];
             [cell richElementsInCellWithModel:nil];
+            @weakify(self)
+            [cell actionBlock:^(id data) {
+                @strongify(self)
+                if ([data isKindOfClass:[UIButton class]]) {
+                    UIButton *btn = (UIButton *)data;
+                    if ([btn.titleLabel.text isEqualToString:@"取消"]) {
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }else if ([btn.titleLabel.text isEqualToString:@"赠送"]){
+                        [self netWorking];//
+                    }
+                }
+            }];
             return cell;
         }break;
         default:

@@ -116,6 +116,8 @@
 		8BCB98D623715D520063E01E /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98D223715D520063E01E /* NSData+Base64.m */; };
 		8BCB98DB23715D660063E01E /* File in Resources */ = {isa = PBXBuildFile; fileRef = 8BCB98D823715D650063E01E /* File */; };
 		8BCB98DC23715D660063E01E /* AESCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98D923715D660063E01E /* AESCipher.m */; };
+		8BCB993423719DEA0063E01E /* GiftVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB993323719DEA0063E01E /* GiftVC+VM.m */; };
+		8BCB99372371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB99362371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.m */; };
 		C4026DBD2148161D00D81974 /* AchievementController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBB2148161D00D81974 /* AchievementController.m */; };
 		C4026DC02148164E00D81974 /* ButtonShare.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBE2148164E00D81974 /* ButtonShare.m */; };
 		C405FEFB218C2A0900C02CDC /* CLCellInterger.m in Sources */ = {isa = PBXBuildFile; fileRef = C405FEF9218C2A0900C02CDC /* CLCellInterger.m */; };
@@ -814,6 +816,10 @@
 		8BCB98D823715D650063E01E /* File */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = File; sourceTree = "<group>"; };
 		8BCB98D923715D660063E01E /* AESCipher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCipher.m; sourceTree = "<group>"; };
 		8BCB98DA23715D660063E01E /* AESCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCipher.h; sourceTree = "<group>"; };
+		8BCB993223719DEA0063E01E /* GiftVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GiftVC+VM.h"; sourceTree = "<group>"; };
+		8BCB993323719DEA0063E01E /* GiftVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GiftVC+VM.m"; sourceTree = "<group>"; };
+		8BCB99352371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ThroughTrainToPromoteVC+VM.h"; sourceTree = "<group>"; };
+		8BCB99362371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ThroughTrainToPromoteVC+VM.m"; sourceTree = "<group>"; };
 		947AD75F86191C8F32BD1901 /* Pods-Feidegou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.debug.xcconfig"; sourceTree = "<group>"; };
 		B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Feidegou.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4026DBB2148161D00D81974 /* AchievementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementController.m; sourceTree = "<group>"; };
@@ -2181,6 +2187,8 @@
 				8BB2D2F22366C7310047D0E2 /* 喵粮直通车——摊位列表 */,
 				8BB2D2F62366C7310047D0E2 /* ThroughTrainToPromoteVC.h */,
 				8BB2D2F52366C7310047D0E2 /* ThroughTrainToPromoteVC.m */,
+				8BCB99352371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.h */,
+				8BCB99362371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.m */,
 			);
 			path = "喵粮直通车";
 			sourceTree = "<group>";
@@ -2223,6 +2231,8 @@
 			children = (
 				8BB2D2FE2366C7310047D0E2 /* GiftVC.h */,
 				8BB2D2FF2366C7310047D0E2 /* GiftVC.m */,
+				8BCB993223719DEA0063E01E /* GiftVC+VM.h */,
+				8BCB993323719DEA0063E01E /* GiftVC+VM.m */,
 			);
 			path = "赠送";
 			sourceTree = "<group>";
@@ -4456,6 +4466,7 @@
 				C42CD18C213CC2640096675F /* NSSet+HYBUnicodeReadable.m in Sources */,
 				8BB2D3432366CB410047D0E2 /* FMHttpResonse.m in Sources */,
 				C42CD1C3213CC2640096675F /* ModelAreaList.m in Sources */,
+				8BCB993423719DEA0063E01E /* GiftVC+VM.m in Sources */,
 				C42CD14E213CC2640096675F /* CLCellGoodTypeHead.m in Sources */,
 				8BB2D33B2366CAF90047D0E2 /* CatFoodsManagementVC.m in Sources */,
 				C46143F3214386B6000C0CDC /* CellVendorShop.m in Sources */,
@@ -4554,6 +4565,7 @@
 				C42CD145213CC2640096675F /* CellHistoryClear.m in Sources */,
 				C42CD150213CC2640096675F /* CLCellTypeSelected.m in Sources */,
 				C42F5D2E213F858B00114E0E /* CellIncomeAll.m in Sources */,
+				8BCB99372371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.m in Sources */,
 				C46D6B5E2143A5FF00428D7A /* ModelOrderGoodList.m in Sources */,
 				8BB2D3892366CC1F0047D0E2 /* ViewForFooter.m in Sources */,
 				C46368D8213FBE6C006922D5 /* CellAdver.m in Sources */,

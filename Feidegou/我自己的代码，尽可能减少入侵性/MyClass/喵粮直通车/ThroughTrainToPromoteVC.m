@@ -7,7 +7,7 @@
 //
 
 #import "ThroughTrainToPromoteVC.h"
-#import "StallListVC.h"
+#import "ThroughTrainToPromoteVC+VM.h"
 
 @interface ThroughTrainToPromoteTBVCell()
 <
@@ -15,6 +15,7 @@ UITextFieldDelegate
 >
 
 @property(nonatomic,strong)ZYTextField *textField;
+@property(nonatomic,copy)DataBlock block;
 
 @end
 
@@ -38,6 +39,10 @@ UITextFieldDelegate
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     self.textField.alpha = 1;
 }
+
+-(void)actionBlock:(DataBlock)block{
+    _block = block;
+}
 #pragma mark —— UITextFieldDelegate
 //询问委托人是否应该在指定的文本字段中开始编辑
 //- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
@@ -49,7 +54,9 @@ UITextFieldDelegate
 //- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
 //告诉委托人对指定的文本字段停止编辑
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    
+    if (self.block) {
+        self.block(textField.text);
+    }
 }
 //告诉委托人对指定的文本字段停止编辑
 //- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
@@ -153,11 +160,7 @@ UITableViewDataSource
 
 -(void)btnClickEvent:(UIButton *)sender{
     NSLog(@"开启直通车抢摊位")
-    @weakify(self)
-    [StallListVC pushFromVC:self_weak_
-              requestParams:nil
-                    success:^(id data) {}
-                   animated:YES];
+    [self netWorking];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
@@ -183,6 +186,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [cell richElementsInCellWithModel:nil];
         cell.textLabel.text = self.titleMutArr[indexPath.row];
         cell.detailTextLabel.text = self.detailTitleMutArr[indexPath.row];
+        @weakify(self)
+        [cell actionBlock:^(id data) {
+            @strongify(self)
+            if ([data isKindOfClass:[NSString class]]) {
+                self.quantity = data;
+            }
+        }];
         return cell;
     }else{
         UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
