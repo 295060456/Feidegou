@@ -7,6 +7,7 @@
 //
 
 #import "ReleaseOrderVC.h"
+#import "ReleaseOrderVC+VM.h"
 
 #pragma ReleaseOrder_viewForHeader
 @interface ReleaseOrder_viewForHeader (){
@@ -71,6 +72,7 @@ UITextFieldDelegate
 @property(nonatomic,strong)UITextField *textfield;
 @property(nonatomic,strong)NSMutableArray <NSString *>*listTitleDataMutArr;
 @property(nonatomic,copy)DataBlock block;
+@property(nonatomic,copy)DataBlock dataBlock;
 @property(nonatomic,copy)ThreeDataBlock block2;
 
 @end
@@ -141,6 +143,10 @@ UITextFieldDelegate
 -(void)btnClickEventBlock:(ThreeDataBlock)block{
     self.block2 = block;
 }
+
+-(void)dataBlock:(DataBlock)block{
+    _dataBlock = block;
+}
 //超出父控件点击事件响应链断裂解决方案
 //若A是父视图,B是子视图,（B加在A上）,B超出A的范围,把这个方法写在A上
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
@@ -185,7 +191,9 @@ UITextFieldDelegate
 //- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
 //告诉委托人对指定的文本字段停止编辑
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    
+    if (self.dataBlock) {
+        self.dataBlock(textField);
+    }
 }
 //告诉委托人对指定的文本字段停止编辑
 //- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
@@ -381,6 +389,21 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         indexPath.row == 2) {//最高限额
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Textfield];
+        @weakify(self)
+        [cell dataBlock:^(id data) {
+            @strongify(self)
+            if ([data isKindOfClass:[UITextField class]]) {
+                UITextField *textfield = (UITextField *)data;
+                if ([textfield.placeholder isEqualToString:self.placeholderMutArr[0]]) {//请输入数量
+                    self.str_1 = textfield.text;
+                }else if([textfield.placeholder isEqualToString:self.placeholderMutArr[1]]){//请输入最低限额
+                    self.str_2 = textfield.text;
+                }else if([textfield.placeholder isEqualToString:self.placeholderMutArr[2]]){//请输入最高限额
+                    self.str_3 = textfield.text;
+                }else{}
+            }     
+        }];
+        
     }else if(indexPath.row == 3){//单价
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Lab];

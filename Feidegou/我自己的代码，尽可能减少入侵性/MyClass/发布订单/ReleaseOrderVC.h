@@ -24,18 +24,23 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ReleaseOrderTBVCell : TBVCell_style_01
 
 @property(nonatomic,strong)HistoryDataListTBV *historyDataListTBV;
-
 @property(nonatomic,strong)UIButton *btn;
+
 +(instancetype)cellWith:(UITableView *)tableView;
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;
 - (void)richElementsInCellWithModel:(id _Nullable)model
             ReleaseOrderTBVCellType:(ReleaseOrderTBVCellType)type;
 -(void)actionBlock:(DataBlock)block;
 -(void)btnClickEventBlock:(ThreeDataBlock)block;
+-(void)dataBlock:(DataBlock)block;
 
 @end
 
 @interface ReleaseOrderVC : BaseVC
+
+@property(nonatomic,copy)__block NSString *str_1;
+@property(nonatomic,copy)__block NSString *str_2;
+@property(nonatomic,copy)__block NSString *str_3;
 
 + (instancetype)pushFromVC:(UIViewController *)rootVC
              requestParams:(nullable id)requestParams

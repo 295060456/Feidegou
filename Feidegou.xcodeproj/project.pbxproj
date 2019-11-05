@@ -14,6 +14,7 @@
 		8B17DE372371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B17DE362371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.m */; };
 		8B17DE3A2371B4E7001161BB /* WholesaleMarket_VipVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B17DE392371B4E7001161BB /* WholesaleMarket_VipVC+VM.m */; };
 		8B17DE3D2371BA9C001161BB /* WholesaleMarket_VipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B17DE3C2371BA9C001161BB /* WholesaleMarket_VipModel.m */; };
+		8B17DE402371CF60001161BB /* ReleaseOrderVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B17DE3F2371CF60001161BB /* ReleaseOrderVC+VM.m */; };
 		8B716467236FE7B7009BA9EF /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B716466236FE7B7009BA9EF /* BaseModel.m */; };
 		8B71646A236FE84F009BA9EF /* OrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B716469236FE84F009BA9EF /* OrderListModel.m */; };
 		8B71646D23703E8B009BA9EF /* OrderDetail_SellerVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B71646C23703E8B009BA9EF /* OrderDetail_SellerVC+VM.m */; };
@@ -623,6 +624,8 @@
 		8B17DE392371B4E7001161BB /* WholesaleMarket_VipVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WholesaleMarket_VipVC+VM.m"; sourceTree = "<group>"; };
 		8B17DE3B2371BA9C001161BB /* WholesaleMarket_VipModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_VipModel.h; sourceTree = "<group>"; };
 		8B17DE3C2371BA9C001161BB /* WholesaleMarket_VipModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_VipModel.m; sourceTree = "<group>"; };
+		8B17DE3E2371CF60001161BB /* ReleaseOrderVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReleaseOrderVC+VM.h"; sourceTree = "<group>"; };
+		8B17DE3F2371CF60001161BB /* ReleaseOrderVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ReleaseOrderVC+VM.m"; sourceTree = "<group>"; };
 		8B716465236FE7B7009BA9EF /* BaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
 		8B716466236FE7B7009BA9EF /* BaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		8B716468236FE84F009BA9EF /* OrderListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderListModel.h; sourceTree = "<group>"; };
@@ -1850,6 +1853,8 @@
 			children = (
 				8B8B0D9C236960960040EE53 /* ReleaseOrderVC.h */,
 				8B8B0D9D236960960040EE53 /* ReleaseOrderVC.m */,
+				8B17DE3E2371CF60001161BB /* ReleaseOrderVC+VM.h */,
+				8B17DE3F2371CF60001161BB /* ReleaseOrderVC+VM.m */,
 			);
 			path = "发布订单";
 			sourceTree = "<group>";
@@ -4289,6 +4294,7 @@
 				C42CD0FE213CC2640096675F /* CellBrandRoneRecommend.m in Sources */,
 				C42CD063213CC2640096675F /* CellCollection.m in Sources */,
 				C42CD06F213CC2640096675F /* SettingController.m in Sources */,
+				8B17DE402371CF60001161BB /* ReleaseOrderVC+VM.m in Sources */,
 				C46143EF214386B6000C0CDC /* CellHeader.m in Sources */,
 				C42CD198213CC2640096675F /* UILabelDarkBig.m in Sources */,
 				C42CD0EA213CC2640096675F /* CellCartGood.m in Sources */,
