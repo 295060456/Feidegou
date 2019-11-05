@@ -9,6 +9,7 @@
 #import "WholesaleMarket_VipVC.h"
 #import "ReleaseOrderVC.h"
 #import "WholesaleOrders_VipVC.h"
+#import "WholesaleMarket_VipVC+VM.h"
 
 @interface WholesaleMarket_VipVC ()
 <
@@ -16,9 +17,7 @@ StockViewDataSource,
 StockViewDelegate
 >
 
-@property(nonatomic,weak)JJStockView *stockView;
 @property(nonatomic,strong)UIButton *releaseBtn;
-@property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 
 @property(nonatomic,strong)id requestParams;
@@ -58,9 +57,7 @@ StockViewDelegate
 
 #pragma mark - Lifecycle
 -(instancetype)init{
-    
     if (self = [super init]) {
-        
     }return self;
 }
 
@@ -73,6 +70,8 @@ StockViewDelegate
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.stockView.alpha = 1;
+    self.currentPage = 1;
+    [self netWorking];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -92,6 +91,7 @@ StockViewDelegate
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
+    self.currentPage ++;
    [self.stockView.jjStockTableView.mj_footer endRefreshing];
 }
 #pragma mark —— StockViewDataSource,StockViewDelegate
@@ -114,11 +114,14 @@ StockViewDelegate
  */
 - (UIView*)titleCellForStockView:(JJStockView*)stockView
                        atRowPath:(NSUInteger)row{
-    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                               0,
-                                                               100,
-                                                               30)];
-    label.text = [NSString stringWithFormat:@"订单号:%ld",row];
+    UILabel *label = UILabel.new;
+    label.frame = CGRectMake(0,
+                             0,
+                             SCALING_RATIO(115),
+                             SCALING_RATIO(40));
+    WholesaleMarket_VipModel *model = self.dataMutArr[row];
+    label.text = [NSString stringWithFormat:@"%@",model.ordercode];
+    label.lineBreakMode = NSLineBreakByTruncatingMiddle;
     label.textColor = kGrayColor;
     label.backgroundColor = COLOR_RGB(223.0f,
                                       223.0f,
@@ -144,12 +147,65 @@ StockViewDelegate
                                                                 240.f,
                                                                 240.f,
                                                                 1.f);
+    NSMutableArray <NSString *>*dat = NSMutableArray.array;
+    NSMutableArray <NSMutableArray *>*dat2 = NSMutableArray.array;
+    for (int d = 0; d < self.dataMutArr.count; d++) {
+        WholesaleMarket_VipModel *model = self.dataMutArr[row];
+        [dat addObject:[NSString stringWithFormat:@"%d",model.quantity]];
+        [dat addObject:[NSString stringWithFormat:@"%d",model.price]];
+        
+        switch (model.order_type) {
+            case 1:{
+                [dat addObject:@"普通"];
+            }
+                break;
+            case 2:{
+                [dat addObject:@"批发"];
+            }
+                break;
+            case 3:{
+                [dat addObject:@"平台"];
+            }
+                break;
+            default:
+                break;
+        }
+        
+        switch (model.order_status) {
+            case 0:{
+              [dat addObject:@"已支付"];//
+            }break;
+            case 1:{
+                [dat addObject:@"已发单"];//
+            }break;
+            case 2:{
+                [dat addObject:@"已下单"];//
+            }break;
+            case 3:{
+                [dat addObject:@"已作废"];//
+            }break;
+            case 4:{
+                [dat addObject:@"已发货"];//
+            }break;
+            case 5:{
+                [dat addObject:@"已完成"];//
+            }break;
+            default:
+                break;
+        }
+        [dat2 addObject:dat];
+    }
+    
     for (int i = 0; i < self.titleMutArr.count - 1; i++) {
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i * 100,
                                                                    0,
                                                                    100,
                                                                    30)];
-        label.text = [NSString stringWithFormat:@"内容:%d",i];
+        //数量、单价、类型、状态
+        for (int r = 0; r < dat2.count; r++) {
+            label.text = dat2[r][i];
+        }
+
         label.textAlignment = NSTextAlignmentCenter;
         [bg addSubview:label];
     }return bg;
@@ -164,8 +220,8 @@ StockViewDelegate
 - (UIView *)headRegularTitle:(JJStockView *)stockView{
     UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(0,
                                                                0,
-                                                               100,
-                                                               40)];
+                                                               SCALING_RATIO(115),
+                                                               SCALING_RATIO(40))];
     label.text = self.titleMutArr[0];
     label.backgroundColor = kWhiteColor;
     label.textColor = kGrayColor;
@@ -188,10 +244,10 @@ StockViewDelegate
                                    223.0f,
                                    1.f);
     for (int i = 0; i < self.titleMutArr.count - 1; i++) {
-        UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(i * 100,
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(i * 100,
                                                                    0,
-                                                                   100,
-                                                                   40)];
+                                                                   SCALING_RATIO(100),
+                                                                   SCALING_RATIO(40))];
         label.text = self.titleMutArr[i + 1];
         label.textAlignment = NSTextAlignmentCenter;
         label.textColor = kGrayColor;
@@ -215,7 +271,8 @@ StockViewDelegate
  @param row 当前行的索引值
  @return 返回指定高度
  */
-- (CGFloat)heightForCell:(JJStockView*)stockView atRowPath:(NSUInteger)row{
+- (CGFloat)heightForCell:(JJStockView*)stockView
+               atRowPath:(NSUInteger)row{
     return 30.0f;
 }
 /**
@@ -270,19 +327,9 @@ StockViewDelegate
     }return _releaseBtn;
 }
 
--(NSMutableArray<NSString *> *)dataMutArr{
+-(NSMutableArray<WholesaleMarket_VipModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
-        [_dataMutArr addObject:@"0"];
-        [_dataMutArr addObject:@"1"];
-        [_dataMutArr addObject:@"2"];
-        [_dataMutArr addObject:@"3"];
-        [_dataMutArr addObject:@"4"];
-        [_dataMutArr addObject:@"5"];
-        [_dataMutArr addObject:@"6"];
-        [_dataMutArr addObject:@"7"];
-        [_dataMutArr addObject:@"8"];
-        [_dataMutArr addObject:@"9"];
     }return _dataMutArr;
 }
 

@@ -9,6 +9,7 @@
 #import "WholesaleMarket_AdvanceVC.h"
 #import "ReleaseOrderVC.h"
 #import "WholesaleOrders_AdvanceVC.h"
+#import "WholesaleMarket_AdvanceVC+VM.h"
 
 @interface WholesaleMarket_AdvancePopView ()
 <
@@ -387,6 +388,7 @@ UITableViewDataSource
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.tableView.alpha = 1;
+    [self netWorking];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
