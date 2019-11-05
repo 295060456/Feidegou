@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UpLoadCancelReasonVC : BaseVC
 
+@property(nonatomic,strong)id requestParams;
+@property(nonatomic,strong)__block UIImage *pic;
+
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
                        requestParams:(nullable id)requestParams
                              success:(DataBlock _Nonnull )block

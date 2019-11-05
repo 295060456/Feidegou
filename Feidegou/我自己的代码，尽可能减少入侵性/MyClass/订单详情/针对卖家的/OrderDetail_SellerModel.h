@@ -54,7 +54,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *bankUser;
 @property(nonatomic,copy)NSString *payment_weixin_img_path;
 @property(nonatomic,copy)NSString *payment_alipay_img_path;
-@property(nonatomic,copy)NSString *deal;
+//@property(nonatomic,copy)NSString *deal;
+@property(nonatomic,assign)long deal;
 
 @end
 

@@ -8,6 +8,7 @@
 
 #import "UpLoadCancelReasonVC.h"
 #import "SamplePicVC.h"
+#import "UpLoadCancelReasonVC+VM.h"
 
 @interface UpLoadCancelReasonTBVCell ()
 
@@ -160,7 +161,6 @@ TZImagePickerControllerDelegate
 @property(nonatomic,strong)UpLoadCancelReasonTBVCell *cell;
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*tipsMutArr;
-@property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
@@ -237,7 +237,7 @@ TZImagePickerControllerDelegate
 
 -(void)upLoadbtnClickEvent:(UIButton *)sender{
     NSLog(@"立即上传");
-
+    [self CancelDelivery_NetWorking];
 }
 
 -(void)picBtnClickEvent:(UIButton *)sender{
@@ -416,6 +416,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             @strongify(self)
             if (photos.count == 1) {
                 [self.cell reloadPicBtnIMG:photos.lastObject];
+                self.pic = photos.lastObject;
             }else{
                 [self showAlertViewTitle:@"选择一张相片就够啦"
                                  message:@"不要画蛇添足"

@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)netWorking;
 
+-(void)ConfirmDelivery_NetWorking;
+
 @end
 
 NS_ASSUME_NONNULL_END

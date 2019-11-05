@@ -522,7 +522,6 @@ UITableViewDataSource
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.tableView.alpha = 1;
     networking_tpye = NetworkingTpye_default;
 }
 
@@ -620,14 +619,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //
     self.isDelCell = YES;
     
-    [self.dataMutArr removeObjectAtIndex:indexPath.row];
-    
-    [self.tableView beginUpdates];
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                            withRowAnimation:UITableViewRowAnimationMiddle];
-    [self.tableView endUpdates];
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
-                    withRowAnimation:UITableViewRowAnimationNone];
+//    [self.dataMutArr removeObjectAtIndex:indexPath.row];
+//
+//    [self.tableView beginUpdates];
+//    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+//                            withRowAnimation:UITableViewRowAnimationMiddle];
+//    [self.tableView endUpdates];
+//    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
+//                    withRowAnimation:UITableViewRowAnimationNone];
     
     @weakify(self)
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
@@ -636,8 +635,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         
         [OrderDetail_SellerVC pushFromVC:self_weak_
                            requestParams:@{
-                               @"order_id":[NSString stringWithFormat:@"%d",self.dataMutArr[indexPath.row].ID],
-                               @"order_type":[NSString stringWithFormat:@"%d",self.dataMutArr[indexPath.row].order_type]
+                               @"OrderListModel":self.dataMutArr[indexPath.row]
+//                               @"order_id":[NSString stringWithFormat:@"%d",self.dataMutArr[indexPath.row].ID],
+//                               @"order_type":[NSString stringWithFormat:@"%d",self.dataMutArr[indexPath.row].order_type]
                            }
                           success:^(id data) {}
                          animated:YES];

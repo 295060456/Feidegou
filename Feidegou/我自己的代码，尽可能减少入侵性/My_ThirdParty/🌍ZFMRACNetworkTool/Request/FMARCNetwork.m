@@ -157,13 +157,15 @@ static FMARCNetwork *_instance = nil;
                 //错误可以在此处处理---比如加入自己弹窗，主要是服务器错误、和请求超时、网络开小差
                 [self showMsgtext:msgStr];
             } else {
+                
                 extern NSString *randomStr;
-                FMHttpResonse *response = [[FMHttpResonse alloc] initWithResponseSuccess:[NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)]
+                FMHttpResonse *httpResponse = [[FMHttpResonse alloc] initWithResponseSuccess:[NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)]
                                                                                           code:1];
-                NSInteger statusCode = [response.reqResult[HTTPServiceResponseCodeKey] integerValue];
+                NSInteger statusCode = [httpResponse.reqResult[HTTPServiceResponseCodeKey] integerValue];
+                
                 if (statusCode == HTTPResponseCodeSuccess) {
-                    if (response.isSuccess) {
-                        [subscriber sendNext:response.reqResult[HTTPServiceResponseDataKey]];
+                    if (httpResponse.isSuccess) {
+                        [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseDataKey]];
                         [subscriber sendCompleted];
                     }
                 }else{
@@ -185,7 +187,7 @@ static FMARCNetwork *_instance = nil;
                     }else{
                         NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
                         userInfo[HTTPServiceErrorResponseCodeKey] = @(statusCode);
-                        NSString *msgTips = responseObject[HTTPServiceResponseMsgKey];
+                        NSString *msgTips = httpResponse.reqResult[HTTPServiceResponseMsgKey];
                         if ((msgTips.length == 0 ||
                              !msgTips ||
                              [msgTips isKindOfClass:[NSNull class]])) {

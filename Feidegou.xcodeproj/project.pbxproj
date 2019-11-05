@@ -11,14 +11,6 @@
 		8B05F84A236AA98900DCE40C /* HistoryDataListTBV.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0DA32369635E0040EE53 /* HistoryDataListTBV.m */; };
 		8B05F84B236AA99900DCE40C /* HistoryDataListTBVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0DA22369635E0040EE53 /* HistoryDataListTBVCell.m */; };
 		8B05F854236AF15500DCE40C /* BaseTableViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B05F853236AF15500DCE40C /* BaseTableViewer.m */; };
-		8B62732C236A88D000749F09 /* RSAUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B62731B236A88D000749F09 /* RSAUtil.m */; };
-		8B62732D236A88D000749F09 /* EncryptUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B62731E236A88D000749F09 /* EncryptUtils.m */; };
-		8B62732E236A88D000749F09 /* AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B627320236A88D000749F09 /* AES.m */; };
-		8B62732F236A88D000749F09 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B627321236A88D000749F09 /* NSString+Base64.m */; };
-		8B627330236A88D000749F09 /* AESCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B627323236A88D000749F09 /* AESCipher.m */; };
-		8B627331236A88D000749F09 /* File in Resources */ = {isa = PBXBuildFile; fileRef = 8B627324236A88D000749F09 /* File */; };
-		8B627332236A88D000749F09 /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B62732A236A88D000749F09 /* NSData+CommonCrypto.m */; };
-		8B627333236A88D000749F09 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B62732B236A88D000749F09 /* NSData+Base64.m */; };
 		8B716467236FE7B7009BA9EF /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B716466236FE7B7009BA9EF /* BaseModel.m */; };
 		8B71646A236FE84F009BA9EF /* OrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B716469236FE84F009BA9EF /* OrderListModel.m */; };
 		8B71646D23703E8B009BA9EF /* OrderDetail_SellerVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B71646C23703E8B009BA9EF /* OrderDetail_SellerVC+VM.m */; };
@@ -115,6 +107,15 @@
 		8BB2D3942366CC500047D0E2 /* ZYTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3372366C7310047D0E2 /* ZYTextField.m */; };
 		8BB2D3952366CC550047D0E2 /* UIView+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D31A2366C7310047D0E2 /* UIView+Extras.m */; };
 		8BB2D43E2367F9BB0047D0E2 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */; };
+		8BCB98C2237154940063E01E /* UpLoadCancelReasonVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98C1237154940063E01E /* UpLoadCancelReasonVC+VM.m */; };
+		8BCB98C823715D380063E01E /* EncryptUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98C423715D370063E01E /* EncryptUtils.m */; };
+		8BCB98C923715D380063E01E /* RSAUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98C723715D380063E01E /* RSAUtil.m */; };
+		8BCB98D323715D520063E01E /* NSData+CommonCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98CC23715D510063E01E /* NSData+CommonCrypto.m */; };
+		8BCB98D423715D520063E01E /* AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98CF23715D510063E01E /* AES.m */; };
+		8BCB98D523715D520063E01E /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98D123715D520063E01E /* NSString+Base64.m */; };
+		8BCB98D623715D520063E01E /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98D223715D520063E01E /* NSData+Base64.m */; };
+		8BCB98DB23715D660063E01E /* File in Resources */ = {isa = PBXBuildFile; fileRef = 8BCB98D823715D650063E01E /* File */; };
+		8BCB98DC23715D660063E01E /* AESCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98D923715D660063E01E /* AESCipher.m */; };
 		C4026DBD2148161D00D81974 /* AchievementController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBB2148161D00D81974 /* AchievementController.m */; };
 		C4026DC02148164E00D81974 /* ButtonShare.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBE2148164E00D81974 /* ButtonShare.m */; };
 		C405FEFB218C2A0900C02CDC /* CLCellInterger.m in Sources */ = {isa = PBXBuildFile; fileRef = C405FEF9218C2A0900C02CDC /* CLCellInterger.m */; };
@@ -611,21 +612,6 @@
 		8B05F852236AF15500DCE40C /* BaseTableViewer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseTableViewer.h; sourceTree = "<group>"; };
 		8B05F853236AF15500DCE40C /* BaseTableViewer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewer.m; sourceTree = "<group>"; };
 		8B05F855236AF33D00DCE40C /* 专治UITableView相应链断裂 */ = {isa = PBXFileReference; lastKnownFileType = text; path = "专治UITableView相应链断裂"; sourceTree = "<group>"; };
-		8B62731B236A88D000749F09 /* RSAUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAUtil.m; sourceTree = "<group>"; };
-		8B62731C236A88D000749F09 /* EncryptUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncryptUtils.h; sourceTree = "<group>"; };
-		8B62731D236A88D000749F09 /* RSAUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAUtil.h; sourceTree = "<group>"; };
-		8B62731E236A88D000749F09 /* EncryptUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncryptUtils.m; sourceTree = "<group>"; };
-		8B627320236A88D000749F09 /* AES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AES.m; sourceTree = "<group>"; };
-		8B627321236A88D000749F09 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
-		8B627323236A88D000749F09 /* AESCipher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCipher.m; sourceTree = "<group>"; };
-		8B627324236A88D000749F09 /* File */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = File; sourceTree = "<group>"; };
-		8B627325236A88D000749F09 /* AESCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCipher.h; sourceTree = "<group>"; };
-		8B627326236A88D000749F09 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
-		8B627327236A88D000749F09 /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
-		8B627328236A88D000749F09 /* AES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AES.h; sourceTree = "<group>"; };
-		8B627329236A88D000749F09 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
-		8B62732A236A88D000749F09 /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
-		8B62732B236A88D000749F09 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		8B716465236FE7B7009BA9EF /* BaseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
 		8B716466236FE7B7009BA9EF /* BaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		8B716468236FE84F009BA9EF /* OrderListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderListModel.h; sourceTree = "<group>"; };
@@ -811,6 +797,23 @@
 		8BB2D3662366CBA60047D0E2 /* TZImageRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageRequestOperation.m; sourceTree = "<group>"; };
 		8BB2D3672366CBA60047D0E2 /* TZProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZProgressView.h; sourceTree = "<group>"; };
 		8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		8BCB98C0237154940063E01E /* UpLoadCancelReasonVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UpLoadCancelReasonVC+VM.h"; sourceTree = "<group>"; };
+		8BCB98C1237154940063E01E /* UpLoadCancelReasonVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UpLoadCancelReasonVC+VM.m"; sourceTree = "<group>"; };
+		8BCB98C423715D370063E01E /* EncryptUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncryptUtils.m; sourceTree = "<group>"; };
+		8BCB98C523715D380063E01E /* EncryptUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncryptUtils.h; sourceTree = "<group>"; };
+		8BCB98C623715D380063E01E /* RSAUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSAUtil.h; sourceTree = "<group>"; };
+		8BCB98C723715D380063E01E /* RSAUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSAUtil.m; sourceTree = "<group>"; };
+		8BCB98CB23715D510063E01E /* NSData+CommonCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+CommonCrypto.h"; sourceTree = "<group>"; };
+		8BCB98CC23715D510063E01E /* NSData+CommonCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+CommonCrypto.m"; sourceTree = "<group>"; };
+		8BCB98CD23715D510063E01E /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
+		8BCB98CE23715D510063E01E /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		8BCB98CF23715D510063E01E /* AES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AES.m; sourceTree = "<group>"; };
+		8BCB98D023715D510063E01E /* AES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AES.h; sourceTree = "<group>"; };
+		8BCB98D123715D520063E01E /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
+		8BCB98D223715D520063E01E /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		8BCB98D823715D650063E01E /* File */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = File; sourceTree = "<group>"; };
+		8BCB98D923715D660063E01E /* AESCipher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AESCipher.m; sourceTree = "<group>"; };
+		8BCB98DA23715D660063E01E /* AESCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCipher.h; sourceTree = "<group>"; };
 		947AD75F86191C8F32BD1901 /* Pods-Feidegou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.debug.xcconfig"; sourceTree = "<group>"; };
 		B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Feidegou.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4026DBB2148161D00D81974 /* AchievementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementController.m; sourceTree = "<group>"; };
@@ -1757,45 +1760,6 @@
 			path = UITableView;
 			sourceTree = "<group>";
 		};
-		8B62731A236A88D000749F09 /* 加密体系 */ = {
-			isa = PBXGroup;
-			children = (
-				8B62731F236A88D000749F09 /* AES */,
-				8B62731C236A88D000749F09 /* EncryptUtils.h */,
-				8B62731E236A88D000749F09 /* EncryptUtils.m */,
-				8B62731D236A88D000749F09 /* RSAUtil.h */,
-				8B62731B236A88D000749F09 /* RSAUtil.m */,
-			);
-			name = "加密体系";
-			path = "../../../../TestApp/TestApp/3rd/加密体系";
-			sourceTree = "<group>";
-		};
-		8B62731F236A88D000749F09 /* AES */ = {
-			isa = PBXGroup;
-			children = (
-				8B627322236A88D000749F09 /* AESCipher */,
-				8B627328236A88D000749F09 /* AES.h */,
-				8B627320236A88D000749F09 /* AES.m */,
-				8B627326236A88D000749F09 /* NSData+Base64.h */,
-				8B62732B236A88D000749F09 /* NSData+Base64.m */,
-				8B627327236A88D000749F09 /* NSData+CommonCrypto.h */,
-				8B62732A236A88D000749F09 /* NSData+CommonCrypto.m */,
-				8B627329236A88D000749F09 /* NSString+Base64.h */,
-				8B627321236A88D000749F09 /* NSString+Base64.m */,
-			);
-			path = AES;
-			sourceTree = "<group>";
-		};
-		8B627322236A88D000749F09 /* AESCipher */ = {
-			isa = PBXGroup;
-			children = (
-				8B627324236A88D000749F09 /* File */,
-				8B627325236A88D000749F09 /* AESCipher.h */,
-				8B627323236A88D000749F09 /* AESCipher.m */,
-			);
-			path = AESCipher;
-			sourceTree = "<group>";
-		};
 		8B716463236FE784009BA9EF /* UIViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1990,7 +1954,7 @@
 		8BB2D2942366C7310047D0E2 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				8B62731A236A88D000749F09 /* 加密体系 */,
+				8BCB98C323715D2A0063E01E /* 加密体系 */,
 				8B8B0D9F2369635E0040EE53 /* HistoryDataList */,
 				8B8B0D702368278E0040EE53 /* PopMenuView */,
 				8BB2D3482366CBA60047D0E2 /* TZImagePickerController */,
@@ -2113,6 +2077,10 @@
 		8BB2D2DC2366C7310047D0E2 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8BB2D2FA2366C7310047D0E2 /* 喵粮管理 */,
+				8BB2D2F72366C7310047D0E2 /* 喵粮订单管理 */,
+				8BB2D2E72366C7310047D0E2 /* 订单详情 */,
+				8BB2D3002366C7310047D0E2 /* 上传凭据 */,
 				8BB0F6CB236BDA77009498B6 /* 喵粮批发订单 */,
 				8B8B0D9B2369606A0040EE53 /* 发布订单 */,
 				8B8B0D8F2368392D0040EE53 /* 喵粮批发市场 */,
@@ -2120,13 +2088,9 @@
 				8BB2D2E02366C7310047D0E2 /* 示例图 */,
 				8BB2D2E32366C7310047D0E2 /* 钱包 */,
 				8BB2D2E42366C7310047D0E2 /* 店铺收款码 */,
-				8BB2D2E72366C7310047D0E2 /* 订单详情 */,
 				8BB2D2EE2366C7310047D0E2 /* Q宠 */,
 				8BB2D2F12366C7310047D0E2 /* 喵粮直通车 */,
-				8BB2D2F72366C7310047D0E2 /* 喵粮订单管理 */,
-				8BB2D2FA2366C7310047D0E2 /* 喵粮管理 */,
 				8BB2D2FD2366C7310047D0E2 /* 赠送 */,
-				8BB2D3002366C7310047D0E2 /* 上传凭据 */,
 			);
 			path = MyClass;
 			sourceTree = "<group>";
@@ -2277,6 +2241,8 @@
 			children = (
 				8BB2D3032366C7310047D0E2 /* UpLoadCancelReasonVC.h */,
 				8BB2D3022366C7310047D0E2 /* UpLoadCancelReasonVC.m */,
+				8BCB98C0237154940063E01E /* UpLoadCancelReasonVC+VM.h */,
+				8BCB98C1237154940063E01E /* UpLoadCancelReasonVC+VM.m */,
 			);
 			path = "上传取消原因（截图）";
 			sourceTree = "<group>";
@@ -2446,6 +2412,44 @@
 			);
 			name = TZImagePickerController;
 			path = "TZImagePickerController（ 3.2.3）/TZImagePickerController";
+			sourceTree = "<group>";
+		};
+		8BCB98C323715D2A0063E01E /* 加密体系 */ = {
+			isa = PBXGroup;
+			children = (
+				8BCB98CA23715D450063E01E /* AES */,
+				8BCB98C623715D380063E01E /* RSAUtil.h */,
+				8BCB98C723715D380063E01E /* RSAUtil.m */,
+				8BCB98C523715D380063E01E /* EncryptUtils.h */,
+				8BCB98C423715D370063E01E /* EncryptUtils.m */,
+			);
+			path = "加密体系";
+			sourceTree = "<group>";
+		};
+		8BCB98CA23715D450063E01E /* AES */ = {
+			isa = PBXGroup;
+			children = (
+				8BCB98D723715D5C0063E01E /* AESCipher */,
+				8BCB98D023715D510063E01E /* AES.h */,
+				8BCB98CF23715D510063E01E /* AES.m */,
+				8BCB98CE23715D510063E01E /* NSData+Base64.h */,
+				8BCB98D223715D520063E01E /* NSData+Base64.m */,
+				8BCB98CB23715D510063E01E /* NSData+CommonCrypto.h */,
+				8BCB98CC23715D510063E01E /* NSData+CommonCrypto.m */,
+				8BCB98CD23715D510063E01E /* NSString+Base64.h */,
+				8BCB98D123715D520063E01E /* NSString+Base64.m */,
+			);
+			path = AES;
+			sourceTree = "<group>";
+		};
+		8BCB98D723715D5C0063E01E /* AESCipher */ = {
+			isa = PBXGroup;
+			children = (
+				8BCB98DA23715D660063E01E /* AESCipher.h */,
+				8BCB98D923715D660063E01E /* AESCipher.m */,
+				8BCB98D823715D650063E01E /* File */,
+			);
+			path = AESCipher;
 			sourceTree = "<group>";
 		};
 		C42CCCCD213CC04F0096675F = {
@@ -4140,7 +4144,7 @@
 				C4614400214386B6000C0CDC /* CellTypeMore.xib in Resources */,
 				C42CD05D213CC2640096675F /* CellCollectionType.xib in Resources */,
 				C42CD14C213CC2640096675F /* CLCellGoodTypeHead.xib in Resources */,
-				8B627331236A88D000749F09 /* File in Resources */,
+				8BCB98DB23715D660063E01E /* File in Resources */,
 				C42F5D34213F859B00114E0E /* CellIncomeDay.xib in Resources */,
 				C42CD0AD213CC2640096675F /* CellOrderAddressNo.xib in Resources */,
 				C42CD09A213CC2640096675F /* CellDistributionInfo.xib in Resources */,
@@ -4257,7 +4261,6 @@
 				C42CD07E213CC2640096675F /* CLCellOneLbl.m in Sources */,
 				C46D6B5B2143A5C900428D7A /* CellOrderConfilm.m in Sources */,
 				C42CD0FE213CC2640096675F /* CellBrandRoneRecommend.m in Sources */,
-				8B62732D236A88D000749F09 /* EncryptUtils.m in Sources */,
 				C42CD063213CC2640096675F /* CellCollection.m in Sources */,
 				C42CD06F213CC2640096675F /* SettingController.m in Sources */,
 				C46143EF214386B6000C0CDC /* CellHeader.m in Sources */,
@@ -4273,8 +4276,8 @@
 				C461440E214386B6000C0CDC /* CellMyService.m in Sources */,
 				C42CD13F213CC2640096675F /* CellGoodDetai.m in Sources */,
 				C42CD056213CC2640096675F /* ApplyForVenderAttribute.m in Sources */,
-				8B62732F236A88D000749F09 /* NSString+Base64.m in Sources */,
 				8B05F854236AF15500DCE40C /* BaseTableViewer.m in Sources */,
+				8BCB98D523715D520063E01E /* NSString+Base64.m in Sources */,
 				C42CD083213CC2640096675F /* openssl_wrapper.m in Sources */,
 				8BB2D3872366CC110047D0E2 /* PetsInfoListModel.m in Sources */,
 				C42CD0BF213CC2640096675F /* CellOrderMoney.m in Sources */,
@@ -4321,7 +4324,6 @@
 				C42CD1BC213CC2640096675F /* WaterflowLayout.m in Sources */,
 				8BB2D3932366CC4A0047D0E2 /* HQTextField.m in Sources */,
 				C42CD1C9213CC2640096675F /* ModelOrderDtail.m in Sources */,
-				8B627333236A88D000749F09 /* NSData+Base64.m in Sources */,
 				8BB2D37C2366CBD20047D0E2 /* OrderDetail_SellerVC.m in Sources */,
 				C42CD0AA213CC2640096675F /* CellOrderAddressNo.m in Sources */,
 				C42CD09E213CC2640096675F /* CellLogisticsFirst.m in Sources */,
@@ -4332,7 +4334,6 @@
 				C42CD196213CC2640096675F /* UILabel+helper.m in Sources */,
 				8B8B0D922368395D0040EE53 /* WholesaleMarket_AdvanceVC.m in Sources */,
 				C42CD057213CC2640096675F /* ApplyForVenderController.m in Sources */,
-				8B627332236A88D000749F09 /* NSData+CommonCrypto.m in Sources */,
 				C46F8C4A214CF1E600F0C7D1 /* AreaOrderComfilmController.m in Sources */,
 				C42CD1C7213CC2640096675F /* ModelIncome.m in Sources */,
 				C45541C5217374F8007C03C1 /* GoodShareController.m in Sources */,
@@ -4444,6 +4445,7 @@
 				C42CD0CA213CC2640096675F /* CellOrderDetailGiftYes.m in Sources */,
 				C42CD143213CC2640096675F /* SearchGoodController.m in Sources */,
 				8BB2D3712366CBA70047D0E2 /* TZImageManager.m in Sources */,
+				8BCB98C823715D380063E01E /* EncryptUtils.m in Sources */,
 				C42CD14A213CC2640096675F /* ViewForTypeSelect.m in Sources */,
 				C42CD07B213CC2640096675F /* CellIncome.m in Sources */,
 				C4614409214386B6000C0CDC /* CLCellUpImgLbl.m in Sources */,
@@ -4497,12 +4499,15 @@
 				C42CD077213CC2640096675F /* MoneyDetailListController.m in Sources */,
 				C46F8C48214CF1E600F0C7D1 /* AreaExchangeDetailController.m in Sources */,
 				C42CD0AB213CC2640096675F /* CellOrderButtones.m in Sources */,
+				8BCB98D423715D520063E01E /* AES.m in Sources */,
 				C405FEFB218C2A0900C02CDC /* CLCellInterger.m in Sources */,
 				C46143EC214386B6000C0CDC /* VendorShopTypeController.m in Sources */,
+				8BCB98DC23715D660063E01E /* AESCipher.m in Sources */,
 				C4614410214386B6000C0CDC /* CellVendorDiscount.m in Sources */,
 				C42CD184213CC2640096675F /* RefreshControl.m in Sources */,
 				C42CD13A213CC2640096675F /* CLCellGoodTypeNoPic.m in Sources */,
 				C46368EF213FBE6C006922D5 /* CLCellBanner.m in Sources */,
+				8BCB98D623715D520063E01E /* NSData+Base64.m in Sources */,
 				C42CD0B4213CC2640096675F /* CellOrderOneLbl.m in Sources */,
 				C42CD0C5213CC2640096675F /* CellOrderVendorTitle.m in Sources */,
 				C42CD199213CC2640096675F /* UILabelDarkGaryMiddle.m in Sources */,
@@ -4548,12 +4553,10 @@
 				8BB2D37D2366CBD80047D0E2 /* Q_Pet.m in Sources */,
 				C42CD145213CC2640096675F /* CellHistoryClear.m in Sources */,
 				C42CD150213CC2640096675F /* CLCellTypeSelected.m in Sources */,
-				8B62732C236A88D000749F09 /* RSAUtil.m in Sources */,
 				C42F5D2E213F858B00114E0E /* CellIncomeAll.m in Sources */,
 				C46D6B5E2143A5FF00428D7A /* ModelOrderGoodList.m in Sources */,
 				8BB2D3892366CC1F0047D0E2 /* ViewForFooter.m in Sources */,
 				C46368D8213FBE6C006922D5 /* CellAdver.m in Sources */,
-				8B627330236A88D000749F09 /* AESCipher.m in Sources */,
 				C42CCCE9213CC0520096675F /* main.m in Sources */,
 				C4A0DA7D213E957B00B45B65 /* SignInTip.m in Sources */,
 				C42CD0E1213CC2640096675F /* OrderReturnBackController.m in Sources */,
@@ -4562,6 +4565,7 @@
 				C42CD09F213CC2640096675F /* CellLogisticsGood.m in Sources */,
 				C46368D5213FBE6C006922D5 /* LayoutMainType.m in Sources */,
 				C42CD197213CC2640096675F /* UILabelDarkMiddel.m in Sources */,
+				8BCB98C923715D380063E01E /* RSAUtil.m in Sources */,
 				8BB2D3732366CBA70047D0E2 /* TZPhotoPreviewCell.m in Sources */,
 				C42CD051213CC2640096675F /* CellTwoImg.m in Sources */,
 				C42CD099213CC2640096675F /* MyOrderListController.m in Sources */,
@@ -4570,7 +4574,6 @@
 				8BB2D3702366CBA70047D0E2 /* TZProgressView.m in Sources */,
 				C4614407214386B6000C0CDC /* CellVendorGood.m in Sources */,
 				C42CD1AC213CC2640096675F /* JJAlertViewOneButton.m in Sources */,
-				8B62732E236A88D000749F09 /* AES.m in Sources */,
 				C42CD18B213CC2640096675F /* NSDictionary+HYBUnicodeReadable.m in Sources */,
 				8BB2D3402366CB280047D0E2 /* MISCustomButton.m in Sources */,
 				C42CD050213CC2640096675F /* CellTextField.m in Sources */,
@@ -4584,8 +4587,10 @@
 				C42CD05E213CC2640096675F /* CellHeadImg.m in Sources */,
 				8BB2D33F2366CB200047D0E2 /* YKToastView.m in Sources */,
 				C42CCCDB213CC04F0096675F /* AppDelegate.m in Sources */,
+				8BCB98D323715D520063E01E /* NSData+CommonCrypto.m in Sources */,
 				C46F8C4B214CF1E600F0C7D1 /* AreaDoneAllController.m in Sources */,
 				C42CD0C6213CC2640096675F /* CellOrderAddress.m in Sources */,
+				8BCB98C2237154940063E01E /* UpLoadCancelReasonVC+VM.m in Sources */,
 				C42CD072213CC2640096675F /* RankListController.m in Sources */,
 				8BB2D3952366CC550047D0E2 /* UIView+Extras.m in Sources */,
 				C42CD060213CC2640096675F /* CellLogined.m in Sources */,

@@ -139,7 +139,6 @@ UITableViewDataSource
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
-    self.tableView.alpha = 1;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -216,14 +215,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //先移除数据源
     self.isDelCell = YES;
 
-    [self.dataMutArr removeObjectAtIndex:indexPath.row];
-
-    [self.tableView beginUpdates];
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                            withRowAnimation:UITableViewRowAnimationMiddle];
-    [self.tableView endUpdates];
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
-                    withRowAnimation:UITableViewRowAnimationNone];
+//    [self.dataMutArr removeObjectAtIndex:indexPath.row];
+//
+//    [self.tableView beginUpdates];
+//    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+//                            withRowAnimation:UITableViewRowAnimationMiddle];
+//    [self.tableView endUpdates];
+//    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
+//                    withRowAnimation:UITableViewRowAnimationNone];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  (int64_t)(0.7 * NSEC_PER_SEC)),

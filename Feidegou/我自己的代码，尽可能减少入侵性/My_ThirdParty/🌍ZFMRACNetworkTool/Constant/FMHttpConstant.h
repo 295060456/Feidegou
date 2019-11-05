@@ -20,7 +20,7 @@
 #define CatfoodManageURL @"/user/seller/Catfoodmanage.htm"//喵粮管理 post 1
 #define buyer_CatfoodRecord_listURL @"/user/seller/CatfoodRecord_list.htm"//喵粮订单列表 post 2
 #define buyer_CatfoodRecord_checkURL @"/user/seller/CatfoodRecord_check.htm"//喵粮订单查看 post 3
-#define seller_CatfoodRecord_goodsURL @"/user/seller/CatfoodRecord_goods.htm"//喵粮订单发货 post 4
+#define seller_CatfoodRecord_goodsURL @"/user/seller/CatfoodRecord_goods.htm"//喵粮订单发货 post 4 没完
 #define CatfoodRecord_delURL @"/user/seller/CatfoodRecord_del.htm"//喵粮订单撤销 post 5
 #define CatfoodCOURL @"/user/buyer/CatfoodCO.htm"//喵粮产地列表 post 6
 #define CatfoodCO_BuyerURL @"/user/buyer/CatfoodCO_buyer.htm"//喵粮产地购买 post 7

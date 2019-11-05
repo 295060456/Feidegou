@@ -175,7 +175,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         OrderDetail_SellerModel *orderDetail_SellerModel = (OrderDetail_SellerModel *)model;
         self.str = [NSString stringWithFormat:@"您向%@购买%d",orderDetail_SellerModel.seller_name,orderDetail_SellerModel.quantity];
         self.titleLab.attributedText = self.attributedString;
-    }
+        }else{}
 }
 #pragma mark —— lazyLoad
 -(NSMutableAttributedString *)attributedString{
@@ -280,14 +280,38 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.titleLab.alpha = 1;
+    
+    if ([model isKindOfClass:[OrderDetail_SellerModel class]]) {
+        OrderDetail_SellerModel *orderDetail_SellerModel = (OrderDetail_SellerModel *)model;
+        switch (orderDetail_SellerModel.order_status) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            case 0:{
+                self.titleLab.text = @"订单已支付";
+            }break;
+            case 1:{
+                self.titleLab.text = @"订单已发单";
+            }break;
+            case 2:{
+                self.titleLab.text = @"订单已下单";
+            }break;
+            case 3:{
+                self.titleLab.text = @"订单已支付";
+            }break;
+            case 4:{
+                self.titleLab.text = @"订单已作废";
+            }break;
+            case 5:{
+                self.titleLab.text = @"订单已完成";
+            }break;
+            default:
+                break;
+        }
+    }
 }
 
 #pragma mark —— lazyLoad
 -(UILabel *)titleLab{
     if (!_titleLab) {
         _titleLab = UILabel.new;
-        _titleLab.text = @"订单已完成";
         [self.contentView addSubview:_titleLab];
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView);
@@ -301,6 +325,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 @property(nonatomic,strong)UIButton *sureBtn;
 @property(nonatomic,strong)VerifyCodeButton *cancelBtn;
+
 @property(nonatomic,copy)DataBlock sureBlock;
 @property(nonatomic,copy)DataBlock cancelBlock;
 
@@ -325,6 +350,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
 //    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    if ([model isKindOfClass:[OrderDetail_SellerModel class]]) {
+        OrderDetail_SellerModel *orderDetail_SellerModel = (OrderDetail_SellerModel *)model;
+        if (orderDetail_SellerModel.deal == 1) {//买家
+            
+        }else if (orderDetail_SellerModel.deal == 2){//卖家 卖家才有发货
+            if (orderDetail_SellerModel.order_status == 0) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                //出现"确认发货"按钮
+                self.sureBtn.alpha = 1;
+                self.cancelBtn.alpha = 1;
+            }
+        }
+    }
+    //临时加上去
     self.sureBtn.alpha = 1;
     self.cancelBtn.alpha = 1;
 }
@@ -491,6 +529,7 @@ UITableViewDataSource
 #pragma mark —— 私有方法
 -(void)ConfirmDelivery{
     NSLog(@"1");
+    [self ConfirmDelivery_NetWorking];
 }
 
 -(void)CancelDelivery{
@@ -568,7 +607,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             OrderDetailTBVCell_04 *cell = [OrderDetailTBVCell_04 cellWith:tableView];
-            [cell richElementsInCellWithModel:self.model];
+            [cell richElementsInCellWithModel:self.orderDetail_SellerModel];
             OrderDetailTBVCell_04_Height = [cell cellHeightWithModel:NULL];
             return cell;
         }else{}
@@ -577,17 +616,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             OrderDetailTBVCell_02 *cell = [OrderDetailTBVCell_02 cellWith:tableView];
             OrderDetailTBVCell_02_Height = [cell cellHeightWithModel:NULL];
 //            cell.backgroundColor = KGreenColor;
-            [cell richElementsInCellWithModel:self.model];
+            [cell richElementsInCellWithModel:self.orderDetail_SellerModel];
             return cell;
         }else if(indexPath.row == 1){
             OrderDetailTBVCell_05 *cell = [OrderDetailTBVCell_05 cellWith:tableView];
 //            cell.backgroundColor = KGreenColor;
-            [cell richElementsInCellWithModel:nil];
+            [cell richElementsInCellWithModel:self.orderDetail_SellerModel];
             return cell;
         }else if(indexPath.row == 2){
             OrderDetailTBVCell_06 *cell = [OrderDetailTBVCell_06 cellWith:tableView];
 //            cell.backgroundColor = KGreenColor;
-            [cell richElementsInCellWithModel:nil];
+            [cell richElementsInCellWithModel:self.orderDetail_SellerModel];
             @weakify(self)
             [cell actionSureBlock:^(id data) {
                 @strongify(self)
@@ -646,8 +685,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         @weakify(self)
         _stringPickerView.resultModelBlock = ^(BRResultModel *resultModel) {
             NSLog(@"选择的值：%@", resultModel.selectValue);
+            @strongify(self)
+            self.resultStr = resultModel.selectValue;
             [UpLoadCancelReasonVC pushFromVC:self_weak_
-                               requestParams:Nil
+                               requestParams:@{
+                                   @"OrderListModel":self.orderListModel,
+//                                   @"OrderDetail_SellerModel":self.model,
+                                   @"Result":self.resultStr,//撤销理由
+                               }
                                      success:^(id data) {}
                                     animated:YES];
         };

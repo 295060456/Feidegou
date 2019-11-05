@@ -204,14 +204,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //
     self.isDelCell = YES;
     
-    [self.dataMutArr removeObjectAtIndex:indexPath.row];
-    
-    [self.tableView beginUpdates];
-    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-                            withRowAnimation:UITableViewRowAnimationMiddle];
-    [self.tableView endUpdates];
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
-                    withRowAnimation:UITableViewRowAnimationNone];
+//    [self.dataMutArr removeObjectAtIndex:indexPath.row];
+//    
+//    [self.tableView beginUpdates];
+//    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
+//                            withRowAnimation:UITableViewRowAnimationMiddle];
+//    [self.tableView endUpdates];
+//    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
+//                    withRowAnimation:UITableViewRowAnimationNone];
 
     @weakify(self)
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
