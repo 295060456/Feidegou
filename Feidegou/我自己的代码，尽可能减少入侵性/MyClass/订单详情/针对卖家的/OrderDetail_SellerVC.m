@@ -42,14 +42,14 @@ UITableViewDataSource
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     if ([model isKindOfClass:[OrderDetail_SellerModel class]]) {
-//        OrderDetail_SellerModel *orderDetail_SellerModel = (OrderDetail_SellerModel *)model;
-//        [self.tempMutArr addObject:orderDetail_SellerModel.ordercode];
-//        [self.tempMutArr addObject:[NSString stringWithFormat:@"%d",orderDetail_SellerModel.price]];//orderDetail_SellerModel.price
-//        [self.tempMutArr addObject:orderDetail_SellerModel.rental];//orderDetail_SellerModel.rental
-//        [self.tempMutArr addObject:@"账号"];
-//        [self.tempMutArr addObject:@"银行卡"];
-//        [self.tempMutArr addObject:ensureNonnullString(orderDetail_SellerModel.refer, Nil)];//STR(orderDetail_SellerModel.refer)
-//        [self.tempMutArr addObject:ensureNonnullString(orderDetail_SellerModel.updateTime, Nil)];//[NSString stringWithFormat:@"%@",orderDetail_SellerModel.updateTime]
+        OrderDetail_SellerModel *orderDetail_SellerModel = (OrderDetail_SellerModel *)model;
+        [self.tempMutArr addObject:orderDetail_SellerModel.ordercode];
+        [self.tempMutArr addObject:[NSString stringWithFormat:@"%d",orderDetail_SellerModel.price]];
+        [self.tempMutArr addObject:[NSString stringWithFormat:@"%d",orderDetail_SellerModel.rental]];//orderDetail_SellerModel.rental
+        [self.tempMutArr addObject:@"账号"];
+        [self.tempMutArr addObject:@"银行卡"];
+        [self.tempMutArr addObject:ensureNonnullString(orderDetail_SellerModel.refer)];
+        [self.tempMutArr addObject:[NSString stringWithFormat:@"%@",orderDetail_SellerModel.updateTime]];
         [self.tableView reloadData];
     }
     self.tableView.alpha = 1;
@@ -148,6 +148,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 @interface OrderDetailTBVCell_04 ()
 
 @property(nonatomic,strong)YYLabel *titleLab;
+@property(nonatomic,copy)NSString *str;
+@property(nonatomic,copy)NSMutableAttributedString *attributedString;
 
 @end
 
@@ -164,20 +166,20 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 -(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return self.titleLab.mj_h + SCALING_RATIO(50);//SCALING_RATIO(50) 为补充值
+    return _titleLab.mj_h + SCALING_RATIO(50);//SCALING_RATIO(50) 为补充值
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-
+    if ([model isKindOfClass:[OrderDetail_SellerModel class]]) {
+        OrderDetail_SellerModel *orderDetail_SellerModel = (OrderDetail_SellerModel *)model;
+        self.str = [NSString stringWithFormat:@"您向%@购买%d",orderDetail_SellerModel.seller_name,orderDetail_SellerModel.quantity];
+        self.titleLab.attributedText = self.attributedString;
+    }
 }
 #pragma mark —— lazyLoad
--(YYLabel *)titleLab{
-    if (!_titleLab) {
-        _titleLab = YYLabel.new;
-        _titleLab.textAlignment = NSTextAlignmentCenter;
-        
-        NSString *str = @"您向习近平购买43.22222222222 ";
+-(NSMutableAttributedString *)attributedString{
+    if (!_attributedString) {
         
         NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
         paragraphStyle.lineSpacing = 1;//行间距
@@ -187,53 +189,59 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             NSFontAttributeName : [UIFont systemFontOfSize:24],
             NSParagraphStyleAttributeName : paragraphStyle,
             NSForegroundColorAttributeName : kRedColor
-                                       };
-        
-        NSMutableAttributedString *text = [[NSMutableAttributedString alloc]initWithString:str
-                                                                                attributes:attributeDic];
-        
-        NSRange selRange_01 = [str rangeOfString:@"您向"];
-        NSRange selRange_02 = [str rangeOfString:@"购买"];
-        
+        };
+            
+        _attributedString = [[NSMutableAttributedString alloc]initWithString:self.str
+                                                                  attributes:attributeDic];
+
+        NSRange selRange_01 = [self.str rangeOfString:@"您向"];
+        NSRange selRange_02 = [self.str rangeOfString:@"购买"];
+
         //设定可点击文字的的大小
         UIFont *selFont = [UIFont systemFontOfSize:18];
         CTFontRef selFontRef = CTFontCreateWithName((__bridge CFStringRef)selFont.fontName,
                                                     selFont.pointSize,
                                                     NULL);
         //设置可点击文本的大小
-        [text addAttribute:(NSString *)kCTFontAttributeName
-                     value:(__bridge id)selFontRef
-                     range:selRange_01];
+        [_attributedString addAttribute:(NSString *)kCTFontAttributeName
+                                  value:(__bridge id)selFontRef
+                                  range:selRange_01];
         //设置可点击文本的颜色
-        [text addAttribute:(NSString *)kCTForegroundColorAttributeName
-                     value:(id)[[UIColor blueColor] CGColor]
-                     range:selRange_01];
+        [_attributedString addAttribute:(NSString *)kCTForegroundColorAttributeName
+                                  value:(id)[[UIColor blueColor] CGColor]
+                                  range:selRange_01];
 #warning 打开注释部分会崩，之前都不会崩溃，怀疑是升级Xcode所致
-         //设置可点击文本的背景颜色
-//        if (@available(iOS 10.0, *)) {
-//            [text addAttribute:(NSString *)kCTBackgroundColorAttributeName
-//                         value:(__bridge id)selFontRef
-//                         range:selRange_01];
-//        } else {
-//            // Fallback on earlier versions
-//        }
+                 //设置可点击文本的背景颜色
+        //        if (@available(iOS 10.0, *)) {
+        //            [text addAttribute:(NSString *)kCTBackgroundColorAttributeName
+        //                         value:(__bridge id)selFontRef
+        //                         range:selRange_01];
+        //        } else {
+        //            // Fallback on earlier versions
+        //        }
         //设置可点击文本的大小
-        [text addAttribute:(NSString *)kCTFontAttributeName
-                     value:(__bridge id)selFontRef
-                     range:selRange_02];
+        [_attributedString addAttribute:(NSString *)kCTFontAttributeName
+                                  value:(__bridge id)selFontRef
+                                  range:selRange_02];
         //设置可点击文本的颜色
-        [text addAttribute:(NSString *)kCTForegroundColorAttributeName
-                     value:(id)[[UIColor blueColor] CGColor]
-                     range:selRange_02];
-         //设置可点击文本的背景颜色
-//        if (@available(iOS 10.0, *)) {
-//            [text addAttribute:(NSString *)kCTBackgroundColorAttributeName
-//                         value:(__bridge id)selFontRef
-//                         range:selRange_02];
-//        } else {
-//            // Fallback on earlier versions
-//        }
-        _titleLab.attributedText = text;
+        [_attributedString addAttribute:(NSString *)kCTForegroundColorAttributeName
+                                  value:(id)[[UIColor blueColor] CGColor]
+                                  range:selRange_02];
+        //设置可点击文本的背景颜色
+        //        if (@available(iOS 10.0, *)) {
+        //            [text addAttribute:(NSString *)kCTBackgroundColorAttributeName
+        //                         value:(__bridge id)selFontRef
+        //                         range:selRange_02];
+        //        } else {
+        //            // Fallback on earlier versions
+        //        }
+    }return _attributedString;
+}
+
+-(YYLabel *)titleLab{
+    if (!_titleLab) {
+        _titleLab = YYLabel.new;
+        _titleLab.textAlignment = NSTextAlignmentCenter;
         _titleLab.numberOfLines = 0;
 //        _titleLab.lineBreakMode = NSLineBreakByCharWrapping;//？？
         [_titleLab sizeToFit];
@@ -560,7 +568,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             OrderDetailTBVCell_04 *cell = [OrderDetailTBVCell_04 cellWith:tableView];
-            [cell richElementsInCellWithModel:nil];
+            [cell richElementsInCellWithModel:self.model];
             OrderDetailTBVCell_04_Height = [cell cellHeightWithModel:NULL];
             return cell;
         }else{}
