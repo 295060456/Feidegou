@@ -495,7 +495,7 @@ UITableViewDataSource
     
     OrderListVC *vc = OrderListVC.new;
     vc.successBlock = block;
-    vc.requestParams = requestParams;
+    vc.requestParams = requestParams;//nil
     vc.page = 1;
     if (rootVC.navigationController) {
         vc.isPush = YES;
@@ -523,11 +523,11 @@ UITableViewDataSource
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     networking_tpye = NetworkingTpye_default;
+    [self.tableView.mj_header beginRefreshing];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.tableView.mj_header beginRefreshing];
 }
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
@@ -632,12 +632,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  (int64_t)(0.7 * NSEC_PER_SEC)),
                    dispatch_get_main_queue(), ^{
-        
+        OrderListModel *orderListModel = self.dataMutArr[indexPath.row];
         [OrderDetail_SellerVC pushFromVC:self_weak_
                            requestParams:@{
-                               @"OrderListModel":self.dataMutArr[indexPath.row]
-//                               @"order_id":[NSString stringWithFormat:@"%d",self.dataMutArr[indexPath.row].ID],
-//                               @"order_type":[NSString stringWithFormat:@"%d",self.dataMutArr[indexPath.row].order_type]
+                               @"OrderListModel":orderListModel
                            }
                           success:^(id data) {}
                          animated:YES];

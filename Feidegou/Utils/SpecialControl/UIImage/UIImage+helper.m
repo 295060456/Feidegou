@@ -10,8 +10,6 @@
 
 @implementation UIImage(helper)
 
-
-
 +(UIImage *)createRRcode: (NSString *)sourceString
 {
     //1.实例化一个滤镜
@@ -114,4 +112,31 @@
     
     return theImage;
 }
+
+/**
+ *  压缩图片
+ */
++ (NSData *)imageZipToData:(UIImage *)newImage{
+    
+    NSData *data = UIImageJPEGRepresentation(newImage, 1.0);
+    
+    if (data.length > 500 * 1024) {
+        
+        if (data.length>1024 * 1024) {//1M以及以上
+            
+            data = UIImageJPEGRepresentation(newImage, 0.5);
+            
+        }else if (data.length>512*1024) {//0.5M-1M
+            
+            data=UIImageJPEGRepresentation(newImage, 0.6);
+            
+        }else if (data.length>200*1024) { //0.25M-0.5M
+            
+            data=UIImageJPEGRepresentation(newImage, 0.9);
+        }
+    }
+    return data;
+}
+
+
 @end

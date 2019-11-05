@@ -15,4 +15,6 @@
 + (UIImage *)createNonInterpolatedUIImageFormString:(NSString *)string withSize:(CGFloat) size;
 //根据颜色生成图片
 + (UIImage *)imageWithColor:(UIColor *)color;
+
++ (NSData *)imageZipToData:(UIImage *)newImage;
 @end

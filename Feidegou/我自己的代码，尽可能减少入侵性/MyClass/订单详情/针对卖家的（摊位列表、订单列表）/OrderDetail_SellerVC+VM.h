@@ -14,7 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)netWorking;
 
--(void)ConfirmDelivery_NetWorking;
+-(void)ConfirmDelivery_NetWorking;//喵粮订单发货
+
+-(void)netWorkingWithArgumentURL:(NSString *)url
+                         ORDERID:(int)orderID;
 
 @end
 

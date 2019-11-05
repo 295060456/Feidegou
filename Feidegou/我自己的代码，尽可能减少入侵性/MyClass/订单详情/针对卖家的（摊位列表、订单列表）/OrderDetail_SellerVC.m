@@ -324,7 +324,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 @interface OrderDetailTBVCell_06 ()
 
 @property(nonatomic,strong)UIButton *sureBtn;
-@property(nonatomic,strong)VerifyCodeButton *cancelBtn;
+@property(nonatomic,strong)VerifyCodeButton *cancelCountDownBtn;//“取消”倒计时按钮
+@property(nonatomic,strong)UIButton *cancelBtn;
 
 @property(nonatomic,copy)DataBlock sureBlock;
 @property(nonatomic,copy)DataBlock cancelBlock;
@@ -352,19 +353,44 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     if ([model isKindOfClass:[OrderDetail_SellerModel class]]) {
         OrderDetail_SellerModel *orderDetail_SellerModel = (OrderDetail_SellerModel *)model;
+        NSLog(@"KKK deal = %ld",orderDetail_SellerModel.deal);
+        NSLog(@"KKK order_type = %d",orderDetail_SellerModel.order_type);
+        NSLog(@"KKK order_status = %d",orderDetail_SellerModel.order_status);
         if (orderDetail_SellerModel.deal == 1) {//买家
-            
+            NSLog(@"买家");
         }else if (orderDetail_SellerModel.deal == 2){//卖家 卖家才有发货
             if (orderDetail_SellerModel.order_status == 0) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                //出现"确认发货"按钮
-                self.sureBtn.alpha = 1;
-                self.cancelBtn.alpha = 1;
+                if (orderDetail_SellerModel.order_type == 1 ||
+                    orderDetail_SellerModel.order_type == 2) {
+                    self.sureBtn.alpha = 1;//出现"确认发货"按钮
+                }else{
+                    self.sureBtn.alpha = 0;
+                }
+                self.cancelCountDownBtn.alpha = 1;
+            }else if (orderDetail_SellerModel.order_status == 5) {//5、已完成 都不能撤销
+                self.sureBtn.alpha = 0;
+                [self.cancelBtn setTitle:@"已完成,不能撤销"
+                                forState:UIControlStateNormal];
+            }else if (orderDetail_SellerModel.order_status == 3){//3、已作废
+                self.sureBtn.alpha = 0;
+                [self.cancelBtn setTitle:@"已作废"
+                forState:UIControlStateNormal];
+            }
+            
+            if (orderDetail_SellerModel.del_state == 1){//正在审核
+                self.sureBtn.alpha = 0;
+                [self.cancelBtn setTitle:@"正在审核"
+                                forState:UIControlStateNormal];
+            }else if(orderDetail_SellerModel.del_state == 2){//订单撤销
+                self.sureBtn.alpha = 0;
+                [self.cancelBtn setTitle:@"订单撤销"
+                                forState:UIControlStateNormal];
             }
         }
+        
+        
+//
     }
-    //临时加上去
-    self.sureBtn.alpha = 1;
-    self.cancelBtn.alpha = 1;
 }
 
 -(void)actionSureBlock:(DataBlock)block{
@@ -411,23 +437,47 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _sureBtn;
 }
 
--(VerifyCodeButton *)cancelBtn{
-    if (!_cancelBtn) {
-        _cancelBtn = VerifyCodeButton.new;
-        _cancelBtn.titleBeginStr = @"取消";
-        _cancelBtn.titleEndStr = @"取消";
-        _cancelBtn.titleColor = kWhiteColor;
-        _cancelBtn.bgBeginColor = KLightGrayColor;
-        _cancelBtn.bgEndColor = kOrangeColor;
-        _cancelBtn.layerBorderColor = kWhiteColor;
-        _cancelBtn.layerCornerRadius = 5;
-        _cancelBtn.isClipsToBounds = YES;
+-(VerifyCodeButton *)cancelCountDownBtn{
+    if (!_cancelCountDownBtn) {
+        _cancelCountDownBtn = VerifyCodeButton.new;
+        _cancelCountDownBtn.titleBeginStr = @"取消";
+        _cancelCountDownBtn.titleEndStr = @"取消";
+        _cancelCountDownBtn.titleColor = kWhiteColor;
+        _cancelCountDownBtn.bgBeginColor = KLightGrayColor;
+        _cancelCountDownBtn.bgEndColor = kOrangeColor;
+        _cancelCountDownBtn.layerBorderColor = kWhiteColor;
+        _cancelCountDownBtn.layerCornerRadius = 5;
+        _cancelCountDownBtn.isClipsToBounds = YES;
 //        [_cancelBtn.titleLabel sizeToFit];
-        _cancelBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
-        [_cancelBtn timeFailBeginFrom:3];
-        [_cancelBtn addTarget:self
+        _cancelCountDownBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
+        [_cancelCountDownBtn timeFailBeginFrom:3];
+        [_cancelCountDownBtn addTarget:self
                        action:@selector(cancelBtnClickEvent:)
              forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:_cancelCountDownBtn];
+        [_cancelCountDownBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+            make.centerY.equalTo(self.contentView);
+            make.size.mas_equalTo(self.sureBtn);
+        }];
+    }return _cancelCountDownBtn;
+}
+
+-(UIButton *)cancelBtn{
+    if (!_cancelBtn) {
+        _cancelBtn = UIButton.new;
+        [_cancelBtn setTitle:@"取消"
+                    forState:UIControlStateNormal];
+        [UIView cornerCutToCircleWithView:_cancelBtn
+                          AndCornerRadius:5];
+        [UIView colourToLayerOfView:_cancelBtn
+                         WithColour:kOrangeColor
+                     AndBorderWidth:1];
+        [_cancelBtn.titleLabel sizeToFit];
+        _cancelBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
+//        [_cancelBtn addTarget:self
+//                       action:@selector(cancelBtnClickEvent:)
+//             forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_cancelBtn];
         [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
@@ -474,7 +524,7 @@ UITableViewDataSource
                             animated:(BOOL)animated{
     OrderDetail_SellerVC *vc = OrderDetail_SellerVC.new;
     vc.successBlock = block;
-    vc.requestParams = requestParams;
+    vc.requestParams = requestParams;//OrderListModel
     vc.isShowViewFinished = NO;
     if (rootVC.navigationController) {
         vc.isPush = YES;
@@ -533,9 +583,34 @@ UITableViewDataSource
 }
 
 -(void)CancelDelivery{
-    NSLog(@"2");
-    //选择取消发货的原因
-    [self.stringPickerView show];
+    
+    //#5 CatfoodRecord_delURL 喵粮订单撤销 order_id reason del_print(pic) order_type
+    //#9 CatfoodCO_pay_delURL 喵粮产地购买取消 order_id
+    //#18 CatfoodSale_pay_delURL 喵粮批发取消 order_id
+    //#22 CatfoodBooth_delURL 喵粮抢摊位取消 order_id
+    
+    OrderListModel *orderListModel;
+    NSDictionary *dictionary;
+    if ([self.requestParams isKindOfClass:[NSDictionary class]]) {
+        dictionary = (NSDictionary *)self.requestParams;//OrderListModel
+        orderListModel = dictionary[@"OrderListModel"];
+    }
+
+    if (orderListModel.order_status == 0) {//#5
+        //选择取消发货的原因
+        [self.stringPickerView show];
+    }else if (orderListModel.order_status == 2){
+        if (orderListModel.order_type == 1) {//#22
+            [self netWorkingWithArgumentURL:CatfoodBooth_delURL
+                                    ORDERID:orderListModel.ID];
+        }else if (orderListModel.order_type == 2){//#18
+            [self netWorkingWithArgumentURL:CatfoodSale_pay_delURL
+            ORDERID:orderListModel.ID];
+        }else if (orderListModel.order_type == 3){//#9
+            [self netWorkingWithArgumentURL:CatfoodCO_pay_delURL
+            ORDERID:orderListModel.ID];
+        }
+    }
 }
 
 -(void)Cancel{
@@ -689,8 +764,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             self.resultStr = resultModel.selectValue;
             [UpLoadCancelReasonVC pushFromVC:self_weak_
                                requestParams:@{
-                                   @"OrderListModel":self.orderListModel,
-//                                   @"OrderDetail_SellerModel":self.model,
+                                   @"OrderListModel":self.requestParams,
                                    @"Result":self.resultStr,//撤销理由
                                }
                                      success:^(id data) {}

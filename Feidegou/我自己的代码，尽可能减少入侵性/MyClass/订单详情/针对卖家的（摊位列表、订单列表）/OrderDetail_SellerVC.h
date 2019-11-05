@@ -60,7 +60,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,strong)OrderDetail_SellerModel *orderDetail_SellerModel;
-@property(nonatomic,strong)OrderListModel *orderListModel;
 @property(nonatomic,copy)__block NSString *resultStr;
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC

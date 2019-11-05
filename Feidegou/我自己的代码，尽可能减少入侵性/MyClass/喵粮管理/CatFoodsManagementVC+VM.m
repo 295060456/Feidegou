@@ -13,14 +13,14 @@ NSString *randomStr;
 @implementation CatFoodsManagementVC (VM)
 
 -(void)networking{
-    NSDictionary *dic = @{
+    NSDictionary *dataDic = @{
         @"user_id":@"1"
     };
     randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodManageURL
                                                      parameters:@{
-                                                         @"data":aesEncryptString([NSString convertToJsonData:dic], randomStr),
+                                                         @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
                                                          @"key":[RSAUtil encryptString:randomStr
                                                                              publicKey:RSA_Public_key]
                                                      }];

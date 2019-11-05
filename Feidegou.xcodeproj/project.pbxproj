@@ -2132,22 +2132,22 @@
 		8BB2D2E72366C7310047D0E2 /* 订单详情 */ = {
 			isa = PBXGroup;
 			children = (
-				8BB2D2E82366C7310047D0E2 /* 针对买家的 */,
-				8BB2D2EB2366C7310047D0E2 /* 针对卖家的 */,
+				8BB2D2E82366C7310047D0E2 /* 针对买家的（喵粮产地） */,
+				8BB2D2EB2366C7310047D0E2 /* 针对卖家的（摊位列表、订单列表） */,
 			);
 			path = "订单详情";
 			sourceTree = "<group>";
 		};
-		8BB2D2E82366C7310047D0E2 /* 针对买家的 */ = {
+		8BB2D2E82366C7310047D0E2 /* 针对买家的（喵粮产地） */ = {
 			isa = PBXGroup;
 			children = (
 				8BB2D2E92366C7310047D0E2 /* OrderDetail_BuyerVC.h */,
 				8BB2D2EA2366C7310047D0E2 /* OrderDetail_BuyerVC.m */,
 			);
-			path = "针对买家的";
+			path = "针对买家的（喵粮产地）";
 			sourceTree = "<group>";
 		};
-		8BB2D2EB2366C7310047D0E2 /* 针对卖家的 */ = {
+		8BB2D2EB2366C7310047D0E2 /* 针对卖家的（摊位列表、订单列表） */ = {
 			isa = PBXGroup;
 			children = (
 				8BB2D2EC2366C7310047D0E2 /* OrderDetail_SellerVC.h */,
@@ -2157,7 +2157,7 @@
 				8B71646B23703E8B009BA9EF /* OrderDetail_SellerVC+VM.h */,
 				8B71646C23703E8B009BA9EF /* OrderDetail_SellerVC+VM.m */,
 			);
-			path = "针对卖家的";
+			path = "针对卖家的（摊位列表、订单列表）";
 			sourceTree = "<group>";
 		};
 		8BB2D2EE2366C7310047D0E2 /* Q宠 */ = {
