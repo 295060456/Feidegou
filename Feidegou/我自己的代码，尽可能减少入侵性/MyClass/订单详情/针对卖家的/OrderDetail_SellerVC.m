@@ -8,6 +8,8 @@
 
 #import "OrderDetail_SellerVC.h"
 #import "UpLoadCancelReasonVC.h"
+#import "OrderDetail_SellerVC+VM.h"
+//#import "math.h"
 
 #pragma mark —— InfoView
 @interface OrderDetailTBVCell_02 ()
@@ -39,6 +41,17 @@ UITableViewDataSource
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    if ([model isKindOfClass:[OrderDetail_SellerModel class]]) {
+//        OrderDetail_SellerModel *orderDetail_SellerModel = (OrderDetail_SellerModel *)model;
+//        [self.tempMutArr addObject:orderDetail_SellerModel.ordercode];
+//        [self.tempMutArr addObject:[NSString stringWithFormat:@"%d",orderDetail_SellerModel.price]];//orderDetail_SellerModel.price
+//        [self.tempMutArr addObject:orderDetail_SellerModel.rental];//orderDetail_SellerModel.rental
+//        [self.tempMutArr addObject:@"账号"];
+//        [self.tempMutArr addObject:@"银行卡"];
+//        [self.tempMutArr addObject:ensureNonnullString(orderDetail_SellerModel.refer, Nil)];//STR(orderDetail_SellerModel.refer)
+//        [self.tempMutArr addObject:ensureNonnullString(orderDetail_SellerModel.updateTime, Nil)];//[NSString stringWithFormat:@"%@",orderDetail_SellerModel.updateTime]
+        [self.tableView reloadData];
+    }
     self.tableView.alpha = 1;
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
@@ -63,14 +76,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     OrderDetailTBVCell_03 *cell = [OrderDetailTBVCell_03 cellWith:tableView];
     cell.textLabel.text = self.titleMutArr[indexPath.row];
-    cell.detailTextLabel.text = self.tempMutArr[indexPath.row];
-    return cell;
+    if (self.tempMutArr.count) {
+        cell.detailTextLabel.text = self.tempMutArr[indexPath.row];
+    }return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{
     if (!_tableView) {
@@ -102,13 +115,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSMutableArray<NSString *> *)tempMutArr{
     if (!_tempMutArr) {
         _tempMutArr = NSMutableArray.array;
-        [_tempMutArr addObject:@"1234567890"];
-        [_tempMutArr addObject:@"12.0 CNY"];
-        [_tempMutArr addObject:@"200.00 CNY"];
-        [_tempMutArr addObject:@"账号"];
-        [_tempMutArr addObject:@"银行卡"];
-        [_tempMutArr addObject:@"dsjaihoufex"];
-        [_tempMutArr addObject:@"2019/09/26 23:22:23 "];
     }return _tempMutArr;
 }
 
@@ -165,7 +171,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
 
 }
-
 #pragma mark —— lazyLoad
 -(YYLabel *)titleLab{
     if (!_titleLab) {
@@ -203,14 +208,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [text addAttribute:(NSString *)kCTForegroundColorAttributeName
                      value:(id)[[UIColor blueColor] CGColor]
                      range:selRange_01];
+#warning 打开注释部分会崩，之前都不会崩溃，怀疑是升级Xcode所致
          //设置可点击文本的背景颜色
-        if (@available(iOS 10.0, *)) {
-            [text addAttribute:(NSString *)kCTBackgroundColorAttributeName
-                         value:(__bridge id)selFontRef
-                         range:selRange_01];
-        } else {
-            // Fallback on earlier versions
-        }
+//        if (@available(iOS 10.0, *)) {
+//            [text addAttribute:(NSString *)kCTBackgroundColorAttributeName
+//                         value:(__bridge id)selFontRef
+//                         range:selRange_01];
+//        } else {
+//            // Fallback on earlier versions
+//        }
         //设置可点击文本的大小
         [text addAttribute:(NSString *)kCTFontAttributeName
                      value:(__bridge id)selFontRef
@@ -220,13 +226,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                      value:(id)[[UIColor blueColor] CGColor]
                      range:selRange_02];
          //设置可点击文本的背景颜色
-        if (@available(iOS 10.0, *)) {
-            [text addAttribute:(NSString *)kCTBackgroundColorAttributeName
-                         value:(__bridge id)selFontRef
-                         range:selRange_02];
-        } else {
-            // Fallback on earlier versions
-        }
+//        if (@available(iOS 10.0, *)) {
+//            [text addAttribute:(NSString *)kCTBackgroundColorAttributeName
+//                         value:(__bridge id)selFontRef
+//                         range:selRange_02];
+//        } else {
+//            // Fallback on earlier versions
+//        }
         _titleLab.attributedText = text;
         _titleLab.numberOfLines = 0;
 //        _titleLab.lineBreakMode = NSLineBreakByCharWrapping;//？？
@@ -267,7 +273,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.titleLab.alpha = 1;
-
 }
 
 #pragma mark —— lazyLoad
@@ -401,10 +406,8 @@ UITableViewDataSource
     CGFloat OrderDetailTBVCell_02_Height;
 }
 
-@property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)BRStringPickerView *stringPickerView;
 
-@property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
@@ -459,8 +462,7 @@ UITableViewDataSource
 //第二步，成为自己的代理，去监听pop的过程，pop之前判断是否为根控制器
     self.navigationController.delegate = self;
     self.isShowViewFinished = YES;
-    
-    self.tableView.alpha = 1;
+    [self.tableView.mj_header beginRefreshing];
 }
 #pragma mark —— UINavigationControllerDelegate
 - (void)navigationController:(UINavigationController *)navigationController
@@ -495,17 +497,18 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
+    [self netWorking];
     [self.tableView.mj_header endRefreshing];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
+    [self netWorking];
     [self.tableView.mj_footer endRefreshing];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     if (indexPath.section == 0 &&
         indexPath.row == 0) {
         return OrderDetailTBVCell_04_Height;
@@ -566,7 +569,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             OrderDetailTBVCell_02 *cell = [OrderDetailTBVCell_02 cellWith:tableView];
             OrderDetailTBVCell_02_Height = [cell cellHeightWithModel:NULL];
 //            cell.backgroundColor = KGreenColor;
-            [cell richElementsInCellWithModel:nil];
+            [cell richElementsInCellWithModel:self.model];
             return cell;
         }else if(indexPath.row == 1){
             OrderDetailTBVCell_05 *cell = [OrderDetailTBVCell_05 cellWith:tableView];
@@ -615,6 +618,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.delegate = self;
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
+        _tableView.mj_footer.hidden = YES;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//去掉cell下划线
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {

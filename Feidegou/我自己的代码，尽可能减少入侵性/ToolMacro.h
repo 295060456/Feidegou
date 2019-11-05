@@ -273,6 +273,9 @@ dispatch_async(queue, block);\
 #pragma mark - MD5加盐
 //#define MD5_Salt(String) [NSString stringWithFormat:@"*bub#{%@}#fly*",String]
 
+//#define NullableStr(nullableStr,ReplaceStr) [NSString isNullString:nullableStr] ? ReplaceStr : nullableStr
+//#define STR(nullableStr) NullableStr(nullableStr,@"暂时缺乏")
+
 #define LoadMsg @"加载中..."
 #define Toast(msg)  [YKToastView showToastText:msg]
 #endif /* ToolMacro_h */
@@ -282,3 +285,41 @@ view.layer.shadowOffset = CGSizeMake(0, 1.5); \
 view.layer.shadowRadius = radius; \
 view.layer.shadowOpacity = 0.4; \
 view.layer.shadowColor = [UIColor lightGrayColor].CGColor; \
+
+//NSString *ensureNonnullString(id nullableStr,//被检查的值
+//                              NSString *replaceStr){//替换值
+//    if ([NSString isNullString:replaceStr]) {
+//        replaceStr = @"暂无资料";
+//    }
+//    if ([nullableStr isKindOfClass:[NSString class]]) {
+//        return [NSString isNullString:nullableStr] ? replaceStr : nullableStr;
+//    }else if ([nullableStr isKindOfClass:[NSNumber class]]){
+//        if (strcmp([nullableStr objCType], @encode(BOOL)) == 0) {// 布尔值
+//            BOOL b = [nullableStr boolValue];
+//            return [NSString isNullString:[NSString stringWithFormat:@"%i",b]] ? replaceStr : [NSString stringWithFormat:@"%i",b];
+//        }else if (strcmp([nullableStr objCType], @encode(int)) == 0) {// int 类型
+//            int b = [nullableStr intValue];
+//            return [NSString isNullString:[NSString stringWithFormat:@"%d",b]] ? replaceStr : [NSString stringWithFormat:@"%d",b];
+//        }else if (strcmp([nullableStr objCType], @encode(float)) == 0) {// float 类型
+//            float b = [nullableStr floatValue];
+//            return [NSString isNullString:[NSString stringWithFormat:@"%f",b]] ? replaceStr : [NSString stringWithFormat:@"%f",b];
+//        }else if (strcmp([nullableStr objCType], @encode(double)) == 0) {// double 类型
+//            float b = [nullableStr floatValue];
+//            return [NSString isNullString:[NSString stringWithFormat:@"%f",b]] ? replaceStr : [NSString stringWithFormat:@"%f",b];
+//        }return @"";
+//    }else if (strcmp([nullableStr objCType], @encode(BOOL))){// 布尔值
+//        BOOL b = [nullableStr boolValue];
+//        return [NSString isNullString:[NSString stringWithFormat:@"%i",b]] ? replaceStr : [NSString stringWithFormat:@"%i",b];
+//    }else if (strcmp([nullableStr objCType], @encode(int)) == 0){// int 类型
+//        int b = [nullableStr intValue];
+//        return [NSString isNullString:[NSString stringWithFormat:@"%d",b]] ? replaceStr : [NSString stringWithFormat:@"%d",b];
+//    }else if (strcmp([nullableStr objCType], @encode(float))){// float 类型
+//        float b = [nullableStr floatValue];
+//        return [NSString isNullString:[NSString stringWithFormat:@"%f",b]] ? replaceStr : [NSString stringWithFormat:@"%f",b];
+//    }else if (strcmp([nullableStr objCType], @encode(double))){// double 类型
+//        float b = [nullableStr floatValue];
+//        return [NSString isNullString:[NSString stringWithFormat:@"%f",b]] ? replaceStr : [NSString stringWithFormat:@"%f",b];
+//    }else{
+//        return @"其他数据类型";
+//    }
+//}

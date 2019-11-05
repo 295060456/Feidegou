@@ -633,17 +633,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                  (int64_t)(0.7 * NSEC_PER_SEC)),
                    dispatch_get_main_queue(), ^{
+        
         [OrderDetail_SellerVC pushFromVC:self_weak_
-                    requestParams:nil
+                           requestParams:@{
+                               @"order_id":[NSString stringWithFormat:@"%d",self.dataMutArr[indexPath.row].ID],
+                               @"order_type":[NSString stringWithFormat:@"%d",self.dataMutArr[indexPath.row].order_type]
+                           }
                           success:^(id data) {}
                          animated:YES];
     });
-    
-//    @weakify(self)
-//    [OrderDetail_SellerVC pushFromVC:self_weak_
-//                requestParams:nil
-//                      success:^(id data) {}
-//                     animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView

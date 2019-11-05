@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderListModel : BaseModel
 
-//父类有的
+//父类存在的
 //@property(nonatomic,copy)NSString *rental;
 //@property(nonatomic,copy)NSString *ordercode;
 //@property(nonatomic,copy)NSString *addTime;
@@ -31,7 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *finishTime;
 @property(nonatomic,copy)NSString *payment_weixin_img_name;
 @property(nonatomic,copy)NSString *payment_alipay_img_name;
-@property(nonatomic,assign)int ID;
 @property(nonatomic,copy)NSString *payment_alipay_img;
 @property(nonatomic,copy)NSString *bankCard;
 @property(nonatomic,copy)NSString *payTime;
@@ -49,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *delTime;
 @property(nonatomic,copy)NSString *payment_print;
 @property(nonatomic,copy)NSString *bankUser;
-@property(nonatomic,copy)NSString *catfoodsale_id;
+@property(nonatomic,assign)int catfoodsale_id;
 @property(nonatomic,copy)NSString *payment_weixin_img_path;
 @property(nonatomic,copy)NSString *payment_alipay_img_path;
 

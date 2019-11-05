@@ -57,6 +57,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderDetail_SellerVC : BaseVC
 
+@property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,strong)id requestParams;
+@property(nonatomic,strong)OrderDetail_SellerModel *model;
+
+
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
                        requestParams:(nullable id)requestParams
                              success:(DataBlock _Nonnull )block

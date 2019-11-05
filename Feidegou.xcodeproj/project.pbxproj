@@ -21,6 +21,8 @@
 		8B627333236A88D000749F09 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B62732B236A88D000749F09 /* NSData+Base64.m */; };
 		8B716467236FE7B7009BA9EF /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B716466236FE7B7009BA9EF /* BaseModel.m */; };
 		8B71646A236FE84F009BA9EF /* OrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B716469236FE84F009BA9EF /* OrderListModel.m */; };
+		8B71646D23703E8B009BA9EF /* OrderDetail_SellerVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B71646C23703E8B009BA9EF /* OrderDetail_SellerVC+VM.m */; };
+		8B71647023704856009BA9EF /* OrderDetail_SellerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B71646F23704856009BA9EF /* OrderDetail_SellerModel.m */; };
 		8B7A54E8236D6DD1006B12F8 /* WBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A54DC236D6DCF006B12F8 /* WBTableViewCell.m */; };
 		8B7A54E9236D6DD1006B12F8 /* WBPopMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A54DE236D6DD0006B12F8 /* WBPopMenuView.m */; };
 		8B7A54EA236D6DD1006B12F8 /* WBTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A54DF236D6DD0006B12F8 /* WBTableViewDelegate.m */; };
@@ -628,6 +630,10 @@
 		8B716466236FE7B7009BA9EF /* BaseModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		8B716468236FE84F009BA9EF /* OrderListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderListModel.h; sourceTree = "<group>"; };
 		8B716469236FE84F009BA9EF /* OrderListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderListModel.m; sourceTree = "<group>"; };
+		8B71646B23703E8B009BA9EF /* OrderDetail_SellerVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OrderDetail_SellerVC+VM.h"; sourceTree = "<group>"; };
+		8B71646C23703E8B009BA9EF /* OrderDetail_SellerVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OrderDetail_SellerVC+VM.m"; sourceTree = "<group>"; };
+		8B71646E23704856009BA9EF /* OrderDetail_SellerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetail_SellerModel.h; sourceTree = "<group>"; };
+		8B71646F23704856009BA9EF /* OrderDetail_SellerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetail_SellerModel.m; sourceTree = "<group>"; };
 		8B7A54DC236D6DCF006B12F8 /* WBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBTableViewCell.m; sourceTree = "<group>"; };
 		8B7A54DD236D6DD0006B12F8 /* WBTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBTableViewDataSource.h; sourceTree = "<group>"; };
 		8B7A54DE236D6DD0006B12F8 /* WBPopMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBPopMenuView.m; sourceTree = "<group>"; };
@@ -2182,6 +2188,10 @@
 			children = (
 				8BB2D2EC2366C7310047D0E2 /* OrderDetail_SellerVC.h */,
 				8BB2D2ED2366C7310047D0E2 /* OrderDetail_SellerVC.m */,
+				8B71646E23704856009BA9EF /* OrderDetail_SellerModel.h */,
+				8B71646F23704856009BA9EF /* OrderDetail_SellerModel.m */,
+				8B71646B23703E8B009BA9EF /* OrderDetail_SellerVC+VM.h */,
+				8B71646C23703E8B009BA9EF /* OrderDetail_SellerVC+VM.m */,
 			);
 			path = "针对卖家的";
 			sourceTree = "<group>";
@@ -4337,6 +4347,7 @@
 				8BB2D3942366CC500047D0E2 /* ZYTextField.m in Sources */,
 				8BB0F6CE236BDAC2009498B6 /* WholesaleOrders_VipVC.m in Sources */,
 				C4824261214F99FA00A9D432 /* CellHeaderMore.m in Sources */,
+				8B71647023704856009BA9EF /* OrderDetail_SellerModel.m in Sources */,
 				C42CD182213CC2640096675F /* DefaultRefreshView.m in Sources */,
 				C42F5D25213F842300114E0E /* AchievememtController.m in Sources */,
 				C4614415214386B6000C0CDC /* VendorMainController.m in Sources */,
@@ -4586,6 +4597,7 @@
 				C46143FF214386B6000C0CDC /* CellVendorWebOlny.m in Sources */,
 				C42CD0A8213CC2640096675F /* CellOrderDetailGood.m in Sources */,
 				C42CD085213CC2640096675F /* RSADataVerifier.m in Sources */,
+				8B71646D23703E8B009BA9EF /* OrderDetail_SellerVC+VM.m in Sources */,
 				C42CD149213CC2640096675F /* MoreUp.m in Sources */,
 				8BB2D38E2366CC380047D0E2 /* NSString+Extras.m in Sources */,
 				C42CD0B6213CC2640096675F /* CellOneLabel.m in Sources */,

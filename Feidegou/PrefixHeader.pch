@@ -105,6 +105,7 @@
 #import "GiftFoodsModel.h"
 
 #import "OrderListModel.h"
+#import "OrderDetail_SellerModel.h"
 
 
 //Test

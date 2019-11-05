@@ -1,13 +1,13 @@
 //
-//  OrderListModel.m
+//  OrderDetail_SellerModel.m
 //  Feidegou
 //
 //  Created by Kite on 2019/11/4.
 //  Copyright © 2019 朝花夕拾. All rights reserved.
 //
 
-#import "OrderListModel.h"
+#import "OrderDetail_SellerModel.h"
 
-@implementation OrderListModel
+@implementation OrderDetail_SellerModel
 
 @end

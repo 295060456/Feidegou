@@ -96,9 +96,9 @@ UITextFieldDelegate
                    forState:UIControlStateNormal];
         [_btn sizeToFit];
         _btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-        [_btn addTarget:self
-                 action:@selector(btnClickEvent:)
-       forControlEvents:UIControlEventTouchUpInside];
+//        [_btn addTarget:self
+//                 action:@selector(btnClickEvent:)
+//       forControlEvents:UIControlEventTouchUpInside];
         [UIView cornerCutToCircleWithView:_btn
                           AndCornerRadius:3];
         [UIView colourToLayerOfView:_btn
@@ -138,8 +138,8 @@ UITextFieldDelegate
 -(NSMutableArray<NSString *> *)mutArr{
     if (!_mutArr) {
         _mutArr = NSMutableArray.array;
-        [_mutArr addObject:@"用户id"];
         [_mutArr addObject:@"手机号码"];
+        [_mutArr addObject:@"用户id"];
     }return _mutArr;
 }
 
