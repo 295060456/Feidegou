@@ -12,12 +12,19 @@
 
 -(void)netWorking{
     extern NSString *randomStr;
+    NSString *str = @"";
+    if ([self.requestParams isKindOfClass:[NSArray class]]) {
+        NSArray *arr = (NSArray *)self.requestParams;
+        NSNumber *b = (NSNumber *)arr[2];
+        str = [NSString stringWithFormat:@"%f",[b floatValue]];
+    }
+    
     NSDictionary *dataDic = @{
         @"quantity":self.str_1,//数量
         @"quantity_max":self.str_3,//最大可购数量
         @"quantity_min":self.str_2,//最小
-        @"price":@"",//单价
-        @"payment_status":@"",//支付类型
+        @"price":str,//单价
+        @"payment_status":self.str_4,//支付类型 1、支付宝；2、微信；3、银行卡
         @"Alipay_id":@"",//账户
         @"Alipay_img":@"",//二维码
         @"Weixin_id":@"",//账户

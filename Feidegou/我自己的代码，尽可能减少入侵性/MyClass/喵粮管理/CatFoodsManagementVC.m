@@ -8,7 +8,7 @@
 
 #import "CatFoodsManagementVC.h"
 #import "OrderListVC.h"//订单
-#import "ShopReceiptQRcodeVC.h"//店铺收款码"
+#import "ShopReceiptQRcodeVC.h"//店铺收款码
 #import "GiftVC.h"//赠送
 #import "CatFoodProducingAreaVC.h"//喵粮产地
 #import "ThroughTrainToPromoteVC.h"//喵粮直通车
@@ -118,30 +118,30 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             
         }
     }else if (indexPath.section == 1){
-        if (indexPath.row == 0) {
+        if (indexPath.row == 0) {//订单
             [OrderListVC pushFromVC:self_weak_
                       requestParams:Nil
                             success:^(id data) {
                 
             }
                            animated:YES];
-        }else if (indexPath.row == 1){
+        }else if (indexPath.row == 1){//店铺收款码
             [ShopReceiptQRcodeVC pushFromVC:self_weak_
                               requestParams:Nil
                                     success:^(id data) {
             }
                                    animated:YES];
-        }else if (indexPath.row == 2){
+        }else if (indexPath.row == 2){//赠送
             [GiftVC pushFromVC:self_weak_
                  requestParams:nil
                        success:^(id data) {}
                       animated:YES];
-        }else if (indexPath.row == 3){
+        }else if (indexPath.row == 3){//喵粮产地
             [CatFoodProducingAreaVC pushFromVC:self_weak_
                                  requestParams:nil
                                        success:^(id data) {}
                                       animated:YES];
-        }else if (indexPath.row == 4){
+        }else if (indexPath.row == 4){//喵粮直通车
             [ThroughTrainToPromoteVC pushFromVC:self_weak_
                                   requestParams:nil
                                         success:^(id data) {}
@@ -151,12 +151,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //            [WholesaleMarket_AdvanceVC pushFromVC:self_weak_
 //                                    requestParams:nil
 //                                          success:^(id data) {}
-//                                         animated:YES];
+//                                         animated:YES];//喵粮批发市场_仅高级商家可见
             
             [WholesaleMarket_VipVC pushFromVC:self_weak_
-                                requestParams:nil
+                                requestParams:self.dataMutArr
                                       success:^(id data) {}
-                                     animated:YES];
+                                     animated:YES];//喵粮批发市场_仅Vip可见
         }else{}
     }else{}
 }

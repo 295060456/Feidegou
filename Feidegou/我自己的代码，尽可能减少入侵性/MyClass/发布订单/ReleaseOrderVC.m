@@ -275,7 +275,6 @@ UITableViewDataSource
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*placeholderMutArr;
 
-@property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
@@ -293,7 +292,6 @@ UITableViewDataSource
              requestParams:(nullable id)requestParams
                    success:(DataBlock)block
                   animated:(BOOL)animated{
-
     ReleaseOrderVC *vc = ReleaseOrderVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
@@ -400,7 +398,15 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     self.str_2 = textfield.text;
                 }else if([textfield.placeholder isEqualToString:self.placeholderMutArr[2]]){//请输入最高限额
                     self.str_3 = textfield.text;
-                }else{}
+                }
+                
+//                else if([textfield.placeholder isEqualToString:@""]){//请输入最高限额
+//                    self.str_3 = textfield.text;
+//                }
+                
+                
+                
+                else{}
             }     
         }];
         
@@ -455,7 +461,16 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
         [cell actionBlock:^(id data) {
             @strongify(self)
+//            1、支付宝；2、微信；3、银行卡
+            if ([data isEqualToString:@"支付宝"]) {
+                self.str_4 = @"1";
+            }else if ([data isEqualToString:@"微信"]){
+                self.str_4 = @"2";
+            }else if ([data isEqualToString:@"银行卡"]){
+                self.str_4 = @"3";
+            }
             if ([data isEqualToString:@"银行卡"]) {
+                
                 if (self.titleMutArr.count == 7) {//首次
                     [self.titleMutArr removeLastObject];
                     [self.placeholderMutArr removeLastObject];
@@ -640,7 +655,11 @@ forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
         [_placeholderMutArr addObject:@"请输入数量"];
         [_placeholderMutArr addObject:@"请输入最低限额"];
         [_placeholderMutArr addObject:@"请输入最高限额"];
-        [_placeholderMutArr addObject:@"1g / CNY"];
+        if ([self.requestParams isKindOfClass:[NSArray class]]) {
+            NSArray *arr = (NSArray *)self.requestParams;
+            NSNumber *b = (NSNumber *)arr[2];
+            [_placeholderMutArr addObject:[NSString stringWithFormat:@"%.2f g / CNY",[b floatValue]]];
+        }
         [_placeholderMutArr addObject:@"请选择收款方式"];
     }return _placeholderMutArr;
 }

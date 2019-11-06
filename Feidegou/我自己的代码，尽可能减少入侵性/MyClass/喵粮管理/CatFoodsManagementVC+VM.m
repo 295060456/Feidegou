@@ -16,6 +16,9 @@ NSString *randomStr;
     NSDictionary *dataDic = @{
         @"user_id":@"1"//KKK
     };
+    if (self.dataMutArr.count) {
+        [self.dataMutArr removeAllObjects];
+    }
     randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodManageURL

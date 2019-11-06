@@ -38,9 +38,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ReleaseOrderVC : BaseVC
 
-@property(nonatomic,copy)__block NSString *str_1;
-@property(nonatomic,copy)__block NSString *str_2;
-@property(nonatomic,copy)__block NSString *str_3;
+@property(nonatomic,copy)__block NSString *str_1;//数量
+@property(nonatomic,copy)__block NSString *str_2;//最低限额
+@property(nonatomic,copy)__block NSString *str_3;//最高限额
+@property(nonatomic,copy)__block NSString *str_4;//收款方式
+@property(nonatomic,strong)id requestParams;
 
 + (instancetype)pushFromVC:(UIViewController *)rootVC
              requestParams:(nullable id)requestParams

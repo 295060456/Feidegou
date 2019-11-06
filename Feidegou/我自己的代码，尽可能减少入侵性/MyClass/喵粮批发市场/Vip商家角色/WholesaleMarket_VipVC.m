@@ -285,7 +285,7 @@ StockViewDelegate
     NSLog(@"DidSelect Row:%ld",row);
     @weakify(self)
     [WholesaleOrders_VipVC pushFromVC:self_weak_
-                    requestParams:Nil
+                    requestParams:nil//self.requestParams
                           success:^(id data) {}
                          animated:YES];
 }
@@ -294,7 +294,7 @@ StockViewDelegate
     NSLog(@"发布订单");
     @weakify(self)
     [ReleaseOrderVC pushFromVC:self_weak_
-                 requestParams:nil
+                 requestParams:self.requestParams
                        success:^(id data) {}
                       animated:YES];
 }
