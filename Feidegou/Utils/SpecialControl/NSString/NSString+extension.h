@@ -95,4 +95,9 @@
 
 //字符串转为颜色
 + (UIColor *)getColor:(NSString *)hexColor andMoren:(UIColor *)colorMoren;
+
++(NSString *)ensureNonnullString:(id)nullableStr
+                      ReplaceStr:(NSString *)replaceStr;
+
+
 @end
