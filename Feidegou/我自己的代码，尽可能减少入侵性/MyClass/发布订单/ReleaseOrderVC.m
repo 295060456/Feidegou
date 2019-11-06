@@ -65,11 +65,13 @@
 
 @interface ReleaseOrderTBVCell ()
 <
-UITextFieldDelegate
+UITextFieldDelegate,
+BEMCheckBoxDelegate
 >
 {}
 
 @property(nonatomic,strong)UITextField *textfield;
+@property(nonatomic,strong)NSMutableArray <BEMCheckBox *>*btnMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*listTitleDataMutArr;
 @property(nonatomic,copy)DataBlock block;
 @property(nonatomic,copy)DataBlock dataBlock;
@@ -119,8 +121,55 @@ UITextFieldDelegate
             self.detailTextLabel.text = model;
         }break;
         case ReleaseOrderTBVCellType_Btn:{
-            [self.btn setTitle:model
-                      forState:normal];
+            NSMutableArray <UILabel *>*labMutArr = NSMutableArray.array;
+            for (int i = 0; i < self.listTitleDataMutArr.count ; i++) {//
+                BEMCheckBox *checkBox = BEMCheckBox.new;
+                UILabel *titleLab = UILabel.new;
+                titleLab.text = self.listTitleDataMutArr[i];
+//                titleLab.backgroundColor = RandomColor;
+                [titleLab sizeToFit];
+                // 矩形复选框
+                checkBox.boxType = BEMBoxTypeSquare;
+                checkBox.tag = i;
+                checkBox.delegate = self;
+                // 动画样式
+                checkBox.onAnimationType  = BEMAnimationTypeStroke;
+                checkBox.offAnimationType = BEMAnimationTypeStroke;
+                checkBox.animationDuration = 0.3;
+                // 颜色样式
+                checkBox.tintColor    = KLightGrayColor;
+                checkBox.onTintColor  = HEXCOLOR(0x108EE9);
+                checkBox.onFillColor  = kClearColor;
+                checkBox.onCheckColor = HEXCOLOR(0x108EE9);
+                // 默认选中
+                checkBox.on = YES;
+                
+                [self.contentView addSubview:checkBox];
+                [self.contentView addSubview:titleLab];
+
+                if (self.btnMutArr.count == 0) {
+                    checkBox.frame = CGRectMake(SCALING_RATIO(100),
+                                                SCALING_RATIO(10),
+                                                SCALING_RATIO(20),
+                                                SCALING_RATIO(20));
+                }else if (self.btnMutArr.count == 1) {
+                    checkBox.frame = CGRectMake(SCALING_RATIO(170),
+                                                SCALING_RATIO(10),
+                                                SCALING_RATIO(20),
+                                                SCALING_RATIO(20));
+                }else if (self.btnMutArr.count == 2) {
+                    checkBox.frame = CGRectMake(SCALING_RATIO(240),
+                                                SCALING_RATIO(10),
+                                                SCALING_RATIO(20),
+                                                SCALING_RATIO(20));
+                }
+                [self.btnMutArr addObject:checkBox];//
+                [labMutArr addObject:titleLab];//!!
+                titleLab.frame = CGRectMake(checkBox.mj_x + checkBox.mj_w,
+                                            checkBox.mj_y,
+                                            SCALING_RATIO(50),
+                                            SCALING_RATIO(20));
+            }
         }break;
         case ReleaseOrderTBVCellType_TextfieldOnly:{
             self.textfield.placeholder = model;
@@ -136,50 +185,31 @@ UITextFieldDelegate
     }
 }
 
--(void)actionBlock:(DataBlock)block{
-    self.block = block;
-}
-
--(void)btnClickEventBlock:(ThreeDataBlock)block{
-    self.block2 = block;
-}
-
 -(void)dataBlock:(DataBlock)block{
     _dataBlock = block;
 }
-//超出父控件点击事件响应链断裂解决方案
-//若A是父视图,B是子视图,（B加在A上）,B超出A的范围,把这个方法写在A上
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    UIView *view = [super hitTest:point withEvent:event];
-    if (!view) {
-        //将坐标由当前视图发送到 指定视图 fromView是无法响应的范围小父视图
-        CGPoint stationPoint = [self.historyDataListTBV convertPoint:point
-                                                                     fromView:self];
-        if (CGRectContainsPoint(self.historyDataListTBV.bounds, stationPoint)){
-            view = self.historyDataListTBV;
-        }
-    }return view;
-}
 #pragma mark —— 点击事件
--(void)btnClickEvent:(UIButton *)sender{
-    if (self.block2) {
-        self.block2(sender,
-                    self.listTitleDataMutArr,
-                    @(SCALING_RATIO(50)));
+
+#pragma mark —— BEMCheckBoxDelegate
+- (void)didTapCheckBox:(BEMCheckBox *)checkBox {
+    NSLog(@"%@", self.listTitleDataMutArr[checkBox.tag]);
+    checkBox.selected = !checkBox.selected;
+    switch (checkBox.tag) {
+        case 1:{
+            
+        }break;
+        case 2:{
+            
+        }break;
+        case 3:{
+            
+        }break;
+            
+        default:
+            break;
     }
-    NSLog(@"收款方式");
-    if (!sender.selected) {
-        [self.contentView addSubview:self.historyDataListTBV];
-        //[self.view addSubview:self->_historyDataListTBV];
-        self.historyDataListTBV.frame = CGRectMake(self.btn.mj_x,
-                                                   self.btn.mj_y + self.btn.mj_h,
-                                                   self.btn.mj_w,
-                                                   self.listTitleDataMutArr.count * [HistoryDataListTBVCell cellHeightWithModel:Nil]);
-    }else{
-        [self.historyDataListTBV removeFromSuperview];
-    }
-    sender.selected = !sender.selected;
 }
+
 #pragma mark —— UITextFieldDelegate
 //询问委托人是否应该在指定的文本字段中开始编辑
 //- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
@@ -220,35 +250,10 @@ UITextFieldDelegate
     }return _textfield;
 }
 
--(UIButton *)btn{
-    if (!_btn) {
-        _btn = UIButton.new;
-        _btn.backgroundColor = KLightGrayColor;
-        [_btn addTarget:self
-                 action:@selector(btnClickEvent:)
-       forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:_btn];
-        [_btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(10));
-            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-            make.top.bottom.equalTo(self.contentView);
-        }];
-    }return _btn;
-}
-
--(HistoryDataListTBV *)historyDataListTBV{
-    if (!_historyDataListTBV) {
-        _historyDataListTBV = [HistoryDataListTBV initWithRequestParams:self.listTitleDataMutArr];
-        _historyDataListTBV.tableFooterView = UIView.new;
-        @weakify(self)
-        [_historyDataListTBV showSelectedData:^(id data) {
-            @strongify(self)
-            [self.btn setTitle:data
-                      forState:UIControlStateNormal];
-            [self.historyDataListTBV removeFromSuperview];
-            self.block(data);
-        }];
-    }return _historyDataListTBV;
+-(NSMutableArray<BEMCheckBox *> *)btnMutArr{
+    if (!_btnMutArr) {
+        _btnMutArr = NSMutableArray.array;
+    }return _btnMutArr;
 }
 
 -(NSMutableArray<NSString *> *)listTitleDataMutArr{
@@ -269,7 +274,6 @@ UITableViewDataSource
 >
 
 @property(nonatomic,strong)BaseTableViewer *tableView;
-@property(nonatomic,strong)HistoryDataListTBV *historyDataListTBV;
 @property(nonatomic,strong)UIButton *releaseBtn;
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
@@ -416,128 +420,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }else if (indexPath.row == 4){//收款方式
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
-        self.historyDataListTBV = cell.historyDataListTBV;
-        @weakify(self)
-        [cell btnClickEventBlock:^(id data,
-                                   id data2,
-                                   id data3) {
-            @strongify(self)
-            UIButton *btn = (UIButton *)data;
-            NSArray *arr = (NSArray *)data2;
-            if (btn.selected) {
-                NSLog(@"关");
-                [self.releaseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.centerX.equalTo(self.view.mas_centerX);
-                    make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(100)));
-                    make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
-                                                       (self.titleMutArr.count - 2) * SCALING_RATIO(50) +
-                                                       SCALING_RATIO(40) +
-                                                       SCALING_RATIO(50));//附加值
-                }];
-            }else{
-                NSLog(@"开");
-                if (self.titleMutArr.count == 11) {
-                    [self.releaseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.centerX.equalTo(self.view.mas_centerX);
-                        make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(100)));
-                        make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
-                                                           (self.titleMutArr.count - 2) * SCALING_RATIO(50) +
-                                                           SCALING_RATIO(40) +
-                                                           SCALING_RATIO(50));//附加值
-                    }];
-                }else{
-                    [self.releaseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.centerX.equalTo(self.view.mas_centerX);
-                        make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(100)));
-                        make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
-                                                           (self.titleMutArr.count - 2) * SCALING_RATIO(50) +
-                                                           SCALING_RATIO(40) +
-                                                           arr.count * [data3 floatValue] +
-                                                           SCALING_RATIO(50));//附加值
-                    }];
-                }
-            }
-            }];
 
-        [cell actionBlock:^(id data) {
-            @strongify(self)
-//            1、支付宝；2、微信；3、银行卡
-            if ([data isEqualToString:@"支付宝"]) {
-                self.str_4 = @"1";
-            }else if ([data isEqualToString:@"微信"]){
-                self.str_4 = @"2";
-            }else if ([data isEqualToString:@"银行卡"]){
-                self.str_4 = @"3";
-            }
-            if ([data isEqualToString:@"银行卡"]) {
-                
-                if (self.titleMutArr.count == 7) {//首次
-                    [self.titleMutArr removeLastObject];
-                    [self.placeholderMutArr removeLastObject];
-                }else if (self.titleMutArr.count == 7 + 3){
-                    [self.titleMutArr removeObjectsInRange:NSMakeRange(6, 4)];
-                    [self.placeholderMutArr removeObjectsInRange:NSMakeRange(4, 4)];
-                    NSLog(@"");
-                }else if (self.titleMutArr.count == 7 + 1){//先点击微信/支付宝,再点击银行卡
-                    [self.titleMutArr removeLastObject];
-                    [self.placeholderMutArr removeLastObject];
-                    [self.titleMutArr removeLastObject];
-                    [self.placeholderMutArr removeLastObject];
-                }else if(self.titleMutArr.count == 11){//首次，点击银行卡,再次点击银行卡
-                    [self.titleMutArr removeObjectsInRange:NSMakeRange(6, 5)];
-                    [self.placeholderMutArr removeObjectsInRange:NSMakeRange(4, 5)];
-                }
-                [self.titleMutArr addObject:@"收款方式"];
-                [self.titleMutArr addObject:@"银行卡号"];
-                [self.titleMutArr addObject:@"姓名"];
-                [self.titleMutArr addObject:@"银行类型"];
-                [self.titleMutArr addObject:@"支行信息"];
-                
-                [self.placeholderMutArr addObject:data];//收款方式===========
-                [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@",data]];//银行卡号
-                [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写姓名"]];
-                [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写银行类型"]];
-                [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写支行信息"]];
-                NSLog(@"");
-            }else{
-                if (self.titleMutArr.count == 7) {//首次
-                    [self.titleMutArr addObject:[NSString stringWithFormat:@"%@账户",data]];
-                    [self.placeholderMutArr removeLastObject];
-                    [self.placeholderMutArr addObject:data];//收款方式
-                    [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
-                }else if(self.titleMutArr.count == 7 + 1){
-                    [self.titleMutArr removeLastObject];
-                    [self.titleMutArr addObject:[NSString stringWithFormat:@"%@账户",data]];
-                    [self.placeholderMutArr removeLastObject];
-                    [self.placeholderMutArr removeLastObject];
-                    [self.placeholderMutArr addObject:data];//收款方式
-                    [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
-                }else if (self.titleMutArr.count == 7 + 3){
-                    [self.titleMutArr removeObjectsInRange:NSMakeRange(6, 4)];
-                    [self.titleMutArr addObject:[NSString stringWithFormat:@"%@账户",data]];
-                    [self.placeholderMutArr removeObjectsInRange:NSMakeRange(4, 3)];
-                    [self.placeholderMutArr addObject:data];//收款方式
-                    [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
-                }else if (self.titleMutArr.count == 11){//支付宝/微信 - 银行卡 - 支付宝/微信
-                    [self.titleMutArr removeObjectsInRange:NSMakeRange(7, 4)];
-                    [self.titleMutArr addObject:[NSString stringWithFormat:@"%@账户",data]];
-                    [self.placeholderMutArr removeObjectsInRange:NSMakeRange(4, 5)];
-                    [self.placeholderMutArr addObject:data];//收款方式
-                    [self.placeholderMutArr addObject:[NSString stringWithFormat:@"请填写%@账号",data]];
-                }
-                NSLog(@"");
-            }
-            [self.tableView reloadData];
-            
-            [self.releaseBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.centerX.equalTo(self.view.mas_centerX);
-                make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(100)));
-                make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
-                                                   (self.titleMutArr.count - 2) * SCALING_RATIO(50) +
-                                                   SCALING_RATIO(40) +
-                                                   SCALING_RATIO(50));//附加值
-            }];
-        }];
     }else if(indexPath.row == 5){//
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_TextfieldOnly];
@@ -599,11 +482,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.mj_footer = self.tableViewFooter;
         _tableView.mj_footer.hidden = YES;
         _tableView.tableFooterView = UIView.new;
-        @weakify(self)
-        [_tableView actionBlock:^{
-            @strongify(self)
-            [self.historyDataListTBV removeFromSuperview];
-        }];
         [_tableView registerClass:[ReleaseOrder_viewForHeader class]
 forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
         [self.view addSubview:_tableView];
@@ -663,6 +541,9 @@ forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
         [_placeholderMutArr addObject:@"请选择收款方式"];
     }return _placeholderMutArr;
 }
+
+
+
 
 @end
 

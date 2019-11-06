@@ -99,8 +99,6 @@
 		8BB2D3882366CC190047D0E2 /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D32C2366C7310047D0E2 /* BaseVC.m */; };
 		8BB2D3892366CC1F0047D0E2 /* ViewForFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D31E2366C7310047D0E2 /* ViewForFooter.m */; };
 		8BB2D38A2366CC220047D0E2 /* ViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D31D2366C7310047D0E2 /* ViewForHeader.m */; };
-		8BB2D38B2366CC2C0047D0E2 /* NSArray+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3312366C7310047D0E2 /* NSArray+Extend.m */; };
-		8BB2D38C2366CC2E0047D0E2 /* NSArray+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D32E2366C7310047D0E2 /* NSArray+Extension.m */; };
 		8BB2D38D2366CC350047D0E2 /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3252366C7310047D0E2 /* NSString+Emoji.m */; };
 		8BB2D38E2366CC380047D0E2 /* NSString+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3242366C7310047D0E2 /* NSString+Extras.m */; };
 		8BB2D38F2366CC3A0047D0E2 /* NSString+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3282366C7310047D0E2 /* NSString+File.m */; };
@@ -4301,7 +4299,6 @@
 				C42CD0DB213CC2640096675F /* CellOnlyOneLbl.m in Sources */,
 				8BB2D3842366CC020047D0E2 /* FeedPetsModel.m in Sources */,
 				8BB2D3852366CC0C0047D0E2 /* GiftFoodsModel.m in Sources */,
-				8BB2D38B2366CC2C0047D0E2 /* NSArray+Extend.m in Sources */,
 				C42CD094213CC2640096675F /* OrderNotSendOutController.m in Sources */,
 				C46368DE213FBE6C006922D5 /* CLCellTitle.m in Sources */,
 				C42CD08F213CC2640096675F /* DiscussAttribute.m in Sources */,
@@ -4634,7 +4631,6 @@
 				C46368F3213FC9BA006922D5 /* JJDBHelper+MainAdver.m in Sources */,
 				C42CD0E0213CC2640096675F /* OrderSendWayController.m in Sources */,
 				8BB2D3882366CC190047D0E2 /* BaseVC.m in Sources */,
-				8BB2D38C2366CC2E0047D0E2 /* NSArray+Extension.m in Sources */,
 				C46143FF214386B6000C0CDC /* CellVendorWebOlny.m in Sources */,
 				C42CD0A8213CC2640096675F /* CellOrderDetailGood.m in Sources */,
 				C42CD085213CC2640096675F /* RSADataVerifier.m in Sources */,

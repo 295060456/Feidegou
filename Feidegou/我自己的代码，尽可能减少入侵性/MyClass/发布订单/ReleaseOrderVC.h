@@ -23,15 +23,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ReleaseOrderTBVCell : TBVCell_style_01
 
-@property(nonatomic,strong)HistoryDataListTBV *historyDataListTBV;
-@property(nonatomic,strong)UIButton *btn;
+//@property(nonatomic,strong)RadioButton *radioBtn;
+
 
 +(instancetype)cellWith:(UITableView *)tableView;
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;
 - (void)richElementsInCellWithModel:(id _Nullable)model
             ReleaseOrderTBVCellType:(ReleaseOrderTBVCellType)type;
--(void)actionBlock:(DataBlock)block;
--(void)btnClickEventBlock:(ThreeDataBlock)block;
+
 -(void)dataBlock:(DataBlock)block;
 
 @end
