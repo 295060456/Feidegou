@@ -11,9 +11,6 @@
 @implementation OrderListVC (VM)
 
 -(void)networking_default{//默认
-    if (self.dataMutArr.count) {
-        [self.dataMutArr removeAllObjects];
-    }
     NSDictionary *dic = @{
         @"user_id":@"1",
         @"currentPage":[NSString stringWithFormat:@"%d",self.page],//分页数
@@ -31,9 +28,6 @@
 }
 
 -(void)networking_time:(UIButton *)sender{//按时间
-    if (self.dataMutArr.count) {
-        [self.dataMutArr removeAllObjects];
-    }
     NSDictionary *dic = @{
         @"user_id":@"1",
         @"currentPage":[NSString stringWithFormat:@"%d",self.page],//分页数
@@ -52,9 +46,6 @@
 }
 
 -(void)networking_tradeType:(UIButton *)sender{//按买/卖
-    if (self.dataMutArr.count) {
-        [self.dataMutArr removeAllObjects];
-    }
     NSDictionary *dic = @{
         @"user_id":@"1",
         @"currentPage":[NSString stringWithFormat:@"%d",self.page],//分页数
@@ -73,9 +64,6 @@
 }
 
 -(void)networking_type:(BusinessType)businessType{//按交易状态
-    if (self.dataMutArr.count) {
-        [self.dataMutArr removeAllObjects];
-    }
     NSDictionary *dic = @{
         @"user_id":@"1",
         @"currentPage":[NSString stringWithFormat:@"%d",self.page],//分页数
@@ -93,9 +81,6 @@
 }
 
 -(void)networking_ID:(NSString *)identity{//按输入的查询ID
-    if (self.dataMutArr.count) {
-        [self.dataMutArr removeAllObjects];
-    }
     if (![NSString isNullString:identity]) {
         NSDictionary *dic = @{
             @"user_id":@"1",

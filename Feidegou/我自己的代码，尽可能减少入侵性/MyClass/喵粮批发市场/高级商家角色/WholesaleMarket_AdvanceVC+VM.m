@@ -13,7 +13,8 @@
 -(void)netWorking{
     extern NSString *randomStr;
     NSDictionary *dataDic = @{
-        @"user_id":@"1"//KKK
+        @"currentPage":[NSString stringWithFormat:@"%ld",self.currentPage],
+        @"pagesize":@"32"
     };
     randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
@@ -24,15 +25,21 @@
                                                                              publicKey:RSA_Public_key]
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response) {
             NSLog(@"--%@",response);
-//            NSDictionary *dic = (NSDictionary *)response;
-//            [self.dataMutArr addObject:[NSString stringWithFormat:@"%@",dic[@"Foodsell"]]];
-//            [self.dataMutArr addObject:[NSString stringWithFormat:@"%@",dic[@"Foodstuff"]]];
-//            [self.tableView reloadData];
-//            [self.tableView.mj_header endRefreshing];
-//            [self.tableView.mj_footer endRefreshing];
+            NSArray *array = [WholesaleMarket_AdvanceModel mj_objectArrayWithKeyValuesArray:response];
+            [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
+                                                NSUInteger idx,
+                                                BOOL * _Nonnull stop) {
+                @strongify(self)
+                WholesaleMarket_AdvanceModel *model = array[idx];
+                [self.dataMutArr addObject:model];
+            }];
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
+            [self.tableView reloadData];
         }
     }];
 }

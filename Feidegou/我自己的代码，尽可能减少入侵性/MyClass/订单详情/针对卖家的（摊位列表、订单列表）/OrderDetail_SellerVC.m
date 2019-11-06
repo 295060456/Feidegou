@@ -623,6 +623,9 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
+    if (self.dataMutArr.count) {
+        [self.dataMutArr removeAllObjects];
+    }
     [self netWorking];
     [self.tableView.mj_header endRefreshing];
 }

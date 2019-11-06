@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FD89AE41-55FD-4390-A190-9FA62FA8F54C"
-            shouldBeEnabled = "No"
+            uuid = "B30C0867-CE99-46EE-9253-71B7A9EBFF6A"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/My_ThirdParty/&#x1f30d;ZFMRACNetworkTool/Request/FMARCNetwork.m"
+            filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x55b5;&#x7cae;&#x6279;&#x53d1;&#x5e02;&#x573a;/&#x9ad8;&#x7ea7;&#x5546;&#x5bb6;&#x89d2;&#x8272;/WholesaleMarket_AdvanceVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
-            landmarkName = "-requestNetworkData:"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
+            landmarkName = "-richElementsInCellWithModel:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

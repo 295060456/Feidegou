@@ -537,6 +537,9 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
+    if (self.dataMutArr.count) {
+        [self.dataMutArr removeAllObjects];
+    }
     switch (networking_tpye) {
         case NetworkingTpye_default:{//默认
             [self networking_default];

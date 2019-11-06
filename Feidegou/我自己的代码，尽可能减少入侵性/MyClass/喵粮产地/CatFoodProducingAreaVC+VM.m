@@ -12,9 +12,6 @@
 
 -(void)netWorking{
     extern NSString *randomStr;
-    if (self.dataMutArr.count) {
-        [self.dataMutArr removeAllObjects];
-    }
     NSDictionary *dic = @{
         @"currentPage":[NSString stringWithFormat:@"%ld",self.currentPage],
         @"pagesize":@"32"

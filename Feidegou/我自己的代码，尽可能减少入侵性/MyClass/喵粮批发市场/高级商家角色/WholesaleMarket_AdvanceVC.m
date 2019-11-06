@@ -237,18 +237,49 @@ UITextFieldDelegate
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.userNameLab.text = @"用户名:江泽民";
-    self.numLab.text = @"数量:123";
-    self.priceLab.text = @"单价:1234";
-    self.limitLab.text = @"限额:denconcd";
-    self.paymentMethodLab.text = @"支付宝/微信/银行卡";
-
-    [self.userNameLab sizeToFit];
-    [self.numLab sizeToFit];
-    [self.priceLab sizeToFit];
-    [self.limitLab sizeToFit];
-    [self.paymentMethodLab sizeToFit];
-    self.purchaseLab.alpha = 1;
+    if ([model isKindOfClass:[WholesaleMarket_AdvanceModel class]]) {
+        WholesaleMarket_AdvanceModel *wholesaleMarket_AdvanceModel = (WholesaleMarket_AdvanceModel *)model;
+        //payment_type 0、都没有;2、支付宝;3、微信;4、银行卡;5、支付宝 + 微信;6、支付宝 + 银行卡;7、微信 + 银行卡;9、支付宝 + 微信 + 银行卡
+        self.userNameLab.text = [NSString stringWithFormat:@"用户名:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.seller_name ReplaceStr:@""]];
+        self.numLab.text = [NSString stringWithFormat:@"数量:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity ReplaceStr:@""]];
+        self.priceLab.text = [NSString stringWithFormat:@"单价:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.price ReplaceStr:@""]];
+        self.limitLab.text = [NSString stringWithFormat:@"限额:%@ ~ %@ ",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity_min ReplaceStr:@""],[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity_max ReplaceStr:@""]];
+        switch ([wholesaleMarket_AdvanceModel.payment_type intValue]) {
+            case 0:{//都没有
+                self.paymentMethodLab.text = @"";
+            }break;
+            case 2:{//支付宝
+                self.paymentMethodLab.text = @"支付宝";
+            }break;
+            case 3:{//微信
+                self.paymentMethodLab.text = @"微信";
+            }break;
+            case 4:{//银行卡
+                self.paymentMethodLab.text = @"银行卡";
+            }break;
+            case 5:{//支付宝 + 微信
+                self.paymentMethodLab.text = @"支付宝/微信";
+            }break;
+            case 6:{//支付宝 + 银行卡
+                self.paymentMethodLab.text = @"支付宝银行卡";
+            }break;
+            case 7:{//微信 + 银行卡
+                self.paymentMethodLab.text = @"微信/银行卡";
+            }break;
+            case 9:{//支付宝 + 微信 + 银行卡
+                self.paymentMethodLab.text = @"支付宝/微信/银行卡";
+            }break;
+                
+            default:
+                break;
+        }
+        [self.userNameLab sizeToFit];
+        [self.numLab sizeToFit];
+        [self.priceLab sizeToFit];
+        [self.limitLab sizeToFit];
+        [self.paymentMethodLab sizeToFit];
+        self.purchaseLab.alpha = 1;
+    }
 }
 #pragma mark —— lazyLoad
 -(UILabel *)userNameLab{
@@ -331,11 +362,9 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
-@property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIButton *refreshBtn;
 @property(nonatomic,weak)WholesaleMarket_AdvancePopView *popView;
 
-@property(nonatomic,strong)NSMutableArray *dataMutArr;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -370,12 +399,9 @@ UITableViewDataSource
                            completion:^{}];
     }return vc;
 }
-
 #pragma mark - Lifecycle
 -(instancetype)init{
-    
     if (self = [super init]) {
-        
     }return self;
 }
 
@@ -387,8 +413,10 @@ UITableViewDataSource
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.tableView.alpha = 1;
-    [self netWorking];
+    
+    self.currentPage = 1;
+    [self.tableView.mj_header beginRefreshing];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -415,11 +443,15 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
-    [self.tableView.mj_header endRefreshing];
+    if (self.dataMutArr.count) {
+        [self.dataMutArr removeAllObjects];
+    }
+    [self netWorking];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
+    self.currentPage++;
    [self.tableView.mj_footer endRefreshing];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
@@ -448,7 +480,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     WholesaleMarket_AdvanceTBVCell *cell = [WholesaleMarket_AdvanceTBVCell cellWith:tableView];
     cell.backgroundColor = RandomColor;
-    [cell richElementsInCellWithModel:nil];
+    [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
     return cell;
 }
 
@@ -544,21 +576,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _popView;
 }
 
--(NSMutableArray *)dataMutArr{
+-(NSMutableArray<WholesaleMarket_AdvanceModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
-        [_dataMutArr addObject:@"1"];
-        [_dataMutArr addObject:@"2"];
-        [_dataMutArr addObject:@"3"];
-        [_dataMutArr addObject:@"4"];
-        [_dataMutArr addObject:@"5"];
-        [_dataMutArr addObject:@"6"];
-        [_dataMutArr addObject:@"7"];
-        [_dataMutArr addObject:@"8"];
-        [_dataMutArr addObject:@"9"];
-        [_dataMutArr addObject:@"0"];
     }return _dataMutArr;
 }
-
 
 @end

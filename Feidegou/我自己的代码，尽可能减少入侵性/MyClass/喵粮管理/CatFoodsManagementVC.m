@@ -91,6 +91,9 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
+    if (self.dataMutArr.count) {
+        [self.dataMutArr removeAllObjects];
+    }
     [self networking];
 }
 //上拉加载更多
@@ -148,15 +151,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                        animated:YES];
         }else if (indexPath.row == 5){
             //切换
-//            [WholesaleMarket_AdvanceVC pushFromVC:self_weak_
-//                                    requestParams:nil
-//                                          success:^(id data) {}
-//                                         animated:YES];//喵粮批发市场_仅高级商家可见
+            [WholesaleMarket_AdvanceVC pushFromVC:self_weak_
+                                    requestParams:nil
+                                          success:^(id data) {}
+                                         animated:YES];//喵粮批发市场_仅高级商家可见
             
-            [WholesaleMarket_VipVC pushFromVC:self_weak_
-                                requestParams:self.dataMutArr
-                                      success:^(id data) {}
-                                     animated:YES];//喵粮批发市场_仅Vip可见
+//            [WholesaleMarket_VipVC pushFromVC:self_weak_
+//                                requestParams:self.dataMutArr
+//                                      success:^(id data) {}
+//                                     animated:YES];//喵粮批发市场_仅Vip可见
         }else{}
     }else{}
 }

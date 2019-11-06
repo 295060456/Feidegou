@@ -86,6 +86,9 @@ StockViewDelegate
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
+    if (self.dataMutArr.count) {
+        [self.dataMutArr removeAllObjects];
+    }
     [self.stockView.jjStockTableView.mj_header endRefreshing];
 }
 //上拉加载更多
