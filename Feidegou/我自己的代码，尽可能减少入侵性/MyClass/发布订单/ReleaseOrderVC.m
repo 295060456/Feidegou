@@ -123,13 +123,25 @@ BEMCheckBoxDelegate
             }break;
             case ReleaseOrderTBVCellType_Btn:{
                 NSMutableArray <NSNumber *>*mutArr = NSMutableArray.array;//data
+                NSMutableArray <NSNumber *>*mutArr2 = NSMutableArray.array;//data
                 if ([model[1] isKindOfClass:[ReleaseOrderModel class]]) {
                     ReleaseOrderModel *releaseOrderModel = model[1];
                     [mutArr addObject:releaseOrderModel.alipay];
                     [mutArr addObject:releaseOrderModel.weixin];
                     [mutArr addObject:releaseOrderModel.bank];
+                    if ([releaseOrderModel.alipay intValue]) {
+                        [mutArr2 addObject:releaseOrderModel.alipay];
+                    }else if([releaseOrderModel.weixin intValue]){
+                        [mutArr2 addObject:releaseOrderModel.weixin];
+                    }else if([releaseOrderModel.bank intValue]){
+                        [mutArr2 addObject:releaseOrderModel.bank];
+                    }
+                    if (mutArr2.count == 1) {
+                        if (self.block) {
+                            self.block(mutArr2.lastObject);
+                        }
+                    }
                 }
-                
                 NSMutableArray <UILabel *>*labMutArr = NSMutableArray.array;
                 for (int i = 0; i < mutArr.count ; i++) {//
                     BEMCheckBox *checkBox = BEMCheckBox.new;
@@ -213,20 +225,6 @@ BEMCheckBoxDelegate
     NSLog(@"%@", self.listTitleDataMutArr[checkBox.tag]);
     checkBox.selected = !checkBox.selected;
     self.block(checkBox);
-    switch (checkBox.tag) {
-        case 1:{
-            
-        }break;
-        case 2:{
-            
-        }break;
-        case 3:{
-            
-        }break;
-            
-        default:
-            break;
-    }
 }
 
 #pragma mark —— UITextFieldDelegate
@@ -258,6 +256,7 @@ BEMCheckBoxDelegate
 -(UITextField *)textfield{
     if (!_textfield) {
         _textfield = UITextField.new;
+        _textfield.keyboardType = UIKeyboardTypeDecimalPad;
         _textfield.backgroundColor = KLightGrayColor;
         _textfield.delegate = self;
         [self.contentView addSubview:_textfield];
@@ -376,6 +375,7 @@ UITableViewDataSource
 #pragma mark —— 点击事件
 -(void)releaseBtnClickEvent:(UIButton *)sender{
     NSLog(@"发布");
+    [self netWorking];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView
@@ -435,16 +435,21 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Lab];
     }else if (indexPath.row == 4){//收款方式
         if (self.releaseOrderModel) {
-            [cell richElementsInCellWithModel:@[self.placeholderMutArr[indexPath.row],self.releaseOrderModel]
-                      ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
             @weakify(self)
             [cell actionBlock:^(id data) {
                 @strongify(self)
                 if ([data isKindOfClass:[BEMCheckBox class]]) {
                     BEMCheckBox *btn = (BEMCheckBox *)data;//1、支付宝；2、微信；3、银行卡
                     self.str_4 = [NSString stringWithFormat:@"%ld",btn.tag + 1];
+                }else if ([data isKindOfClass:[NSNumber class]]){
+                    NSNumber *b = (NSNumber *)data;
+                    self.str_4 = [NSString stringWithFormat:@"%d",[b intValue]];
                 }
             }];
+            [cell richElementsInCellWithModel:@[self.placeholderMutArr[indexPath.row],self.releaseOrderModel]
+                      ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
+           
+
         }
     }return cell;
 }

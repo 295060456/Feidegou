@@ -28,7 +28,7 @@
 #define CatfoodCO_pay_delURL @"/user/buyer/CatfoodCO_pay_del.htm"//喵粮产地购买取消 9 Y
 #define CatfoodSale_listURL @"/user/seller/CatfoodSale_list.htm"//喵粮批发管理 post 10
 #define CatfoodSaleOrder_listURL @"/user/seller/CatfoodSaleOrder_list.htm"//喵粮批发订单管理 post 11 VIP
-#define CatfoodSale_add_URL @"/user/seller/CatfoodSale_add.htm"//喵粮批发发布 post 12
+#define CatfoodSale_add_URL @"/user/seller/CatfoodSale_add.htm"//喵粮批发发布 post 12 y 对了一半
 #define CatfoodSale_checkURL @"/user/seller/CatfoodSale_check.htm"//喵粮批发订单详情 post 13
 #define CatfoodSale_goodsURL @"/user/seller/CatfoodSale_goods.htm"//喵粮批发订单发货 post 14
 #define CatfoodSaleURL @"/user/buyer/CatfoodSale.htm"//喵粮批发市场 post 15 高级
