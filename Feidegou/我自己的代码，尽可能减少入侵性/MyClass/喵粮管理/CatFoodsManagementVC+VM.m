@@ -29,9 +29,9 @@ NSString *randomStr;
         if (response) {
             NSLog(@"--%@",response);
             NSDictionary *dic = (NSDictionary *)response;
-            [self.dataMutArr addObject:[NSString stringWithFormat:@"%@",dic[@"Foodsell"]]];
-            [self.dataMutArr addObject:[NSString stringWithFormat:@"%@",dic[@"Foodstuff"]]];
-            [self.dataMutArr addObject:[NSString stringWithFormat:@"%@",dic[@"market_price"]]];
+            [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"Foodsell"]] ReplaceStr:@""]];
+            [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"Foodstuff"]] ReplaceStr:@""]];
+            [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price"]] ReplaceStr:@""]];
             [self.tableView reloadData];
             [self.tableView.mj_header endRefreshing];
             [self.tableView.mj_footer endRefreshing];

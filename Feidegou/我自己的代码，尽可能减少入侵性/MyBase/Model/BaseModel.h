@@ -54,8 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *payment_alipay_name;
 @property(nonatomic,strong)NSNumber *deal;//1、买家 2、卖家 卖家才有 发货&撤销
 
-
-@property(nonatomic,assign)int ID;
+@property(nonatomic,strong)NSNumber *ID;
 
 @end
 

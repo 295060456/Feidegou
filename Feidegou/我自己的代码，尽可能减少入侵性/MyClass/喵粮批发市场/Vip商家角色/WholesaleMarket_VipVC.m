@@ -151,8 +151,8 @@ StockViewDelegate
     NSMutableArray <NSMutableArray *>*dat2 = NSMutableArray.array;
     for (int d = 0; d < self.dataMutArr.count; d++) {
         WholesaleMarket_VipModel *model = self.dataMutArr[row];
-        [dat addObject:[NSString stringWithFormat:@"%d",[model.quantity intValue]]];
-        [dat addObject:[NSString stringWithFormat:@"%d",[model.price intValue]]];
+        [dat addObject:[NSString ensureNonnullString:model.quantity ReplaceStr:@""]];
+        [dat addObject:[NSString ensureNonnullString:model.price ReplaceStr:@""]];
         
         switch ([model.order_type intValue]) {
             case 1:{

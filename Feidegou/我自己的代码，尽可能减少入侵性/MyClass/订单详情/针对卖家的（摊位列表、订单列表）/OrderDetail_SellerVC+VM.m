@@ -19,8 +19,8 @@
         orderListModel = dictionary[@"OrderListModel"];
     }
     NSDictionary *dic = @{
-        @"order_id":[NSString stringWithFormat:@"%d",orderListModel.ID],//订单id
-        @"order_type":[NSString stringWithFormat:@"%d",[orderListModel.order_type intValue]]//订单类型 —— 1、摊位;2、批发;3、产地
+        @"order_id":[NSString ensureNonnullString:orderListModel.ID ReplaceStr:@""],//订单id
+        @"order_type":[NSString ensureNonnullString:orderListModel.order_type ReplaceStr:@""]//订单类型 —— 1、摊位;2、批发;3、产地
     };
        
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
