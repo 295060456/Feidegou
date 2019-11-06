@@ -31,13 +31,15 @@ NSString *randomStr;
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) { 
         if (response) {
             NSLog(@"--%@",response);
-            NSDictionary *dic = (NSDictionary *)response;
-            [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"Foodsell"]] ReplaceStr:@""]];
-            [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"Foodstuff"]] ReplaceStr:@""]];
-            [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price"]] ReplaceStr:@""]];
-            [self.tableView reloadData];
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView.mj_footer endRefreshing];
+            if ([response isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *dic = (NSDictionary *)response;
+                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"Foodsell"]] ReplaceStr:@""]];
+                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"Foodstuff"]] ReplaceStr:@""]];
+                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price"]] ReplaceStr:@""]];
+                [self.tableView reloadData];
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView.mj_footer endRefreshing];
+            }
         }
     }];
 }

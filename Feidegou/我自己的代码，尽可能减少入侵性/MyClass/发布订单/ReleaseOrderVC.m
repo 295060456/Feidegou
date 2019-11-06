@@ -75,7 +75,7 @@ BEMCheckBoxDelegate
 @property(nonatomic,strong)NSMutableArray <NSString *>*listTitleDataMutArr;
 @property(nonatomic,copy)DataBlock block;
 @property(nonatomic,copy)DataBlock dataBlock;
-@property(nonatomic,copy)ThreeDataBlock block2;
+
 
 @end
 
@@ -104,96 +104,115 @@ BEMCheckBoxDelegate
 - (void)richElementsInCellWithModel:(id _Nullable)model
             ReleaseOrderTBVCellType:(ReleaseOrderTBVCellType)type{
     [self.textLabel sizeToFit];
-    switch (type) {
-        case ReleaseOrderTBVCellType_Textfield:{
-            self.detailTextLabel.text = @"g";
-            self.textfield.placeholder = model;
-            [self layoutIfNeeded];
-            if ([model isEqualToString:@"请输入数量"]) {
+    if ([model isKindOfClass:[NSArray class]]) {
+        switch (type) {
+            case ReleaseOrderTBVCellType_Textfield:{
+                self.detailTextLabel.text = @"g";
+                self.textfield.placeholder = model[0];
+                [self layoutIfNeeded];
+                if ([model[0] isEqualToString:@"请输入数量"]) {
+                    [_textfield mas_remakeConstraints:^(MASConstraintMaker *make) {
+                        make.top.bottom.equalTo(self.contentView);
+                        make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(40));
+                        make.right.equalTo(self.detailTextLabel.mas_left).offset(SCALING_RATIO(-10));
+                    }];
+                }else{}
+            }break;
+            case ReleaseOrderTBVCellType_Lab:{
+                self.detailTextLabel.text = model[0];
+            }break;
+            case ReleaseOrderTBVCellType_Btn:{
+                NSMutableArray <NSNumber *>*mutArr = NSMutableArray.array;//data
+                if ([model[1] isKindOfClass:[ReleaseOrderModel class]]) {
+                    ReleaseOrderModel *releaseOrderModel = model[1];
+                    [mutArr addObject:releaseOrderModel.alipay];
+                    [mutArr addObject:releaseOrderModel.weixin];
+                    [mutArr addObject:releaseOrderModel.bank];
+                }
+                
+                NSMutableArray <UILabel *>*labMutArr = NSMutableArray.array;
+                for (int i = 0; i < mutArr.count ; i++) {//
+                    BEMCheckBox *checkBox = BEMCheckBox.new;
+                    UILabel *titleLab = UILabel.new;
+                    titleLab.text = [mutArr[i] intValue] ? self.listTitleDataMutArr[i] : @"";
+                    titleLab.textAlignment = NSTextAlignmentCenter;
+    //                titleLab.backgroundColor = RandomColor;
+                    [titleLab sizeToFit];
+                    // 矩形复选框
+                    checkBox.boxType = BEMBoxTypeSquare;
+                    checkBox.tag = i;
+                    checkBox.delegate = self;
+                    // 动画样式
+                    checkBox.onAnimationType  = BEMAnimationTypeStroke;
+                    checkBox.offAnimationType = BEMAnimationTypeStroke;
+                    checkBox.animationDuration = 0.3;
+                    // 颜色样式
+                    checkBox.tintColor    = KLightGrayColor;
+                    checkBox.onTintColor  = HEXCOLOR(0x108EE9);
+                    checkBox.onFillColor  = kClearColor;
+                    checkBox.onCheckColor = HEXCOLOR(0x108EE9);
+                    // 默认选中
+                    checkBox.on = YES;
+                    checkBox.alpha = [mutArr[i] intValue];
+                    [self.contentView addSubview:checkBox];
+                    [self.contentView addSubview:titleLab];
+
+                    if (self.btnMutArr.count == 0) {
+                        checkBox.frame = CGRectMake(SCALING_RATIO(100),
+                                                    SCALING_RATIO(10),
+                                                    SCALING_RATIO(20),
+                                                    SCALING_RATIO(20));
+                    }else if (self.btnMutArr.count == 1) {
+                        checkBox.frame = CGRectMake(SCALING_RATIO(170),
+                                                    SCALING_RATIO(10),
+                                                    SCALING_RATIO(20),
+                                                    SCALING_RATIO(20));
+                    }else if (self.btnMutArr.count == 2) {
+                        checkBox.frame = CGRectMake(SCALING_RATIO(240),
+                                                    SCALING_RATIO(10),
+                                                    SCALING_RATIO(20),
+                                                    SCALING_RATIO(20));
+                    }
+                    [self.btnMutArr addObject:checkBox];//
+                    [labMutArr addObject:titleLab];//!!
+                    titleLab.frame = CGRectMake(checkBox.mj_x + checkBox.mj_w,
+                                                checkBox.mj_y,
+                                                SCALING_RATIO(50),
+                                                SCALING_RATIO(20));
+                }
+            }break;
+            case ReleaseOrderTBVCellType_TextfieldOnly:{
+                self.textfield.placeholder = model[0];
+                [self layoutIfNeeded];
                 [_textfield mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.top.bottom.equalTo(self.contentView);
                     make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(40));
-                    make.right.equalTo(self.detailTextLabel.mas_left).offset(SCALING_RATIO(-10));
+                    make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
                 }];
-            }else{}
-        }break;
-        case ReleaseOrderTBVCellType_Lab:{
-            self.detailTextLabel.text = model;
-        }break;
-        case ReleaseOrderTBVCellType_Btn:{
-            NSMutableArray <UILabel *>*labMutArr = NSMutableArray.array;
-            for (int i = 0; i < self.listTitleDataMutArr.count ; i++) {//
-                BEMCheckBox *checkBox = BEMCheckBox.new;
-                UILabel *titleLab = UILabel.new;
-                titleLab.text = self.listTitleDataMutArr[i];
-//                titleLab.backgroundColor = RandomColor;
-                [titleLab sizeToFit];
-                // 矩形复选框
-                checkBox.boxType = BEMBoxTypeSquare;
-                checkBox.tag = i;
-                checkBox.delegate = self;
-                // 动画样式
-                checkBox.onAnimationType  = BEMAnimationTypeStroke;
-                checkBox.offAnimationType = BEMAnimationTypeStroke;
-                checkBox.animationDuration = 0.3;
-                // 颜色样式
-                checkBox.tintColor    = KLightGrayColor;
-                checkBox.onTintColor  = HEXCOLOR(0x108EE9);
-                checkBox.onFillColor  = kClearColor;
-                checkBox.onCheckColor = HEXCOLOR(0x108EE9);
-                // 默认选中
-                checkBox.on = YES;
-                
-                [self.contentView addSubview:checkBox];
-                [self.contentView addSubview:titleLab];
-
-                if (self.btnMutArr.count == 0) {
-                    checkBox.frame = CGRectMake(SCALING_RATIO(100),
-                                                SCALING_RATIO(10),
-                                                SCALING_RATIO(20),
-                                                SCALING_RATIO(20));
-                }else if (self.btnMutArr.count == 1) {
-                    checkBox.frame = CGRectMake(SCALING_RATIO(170),
-                                                SCALING_RATIO(10),
-                                                SCALING_RATIO(20),
-                                                SCALING_RATIO(20));
-                }else if (self.btnMutArr.count == 2) {
-                    checkBox.frame = CGRectMake(SCALING_RATIO(240),
-                                                SCALING_RATIO(10),
-                                                SCALING_RATIO(20),
-                                                SCALING_RATIO(20));
-                }
-                [self.btnMutArr addObject:checkBox];//
-                [labMutArr addObject:titleLab];//!!
-                titleLab.frame = CGRectMake(checkBox.mj_x + checkBox.mj_w,
-                                            checkBox.mj_y,
-                                            SCALING_RATIO(50),
-                                            SCALING_RATIO(20));
-            }
-        }break;
-        case ReleaseOrderTBVCellType_TextfieldOnly:{
-            self.textfield.placeholder = model;
-            [self layoutIfNeeded];
-            [_textfield mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.bottom.equalTo(self.contentView);
-                make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(40));
-                make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-            }];
-        }break;
-        default:
-            break;
+            }break;
+            default:
+                break;
+        }
     }
+    
+
 }
 
 -(void)dataBlock:(DataBlock)block{
     _dataBlock = block;
 }
+
+-(void)actionBlock:(DataBlock)block{
+    _block = block;
+}
+
 #pragma mark —— 点击事件
 
 #pragma mark —— BEMCheckBoxDelegate
 - (void)didTapCheckBox:(BEMCheckBox *)checkBox {
     NSLog(@"%@", self.listTitleDataMutArr[checkBox.tag]);
     checkBox.selected = !checkBox.selected;
+    self.block(checkBox);
     switch (checkBox.tag) {
         case 1:{
             
@@ -273,7 +292,7 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
-@property(nonatomic,strong)BaseTableViewer *tableView;
+
 @property(nonatomic,strong)UIButton *releaseBtn;
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
@@ -320,7 +339,7 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
-    [self.tableView.mj_header endRefreshing];
+    [self gettingPaymentWay];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
@@ -329,9 +348,7 @@ UITableViewDataSource
 }
 #pragma mark —— Lifecycle
 -(instancetype)init{
-    
     if (self = [super init]) {
-        
     }return self;
 }
 
@@ -343,8 +360,7 @@ UITableViewDataSource
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.tableView.alpha = 1;
-    
+    [self.tableView.mj_header beginRefreshing];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -389,7 +405,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0 ||//数量
         indexPath.row == 1 ||//最低限额
         indexPath.row == 2) {//最高限额
-        [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
+        [cell richElementsInCellWithModel:@[self.placeholderMutArr[indexPath.row]]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Textfield];
         @weakify(self)
         [cell dataBlock:^(id data) {
@@ -415,20 +431,22 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         }];
         
     }else if(indexPath.row == 3){//单价
-        [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
+        [cell richElementsInCellWithModel:@[self.placeholderMutArr[indexPath.row]]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Lab];
     }else if (indexPath.row == 4){//收款方式
-        [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
-                  ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
-
-    }else if(indexPath.row == 5){//
-        [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
-                  ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_TextfieldOnly];
-    }else{//
-        [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
-                  ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_TextfieldOnly];
-    }
-    return cell;
+        if (self.releaseOrderModel) {
+            [cell richElementsInCellWithModel:@[self.placeholderMutArr[indexPath.row],self.releaseOrderModel]
+                      ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
+            @weakify(self)
+            [cell actionBlock:^(id data) {
+                @strongify(self)
+                if ([data isKindOfClass:[BEMCheckBox class]]) {
+                    BEMCheckBox *btn = (BEMCheckBox *)data;//1、支付宝；2、微信；3、银行卡
+                    self.str_4 = [NSString stringWithFormat:@"%ld",btn.tag + 1];
+                }
+            }];
+        }
+    }return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

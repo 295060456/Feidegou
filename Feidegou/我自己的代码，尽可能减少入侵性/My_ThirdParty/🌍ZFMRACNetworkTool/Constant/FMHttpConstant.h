@@ -40,7 +40,13 @@
 #define CatfoodBooth_goodsURL @"/user/buyer/CatfoodBooth_goods.htm"//喵粮抢摊位发货 post 21
 #define CatfoodBooth_delURL @"/user/buyer/CatfoodBooth_del.htm"//喵粮抢摊位取消 post 22 Y
 #define CatfoodRecord_goodsURL @"/user/CatfoodRecord_goods.htm"//喵粮赠送 post 23 y没好
-#define CatfoodOrdernumberUpdateURL @"/user/buyer/CatfoodRecord_goods.htm"//喵粮订单数量修改 post 24
+#define CatfoodOrdernumberUpdateURL @"/user/seller/CatfoodOrdernumberUpdate.htm"//喵粮订单数量修改 post 24
+#define CatfoodBooth_listURL @"/user/seller/CatfoodBooth_list.htm"//抢摊位列表 post 25
+#define Catfood_qr_addURL @"/user/seller/Catfood_qr_add.htm"//上传二维码 post 26
+#define CatfoodWeixin_quarURL @"/user/seller/CatfoodWeixin_quar"//展示二维码 post 27
+#define CatfoodPayment_quaryURL @"/user/seller/CatfoodPayment_quary.htm"//发布批发市场展示可选支付方式 post 28
+
+
 
 #pragma mark - api拼接
 #define API(DomainName,api) [NSString stringWithFormat:@"%@%@",BaseUrl,api]

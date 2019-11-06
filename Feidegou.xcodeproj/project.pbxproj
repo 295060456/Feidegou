@@ -38,6 +38,7 @@
 		8B8B0D922368395D0040EE53 /* WholesaleMarket_AdvanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D912368395D0040EE53 /* WholesaleMarket_AdvanceVC.m */; };
 		8B8B0D9723683A480040EE53 /* WholesaleMarket_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D9623683A480040EE53 /* WholesaleMarket_VipVC.m */; };
 		8B8B0D9E236960960040EE53 /* ReleaseOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D9D236960960040EE53 /* ReleaseOrderVC.m */; };
+		8B8D59452372E03400F002B9 /* ReleaseOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8D59442372E03400F002B9 /* ReleaseOrderModel.m */; };
 		8BB0F6CE236BDAC2009498B6 /* WholesaleOrders_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB0F6CD236BDAC2009498B6 /* WholesaleOrders_VipVC.m */; };
 		8BB0F6D3236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB0F6D2236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m */; };
 		8BB2D2812366C6990047D0E2 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2772366C6990047D0E2 /* TwitterHeart.json */; };
@@ -666,6 +667,8 @@
 		8B8B0DA12369635E0040EE53 /* HistoryDataListTBV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDataListTBV.h; sourceTree = "<group>"; };
 		8B8B0DA22369635E0040EE53 /* HistoryDataListTBVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDataListTBVCell.m; sourceTree = "<group>"; };
 		8B8B0DA32369635E0040EE53 /* HistoryDataListTBV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDataListTBV.m; sourceTree = "<group>"; };
+		8B8D59432372E03400F002B9 /* ReleaseOrderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReleaseOrderModel.h; sourceTree = "<group>"; };
+		8B8D59442372E03400F002B9 /* ReleaseOrderModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReleaseOrderModel.m; sourceTree = "<group>"; };
 		8BB0F6CC236BDAC2009498B6 /* WholesaleOrders_VipVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleOrders_VipVC.h; sourceTree = "<group>"; };
 		8BB0F6CD236BDAC2009498B6 /* WholesaleOrders_VipVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleOrders_VipVC.m; sourceTree = "<group>"; };
 		8BB0F6D1236C48D8009498B6 /* WholesaleOrders_AdvanceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleOrders_AdvanceVC.h; sourceTree = "<group>"; };
@@ -1838,10 +1841,10 @@
 			children = (
 				8B8B0D9523683A480040EE53 /* WholesaleMarket_VipVC.h */,
 				8B8B0D9623683A480040EE53 /* WholesaleMarket_VipVC.m */,
-				8B17DE382371B4E7001161BB /* WholesaleMarket_VipVC+VM.h */,
-				8B17DE392371B4E7001161BB /* WholesaleMarket_VipVC+VM.m */,
 				8B17DE3B2371BA9C001161BB /* WholesaleMarket_VipModel.h */,
 				8B17DE3C2371BA9C001161BB /* WholesaleMarket_VipModel.m */,
+				8B17DE382371B4E7001161BB /* WholesaleMarket_VipVC+VM.h */,
+				8B17DE392371B4E7001161BB /* WholesaleMarket_VipVC+VM.m */,
 			);
 			path = "Vip商家角色";
 			sourceTree = "<group>";
@@ -1851,6 +1854,8 @@
 			children = (
 				8B8B0D9C236960960040EE53 /* ReleaseOrderVC.h */,
 				8B8B0D9D236960960040EE53 /* ReleaseOrderVC.m */,
+				8B8D59432372E03400F002B9 /* ReleaseOrderModel.h */,
+				8B8D59442372E03400F002B9 /* ReleaseOrderModel.m */,
 				8B17DE3E2371CF60001161BB /* ReleaseOrderVC+VM.h */,
 				8B17DE3F2371CF60001161BB /* ReleaseOrderVC+VM.m */,
 			);
@@ -4263,6 +4268,7 @@
 				C42CD0F0213CC2640096675F /* RegisterInviterController.m in Sources */,
 				C46143F2214386B6000C0CDC /* CellVendorAddress.m in Sources */,
 				C42CD138213CC2640096675F /* CLCellGoods.m in Sources */,
+				8B8D59452372E03400F002B9 /* ReleaseOrderModel.m in Sources */,
 				C461440D214386B6000C0CDC /* CellVendorGoodList.m in Sources */,
 				C42CD11D213CC2640096675F /* CBAutoScrollLabel.m in Sources */,
 				C42CD078213CC2640096675F /* CellBlance.m in Sources */,

@@ -108,6 +108,7 @@
 #import "OrderListModel.h"
 #import "OrderDetail_SellerModel.h"
 #import "WholesaleMarket_VipModel.h"
+#import "ReleaseOrderModel.h"
 
 
 //Test

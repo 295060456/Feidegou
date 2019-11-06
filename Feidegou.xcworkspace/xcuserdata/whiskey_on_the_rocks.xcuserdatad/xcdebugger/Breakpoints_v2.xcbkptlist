@@ -5,17 +5,28 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            uuid = "063F9D96-F944-4E50-B7CB-08BC0DCB32A1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "1"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "33F126B4-4452-4D36-AD7E-0ADE5ABF3739"
-            shouldBeEnabled = "Yes"
+            uuid = "F4923752-B762-428C-B1F5-8D8BDFD8A12C"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x53d1;&#x5e03;&#x8ba2;&#x5355;/ReleaseOrderVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "-richElementsInCellWithModel:ReleaseOrderTBVCellType:"
             landmarkType = "7">
          </BreakpointContent>
