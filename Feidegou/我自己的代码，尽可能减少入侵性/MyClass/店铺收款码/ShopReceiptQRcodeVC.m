@@ -7,6 +7,7 @@
 //
 
 #import "ShopReceiptQRcodeVC.h"
+#import "ShopReceiptQRcodeVC+VM.h"
 
 @interface ShopReceiptQRcodeVC ()
 <
@@ -19,7 +20,7 @@ TZImagePickerControllerDelegate
 @property(nonatomic,strong)UIImageView *QRcodeIMGV;
 @property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 @property(nonatomic,assign)int tap;
-@property(nonatomic,copy)NSString *QRcodeStr;
+
 
 //Q宠
 @property(nonatomic,strong)Q_Pet *pet;
@@ -65,7 +66,6 @@ TZImagePickerControllerDelegate
 -(instancetype)init{
     if (self = [super init]) {
         self.tap = 0;
-        self.QRcodeStr = @"https://github.com/KeenTeam1990/SGQRCode.git";
     }return self;
 }
 
@@ -77,9 +77,9 @@ TZImagePickerControllerDelegate
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    [self QRcode];
     self.pet.alpha = 1;
     [self.pet becomeFirstResponder];
+    [self netWorking];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -218,6 +218,7 @@ TZImagePickerControllerDelegate
 //                UIImageView *imgv = [[UIImageView alloc]initWithImage:photos.lastObject];
 //                [self.view addSubview:imgv];
 //                imgv.frame = CGRectMake(100, 100, 100, 100);
+                [self uploadQRcodePic:photos.lastObject];
             }else{
                 [self showAlertViewTitle:@"选择一张相片就够啦"
                                  message:@"不要画蛇添足"

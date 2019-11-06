@@ -43,9 +43,9 @@
 #define CatfoodOrdernumberUpdateURL @"/user/seller/CatfoodOrdernumberUpdate.htm"//喵粮订单数量修改 post 24
 #define CatfoodBooth_listURL @"/user/seller/CatfoodBooth_list.htm"//抢摊位列表 post 25
 #define Catfood_qr_addURL @"/user/seller/Catfood_qr_add.htm"//上传二维码 post 26
-#define CatfoodWeixin_quarURL @"/user/seller/CatfoodWeixin_quar"//展示二维码 post 27
+#define CatfoodWeixin_quarURL @"/user/seller/CatfoodWeixin_quary.htm"//展示二维码 post 27 Y
 #define CatfoodPayment_quaryURL @"/user/seller/CatfoodPayment_quary.htm"//发布批发市场展示可选支付方式 post 28 Y
-
+#define CatfoodPayment_setURL @"/user/seller/CatfoodPayment_set.htm"//设置支付方式
 
 
 #pragma mark - api拼接

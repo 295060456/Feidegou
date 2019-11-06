@@ -9,7 +9,6 @@
 #import "UpLoadCancelReasonVC+VM.h"
 
 @implementation UpLoadCancelReasonVC (VM)
-
 //#5
 -(void)CancelDelivery_NetWorking{
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
@@ -49,29 +48,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
       failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error = %@",error);
     }];
-    
-        
-//        [mgr POST:@"http://120.25.226.186:32812/upload"
-//       parameters:@{
-//           @"username" : @"123"
-//       }
-//            constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-//             在这个block中设置需要上传的文件
-//                NSData *data = [NSData dataWithContentsOfFile:@"/Users/xiaomage/Desktop/placeholder.png"];
-//
-////                方法一
-//                [formData appendPartWithFileData:data name:@"file" fileName:@"test.png" mimeType:@"image/png"];
-//
-////                方法二：自动给封装filename、mimeType
-//                [formData appendPartWithFileURL:[NSURL fileURLWithPath:@"/Users/xiaomage/Desktop/placeholder.png"] name:@"file" fileName:@"xxx.png" mimeType:@"image/png" error:nil];
-//
-//                //方法三：自动给封装filename、mimeType
-//                [formData appendPartWithFileURL:[NSURL fileURLWithPath:@"/Users/xiaomage/Desktop/placeholder.png"] name:@"file" error:nil];
-//        } success:^(NSURLSessionDataTask *task, id responseObject) {
-//            NSLog(@"-------%@", responseObject);
-//        } failure:^(NSURLSessionDataTask *task, NSError *error) {
-//
-//        }];
 }
 
 -(void)CancelDelivery_NetWorking1{
@@ -111,24 +87,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             NSLog(@"--%@",response);
         }
     }];
-    
-    
-//    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
-//                                                           path:CatfoodRecord_delURL
-//                                                     parameters:@{
-//                                                         @"data":aesEncryptString([NSString convertToJsonData:dic], randomStr),
-//                                                         @"key":[RSAUtil encryptString:randomStr
-//                                                                             publicKey:RSA_Public_key]
-//                                                     }];
-//    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
-//    @weakify(self)
-//    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-//        if (response) {
-//            @strongify(self)
-//            NSLog(@"--%@",response);
-//
-//        }
-//    }];
 }
 
 @end
