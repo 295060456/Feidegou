@@ -109,6 +109,7 @@
 #import "OrderDetail_SellerModel.h"
 #import "WholesaleMarket_VipModel.h"
 #import "ReleaseOrderModel.h"
+#import "CatFoodProducingAreaModel.h"
 
 
 //Test

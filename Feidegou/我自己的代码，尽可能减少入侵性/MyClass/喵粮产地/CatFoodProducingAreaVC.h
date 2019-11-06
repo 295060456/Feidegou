@@ -20,6 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CatFoodProducingAreaVC : BaseVC
 
+@property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,assign)long currentPage;
+@property(nonatomic,strong)NSMutableArray <CatFoodProducingAreaModel *>*dataMutArr;
+
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
                        requestParams:(nullable id)requestParams
                              success:(DataBlock _Nonnull )block

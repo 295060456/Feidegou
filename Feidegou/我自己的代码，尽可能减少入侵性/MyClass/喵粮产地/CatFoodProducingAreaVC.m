@@ -8,6 +8,7 @@
 
 #import "CatFoodProducingAreaVC.h"
 #import "OrderDetail_BuyerVC.h"
+#import "CatFoodProducingAreaVC+VM.h"
 
 @interface CatFoodProducingAreaTBVCell ()
 
@@ -45,16 +46,18 @@
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.sellerNameLab.text = @"厂家:中国北京市中南海";
-    self.priceLab.text = @"单价:11234.11";
-    self.numLab.text = @"数量:1234";
-    self.buyTipsLab.text = @"点击购买";
-    [self.sellerNameLab sizeToFit];
-    [self.priceLab sizeToFit];
-    [self.numLab sizeToFit];
-    [self.buyTipsLab sizeToFit];
+    if ([model isKindOfClass:[CatFoodProducingAreaModel class]]) {
+        CatFoodProducingAreaModel *catFoodProducingAreaModel = model;
+        self.sellerNameLab.text = [NSString stringWithFormat:@"厂家:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.seller ReplaceStr:@""]];
+        self.priceLab.text = [NSString stringWithFormat:@"单价:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.price ReplaceStr:@""]];
+        self.numLab.text = [NSString stringWithFormat:@"数量:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.quantity ReplaceStr:@""]];
+        self.buyTipsLab.text = @"点击购买";
+        [self.sellerNameLab sizeToFit];
+        [self.priceLab sizeToFit];
+        [self.numLab sizeToFit];
+        [self.buyTipsLab sizeToFit];
+    }
 }
-
 #pragma mark —— lazyLoad
 -(UILabel *)sellerNameLab{
     if (!_sellerNameLab) {
@@ -115,9 +118,7 @@ UITableViewDataSource
     CGFloat CatFoodProducingAreaTBVCellHeight;
 }
 
-@property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIButton *fleshBtn;
-@property(nonatomic,strong)NSMutableArray *dataMutArr;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
@@ -166,7 +167,8 @@ UITableViewDataSource
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.tableView.alpha = 1;
+    self.currentPage = 1;
+    [self.tableView.mj_header beginRefreshing];
 }
 #pragma mark —— 点击事件
 -(void)fleshBtnClickEvent:(UIButton *)sender{
@@ -182,11 +184,12 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
-    [self.tableView.mj_header endRefreshing];
+    [self netWorking];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
+    self.currentPage++;
     [self.tableView.mj_footer endRefreshing];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
@@ -234,7 +237,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CatFoodProducingAreaTBVCell *cell = [CatFoodProducingAreaTBVCell cellWith:tableView];
 //    cell.backgroundColor = RandomColor;
-    [cell richElementsInCellWithModel:nil];
+    [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
     CatFoodProducingAreaTBVCellHeight = [cell cellHeightWithModel:nil];
     return cell;
 }
@@ -294,19 +297,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _fleshBtn;
 }
 
--(NSMutableArray *)dataMutArr{
+-(NSMutableArray<CatFoodProducingAreaModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
-        [_dataMutArr addObject:@"1"];
-        [_dataMutArr addObject:@"2"];
-        [_dataMutArr addObject:@"3"];
-        [_dataMutArr addObject:@"4"];
-        [_dataMutArr addObject:@"5"];
-        [_dataMutArr addObject:@"6"];
-        [_dataMutArr addObject:@"7"];
-        [_dataMutArr addObject:@"8"];
-        [_dataMutArr addObject:@"9"];
-        [_dataMutArr addObject:@"0"];
     }return _dataMutArr;
 }
 
