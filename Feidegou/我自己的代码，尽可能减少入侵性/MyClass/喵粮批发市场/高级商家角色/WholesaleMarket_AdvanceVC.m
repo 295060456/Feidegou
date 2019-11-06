@@ -53,12 +53,45 @@ UITextFieldDelegate
 }
 
 -(void)drawRect:(CGRect)rect{
-    self.numLab.alpha = 1;
-    self.userNameLab.text = @"用户名:江泽民";
-    self.purchaseBtn.alpha = 1;
-    self.textfield.alpha = 1;
-    self.paymentMethodLab.text = @"支付方式";
-    self.framer = self.frame;
+    if ([self.requestParams isKindOfClass:[WholesaleMarket_AdvanceModel class]]) {
+        WholesaleMarket_AdvanceModel *wholesaleMarket_AdvanceModel = self.requestParams;
+        
+        self.numLab.alpha = 1;
+        self.userNameLab.text = [NSString stringWithFormat:@"用户名:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.seller_name ReplaceStr:@""]];
+        self.purchaseBtn.alpha = 1;
+        self.textfield.alpha = 1;
+        //0、都没有;2、支付宝;3、微信;4、银行卡;5、支付宝 + 微信;6、支付宝 + 银行卡;7、微信 + 银行卡;9、支付宝 + 微信 + 银行卡
+        switch ([wholesaleMarket_AdvanceModel.payment_type intValue]) {
+            case 0:{//都没有
+                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"" ReplaceStr:@""]];
+            }break;
+            case 2:{//支付宝
+                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"支付宝" ReplaceStr:@""]];
+            }break;
+            case 3:{//微信
+                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"微信" ReplaceStr:@""]];
+            }break;
+            case 4:{//银行卡
+                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"银行卡" ReplaceStr:@""]];
+            }break;
+            case 5:{//支付宝 + 微信
+                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"支付宝 + 微信" ReplaceStr:@""]];
+            }break;
+            case 6:{//支付宝 + 银行卡
+                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"支付宝 + 银行卡" ReplaceStr:@""]];
+            }break;
+            case 7:{//微信 + 银行卡
+                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"微信 + 银行卡" ReplaceStr:@""]];
+            }break;
+            case 9:{//支付宝 + 微信 + 银行卡
+                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"支付宝 + 微信 + 银行卡" ReplaceStr:@""]];
+            }break;
+                
+            default:
+                break;
+        }
+        self.framer = self.frame;
+    }
 }
 
 -(void)clickBlock:(DataBlock)block{
@@ -369,6 +402,7 @@ UITableViewDataSource
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
+@property(nonatomic,assign)long indexPathRow;
 
 @end
 
@@ -382,7 +416,6 @@ UITableViewDataSource
              requestParams:(nullable id)requestParams
                    success:(DataBlock)block
                   animated:(BOOL)animated{
-
     WholesaleMarket_AdvanceVC *vc = WholesaleMarket_AdvanceVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
@@ -464,6 +497,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
+    self.indexPathRow = indexPath.row;
     if (_popView) {
         _popView = nil;
     }
@@ -538,7 +572,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(WholesaleMarket_AdvancePopView *)popView{
     if (!_popView) {
-        _popView = [[WholesaleMarket_AdvancePopView shareManager] initWithRequestParams:@""];//支付方式
+        _popView = [[WholesaleMarket_AdvancePopView shareManager] initWithRequestParams:self.dataMutArr[self.indexPathRow]];//支付方式
         _popView.backgroundColor = KLightGrayColor;
         [UIView cornerCutToCircleWithView:_popView
                           AndCornerRadius:10.f];

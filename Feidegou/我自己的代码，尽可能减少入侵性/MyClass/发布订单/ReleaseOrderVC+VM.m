@@ -10,7 +10,6 @@
 
 @implementation ReleaseOrderVC (VM)
 
-
 -(void)gettingPaymentWay{
     extern NSString *randomStr;
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST

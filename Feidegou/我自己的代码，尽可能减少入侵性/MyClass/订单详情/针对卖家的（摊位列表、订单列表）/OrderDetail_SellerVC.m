@@ -606,13 +606,13 @@ UITableViewDataSource
     }else if ([orderListModel.order_status intValue] == 2){
         if ([orderListModel.order_type intValue] == 1) {//#22
             [self netWorkingWithArgumentURL:CatfoodBooth_delURL
-                                    ORDERID:orderListModel.ID];
+                                    ORDERID:[orderListModel.ID intValue]];
         }else if ([orderListModel.order_type intValue] == 2){//#18
             [self netWorkingWithArgumentURL:CatfoodSale_pay_delURL
-            ORDERID:orderListModel.ID];
+                                    ORDERID:[orderListModel.ID intValue]];
         }else if ([orderListModel.order_type intValue] == 3){//#9
             [self netWorkingWithArgumentURL:CatfoodCO_pay_delURL
-            ORDERID:orderListModel.ID];
+                                    ORDERID:[orderListModel.ID intValue]];
         }
     }
 }
@@ -623,9 +623,9 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
-    if (self.dataMutArr.count) {
-        [self.dataMutArr removeAllObjects];
-    }
+//    if (self.dataMutArr.count) {
+//        [self.dataMutArr removeAllObjects];
+//    }
     [self netWorking];
     [self.tableView.mj_header endRefreshing];
 }
