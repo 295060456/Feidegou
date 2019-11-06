@@ -26,6 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 //@property(nonatomic,copy)NSString *bankaddress;
 //@property(nonatomic,copy)NSString *del_check;
 //@property(nonatomic,assign)int Order_type;//订单类型 1、普通;2、批发;3、平台
+//@property(nonatomic,copy)NSString *del_state;
+//@property(nonatomic,copy)NSString *payment_status;
+//@property(nonatomic,copy)NSString *payment_print;
 
 @property(nonatomic,copy)NSString *payment_print_img_name;
 @property(nonatomic,copy)NSString *finishTime;
@@ -35,20 +38,17 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *bankCard;
 @property(nonatomic,copy)NSString *payTime;
 @property(nonatomic,copy)NSString *payment_alipay_id;
-@property(nonatomic,assign)int deleteStatus;
-@property(nonatomic,assign)int order_status;
-@property(nonatomic,copy)NSString *del_state;
+@property(nonatomic,strong)NSNumber *deleteStatus;
+@property(nonatomic,strong)NSNumber *order_status;
 @property(nonatomic,copy)NSString *payment_weixin_img;
 @property(nonatomic,copy)NSString *payment_print_img_path;
 @property(nonatomic,copy)NSString *updateTime;
-@property(nonatomic,copy)NSString *payment_status;
-@property(nonatomic,assign)int seller;
+@property(nonatomic,strong)NSNumber *seller;
 @property(nonatomic,copy)NSString *buyer;
 @property(nonatomic,copy)NSString *payment_weixin_id;
 @property(nonatomic,copy)NSString *delTime;
-@property(nonatomic,copy)NSString *payment_print;
 @property(nonatomic,copy)NSString *bankUser;
-@property(nonatomic,assign)int catfoodsale_id;
+@property(nonatomic,strong)NSNumber *catfoodsale_id;
 @property(nonatomic,copy)NSString *payment_weixin_img_path;
 @property(nonatomic,copy)NSString *payment_alipay_img_path;
 

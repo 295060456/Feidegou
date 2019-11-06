@@ -44,8 +44,8 @@ UITableViewDataSource
     if ([model isKindOfClass:[OrderDetail_SellerModel class]]) {
         OrderDetail_SellerModel *orderDetail_SellerModel = (OrderDetail_SellerModel *)model;
         [self.tempMutArr addObject:orderDetail_SellerModel.ordercode];
-        [self.tempMutArr addObject:[NSString stringWithFormat:@"%d",orderDetail_SellerModel.price]];
-        [self.tempMutArr addObject:[NSString stringWithFormat:@"%d",orderDetail_SellerModel.rental]];//orderDetail_SellerModel.rental
+        [self.tempMutArr addObject:[NSString stringWithFormat:@"%d",[orderDetail_SellerModel.price intValue]]];
+        [self.tempMutArr addObject:[NSString stringWithFormat:@"%d",[orderDetail_SellerModel.rental intValue]]];
         [self.tempMutArr addObject:@"账号"];
         [self.tempMutArr addObject:@"银行卡"];
         [self.tempMutArr addObject:ensureNonnullString(orderDetail_SellerModel.refer)];
@@ -173,8 +173,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     if ([model isKindOfClass:[OrderDetail_SellerModel class]]) {
         OrderDetail_SellerModel *orderDetail_SellerModel = (OrderDetail_SellerModel *)model;
-        self.str = [NSString stringWithFormat:@"您向%@购买%d",orderDetail_SellerModel.seller_name,orderDetail_SellerModel.quantity];
+        self.str = [NSString stringWithFormat:@"您向%@购买%d",orderDetail_SellerModel.seller_name,[orderDetail_SellerModel.quantity intValue]];
         self.titleLab.attributedText = self.attributedString;
+//        上面这句等于下面两句
+//        self.attributedString;
+//        self.titleLab.alpha = 1;
         }else{}
 }
 #pragma mark —— lazyLoad
@@ -243,6 +246,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _titleLab = YYLabel.new;
         _titleLab.textAlignment = NSTextAlignmentCenter;
         _titleLab.numberOfLines = 0;
+        _titleLab.attributedText = self.attributedString;
 //        _titleLab.lineBreakMode = NSLineBreakByCharWrapping;//？？
         [_titleLab sizeToFit];
         [self addSubview:_titleLab];
@@ -283,7 +287,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if ([model isKindOfClass:[OrderDetail_SellerModel class]]) {
         OrderDetail_SellerModel *orderDetail_SellerModel = (OrderDetail_SellerModel *)model;
-        switch (orderDetail_SellerModel.order_status) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+        switch ([orderDetail_SellerModel.order_status intValue]) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
             case 0:{
                 self.titleLab.text = @"订单已支付";
             }break;
@@ -353,35 +357,35 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     if ([model isKindOfClass:[OrderDetail_SellerModel class]]) {
         OrderDetail_SellerModel *orderDetail_SellerModel = (OrderDetail_SellerModel *)model;
-        NSLog(@"KKK deal = %ld",orderDetail_SellerModel.deal);
-        NSLog(@"KKK order_type = %d",orderDetail_SellerModel.order_type);
-        NSLog(@"KKK order_status = %d",orderDetail_SellerModel.order_status);
-        if (orderDetail_SellerModel.deal == 1) {//买家
+        NSLog(@"KKK deal = %d",[orderDetail_SellerModel.deal intValue]);
+        NSLog(@"KKK order_type = %d",[orderDetail_SellerModel.order_type intValue]);
+        NSLog(@"KKK order_status = %d",[orderDetail_SellerModel.order_status intValue]);
+        if ([orderDetail_SellerModel.deal intValue] == 1) {//买家
             NSLog(@"买家");
-        }else if (orderDetail_SellerModel.deal == 2){//卖家 卖家才有发货
+        }else if ([orderDetail_SellerModel.deal intValue] == 2){//卖家 卖家才有发货
             if (orderDetail_SellerModel.order_status == 0) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                if (orderDetail_SellerModel.order_type == 1 ||
-                    orderDetail_SellerModel.order_type == 2) {
+                if ([orderDetail_SellerModel.order_type intValue] == 1 ||
+                    [orderDetail_SellerModel.order_type intValue] == 2) {
                     self.sureBtn.alpha = 1;//出现"确认发货"按钮
                 }else{
                     self.sureBtn.alpha = 0;
                 }
                 self.cancelCountDownBtn.alpha = 1;
-            }else if (orderDetail_SellerModel.order_status == 5) {//5、已完成 都不能撤销
+            }else if ([orderDetail_SellerModel.order_status intValue] == 5) {//5、已完成 都不能撤销
                 self.sureBtn.alpha = 0;
                 [self.cancelBtn setTitle:@"已完成,不能撤销"
                                 forState:UIControlStateNormal];
-            }else if (orderDetail_SellerModel.order_status == 3){//3、已作废
+            }else if ([orderDetail_SellerModel.order_status intValue] == 3){//3、已作废
                 self.sureBtn.alpha = 0;
                 [self.cancelBtn setTitle:@"已作废"
                 forState:UIControlStateNormal];
             }
             
-            if (orderDetail_SellerModel.del_state == 1){//正在审核
+            if ([orderDetail_SellerModel.del_state intValue] == 1){//正在审核
                 self.sureBtn.alpha = 0;
                 [self.cancelBtn setTitle:@"正在审核"
                                 forState:UIControlStateNormal];
-            }else if(orderDetail_SellerModel.del_state == 2){//订单撤销
+            }else if([orderDetail_SellerModel.del_state intValue] == 2){//订单撤销
                 self.sureBtn.alpha = 0;
                 [self.cancelBtn setTitle:@"订单撤销"
                                 forState:UIControlStateNormal];
@@ -596,17 +600,17 @@ UITableViewDataSource
         orderListModel = dictionary[@"OrderListModel"];
     }
 
-    if (orderListModel.order_status == 0) {//#5
+    if ([orderListModel.order_status intValue] == 0) {//#5
         //选择取消发货的原因
         [self.stringPickerView show];
-    }else if (orderListModel.order_status == 2){
-        if (orderListModel.order_type == 1) {//#22
+    }else if ([orderListModel.order_status intValue] == 2){
+        if ([orderListModel.order_type intValue] == 1) {//#22
             [self netWorkingWithArgumentURL:CatfoodBooth_delURL
                                     ORDERID:orderListModel.ID];
-        }else if (orderListModel.order_type == 2){//#18
+        }else if ([orderListModel.order_type intValue] == 2){//#18
             [self netWorkingWithArgumentURL:CatfoodSale_pay_delURL
             ORDERID:orderListModel.ID];
-        }else if (orderListModel.order_type == 3){//#9
+        }else if ([orderListModel.order_type intValue] == 3){//#9
             [self netWorkingWithArgumentURL:CatfoodCO_pay_delURL
             ORDERID:orderListModel.ID];
         }

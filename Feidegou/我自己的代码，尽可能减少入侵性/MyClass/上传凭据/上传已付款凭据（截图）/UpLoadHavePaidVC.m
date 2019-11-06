@@ -10,7 +10,7 @@
 
 @interface UpLoadHavePaidVC ()
 
-@property(nonatomic,strong)id requestParams;
+//@property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;

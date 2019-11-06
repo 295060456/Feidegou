@@ -44,9 +44,9 @@
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     if ([model isKindOfClass:[OrderListModel class]]) {
         OrderListModel *orderListModel = (OrderListModel *)model;
-        self.titleLab.text = [NSString stringWithFormat:@"喵粮:%d g",orderListModel.quantity];
+        self.titleLab.text = [NSString stringWithFormat:@"喵粮:%d g",[orderListModel.quantity intValue]];
         self.timeLab.text = orderListModel.addTime;
-        if (orderListModel.seller == 1) {//APQ
+        if ([orderListModel.seller intValue] == 1) {//APQ
             self.typeImgV.image = kIMG(@"Mf_旌旗_红色");
             self.imgV.backgroundColor = kRedColor;
         }else{

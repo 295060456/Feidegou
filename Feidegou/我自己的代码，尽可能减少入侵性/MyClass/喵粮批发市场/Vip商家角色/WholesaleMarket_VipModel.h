@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *payment_alipay_id;
 @property(nonatomic,copy)NSString *deleteStatus;
 @property(nonatomic,copy)NSString *del_print_name;
-@property(nonatomic,assign)int order_status;
+@property(nonatomic,strong)NSNumber *order_status;
 @property(nonatomic,copy)NSString *payment_weixin_img;
 @property(nonatomic,copy)NSString *del_print_path;
 @property(nonatomic,copy)NSString *payment_print_img_path;

@@ -23,8 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)int status;//状态   0、正常；1、去世；2、免打扰模式；3、结束免打扰模式
 @property(nonatomic,assign)Boolean maritalStatus;//婚姻状态 0、未婚；1、已婚
 @property(nonatomic,assign)int user_id;//用户ID
-@property(nonatomic,assign)int ID;//id
-@property(nonatomic,copy)NSString *addTime;
+//@property(nonatomic,assign)int ID;//id
+//@property(nonatomic,copy)NSString *addTime;
 @property(nonatomic,copy)NSString *deleteStatus;
 
 @end

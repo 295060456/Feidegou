@@ -20,7 +20,7 @@
     }
     NSDictionary *dic = @{
         @"order_id":[NSString stringWithFormat:@"%d",orderListModel.ID],//订单id
-        @"order_type":[NSString stringWithFormat:@"%d",orderListModel.order_type]//订单类型 —— 1、摊位;2、批发;3、产地
+        @"order_type":[NSString stringWithFormat:@"%d",[orderListModel.order_type intValue]]//订单类型 —— 1、摊位;2、批发;3、产地
     };
        
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
@@ -40,7 +40,7 @@
             if ([response isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *dic = (NSDictionary *)response;
                 self.orderDetail_SellerModel = [OrderDetail_SellerModel mj_objectWithKeyValues:dic[@"catFoodOrder"]];
-                self.orderDetail_SellerModel.deal = [dic[@"deal"] intValue];
+                self.orderDetail_SellerModel.deal = dic[@"deal"];
             }
             [self.tableView reloadData];
         }
