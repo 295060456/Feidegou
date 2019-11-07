@@ -12,8 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WholesaleOrders_AdvanceVC : BaseVC
 
-@property(nonatomic,strong)id requestParams;
 @property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,strong)UIButton *paidBtn;
+@property(nonatomic,strong)id requestParams;
 @property(nonatomic,strong)WholesaleOrders_AdvanceModel *model;
 @property(nonatomic,strong)NSMutableArray <NSString *>*dataArr;
 

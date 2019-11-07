@@ -25,6 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface StallListVC : BaseVC
 
+@property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,strong)NSMutableArray <StallListModel *>*dataMutArr;
+
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
                        requestParams:(nullable id)requestParams
                              success:(DataBlock _Nonnull )block

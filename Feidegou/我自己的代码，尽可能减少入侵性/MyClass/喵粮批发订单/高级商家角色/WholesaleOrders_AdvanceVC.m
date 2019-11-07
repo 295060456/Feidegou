@@ -18,7 +18,6 @@ TZImagePickerControllerDelegate
 >
 
 @property(nonatomic,weak)TZImagePickerController *imagePickerVC;
-@property(nonatomic,strong)UIButton *paidBtn;
 @property(nonatomic,strong)UIButton *cancelBtn;
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)__block UIImage *img;
@@ -59,7 +58,7 @@ TZImagePickerControllerDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.gk_navTitle = @"喵粮批发订单";
+    self.gk_navTitle = @"喵粮批发高购买订单";
     self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
@@ -271,8 +270,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             @strongify(self)
             if (photos.count == 1) {
                 [self upLoadPic_netWorking:photos.lastObject];
-                [self.paidBtn setTitle:@"已付款"
-                              forState:UIControlStateNormal];
             }else{
                 [self showAlertViewTitle:@"选择一张相片就够啦"
                                  message:@"不要画蛇添足"

@@ -72,6 +72,7 @@ UITextFieldDelegate
 -(ZYTextField *)textField{
     if (!_textField) {
         _textField = ZYTextField.new;
+        _textField.keyboardType = UIKeyboardTypeDecimalPad;
         _textField.placeholder = @"在此输入数量";
         _textField.delegate = self;
         [self.contentView addSubview:_textField];

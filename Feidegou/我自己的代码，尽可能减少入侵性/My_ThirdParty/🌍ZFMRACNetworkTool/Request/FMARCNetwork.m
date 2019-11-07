@@ -158,7 +158,6 @@ static FMARCNetwork *_instance = nil;
                 //错误可以在此处处理---比如加入自己弹窗，主要是服务器错误、和请求超时、网络开小差
                 [self showMsgtext:msgStr];
             } else {
-                
                 extern NSString *randomStr;
                 FMHttpResonse *httpResponse = [[FMHttpResonse alloc] initWithResponseSuccess:[NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)]
                                                                                           code:1];

@@ -127,9 +127,25 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         NSLog(@"uploadProgress = %@",uploadProgress);
     }
       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"responseObject = %@",responseObject);
+        NSDictionary *dataDic = [NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)];
+        Toast(dataDic[@"message"]);
+        switch ([dataDic[@"code"] longValue]) {
+            case 200:{//已完成付款.请等待审核后发货！
+                [self.paidBtn setTitle:@"已付款"
+                              forState:UIControlStateNormal];
+            }break;
+            case 300:{//订单状态异常，请检查！
+                
+            }break;
+            case 500:{//订单有误，请检查订单！
+                
+            }break;
+            default:
+                break;
+        }
     }
-      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+      failure:^(NSURLSessionDataTask * _Nullable task,
+                NSError * _Nonnull error) {
         NSLog(@"error = %@",error);
     }];
 }

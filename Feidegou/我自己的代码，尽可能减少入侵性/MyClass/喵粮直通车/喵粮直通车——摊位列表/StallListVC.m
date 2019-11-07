@@ -8,6 +8,7 @@
 
 #import "StallListVC.h"
 #import "OrderDetail_SellerVC.h"
+#import "StallListVC+VM.h"
 
 @interface StallListTBVCell ()
 
@@ -91,9 +92,6 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
-@property(nonatomic,strong)UITableView *tableView;
-
-@property(nonatomic,strong)NSMutableArray *dataMutArr;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -280,25 +278,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _tableView;
 }
 
--(NSMutableArray *)dataMutArr{
+-(NSMutableArray<StallListModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
-        [_dataMutArr addObject:@"1"];
-        [_dataMutArr addObject:@"2"];
-        [_dataMutArr addObject:@"3"];
-        [_dataMutArr addObject:@"4"];
-        [_dataMutArr addObject:@"5"];
-        [_dataMutArr addObject:@"6"];
-        [_dataMutArr addObject:@"7"];
-        [_dataMutArr addObject:@"8"];
-        [_dataMutArr addObject:@"9"];
-        [_dataMutArr addObject:@"10"];
-        [_dataMutArr addObject:@"11"];
-        [_dataMutArr addObject:@"12"];
-        [_dataMutArr addObject:@"13"];
-        [_dataMutArr addObject:@"14"];
-        [_dataMutArr addObject:@"15"];
     }return _dataMutArr;
 }
+
+
 
 @end
