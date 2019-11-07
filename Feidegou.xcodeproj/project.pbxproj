@@ -49,6 +49,7 @@
 		8B8D59452372E03400F002B9 /* ReleaseOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8D59442372E03400F002B9 /* ReleaseOrderModel.m */; };
 		8B9EAF87237417390012884C /* SettingPaymentWayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF86237417390012884C /* SettingPaymentWayVC.m */; };
 		8B9EAF8A2374175D0012884C /* SettingPaymentWayVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF892374175D0012884C /* SettingPaymentWayVC+VM.m */; };
+		8B9EAF8D237429950012884C /* SettingPaymentWayTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF8C237429950012884C /* SettingPaymentWayTBViewForHeader.m */; };
 		8BB0F6CE236BDAC2009498B6 /* WholesaleOrders_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB0F6CD236BDAC2009498B6 /* WholesaleOrders_VipVC.m */; };
 		8BB0F6D3236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB0F6D2236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m */; };
 		8BB2D2812366C6990047D0E2 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2772366C6990047D0E2 /* TwitterHeart.json */; };
@@ -699,6 +700,8 @@
 		8B9EAF86237417390012884C /* SettingPaymentWayVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingPaymentWayVC.m; sourceTree = "<group>"; };
 		8B9EAF882374175D0012884C /* SettingPaymentWayVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SettingPaymentWayVC+VM.h"; sourceTree = "<group>"; };
 		8B9EAF892374175D0012884C /* SettingPaymentWayVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SettingPaymentWayVC+VM.m"; sourceTree = "<group>"; };
+		8B9EAF8B237429950012884C /* SettingPaymentWayTBViewForHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingPaymentWayTBViewForHeader.h; sourceTree = "<group>"; };
+		8B9EAF8C237429950012884C /* SettingPaymentWayTBViewForHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingPaymentWayTBViewForHeader.m; sourceTree = "<group>"; };
 		8BB0F6CC236BDAC2009498B6 /* WholesaleOrders_VipVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleOrders_VipVC.h; sourceTree = "<group>"; };
 		8BB0F6CD236BDAC2009498B6 /* WholesaleOrders_VipVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleOrders_VipVC.m; sourceTree = "<group>"; };
 		8BB0F6D1236C48D8009498B6 /* WholesaleOrders_AdvanceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleOrders_AdvanceVC.h; sourceTree = "<group>"; };
@@ -1832,6 +1835,8 @@
 			children = (
 				8B9EAF85237417390012884C /* SettingPaymentWayVC.h */,
 				8B9EAF86237417390012884C /* SettingPaymentWayVC.m */,
+				8B9EAF8B237429950012884C /* SettingPaymentWayTBViewForHeader.h */,
+				8B9EAF8C237429950012884C /* SettingPaymentWayTBViewForHeader.m */,
 				8B9EAF882374175D0012884C /* SettingPaymentWayVC+VM.h */,
 				8B9EAF892374175D0012884C /* SettingPaymentWayVC+VM.m */,
 			);
@@ -4517,6 +4522,7 @@
 				C42CD1B4213CC2640096675F /* MainNavigationController.m in Sources */,
 				C42CD1CB213CC2640096675F /* ModelArea.m in Sources */,
 				8B40A2C32372F84200ED42DB /* CatFoodProducingAreaVC+VM.m in Sources */,
+				8B9EAF8D237429950012884C /* SettingPaymentWayTBViewForHeader.m in Sources */,
 				C42CD1A1213CC2640096675F /* UITextFieldPassWord.m in Sources */,
 				C42CD103213CC2640096675F /* BrandRoneListController.m in Sources */,
 				C42CD0F1213CC2640096675F /* RegisterCodeController.m in Sources */,

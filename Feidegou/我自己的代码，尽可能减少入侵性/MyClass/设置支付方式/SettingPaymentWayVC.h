@@ -12,6 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SettingPaymentWayVC : BaseVC
 
+@property(nonatomic,strong)UITableView *tableView;
+
++ (instancetype)pushFromVC:(UIViewController *)rootVC
+             requestParams:(nullable id)requestParams
+                   success:(DataBlock)block
+                  animated:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END

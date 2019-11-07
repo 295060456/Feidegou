@@ -14,6 +14,7 @@
 #import "ThroughTrainToPromoteVC.h"//喵粮直通车
 #import "WholesaleMarket_AdvanceVC.h"//喵粮批发市场_仅高级商家可见
 #import "WholesaleMarket_VipVC.h"//喵粮批发市场_仅Vip可见
+#import "SettingPaymentWayVC.h"//设置支付方式
 
 #import "CatFoodsManagementVC+VM.h"
 
@@ -160,25 +161,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //                                requestParams:self.dataMutArr
 //                                      success:^(id data) {}
 //                                     animated:YES];//喵粮批发市场_仅Vip可见
+        }else if (indexPath.row == 6){
+            [SettingPaymentWayVC pushFromVC:self_weak_
+                              requestParams:nil
+                                    success:^(id data) {}
+                                   animated:YES];
         }else{}
     }else{}
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-    switch (section) {
-        case 0:{
-            return self.titleMutArr[0].count;
-        }
-            break;
-        case 1:{
-            return self.titleMutArr[1].count;
-        }
-            break;
-        default:
-            return 0;
-            break;
-    }
+    return self.titleMutArr[section].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -254,7 +248,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                   @"赠送",
                                   @"喵粮产地",
                                   @"喵粮直通车",
-                                  @"喵粮批发市场"]];
+                                  @"喵粮批发市场",
+                                  @"设置支付方式"]];
     }return _titleMutArr;
 }
 
@@ -268,7 +263,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                 @"赠送",
                                 @"喵粮产地",
                                 @"喵粮直通车",
-                                @"喵粮批发市场"]];
+                                @"喵粮批发市场",
+                                @"支付"]];
     }return _imgMutArr;
 }
 
