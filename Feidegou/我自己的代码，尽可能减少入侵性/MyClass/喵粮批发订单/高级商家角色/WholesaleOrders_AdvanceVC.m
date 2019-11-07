@@ -17,7 +17,6 @@ UITableViewDataSource,
 TZImagePickerControllerDelegate
 >
 
-@property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 @property(nonatomic,strong)UIButton *paidBtn;
 @property(nonatomic,strong)UIButton *cancelBtn;
@@ -43,7 +42,7 @@ TZImagePickerControllerDelegate
 
     WholesaleOrders_AdvanceVC *vc = WholesaleOrders_AdvanceVC.new;
     vc.successBlock = block;
-    vc.requestParams = requestParams;
+    vc.requestParams = requestParams;//购买的数量、付款的方式、订单ID
     if (rootVC.navigationController) {
         vc.isPush = YES;
         vc.isPresent = NO;
@@ -87,9 +86,6 @@ TZImagePickerControllerDelegate
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
-//    if (self.dataMutArr.count) {
-//        [self.dataMutArr removeAllObjects];
-//    }
     [self netWorking];
 }
 //上拉加载更多
@@ -168,11 +164,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         cell.backgroundColor = kClearColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.text = self.titleMutArr[indexPath.row];
-        cell.detailTextLabel.text = @"temp";
-        if (indexPath.row == 0) {
-            cell.detailTextLabel.text = @"喵粮";
-        }
-    }return cell;
+    }
+    cell.detailTextLabel.text = self.dataArr.count != 0 ? self.dataArr[indexPath.row] :@"";
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -203,6 +197,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                      style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.mj_header = self.tableViewHeader;
+        _tableView.mj_footer = self.tableViewFooter;
         _tableView.tableFooterView = UIView.new;
         _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//推荐该方法
@@ -297,6 +293,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [_titleMutArr addObject:@"支付方式"];
         [_titleMutArr addObject:@"状态"];
     }return _titleMutArr;
+}
+
+-(NSMutableArray<NSString *> *)dataArr{
+    if (!_dataArr) {
+        _dataArr = NSMutableArray.array;
+    }return _dataArr;
 }
     
 @end

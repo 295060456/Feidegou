@@ -722,13 +722,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         
         [_popView clickBlock:^(id data, id data2) {//点击购买 发送 (self.textfield,self.tagger)
 //            @strongify(self)
+            WholesaleMarket_AdvanceModel *model = (WholesaleMarket_AdvanceModel *)self.dataMutArr[self.indexPathRow];
             if ([data isKindOfClass:[UITextField class]] &&
                 [data2 isKindOfClass:[NSNumber class]]) {
                 UITextField *textfield = (UITextField *)data;
-                [WholesaleOrders_AdvanceVC pushFromVC:self_weak_
-                                        requestParams:@[textfield.text,data2]
-                                              success:^(id data) {}
-                                             animated:YES];
+                if (![NSString isNullString:textfield.text]) {
+                    [WholesaleOrders_AdvanceVC pushFromVC:self_weak_
+                                            requestParams:@[textfield.text,data2,model.ID]//购买的数量、付款的方式、订单ID
+                                                  success:^(id data) {}
+                                                 animated:YES];
+                }else{
+                    Toast(@"请输入金额");
+                }
             }
         }];
     }return _popView;

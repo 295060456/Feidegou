@@ -16,6 +16,7 @@
 		8B17DE3D2371BA9C001161BB /* WholesaleMarket_VipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B17DE3C2371BA9C001161BB /* WholesaleMarket_VipModel.m */; };
 		8B17DE402371CF60001161BB /* ReleaseOrderVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B17DE3F2371CF60001161BB /* ReleaseOrderVC+VM.m */; };
 		8B2CFD0423731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2CFD0323731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.m */; };
+		8B2CFD0A2373EDA900413349 /* WholesaleOrders_AdvanceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2CFD092373EDA900413349 /* WholesaleOrders_AdvanceModel.m */; };
 		8B40A2C32372F84200ED42DB /* CatFoodProducingAreaVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C22372F84200ED42DB /* CatFoodProducingAreaVC+VM.m */; };
 		8B40A2C62372FA2E00ED42DB /* CatFoodProducingAreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C52372FA2E00ED42DB /* CatFoodProducingAreaModel.m */; };
 		8B40A2C92373016300ED42DB /* ShopReceiptQRcodeVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C82373016300ED42DB /* ShopReceiptQRcodeVC+VM.m */; };
@@ -632,6 +633,8 @@
 		8B17DE3F2371CF60001161BB /* ReleaseOrderVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ReleaseOrderVC+VM.m"; sourceTree = "<group>"; };
 		8B2CFD0223731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WholesaleOrders_AdvanceVC+VM.h"; sourceTree = "<group>"; };
 		8B2CFD0323731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WholesaleOrders_AdvanceVC+VM.m"; sourceTree = "<group>"; };
+		8B2CFD082373EDA900413349 /* WholesaleOrders_AdvanceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleOrders_AdvanceModel.h; sourceTree = "<group>"; };
+		8B2CFD092373EDA900413349 /* WholesaleOrders_AdvanceModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleOrders_AdvanceModel.m; sourceTree = "<group>"; };
 		8B40A2C12372F84200ED42DB /* CatFoodProducingAreaVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CatFoodProducingAreaVC+VM.h"; sourceTree = "<group>"; };
 		8B40A2C22372F84200ED42DB /* CatFoodProducingAreaVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CatFoodProducingAreaVC+VM.m"; sourceTree = "<group>"; };
 		8B40A2C42372FA2E00ED42DB /* CatFoodProducingAreaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatFoodProducingAreaModel.h; sourceTree = "<group>"; };
@@ -1913,6 +1916,8 @@
 			children = (
 				8BB0F6D1236C48D8009498B6 /* WholesaleOrders_AdvanceVC.h */,
 				8BB0F6D2236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m */,
+				8B2CFD082373EDA900413349 /* WholesaleOrders_AdvanceModel.h */,
+				8B2CFD092373EDA900413349 /* WholesaleOrders_AdvanceModel.m */,
 				8B2CFD0223731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.h */,
 				8B2CFD0323731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.m */,
 			);
@@ -4683,6 +4688,7 @@
 				C42CD14B213CC2640096675F /* TypeSelectFunction.m in Sources */,
 				8BB2D3772366CBA70047D0E2 /* TZImageRequestOperation.m in Sources */,
 				C4A0DA7A213E953F00B45B65 /* FDAlertView.m in Sources */,
+				8B2CFD0A2373EDA900413349 /* WholesaleOrders_AdvanceModel.m in Sources */,
 				C42CD1C8213CC2640096675F /* ModelPerformance.m in Sources */,
 				C42CD0D3213CC2640096675F /* CellOrderThreeLbl.m in Sources */,
 				C42CD04E213CC2640096675F /* QRCodeController.m in Sources */,
