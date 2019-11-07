@@ -16,6 +16,8 @@ BEMCheckBoxDelegate
 @property(nonatomic,strong)BEMCheckBox *checkBox;
 @property(nonatomic,strong)UILabel *titleLab;
 @property(nonatomic,copy)NSString *titleStr;;
+@property(nonatomic,copy)TwoDataBlock block;
+@property(nonatomic,strong)NSNumber *section;
 
 @end
 
@@ -24,13 +26,28 @@ BEMCheckBoxDelegate
 - (instancetype)initWithReuseIdentifier:(nullable NSString *)reuseIdentifier
                                withData:(id)data{
     if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
-        if ([data isKindOfClass:[NSString class]]) {
-            self.titleStr = (NSString *)data;
-            self.checkBox.alpha = 1;
-            self.titleLab.alpha = 1;
+        if ([data isKindOfClass:[NSArray class]]) {
+            self.titleStr = (NSString *)data[0];
+//            self.checkBox.alpha = 1;
+//            self.titleLab.alpha = 1;
+            self.section = (NSNumber *)data[1];
+            self.textLabel.text = self.titleStr;
         }
     }return self;
 }
+
+-(void)actionBlock:(TwoDataBlock)block{
+    _block = block;
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches
+          withEvent:(UIEvent *)event{
+    self.checkBox.on = !self.checkBox.on;
+    if (self.block) {
+        self.block(self.checkBox,self.section);
+    }
+}
+
 #pragma mark —— lazyLoad
 -(BEMCheckBox *)checkBox{
     if (!_checkBox) {

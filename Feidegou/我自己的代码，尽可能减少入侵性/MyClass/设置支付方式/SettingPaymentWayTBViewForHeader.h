@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithReuseIdentifier:(nullable NSString *)reuseIdentifier
                                withData:(id)data;
 
+-(void)actionBlock:(TwoDataBlock)block;
+
 @end
 
 NS_ASSUME_NONNULL_END

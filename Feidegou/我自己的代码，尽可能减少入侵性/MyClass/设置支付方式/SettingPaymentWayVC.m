@@ -16,9 +16,9 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
-@property(nonatomic,strong)NSMutableArray <NSArray *>*dataMutArr;
+@property(nonatomic,strong)NSMutableArray <NSMutableArray *>*dataMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*headViewTitleMutArr;
-@property(nonatomic,strong)NSMutableArray <NSArray *>*placeholderMutArr;
+@property(nonatomic,strong)NSMutableArray <NSMutableArray *>*placeholderMutArr;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -80,7 +80,27 @@ viewForHeaderInSection:(NSInteger)section {
     SettingPaymentWayTBViewForHeader *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:ReuseIdentifier];
     if (!headerView) {
         headerView = [[SettingPaymentWayTBViewForHeader alloc]initWithReuseIdentifier:ReuseIdentifier
-                                                                             withData:self.headViewTitleMutArr[section]];
+                                                                             withData:@[self.headViewTitleMutArr[section],
+                                                                                        [NSNumber numberWithInteger:section]]];
+        @weakify(self)
+        [headerView actionBlock:^(id data, id data2) {
+            @strongify(self)
+            if ([data isKindOfClass:[BEMCheckBox class]] &&
+                [data2 isKindOfClass:[NSNumber class]]) {
+                
+                BEMCheckBox *box = (BEMCheckBox *)data;
+                NSNumber *b = (NSNumber *)data2;
+                
+                NSMutableArray *copyArr = [NSMutableArray arrayWithArray:self.dataMutArr[[b intValue]]];//等效
+
+                if (!box.on) {
+                    [self.dataMutArr[[b intValue]] removeAllObjects];
+                }else{
+                    [self.dataMutArr[[b intValue]] insertObject:copyArr[[b intValue]] atIndex:[b intValue]];
+                }
+                [self.tableView reloadData];
+            }
+        }];
     }return headerView;
 }
 
@@ -115,7 +135,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.dataMutArr.count;
+    return 3;//self.placeholderMutArr.count;
 }
 
 //给cell添加动画
@@ -154,20 +174,21 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _tableView;
 }
 
--(NSMutableArray<NSArray *> *)dataMutArr{
+-(NSMutableArray<NSMutableArray *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
-        [_dataMutArr addObject:@[@"微信账号"]];
-        [_dataMutArr addObject:@[@"支付宝账号"]];
-        [_dataMutArr addObject:@[@"银行卡姓名",@"银行卡账号",@"银行卡类型",@"支行信息"]];
+        [_dataMutArr addObject:[NSMutableArray arrayWithObjects:@"微信账号", nil]];
+        [_dataMutArr addObject:[NSMutableArray arrayWithObjects:@"支付宝账号", nil]];
+        [_dataMutArr addObject:[NSMutableArray arrayWithObjects:@"银行卡姓名",@"银行卡账号",@"银行卡类型",@"支行信息", nil]];
     }return _dataMutArr;
 }
 
--(NSMutableArray<NSArray *> *)placeholderMutArr{
+-(NSMutableArray<NSMutableArray *> *)placeholderMutArr{
     if (!_placeholderMutArr) {
-        [_placeholderMutArr addObject:@[@"输入微信账号"]];
-        [_placeholderMutArr addObject:@[@"输入支付宝账号"]];
-        [_placeholderMutArr addObject:@[@"输入账户姓名",@"输入银行卡账号",@"输入开户行",@"输入支行信息"]];
+        _placeholderMutArr = NSMutableArray.array;
+        [_placeholderMutArr addObject:[NSMutableArray arrayWithObjects:@"输入微信账号", nil]];
+        [_placeholderMutArr addObject:[NSMutableArray arrayWithObjects:@"输入支付宝账号", nil]];
+        [_placeholderMutArr addObject:[NSMutableArray arrayWithObjects:@"输入账户姓名",@"输入银行卡账号",@"输入开户行",@"输入支行信息", nil]];
     }return _placeholderMutArr;
 }
 
