@@ -330,9 +330,9 @@
         }else if (strcmp([nullableStr objCType], @encode(int)) == 0){// int 类型
             return [NSString stringWithFormat:@"%d",[b intValue]];
         }else if (strcmp([nullableStr objCType], @encode(float)) == 0){// float 类型
-            return [NSString stringWithFormat:@"%f",[b floatValue]];
+            return [NSString stringWithFormat:@"%.2f",[b floatValue]];
         }else if (strcmp([nullableStr objCType], @encode(double)) == 0){//double 类型
-            return [NSString stringWithFormat:@"%f",[b doubleValue]];
+            return [NSString stringWithFormat:@"%.2f",[b doubleValue]];
         }else if (strcmp([nullableStr objCType], @encode(char)) == 0){//char 类型
             return [NSString stringWithFormat:@"%c",[b charValue]];
         }else if (strcmp([nullableStr objCType], @encode(u_char)) == 0){//unsigned char 类型

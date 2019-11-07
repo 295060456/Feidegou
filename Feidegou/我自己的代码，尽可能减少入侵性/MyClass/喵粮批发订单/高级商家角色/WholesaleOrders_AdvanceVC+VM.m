@@ -13,7 +13,6 @@
 -(void)netWorking{//展示数据
     extern NSString *randomStr;
     NSString *text;
-//    WholesaleMarket_AdvanceModel *model;
     NSString *paymentWayStr;
     NSString *order_IDStr;
     if ([self.requestParams isKindOfClass:[NSArray class]]) {
@@ -91,6 +90,8 @@
                         break;
                 }
                 [self.tableView reloadData];
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView.mj_footer endRefreshing];
             }
         }
     }];
@@ -98,69 +99,41 @@
 
 -(void)upLoadPic_netWorking:(UIImage *)pic{//真正开始购买
     extern NSString *randomStr;
-    
-//    self.requestParams;//str nsnumber
-    
+    NSString *order_IDStr;
+    if ([self.requestParams isKindOfClass:[NSArray class]]) {
+        NSArray *arr = (NSArray *)self.requestParams;//购买的数量、付款的方式、订单ID
+        NSNumber *order_ID = (NSNumber *)arr[2];
+        order_IDStr = [order_ID stringValue];
+    }
     NSDictionary *dataDic = @{
-        @"order_id":@"",//订单id
-        @"payment_print":@""//支付凭证
+        @"order_id":order_IDStr
     };
-    randomStr = [EncryptUtils shuffledAlphabet:16];
-    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
-                                                           path:CatfoodSale_payURL 
-                                                     parameters:@{
-                                                         @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
-                                                         @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key]
-                                                     }];
-    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
-    @weakify(self)
-    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-        if (response) {
-            NSLog(@"--%@",response);
-        }
+    __block NSData *picData = [UIImage imageZipToData:pic];
+    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [mgr POST:@"http://10.1.41.158:8080/user/buyer/CatfoodSale_pay.htm"
+   parameters:@{
+       @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
+       @"key":[RSAUtil encryptString:randomStr
+                           publicKey:RSA_Public_key]
+   }
+constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [formData appendPartWithFileData:picData
+                                    name:@"payment_print"
+                                fileName:@"test.png"
+                                mimeType:@"image/png"];
+    }
+     progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"uploadProgress = %@",uploadProgress);
+    }
+      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"responseObject = %@",responseObject);
+    }
+      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error = %@",error);
     }];
 }
 
-//{
-//    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
-//    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    extern NSString *randomStr;
-//    NSDictionary *dic;
-//    OrderListModel *model;
-//    if ([self.requestParams isKindOfClass:[NSDictionary class]]) {
-//        dic = (NSDictionary *)self.requestParams;
-//        model = dic[@"OrderListModel"][@"OrderListModel"];
-//    }
-//
-//    NSDictionary *dataDic = @{
-//         @"order_id":[NSString ensureNonnullString:model.ID ReplaceStr:@""],//订单id
-//         @"reason":dic[@"Result"],//撤销理由
-//         @"order_type":[NSString ensureNonnullString:model.order_type ReplaceStr:@""]//订单类型 —— 1、摊位;2、批发;3、产地
-//    };
-//    __block NSData *picData = [UIImage imageZipToData:self.pic];
-//    [mgr POST:@"http://10.1.41.158:8080/user/seller/CatfoodRecord_del.htm"
-//   parameters:@{
-//       @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
-//       @"key":[RSAUtil encryptString:randomStr
-//                           publicKey:RSA_Public_key]
-//   }
-//constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-//        [formData appendPartWithFileData:picData
-//                                    name:@"del_print"
-//                                fileName:@"test.png"
-//                                mimeType:@"image/png"];
-//    }
-//     progress:^(NSProgress * _Nonnull uploadProgress) {
-//        NSLog(@"uploadProgress = %@",uploadProgress);
-//    }
-//      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        NSLog(@"responseObject = %@",responseObject);
-//    }
-//      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        NSLog(@"error = %@",error);
-//    }];
-//}
 
 
 @end
