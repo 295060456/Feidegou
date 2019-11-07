@@ -16,8 +16,12 @@
 
 /// 请求数据返回的状态码、根据自己的服务端数据来
 typedef NS_ENUM(NSUInteger, HTTPResponseCode) {//KKK
-    HTTPResponseCodeSuccess = 200,           /// 请求成功
-    HTTPResponseCodeNotLogin = 1009,       /// 用户尚未登录，一般在网络请求前判断处理，也可以在网络层处理
+    HTTPResponseCodeSuccess = 200,// 请求成功
+    HTTPResponseCodeNotLogin = 1009,//用户尚未登录，一般在网络请求前判断处理，也可以在网络层处理 //???
+    HTTPResponseCodeAnomalous = 300,//数据异常
+    HTTPResponseCodeError = 500,//数据错误
+    HTTPResponseCodeError_01 = 401,//重新输入喵粮数量
+    HTTPResponseCodeError_02 = 402,//输入有误请重新输入
 };
 
 NSString *const HTTPServiceErrorDomain = @"HTTPServiceErrorDomain";/// The Http request error domain
@@ -163,50 +167,68 @@ static FMARCNetwork *_instance = nil;
                                                                                           code:1];
                 NSInteger statusCode = [httpResponse.reqResult[HTTPServiceResponseCodeKey] integerValue];
                 
-                if (statusCode == HTTPResponseCodeSuccess) {
+//                HTTPResponseCodeSuccess = 200,// 请求成功
+//                HTTPResponseCodeNotLogin = 1009,//用户尚未登录，一般在网络请求前判断处理，也可以在网络层处理
+//                HTTPResponseCodeAnomalous = 300,//数据异常
+//                HTTPResponseCodeError = 500,//数据错误
+//                HTTPResponseCodeError_01 = 401,//重新输入喵粮数量
+//                HTTPResponseCodeError_02 = 402,//输入有误请重新输入
+                
+                if (statusCode == HTTPResponseCodeSuccess) {//200 请求成功
                     if (httpResponse.isSuccess) {
-                        [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseDataKey]];
+                        [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseDataKey]];//
                         [subscriber sendCompleted];
                     }
-                }else{
-                    if (statusCode == HTTPResponseCodeNotLogin) {
-                        //可以在此处理需要登录的逻辑、比如说弹出登录框，但是，一般请求某个 api 判断了是否需要登录就不会进入
-                        //如果进入可一做错误处理
-                        NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-                        userInfo[HTTPServiceErrorHTTPStatusCodeKey] = @(statusCode);
-                        userInfo[HTTPServiceErrorDescriptionKey] = @"请登录!";
-                        NSError *noLoginError = [NSError errorWithDomain:HTTPServiceErrorDomain
-                                                                    code:statusCode
-                                                                userInfo:userInfo];
-                        FMHttpResonse *response = [[FMHttpResonse alloc] initWithResponseError:noLoginError
-                                                                                          code:statusCode
-                                                                                           msg:@"请登录!"];
-                        [subscriber sendNext:response];
-                        [subscriber sendCompleted];
-                        [self showMsgtext:@"请登录!"];
-                    }else{
-                        NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-                        userInfo[HTTPServiceErrorResponseCodeKey] = @(statusCode);
-                        NSString *msgTips = httpResponse.reqResult[HTTPServiceResponseMsgKey];
-                        if ((msgTips.length == 0 ||
-                             !msgTips ||
-                             [msgTips isKindOfClass:[NSNull class]])) {
-                            msgTips = @"服务器出错了，请稍后重试~";
-                        }
-                        userInfo[HTTPServiceErrorMessagesKey] = msgTips;
-                        if (task.currentRequest.URL) userInfo[HTTPServiceErrorRequestURLKey] = task.currentRequest.URL.absoluteString;
-                        if (task.error) userInfo[NSUnderlyingErrorKey] = task.error;
-                        NSError *requestError = [NSError errorWithDomain:HTTPServiceErrorDomain
-                                                                    code:statusCode
-                                                                userInfo:userInfo];
-                        //错误信息反馈回去了、可以在此做响应的弹窗处理，展示出服务器给我们的信息
-                        FMHttpResonse *response = [[FMHttpResonse alloc] initWithResponseError:requestError
-                                                                                          code:statusCode
-                                                                                           msg:msgTips];
-                        [subscriber sendNext:response];
-                        [subscriber sendCompleted];
-                        [self showMsgtext:msgTips];//错误处理
+                }else if (statusCode == HTTPResponseCodeNotLogin){//用户尚未登录
+                    //可以在此处理需要登录的逻辑、比如说弹出登录框，但是，一般请求某个 api 判断了是否需要登录就不会进入
+                    //如果进入可一做错误处理
+                    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+                    userInfo[HTTPServiceErrorHTTPStatusCodeKey] = @(statusCode);
+                    userInfo[HTTPServiceErrorDescriptionKey] = @"请登录!";
+                    NSError *noLoginError = [NSError errorWithDomain:HTTPServiceErrorDomain
+                                                                code:statusCode
+                                                            userInfo:userInfo];
+                    FMHttpResonse *response = [[FMHttpResonse alloc] initWithResponseError:noLoginError
+                                                                                      code:statusCode
+                                                                                       msg:@"请登录!"];
+                    [subscriber sendNext:response];
+                    [subscriber sendCompleted];
+                    [self showMsgtext:@"请登录!"];
+                }else if (statusCode == HTTPResponseCodeAnomalous){//300 数据异常
+                    if (httpResponse.isSuccess) {
+                        Toast(httpResponse.reqResult[HTTPServiceResponseMsgKey]);
                     }
+                }else if (statusCode == HTTPResponseCodeError){//500 数据错误
+                    if (httpResponse.isSuccess) {
+                        Toast(httpResponse.reqResult[HTTPServiceResponseMsgKey]);
+                    }
+                }else if (statusCode == HTTPResponseCodeError_01){//401 重新输入喵粮数量
+                    if (httpResponse.isSuccess) {
+                        [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseMsgKey]];//
+                        Toast(httpResponse.reqResult[HTTPServiceResponseMsgKey]);
+                    }
+                }else if (statusCode == HTTPResponseCodeError_02){//402 输入有误请重新输入
+                    if (httpResponse.isSuccess) {
+                        Toast(httpResponse.reqResult[HTTPServiceResponseMsgKey]);
+                    }
+                }else{//抛其他异常
+                    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+                    userInfo[HTTPServiceErrorResponseCodeKey] = @(statusCode);
+                    NSString *msgTips = httpResponse.reqResult[HTTPServiceResponseMsgKey];
+                    Toast(msgTips);
+                    userInfo[HTTPServiceErrorMessagesKey] = msgTips;
+                    if (task.currentRequest.URL) userInfo[HTTPServiceErrorRequestURLKey] = task.currentRequest.URL.absoluteString;
+                    if (task.error) userInfo[NSUnderlyingErrorKey] = task.error;
+                    NSError *requestError = [NSError errorWithDomain:HTTPServiceErrorDomain
+                                                                code:statusCode
+                                                            userInfo:userInfo];
+                    //错误信息反馈回去了、可以在此做响应的弹窗处理，展示出服务器给我们的信息
+                    FMHttpResonse *response = [[FMHttpResonse alloc] initWithResponseError:requestError
+                                                                                      code:statusCode
+                                                                                       msg:msgTips];
+                    [subscriber sendNext:response];
+                    [subscriber sendCompleted];
+                    [self showMsgtext:msgTips];//错误处理
                 }
             }
         }];

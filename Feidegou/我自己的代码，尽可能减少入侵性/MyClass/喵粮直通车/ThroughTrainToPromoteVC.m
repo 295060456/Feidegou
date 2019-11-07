@@ -99,7 +99,6 @@ UITableViewDataSource
 >
 
 @property(nonatomic,strong)UITableView *tableView;
-@property(nonatomic,strong)UITextField *textField;
 @property(nonatomic,strong)UIButton *btn;
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*detailTitleMutArr;
@@ -161,7 +160,11 @@ UITableViewDataSource
 
 -(void)btnClickEvent:(UIButton *)sender{
     NSLog(@"开启直通车抢摊位")
-    [self netWorking];
+    if (![NSString isNullString:self.quantity]) {
+        [self netWorking:self.quantity];
+    }else{
+        Toast(@"请输入您要抢摊位的数量");
+    }
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
@@ -193,8 +196,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             if ([data isKindOfClass:[NSString class]]) {
                 self.quantity = data;
             }
-        }];
-        return cell;
+        }];return cell;
     }else{
         UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
         if (!cell) {

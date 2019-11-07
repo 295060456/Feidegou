@@ -115,17 +115,19 @@
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response) {
             NSLog(@"--%@",response);
-            NSArray *array = [OrderListModel mj_objectArrayWithKeyValuesArray:response];
-            if (array) {
-                [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
-                                                    NSUInteger idx,
-                                                    BOOL * _Nonnull stop) {
-                    @strongify(self)
-                    OrderListModel *model = array[idx];
-                    [self.dataMutArr addObject:model];
-                }];
-                self.tableView.mj_footer.hidden = NO;
-                [self.tableView reloadData];
+            if ([response isKindOfClass:[NSArray class]]) {
+                NSArray *array = [OrderListModel mj_objectArrayWithKeyValuesArray:response];
+                if (array) {
+                    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
+                                                        NSUInteger idx,
+                                                        BOOL * _Nonnull stop) {
+                        @strongify(self)
+                        OrderListModel *model = array[idx];
+                        [self.dataMutArr addObject:model];
+                    }];
+                    self.tableView.mj_footer.hidden = NO;
+                    [self.tableView reloadData];
+                }
             }
         }
     }];

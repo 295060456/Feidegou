@@ -30,18 +30,20 @@
         if (response) {
             @strongify(self)
             NSLog(@"--%@",response);
-            NSArray *array = [CatFoodProducingAreaModel mj_objectArrayWithKeyValuesArray:response];
-            if (array) {
-                [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
-                                                    NSUInteger idx,
-                                                    BOOL * _Nonnull stop) {
-                    @strongify(self)
-                    CatFoodProducingAreaModel *model = array[idx];
-                    [self.dataMutArr addObject:model];
-                }];
+            if ([response isKindOfClass:[NSArray class]]) {
+                            NSArray *array = [CatFoodProducingAreaModel mj_objectArrayWithKeyValuesArray:response];
+                if (array) {
+                    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
+                                                        NSUInteger idx,
+                                                        BOOL * _Nonnull stop) {
+                        @strongify(self)
+                        CatFoodProducingAreaModel *model = array[idx];
+                        [self.dataMutArr addObject:model];
+                    }];
+                }
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView reloadData];
             }
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView reloadData];
         }
     }];
 }

@@ -29,7 +29,6 @@
                 self.QRcodeStr = dic[@"weixin_qr_img"];
                 [self QRcode];
             }
-
         }
     }];
 }

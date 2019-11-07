@@ -7,33 +7,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "40A73EA2-13AF-4732-82F0-E668EFDDCED5"
+            uuid = "DCF08468-1D5E-4DED-A740-ABB4417A5BCC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x55b5;&#x7cae;&#x76f4;&#x901a;&#x8f66;/ThroughTrainToPromoteVC+VM.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "-netWorking"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "-netWorking:"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "26F34EEE-26FB-466C-8948-7DEA17D4B9FE"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x55b5;&#x7cae;&#x76f4;&#x901a;&#x8f66;/ThroughTrainToPromoteVC+VM.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
-            landmarkName = "-netWorking"
-            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DCF08468-1D5E-4DED-A740-ABB4417A5BCC - 1b63145ae6518207"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ThroughTrainToPromoteVC(VM) netWorking:]"
+                  moduleName = "Feidegou"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/whiskey_on_the_rocks/Documents/GitHub%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6/Feidegou/Feidegou/%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%8C%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%87%8F%E5%B0%91%E5%85%A5%E4%BE%B5%E6%80%A7/MyClass/%E5%96%B5%E7%B2%AE%E7%9B%B4%E9%80%9A%E8%BD%A6/ThroughTrainToPromoteVC+VM.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "860">
+               </Location>
+               <Location
+                  uuid = "DCF08468-1D5E-4DED-A740-ABB4417A5BCC - 6d521694dfec7791"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__42-[ThroughTrainToPromoteVC(VM) netWorking:]_block_invoke"
+                  moduleName = "Feidegou"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/whiskey_on_the_rocks/Documents/GitHub%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6/Feidegou/Feidegou/%E6%88%91%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BB%A3%E7%A0%81%EF%BC%8C%E5%B0%BD%E5%8F%AF%E8%83%BD%E5%87%8F%E5%B0%91%E5%85%A5%E4%BE%B5%E6%80%A7/MyClass/%E5%96%B5%E7%B2%AE%E7%9B%B4%E9%80%9A%E8%BD%A6/ThroughTrainToPromoteVC+VM.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "31"
+                  endingLineNumber = "31"
+                  offsetFromSymbolStart = "47">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

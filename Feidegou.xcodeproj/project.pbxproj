@@ -47,6 +47,8 @@
 		8B8B0D9723683A480040EE53 /* WholesaleMarket_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D9623683A480040EE53 /* WholesaleMarket_VipVC.m */; };
 		8B8B0D9E236960960040EE53 /* ReleaseOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D9D236960960040EE53 /* ReleaseOrderVC.m */; };
 		8B8D59452372E03400F002B9 /* ReleaseOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8D59442372E03400F002B9 /* ReleaseOrderModel.m */; };
+		8B9EAF87237417390012884C /* SettingPaymentWayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF86237417390012884C /* SettingPaymentWayVC.m */; };
+		8B9EAF8A2374175D0012884C /* SettingPaymentWayVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF892374175D0012884C /* SettingPaymentWayVC+VM.m */; };
 		8BB0F6CE236BDAC2009498B6 /* WholesaleOrders_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB0F6CD236BDAC2009498B6 /* WholesaleOrders_VipVC.m */; };
 		8BB0F6D3236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB0F6D2236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m */; };
 		8BB2D2812366C6990047D0E2 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2772366C6990047D0E2 /* TwitterHeart.json */; };
@@ -693,6 +695,10 @@
 		8B8B0DA32369635E0040EE53 /* HistoryDataListTBV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDataListTBV.m; sourceTree = "<group>"; };
 		8B8D59432372E03400F002B9 /* ReleaseOrderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReleaseOrderModel.h; sourceTree = "<group>"; };
 		8B8D59442372E03400F002B9 /* ReleaseOrderModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReleaseOrderModel.m; sourceTree = "<group>"; };
+		8B9EAF85237417390012884C /* SettingPaymentWayVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingPaymentWayVC.h; sourceTree = "<group>"; };
+		8B9EAF86237417390012884C /* SettingPaymentWayVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingPaymentWayVC.m; sourceTree = "<group>"; };
+		8B9EAF882374175D0012884C /* SettingPaymentWayVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SettingPaymentWayVC+VM.h"; sourceTree = "<group>"; };
+		8B9EAF892374175D0012884C /* SettingPaymentWayVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SettingPaymentWayVC+VM.m"; sourceTree = "<group>"; };
 		8BB0F6CC236BDAC2009498B6 /* WholesaleOrders_VipVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleOrders_VipVC.h; sourceTree = "<group>"; };
 		8BB0F6CD236BDAC2009498B6 /* WholesaleOrders_VipVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleOrders_VipVC.m; sourceTree = "<group>"; };
 		8BB0F6D1236C48D8009498B6 /* WholesaleOrders_AdvanceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleOrders_AdvanceVC.h; sourceTree = "<group>"; };
@@ -1821,6 +1827,17 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		8B7E6DE0237416CA0023314C /* 设置支付方式 */ = {
+			isa = PBXGroup;
+			children = (
+				8B9EAF85237417390012884C /* SettingPaymentWayVC.h */,
+				8B9EAF86237417390012884C /* SettingPaymentWayVC.m */,
+				8B9EAF882374175D0012884C /* SettingPaymentWayVC+VM.h */,
+				8B9EAF892374175D0012884C /* SettingPaymentWayVC+VM.m */,
+			);
+			path = "设置支付方式";
+			sourceTree = "<group>";
+		};
 		8B8B0D702368278E0040EE53 /* PopMenuView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2150,6 +2167,7 @@
 				8BB2D2EE2366C7310047D0E2 /* Q宠 */,
 				8BB2D2F12366C7310047D0E2 /* 喵粮直通车 */,
 				8BB2D2FD2366C7310047D0E2 /* 赠送 */,
+				8B7E6DE0237416CA0023314C /* 设置支付方式 */,
 			);
 			path = MyClass;
 			sourceTree = "<group>";
@@ -4533,6 +4551,7 @@
 				C42CD104213CC2640096675F /* FilterMoreController.m in Sources */,
 				C42CD091213CC2640096675F /* OrderAttribute.m in Sources */,
 				C42CD18C213CC2640096675F /* NSSet+HYBUnicodeReadable.m in Sources */,
+				8B9EAF8A2374175D0012884C /* SettingPaymentWayVC+VM.m in Sources */,
 				8BB2D3432366CB410047D0E2 /* FMHttpResonse.m in Sources */,
 				C42CD1C3213CC2640096675F /* ModelAreaList.m in Sources */,
 				8BCB993423719DEA0063E01E /* GiftVC+VM.m in Sources */,
@@ -4567,6 +4586,7 @@
 				C42CD1B0213CC2640096675F /* MineNavigationController.m in Sources */,
 				8BB2D36A2366CBA70047D0E2 /* TZVideoPlayerController.m in Sources */,
 				8BB2D3912366CC3F0047D0E2 /* NSString+Url_Chinese.m in Sources */,
+				8B9EAF87237417390012884C /* SettingPaymentWayVC.m in Sources */,
 				C41628162171C14300DC0D10 /* CellTuihuoInfo.m in Sources */,
 				C42CD1D1213CC2650096675F /* ModelRankList.m in Sources */,
 				C42CD1AD213CC2640096675F /* PersonalInfo.m in Sources */,

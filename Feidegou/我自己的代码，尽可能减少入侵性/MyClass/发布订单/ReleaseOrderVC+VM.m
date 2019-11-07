@@ -22,9 +22,11 @@
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response) {
             NSLog(@"--%@",response);
-            [self.tableView.mj_header endRefreshing];
-            self.releaseOrderModel = [ReleaseOrderModel mj_objectWithKeyValues:response];
-            [self.tableView reloadData];
+            if ([response isKindOfClass:[NSDictionary class]]) {
+                [self.tableView.mj_header endRefreshing];
+                self.releaseOrderModel = [ReleaseOrderModel mj_objectWithKeyValues:response];
+                [self.tableView reloadData];
+            }
         }
     }];
 }

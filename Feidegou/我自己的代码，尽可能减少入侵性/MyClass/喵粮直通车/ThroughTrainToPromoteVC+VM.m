@@ -10,12 +10,12 @@
 
 @implementation ThroughTrainToPromoteVC (VM)
 
--(void)netWorking{
+-(void)netWorking:(NSString *)quantity{
     if (![NSString isNullString:self.quantity]) {
             extern NSString *randomStr;
         NSDictionary *dataDic = @{
             @"user_id":@"1",//KKK
-            @"quantity":self.quantity
+            @"quantity":quantity
         };
         randomStr = [EncryptUtils shuffledAlphabet:16];
         FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
@@ -27,16 +27,27 @@
                                                          }];
         self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
         [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-            if (response) {
-                NSLog(@"--%@",response);
-                if (!response.reqError) {
-                    @weakify(self)
-                    [StallListVC pushFromVC:self_weak_
-                              requestParams:nil
-                                    success:^(id data) {}
-                                   animated:YES];
-                }
-            }
+#warning 以下是临时的
+            @weakify(self)
+            [StallListVC pushFromVC:self_weak_
+                      requestParams:nil
+                            success:^(id data) {}
+                           animated:YES];
+#warning 以上是临时的
+//            if ([response isKindOfClass:[NSArray class]]) {
+//                
+//            }
+            
+//            if (response) {
+//                NSLog(@"--%@",response);\
+//                if (!response.reqError) {
+//                    @weakify(self)
+//                    [StallListVC pushFromVC:self_weak_
+//                              requestParams:nil
+//                                    success:^(id data) {}
+//                                   animated:YES];
+//                }
+//            }
         }];
     }
 }

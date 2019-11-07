@@ -29,17 +29,19 @@
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response) {
             NSLog(@"--%@",response);
-            NSArray *array = [WholesaleMarket_AdvanceModel mj_objectArrayWithKeyValuesArray:response];
-            [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
-                                                NSUInteger idx,
-                                                BOOL * _Nonnull stop) {
-                @strongify(self)
-                WholesaleMarket_AdvanceModel *model = array[idx];
-                [self.dataMutArr addObject:model];
-            }];
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView.mj_footer endRefreshing];
-            [self.tableView reloadData];
+            if ([response isKindOfClass:[NSArray class]]) {
+                NSArray *array = [WholesaleMarket_AdvanceModel mj_objectArrayWithKeyValuesArray:response];
+                [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
+                                                    NSUInteger idx,
+                                                    BOOL * _Nonnull stop) {
+                    @strongify(self)
+                    WholesaleMarket_AdvanceModel *model = array[idx];
+                    [self.dataMutArr addObject:model];
+                }];
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView.mj_footer endRefreshing];
+                [self.tableView reloadData];
+            }
         }
     }];
 }

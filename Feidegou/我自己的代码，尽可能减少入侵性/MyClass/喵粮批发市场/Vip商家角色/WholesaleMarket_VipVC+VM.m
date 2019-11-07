@@ -29,20 +29,22 @@
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response) {
             NSLog(@"--%@",response);
-            NSArray *array = [WholesaleMarket_VipModel mj_objectArrayWithKeyValuesArray:response];
-            if (array) {
-                [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
-                                                    NSUInteger idx,
-                                                    BOOL * _Nonnull stop) {
-                    @strongify(self)
-                    WholesaleMarket_VipModel *model = array[idx];
-                    [self.dataMutArr addObject:model];
-                }];
-                NSLog(@"1234");
-                self.stockView.jjStockTableView.mj_footer.hidden = NO;
-                [self.stockView.jjStockTableView reloadData];
-                [self.stockView.jjStockTableView.mj_header endRefreshing];
-                [self.stockView.jjStockTableView.mj_footer endRefreshing];
+            if ([response isKindOfClass:[NSArray class]]) {
+                            NSArray *array = [WholesaleMarket_VipModel mj_objectArrayWithKeyValuesArray:response];
+                if (array) {
+                    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
+                                                        NSUInteger idx,
+                                                        BOOL * _Nonnull stop) {
+                        @strongify(self)
+                        WholesaleMarket_VipModel *model = array[idx];
+                        [self.dataMutArr addObject:model];
+                    }];
+                    NSLog(@"1234");
+                    self.stockView.jjStockTableView.mj_footer.hidden = NO;
+                    [self.stockView.jjStockTableView reloadData];
+                    [self.stockView.jjStockTableView.mj_header endRefreshing];
+                    [self.stockView.jjStockTableView.mj_footer endRefreshing];
+                }
             }
         }
     }];
