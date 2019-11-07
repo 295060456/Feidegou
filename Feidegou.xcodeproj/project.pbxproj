@@ -15,6 +15,7 @@
 		8B17DE3A2371B4E7001161BB /* WholesaleMarket_VipVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B17DE392371B4E7001161BB /* WholesaleMarket_VipVC+VM.m */; };
 		8B17DE3D2371BA9C001161BB /* WholesaleMarket_VipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B17DE3C2371BA9C001161BB /* WholesaleMarket_VipModel.m */; };
 		8B17DE402371CF60001161BB /* ReleaseOrderVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B17DE3F2371CF60001161BB /* ReleaseOrderVC+VM.m */; };
+		8B2CFD0423731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2CFD0323731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.m */; };
 		8B40A2C32372F84200ED42DB /* CatFoodProducingAreaVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C22372F84200ED42DB /* CatFoodProducingAreaVC+VM.m */; };
 		8B40A2C62372FA2E00ED42DB /* CatFoodProducingAreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C52372FA2E00ED42DB /* CatFoodProducingAreaModel.m */; };
 		8B40A2C92373016300ED42DB /* ShopReceiptQRcodeVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C82373016300ED42DB /* ShopReceiptQRcodeVC+VM.m */; };
@@ -629,6 +630,8 @@
 		8B17DE3C2371BA9C001161BB /* WholesaleMarket_VipModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_VipModel.m; sourceTree = "<group>"; };
 		8B17DE3E2371CF60001161BB /* ReleaseOrderVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReleaseOrderVC+VM.h"; sourceTree = "<group>"; };
 		8B17DE3F2371CF60001161BB /* ReleaseOrderVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ReleaseOrderVC+VM.m"; sourceTree = "<group>"; };
+		8B2CFD0223731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WholesaleOrders_AdvanceVC+VM.h"; sourceTree = "<group>"; };
+		8B2CFD0323731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WholesaleOrders_AdvanceVC+VM.m"; sourceTree = "<group>"; };
 		8B40A2C12372F84200ED42DB /* CatFoodProducingAreaVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CatFoodProducingAreaVC+VM.h"; sourceTree = "<group>"; };
 		8B40A2C22372F84200ED42DB /* CatFoodProducingAreaVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CatFoodProducingAreaVC+VM.m"; sourceTree = "<group>"; };
 		8B40A2C42372FA2E00ED42DB /* CatFoodProducingAreaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatFoodProducingAreaModel.h; sourceTree = "<group>"; };
@@ -1910,6 +1913,8 @@
 			children = (
 				8BB0F6D1236C48D8009498B6 /* WholesaleOrders_AdvanceVC.h */,
 				8BB0F6D2236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m */,
+				8B2CFD0223731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.h */,
+				8B2CFD0323731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.m */,
 			);
 			path = "高级商家角色";
 			sourceTree = "<group>";
@@ -4518,6 +4523,7 @@
 				C42CD14E213CC2640096675F /* CLCellGoodTypeHead.m in Sources */,
 				8BB2D33B2366CAF90047D0E2 /* CatFoodsManagementVC.m in Sources */,
 				C46143F3214386B6000C0CDC /* CellVendorShop.m in Sources */,
+				8B2CFD0423731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.m in Sources */,
 				C42CD147213CC2640096675F /* FilterTypeController.m in Sources */,
 				C42CD11E213CC2640096675F /* CLCellType.m in Sources */,
 				C42CD19E213CC2640096675F /* UIButton+Joker.m in Sources */,
@@ -4898,7 +4904,7 @@
 					"$(PROJECT_DIR)/Feidegou/Controllers/Alipay",
 					"$(PROJECT_DIR)/Feidegou/Utils/Lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xinyu.feidegouss;
+				PRODUCT_BUNDLE_IDENTIFIER = com.feidegou.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -4946,7 +4952,7 @@
 					"$(PROJECT_DIR)/Feidegou/Controllers/Alipay",
 					"$(PROJECT_DIR)/Feidegou/Utils/Lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.xinyu.feidegouss;
+				PRODUCT_BUNDLE_IDENTIFIER = com.feidegou.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

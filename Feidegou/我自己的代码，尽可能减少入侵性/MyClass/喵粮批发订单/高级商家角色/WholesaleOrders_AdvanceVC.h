@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WholesaleOrders_AdvanceVC : BaseVC
 
+@property(nonatomic,strong)id requestParams;
+
 + (instancetype)pushFromVC:(UIViewController *)rootVC
              requestParams:(nullable id)requestParams
                    success:(DataBlock)block

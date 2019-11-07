@@ -13,7 +13,8 @@
 
 @interface WholesaleMarket_AdvancePopView ()
 <
-UITextFieldDelegate
+UITextFieldDelegate,
+BEMCheckBoxDelegate
 >
 {
 }
@@ -26,7 +27,13 @@ UITextFieldDelegate
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,assign)CGRect framer;
 @property(nonatomic,copy)ActionBlock block;
-@property(nonatomic,copy)DataBlock dataBlock;
+@property(nonatomic,copy)TwoDataBlock dataBlock;
+@property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
+@property(nonatomic,strong)NSMutableArray <UILabel *>*mutArr;
+@property(nonatomic,strong)NSMutableArray <BEMCheckBox *>*checkBoxMutArr;
+@property(nonatomic,strong)NSNumber *tagger;
+@property(nonatomic,strong)BEMCheckBoxGroup *checkBoxGroup;
+
 
 @end
 
@@ -63,38 +70,123 @@ UITextFieldDelegate
         //0、都没有;2、支付宝;3、微信;4、银行卡;5、支付宝 + 微信;6、支付宝 + 银行卡;7、微信 + 银行卡;9、支付宝 + 微信 + 银行卡
         switch ([wholesaleMarket_AdvanceModel.payment_type intValue]) {
             case 0:{//都没有
-                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"" ReplaceStr:@""]];
+//                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"" ReplaceStr:@""]];
             }break;
             case 2:{//支付宝
-                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"支付宝" ReplaceStr:@""]];
+                [self.dataMutArr addObject:@"支付宝"];
+//                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"支付宝" ReplaceStr:@""]];
             }break;
             case 3:{//微信
-                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"微信" ReplaceStr:@""]];
+                [self.dataMutArr addObject:@"微信"];
+//                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"微信" ReplaceStr:@""]];
             }break;
             case 4:{//银行卡
-                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"银行卡" ReplaceStr:@""]];
+                [self.dataMutArr addObject:@"银行卡"];
+//                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"银行卡" ReplaceStr:@""]];
             }break;
             case 5:{//支付宝 + 微信
-                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"支付宝 + 微信" ReplaceStr:@""]];
+                [self.dataMutArr addObject:@"支付宝"];
+                [self.dataMutArr addObject:@"微信"];
+//                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"支付宝 + 微信" ReplaceStr:@""]];
             }break;
             case 6:{//支付宝 + 银行卡
-                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"支付宝 + 银行卡" ReplaceStr:@""]];
+                [self.dataMutArr addObject:@"支付宝"];
+                [self.dataMutArr addObject:@"银行卡"];
+//                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"支付宝 + 银行卡" ReplaceStr:@""]];
             }break;
             case 7:{//微信 + 银行卡
-                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"微信 + 银行卡" ReplaceStr:@""]];
+                [self.dataMutArr addObject:@"微信"];
+                [self.dataMutArr addObject:@"银行卡"];
+//                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"微信 + 银行卡" ReplaceStr:@""]];
             }break;
             case 9:{//支付宝 + 微信 + 银行卡
-                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"支付宝 + 微信 + 银行卡" ReplaceStr:@""]];
+                [self.dataMutArr addObject:@"支付宝"];
+                [self.dataMutArr addObject:@"微信"];
+                [self.dataMutArr addObject:@"银行卡"];
+//                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"支付宝 + 微信 + 银行卡" ReplaceStr:@""]];
             }break;
                 
             default:
                 break;
         }
+#warning 以下是暂时的
+        [self.dataMutArr addObject:@"支付宝"];
+        [self.dataMutArr addObject:@"微信"];
+        [self.dataMutArr addObject:@"银行卡"];
+#warning 以上是暂时的
+        
+        [self BEMCheckBoxWithDataArr:self.dataMutArr];
+        [self setupBEMCheckBoxGroup];
         self.framer = self.frame;
     }
 }
+#pragma mark —— BEMCheckBoxDelegate
+- (void)didTapCheckBox:(BEMCheckBox*)checkBox{
+    self.tagger = [NSNumber numberWithInteger:checkBox.tag];
+}
+#pragma mark —— 私有方法
+- (void)setupBEMCheckBoxGroup {//单选
+    NSArray *checkBoxArray = self.checkBoxMutArr;
+    self.checkBoxGroup = [BEMCheckBoxGroup groupWithCheckBoxes:checkBoxArray];
+    self.tagger = [NSNumber numberWithInteger:0];
+    self.checkBoxGroup.selectedCheckBox = self.checkBoxMutArr[0];
+    self.checkBoxGroup.mustHaveSelection = YES;
+}
 
--(void)clickBlock:(DataBlock)block{
+-(void)BEMCheckBoxWithDataArr:(NSMutableArray <NSString *>*)dataMutArr{
+//    NSMutableArray <UILabel *>*mutArr = NSMutableArray.array;
+    for (int t = 0; t < self.dataMutArr.count; t++) {
+        BEMCheckBox *checkBox = BEMCheckBox.new;
+        // 矩形复选框
+        checkBox.boxType = BEMBoxTypeSquare;
+        checkBox.tag = t;
+        checkBox.delegate = self;
+        // 动画样式
+        checkBox.onAnimationType  = BEMAnimationTypeStroke;
+        checkBox.offAnimationType = BEMAnimationTypeStroke;
+        checkBox.animationDuration = 0.3;
+        // 颜色样式
+        checkBox.tintColor    = kWhiteColor;
+        checkBox.onTintColor  = HEXCOLOR(0x108EE9);
+        checkBox.onFillColor  = kClearColor;
+        checkBox.onCheckColor = HEXCOLOR(0x108EE9);
+
+        UILabel *titleLab = UILabel.new;
+        titleLab.text = dataMutArr[t];
+        titleLab.textAlignment = NSTextAlignmentCenter;
+        [titleLab sizeToFit];
+        [self addSubview:checkBox];
+        [self addSubview:titleLab];
+        [self.mutArr addObject:titleLab];//KKK 这个地方用局部变量会出错？
+        [self.checkBoxMutArr addObject:checkBox];
+        if (self.mutArr.count == 1) {
+            [checkBox mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.paymentMethodLab.mas_right).offset(SCALING_RATIO(5));
+                make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(20), SCALING_RATIO(20)));
+                make.centerY.equalTo(self.paymentMethodLab);
+            }];
+            [self layoutIfNeeded];
+            NSLog(@"12");
+        }else{
+           UILabel *lab = (UILabel *)self.mutArr[self.mutArr.count - 2];
+            [checkBox mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(lab.mas_right).offset(SCALING_RATIO(5));
+                make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(20), SCALING_RATIO(20)));
+                make.centerY.equalTo(self.paymentMethodLab);
+            }];
+            [self layoutIfNeeded];
+            NSLog(@"12");
+        }
+        [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(checkBox.mas_right).offset(SCALING_RATIO(5));
+            make.centerY.equalTo(checkBox);
+        }];
+        [self layoutIfNeeded];
+        NSLog(@"12");
+    }
+}
+
+-(void)clickBlock:(TwoDataBlock)block{
     _dataBlock = block;
 }
 
@@ -108,8 +200,9 @@ UITextFieldDelegate
 //    CGFloat offsetY = currentP.y - preP.y;//Y轴偏移的量
     if (offsetX < 0) {//向左滑
         NSLog(@"向左滑");
-        self.transform = CGAffineTransformTranslate(self.transform, offsetX, 0);
-        
+        self.transform = CGAffineTransformTranslate(self.transform,
+                                                    offsetX,
+                                                    0);
     }
 }
 
@@ -130,7 +223,7 @@ UITextFieldDelegate
 #pragma mark —— 点击事件
 -(void)clickPurchaseBtnEvent:(UIButton *)sender{
     if (self.dataBlock) {
-        self.dataBlock(sender);
+        self.dataBlock(self.textfield,self.tagger);
     }
 }
 #pragma mark —— UITextFieldDelegate
@@ -138,7 +231,7 @@ UITextFieldDelegate
 //- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
 //告诉委托人在指定的文本字段中开始编辑
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
-
+    
 }
 //询问委托人是否应在指定的文本字段中停止编辑
 //- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
@@ -185,6 +278,7 @@ UITextFieldDelegate
 -(UILabel *)paymentMethodLab{
     if (!_paymentMethodLab) {
         _paymentMethodLab = UILabel.new;
+        _paymentMethodLab.text = @"支付方式:";
         _paymentMethodLab.font = [UIFont systemFontOfSize:15];
         [self addSubview:_paymentMethodLab];
         [_paymentMethodLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -200,6 +294,7 @@ UITextFieldDelegate
         _textfield.placeholder = @"在此输入数量";
         _textfield.backgroundColor = KGreenColor;
         _textfield.delegate = self;
+        _textfield.keyboardType = UIKeyboardTypeDecimalPad;
         [self addSubview:_textfield];
         [_textfield mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(SCALING_RATIO(5));
@@ -226,6 +321,24 @@ UITextFieldDelegate
                                              SCALING_RATIO(20)));
         }];
     }return _purchaseBtn;
+}
+
+-(NSMutableArray<NSString *> *)dataMutArr{
+    if (!_dataMutArr) {
+        _dataMutArr = NSMutableArray.array;
+    }return _dataMutArr;
+}
+
+-(NSMutableArray<UILabel *> *)mutArr{
+    if (!_mutArr) {
+        _mutArr = NSMutableArray.array;
+    }return _mutArr;
+}
+
+-(NSMutableArray<BEMCheckBox *> *)checkBoxMutArr{
+    if (!_checkBoxMutArr) {
+        _checkBoxMutArr = NSMutableArray.array;
+    }return _checkBoxMutArr;
 }
 
 @end
@@ -279,30 +392,29 @@ UITextFieldDelegate
         self.limitLab.text = [NSString stringWithFormat:@"限额:%@ ~ %@ ",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity_min ReplaceStr:@""],[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity_max ReplaceStr:@""]];
         switch ([wholesaleMarket_AdvanceModel.payment_type intValue]) {
             case 0:{//都没有
-                self.paymentMethodLab.text = @"";
+                self.paymentMethodLab.text = @"支付方式:暂时缺乏";
             }break;
             case 2:{//支付宝
-                self.paymentMethodLab.text = @"支付宝";
+                self.paymentMethodLab.text = @"支付方式:支付宝";
             }break;
             case 3:{//微信
-                self.paymentMethodLab.text = @"微信";
+                self.paymentMethodLab.text = @"支付方式:微信";
             }break;
             case 4:{//银行卡
-                self.paymentMethodLab.text = @"银行卡";
+                self.paymentMethodLab.text = @"支付方式:银行卡";
             }break;
             case 5:{//支付宝 + 微信
-                self.paymentMethodLab.text = @"支付宝/微信";
+                self.paymentMethodLab.text = @"支付方式:支付宝/微信";
             }break;
             case 6:{//支付宝 + 银行卡
-                self.paymentMethodLab.text = @"支付宝银行卡";
+                self.paymentMethodLab.text = @"支付方式:支付宝银行卡";
             }break;
             case 7:{//微信 + 银行卡
-                self.paymentMethodLab.text = @"微信/银行卡";
+                self.paymentMethodLab.text = @"支付方式:微信/银行卡";
             }break;
             case 9:{//支付宝 + 微信 + 银行卡
-                self.paymentMethodLab.text = @"支付宝/微信/银行卡";
+                self.paymentMethodLab.text = @"支付方式:支付宝/微信/银行卡";
             }break;
-                
             default:
                 break;
         }
@@ -379,6 +491,12 @@ UITextFieldDelegate
 -(UILabel *)paymentMethodLab{
     if (!_paymentMethodLab) {
         _paymentMethodLab = UILabel.new;
+        [UIView cornerCutToCircleWithView:_paymentMethodLab
+                          AndCornerRadius:5.f];
+        [UIView colourToLayerOfView:_paymentMethodLab
+                         WithColour:kWhiteColor
+                     AndBorderWidth:0.3f];
+        [_paymentMethodLab sizeToFit];
         [self.contentView addSubview:_paymentMethodLab];
         [_paymentMethodLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-5));
@@ -601,11 +719,17 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                          completion:^(BOOL finished) {
 //            @strongify(self)
         }];
-        [_popView clickBlock:^(id data) {
-            [WholesaleOrders_AdvanceVC pushFromVC:self_weak_
-                                    requestParams:nil
-                                          success:^(id data) {}
-                                         animated:YES];
+        
+        [_popView clickBlock:^(id data, id data2) {//点击购买 发送 (self.textfield,self.tagger)
+//            @strongify(self)
+            if ([data isKindOfClass:[UITextField class]] &&
+                [data2 isKindOfClass:[NSNumber class]]) {
+                UITextField *textfield = (UITextField *)data;
+                [WholesaleOrders_AdvanceVC pushFromVC:self_weak_
+                                        requestParams:@[textfield.text,data2]
+                                              success:^(id data) {}
+                                             animated:YES];
+            }
         }];
     }return _popView;
 }

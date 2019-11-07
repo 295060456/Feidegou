@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (WholesaleMarket_AdvancePopView *) shareManager;
 - (instancetype)initWithRequestParams:(id)requestParams;
--(void)clickBlock:(DataBlock)block;
+-(void)clickBlock:(TwoDataBlock)block;
 
 @end
 

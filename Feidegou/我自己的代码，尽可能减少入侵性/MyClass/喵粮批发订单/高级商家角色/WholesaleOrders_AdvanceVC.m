@@ -8,6 +8,7 @@
 
 #import "WholesaleOrders_AdvanceVC.h"
 #import "WholesaleMarket_AdvanceVC.h"
+#import "WholesaleOrders_AdvanceVC+VM.h"
 
 @interface WholesaleOrders_AdvanceVC ()
 <
@@ -23,7 +24,6 @@ TZImagePickerControllerDelegate
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)__block UIImage *img;
 
-@property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
@@ -65,7 +65,7 @@ TZImagePickerControllerDelegate
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.tableView.alpha = 1;
+    [self.tableView.mj_header beginRefreshing];
     self.paidBtn.alpha = 1;
     self.cancelBtn.alpha = 1;
 }
@@ -84,6 +84,19 @@ TZImagePickerControllerDelegate
     }
 }
 #pragma mark —— 私有方法
+// 下拉刷新
+-(void)pullToRefresh{
+    NSLog(@"下拉刷新");
+//    if (self.dataMutArr.count) {
+//        [self.dataMutArr removeAllObjects];
+//    }
+    [self netWorking];
+}
+//上拉加载更多
+- (void)loadMoreRefresh{
+    NSLog(@"上拉加载更多");
+   [self.tableView.mj_footer endRefreshing];
+}
 #pragma mark —— 点击事件
 -(void)paidBtnClickEvent:(UIButton *)sender{
     if ([sender.titleLabel.text isEqualToString:@"上传付款凭证"]) {
@@ -261,7 +274,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                           BOOL isSelectOriginalPhoto) {
             @strongify(self)
             if (photos.count == 1) {
-                self.img = photos.lastObject;//拿到值
+                [self upLoadPic_netWorking:photos.lastObject];
                 [self.paidBtn setTitle:@"已付款"
                               forState:UIControlStateNormal];
             }else{
