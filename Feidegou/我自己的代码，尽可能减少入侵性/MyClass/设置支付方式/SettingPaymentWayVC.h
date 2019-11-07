@@ -7,12 +7,13 @@
 //
 
 #import "BaseVC.h"
+#import "XDMultTableView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SettingPaymentWayVC : BaseVC
 
-@property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,strong)XDMultTableView *tableView;
 
 + (instancetype)pushFromVC:(UIViewController *)rootVC
              requestParams:(nullable id)requestParams

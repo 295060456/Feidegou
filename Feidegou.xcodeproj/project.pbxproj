@@ -121,6 +121,8 @@
 		8BB2D3942366CC500047D0E2 /* ZYTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3372366C7310047D0E2 /* ZYTextField.m */; };
 		8BB2D3952366CC550047D0E2 /* UIView+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D31A2366C7310047D0E2 /* UIView+Extras.m */; };
 		8BB2D43E2367F9BB0047D0E2 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */; };
+		8BC386682374718100FE8C02 /* XDMultTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC386652374718100FE8C02 /* XDMultTableView.m */; };
+		8BC386692374718100FE8C02 /* down_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC386662374718100FE8C02 /* down_blue@2x.png */; };
 		8BCB98C2237154940063E01E /* UpLoadCancelReasonVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98C1237154940063E01E /* UpLoadCancelReasonVC+VM.m */; };
 		8BCB98C823715D380063E01E /* EncryptUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98C423715D370063E01E /* EncryptUtils.m */; };
 		8BCB98C923715D380063E01E /* RSAUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98C723715D380063E01E /* RSAUtil.m */; };
@@ -845,6 +847,9 @@
 		8BB2D3662366CBA60047D0E2 /* TZImageRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageRequestOperation.m; sourceTree = "<group>"; };
 		8BB2D3672366CBA60047D0E2 /* TZProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZProgressView.h; sourceTree = "<group>"; };
 		8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		8BC386652374718100FE8C02 /* XDMultTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XDMultTableView.m; sourceTree = "<group>"; };
+		8BC386662374718100FE8C02 /* down_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down_blue@2x.png"; sourceTree = "<group>"; };
+		8BC386672374718100FE8C02 /* XDMultTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDMultTableView.h; sourceTree = "<group>"; };
 		8BCB98C0237154940063E01E /* UpLoadCancelReasonVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UpLoadCancelReasonVC+VM.h"; sourceTree = "<group>"; };
 		8BCB98C1237154940063E01E /* UpLoadCancelReasonVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UpLoadCancelReasonVC+VM.m"; sourceTree = "<group>"; };
 		8BCB98C423715D370063E01E /* EncryptUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncryptUtils.m; sourceTree = "<group>"; };
@@ -1833,6 +1838,7 @@
 		8B7E6DE0237416CA0023314C /* 设置支付方式 */ = {
 			isa = PBXGroup;
 			children = (
+				8BC386642374718100FE8C02 /* XDMultTableView */,
 				8B9EAF85237417390012884C /* SettingPaymentWayVC.h */,
 				8B9EAF86237417390012884C /* SettingPaymentWayVC.m */,
 				8B9EAF8B237429950012884C /* SettingPaymentWayTBViewForHeader.h */,
@@ -2508,6 +2514,16 @@
 			);
 			name = TZImagePickerController;
 			path = "TZImagePickerController（ 3.2.3）/TZImagePickerController";
+			sourceTree = "<group>";
+		};
+		8BC386642374718100FE8C02 /* XDMultTableView */ = {
+			isa = PBXGroup;
+			children = (
+				8BC386662374718100FE8C02 /* down_blue@2x.png */,
+				8BC386672374718100FE8C02 /* XDMultTableView.h */,
+				8BC386652374718100FE8C02 /* XDMultTableView.m */,
+			);
+			path = XDMultTableView;
 			sourceTree = "<group>";
 		};
 		8BCB98C323715D2A0063E01E /* 加密体系 */ = {
@@ -4187,6 +4203,7 @@
 				C42CD0A2213CC2640096675F /* CellSendWay.xib in Resources */,
 				C42CD07C213CC2640096675F /* CLCellOneLbl.xib in Resources */,
 				C42CCCE1213CC04F0096675F /* Main.storyboard in Resources */,
+				8BC386692374718100FE8C02 /* down_blue@2x.png in Resources */,
 				C46368F0213FBE6D006922D5 /* CLCellBanner.xib in Resources */,
 				C46143F7214386B6000C0CDC /* CLCellUpImgLbl.xib in Resources */,
 				C42CD0DE213CC2640096675F /* CellLogisticsTitle.xib in Resources */,
@@ -4600,6 +4617,7 @@
 				C42CD0C4213CC2640096675F /* CellAddress.m in Sources */,
 				C42CD12D213CC2640096675F /* CellDiscuss.m in Sources */,
 				C42CD0F8213CC2640096675F /* GoodsListController.m in Sources */,
+				8BC386682374718100FE8C02 /* XDMultTableView.m in Sources */,
 				C42CD0C1213CC2640096675F /* CellOrderAddressYes.m in Sources */,
 				8B17DE3D2371BA9C001161BB /* WholesaleMarket_VipModel.m in Sources */,
 				C42CD095213CC2640096675F /* OrderLogisticsDetailController.m in Sources */,

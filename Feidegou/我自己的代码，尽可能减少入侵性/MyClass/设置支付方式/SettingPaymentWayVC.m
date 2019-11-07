@@ -12,8 +12,8 @@
 
 @interface SettingPaymentWayVC ()
 <
-UITableViewDelegate,
-UITableViewDataSource
+XDMultTableViewDatasource,
+XDMultTableViewDelegate
 >
 
 @property(nonatomic,strong)NSMutableArray <NSMutableArray *>*dataMutArr;
@@ -63,10 +63,12 @@ UITableViewDataSource
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.gk_navTitle = @"喵粮管理";
-    self.tableView.alpha = 1;
+    
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    
+    self.tableView.alpha = 1;
 //    [self netWorking];
 }
 
@@ -74,103 +76,78 @@ UITableViewDataSource
     [super viewWillAppear:animated];
 //    [self.tableView.mj_header beginRefreshing];
 }
-#pragma mark —— UITableViewDelegate,UITableViewDataSource
-- (UIView *)tableView:(UITableView *)tableView
-viewForHeaderInSection:(NSInteger)section {
-    SettingPaymentWayTBViewForHeader *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:ReuseIdentifier];
-    if (!headerView) {
-        headerView = [[SettingPaymentWayTBViewForHeader alloc]initWithReuseIdentifier:ReuseIdentifier
-                                                                             withData:@[self.headViewTitleMutArr[section],
-                                                                                        [NSNumber numberWithInteger:section]]];
-        @weakify(self)
-        [headerView actionBlock:^(id data, id data2) {
-            @strongify(self)
-            if ([data isKindOfClass:[BEMCheckBox class]] &&
-                [data2 isKindOfClass:[NSNumber class]]) {
-                
-                BEMCheckBox *box = (BEMCheckBox *)data;
-                NSNumber *b = (NSNumber *)data2;
-                
-                NSMutableArray *copyArr = [NSMutableArray arrayWithArray:self.dataMutArr[[b intValue]]];//等效
 
-                if (!box.on) {
-                    [self.dataMutArr[[b intValue]] removeAllObjects];
-                }else{
-                    [self.dataMutArr[[b intValue]] insertObject:copyArr[[b intValue]] atIndex:[b intValue]];
-                }
-                [self.tableView reloadData];
-            }
-        }];
-    }return headerView;
+#pragma mark —— XDMultTableViewDatasource & XDMultTableViewDelegate
+- (NSInteger)mTableView:(XDMultTableView *)mTableView
+  numberOfRowsInSection:(NSInteger)section{
+    return 5;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return SCALING_RATIO(40);
+- (XDMultTableViewCell *)mTableView:(XDMultTableView *)mTableView
+              cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [mTableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
+    if (!cell){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:ReuseIdentifier];
+    }
+    UIView *view = [[UIView alloc] initWithFrame:cell.bounds] ;
+    view.layer.backgroundColor  = [UIColor whiteColor].CGColor;
+    view.layer.masksToBounds    = YES;
+    view.layer.borderWidth      = 0.3;
+    view.layer.borderColor      = [UIColor lightGrayColor].CGColor;
+    
+    cell.backgroundView = view;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    return cell;
 }
-- (CGFloat)tableView:(UITableView *)tableView
+
+- (NSInteger)numberOfSectionsInTableView:(XDMultTableView *)mTableView{
+    return self.dataMutArr.count;
+}
+
+-(NSString *)mTableView:(XDMultTableView *)mTableView
+titleForHeaderInSection:(NSInteger)section{
+    return self.headViewTitleMutArr[section];
+}
+
+- (CGFloat)mTableView:(XDMultTableView *)mTableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return SCALING_RATIO(50);
 }
 
-- (void)tableView:(UITableView *)tableView
+- (CGFloat)mTableView:(XDMultTableView *)mTableView
+heightForHeaderInSection:(NSInteger)section{
+    return SCALING_RATIO(40);
+}
+
+- (void)mTableView:(XDMultTableView *)mTableView
+willOpenHeaderAtSection:(NSInteger)section{
+    NSLog(@"即将展开");
+}
+
+- (void)mTableView:(XDMultTableView *)mTableView
+willCloseHeaderAtSection:(NSInteger)section{
+    NSLog(@"即将关闭");
+}
+
+- (void)mTableView:(XDMultTableView *)mTableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-}
-
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section{
-    return self.dataMutArr[section].count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
-                                             reuseIdentifier:ReuseIdentifier];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.detailTextLabel.textColor = kBlueColor;
-    }
-    return cell;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;//self.placeholderMutArr.count;
-}
-
-//给cell添加动画
--(void)tableView:(UITableView *)tableView
- willDisplayCell:(UITableViewCell *)cell
-forRowAtIndexPath:(NSIndexPath *)indexPath{
-    //设置Cell的动画效果为3D效果
-    //设置x和y的初始值为0.1；
-    cell.layer.transform = CATransform3DMakeScale(0.1,
-                                                  0.1,
-                                                  1);
-    //x和y的最终值为1
-    [UIView animateWithDuration:1
-                     animations:^{
-        cell.layer.transform = CATransform3DMakeScale(1,
-                                                      1,
-                                                      1);
-    }];
+    NSLog(@"点击cell");
 }
 #pragma mark —— lazyLoad
--(UITableView *)tableView{
+-(XDMultTableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectZero
-                                                 style:UITableViewStyleGrouped];
-        _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-        _tableView.dataSource = self;
+        _tableView = [[XDMultTableView alloc] initWithFrame:CGRectMake(0,
+                                                                       self.gk_navigationBar.mj_h,
+                                                                       self.view.frame.size.width,
+                                                                       self.view.frame.size.height - self.gk_navigationBar.mj_h)];
+//        _tableView.openSectionArray = [NSArray arrayWithObjects:@1,@2, nil];
         _tableView.delegate = self;
-//        _tableView.mj_header = self.tableViewHeader;
-//        _tableView.mj_footer = self.tableViewFooter;
+        _tableView.datasource = self;
+        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.autoAdjustOpenAndClose = NO;
         [self.view addSubview:_tableView];
-        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.edges.equalTo(self.view);
-            make.left.right.bottom.equalTo(self.view);
-            make.top.equalTo(self.gk_navigationBar.mas_bottom);
-        }];
     }return _tableView;
 }
 
