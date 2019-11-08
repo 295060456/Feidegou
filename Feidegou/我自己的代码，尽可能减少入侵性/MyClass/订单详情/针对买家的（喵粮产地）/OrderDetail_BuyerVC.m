@@ -47,20 +47,13 @@ UITableViewDataSource
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    if ([model isKindOfClass:[OrderDetail_BuyerModel class]]) {
-        self.model = model;
-        [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.price ReplaceStr:@""]];//单价
-        [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.price ReplaceStr:@""]];//数量
-        [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.ID ReplaceStr:@""]];//订单号
-        [self.dataMutArr addObject:[self.model.quantity stringValue]];//总额
-        [self.dataMutArr addObject:self.model.updateTime];//时间
-        [self.dataMutArr addObject:@"银行卡"];//支付方式
-        
-        [self.dataMutArr addObject:self.model.bankcard];//银行卡号
-        [self.dataMutArr addObject:self.model.bankaddress];//银行类型
-        [self.dataMutArr addObject:self.model.bankuser];//姓名
-        
-        [self.tableView reloadData];
+    if ([model isKindOfClass:[NSMutableArray class]]) {
+        self.dataMutArr = (NSMutableArray *)model;
+        if (self.dataMutArr.count) {
+            [self.tableView reloadData];
+        }else{
+            self.tableView.alpha = 1;
+        }
     }else{
         self.tableView.alpha = 1;
     }
@@ -103,24 +96,30 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                       reuseIdentifier:ReuseIdentifier];
         cell.backgroundColor = kClearColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        if (indexPath.section == 0) {
-            cell.textLabel.text = self.titleMutArr[indexPath.row];
-            if (indexPath.row == 7 ||
-                indexPath.row == 8 ||
-                indexPath.row == 9) {
-                cell.detailTextLabel.text = @"复制";
-                cell.detailTextLabel.textColor = kBlueColor;
-                self.str = self.dataMutArr[indexPath.row];
-                self.lab.alpha = 1;
-            }else{
-//                cell.detailTextLabel.text
-            }
-        }
+        
+
 //        [UIView cornerCutToCircleWithView:cell.contentView
 //                          AndCornerRadius:5.f];
 //        [UIView colourToLayerOfView:cell.contentView
 //                         WithColour:KGreenColor
 //                     AndBorderWidth:.1f];
+    }
+    if (indexPath.section == 0) {
+        cell.textLabel.text = self.titleMutArr[indexPath.row];
+        if (indexPath.row == 7 ||
+            indexPath.row == 8 ||
+            indexPath.row == 9) {
+            cell.detailTextLabel.text = @"复制";
+            cell.detailTextLabel.textColor = kBlueColor;
+            if (self.dataMutArr.count) {
+                self.str = self.dataMutArr[indexPath.row];
+                self.lab.alpha = 1;
+            }
+        }else{
+            if (self.dataMutArr.count) {
+                cell.detailTextLabel.text = self.dataMutArr[indexPath.row];
+            }
+        }
     }return cell;
 }
 
@@ -164,7 +163,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSMutableArray<NSString *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
-        [_titleMutArr addObject:@"您向厂家1001购买了1000g喵粮"];
+        [_titleMutArr addObject:@""];
         [_titleMutArr addObject:@"单价:"];
         [_titleMutArr addObject:@"数量:"];
         [_titleMutArr addObject:@"订单号:"];
@@ -176,12 +175,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [_titleMutArr addObject:@"姓名:"];
         [_titleMutArr addObject:@"订单状态:"];
     }return _titleMutArr;
-}
-
--(NSMutableArray<NSString *> *)dataMutArr{
-    if (!_dataMutArr) {
-        _dataMutArr = NSMutableArray.array;
-    }return _dataMutArr;
 }
 
 -(UILabel *)lab{
@@ -264,10 +257,10 @@ UITableViewDataSource
 }
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
-
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
+@property(nonatomic,assign)BOOL isFirstComing;
 
 @end
 
@@ -309,6 +302,7 @@ UITableViewDataSource
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     [self.tableView.mj_header beginRefreshing];
+    self.isFirstComing = YES;
 }
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
@@ -370,7 +364,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-    
     if (indexPath.section == 0) {
         
     }else if (indexPath.section == 1) {
@@ -402,7 +395,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0 &&
         indexPath.row == 0) {
         OrderDetail_BuyerTBVCell_01 *cell = [OrderDetail_BuyerTBVCell_01 cellWith:tableView];
-        [cell richElementsInCellWithModel:self.model];
+        [cell richElementsInCellWithModel:self.dataMutArr];
         OrderDetail_BuyerTBVCell_01_Hight = [cell cellHeightWithModel:nil];
         return cell;
     }else if (indexPath.section == 1){
@@ -423,18 +416,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(void)tableView:(UITableView *)tableView
  willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath{
-    //设置Cell的动画效果为3D效果
-    //设置x和y的初始值为0.1；
-    cell.layer.transform = CATransform3DMakeScale(0.1,
-                                                  0.1,
-                                                  1);
-    //x和y的最终值为1
-    [UIView animateWithDuration:1
-                     animations:^{
-        cell.layer.transform = CATransform3DMakeScale(1,
-                                                      1,
-                                                      1);
-    }];
+//    if (!self.isFirstComing) {
+//            //设置Cell的动画效果为3D效果
+//        //设置x和y的初始值为0.1；
+//        cell.layer.transform = CATransform3DMakeScale(0.1,
+//                                                      0.1,
+//                                                      1);
+//        //x和y的最终值为1
+//        [UIView animateWithDuration:1
+//                         animations:^{
+//            cell.layer.transform = CATransform3DMakeScale(1,
+//                                                          1,
+//                                                          1);
+//        }];
+//    }
+//    self.isFirstComing = !self.isFirstComing;
 }
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{
@@ -461,6 +457,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [_titleMutArr addObject:@"已付款"];
         [_titleMutArr addObject:@"取消订单"];
     }return _titleMutArr;
+}
+
+-(NSMutableArray<NSString *> *)dataMutArr{
+    if (!_dataMutArr) {
+        _dataMutArr = NSMutableArray.array;
+    }return _dataMutArr;
 }
 
 @end

@@ -126,7 +126,6 @@ static FMARCNetwork *_instance = nil;
 //        NSString *dd = [NSURL URLWithString:BaseUrl];
 //
         NSString *url = [BaseUrl stringByAppendingString:req.path];
-        
         NSMutableURLRequest *request = [self.manager.requestSerializer requestWithMethod:req.method
                                                                                URLString:url
                                                                               parameters:req.parameters
