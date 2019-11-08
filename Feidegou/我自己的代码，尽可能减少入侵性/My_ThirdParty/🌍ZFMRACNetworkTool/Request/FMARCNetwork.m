@@ -121,8 +121,12 @@ static FMARCNetwork *_instance = nil;
         @strongify(self);
         /// 获取request KKK
         NSError *serializationError = nil;
-        NSString *url = [[NSURL URLWithString:req.path
-                                relativeToURL:[NSURL URLWithString:BaseUrl]] absoluteString];
+//        NSString *url = [[NSURL URLWithString:req.path
+//                                relativeToURL:[NSURL URLWithString:BaseUrl]] absoluteString];
+//        NSString *dd = [NSURL URLWithString:BaseUrl];
+//
+        NSString *url = [BaseUrl stringByAppendingString:req.path];
+        
         NSMutableURLRequest *request = [self.manager.requestSerializer requestWithMethod:req.method
                                                                                URLString:url
                                                                               parameters:req.parameters

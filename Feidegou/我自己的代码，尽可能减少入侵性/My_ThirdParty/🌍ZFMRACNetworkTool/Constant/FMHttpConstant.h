@@ -13,7 +13,8 @@
 #define FMHttpConstant_h
 
 /*******URL******/
-#define BaseUrl @"http://10.1.41.158:8080"
+//#define BaseUrl @"http://10.1.41.158:8080/catfoodapp"
+#define BaseUrl @"http://10.1.41.158:8081/catfoodapp"
 /********ImgBaseURL*****/
 #define ImgBaseURL @""
 
