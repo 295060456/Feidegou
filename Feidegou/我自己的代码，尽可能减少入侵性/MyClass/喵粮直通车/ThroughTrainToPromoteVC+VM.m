@@ -51,5 +51,9 @@
         }];
     }
 }
+//WebSocketURL
+-(void)webSocket{
+    
+}
 
 @end

@@ -47,7 +47,7 @@
 #define CatfoodWeixin_quarURL @"/user/seller/CatfoodWeixin_quary.htm"//展示二维码 post 27 Y
 #define CatfoodPayment_quaryURL @"/user/seller/CatfoodPayment_quary.htm"//发布批发市场展示可选支付方式 post 28 Y
 #define CatfoodPayment_setURL @"/user/seller/CatfoodPayment_set.htm"//设置支付方式 Y
-
+#define WebSocketURL @"ws://localhost:8888/websocket/1/1"
 
 #pragma mark - api拼接
 #define API(DomainName,api) [NSString stringWithFormat:@"%@%@",BaseUrl,api]

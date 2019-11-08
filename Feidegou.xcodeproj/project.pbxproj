@@ -53,6 +53,7 @@
 		8BB0F6CE236BDAC2009498B6 /* WholesaleOrders_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB0F6CD236BDAC2009498B6 /* WholesaleOrders_VipVC.m */; };
 		8BB0F6D3236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB0F6D2236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m */; };
 		8BB1E80C237590DE00871ECA /* UpLoadHavePaidVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1E80B237590DE00871ECA /* UpLoadHavePaidVC+VM.m */; };
+		8BB1E8142375B56C00871ECA /* SocketRocketUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1E8132375B56B00871ECA /* SocketRocketUtility.m */; };
 		8BB2D2812366C6990047D0E2 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2772366C6990047D0E2 /* TwitterHeart.json */; };
 		8BB2D2822366C6990047D0E2 /* HamburgerArrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */; };
 		8BB2D2832366C6990047D0E2 /* G.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2792366C6990047D0E2 /* G.json */; };
@@ -713,6 +714,8 @@
 		8BB0F6D2236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleOrders_AdvanceVC.m; sourceTree = "<group>"; };
 		8BB1E80A237590DE00871ECA /* UpLoadHavePaidVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UpLoadHavePaidVC+VM.h"; sourceTree = "<group>"; };
 		8BB1E80B237590DE00871ECA /* UpLoadHavePaidVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UpLoadHavePaidVC+VM.m"; sourceTree = "<group>"; };
+		8BB1E8122375B56B00871ECA /* SocketRocketUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketRocketUtility.h; sourceTree = "<group>"; };
+		8BB1E8132375B56B00871ECA /* SocketRocketUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketRocketUtility.m; sourceTree = "<group>"; };
 		8BB2D2772366C6990047D0E2 /* TwitterHeart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeart.json; sourceTree = "<group>"; };
 		8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HamburgerArrow.json; sourceTree = "<group>"; };
 		8BB2D2792366C6990047D0E2 /* G.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = G.json; sourceTree = "<group>"; };
@@ -1967,6 +1970,15 @@
 			path = "高级商家角色";
 			sourceTree = "<group>";
 		};
+		8BB1E8112375B56000871ECA /* WebSocket */ = {
+			isa = PBXGroup;
+			children = (
+				8BB1E8122375B56B00871ECA /* SocketRocketUtility.h */,
+				8BB1E8132375B56B00871ECA /* SocketRocketUtility.m */,
+			);
+			path = WebSocket;
+			sourceTree = "<group>";
+		};
 		8BB2D2732366C6410047D0E2 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -2050,6 +2062,7 @@
 		8BB2D2942366C7310047D0E2 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				8BB1E8112375B56000871ECA /* WebSocket */,
 				8BCB98C323715D2A0063E01E /* 加密体系 */,
 				8B8B0D9F2369635E0040EE53 /* HistoryDataList */,
 				8B8B0D702368278E0040EE53 /* PopMenuView */,
@@ -4694,6 +4707,7 @@
 				C42CD0EE213CC2640096675F /* LoginViewController.m in Sources */,
 				C46F8C46214CF1E600F0C7D1 /* CellImageOnly.m in Sources */,
 				8BB2D3812366CBF50047D0E2 /* UpLoadHavePaidVC.m in Sources */,
+				8BB1E8142375B56C00871ECA /* SocketRocketUtility.m in Sources */,
 				8BB2D3722366CBA70047D0E2 /* TZPhotoPickerController.m in Sources */,
 				8BB2D37D2366CBD80047D0E2 /* Q_Pet.m in Sources */,
 				C42CD145213CC2640096675F /* CellHistoryClear.m in Sources */,
