@@ -226,7 +226,6 @@ BEMCheckBoxDelegate
     checkBox.selected = !checkBox.selected;
     self.block(checkBox);
 }
-
 #pragma mark —— UITextFieldDelegate
 //询问委托人是否应该在指定的文本字段中开始编辑
 //- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;

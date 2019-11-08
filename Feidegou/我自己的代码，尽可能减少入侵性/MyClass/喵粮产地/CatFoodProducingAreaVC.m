@@ -224,7 +224,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                  (int64_t)(0.7 * NSEC_PER_SEC)),
                    dispatch_get_main_queue(), ^{
         [OrderDetail_BuyerVC pushFromVC:self_weak_
-                          requestParams:nil
+                          requestParams:self.dataMutArr[indexPath.row]
                                 success:^(id data) {}
                                animated:YES];
     });
@@ -232,7 +232,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-
     return self.dataMutArr.count;
 }
 

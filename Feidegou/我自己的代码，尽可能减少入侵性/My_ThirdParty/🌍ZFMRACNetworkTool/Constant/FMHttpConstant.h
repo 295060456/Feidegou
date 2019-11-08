@@ -26,7 +26,7 @@
 #define CatfoodCO_BuyerURL @"/user/buyer/CatfoodCO_buyer.htm"//喵粮产地购买 post 7
 #define CatfoodCO_payURL @"/user/buyer/CatfoodCO_pay.htm"//喵粮产地购买已支付 post 8
 #define CatfoodCO_pay_delURL @"/user/buyer/CatfoodCO_pay_del.htm"//喵粮产地购买取消 9 Y
-#define CatfoodSale_listURL @"/user/seller/CatfoodSale_list.htm"//喵粮批发管理 post 10
+//#define CatfoodSale_listURL @"/user/seller/CatfoodSale_list.htm"//喵粮批发管理 post 10
 #define CatfoodSaleOrder_listURL @"/user/seller/CatfoodSaleOrder_list.htm"//喵粮批发订单管理 post 11 VIP
 #define CatfoodSale_add_URL @"/user/seller/CatfoodSale_add.htm"//喵粮批发发布 post 12 y 对了一半
 #define CatfoodSale_checkURL @"/user/seller/CatfoodSale_check.htm"//喵粮批发订单详情 post 13
@@ -45,7 +45,7 @@
 #define Catfood_qr_addURL @"/user/seller/Catfood_qr_add.htm"//上传二维码 post 26 Y
 #define CatfoodWeixin_quarURL @"/user/seller/CatfoodWeixin_quary.htm"//展示二维码 post 27 Y
 #define CatfoodPayment_quaryURL @"/user/seller/CatfoodPayment_quary.htm"//发布批发市场展示可选支付方式 post 28 Y
-#define CatfoodPayment_setURL @"/user/seller/CatfoodPayment_set.htm"//设置支付方式
+#define CatfoodPayment_setURL @"/user/seller/CatfoodPayment_set.htm"//设置支付方式 Y
 
 
 #pragma mark - api拼接

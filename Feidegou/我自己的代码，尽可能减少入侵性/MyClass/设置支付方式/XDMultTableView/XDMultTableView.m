@@ -187,7 +187,7 @@ titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (NSMutableArray *)buildDeleteRowWithSection:(NSInteger)section{
-    NSInteger delete = [self invoke_numberOfRowsInSection:section];;
+    NSInteger delete = [self invoke_numberOfRowsInSection:section];
     if (delete != 0){
         [self invoke_willCloseHeaderAtSection:section];
     }

@@ -8,6 +8,7 @@
 
 #import "OrderDetail_BuyerVC.h"
 #import "UpLoadHavePaidVC.h"
+#import "OrderDetail_BuyerVC+VM.h"
 
 @interface OrderDetail_BuyerTBVCell_01 ()
 <
@@ -16,6 +17,10 @@ UITableViewDataSource
 >
 
 @property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,strong)UILabel *lab;
+@property(nonatomic,strong)OrderDetail_BuyerModel *model;
+@property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
+@property(nonatomic,copy)NSString *str;
 
 @end
 
@@ -42,7 +47,23 @@ UITableViewDataSource
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.tableView.alpha = 1;
+    if ([model isKindOfClass:[OrderDetail_BuyerModel class]]) {
+        self.model = model;
+        [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.price ReplaceStr:@""]];//单价
+        [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.price ReplaceStr:@""]];//数量
+        [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.ID ReplaceStr:@""]];//订单号
+        [self.dataMutArr addObject:[self.model.quantity stringValue]];//总额
+        [self.dataMutArr addObject:self.model.updateTime];//时间
+        [self.dataMutArr addObject:@"银行卡"];//支付方式
+        
+        [self.dataMutArr addObject:self.model.bankcard];//银行卡号
+        [self.dataMutArr addObject:self.model.bankaddress];//银行类型
+        [self.dataMutArr addObject:self.model.bankuser];//姓名
+        
+        [self.tableView reloadData];
+    }else{
+        self.tableView.alpha = 1;
+    }
 }
 //复制
 -(void)copyAction:(UITableViewCell *)cell{
@@ -89,9 +110,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 indexPath.row == 9) {
                 cell.detailTextLabel.text = @"复制";
                 cell.detailTextLabel.textColor = kBlueColor;
+                self.str = self.dataMutArr[indexPath.row];
+                self.lab.alpha = 1;
+            }else{
+//                cell.detailTextLabel.text
             }
         }
-        
 //        [UIView cornerCutToCircleWithView:cell.contentView
 //                          AndCornerRadius:5.f];
 //        [UIView colourToLayerOfView:cell.contentView
@@ -152,6 +176,28 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [_titleMutArr addObject:@"姓名:"];
         [_titleMutArr addObject:@"订单状态:"];
     }return _titleMutArr;
+}
+
+-(NSMutableArray<NSString *> *)dataMutArr{
+    if (!_dataMutArr) {
+        _dataMutArr = NSMutableArray.array;
+    }return _dataMutArr;
+}
+
+-(UILabel *)lab{
+    if (!_lab) {
+        _lab = UILabel.new;
+        _lab.text = self.str;
+        [_lab sizeToFit];
+        [self.contentView addSubview:_lab];
+        [_lab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.textLabel.mj_w +
+                                  self.textLabel.mj_x +
+                                  SCALING_RATIO(100));
+            make.top.equalTo(self.contentView).offset(SCALING_RATIO(5));
+            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-5));
+        }];
+    }return _lab;
 }
 
 @end
@@ -217,10 +263,8 @@ UITableViewDataSource
     CGFloat OrderDetail_BuyerTBVCell_01_Hight;
 }
 
-@property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 
-@property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
@@ -261,10 +305,10 @@ UITableViewDataSource
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
-    self.tableView.alpha = 1;
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    [self.tableView.mj_header beginRefreshing];
 }
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
@@ -304,7 +348,7 @@ UITableViewDataSource
 //    if (self.dataMutArr.count) {
 //        [self.dataMutArr removeAllObjects];
 //    }
-    [self.tableView.mj_header endRefreshing];
+    [self netWorking];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
@@ -358,7 +402,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0 &&
         indexPath.row == 0) {
         OrderDetail_BuyerTBVCell_01 *cell = [OrderDetail_BuyerTBVCell_01 cellWith:tableView];
-        [cell richElementsInCellWithModel:nil];
+        [cell richElementsInCellWithModel:self.model];
         OrderDetail_BuyerTBVCell_01_Hight = [cell cellHeightWithModel:nil];
         return cell;
     }else if (indexPath.section == 1){

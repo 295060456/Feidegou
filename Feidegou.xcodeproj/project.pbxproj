@@ -123,6 +123,8 @@
 		8BB2D43E2367F9BB0047D0E2 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */; };
 		8BC386682374718100FE8C02 /* XDMultTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC386652374718100FE8C02 /* XDMultTableView.m */; };
 		8BC386692374718100FE8C02 /* down_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC386662374718100FE8C02 /* down_blue@2x.png */; };
+		8BC3866C237530BE00FE8C02 /* OrderDetail_BuyerVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC3866B237530BE00FE8C02 /* OrderDetail_BuyerVC+VM.m */; };
+		8BC3866F237533DD00FE8C02 /* OrderDetail_BuyerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC3866E237533DD00FE8C02 /* OrderDetail_BuyerModel.m */; };
 		8BCB98C2237154940063E01E /* UpLoadCancelReasonVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98C1237154940063E01E /* UpLoadCancelReasonVC+VM.m */; };
 		8BCB98C823715D380063E01E /* EncryptUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98C423715D370063E01E /* EncryptUtils.m */; };
 		8BCB98C923715D380063E01E /* RSAUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98C723715D380063E01E /* RSAUtil.m */; };
@@ -850,6 +852,10 @@
 		8BC386652374718100FE8C02 /* XDMultTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XDMultTableView.m; sourceTree = "<group>"; };
 		8BC386662374718100FE8C02 /* down_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down_blue@2x.png"; sourceTree = "<group>"; };
 		8BC386672374718100FE8C02 /* XDMultTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDMultTableView.h; sourceTree = "<group>"; };
+		8BC3866A237530BE00FE8C02 /* OrderDetail_BuyerVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OrderDetail_BuyerVC+VM.h"; sourceTree = "<group>"; };
+		8BC3866B237530BE00FE8C02 /* OrderDetail_BuyerVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OrderDetail_BuyerVC+VM.m"; sourceTree = "<group>"; };
+		8BC3866D237533DD00FE8C02 /* OrderDetail_BuyerModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetail_BuyerModel.h; sourceTree = "<group>"; };
+		8BC3866E237533DD00FE8C02 /* OrderDetail_BuyerModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetail_BuyerModel.m; sourceTree = "<group>"; };
 		8BCB98C0237154940063E01E /* UpLoadCancelReasonVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UpLoadCancelReasonVC+VM.h"; sourceTree = "<group>"; };
 		8BCB98C1237154940063E01E /* UpLoadCancelReasonVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UpLoadCancelReasonVC+VM.m"; sourceTree = "<group>"; };
 		8BCB98C423715D370063E01E /* EncryptUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncryptUtils.m; sourceTree = "<group>"; };
@@ -2237,6 +2243,10 @@
 			children = (
 				8BB2D2E92366C7310047D0E2 /* OrderDetail_BuyerVC.h */,
 				8BB2D2EA2366C7310047D0E2 /* OrderDetail_BuyerVC.m */,
+				8BC3866D237533DD00FE8C02 /* OrderDetail_BuyerModel.h */,
+				8BC3866E237533DD00FE8C02 /* OrderDetail_BuyerModel.m */,
+				8BC3866A237530BE00FE8C02 /* OrderDetail_BuyerVC+VM.h */,
+				8BC3866B237530BE00FE8C02 /* OrderDetail_BuyerVC+VM.m */,
 			);
 			path = "针对买家的（喵粮产地）";
 			sourceTree = "<group>";
@@ -4479,6 +4489,7 @@
 				C42CD1BA213CC2640096675F /* JJBaseViewController.m in Sources */,
 				C42CD0E7213CC2640096675F /* WebOnlyController.m in Sources */,
 				C42CD04C213CC2640096675F /* JJHttpClient+Login.m in Sources */,
+				8BC3866F237533DD00FE8C02 /* OrderDetail_BuyerModel.m in Sources */,
 				C46D6B662143BA2E00428D7A /* CLCellOneLblNoLine.m in Sources */,
 				C42CD0DF213CC2640096675F /* CellOrderGood.m in Sources */,
 				C42CD0EF213CC2640096675F /* RegisterViewController.m in Sources */,
@@ -4717,6 +4728,7 @@
 				C42CD05E213CC2640096675F /* CellHeadImg.m in Sources */,
 				8BB2D33F2366CB200047D0E2 /* YKToastView.m in Sources */,
 				C42CCCDB213CC04F0096675F /* AppDelegate.m in Sources */,
+				8BC3866C237530BE00FE8C02 /* OrderDetail_BuyerVC+VM.m in Sources */,
 				8BCB98D323715D520063E01E /* NSData+CommonCrypto.m in Sources */,
 				C46F8C4B214CF1E600F0C7D1 /* AreaDoneAllController.m in Sources */,
 				C42CD0C6213CC2640096675F /* CellOrderAddress.m in Sources */,

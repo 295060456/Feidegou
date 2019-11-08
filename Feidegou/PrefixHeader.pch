@@ -113,6 +113,7 @@
 #import "WholesaleMarket_AdvanceModel.h"
 #import "WholesaleOrders_AdvanceModel.h"
 #import "StallListModel.h"
+#import "OrderDetail_BuyerModel.h"
 
 //Test
 #import "TestVC.h"
