@@ -40,7 +40,7 @@
                 [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.rental ReplaceStr:@""]];//总额
                 [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.updateTime ReplaceStr:@""]];//时间
                 [self.dataMutArr addObject:@"银行卡"];//支付方式
-                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.bankcard ReplaceStr:@""]];//银行卡号
+                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.bankcard ReplaceStr:@""]];//银行卡号？
                 [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.bankaddress ReplaceStr:@""]];//银行类型
                 [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.bankuser ReplaceStr:@""]];//姓名
                 switch ([self.model.order_status intValue]) {//0、已支付;1、已发单;2、已接单;3、已作废;4、已发货;5、已完成

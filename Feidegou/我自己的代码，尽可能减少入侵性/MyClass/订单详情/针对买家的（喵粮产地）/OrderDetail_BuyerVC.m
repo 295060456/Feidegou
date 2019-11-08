@@ -15,6 +15,9 @@
 UITableViewDelegate,
 UITableViewDataSource
 >
+{
+    UITableViewCell *cell;
+}
 
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UILabel *lab;
@@ -62,8 +65,10 @@ UITableViewDataSource
 -(void)copyAction:(UITableViewCell *)cell{
     //复制到剪贴板
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-    pasteboard.string = cell.detailTextLabel.text;
-    if (pasteboard.string.length > 0) {
+    pasteboard.string = self.lab.text;
+    NSLog(@"AAA %@",self.lab.text);
+    NSLog(@"BBB %@",pasteboard.string);
+    if (pasteboard.string) {
         [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"复制%@成功",cell.textLabel.text]];
     }
 }
@@ -90,13 +95,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
+    cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
                                       reuseIdentifier:ReuseIdentifier];
         cell.backgroundColor = kClearColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
 
 //        [UIView cornerCutToCircleWithView:cell.contentView
 //                          AndCornerRadius:5.f];
@@ -113,7 +117,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             cell.detailTextLabel.textColor = kBlueColor;
             if (self.dataMutArr.count) {
                 self.str = self.dataMutArr[indexPath.row];
-                self.lab.alpha = 1;
+                self.lab = UILabel.new;
+                self.lab.backgroundColor = KLightGrayColor;
+                self.lab.text = self.str;
+                [self.lab sizeToFit];
+                [cell.contentView addSubview:self.lab];
+                [self.lab mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(cell.textLabel.mj_w +
+                                          cell.textLabel.mj_x +
+                                          SCALING_RATIO(100));
+                    make.top.equalTo(cell.contentView).offset(SCALING_RATIO(5));
+                    make.bottom.equalTo(cell.contentView).offset(SCALING_RATIO(-5));
+                }];
             }
         }else{
             if (self.dataMutArr.count) {
@@ -175,22 +190,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [_titleMutArr addObject:@"姓名:"];
         [_titleMutArr addObject:@"订单状态:"];
     }return _titleMutArr;
-}
-
--(UILabel *)lab{
-    if (!_lab) {
-        _lab = UILabel.new;
-        _lab.text = self.str;
-        [_lab sizeToFit];
-        [self.contentView addSubview:_lab];
-        [_lab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.textLabel.mj_w +
-                                  self.textLabel.mj_x +
-                                  SCALING_RATIO(100));
-            make.top.equalTo(self.contentView).offset(SCALING_RATIO(5));
-            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-5));
-        }];
-    }return _lab;
 }
 
 @end
