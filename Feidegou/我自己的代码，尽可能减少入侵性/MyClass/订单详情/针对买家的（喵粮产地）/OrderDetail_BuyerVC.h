@@ -35,12 +35,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)OrderDetail_BuyerModel *model;
 @property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
+@property(nonatomic,assign)BOOL isPaidOK;
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
                        requestParams:(nullable id)requestParams
                              success:(DataBlock _Nonnull )block
                             animated:(BOOL)animated;
--(void)havePaid;
 
 @end
 

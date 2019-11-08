@@ -102,15 +102,43 @@
             NSLog(@"responseObject = %@",responseObject);
             [self.titleMutArr replaceObjectAtIndex:0
                                         withObject:@"已付款"];
+            self.isPaidOK = YES;
             [self.tableView reloadData];
             }
           failure:^(NSURLSessionDataTask * _Nullable task,
                     NSError * _Nonnull error) {
                 NSLog(@"error = %@",error);
         }];
-
     }
 }
 
+-(void)cancelOrder_netWorking{
+    extern NSString *randomStr;
+    if ([self.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]) {
+        CatFoodProducingAreaModel *model = (CatFoodProducingAreaModel *)self.requestParams;
+        NSDictionary *dataDic = @{
+            @"order_id":[model.ID stringValue]//order_id
+        };
+        FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                               path:CatfoodCO_pay_delURL
+                                                         parameters:@{
+                                                             @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
+                                                             @"key":[RSAUtil encryptString:randomStr
+                                                                                 publicKey:RSA_Public_key]
+                                                         }];
+        self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+        @weakify(self)
+        [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+            @strongify(self)
+            if ([response isKindOfClass:[NSString class]]) {
+                NSString *str = (NSString *)response;
+                if ([str isEqualToString:@""]) {
+                    Toast(@"取消成功");
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+            }
+        }];
+    }
+}
 
 @end

@@ -279,6 +279,7 @@ TZImagePickerControllerDelegate
     OrderDetail_BuyerVC *vc = OrderDetail_BuyerVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
+    vc.isPaidOK = NO;
     if (rootVC.navigationController) {
         vc.isPush = YES;
         vc.isPresent = NO;
@@ -361,7 +362,7 @@ TZImagePickerControllerDelegate
 
 -(void)continueToCancelOrder{
     NSLog(@"继续取消");
-    [self.navigationController popViewControllerAnimated:YES];
+    [self cancelOrder_netWorking];
 }
 
 -(void)sorry{
@@ -399,7 +400,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         
     }else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            [self getPic];
+            if (self.isPaidOK) {
+                [self havePaid];
+            }else{
+                [self getPic];
+            }
         }else if (indexPath.row == 1){
             [self cancelOrder];
         }else{}
