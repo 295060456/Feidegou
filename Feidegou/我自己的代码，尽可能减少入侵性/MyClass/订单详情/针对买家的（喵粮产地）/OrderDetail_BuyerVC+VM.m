@@ -72,4 +72,45 @@
     }
 }
 
+-(void)uploadPic_netWorking:(UIImage *)image{
+    extern NSString *randomStr;
+    if ([self.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]) {
+        CatFoodProducingAreaModel *model = (CatFoodProducingAreaModel *)self.requestParams;
+        AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+        mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+        __block NSData *picData = [UIImage imageZipToData:image];
+        NSDictionary *dataDic = @{
+            @"order_id":[model.ID stringValue],//order_id
+        };
+        [mgr POST:API(BaseUrl, CatfoodCO_payURL)
+       parameters:@{
+           @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
+           @"key":[RSAUtil encryptString:randomStr
+                               publicKey:RSA_Public_key]
+       }
+    constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            [formData appendPartWithFileData:picData
+                                        name:@"payment_print"
+                                    fileName:@"test.png"
+                                    mimeType:@"image/png"];
+        }
+         progress:^(NSProgress * _Nonnull uploadProgress) {
+            NSLog(@"uploadProgress = %@",uploadProgress);
+        }
+          success:^(NSURLSessionDataTask * _Nonnull task,
+                    id  _Nullable responseObject) {
+            NSLog(@"responseObject = %@",responseObject);
+            [self.titleMutArr replaceObjectAtIndex:0
+                                        withObject:@"已付款"];
+            [self.tableView reloadData];
+            }
+          failure:^(NSURLSessionDataTask * _Nullable task,
+                    NSError * _Nonnull error) {
+                NSLog(@"error = %@",error);
+        }];
+
+    }
+}
+
+
 @end

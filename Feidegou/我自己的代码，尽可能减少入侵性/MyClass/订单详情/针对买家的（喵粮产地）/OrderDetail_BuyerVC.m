@@ -198,6 +198,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 @interface OrderDetail_BuyerTBVCell_02 ()
 
 @property(nonatomic,strong)UILabel *titleLab;
+@property(nonatomic,copy)ActionBlock block;
 
 @end
 
@@ -233,7 +234,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         }
     }
 }
-
 #pragma mark —— lazyLoad
 -(UILabel *)titleLab{
     if (!_titleLab) {
@@ -251,12 +251,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 @interface OrderDetail_BuyerVC ()
 <
 UITableViewDelegate,
-UITableViewDataSource
+UITableViewDataSource,
+TZImagePickerControllerDelegate
 >{
     CGFloat OrderDetail_BuyerTBVCell_01_Hight;
 }
 
-@property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
+@property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
@@ -329,10 +330,40 @@ UITableViewDataSource
                                @"sorry"]];
 }
 #pragma mark —— 私有方法
+-(void)getPic{
+    NSLog(@"相册");
+    @weakify(self)
+    [ECAuthorizationTools checkAndRequestAccessForType:ECPrivacyType_Photos
+                                          accessStatus:^(ECAuthorizationStatus status,
+                                                         ECPrivacyType type) {
+        @strongify(self)
+        // status 即为权限状态，
+        //状态类型参考：ECAuthorizationStatus
+        NSLog(@"%lu",(unsigned long)status);
+        if (status == ECAuthorizationStatus_Authorized) {
+            
+//            [self presentViewController:TestVC.new
+//                               animated:YES
+//                             completion:Nil];
+
+            [self presentViewController:self.imagePickerVC
+                                     animated:YES
+                                   completion:nil];
+        }else{
+            NSLog(@"相册不可用:%lu",(unsigned long)status);
+            [self showAlertViewTitle:@"获取相册权限"
+                                   message:@""
+                               btnTitleArr:@[@"去获取"]
+                            alertBtnAction:@[@"pushToSysConfig"]];
+        }
+    }];
+}
+
 -(void)continueToCancelOrder{
     NSLog(@"继续取消");
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 -(void)sorry{
     NSLog(@"手滑，点错了");
 }
@@ -368,7 +399,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         
     }else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            [self havePaid];
+            [self getPic];
         }else if (indexPath.row == 1){
             [self cancelOrder];
         }else{}
@@ -451,10 +482,31 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _tableView;
 }
 
+-(TZImagePickerController *)imagePickerVC{
+    if (!_imagePickerVC) {
+        _imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:9
+                                                                        delegate:self];
+        @weakify(self)
+        [_imagePickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos,
+                                                          NSArray *assets,
+                                                          BOOL isSelectOriginalPhoto) {
+            @strongify(self)
+            if (photos.count == 1) {
+                [self uploadPic_netWorking:photos.lastObject];
+            }else{
+                [self showAlertViewTitle:@"选择一张相片就够啦"
+                                 message:@"不要画蛇添足"
+                             btnTitleArr:@[@"好的"]
+                          alertBtnAction:@[@"OK"]];
+            }
+        }];
+    }return _imagePickerVC;
+}
+
 -(NSMutableArray<NSString *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
-        [_titleMutArr addObject:@"已付款"];
+        [_titleMutArr addObject:@"点击上传凭证"];
         [_titleMutArr addObject:@"取消订单"];
     }return _titleMutArr;
 }

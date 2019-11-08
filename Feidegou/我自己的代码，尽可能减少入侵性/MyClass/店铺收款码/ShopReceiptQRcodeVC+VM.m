@@ -50,7 +50,7 @@
 //         @"order_type":[NSString ensureNonnullString:model.order_type ReplaceStr:@""]//订单类型 —— 1、摊位;2、批发;3、产地
 //    };
     __block NSData *picData = [UIImage imageZipToData:image];
-    [mgr POST:@"http://10.1.41.158:8080/user/seller/Catfood_qr_add.htm"
+    [mgr POST:API(BaseUrl, Catfood_qr_addURL)
    parameters:@{
 //       @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
        @"key":[RSAUtil encryptString:randomStr
