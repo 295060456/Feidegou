@@ -24,6 +24,9 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
+//Q宠
+@property(nonatomic,strong)Q_Pet *pet;
+
 @property(nonatomic,strong)NSMutableArray <NSArray *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSArray *>*imgMutArr;
 
@@ -78,6 +81,8 @@ UITableViewDataSource
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    self.pet.alpha = 1;
+    [self.pet becomeFirstResponder];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -266,6 +271,19 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                 @"喵粮批发市场",
                                 @"支付"]];
     }return _imgMutArr;
+}
+
+-(Q_Pet *)pet{
+    if (!_pet) {
+        _pet = [[Q_Pet alloc]initWithFrame:CGRectMake(100,
+                                                      100,
+                                                      100,
+                                                      100)];
+        _pet.autoCloseEdge = YES;
+        [_pet show];
+        [self.view addSubview:_pet];
+        [_pet becomeFirstResponder];
+    }return _pet;
 }
 
 -(NSMutableArray *)dataMutArr{

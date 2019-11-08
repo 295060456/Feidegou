@@ -257,7 +257,6 @@ TZImagePickerControllerDelegate
     CGFloat OrderDetail_BuyerTBVCell_01_Hight;
 }
 
-@property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
@@ -279,7 +278,6 @@ TZImagePickerControllerDelegate
     OrderDetail_BuyerVC *vc = OrderDetail_BuyerVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-    vc.isPaidOK = NO;
     if (rootVC.navigationController) {
         vc.isPush = YES;
         vc.isPresent = NO;
@@ -306,9 +304,19 @@ TZImagePickerControllerDelegate
     [self.tableView.mj_header beginRefreshing];
     self.isFirstComing = YES;
 }
+#pragma mark —— 截取 UIViewController 手势返回事件
+//只有 出 才调用
+- (void)didMoveToParentViewController:(UIViewController*)parent{
+    [super didMoveToParentViewController:parent];
+    NSLog(@"%s,%@",__FUNCTION__,parent);
+    if(!parent){
+        [self cancelOrder_netWorking];
+        NSLog(@"页面pop成功了");
+    }
+}
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
-    [self.navigationController popViewControllerAnimated:YES];
+    [self cancelOrder];
 }
 //已付款
 -(void)havePaid{
@@ -316,7 +324,7 @@ TZImagePickerControllerDelegate
     //上传成功，等待后台进行审核 tips
     @weakify(self)
     [UpLoadHavePaidVC pushFromVC:self_weak_
-                   requestParams:nil
+                   requestParams:self.model
                          success:^(id data) {}
                         animated:YES];
 }
@@ -331,35 +339,6 @@ TZImagePickerControllerDelegate
                                @"sorry"]];
 }
 #pragma mark —— 私有方法
--(void)getPic{
-    NSLog(@"相册");
-    @weakify(self)
-    [ECAuthorizationTools checkAndRequestAccessForType:ECPrivacyType_Photos
-                                          accessStatus:^(ECAuthorizationStatus status,
-                                                         ECPrivacyType type) {
-        @strongify(self)
-        // status 即为权限状态，
-        //状态类型参考：ECAuthorizationStatus
-        NSLog(@"%lu",(unsigned long)status);
-        if (status == ECAuthorizationStatus_Authorized) {
-            
-//            [self presentViewController:TestVC.new
-//                               animated:YES
-//                             completion:Nil];
-
-            [self presentViewController:self.imagePickerVC
-                                     animated:YES
-                                   completion:nil];
-        }else{
-            NSLog(@"相册不可用:%lu",(unsigned long)status);
-            [self showAlertViewTitle:@"获取相册权限"
-                                   message:@""
-                               btnTitleArr:@[@"去获取"]
-                            alertBtnAction:@[@"pushToSysConfig"]];
-        }
-    }];
-}
-
 -(void)continueToCancelOrder{
     NSLog(@"继续取消");
     [self cancelOrder_netWorking];
@@ -400,11 +379,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         
     }else if (indexPath.section == 1) {
         if (indexPath.row == 0) {
-            if (self.isPaidOK) {
-                [self havePaid];
-            }else{
-                [self getPic];
-            }
+            [self havePaid];
         }else if (indexPath.row == 1){
             [self cancelOrder];
         }else{}
@@ -485,27 +460,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             make.left.right.bottom.equalTo(self.view);
         }];
     }return _tableView;
-}
-
--(TZImagePickerController *)imagePickerVC{
-    if (!_imagePickerVC) {
-        _imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:9
-                                                                        delegate:self];
-        @weakify(self)
-        [_imagePickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos,
-                                                          NSArray *assets,
-                                                          BOOL isSelectOriginalPhoto) {
-            @strongify(self)
-            if (photos.count == 1) {
-                [self uploadPic_netWorking:photos.lastObject];
-            }else{
-                [self showAlertViewTitle:@"选择一张相片就够啦"
-                                 message:@"不要画蛇添足"
-                             btnTitleArr:@[@"好的"]
-                          alertBtnAction:@[@"OK"]];
-            }
-        }];
-    }return _imagePickerVC;
 }
 
 -(NSMutableArray<NSString *> *)titleMutArr{

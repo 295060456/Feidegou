@@ -22,15 +22,12 @@ TZImagePickerControllerDelegate
 @property(nonatomic,assign)int tap;
 
 
-//Q宠
-@property(nonatomic,strong)Q_Pet *pet;
 @property(nonatomic,strong)UIButton *upLoadBtn;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
-
 
 @end
 
@@ -77,8 +74,6 @@ TZImagePickerControllerDelegate
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.pet.alpha = 1;
-    [self.pet becomeFirstResponder];
     [self netWorking];
 }
 
@@ -179,19 +174,6 @@ TZImagePickerControllerDelegate
                                              SCREEN_WIDTH / 2));
         }];
     }return _QRcodeIMGV;
-}
-
--(Q_Pet *)pet{
-    if (!_pet) {
-        _pet = [[Q_Pet alloc]initWithFrame:CGRectMake(100,
-                                                      100,
-                                                      100,
-                                                      100)];
-        _pet.autoCloseEdge = YES;
-        [_pet show];
-        [self.view addSubview:_pet];
-        [_pet becomeFirstResponder];
-    }return _pet;
 }
 
 -(UIButton *)upLoadBtn{

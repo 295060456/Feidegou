@@ -152,13 +152,13 @@ UITableViewDataSource,
 TZImagePickerControllerDelegate
 >
 
+@property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 @property(nonatomic,strong)UIButton *demoPicBtn;
 @property(nonatomic,strong)UIImageView *imageView;
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UILabel *tipLab;
 @property(nonatomic,strong)UILabel *titleLab;
-@property(nonatomic,weak)TZImagePickerController *imagePickerVC;
-@property(nonatomic,strong)UpLoadCancelReasonTBVCell *cell;
+
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*tipsMutArr;
 @property(nonatomic,copy)DataBlock successBlock;

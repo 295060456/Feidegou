@@ -7,10 +7,15 @@
 //
 
 #import "UpLoadHavePaidVC.h"
+#import "UpLoadHavePaidVC+VM.h"
 
 @interface UpLoadHavePaidVC ()
+<
+TZImagePickerControllerDelegate
+>
 
-//@property(nonatomic,strong)id requestParams;
+//@property(nonatomic,strong)id requestParams;//父类有
+@property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
@@ -53,6 +58,37 @@
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)upLoadbtnClickEvent:(UIButton *)sender{
+    NSLog(@"1234");
+    if (self.pic) {
+        [self uploadPic_netWorking:self.pic];
+    }else{
+        Toast(@"请点选图片");
+    }
+}
+
+-(TZImagePickerController *)imagePickerVC{
+    if (!_imagePickerVC) {
+        _imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:9
+                                                                        delegate:self];
+        @weakify(self)
+        [_imagePickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos,
+                                                          NSArray *assets,
+                                                          BOOL isSelectOriginalPhoto) {
+            @strongify(self)
+            if (photos.count == 1) {
+                [self.cell reloadPicBtnIMG:photos.lastObject];
+                self.pic = photos.lastObject;
+            }else{
+                [self showAlertViewTitle:@"选择一张相片就够啦"
+                                 message:@"不要画蛇添足"
+                             btnTitleArr:@[@"好的"]
+                          alertBtnAction:@[@"OK"]];
+            }
+        }];
+    }return _imagePickerVC;
 }
 
 @end

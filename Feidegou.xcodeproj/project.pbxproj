@@ -52,6 +52,7 @@
 		8B9EAF8D237429950012884C /* SettingPaymentWayTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF8C237429950012884C /* SettingPaymentWayTBViewForHeader.m */; };
 		8BB0F6CE236BDAC2009498B6 /* WholesaleOrders_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB0F6CD236BDAC2009498B6 /* WholesaleOrders_VipVC.m */; };
 		8BB0F6D3236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB0F6D2236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m */; };
+		8BB1E80C237590DE00871ECA /* UpLoadHavePaidVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1E80B237590DE00871ECA /* UpLoadHavePaidVC+VM.m */; };
 		8BB2D2812366C6990047D0E2 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2772366C6990047D0E2 /* TwitterHeart.json */; };
 		8BB2D2822366C6990047D0E2 /* HamburgerArrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */; };
 		8BB2D2832366C6990047D0E2 /* G.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2792366C6990047D0E2 /* G.json */; };
@@ -710,6 +711,8 @@
 		8BB0F6CD236BDAC2009498B6 /* WholesaleOrders_VipVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleOrders_VipVC.m; sourceTree = "<group>"; };
 		8BB0F6D1236C48D8009498B6 /* WholesaleOrders_AdvanceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleOrders_AdvanceVC.h; sourceTree = "<group>"; };
 		8BB0F6D2236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleOrders_AdvanceVC.m; sourceTree = "<group>"; };
+		8BB1E80A237590DE00871ECA /* UpLoadHavePaidVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UpLoadHavePaidVC+VM.h"; sourceTree = "<group>"; };
+		8BB1E80B237590DE00871ECA /* UpLoadHavePaidVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UpLoadHavePaidVC+VM.m"; sourceTree = "<group>"; };
 		8BB2D2772366C6990047D0E2 /* TwitterHeart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeart.json; sourceTree = "<group>"; };
 		8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HamburgerArrow.json; sourceTree = "<group>"; };
 		8BB2D2792366C6990047D0E2 /* G.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = G.json; sourceTree = "<group>"; };
@@ -2364,6 +2367,8 @@
 			children = (
 				8BB2D3052366C7310047D0E2 /* UpLoadHavePaidVC.h */,
 				8BB2D3062366C7310047D0E2 /* UpLoadHavePaidVC.m */,
+				8BB1E80A237590DE00871ECA /* UpLoadHavePaidVC+VM.h */,
+				8BB1E80B237590DE00871ECA /* UpLoadHavePaidVC+VM.m */,
 			);
 			path = "上传已付款凭据（截图）";
 			sourceTree = "<group>";
@@ -4480,6 +4485,7 @@
 				C4614415214386B6000C0CDC /* VendorMainController.m in Sources */,
 				C42CD080213CC2640096675F /* InputApliayController.m in Sources */,
 				C42CD04D213CC2640096675F /* JJHttpClient+TwoZero.m in Sources */,
+				8BB1E80C237590DE00871ECA /* UpLoadHavePaidVC+VM.m in Sources */,
 				C42CD06A213CC2640096675F /* ButtonImgLbl.m in Sources */,
 				C42CD1BF213CC2640096675F /* JJDBHelper+Center.m in Sources */,
 				8BB2D36E2366CBA70047D0E2 /* TZPhotoPreviewController.m in Sources */,
