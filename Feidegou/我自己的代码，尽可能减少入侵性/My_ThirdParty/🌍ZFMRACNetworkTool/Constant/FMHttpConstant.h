@@ -15,8 +15,12 @@
 /*******URL******/
 //#define BaseUrl @"http://10.1.41.158:8080/catfoodapp"
 #define BaseUrl @"http://10.1.41.158:8081/catfoodapp"
+#define WebSocketLocalhost @"10.1.41.174"
 /********ImgBaseURL*****/
 #define ImgBaseURL @""
+
+#pragma mark - api拼接
+#define API(DomainName,api) [NSString stringWithFormat:@"%@%@",BaseUrl,api]
 
 #define CatfoodManageURL @"/user/seller/Catfoodmanage.htm"//喵粮管理 post 1 Y
 #define buyer_CatfoodRecord_listURL @"/user/seller/CatfoodRecord_list.htm"//喵粮订单列表 post 2 Y
@@ -47,10 +51,8 @@
 #define CatfoodWeixin_quarURL @"/user/seller/CatfoodWeixin_quary.htm"//展示二维码 post 27 Y
 #define CatfoodPayment_quaryURL @"/user/seller/CatfoodPayment_quary.htm"//发布批发市场展示可选支付方式 post 28 Y
 #define CatfoodPayment_setURL @"/user/seller/CatfoodPayment_set.htm"//设置支付方式 Y
-#define BaseWebSocketURL @"ws://localhost:8888/websocket"
 
-#pragma mark - api拼接
-#define API(DomainName,api) [NSString stringWithFormat:@"%@%@",BaseUrl,api]
+#define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@:8888/websocket",WebSocketLocalhost]
 
 /********如果需要存储，相应的的 key 宏定义********/
 /// 服务器相关

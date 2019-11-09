@@ -31,7 +31,7 @@
             @strongify(self)
             NSLog(@"--%@",response);
             if ([response isKindOfClass:[NSArray class]]) {
-                            NSArray *array = [CatFoodProducingAreaModel mj_objectArrayWithKeyValuesArray:response];
+                NSArray *array = [CatFoodProducingAreaModel mj_objectArrayWithKeyValuesArray:response];
                 if (array) {
                     [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
                                                         NSUInteger idx,

@@ -102,7 +102,6 @@ UITableViewDataSource
 @property(nonatomic,strong)UIButton *btn;
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*detailTitleMutArr;
-
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -158,20 +157,14 @@ UITableViewDataSource
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(SRWebSocketDidReceiveMsg:)
+                                                 name:kWebSocketdidReceiveMessageNote
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(SRWebSocketDidClose:)
                                                  name:kWebSocketDidCloseNote
                                                object:nil];
 }
-#pragma mark —— SRWebSocketDelegate 
-- (void)SRWebSocketDidOpen {
-    NSLog(@"开启成功");
-    //在成功后需要做的操作...
-}
 
-- (void)SRWebSocketDidReceiveMsg:(NSNotification *)note {
-    //收到服务端发送过来的消息
-    NSString *message = note.object;
-    NSLog(@"%@",message);
-}
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
@@ -179,8 +172,8 @@ UITableViewDataSource
 
 -(void)btnClickEvent:(UIButton *)sender{
     NSLog(@"开启直通车抢摊位")
+    [self.view endEditing:YES];
     if (![NSString isNullString:self.quantity]) {
-//        [self netWorking:self.quantity];
         [self webSocket:self.quantity];
     }else{
         Toast(@"请输入您要抢摊位的数量");
@@ -290,6 +283,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [_detailTitleMutArr addObject:@"g"];
         [_detailTitleMutArr addObject:@"1g/元"];
     }return _detailTitleMutArr;
+}
+
+-(NSMutableArray<ThroughTrainToPromoteModel *> *)dataMutArr{
+    if (!_dataMutArr) {
+        _dataMutArr = NSMutableArray.array;
+    }return _dataMutArr;
 }
 
 @end

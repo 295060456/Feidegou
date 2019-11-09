@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *payment_weixin_img;
 @property(nonatomic,copy)NSString *payment_print_img_path;
 @property(nonatomic,copy)NSString *updateTime;
-@property(nonatomic,copy)NSString *seller;
+@property(nonatomic,strong)NSNumber *seller;
 @property(nonatomic,copy)NSString *buyer;
 @property(nonatomic,copy)NSString *delTime;
 @property(nonatomic,copy)NSString *bankUser;

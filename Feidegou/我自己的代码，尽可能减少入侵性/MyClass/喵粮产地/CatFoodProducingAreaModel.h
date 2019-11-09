@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CatFoodProducingAreaModel : BaseModel
 
-@property(nonatomic,copy)NSString *seller;
+@property(nonatomic,strong)NSNumber *seller;
 @property(nonatomic,strong)NSNumber *buyer;
 @property(nonatomic,copy)NSString *group_img;
 @property(nonatomic,copy)NSString *notifyurl;

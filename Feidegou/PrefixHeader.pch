@@ -112,8 +112,9 @@
 #import "CatFoodProducingAreaModel.h"
 #import "WholesaleMarket_AdvanceModel.h"
 #import "WholesaleOrders_AdvanceModel.h"
-#import "StallListModel.h"
+#import "StallListModel.h"//没写？
 #import "OrderDetail_BuyerModel.h"
+#import "ThroughTrainToPromoteModel.h"
 
 //Test
 #import "TestVC.h"
