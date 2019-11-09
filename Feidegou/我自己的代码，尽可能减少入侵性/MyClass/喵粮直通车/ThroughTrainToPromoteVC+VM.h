@@ -14,10 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)netWorking:(NSString *)quantity;//说是废弃了
 
--(void)webSocket:(NSString *)quantity;//启动WebSocket
--(void)SRWebSocketDidOpen;//回馈WebSocket开启状态
--(void)SRWebSocketDidReceiveMsg:(NSNotification *)note;//接受消息
--(void)SRWebSocketDidClose:(NSNotification *)note;//关闭WebSocket
+
 
 @end
 

@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ThroughTrainToPromoteVC : BaseVC
 
 @property(nonatomic,copy)__block NSString *quantity;
-@property(nonatomic,strong)NSMutableArray <ThroughTrainToPromoteModel *>*dataMutArr;
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
                        requestParams:(nullable id)requestParams

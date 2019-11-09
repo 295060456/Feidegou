@@ -54,7 +54,6 @@
 		8BB0F6D3236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB0F6D2236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m */; };
 		8BB1E80C237590DE00871ECA /* UpLoadHavePaidVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1E80B237590DE00871ECA /* UpLoadHavePaidVC+VM.m */; };
 		8BB1E8212375B6A200871ECA /* SocketRocketUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1E81F2375B6A200871ECA /* SocketRocketUtility.m */; };
-		8BB1E824237671CE00871ECA /* ThroughTrainToPromoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1E823237671CE00871ECA /* ThroughTrainToPromoteModel.m */; };
 		8BB2D2812366C6990047D0E2 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2772366C6990047D0E2 /* TwitterHeart.json */; };
 		8BB2D2822366C6990047D0E2 /* HamburgerArrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */; };
 		8BB2D2832366C6990047D0E2 /* G.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2792366C6990047D0E2 /* G.json */; };
@@ -717,8 +716,6 @@
 		8BB1E80B237590DE00871ECA /* UpLoadHavePaidVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UpLoadHavePaidVC+VM.m"; sourceTree = "<group>"; };
 		8BB1E81F2375B6A200871ECA /* SocketRocketUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketRocketUtility.m; sourceTree = "<group>"; };
 		8BB1E8202375B6A200871ECA /* SocketRocketUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketRocketUtility.h; sourceTree = "<group>"; };
-		8BB1E822237671CE00871ECA /* ThroughTrainToPromoteModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThroughTrainToPromoteModel.h; sourceTree = "<group>"; };
-		8BB1E823237671CE00871ECA /* ThroughTrainToPromoteModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThroughTrainToPromoteModel.m; sourceTree = "<group>"; };
 		8BB2D2772366C6990047D0E2 /* TwitterHeart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeart.json; sourceTree = "<group>"; };
 		8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HamburgerArrow.json; sourceTree = "<group>"; };
 		8BB2D2792366C6990047D0E2 /* G.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = G.json; sourceTree = "<group>"; };
@@ -2304,8 +2301,6 @@
 				8BB2D2F22366C7310047D0E2 /* 喵粮直通车——摊位列表 */,
 				8BB2D2F62366C7310047D0E2 /* ThroughTrainToPromoteVC.h */,
 				8BB2D2F52366C7310047D0E2 /* ThroughTrainToPromoteVC.m */,
-				8BB1E822237671CE00871ECA /* ThroughTrainToPromoteModel.h */,
-				8BB1E823237671CE00871ECA /* ThroughTrainToPromoteModel.m */,
 				8BCB99352371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.h */,
 				8BCB99362371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.m */,
 			);
@@ -4645,7 +4640,6 @@
 				8BB2D36A2366CBA70047D0E2 /* TZVideoPlayerController.m in Sources */,
 				8BB2D3912366CC3F0047D0E2 /* NSString+Url_Chinese.m in Sources */,
 				8B9EAF87237417390012884C /* SettingPaymentWayVC.m in Sources */,
-				8BB1E824237671CE00871ECA /* ThroughTrainToPromoteModel.m in Sources */,
 				C41628162171C14300DC0D10 /* CellTuihuoInfo.m in Sources */,
 				C42CD1D1213CC2650096675F /* ModelRankList.m in Sources */,
 				C42CD1AD213CC2640096675F /* PersonalInfo.m in Sources */,

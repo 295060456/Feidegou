@@ -151,20 +151,8 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(SRWebSocketDidOpen)
-                                                 name:kWebSocketDidOpenNote
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(SRWebSocketDidReceiveMsg:)
-                                                 name:kWebSocketdidReceiveMessageNote
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(SRWebSocketDidClose:)
-                                                 name:kWebSocketDidCloseNote
-                                               object:nil];
-}
 
+}
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
@@ -173,8 +161,12 @@ UITableViewDataSource
 -(void)btnClickEvent:(UIButton *)sender{
     NSLog(@"开启直通车抢摊位")
     [self.view endEditing:YES];
+    @weakify(self)
     if (![NSString isNullString:self.quantity]) {
-        [self webSocket:self.quantity];
+        [StallListVC pushFromVC:self_weak_
+                  requestParams:self.quantity
+                        success:^(id data) {}
+                        animated:YES];
     }else{
         Toast(@"请输入您要抢摊位的数量");
     }
@@ -283,12 +275,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [_detailTitleMutArr addObject:@"g"];
         [_detailTitleMutArr addObject:@"1g/元"];
     }return _detailTitleMutArr;
-}
-
--(NSMutableArray<ThroughTrainToPromoteModel *> *)dataMutArr{
-    if (!_dataMutArr) {
-        _dataMutArr = NSMutableArray.array;
-    }return _dataMutArr;
 }
 
 @end

@@ -137,11 +137,23 @@ UITableViewDataSource
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
+    [self.tableView.mj_header beginRefreshing];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(SRWebSocketDidOpen)
+                                                 name:kWebSocketDidOpenNote
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(SRWebSocketDidReceiveMsg:)
+                                                 name:kWebSocketdidReceiveMessageNote
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(SRWebSocketDidClose:)
+                                                 name:kWebSocketDidCloseNote
+                                               object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.tableView.mj_header beginRefreshing];
 }
 
 #pragma mark —— 私有方法
@@ -158,7 +170,8 @@ UITableViewDataSource
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
     }
-    [self.tableView.mj_header endRefreshing];
+    
+    [self webSocket:self.requestParams];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
