@@ -114,6 +114,9 @@
 #import "WholesaleOrders_AdvanceModel.h"
 #import "StallListModel.h"//没写？
 #import "OrderDetail_BuyerModel.h"
+#import "JJBaseModel.h"
+
+#import "LoginViewController.h"
 
 //Test
 #import "TestVC.h"

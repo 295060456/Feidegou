@@ -27,7 +27,7 @@
          @"order_type":[NSString ensureNonnullString:model.order_type ReplaceStr:@""]//订单类型 —— 1、摊位;2、批发;3、产地
     };
     __block NSData *picData = [UIImage imageZipToData:self.pic];
-    [mgr POST:API(BaseUrl, CatfoodRecord_delURL)
+    [mgr POST:API(BaseUrl2, CatfoodRecord_delURL)
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
        @"key":[RSAUtil encryptString:randomStr

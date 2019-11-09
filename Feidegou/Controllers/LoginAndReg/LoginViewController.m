@@ -58,7 +58,11 @@
     NSString *strPsw = self.txtPsw.text;
     
 #warning 临时数据
-    strUserNum = @"wsx";
+//    strUserNum = @"wsx";
+//    strPsw = @"123456";
+    
+//    strUserNum = @"13225502231";
+    strUserNum = @"admin";
     strPsw = @"123456";
     
 //    if ([NSString isNullString:strUserNum]) {
@@ -120,8 +124,7 @@
     [dataMutDic setObject:@"4" forKey:@"version"];
     [dataMutDic setObject:@"3028" forKey:@"num"];
     [dataMutDic setObject:@"Yes" forKey:@"isIphone"];
-    
-    
+
     //1.创建会话管理者
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     //2.发送GET请求
@@ -136,17 +139,24 @@
         error:错误信息
      响应头:task.response
      */
-    [manager POST:BaseUrlLogin
+    [manager POST:AK
        parameters:dataMutDic
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task,
                     id  _Nullable responseObject) {
-        
         NSLog(@"%@---%@",[responseObject class],responseObject);
-        
+        ModelLogin *model = [ModelLogin mj_objectWithKeyValues:responseObject[@"data"][@"data"]];
+        [[PersonalInfo sharedInstance] updateLoginUserInfo:model];
+        if ([[PersonalInfo sharedInstance] isLogined]) {
+            [SVProgressHUD showSuccessWithStatus:@"登录成功"];
+        }else{
+            [SVProgressHUD showSuccessWithStatus:@"登录成功但是存取状态异常"];Toast(@"登录成功但是存取状态异常");
+        }
+        [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSURLSessionDataTask * _Nullable task,
                 NSError * _Nonnull error) {
         NSLog(@"请求失败--%@",error);
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }];
 }
 

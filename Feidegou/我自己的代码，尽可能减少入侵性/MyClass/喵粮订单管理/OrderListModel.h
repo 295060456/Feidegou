@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 //@property(nonatomic,copy)NSString *payment_status;
 //@property(nonatomic,copy)NSString *payment_print;
 //@property(nonatomic,copy)NSString *payment_alipay_id;
-@property(nonatomic,copy)NSString *payment_weixin_id;
+//@property(nonatomic,copy)NSString *payment_weixin_id;
 
 @property(nonatomic,copy)NSString *payment_print_img_name;
 @property(nonatomic,copy)NSString *finishTime;

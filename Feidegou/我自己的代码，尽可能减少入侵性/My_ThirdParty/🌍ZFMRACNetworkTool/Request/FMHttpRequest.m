@@ -54,9 +54,49 @@
 +(instancetype)urlParametersWithMethod:(NSString *)method
                                   path:(NSString *)path
                             parameters:(NSDictionary *)parameters{
+    extern NSString *randomStr;
+    NSDictionary *dataDic = parameters[@"data"];
+    NSMutableDictionary *dataMutDic = [NSMutableDictionary dictionaryWithDictionary:dataDic];
+    if ([[PersonalInfo sharedInstance] isLogined]) {
+        ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+        [dataMutDic setObject:model.userId
+                       forKey:@"user_id"];
+        [dataMutDic setObject:[YDDevice getUQID]
+                       forKey:@"identity"];
+        
+    }
+
+    NSMutableDictionary *returnMutDic = NSMutableDictionary.dictionary;
+    for (int f = 0; f < parameters.count; f ++) {
+        [returnMutDic setValue:parameters[@"key"]
+                        forKey:@"key"];
+        [returnMutDic setValue:aesEncryptString([NSString convertToJsonData:dataMutDic], randomStr)
+                        forKey:@"data"];
+    }
+    NSLog(@"");
+    
+//    //每个接口都加 user_id 和 identity
+//    NSMutableDictionary *mutData = [NSMutableDictionary dictionaryWithDictionary:parameters];
+//    NSDictionary *dataDic = mutData[@"data"];//不动，在此基础上进行拼接
+//    NSMutableDictionary *mutDataDic = [NSMutableDictionary dictionaryWithDictionary:dataDic];
+//    if ([[PersonalInfo sharedInstance] isLogined]) {
+//        ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+//        [mutDataDic setObject:aesEncryptString(model.userId, randomStr)
+//                       forKey:@"user_id"];
+//    }else{
+//        Toast(@"获取user_id失败");
+//    }
+//    [mutDataDic setObject:aesEncryptString([YDDevice getUQID], randomStr)
+//                   forKey:@"identity"];
+//    [mutData removeObjectForKey:@"data"];//只剩下@“key”
+//    for (int d = 0; d < mutData.count; d++) {
+//        [mutDataDic setObject:mutData.allValues[d]
+//                       forKey:mutData.allKeys[d]];
+//    }
+
     return [[self alloc]initUrlParametersWithMethod:method
                                                path:path
-                                         parameters:parameters];
+                                         parameters:returnMutDic];
 }
 
 -(instancetype)initUrlParametersWithMethod:(NSString *)method

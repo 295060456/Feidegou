@@ -20,7 +20,7 @@
         NSDictionary *dataDic = @{
             @"order_id":[model.ID stringValue],//order_id
         };
-        [mgr POST:API(BaseUrl, CatfoodCO_payURL)
+        [mgr POST:API(BaseUrl2, CatfoodCO_payURL)
        parameters:@{
            @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
            @"key":[RSAUtil encryptString:randomStr

@@ -434,11 +434,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
     }
     if (indexPath.section == 6) {
-        @weakify(self)
-        [CatFoodsManagementVC pushFromVC:self_weak_
-                           requestParams:nil
-                                 success:^(id data) {}
-                                animated:YES];
+        if ([[PersonalInfo sharedInstance] isLogined]) {
+                    @weakify(self)
+            [CatFoodsManagementVC pushFromVC:self_weak_
+                               requestParams:nil
+                                     success:^(id data) {}
+                                    animated:YES];
+        }else{
+            [self pushLoginController];
+        }
     }
 }
 
