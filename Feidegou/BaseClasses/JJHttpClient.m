@@ -170,33 +170,34 @@
  *
  *  @return 参数字符串
  */
--(NSDictionary*)paramStringWithStype:(NSString*)stype data:(NSDictionary*)data{
+-(NSDictionary*)paramStringWithStype:(NSString*)stype
+                                data:(NSDictionary*)data{
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params addEntriesFromDictionary:data];
+    [params addEntriesFromDictionary:data];//??
     [params setObject:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] forKey:@"user_id"];
     [params setObject:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] forKey:@"userId"];
     D_NSLog(@"data is %@",data);
-    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //    设置为中国时区
-    NSTimeZone *timeZone=[NSTimeZone timeZoneForSecondsFromGMT:8*3600];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneForSecondsFromGMT:8 * 3600];
     [dateFormatter setTimeZone:timeZone];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *strToday = [dateFormatter stringFromDate:[NSDate date]];
-    strToday = TransformString(strToday);
+//    strToday = TransformString(strToday);
     [params setObject:strToday forKey:@"datetoken"];
     //    字典转为json
-    NSString *strJson = [self DataTOjsonString:params];
+    NSString *strJson = [self DataTOjsonString:params];/////
 //    encodeing  json
     strJson = [NSString encodeToPercentEscapeString:strJson];
 //    根据json生成Key
     NSString *strKey =  [self encryptionTheParameter:strJson];
     if (stype) {
-        [params setObject:stype forKey:@"num"];
+        [params setObject:stype forKey:@"num"];//x
     }
-    [params setObject:strJson forKey:@"data"];
-    [params setObject:strKey forKey:@"key"];
-    [params setObject:@"4" forKey:@"version"];
-    [params setObject:@"Yes" forKey:@"isIphone"];
+    [params setObject:strJson forKey:@"data"];//
+    [params setObject:strKey forKey:@"key"];//
+    [params setObject:@"4" forKey:@"version"];//
+    [params setObject:@"Yes" forKey:@"isIphone"];//
     D_NSLog(@"请求数据为：%@",params);
     return params;
 }

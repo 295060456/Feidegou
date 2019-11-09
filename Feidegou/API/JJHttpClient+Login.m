@@ -11,16 +11,21 @@
 
 @implementation JJHttpClient (Login)
 
--(RACSignal*)requestLoginUSERNAME:(NSString *)USERNAME andPASSWORD:(NSString *)PASSWORD andIsChangedPsw:(BOOL)isChanged{
+-(RACSignal*)requestLoginUSERNAME:(NSString *)USERNAME
+                      andPASSWORD:(NSString *)PASSWORD
+                  andIsChangedPsw:(BOOL)isChanged{
     if (isChanged == NO) {
         PASSWORD = [self md5HexDigestSmall:PASSWORD];
     }
     NSDictionary *param = [self paramStringWithStype:@"3028"
-                                                data:@{@"userName":USERNAME,
-                                                       @"password":PASSWORD}];
+                                                data:@{
+                                                    @"userName":USERNAME,
+                                                    @"password":PASSWORD,
+                                                }];
     
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
-                                   parameters:param] map:^id(NSDictionary* dictionary) {
+                                   parameters:param]
+            map:^id(NSDictionary* dictionary) {
         [SVProgressHUD dismiss];
         NSInteger code = [[dictionary objectForKey:@"code"] integerValue];
         NSDictionary *datalist = [dictionary objectForKey:@"data"];

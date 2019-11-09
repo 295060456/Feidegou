@@ -87,7 +87,7 @@
 #import "WBPopMenuSingleton.h"
 #import "HistoryDataListTBV.h"
 #import "SocketRocketUtility.h"
-
+#import "YDDevice.h"
 //加密体系
 #import "RSAUtil.h"
 #import "EncryptUtils.h"

@@ -170,7 +170,6 @@ UITableViewDataSource
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
     }
-    
     [self webSocket:self.requestParams];
 }
 //上拉加载更多

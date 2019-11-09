@@ -54,6 +54,8 @@
 		8BB0F6D3236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB0F6D2236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m */; };
 		8BB1E80C237590DE00871ECA /* UpLoadHavePaidVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1E80B237590DE00871ECA /* UpLoadHavePaidVC+VM.m */; };
 		8BB1E8212375B6A200871ECA /* SocketRocketUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1E81F2375B6A200871ECA /* SocketRocketUtility.m */; };
+		8BB1E82A2376A2FE00871ECA /* YDKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1E8262376A2FE00871ECA /* YDKeyChain.m */; };
+		8BB1E82B2376A2FE00871ECA /* YDDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1E8282376A2FE00871ECA /* YDDevice.m */; };
 		8BB2D2812366C6990047D0E2 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2772366C6990047D0E2 /* TwitterHeart.json */; };
 		8BB2D2822366C6990047D0E2 /* HamburgerArrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */; };
 		8BB2D2832366C6990047D0E2 /* G.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2792366C6990047D0E2 /* G.json */; };
@@ -716,6 +718,10 @@
 		8BB1E80B237590DE00871ECA /* UpLoadHavePaidVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UpLoadHavePaidVC+VM.m"; sourceTree = "<group>"; };
 		8BB1E81F2375B6A200871ECA /* SocketRocketUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketRocketUtility.m; sourceTree = "<group>"; };
 		8BB1E8202375B6A200871ECA /* SocketRocketUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketRocketUtility.h; sourceTree = "<group>"; };
+		8BB1E8262376A2FE00871ECA /* YDKeyChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDKeyChain.m; sourceTree = "<group>"; };
+		8BB1E8272376A2FE00871ECA /* YDKeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDKeyChain.h; sourceTree = "<group>"; };
+		8BB1E8282376A2FE00871ECA /* YDDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDDevice.m; sourceTree = "<group>"; };
+		8BB1E8292376A2FE00871ECA /* YDDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDDevice.h; sourceTree = "<group>"; };
 		8BB2D2772366C6990047D0E2 /* TwitterHeart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeart.json; sourceTree = "<group>"; };
 		8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HamburgerArrow.json; sourceTree = "<group>"; };
 		8BB2D2792366C6990047D0E2 /* G.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = G.json; sourceTree = "<group>"; };
@@ -1979,6 +1985,17 @@
 			path = WebSocket;
 			sourceTree = "<group>";
 		};
+		8BB1E8252376A2F300871ECA /* UQID */ = {
+			isa = PBXGroup;
+			children = (
+				8BB1E8292376A2FE00871ECA /* YDDevice.h */,
+				8BB1E8282376A2FE00871ECA /* YDDevice.m */,
+				8BB1E8272376A2FE00871ECA /* YDKeyChain.h */,
+				8BB1E8262376A2FE00871ECA /* YDKeyChain.m */,
+			);
+			path = UQID;
+			sourceTree = "<group>";
+		};
 		8BB2D2732366C6410047D0E2 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -2062,6 +2079,7 @@
 		8BB2D2942366C7310047D0E2 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				8BB1E8252376A2F300871ECA /* UQID */,
 				8BB1E8112375B56000871ECA /* WebSocket */,
 				8BCB98C323715D2A0063E01E /* 加密体系 */,
 				8B8B0D9F2369635E0040EE53 /* HistoryDataList */,
@@ -4544,6 +4562,7 @@
 				C42CD0B1213CC2640096675F /* CellGoodMoney.m in Sources */,
 				C42CD14D213CC2640096675F /* CLCellSelectedNo.m in Sources */,
 				8BB2D3452366CB480047D0E2 /* ECAuthorizationTools.m in Sources */,
+				8BB1E82A2376A2FE00871ECA /* YDKeyChain.m in Sources */,
 				C42CD1CC213CC2640096675F /* ModelGoodTypeOne.m in Sources */,
 				8BB2D38F2366CC3A0047D0E2 /* NSString+File.m in Sources */,
 				8B05F84A236AA98900DCE40C /* HistoryDataListTBV.m in Sources */,
@@ -4675,6 +4694,7 @@
 				C4062BF4218FFDE700588193 /* SiginShowAdverController.m in Sources */,
 				C42CD098213CC2640096675F /* OrderDiscussController.m in Sources */,
 				8B716467236FE7B7009BA9EF /* BaseModel.m in Sources */,
+				8BB1E82B2376A2FE00871ECA /* YDDevice.m in Sources */,
 				8BB2D3832366CBFF0047D0E2 /* CleanPetsModel.m in Sources */,
 				C42CD071213CC2640096675F /* CenterController.m in Sources */,
 				C42CD089213CC2640096675F /* DataVerifier.m in Sources */,

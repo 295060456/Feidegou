@@ -12,9 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ThroughTrainToPromoteVC (VM)
 
--(void)netWorking:(NSString *)quantity;//说是废弃了
-
-
 
 @end
 

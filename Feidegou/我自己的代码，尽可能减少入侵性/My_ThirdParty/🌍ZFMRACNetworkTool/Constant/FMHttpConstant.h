@@ -13,9 +13,12 @@
 #define FMHttpConstant_h
 
 /*******URL******/
-//#define BaseUrl @"http://10.1.41.158:8080/catfoodapp"
-#define BaseUrl @"http://10.1.41.158:8081/catfoodapp"
-#define WebSocketLocalhost @"10.1.41.174"
+#define BaseUrl @"http://10.1.41.158:8080/catfoodapp"//狗哥给我的
+#define WebSocketLocalhost @"10.1.41.174"//丹尼尔的
+//#define BaseUrlLogin @"http://10.1.41.174:8080/SHOPAPP2.0/appShop7/"
+
+#define BaseUrlLogin @"http://10.1.41.198:8080/SHOPAPP2.0/appShop7/query.do"//ashui
+
 /********ImgBaseURL*****/
 #define ImgBaseURL @""
 
@@ -40,7 +43,7 @@
 #define CatfoodSale_BuyeroneURL @"/user/buyer/CatfoodSale_Buyerone.htm"//喵粮批发购买 post 16 Y
 #define CatfoodSale_payURL @"/user/buyer/CatfoodSale_pay.htm"//喵粮批发已支付 post 17 Y
 #define CatfoodSale_pay_delURL @"/user/buyer/CatfoodSale_pay_del.htm"//喵粮批发取消 post 18 Y
-#define CatfoodTrainURL @"/user/buyer/CatfoodTrain.htm"//喵粮直通车 post 19 y没通
+#define CatfoodTrainURL @"/user/buyer/CatfoodTrain.htm"//喵粮直通车 post 19 说是废弃了
 //#define //喵粮抢摊位 20
 #define CatfoodBooth_goodsURL @"/user/buyer/CatfoodBooth_goods.htm"//喵粮抢摊位发货 post 21
 #define CatfoodBooth_delURL @"/user/buyer/CatfoodBooth_del.htm"//喵粮抢摊位取消 post 22 Y
