@@ -57,15 +57,14 @@
     extern NSString *randomStr;
     NSDictionary *dataDic = parameters[@"data"];
     NSMutableDictionary *dataMutDic = [NSMutableDictionary dictionaryWithDictionary:dataDic];
+    //每个接口都加 user_id 和 identity
     if ([[PersonalInfo sharedInstance] isLogined]) {
         ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
         [dataMutDic setObject:model.userId
                        forKey:@"user_id"];
-        [dataMutDic setObject:[YDDevice getUQID]
-                       forKey:@"identity"];
-        
     }
-
+    [dataMutDic setObject:[YDDevice getUQID]
+                   forKey:@"identity"];
     NSMutableDictionary *returnMutDic = NSMutableDictionary.dictionary;
     for (int f = 0; f < parameters.count; f ++) {
         [returnMutDic setValue:parameters[@"key"]
@@ -73,9 +72,8 @@
         [returnMutDic setValue:aesEncryptString([NSString convertToJsonData:dataMutDic], randomStr)
                         forKey:@"data"];
     }
-    NSLog(@"");
     
-//    //每个接口都加 user_id 和 identity
+//
 //    NSMutableDictionary *mutData = [NSMutableDictionary dictionaryWithDictionary:parameters];
 //    NSDictionary *dataDic = mutData[@"data"];//不动，在此基础上进行拼接
 //    NSMutableDictionary *mutDataDic = [NSMutableDictionary dictionaryWithDictionary:dataDic];

@@ -33,7 +33,7 @@
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodSale_BuyeroneURL
                                                      parameters:@{
-                                                         @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
+                                                         @"data":dataDic,
                                                          @"key":[RSAUtil encryptString:randomStr
                                                                              publicKey:RSA_Public_key]
                                                      }];

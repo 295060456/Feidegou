@@ -26,7 +26,7 @@
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:buyer_CatfoodRecord_checkURL
                                                      parameters:@{
-                                                         @"data":aesEncryptString([NSString convertToJsonData:dic], randomStr),
+                                                         @"data":dic,
                                                          @"key":[RSAUtil encryptString:randomStr
                                                                              publicKey:RSA_Public_key]
                                                      }];
@@ -62,7 +62,7 @@
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:seller_CatfoodRecord_goodsURL
                                                      parameters:@{
-                                                         @"data":aesEncryptString([NSString convertToJsonData:dic], randomStr),
+                                                         @"data":dic,
                                                          @"key":[RSAUtil encryptString:randomStr
                                                                              publicKey:RSA_Public_key]
                                                      }];
@@ -92,7 +92,7 @@
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:url
                                                      parameters:@{
-                                                         @"data":aesEncryptString([NSString convertToJsonData:dic], randomStr),
+                                                         @"data":dic,
                                                          @"key":[RSAUtil encryptString:randomStr
                                                                              publicKey:RSA_Public_key]
                                                      }];

@@ -29,7 +29,7 @@
         FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                                path:CatfoodRecord_goodsURL
                                                          parameters:@{
-                                                             @"data":aesEncryptString([NSString convertToJsonData:dic], randomStr),
+                                                             @"data":dic,
                                                              @"key":[RSAUtil encryptString:randomStr
                                                                                  publicKey:RSA_Public_key]
                                                          }];
