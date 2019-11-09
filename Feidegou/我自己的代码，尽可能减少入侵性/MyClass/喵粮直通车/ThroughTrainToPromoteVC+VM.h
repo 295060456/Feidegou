@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ThroughTrainToPromoteVC (VM)
 
--(void)netWorking:(NSString *)quantity;
--(void)webSocket;
+-(void)netWorking:(NSString *)quantity;//说是废弃了
+-(void)webSocket:(NSString *)quantity;
 
 @end
 

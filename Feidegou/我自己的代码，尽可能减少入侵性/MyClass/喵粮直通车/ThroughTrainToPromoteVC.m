@@ -152,6 +152,25 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(SRWebSocketDidOpen)
+                                                 name:kWebSocketDidOpenNote
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(SRWebSocketDidReceiveMsg:)
+                                                 name:kWebSocketDidCloseNote
+                                               object:nil];
+}
+#pragma mark —— SRWebSocketDelegate 
+- (void)SRWebSocketDidOpen {
+    NSLog(@"开启成功");
+    //在成功后需要做的操作...
+}
+
+- (void)SRWebSocketDidReceiveMsg:(NSNotification *)note {
+    //收到服务端发送过来的消息
+    NSString *message = note.object;
+    NSLog(@"%@",message);
 }
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
@@ -161,7 +180,8 @@ UITableViewDataSource
 -(void)btnClickEvent:(UIButton *)sender{
     NSLog(@"开启直通车抢摊位")
     if (![NSString isNullString:self.quantity]) {
-        [self netWorking:self.quantity];
+//        [self netWorking:self.quantity];
+        [self webSocket:self.quantity];
     }else{
         Toast(@"请输入您要抢摊位的数量");
     }
