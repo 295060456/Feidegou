@@ -159,7 +159,7 @@ SRWebSocketDelegate
 
 - (void)sentheart {
     //发送心跳 和后台可以约定发送什么内容  一般可以调用ping  我这里根据后台的要求 发送了data给他
-    [self sendData:@"heart"];
+//    [self sendData:@"heart"];
 }
 //pingPong
 - (void)ping {
