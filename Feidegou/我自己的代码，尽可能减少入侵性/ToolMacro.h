@@ -273,9 +273,6 @@ dispatch_async(queue, block);\
 #pragma mark - MD5加盐
 //#define MD5_Salt(String) [NSString stringWithFormat:@"*bub#{%@}#fly*",String]
 
-#define NullableStr(nullableStr,ReplaceStr) [NSString isNullString:nullableStr] ? ReplaceStr : nullableStr
-#define ensureNonnullString(nullableStr) NullableStr(nullableStr,@"暂时缺乏")
-
 #define LoadMsg @"加载中..."
 #define Toast(msg)  [YKToastView showToastText:msg]
 #endif /* ToolMacro_h */

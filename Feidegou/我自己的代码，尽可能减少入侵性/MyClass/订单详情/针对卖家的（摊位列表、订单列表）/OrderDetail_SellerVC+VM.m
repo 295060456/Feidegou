@@ -15,36 +15,64 @@
     NSDictionary *dictionary;
     OrderListModel *orderListModel;
     if ([self.requestParams isKindOfClass:[NSDictionary class]]) {
-        dictionary = (NSDictionary *)self.requestParams;//OrderListModel
+        dictionary = (NSDictionary *)self.requestParams;//
         orderListModel = dictionary[@"OrderListModel"];
-    }
-    NSDictionary *dic = @{
-        @"order_id":[NSString ensureNonnullString:orderListModel.ID ReplaceStr:@""],//订单id
-        @"order_type":[NSString ensureNonnullString:orderListModel.order_type ReplaceStr:@""]//订单类型 —— 1、摊位;2、批发;3、产地
-    };
-       
-    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
-                                                           path:buyer_CatfoodRecord_checkURL
-                                                     parameters:@{
-                                                         @"data":dic,
-                                                         @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key]
-                                                     }];
-    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
-    @weakify(self)
-    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-        if (response) {
-            @strongify(self)
-            NSLog(@"--%@",response);
-            self.tableView.mj_footer.hidden = NO;
-            if ([response isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *dic = (NSDictionary *)response;
-                self.orderDetail_SellerModel = [OrderDetail_SellerModel mj_objectWithKeyValues:dic[@"catFoodOrder"]];
-                self.orderDetail_SellerModel.deal = dic[@"deal"];
+        NSDictionary *dic = @{
+            @"order_id":[NSString ensureNonnullString:orderListModel.ID ReplaceStr:@""],//订单id
+            @"order_type":[NSString ensureNonnullString:orderListModel.order_type ReplaceStr:@""]//订单类型 —— 1、摊位;2、批发;3、产地
+        };
+           
+        FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                               path:buyer_CatfoodRecord_checkURL
+                                                         parameters:@{
+                                                             @"data":dic,
+                                                             @"key":[RSAUtil encryptString:randomStr
+                                                                                 publicKey:RSA_Public_key]
+                                                         }];
+        self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+        @weakify(self)
+        [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+            if (response) {
+                @strongify(self)
+                NSLog(@"--%@",response);
+                self.tableView.mj_footer.hidden = NO;
+                if ([response isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *dic = (NSDictionary *)response;
+                    self.orderDetail_SellerModel = [OrderDetail_SellerModel mj_objectWithKeyValues:dic[@"catFoodOrder"]];
+                    self.orderDetail_SellerModel.deal = dic[@"deal"];
+                }
+                [self.tableView reloadData];
             }
-            [self.tableView reloadData];
-        }
-    }];
+        }];
+    }else if ([self.requestParams isKindOfClass:[StallListModel class]]){
+//        StallListModel *model = (StallListModel *)self.requestParams;
+//        NSDictionary *dic = @{
+//            @"order_id":model.ID,//订单id
+//        };
+//        FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+//                                                               path:Catfoodbooth_robURL//API(@"http://10.1.41.174:8888/catfoodapp/", Catfoodbooth_robURL)
+//                                                         parameters:@{
+//                                                             @"data":dic,
+//                                                             @"key":[RSAUtil encryptString:randomStr
+//                                                                                 publicKey:RSA_Public_key]
+//                                                         }];
+//        self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+//        @weakify(self)
+//        [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+//            if (response) {
+//                @strongify(self)
+//                NSLog(@"--%@",response);
+////                self.tableView.mj_footer.hidden = NO;
+////                if ([response isKindOfClass:[NSDictionary class]]) {
+////                    NSDictionary *dic = (NSDictionary *)response;
+////                    self.orderDetail_SellerModel = [OrderDetail_SellerModel mj_objectWithKeyValues:dic[@"catFoodOrder"]];
+////                    self.orderDetail_SellerModel.deal = dic[@"deal"];
+////                }
+////                [self.tableView reloadData];
+//            }
+//        }];
+        
+    }else{}
 }
 
 -(void)ConfirmDelivery_NetWorking{

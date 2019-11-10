@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)SRWebSocketDidReceiveMsg:(NSNotification *)note;//接受消息
 -(void)SRWebSocketDidClose:(NSNotification *)note;//关闭WebSocket
 
+-(void)allowWebSocketOpen_networking:(NSString *)quantity;
+
 @end
 
 NS_ASSUME_NONNULL_END

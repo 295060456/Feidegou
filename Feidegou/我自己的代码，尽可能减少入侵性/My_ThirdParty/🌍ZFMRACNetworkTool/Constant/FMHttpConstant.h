@@ -15,6 +15,7 @@
 /*******URL******/ //@"/catfoodapp"
 
 //狗哥给我的
+#define fdss @"10.1.41.158:8080"
 #define BaseUrl @"http://10.1.41.158:8080/catfoodapp"
 #define BaseUrl2 @"http://10.1.41.158:8080"
 //丹尼尔的
@@ -50,9 +51,11 @@
 #define CatfoodSale_pay_delURL @"/user/buyer/CatfoodSale_pay_del.htm"//喵粮批发取消 post 18 Y
 #define CatfoodTrainURL @"/user/buyer/CatfoodTrain.htm"//喵粮直通车 post 19 说是废弃了
 //#define //喵粮抢摊位 20
+#define Catfoodbooth_robURL @"/user/buyer/Catfoodbooth_rob.htm"
+//http://10.1.41.174:8888/catfoodapp/user/buyer/Catfoodbooth_rob.htm
 #define CatfoodBooth_goodsURL @"/user/buyer/CatfoodBooth_goods.htm"//喵粮抢摊位发货 post 21
 #define CatfoodBooth_delURL @"/user/buyer/CatfoodBooth_del.htm"//喵粮抢摊位取消 post 22 Y
-#define CatfoodRecord_goodsURL @"/user/buyer/CatfoodMeowFood.htm"//喵粮赠送 post 23 y没好
+#define CatfoodRecord_goodsURL @"/user/buyer/CatfoodMeowFood.htm"//喵粮赠送 post 23 Y
 #define CatfoodOrdernumberUpdateURL @"/user/seller/CatfoodOrdernumberUpdate.htm"//喵粮订单数量修改 post 24 ?
 #define CatfoodBooth_listURL @"/user/seller/CatfoodBooth_list.htm"//抢摊位列表 post 25
 #define Catfood_qr_addURL @"/user/seller/Catfood_qr_add.htm"//上传二维码 post 26 Y 不加catfoodapp
@@ -60,7 +63,8 @@
 #define CatfoodPayment_quaryURL @"/user/seller/CatfoodPayment_quary.htm"//发布批发市场展示可选支付方式 post 28 Y
 #define CatfoodPayment_setURL @"/user/seller/CatfoodPayment_set.htm"//设置支付方式 Y
 
-#define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@:8888/websocket",WebSocketLocalhost]
+//#define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@:8888/websocket",WebSocketLocalhost]
+#define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@/websocket",fdss]
 
 /********如果需要存储，相应的的 key 宏定义********/
 /// 服务器相关

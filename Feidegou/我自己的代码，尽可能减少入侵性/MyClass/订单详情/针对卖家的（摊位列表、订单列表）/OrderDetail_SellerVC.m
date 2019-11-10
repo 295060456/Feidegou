@@ -43,13 +43,23 @@ UITableViewDataSource
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     if ([model isKindOfClass:[OrderDetail_SellerModel class]]) {
         OrderDetail_SellerModel *orderDetail_SellerModel = (OrderDetail_SellerModel *)model;
-        [self.tempMutArr addObject:orderDetail_SellerModel.ordercode];
+        [self.tempMutArr addObject:[NSString ensureNonnullString:orderDetail_SellerModel.ordercode ReplaceStr:@""]];
         [self.tempMutArr addObject:[NSString stringWithFormat:@"%d",[orderDetail_SellerModel.price intValue]]];
         [self.tempMutArr addObject:[NSString stringWithFormat:@"%d",[orderDetail_SellerModel.rental intValue]]];
         [self.tempMutArr addObject:@"账号"];
         [self.tempMutArr addObject:@"银行卡"];
-        [self.tempMutArr addObject:ensureNonnullString(orderDetail_SellerModel.refer)];
-        [self.tempMutArr addObject:[NSString stringWithFormat:@"%@",orderDetail_SellerModel.updateTime]];
+        [self.tempMutArr addObject:[NSString ensureNonnullString:orderDetail_SellerModel.refer ReplaceStr:@""]];
+        [self.tempMutArr addObject:[NSString ensureNonnullString:orderDetail_SellerModel.updateTime ReplaceStr:@""]];
+        [self.tableView reloadData];
+    }else if ([model isKindOfClass:[StallListModel class]]){
+        StallListModel *stallListModel = (StallListModel *)model;
+        [self.tempMutArr addObject:[NSString ensureNonnullString:stallListModel.ordercode ReplaceStr:@""]];
+        [self.tempMutArr addObject:[NSString ensureNonnullString:stallListModel.price ReplaceStr:@""]];
+        [self.tempMutArr addObject:[NSString ensureNonnullString:stallListModel.rental ReplaceStr:@""]];
+        [self.tempMutArr addObject:@"账号"];
+        [self.tempMutArr addObject:@"银行卡"];
+        [self.tempMutArr addObject:[NSString ensureNonnullString:stallListModel.refer ReplaceStr:@""]];
+        [self.tempMutArr addObject:[NSString ensureNonnullString:stallListModel.updateTime ReplaceStr:@""]];
         [self.tableView reloadData];
     }
     self.tableView.alpha = 1;
@@ -178,7 +188,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //        上面这句等于下面两句
 //        self.attributedString;
 //        self.titleLab.alpha = 1;
-        }else{}
+    }else if ([model isKindOfClass:[StallListModel class]]){
+        StallListModel *stallListModel = (StallListModel *)model;
+        self.str = [NSString stringWithFormat:@"您向%@购买%@",[NSString ensureNonnullString:stallListModel.seller ReplaceStr:@""],[NSString ensureNonnullString:stallListModel.quantity ReplaceStr:@""]];
+//        self.attributedString = [NSString ensureNonnullString:stallListModel.del_reason ReplaceStr:@""];
+        self.titleLab.attributedText = self.attributedString;
+//        self.titleLab.text = [NSString ensureNonnullString:stallListModel.del_reason ReplaceStr:@""];
+    }else{}
 }
 #pragma mark —— lazyLoad
 -(NSMutableAttributedString *)attributedString{
@@ -309,6 +325,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             default:
                 break;
         }
+    }else if ([model isKindOfClass:[StallListModel class]]){
+        StallListModel *stallListModel = (StallListModel *)model;
+        self.titleLab.text = [NSString ensureNonnullString:stallListModel.del_reason ReplaceStr:@""];
+    }else{
+        
     }
 }
 
@@ -528,7 +549,7 @@ UITableViewDataSource
                             animated:(BOOL)animated{
     OrderDetail_SellerVC *vc = OrderDetail_SellerVC.new;
     vc.successBlock = block;
-    vc.requestParams = requestParams;//OrderListModel
+    vc.requestParams = requestParams;//OrderListModel StallListModel 
     vc.isShowViewFinished = NO;
     if (rootVC.navigationController) {
         vc.isPush = YES;
@@ -562,7 +583,7 @@ UITableViewDataSource
 //第二步，成为自己的代理，去监听pop的过程，pop之前判断是否为根控制器
     self.navigationController.delegate = self;
     self.isShowViewFinished = YES;
-    [self.tableView.mj_header beginRefreshing];
+    [self.tableView.mj_header beginRefreshing];//
 }
 #pragma mark —— UINavigationControllerDelegate
 - (void)navigationController:(UINavigationController *)navigationController
@@ -689,7 +710,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             OrderDetailTBVCell_04 *cell = [OrderDetailTBVCell_04 cellWith:tableView];
-            [cell richElementsInCellWithModel:self.orderDetail_SellerModel];
+            
+            if ([self.requestParams isKindOfClass:[NSDictionary class]]) {
+                [cell richElementsInCellWithModel:self.orderDetail_SellerModel];
+            }else if ([self.requestParams isKindOfClass:[StallListModel class]]){
+                [cell richElementsInCellWithModel:self.requestParams];
+            }
+            
             OrderDetailTBVCell_04_Height = [cell cellHeightWithModel:NULL];
             return cell;
         }else{}
@@ -698,17 +725,37 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             OrderDetailTBVCell_02 *cell = [OrderDetailTBVCell_02 cellWith:tableView];
             OrderDetailTBVCell_02_Height = [cell cellHeightWithModel:NULL];
 //            cell.backgroundColor = KGreenColor;
-            [cell richElementsInCellWithModel:self.orderDetail_SellerModel];
+        
+            if ([self.requestParams isKindOfClass:[NSDictionary class]]) {
+                [cell richElementsInCellWithModel:self.orderDetail_SellerModel];
+            }else if ([self.requestParams isKindOfClass:[StallListModel class]]){
+                [cell richElementsInCellWithModel:self.requestParams];
+            }
+            
             return cell;
         }else if(indexPath.row == 1){
             OrderDetailTBVCell_05 *cell = [OrderDetailTBVCell_05 cellWith:tableView];
 //            cell.backgroundColor = KGreenColor;
-            [cell richElementsInCellWithModel:self.orderDetail_SellerModel];
+//            [cell richElementsInCellWithModel:self.orderDetail_SellerModel];
+            
+            if ([self.requestParams isKindOfClass:[NSDictionary class]]) {
+                [cell richElementsInCellWithModel:self.orderDetail_SellerModel];
+            }else if ([self.requestParams isKindOfClass:[StallListModel class]]){
+                [cell richElementsInCellWithModel:self.requestParams];
+            }
+            
             return cell;
         }else if(indexPath.row == 2){
             OrderDetailTBVCell_06 *cell = [OrderDetailTBVCell_06 cellWith:tableView];
 //            cell.backgroundColor = KGreenColor;
-            [cell richElementsInCellWithModel:self.orderDetail_SellerModel];
+//            [cell richElementsInCellWithModel:self.orderDetail_SellerModel];
+            
+            if ([self.requestParams isKindOfClass:[NSDictionary class]]) {
+                [cell richElementsInCellWithModel:self.orderDetail_SellerModel];
+            }else if ([self.requestParams isKindOfClass:[StallListModel class]]){
+                [cell richElementsInCellWithModel:self.requestParams];
+            }
+            
             @weakify(self)
             [cell actionSureBlock:^(id data) {
                 @strongify(self)

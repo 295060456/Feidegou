@@ -121,11 +121,8 @@ static FMARCNetwork *_instance = nil;
         @strongify(self);
         /// 获取request KKK
         NSError *serializationError = nil;
-//        NSString *url = [[NSURL URLWithString:req.path
-//                                relativeToURL:[NSURL URLWithString:BaseUrl]] absoluteString];
-//        NSString *dd = [NSURL URLWithString:BaseUrl];
-//
-        NSString *url = [BaseUrl stringByAppendingString:req.path];
+        NSString *url = [BaseUrl stringByAppendingString:req.path];//KKK
+//        NSString *url = @"http://10.1.41.174:8888/catfoodapp/user/buyer/Catfoodbooth_rob.htm";
         NSMutableURLRequest *request = [self.manager.requestSerializer requestWithMethod:req.method
                                                                                URLString:url
                                                                               parameters:req.parameters
@@ -200,19 +197,27 @@ static FMARCNetwork *_instance = nil;
                 }else if (statusCode == HTTPResponseCodeAnomalous){//300 数据异常
                     if (httpResponse.isSuccess) {
                         Toast(httpResponse.reqResult[HTTPServiceResponseMsgKey]);
+                        [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseMsgKey]];//
+                        [subscriber sendCompleted];
                     }
                 }else if (statusCode == HTTPResponseCodeError){//500 数据错误
                     if (httpResponse.isSuccess) {
                         Toast(httpResponse.reqResult[HTTPServiceResponseMsgKey]);
+                        [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseMsgKey]];//
+                        [subscriber sendCompleted];
                     }
                 }else if (statusCode == HTTPResponseCodeError_01){//401 重新输入喵粮数量
                     if (httpResponse.isSuccess) {
                         [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseMsgKey]];//
                         Toast(httpResponse.reqResult[HTTPServiceResponseMsgKey]);
+                        [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseMsgKey]];//
+                        [subscriber sendCompleted];
                     }
                 }else if (statusCode == HTTPResponseCodeError_02){//402 输入有误请重新输入
                     if (httpResponse.isSuccess) {
                         Toast(httpResponse.reqResult[HTTPServiceResponseMsgKey]);
+                        [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseMsgKey]];//
+                        [subscriber sendCompleted];
                     }
                 }else{//抛其他异常
                     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];

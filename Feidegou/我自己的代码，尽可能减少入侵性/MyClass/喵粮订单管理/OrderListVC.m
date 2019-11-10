@@ -193,7 +193,9 @@ UIScrollViewDelegate
 //- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
 //告诉委托人在指定的文本字段中开始编辑
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
-
+    NSLog(@"");
+    [self.historyDataListTBV removeFromSuperview];
+    self.tradeTypeBtn.selected = NO;
 }
 //询问委托人是否应在指定的文本字段中停止编辑
 //- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;

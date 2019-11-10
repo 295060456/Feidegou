@@ -12,8 +12,8 @@
 
 @interface StallListTBVCell ()
 
-@property(nonatomic,copy)ActionBlock blockAnimationFinishedAction;
-@property(nonatomic,copy)ActionBlock blockTapAction;
+//@property(nonatomic,copy)ActionBlock blockAnimationFinishedAction;
+//@property(nonatomic,copy)ActionBlock blockTapAction;
 
 @end
 
@@ -41,48 +41,64 @@
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.countdownView.alpha = 1;
+//    self.countdownView.alpha = 1;
+    self.imgView.alpha = 1;
 }
 
--(void)actionAnimationFinishedBlock:(ActionBlock)block{
-    _blockAnimationFinishedAction = block;
-}
-
--(void)actionTapBlock:(ActionBlock)block{
-    _blockTapAction = block;
-}
+//-(void)actionAnimationFinishedBlock:(ActionBlock)block{
+//    _blockAnimationFinishedAction = block;
+//}
+//
+//-(void)actionTapBlock:(ActionBlock)block{
+//    _blockTapAction = block;
+//}
 
 #pragma mark —— lazyLoad
--(CountdownView *)countdownView{
-    if (!_countdownView) {
-        _countdownView = CountdownView.new;
-        _countdownView.time = 30;
-        _countdownView.str = @"抢";
-        @weakify(self)
-        _countdownView.blockTapAction = ^{
-            @strongify(self)
-            NSLog(@"主动点击");
-            if (self.blockTapAction) {
-                self.blockTapAction();
-            }
-        };
-        _countdownView.blockAnimationFinishedAction = ^{
-             @strongify(self)
-            NSLog(@"动画结束该干嘛？");
-            if (self.blockAnimationFinishedAction) {
-                self.blockAnimationFinishedAction();
-            }
-        };
-        [self.contentView addSubview:_countdownView];
-        [_countdownView mas_makeConstraints:^(MASConstraintMaker *make) {
+-(UIImageView *)imgView{
+    if (!_imgView) {
+        _imgView = UIImageView.new;
+        _imgView.image = kIMG(@"抢");
+        [self.contentView addSubview:_imgView];
+        [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.contentView);
             make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
             CGFloat h = MIN(SCALING_RATIO(30), self.contentView.mj_h);
             make.size.mas_equalTo(CGSizeMake(h, h));
         }];
         [self.contentView layoutIfNeeded];
-    }return _countdownView;
+    }return _imgView;
 }
+
+//-(CountdownView *)countdownView{
+//    if (!_countdownView) {
+//        _countdownView = CountdownView.new;
+//        _countdownView.time = 0;
+//        _countdownView.str = @"抢";
+//        @weakify(self)
+//        _countdownView.blockTapAction = ^{
+//            @strongify(self)
+//            NSLog(@"主动点击");
+//            if (self.blockTapAction) {
+//                self.blockTapAction();
+//            }
+//        };
+//        _countdownView.blockAnimationFinishedAction = ^{
+//             @strongify(self)
+//            NSLog(@"动画结束该干嘛？");
+//            if (self.blockAnimationFinishedAction) {
+//                self.blockAnimationFinishedAction();
+//            }
+//        };
+//        [self.contentView addSubview:_countdownView];
+//        [_countdownView mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.centerY.equalTo(self.contentView);
+//            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+//            CGFloat h = MIN(SCALING_RATIO(30), self.contentView.mj_h);
+//            make.size.mas_equalTo(CGSizeMake(h, h));
+//        }];
+//        [self.contentView layoutIfNeeded];
+//    }return _countdownView;
+//}
 
 @end
 
@@ -170,7 +186,9 @@ UITableViewDataSource
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
     }
-    [self webSocket:self.requestParams];
+    [[SocketRocketUtility instance] SRWebSocketClose];//关闭WebSocket
+//    [self webSocket:self.requestParams];//
+    [self allowWebSocketOpen_networking:self.requestParams];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
@@ -203,24 +221,25 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     StallListTBVCell *cell = [StallListTBVCell cellWith:tableView];
     [cell richElementsInCellWithModel:nil];
-    @weakify(self)
-    [cell actionAnimationFinishedBlock:^{
-        @strongify(self)
-        cell.userInteractionEnabled = NO;
-        cell.countdownView.str = @"废";
-        [self showAlertViewTitle:@"已超时"
-                         message:@"超过规定时间以后不能继续抢摊"
-                     btnTitleArr:@[@"确认"]
-                  alertBtnAction:@[@"sure"]];
-    }];
-    
-    [cell actionTapBlock:^{
-        @strongify(self)
-        if (cell.userInteractionEnabled) {
-            [self tableView:tableView
-            deleteIndexPath:indexPath];
-        }
-    }];return cell;
+//    @weakify(self)
+//    [cell actionAnimationFinishedBlock:^{
+//        @strongify(self)
+//        cell.userInteractionEnabled = NO;
+//        cell.countdownView.str = @"废";
+//        [self showAlertViewTitle:@"已超时"
+//                         message:@"超过规定时间以后不能继续抢摊"
+//                     btnTitleArr:@[@"确认"]
+//                  alertBtnAction:@[@"sure"]];
+//    }];
+//
+//    [cell actionTapBlock:^{
+//        @strongify(self)
+//        if (cell.userInteractionEnabled) {
+//            [self tableView:tableView
+//            deleteIndexPath:indexPath];
+//        }
+//    }];
+    return cell;
 }
 
 -(void)tableView:(UITableView *)tableView
@@ -242,7 +261,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                    dispatch_get_main_queue(), ^{
         @weakify(self)
         [OrderDetail_SellerVC pushFromVC:self_weak_
-                           requestParams:nil
+                           requestParams:self.dataMutArr[indexPath.row]
                                  success:^(id data) {}
                                 animated:YES];
     });
@@ -252,18 +271,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
  willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!self.isDelCell) {
-        //设置Cell的动画效果为3D效果
-        //设置x和y的初始值为0.1；
-        cell.layer.transform = CATransform3DMakeScale(0.1,
-                                                      0.1,
-                                                      1);
-        //x和y的最终值为1
-        [UIView animateWithDuration:1
-                         animations:^{
-            cell.layer.transform = CATransform3DMakeScale(1,
-                                                          1,
-                                                          1);
-        }];
+//        //设置Cell的动画效果为3D效果
+//        //设置x和y的初始值为0.1；
+//        cell.layer.transform = CATransform3DMakeScale(0.1,
+//                                                      0.1,
+//                                                      1);
+//        //x和y的最终值为1
+//        [UIView animateWithDuration:1
+//                         animations:^{
+//            cell.layer.transform = CATransform3DMakeScale(1,
+//                                                          1,
+//                                                          1);
+//        }];
     }
 }
 

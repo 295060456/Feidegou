@@ -38,7 +38,7 @@
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.backgroundColor = RandomColor;
+    self.backgroundColor = KLightGrayColor;//RandomColor;
     self.textLabel.text = model;
 
 }

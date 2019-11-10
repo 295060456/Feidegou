@@ -12,14 +12,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface StallListTBVCell :TBVCell_style_01
 
-@property(nonatomic,strong)CountdownView *countdownView;
+//@property(nonatomic,strong)CountdownView *countdownView;
+@property(nonatomic,strong)UIImageView *imgView;
 
 +(instancetype)cellWith:(UITableView *)tableView;
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;
 - (void)richElementsInCellWithModel:(id _Nullable)model;
 
--(void)actionAnimationFinishedBlock:(ActionBlock)block;
--(void)actionTapBlock:(ActionBlock)block;
+//-(void)actionAnimationFinishedBlock:(ActionBlock)block;
+//-(void)actionTapBlock:(ActionBlock)block;
 
 @end
 
