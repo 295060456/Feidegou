@@ -12,6 +12,10 @@
 
 -(void)uploadPic_netWorking:(UIImage *)image{
     extern NSString *randomStr;
+    ModelLogin *modelLogin;
+    if ([[PersonalInfo sharedInstance] isLogined]) {
+        modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+    }
     if ([self.requestParams isKindOfClass:[OrderDetail_BuyerModel class]]) {
         OrderDetail_BuyerModel *model = (OrderDetail_BuyerModel *)self.requestParams;
         AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
@@ -19,6 +23,8 @@
         __block NSData *picData = [UIImage imageZipToData:image];
         NSDictionary *dataDic = @{
             @"order_id":[model.ID stringValue],//order_id
+            @"user_id":modelLogin.userId,
+            @"identity":[YDDevice getUQID]
         };
         [mgr POST:API(BaseUrl2, CatfoodCO_payURL)
        parameters:@{

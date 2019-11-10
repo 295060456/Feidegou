@@ -37,22 +37,21 @@
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
     extern NSString *randomStr;
-//    NSDictionary *dic;
-//    OrderListModel *model;
-//    if ([self.requestParams isKindOfClass:[NSDictionary class]]) {
-//        dic = (NSDictionary *)self.requestParams;
-//        model = dic[@"OrderListModel"][@"OrderListModel"];
-//    }
-//
-//    NSDictionary *dataDic = @{
-//         @"order_id":[NSString ensureNonnullString:model.ID ReplaceStr:@""],//订单id
-//         @"reason":dic[@"Result"],//撤销理由
-//         @"order_type":[NSString ensureNonnullString:model.order_type ReplaceStr:@""]//订单类型 —— 1、摊位;2、批发;3、产地
-//    };
+    
+    NSMutableDictionary *dataMutDic = NSMutableDictionary.dictionary;
+    //每个接口都加 user_id 和 identity
+    if ([[PersonalInfo sharedInstance] isLogined]) {
+        ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+        [dataMutDic setObject:model.userId
+                       forKey:@"user_id"];
+    }
+    [dataMutDic setObject:[YDDevice getUQID]
+                   forKey:@"identity"];
+    
     __block NSData *picData = [UIImage imageZipToData:image];
     [mgr POST:API(BaseUrl2, Catfood_qr_addURL)
    parameters:@{
-//       @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
+       @"data":aesEncryptString([NSString convertToJsonData:dataMutDic], randomStr),
        @"key":[RSAUtil encryptString:randomStr
                            publicKey:RSA_Public_key]
    }

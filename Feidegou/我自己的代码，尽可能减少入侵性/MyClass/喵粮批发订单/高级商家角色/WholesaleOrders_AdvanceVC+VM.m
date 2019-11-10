@@ -105,8 +105,14 @@
         NSNumber *order_ID = (NSNumber *)arr[2];
         order_IDStr = [order_ID stringValue];
     }
+    ModelLogin *modelLogin;
+    if ([[PersonalInfo sharedInstance] isLogined]) {
+        modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+    }
     NSDictionary *dataDic = @{
-        @"order_id":order_IDStr
+        @"order_id":order_IDStr,
+        @"user_id":modelLogin.userId,
+        @"identity":[YDDevice getUQID]
     };
     __block NSData *picData = [UIImage imageZipToData:pic];
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];

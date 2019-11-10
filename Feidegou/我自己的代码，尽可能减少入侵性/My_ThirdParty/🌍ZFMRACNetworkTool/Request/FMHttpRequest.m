@@ -71,30 +71,9 @@
                         forKey:@"key"];
         [returnMutDic setValue:aesEncryptString([NSString convertToJsonData:dataMutDic], randomStr)
                         forKey:@"data"];
-    }
-    
-//
-//    NSMutableDictionary *mutData = [NSMutableDictionary dictionaryWithDictionary:parameters];
-//    NSDictionary *dataDic = mutData[@"data"];//不动，在此基础上进行拼接
-//    NSMutableDictionary *mutDataDic = [NSMutableDictionary dictionaryWithDictionary:dataDic];
-//    if ([[PersonalInfo sharedInstance] isLogined]) {
-//        ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-//        [mutDataDic setObject:aesEncryptString(model.userId, randomStr)
-//                       forKey:@"user_id"];
-//    }else{
-//        Toast(@"获取user_id失败");
-//    }
-//    [mutDataDic setObject:aesEncryptString([YDDevice getUQID], randomStr)
-//                   forKey:@"identity"];
-//    [mutData removeObjectForKey:@"data"];//只剩下@“key”
-//    for (int d = 0; d < mutData.count; d++) {
-//        [mutDataDic setObject:mutData.allValues[d]
-//                       forKey:mutData.allKeys[d]];
-//    }
-
-    return [[self alloc]initUrlParametersWithMethod:method
-                                               path:path
-                                         parameters:returnMutDic];
+    }return [[self alloc]initUrlParametersWithMethod:method
+                                                path:path
+                                          parameters:returnMutDic];
 }
 
 -(instancetype)initUrlParametersWithMethod:(NSString *)method

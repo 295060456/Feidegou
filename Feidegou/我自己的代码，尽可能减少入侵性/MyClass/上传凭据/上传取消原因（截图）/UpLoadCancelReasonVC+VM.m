@@ -20,11 +20,17 @@
         dic = (NSDictionary *)self.requestParams;
         model = dic[@"OrderListModel"][@"OrderListModel"];
     }
+    ModelLogin *modelLogin;
+    if ([[PersonalInfo sharedInstance] isLogined]) {
+        modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+    }
     
     NSDictionary *dataDic = @{
          @"order_id":[NSString ensureNonnullString:model.ID ReplaceStr:@""],//订单id
          @"reason":dic[@"Result"],//撤销理由
-         @"order_type":[NSString ensureNonnullString:model.order_type ReplaceStr:@""]//订单类型 —— 1、摊位;2、批发;3、产地
+         @"order_type":[NSString ensureNonnullString:model.order_type ReplaceStr:@""],//订单类型 —— 1、摊位;2、批发;3、产地
+         @"user_id":modelLogin.userId,
+         @"identity":[YDDevice getUQID]
     };
     __block NSData *picData = [UIImage imageZipToData:self.pic];
     [mgr POST:API(BaseUrl2, CatfoodRecord_delURL)
