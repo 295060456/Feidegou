@@ -40,12 +40,25 @@
                                                              selectedImageName:@"img_tabbar_type_s"];
     
     //线下店
-    UIViewController *controller_ShopStore = [self controllerWithStoryboardName:StoryboardVendorDetail
-                                                                         title:@"线下店"
-                                                               normalImageName:@"img_tabbar_vendor_n"
-                                                                    identifier:nil
-                                                             selectedImageName:@"img_tabbar_vendor_s"];
-    
+//    UIViewController *controller_ShopStore = [self controllerWithStoryboardName:StoryboardVendorDetail
+//                                                                         title:@"线下店"
+//                                                               normalImageName:@"img_tabbar_vendor_n"
+//                                                                    identifier:nil
+//                                                             selectedImageName:@"img_tabbar_vendor_s"];
+
+    UIViewController *controller_ShopStore = UIViewController.new;
+//    controller_ShopStore.view.backgroundColor = kWhiteColor;
+    controller_ShopStore.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    controller_ShopStore.tabBarItem.title = @"线下店";
+    controller_ShopStore.tabBarItem.image = [kIMG(@"img_tabbar_vendor_n") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    controller_ShopStore.tabBarItem.selectedImage = [kIMG(@"img_tabbar_vendor_s") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImageView *imgv = UIImageView.new;
+    imgv.image = kIMG(@"敬请期待");
+    [controller_ShopStore.view addSubview:imgv];
+    [imgv mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 2, SCREEN_WIDTH / 2));
+        make.center.equalTo(controller_ShopStore.view);
+    }];
     //购物车
     UIViewController *controller_ShopCart = [self controllerWithStoryboardName:StoryboardShopCart
                                                                         title:@"购物车"
