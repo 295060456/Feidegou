@@ -33,7 +33,6 @@
 		8B7A54ED236D6DD1006B12F8 /* WBTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A54E3236D6DD0006B12F8 /* WBTableViewDataSource.m */; };
 		8B7A552C236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A552B236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m */; };
 		8B7A556B236F1265006B12F8 /* OrderListVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A556A236F1265006B12F8 /* OrderListVC+VM.m */; };
-		8B7BA4F3237816F700A9A4FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B7BA4F2237816F700A9A4FE /* Images.xcassets */; };
 		8B7E6DDC2374073B0023314C /* StallListVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7E6DDB2374073B0023314C /* StallListVC+VM.m */; };
 		8B7E6DDF2374076A0023314C /* StallListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7E6DDE2374076A0023314C /* StallListModel.m */; };
 		8B8B0D0A236814960040EE53 /* TestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2912366C7290047D0E2 /* TestVC.m */; };
@@ -155,6 +154,7 @@
 		C416281F2171DFE200DC0D10 /* CellTuihuoWuliu.xib in Resources */ = {isa = PBXBuildFile; fileRef = C416281D2171DFE200DC0D10 /* CellTuihuoWuliu.xib */; };
 		C42CCCDB213CC04F0096675F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C42CCCDA213CC04F0096675F /* AppDelegate.m */; };
 		C42CCCE1213CC04F0096675F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42CCCDF213CC04F0096675F /* Main.storyboard */; };
+		C42CCCE3213CC0520096675F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C42CCCE2213CC0520096675F /* Assets.xcassets */; };
 		C42CCCE6213CC0520096675F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C42CCCE4213CC0520096675F /* LaunchScreen.storyboard */; };
 		C42CCCE9213CC0520096675F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C42CCCE8213CC0520096675F /* main.m */; };
 		C42CCCF3213CC0520096675F /* FeidegouTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C42CCCF2213CC0520096675F /* FeidegouTests.m */; };
@@ -680,7 +680,6 @@
 		8B7A552B236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CatFoodsManagementVC+VM.m"; sourceTree = "<group>"; };
 		8B7A5569236F1265006B12F8 /* OrderListVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OrderListVC+VM.h"; sourceTree = "<group>"; };
 		8B7A556A236F1265006B12F8 /* OrderListVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OrderListVC+VM.m"; sourceTree = "<group>"; };
-		8B7BA4F2237816F700A9A4FE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8B7E6DDA2374073B0023314C /* StallListVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StallListVC+VM.h"; sourceTree = "<group>"; };
 		8B7E6DDB2374073B0023314C /* StallListVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "StallListVC+VM.m"; sourceTree = "<group>"; };
 		8B7E6DDD2374076A0023314C /* StallListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StallListModel.h; sourceTree = "<group>"; };
@@ -916,6 +915,7 @@
 		C42CCCD9213CC04F0096675F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C42CCCDA213CC04F0096675F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C42CCCE0213CC04F0096675F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C42CCCE2213CC0520096675F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C42CCCE5213CC0520096675F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C42CCCE7213CC0520096675F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C42CCCE8213CC0520096675F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -1803,15 +1803,15 @@
 		32C7D48EC2AC09650D7CAE57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */,
+				8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */,
 				C4D95F27213CC60100462531 /* CFNetwork.framework */,
 				C4D95F25213CC5FB00462531 /* CoreFoundation.framework */,
-				8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */,
 				C4D95F23213CC5F400462531 /* CoreTelephony.framework */,
 				C4D95F21213CC5EC00462531 /* UIKit.framework */,
+				C4D95F1F213CC5E700462531 /* libz.tbd */,
 				C4D95F1D213CC5DF00462531 /* UserNotifications.framework */,
 				C4D95F1B213CC5D700462531 /* libresolv.tbd */,
-				C4D95F1F213CC5E700462531 /* libz.tbd */,
+				B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2018,7 +2018,7 @@
 		8BB2D2752366C6640047D0E2 /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				8B7BA4F2237816F700A9A4FE /* Images.xcassets */,
+				C42CCCE2213CC0520096675F /* Assets.xcassets */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -4178,7 +4178,6 @@
 				C42CCCE6213CC0520096675F /* LaunchScreen.storyboard in Resources */,
 				C42CD0C7213CC2640096675F /* CellLogisticsMiddle.xib in Resources */,
 				C42F5D2A213F855E00114E0E /* CellIncomeHeader.xib in Resources */,
-				8B7BA4F3237816F700A9A4FE /* Images.xcassets in Resources */,
 				C42CD0FA213CC2640096675F /* MoreUp.xib in Resources */,
 				C4FC07BD215B2B0300C6ECF3 /* AdvertiseStart.storyboard in Resources */,
 				8BB2D2842366C6990047D0E2 /* vcTransition1.json in Resources */,
@@ -4196,6 +4195,7 @@
 				C4A0DA76213E6B9B00B45B65 /* CellSignIn.xib in Resources */,
 				C42CD120213CC2640096675F /* CLCellRegion.xib in Resources */,
 				C46368DA213FBE6C006922D5 /* CellGoodBigLeft.xib in Resources */,
+				C42CCCE3213CC0520096675F /* Assets.xcassets in Resources */,
 				C42CD176213CC2640096675F /* ApplyForVender.storyboard in Resources */,
 				C46D6B5A2143A5C900428D7A /* CellOrderConfilm.xib in Resources */,
 				C4614406214386B6000C0CDC /* CellVendorGoodPic.xib in Resources */,
