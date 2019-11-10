@@ -11,18 +11,19 @@
 @implementation GiftVC (VM)
 
 -(void)netWorking{
-    
+    extern NSString *randomStr;
     if (![NSString isNullString:self.User_phone] &&
         ![NSString isNullString:self.value]) {
-        extern NSString *randomStr;
         NSDictionary *dictionary;
         if ([self.requestParams isKindOfClass:[NSDictionary class]]) {
             dictionary = (NSDictionary *)self.requestParams;
-            
         }
+//        self.User_phone = @"13220332922";
+//        self.value = @"10";
+        
         NSDictionary *dic = @{
-            @"User_phone":self.User_phone,//被赠送用户手机
-            @"User_id":@"1",//用户id KKK
+            @"user_phone":self.User_phone,//被赠送用户手机
+            @"user_pid":@"",//屏蔽了
             @"value":self.value//数量
         };
            
@@ -34,18 +35,18 @@
                                                                                  publicKey:RSA_Public_key]
                                                          }];
         self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
-//        @weakify(self)
+        @weakify(self)
         [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
             if (response) {
-//                @strongify(self)
+                @strongify(self)
                 NSLog(@"--%@",response);
-
+                Toast(@"赠送成功");
+                [self.navigationController popViewControllerAnimated:YES];
             }
         }];
     }else{
         Toast(@"请输入数据");
     }
-    
 }
 
 @end

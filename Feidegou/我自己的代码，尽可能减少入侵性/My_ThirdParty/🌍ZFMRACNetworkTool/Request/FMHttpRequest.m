@@ -57,6 +57,10 @@
     extern NSString *randomStr;
     NSDictionary *dataDic = parameters[@"data"];
     NSMutableDictionary *dataMutDic = [NSMutableDictionary dictionaryWithDictionary:dataDic];
+    for (int i = 0; i < dataDic.count; i++) {
+        [dataMutDic setValue:dataDic.allValues[i]
+                      forKey:dataDic.allKeys[i]];
+    }
     //每个接口都加 user_id 和 identity
     if ([[PersonalInfo sharedInstance] isLogined]) {
         ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
