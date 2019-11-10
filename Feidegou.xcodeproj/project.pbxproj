@@ -1803,15 +1803,15 @@
 		32C7D48EC2AC09650D7CAE57 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */,
+				B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */,
 				C4D95F27213CC60100462531 /* CFNetwork.framework */,
 				C4D95F25213CC5FB00462531 /* CoreFoundation.framework */,
+				8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */,
 				C4D95F23213CC5F400462531 /* CoreTelephony.framework */,
 				C4D95F21213CC5EC00462531 /* UIKit.framework */,
-				C4D95F1F213CC5E700462531 /* libz.tbd */,
 				C4D95F1D213CC5DF00462531 /* UserNotifications.framework */,
 				C4D95F1B213CC5D700462531 /* libresolv.tbd */,
-				B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */,
+				C4D95F1F213CC5E700462531 /* libz.tbd */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2018,6 +2018,7 @@
 		8BB2D2752366C6640047D0E2 /* Image */ = {
 			isa = PBXGroup;
 			children = (
+				8B7BA4F2237816F700A9A4FE /* Images.xcassets */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -2650,7 +2651,6 @@
 				C42CCF82213CC2620096675F /* Storyboard */,
 				C42CCF90213CC2630096675F /* Utils */,
 				C42CCCE7213CC0520096675F /* Info.plist */,
-				8B7BA4F2237816F700A9A4FE /* Images.xcassets */,
 			);
 			path = Feidegou;
 			sourceTree = "<group>";
