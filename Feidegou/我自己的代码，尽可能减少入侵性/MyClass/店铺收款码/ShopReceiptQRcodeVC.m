@@ -13,17 +13,12 @@
 <
 TZImagePickerControllerDelegate
 >
-{
-
-}
-
-@property(nonatomic,strong)UIImageView *QRcodeIMGV;
-@property(nonatomic,weak)TZImagePickerController *imagePickerVC;
-@property(nonatomic,assign)int tap;
-
+{}
 
 @property(nonatomic,strong)UIButton *upLoadBtn;
+@property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 
+@property(nonatomic,assign)int tap;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;

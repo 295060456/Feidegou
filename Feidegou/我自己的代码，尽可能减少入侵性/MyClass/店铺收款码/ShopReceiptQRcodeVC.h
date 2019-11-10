@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ShopReceiptQRcodeVC : BaseVC
 
 @property(nonatomic,copy)NSString *QRcodeStr;
+@property(nonatomic,strong)UIImageView *QRcodeIMGV;
 
 + (instancetype)pushFromVC:(UIViewController *)rootVC
              requestParams:(nullable id)requestParams

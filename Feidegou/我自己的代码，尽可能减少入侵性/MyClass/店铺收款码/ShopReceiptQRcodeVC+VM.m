@@ -26,8 +26,17 @@
             NSLog(@"--%@",response);
             if ([response isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *dic = (NSDictionary *)response;
-                self.QRcodeStr = dic[@"weixin_qr_img"];
-                [self QRcode];
+                if (self.QRcodeStr) {
+                    self.QRcodeStr = dic[@"weixin_qr_img"];
+                    [self QRcode];
+                }else{
+                    self.QRcodeIMGV.image = kIMG(@"上传二维码");
+//                    [UIView cornerCutToCircleWithView:self.QRcodeIMGV
+//                                      AndCornerRadius:10.f];
+//                    [UIView colourToLayerOfView:self.QRcodeIMGV
+//                                     WithColour:kBlackColor
+//                                 AndBorderWidth:0.5f];
+                }
             }
         }
     }];

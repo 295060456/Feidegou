@@ -3490,16 +3490,16 @@
 		C42CCF82213CC2620096675F /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
+				C42CCF88213CC2630096675F /* Navigation */,
 				C4FC07BC215B2B0300C6ECF3 /* AdvertiseStart.storyboard */,
+				C42CCF85213CC2630096675F /* ApplyForVender.storyboard */,
 				C46F8C31214CF1CA00F0C7D1 /* ExhangeArea.storyboard */,
+				C42CCF8F213CC2630096675F /* LoginAndRegister.storyboard */,
+				C42CCF87213CC2630096675F /* MyOrder.storyboard */,
 				C42CCF83213CC2630096675F /* RankingList.storyboard */,
 				C42CCF84213CC2630096675F /* VendorDetail.storyboard */,
-				C42CCF85213CC2630096675F /* ApplyForVender.storyboard */,
-				C42CCF86213CC2630096675F /* WithdrawDeposit.storyboard */,
-				C42CCF87213CC2630096675F /* MyOrder.storyboard */,
-				C42CCF88213CC2630096675F /* Navigation */,
 				C42CCF8E213CC2630096675F /* WebService.storyboard */,
-				C42CCF8F213CC2630096675F /* LoginAndRegister.storyboard */,
+				C42CCF86213CC2630096675F /* WithdrawDeposit.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -3507,10 +3507,10 @@
 		C42CCF88213CC2630096675F /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				C42CCF8C213CC2630096675F /* Mine.storyboard */,
 				C42CCF89213CC2630096675F /* Navigation.storyboard */,
 				C42CCF8A213CC2630096675F /* ShopCart.storyboard */,
 				C42CCF8B213CC2630096675F /* ShopMain.storyboard */,
-				C42CCF8C213CC2630096675F /* Mine.storyboard */,
 				C42CCF8D213CC2630096675F /* ShopType.storyboard */,
 			);
 			path = Navigation;
