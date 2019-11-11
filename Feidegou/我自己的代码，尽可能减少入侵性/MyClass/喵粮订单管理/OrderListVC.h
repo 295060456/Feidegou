@@ -17,12 +17,19 @@ typedef enum : NSUInteger {
     BusinessType_HadCompleted,//已完成
 } BusinessType;
 
-typedef enum : NSUInteger {
+typedef enum : NSUInteger {//1、摊位;2、批发;3、产地
+    PlatformType_Stall = 0,//摊位
+    PlatformType_Wholesale,//批发
+    PlatformType_ProducingArea,//产地
+} PlatformType;
+
+typedef enum : NSUInteger {//按钮状态，下拉刷新的时候，按照谁进行刷新？
     NetworkingTpye_default,//默认
     NetworkingTpye_time,//时间
     NetworkingTpye_tradeType,//买/卖
     NetworkingTpye_businessType,//交易状态
     NetworkingTpye_ID,//ID
+    NetworkingTpye_ProducingArea,//产地
 } Networking_tpye;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -39,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*btnTitleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*listTitleDataMutArr;
+@property(nonatomic,strong)NSMutableArray <NSString *>*listTitlePlatformStyleDataMutArr;
 
 -(void)conditionalQueryBlock:(DataBlock)block;
 

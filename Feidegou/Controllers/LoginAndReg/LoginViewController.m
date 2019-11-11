@@ -57,12 +57,12 @@
     NSString *strUserNum = self.txtUserName.text;
     NSString *strPsw = self.txtPsw.text;
     
-#warning 临时数据
+#warning 临时数据 
 //    strUserNum = @"wsx";
 //    strPsw = @"123456";
     
 //    strUserNum = @"13225502231";
-    strUserNum = @"admin";
+    strUserNum = @"shopping";
     strPsw = @"123456";
     
 //    if ([NSString isNullString:strUserNum]) {

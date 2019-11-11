@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)networking_tradeType:(UIButton *)sender;//按买/卖
 -(void)networking_type:(BusinessType)businessType;//按交易状态
 -(void)networking_ID:(NSString *)identity;//按输入的查询ID
+-(void)networking_platformType:(PlatformType)platformType;//1、摊位;2、批发;3、产地
 
 @end
 

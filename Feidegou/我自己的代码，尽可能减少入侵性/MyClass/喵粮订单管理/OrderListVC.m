@@ -132,6 +132,7 @@ UIScrollViewDelegate
 @property(nonatomic,strong)UITextField *textfield;
 @property(nonatomic,copy)DataBlock block;
 @property(nonatomic,strong)NSMutableArray <UIView *>*viewMutArr;
+@property(nonatomic,strong)NSMutableArray <NSString *>*tempMutArr;
 
 @end
 
@@ -223,8 +224,20 @@ UIScrollViewDelegate
 #pragma mark —— 点击事件
 -(void)defaultBtnClickEvent:(UIButton *)sender{
     NSLog(@"默认");
-    if (self.block) {
-        self.block(sender);
+    if (!sender.selected) {
+        self.tempMutArr = Nil;
+        self.tempMutArr = [self.listTitlePlatformStyleDataMutArr copy];
+        if (_historyDataListTBV) {
+            [_historyDataListTBV removeFromSuperview];
+            _historyDataListTBV = Nil;
+        }
+        [self addSubview:self.historyDataListTBV];
+        self.historyDataListTBV.frame = CGRectMake(self.defaultBtn.mj_x - scrollViewContentOffsetX,
+                                                   self.defaultBtn.mj_y + self.defaultBtn.mj_h,
+                                                   self.defaultBtn.mj_w,
+                                                   self.listTitlePlatformStyleDataMutArr.count * [HistoryDataListTBVCell cellHeightWithModel:Nil]);
+    }else{
+        [self.historyDataListTBV removeFromSuperview];
     }
     sender.selected = !sender.selected;
 }
@@ -249,6 +262,12 @@ UIScrollViewDelegate
     NSLog(@"交易状态");
     NSLog(@"KKK = %d",sender.selected);
     if (!sender.selected) {
+        self.tempMutArr = Nil;
+        self.tempMutArr = [self.listTitleDataMutArr copy];
+        if (_historyDataListTBV) {
+            [_historyDataListTBV removeFromSuperview];
+            _historyDataListTBV = Nil;
+        }
         [self addSubview:self.historyDataListTBV];
         self.historyDataListTBV.frame = CGRectMake(self.tradeTypeBtn.mj_x - scrollViewContentOffsetX,
                                                    self.tradeTypeBtn.mj_y + self.tradeTypeBtn.mj_h,
@@ -292,11 +311,14 @@ UIScrollViewDelegate
 
 -(HistoryDataListTBV *)historyDataListTBV{
     if (!_historyDataListTBV) {
-        _historyDataListTBV = [HistoryDataListTBV initWithRequestParams:self.listTitleDataMutArr];
+        _historyDataListTBV = [HistoryDataListTBV initWithRequestParams:self.tempMutArr];
         _historyDataListTBV.tableFooterView = UIView.new;
         @weakify(self)
-        [_historyDataListTBV showSelectedData:^(id data) {
+        [_historyDataListTBV showSelectedData:^(id data) {//点击哪个数字？
             @strongify(self)
+            if (self.block) {
+                self.block(data);
+            }
 //            [self.btn setTitle:data
 //                      forState:UIControlStateNormal];
             [self.historyDataListTBV removeFromSuperview];
@@ -318,6 +340,15 @@ UIScrollViewDelegate
         [_listTitleDataMutArr addObject:@"已发货"];
         [_listTitleDataMutArr addObject:@"已完成"];
     }return _listTitleDataMutArr;
+}
+
+-(NSMutableArray<NSString *> *)listTitlePlatformStyleDataMutArr{
+    if (!_listTitlePlatformStyleDataMutArr) {
+        _listTitlePlatformStyleDataMutArr = NSMutableArray.array;
+        [_listTitlePlatformStyleDataMutArr addObject:@"摊位"];
+        [_listTitlePlatformStyleDataMutArr addObject:@"批发"];
+        [_listTitlePlatformStyleDataMutArr addObject:@"厂家"];
+    }return _listTitlePlatformStyleDataMutArr;
 }
 
 -(MMButton *)defaultBtn{
@@ -451,7 +482,7 @@ UIScrollViewDelegate
 -(NSMutableArray<NSString *> *)btnTitleMutArr{
     if (!_btnTitleMutArr) {
         _btnTitleMutArr = NSMutableArray.array;
-        [_btnTitleMutArr addObject:@"默认排序"];
+        [_btnTitleMutArr addObject:@"平台类型"];
         [_btnTitleMutArr addObject:@"按时间"];
         [_btnTitleMutArr addObject:@"按买/卖"];
         [_btnTitleMutArr addObject:@"交易状态"];
@@ -470,7 +501,8 @@ UITableViewDataSource
 >
 {
     Networking_tpye networking_tpye;
-    NSUInteger r;
+    NSUInteger r;//所选的交易状态类型
+    NSUInteger w;//所选的交易状态类型
 }
 
 @property(nonatomic,strong)SearchView *viewer;
@@ -557,6 +589,9 @@ UITableViewDataSource
         }break;
         case NetworkingTpye_ID:{//ID查询
             [self networking_ID:self.viewer.textfield.text];
+        }break;
+        case NetworkingTpye_ProducingArea:{//产地
+            [self networking_platformType:w];
         }break;
         default:
             break;
@@ -705,13 +740,24 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     self->networking_tpye = NetworkingTpye_ID;
                 }
             }else if([data isKindOfClass:[NSString class]]){//按交易状态
-                self->r = 0;
-                for (int d = 0; d < self->_viewer.listTitleDataMutArr.count; d++) {
-                    if ([data isEqualToString:self->_viewer.listTitleDataMutArr[d]]) {
-                        self->r = d;
-                        self->networking_tpye = NetworkingTpye_businessType;
+                if ([self->_viewer.listTitleDataMutArr containsObject:data]) {
+                    self->r = 0;
+                    for (int d = 0; d < self->_viewer.listTitleDataMutArr.count; d++) {
+                        if ([data isEqualToString:self->_viewer.listTitleDataMutArr[d]]) {
+                            self->r = d;
+                            self->networking_tpye = NetworkingTpye_businessType;
+                        }
                     }
-                }
+                }else if ([self->_viewer.listTitlePlatformStyleDataMutArr containsObject:data]){
+//                    networking_platformType
+                    self->w = 0;
+                    for (int d = 0; d < self->_viewer.listTitlePlatformStyleDataMutArr.count; d++) {
+                        if ([data isEqualToString:self->_viewer.listTitlePlatformStyleDataMutArr[d]]) {
+                            self->w = d;
+                            self->networking_tpye = NetworkingTpye_ProducingArea;
+                        }
+                    }
+                }else{}
             }else{}
             [self.tableView.mj_header beginRefreshing];
         }];
