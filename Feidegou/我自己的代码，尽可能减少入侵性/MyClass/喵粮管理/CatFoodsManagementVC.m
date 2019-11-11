@@ -156,16 +156,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                         success:^(id data) {}
                                        animated:YES];
         }else if (indexPath.row == 5){
-            if (arc4random() % 2) {
-                [WholesaleMarket_AdvanceVC pushFromVC:self_weak_
-                requestParams:nil
-                      success:^(id data) {}
-                     animated:YES];//喵粮批发市场_仅高级商家可见
-            }else{
-                [WholesaleMarket_VipVC pushFromVC:self_weak_
-                requestParams:self.dataMutArr
-                      success:^(id data) {}
-                     animated:YES];//喵粮批发市场_仅Vip可见
+            ModelLogin *loginModel = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+            switch ([loginModel.grade_id intValue]) {
+                case 2:{//批发市场
+                    [WholesaleMarket_AdvanceVC pushFromVC:self_weak_
+                                            requestParams:nil
+                                                  success:^(id data) {}
+                                                 animated:YES];//喵粮批发市场_仅高级商家可见 2
+                } break;
+                case 3:{//批发市场订单管理
+                    [WholesaleMarket_VipVC pushFromVC:self_weak_
+                                        requestParams:self.dataMutArr
+                                              success:^(id data) {}
+                                             animated:YES];//喵粮批发市场_仅Vip可见 3
+                } break;
+                default:
+                    break;
             }
         }else if (indexPath.row == 6){
             [SettingPaymentWayVC pushFromVC:self_weak_
