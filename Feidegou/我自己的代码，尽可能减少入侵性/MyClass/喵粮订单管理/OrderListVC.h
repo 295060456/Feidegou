@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSMutableArray <NSString *>*listTitleDataMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*listTitlePlatformStyleDataMutArr;
 
--(void)conditionalQueryBlock:(DataBlock)block;
+-(void)conditionalQueryBlock:(TwoDataBlock)block;
 
 @end
 

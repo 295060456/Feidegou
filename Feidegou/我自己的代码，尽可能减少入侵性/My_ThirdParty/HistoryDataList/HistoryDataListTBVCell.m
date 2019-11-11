@@ -40,7 +40,8 @@
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     self.backgroundColor = KLightGrayColor;//RandomColor;
     self.textLabel.text = model;
-
+    self.textLabel.adjustsFontSizeToFitWidth = YES;
+    [self layoutIfNeeded];
 }
 #pragma mark —— lazyLoad
 

@@ -17,8 +17,9 @@ UITableViewDataSource
 }
 
 @property(nonatomic,strong)NSArray *dataArr;
-@property(nonatomic,copy)DataBlock block;
-@property(nonatomic,copy)DataBlock block2;
+//@property(nonatomic,copy)DataBlock block;
+@property(nonatomic,copy)TwoDataBlock block2;
+@property(nonatomic,strong)id trigger;
 
 @end
 
@@ -29,12 +30,14 @@ UITableViewDataSource
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
 
-+(instancetype)initWithRequestParams:(id)requestParams{
++(instancetype)initWithRequestParams:(id)requestParams
+                           triggerBy:(id __nonnull)trigger{
     HistoryDataListTBV *tbv = [[HistoryDataListTBV alloc]initWithFrame:CGRectZero
                                                                  style:UITableViewStylePlain];
     
     if ([requestParams isKindOfClass:[NSArray class]]) {
         tbv.dataArr = requestParams;
+        tbv.trigger = trigger;
     } return tbv;
 }
 
@@ -48,7 +51,7 @@ UITableViewDataSource
     }return self;
 }
 
--(void)showSelectedData:(DataBlock)block{
+-(void)showSelectedData:(TwoDataBlock)block{
     self.block2 = block;
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
@@ -60,13 +63,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.block2) {
-        self.block2(self.dataArr[indexPath.row]);
+        self.block2(self.dataArr[indexPath.row],self.trigger);
     }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-    
     return self.dataArr.count;
 }
 

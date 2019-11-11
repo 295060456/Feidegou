@@ -130,9 +130,10 @@ UIScrollViewDelegate
 @property(nonatomic,strong)MMButton *typeBtn;//按类型（目前进行中(挂牌出售中)、已经取消的）
 @property(nonatomic,strong)MMButton *tradeTypeBtn;//交易类型(买/卖)
 @property(nonatomic,strong)UITextField *textfield;
-@property(nonatomic,copy)DataBlock block;
+@property(nonatomic,copy)TwoDataBlock block;//
 @property(nonatomic,strong)NSMutableArray <UIView *>*viewMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*tempMutArr;
+@property(nonatomic,strong)UIButton *tempBtn;//触发点
 
 @end
 
@@ -186,7 +187,7 @@ UIScrollViewDelegate
     [self layoutIfNeeded];
 }
 
--(void)conditionalQueryBlock:(DataBlock)block{
+-(void)conditionalQueryBlock:(TwoDataBlock)block{
     _block = block;
 }
 #pragma mark —— UITextFieldDelegate
@@ -203,7 +204,7 @@ UIScrollViewDelegate
 //告诉委托人对指定的文本字段停止编辑
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     if (self.block) {
-        self.block(textField);
+        self.block(textField, @"");
     }
 }
 //告诉委托人对指定的文本字段停止编辑
@@ -222,9 +223,10 @@ UIScrollViewDelegate
     [_historyDataListTBV removeFromSuperview];
 }
 #pragma mark —— 点击事件
--(void)defaultBtnClickEvent:(UIButton *)sender{
-    NSLog(@"默认");
+-(void)platformTypeBtnClickEvent:(UIButton *)sender{//
+    NSLog(@"平台类型");
     if (!sender.selected) {
+        self.tempBtn = sender;
         self.tempMutArr = Nil;
         self.tempMutArr = [self.listTitlePlatformStyleDataMutArr copy];
         if (_historyDataListTBV) {
@@ -245,7 +247,7 @@ UIScrollViewDelegate
 -(void)timeBtnClickEvent:(UIButton *)sender{
     NSLog(@"时间");
     if (self.block) {
-        self.block(sender);
+        self.block(sender,@"");
     }
     sender.selected = !sender.selected;
 }
@@ -253,7 +255,7 @@ UIScrollViewDelegate
 -(void)typeBtnClickEvent:(UIButton *)sender{
     NSLog(@"买卖");
     if (self.block) {
-        self.block(sender);
+        self.block(sender,@"");
     }
     sender.selected = !sender.selected;
 }
@@ -262,6 +264,7 @@ UIScrollViewDelegate
     NSLog(@"交易状态");
     NSLog(@"KKK = %d",sender.selected);
     if (!sender.selected) {
+        self.tempBtn = sender;
         self.tempMutArr = Nil;
         self.tempMutArr = [self.listTitleDataMutArr copy];
         if (_historyDataListTBV) {
@@ -311,20 +314,21 @@ UIScrollViewDelegate
 
 -(HistoryDataListTBV *)historyDataListTBV{
     if (!_historyDataListTBV) {
-        _historyDataListTBV = [HistoryDataListTBV initWithRequestParams:self.tempMutArr];
+        _historyDataListTBV = [HistoryDataListTBV initWithRequestParams:self.tempMutArr
+                                                              triggerBy:self.tempBtn];
         _historyDataListTBV.tableFooterView = UIView.new;
         @weakify(self)
-        [_historyDataListTBV showSelectedData:^(id data) {//点击哪个数字？
+        [_historyDataListTBV showSelectedData:^(id data, id data2) {//点击哪条信息、触发者
             @strongify(self)
-            if (self.block) {
-                self.block(data);
-            }
+//            if (self.block) {
+//                self.block(data,data2);
+//            }
 //            [self.btn setTitle:data
 //                      forState:UIControlStateNormal];
             [self.historyDataListTBV removeFromSuperview];
             self.tradeTypeBtn.selected = !self.tradeTypeBtn.selected;
             if (self.block) {
-                self.block(data);
+                self.block(data,data2);
             }
         }];
     }return _historyDataListTBV;
@@ -355,7 +359,7 @@ UIScrollViewDelegate
     if (!_defaultBtn) {
         _defaultBtn = MMButton.new;
         [_defaultBtn addTarget:self
-                        action:@selector(defaultBtnClickEvent:)
+                        action:@selector(platformTypeBtnClickEvent:)
               forControlEvents:UIControlEventTouchUpInside];
         [_defaultBtn setImage:kIMG(@"双向箭头_1")
                      forState:UIControlStateNormal];
@@ -723,24 +727,27 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _viewer = SearchView.new;
         _viewer.backgroundColor = kWhiteColor;
         @weakify(self)
-        [_viewer conditionalQueryBlock:^(id data) {
+        [_viewer conditionalQueryBlock:^(id data, id data2) {
             @strongify(self)
-            if ([data isKindOfClass:[UIButton class]]) {
+            if ([data isKindOfClass:[UIButton class]]) {//点击的是UIButton
                 UIButton *btn = (UIButton *)data;
-                if ([btn.titleLabel.text isEqualToString:self->_viewer.btnTitleMutArr[0]]) {//默认排序
-                    self->networking_tpye = NetworkingTpye_default;
-                }else if ([btn.titleLabel.text isEqualToString:self->_viewer.btnTitleMutArr[1]]){//按时间
+                if ([btn.titleLabel.text isEqualToString:self->_viewer.btnTitleMutArr[1]]){//按时间
                     self->networking_tpye = NetworkingTpye_time;
                 }else if ([btn.titleLabel.text isEqualToString:self->_viewer.btnTitleMutArr[2]]){//按按买/卖
                     self->networking_tpye = NetworkingTpye_tradeType;
                 }else{}
-            }else if ([data isKindOfClass:[UITextField class]]){
+            }else if ([data isKindOfClass:[UITextField class]]){//点击的是UITextField
                 UITextField *textField = (UITextField *)data;
                 if ([textField.placeholder isEqualToString:self->_viewer.btnTitleMutArr[4]]) {//输入的🆔
                     self->networking_tpye = NetworkingTpye_ID;
                 }
-            }else if([data isKindOfClass:[NSString class]]){//按交易状态
-                if ([self->_viewer.listTitleDataMutArr containsObject:data]) {
+            }else if([data isKindOfClass:[NSString class]]){//点击的是列表 传过来的是字符
+                if ([data2 isKindOfClass:[MMButton class]]) {
+                    MMButton *btn = (MMButton *)data2;
+                    [btn setTitle:data forState:UIControlStateNormal];
+                    NSLog(@"");
+                }
+                if ([self->_viewer.listTitleDataMutArr containsObject:data]) {//按交易状态
                     self->r = 0;
                     for (int d = 0; d < self->_viewer.listTitleDataMutArr.count; d++) {
                         if ([data isEqualToString:self->_viewer.listTitleDataMutArr[d]]) {
@@ -748,8 +755,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                             self->networking_tpye = NetworkingTpye_businessType;
                         }
                     }
-                }else if ([self->_viewer.listTitlePlatformStyleDataMutArr containsObject:data]){
-//                    networking_platformType
+                }else if ([self->_viewer.listTitlePlatformStyleDataMutArr containsObject:data]){//按平台类型
                     self->w = 0;
                     for (int d = 0; d < self->_viewer.listTitlePlatformStyleDataMutArr.count; d++) {
                         if ([data isEqualToString:self->_viewer.listTitlePlatformStyleDataMutArr[d]]) {

@@ -13,8 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HistoryDataListTBV : UITableView
 
-+(instancetype)initWithRequestParams:(id)requestParams;
--(void)showSelectedData:(DataBlock)block;
++(instancetype)initWithRequestParams:(id)requestParams
+                           triggerBy:(id __nonnull)trigger;
+-(void)showSelectedData:(TwoDataBlock)block;//点击的内容、触发点
 
 @end
 
