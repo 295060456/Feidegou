@@ -184,7 +184,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-    return self.titleMutArr[section].count;
+    if (section == 0) {
+        return self.titleMutArr[section].count;
+    }else if (section == 1){
+        ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+        return self.titleMutArr[section].count - ([model.grade_id intValue] == 2 ? 1 : 0);
+    }else return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -261,7 +266,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                   @"喵粮产地",
                                   @"喵粮直通车",
                                   @"喵粮批发市场",
-                                  @"设置支付方式"]];
+                                  @"设置收款方式"]];
     }return _titleMutArr;
 }
 
