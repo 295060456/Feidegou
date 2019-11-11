@@ -143,8 +143,8 @@ TZImagePickerControllerDelegate
     WholesaleMarket_AdvancePopView *wholesaleMarket_AdvancePopView = [WholesaleMarket_AdvancePopView shareManager];
     [wholesaleMarket_AdvancePopView removeFromSuperview];
     wholesaleMarket_AdvancePopView = Nil;
+    [self cancelOrder_netWorking];
 }
-
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{

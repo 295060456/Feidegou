@@ -169,10 +169,9 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         NSNumber *order_ID = (NSNumber *)arr[2];
         order_IDStr = [order_ID stringValue];
     }
-
     NSDictionary *dataDic = @{
         @"order_id":order_IDStr,//订单id
-        @"reason":@""//撤销理由
+        @"reason":@""//撤销理由 现在不要了
     };
     randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
@@ -185,10 +184,10 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-        if (response) {
+        if ([NSString isNullString:response]) {
             @strongify(self)
             NSLog(@"--%@",response);
-           
+            Toast(@"取消成功");
         }
     }];
 }
