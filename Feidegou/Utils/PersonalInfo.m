@@ -31,13 +31,15 @@ static PersonalInfo *personalInfo;
     [userDefaults setObject:dicInfo forKey:LOGIN_USER_INFO];
     [userDefaults synchronize];
 }
--(ModelLogin*)fetchLoginUserInfo{
+-(ModelLogin *)fetchLoginUserInfo{
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *userInfo = [userDefaults objectForKey:LOGIN_USER_INFO];
 //    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
 //    [userInfo setValue:@"213123" forKey:@"userId"];
     
-    ModelLogin *model = [MTLJSONAdapter modelOfClass:[ModelLogin class] fromJSONDictionary:userInfo error:nil];
+    ModelLogin *model = [MTLJSONAdapter modelOfClass:[ModelLogin class]
+                                  fromJSONDictionary:userInfo
+                                               error:nil];
 //    D_NSLog(@"UserModel is %@",model);
     return model;
 }

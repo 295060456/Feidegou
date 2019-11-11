@@ -9,26 +9,13 @@
 #import "JJBaseModel.h"
 
 @interface ModelLogin : JJBaseModel
-/**
- *
- */
-@property (nonatomic,copy) NSString *userName;
-/**
- *
- */
-@property (nonatomic,copy) NSString *trueName;
+ 
+@property(nonatomic,copy)NSString *userName;
+@property(nonatomic,copy)NSString *trueName;
+@property(nonatomic,copy)NSString *password;
+@property(nonatomic,copy)NSString *userId;
+@property(nonatomic,copy)NSString *head;
+@property(nonatomic,strong)NSNumber *grade_id;
 
-/**
- *  
- */
-@property (nonatomic,copy) NSString *password;
-/**
- *
- */
-@property (nonatomic,copy) NSString *userId;
-/**
- *
- */
-@property (nonatomic,copy) NSString *head;
 
 @end

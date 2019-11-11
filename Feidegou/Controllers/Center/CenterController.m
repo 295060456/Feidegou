@@ -156,7 +156,26 @@ DidClickCollectionViewDelegete
             return 0;
         }
     }else if (section == 6){
-        return 2;
+        ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+        if ([[PersonalInfo sharedInstance] isLogined]) {//未登录不显示
+            switch ([model.grade_id intValue]) {
+                case 0:{
+                    return 1;//普通用户，只显示“邀请码”
+                }break;
+                case 1:{
+                    return 0;//普通商家，什么都不显示
+                }break;
+                case 2:{
+                    return 1;//高级商家，只显示“喵粮管理”
+                }break;
+                case 3:{
+                    return 1;//Vip商家，只显示“喵粮管理”
+                }break;
+                default:
+                    return 0;//
+                    break;
+            }
+        }return 0;
     }else return 1;
 }
 
@@ -323,17 +342,26 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         [cell.lblNum setText:@""];
     }
     if(indexPath.section == 6){
-        switch (indexPath.row) {
-            case 0:{
+        ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+        switch ([model.grade_id intValue]) {
+            case 0:{//普通用户，只显示“邀请码”
                 [cell.imgHead setImage:ImageNamed(@"邀请码")];
                 [cell.lblName setText:@"请输入邀请码"];
                 [cell.lblNum setText:@""];
-            } break;
-            case 1:{
+            }break;
+            case 1:{//普通商家，什么都不显示
+                
+            }break;
+            case 2:{//高级商家，只显示“喵粮管理”
                 [cell.imgHead setImage:ImageNamed(@"猫")];
                 [cell.lblName setText:@"喵粮管理"];
                 [cell.lblNum setText:@""];
-            } break;
+            }break;
+            case 3:{//Vip商家，只显示“喵粮管理”
+                [cell.imgHead setImage:ImageNamed(@"猫")];
+                [cell.lblName setText:@"喵粮管理"];
+                [cell.lblNum setText:@""];
+            }break;
             default:
                 break;
         }
@@ -438,7 +466,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 5) {
         if ([[PersonalInfo sharedInstance] isLogined]) {
             ChangeNameController *controller = [[UIStoryboard storyboardWithName:StoryboardMine
-                                                                          bundle:nil] instantiateViewControllerWithIdentifier:@"ChangeNameController"];
+                                                                          bundle:nil]
+                                                instantiateViewControllerWithIdentifier:@"ChangeNameController"];
             controller.personalInfo = enum_personalInfo_chongzhi;
             [self.navigationController pushViewController:controller
                                                  animated:YES];
@@ -447,19 +476,31 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
     }
     if (indexPath.section == 6) {
-        if ([[PersonalInfo sharedInstance] isLogined]) {
-            @weakify(self)
-            if (indexPath.row == 0) {
-                [InvitationCodeVC pushFromVC:self_weak_
-                requestParams:nil
-                      success:^(id data) {}
-                     animated:YES];
-            }else if (indexPath.row == 1){
-                [CatFoodsManagementVC pushFromVC:self_weak_
-                requestParams:nil
-                      success:^(id data) {}
-                     animated:YES];
-            }else{}
+        @weakify(self)
+        ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+        if ([[PersonalInfo sharedInstance] isLogined]) {//登录成功方可见喵粮管理（邀请码）
+            switch ([model.grade_id intValue]) {
+                case 0:{//普通用户，只显示“邀请码”
+                    [InvitationCodeVC pushFromVC:self_weak_
+                                   requestParams:nil
+                                         success:^(id data) {}
+                                        animated:YES];
+                }break;
+                case 2:{//高级商家，只显示“喵粮管理”
+                    [CatFoodsManagementVC pushFromVC:self_weak_
+                                       requestParams:nil
+                                             success:^(id data) {}
+                                            animated:YES];
+                }break;
+                case 3:{//Vip商家，只显示“喵粮管理”
+                    [CatFoodsManagementVC pushFromVC:self_weak_
+                                       requestParams:nil
+                                             success:^(id data) {}
+                                            animated:YES];
+                }break;
+                default:
+                    break;
+            }
         }else{
             [self pushLoginController];
         }
