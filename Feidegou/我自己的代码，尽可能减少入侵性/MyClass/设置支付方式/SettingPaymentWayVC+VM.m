@@ -13,13 +13,13 @@
 -(void)netWorking{
     extern NSString *randomStr;
     NSDictionary *dataDic = @{
-        @"alipay":[NSString ensureNonnullString:self.aliPayAccStr ReplaceStr:@""],//支付宝账户
-        @"weixin":[NSString ensureNonnullString:self.wechatAccStr ReplaceStr:@""],//微信账户
+        @"alipay":[NSString ensureNonnullString:self.aliPayAccStr ReplaceStr:@"暂无信息"],//支付宝账户
+        @"weixin":[NSString ensureNonnullString:self.wechatAccStr ReplaceStr:@"暂无信息"],//微信账户
         @"bank":@{
-                @"bankcard":[NSString ensureNonnullString:self.bankAccStr ReplaceStr:@""],//银行卡号
-                @"bankname":[NSString ensureNonnullString:self.bankNameStr ReplaceStr:@""],//银行名字
-                @"bankuser":[NSString ensureNonnullString:self.bankCardNameStr ReplaceStr:@""],//持卡人姓名
-                @"bankaddress":[NSString ensureNonnullString:self.branchInfoStr ReplaceStr:@""]//所属分行
+                @"bankcard":[NSString ensureNonnullString:self.bankAccStr ReplaceStr:@"暂无信息"],//银行卡号
+                @"bankname":[NSString ensureNonnullString:self.bankNameStr ReplaceStr:@"暂无信息"],//银行名字
+                @"bankuser":[NSString ensureNonnullString:self.bankCardNameStr ReplaceStr:@"暂无信息"],//持卡人姓名
+                @"bankaddress":[NSString ensureNonnullString:self.branchInfoStr ReplaceStr:@"暂无信息"]//所属分行
         }
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST

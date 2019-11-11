@@ -60,7 +60,7 @@ BEMCheckBoxDelegate
     if ([self.requestParams isKindOfClass:[WholesaleMarket_AdvanceModel class]]) {
         WholesaleMarket_AdvanceModel *wholesaleMarket_AdvanceModel = self.requestParams;
         self.numLab.alpha = 1;
-        self.userNameLab.text = [NSString stringWithFormat:@"用户名:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.seller_name ReplaceStr:@""]];
+        self.userNameLab.text = [NSString stringWithFormat:@"用户名:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.seller_name ReplaceStr:@"暂无信息"]];
         self.purchaseBtn.alpha = 1;
         self.textfield.alpha = 1;
         NSLog(@"KKK = %d",[wholesaleMarket_AdvanceModel.payment_type intValue]);
@@ -146,7 +146,7 @@ BEMCheckBoxDelegate
                 }
             }
         }
-    }
+    }//
 
     for (int t = 0; t < self.dataMutArr.count; t++) {
         BEMCheckBox *checkBox = BEMCheckBox.new;
@@ -399,10 +399,10 @@ BEMCheckBoxDelegate
     if ([model isKindOfClass:[WholesaleMarket_AdvanceModel class]]) {
         WholesaleMarket_AdvanceModel *wholesaleMarket_AdvanceModel = (WholesaleMarket_AdvanceModel *)model;
         //payment_type 0、都没有;2、支付宝;3、微信;4、银行卡;5、支付宝 + 微信;6、支付宝 + 银行卡;7、微信 + 银行卡;9、支付宝 + 微信 + 银行卡
-        self.userNameLab.text = [NSString stringWithFormat:@"用户名:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.seller_name ReplaceStr:@""]];
-        self.numLab.text = [NSString stringWithFormat:@"数量:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity ReplaceStr:@""]];
-        self.priceLab.text = [NSString stringWithFormat:@"单价:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.price ReplaceStr:@""]];
-        self.limitLab.text = [NSString stringWithFormat:@"限额:%@ ~ %@ ",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity_min ReplaceStr:@""],[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity_max ReplaceStr:@""]];
+        self.userNameLab.text = [NSString stringWithFormat:@"用户名:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.seller_name ReplaceStr:@"暂无信息"]];
+        self.numLab.text = [NSString stringWithFormat:@"数量:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity ReplaceStr:@"无"]];
+        self.priceLab.text = [NSString stringWithFormat:@"单价:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.price ReplaceStr:@"无"]];
+        self.limitLab.text = [NSString stringWithFormat:@"限额:%@ ~ %@ ",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity_min ReplaceStr:@"无"],[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity_max ReplaceStr:@"无"]];
         switch ([wholesaleMarket_AdvanceModel.payment_type intValue]) {
             case 0:{//都没有
                 self.paymentMethodLab.text = @"支付方式:暂时缺乏";

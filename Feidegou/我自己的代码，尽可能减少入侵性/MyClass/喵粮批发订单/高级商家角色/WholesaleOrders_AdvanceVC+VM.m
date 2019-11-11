@@ -48,9 +48,9 @@
                 self.model = [WholesaleOrders_AdvanceModel mj_objectWithKeyValues:dic[@"catFoodOrder"]];
                 
                 [self.dataArr addObject:@"喵粮"];//商品
-                [self.dataArr addObject:[NSString ensureNonnullString:self.model.quantity ReplaceStr:@""]];//数量
-                [self.dataArr addObject:[NSString ensureNonnullString:self.model.price ReplaceStr:@""]];//单价
-                [self.dataArr addObject:[NSString ensureNonnullString:self.model.rental ReplaceStr:@""]];//总额
+                [self.dataArr addObject:[NSString ensureNonnullString:self.model.quantity ReplaceStr:@"暂无信息"]];//数量
+                [self.dataArr addObject:[NSString ensureNonnullString:self.model.price ReplaceStr:@"暂无信息"]];//单价
+                [self.dataArr addObject:[NSString ensureNonnullString:self.model.rental ReplaceStr:@"暂无信息"]];//总额
                 
                 switch ([self.model.payment_status intValue]) {//支付类型:1、支付宝;2、微信;3、银行卡
                     case 1:{

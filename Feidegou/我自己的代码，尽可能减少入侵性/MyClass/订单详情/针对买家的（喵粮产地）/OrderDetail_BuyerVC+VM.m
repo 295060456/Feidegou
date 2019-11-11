@@ -31,18 +31,18 @@
             @strongify(self)
             if ([response isKindOfClass:[NSDictionary class]]) {
                 self.model = [OrderDetail_BuyerModel mj_objectWithKeyValues:response];
-                NSString *str1 = [NSString ensureNonnullString:self.model.ID ReplaceStr:@""];
+                NSString *str1 = [NSString ensureNonnullString:self.model.ID ReplaceStr:@"无"];
                 NSString *str2 = [NSString ensureNonnullString:self.model.quantity ReplaceStr:@""];
                 [self.dataMutArr addObject:[NSString stringWithFormat:@"您向厂家%@购买了%@g喵粮",str1,str2]];
-                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.price ReplaceStr:@""]];//单价
-                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.quantity ReplaceStr:@""]];//数量
-                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.ID ReplaceStr:@""]];//订单号
-                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.rental ReplaceStr:@""]];//总额
-                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.updateTime ReplaceStr:@""]];//时间
+                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.price ReplaceStr:@"无"]];//单价
+                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.quantity ReplaceStr:@"无"]];//数量
+                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.ID ReplaceStr:@"无"]];//订单号
+                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.rental ReplaceStr:@"无"]];//总额
+                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.updateTime ReplaceStr:@"无"]];//时间
                 [self.dataMutArr addObject:@"银行卡"];//支付方式
-                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.bankcard ReplaceStr:@""]];//银行卡号？
-                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.bankaddress ReplaceStr:@""]];//银行类型
-                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.bankuser ReplaceStr:@""]];//姓名
+                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.bankcard ReplaceStr:@"无"]];//银行卡号？
+                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.bankaddress ReplaceStr:@"暂无信息"]];//银行类型
+                [self.dataMutArr addObject:[NSString ensureNonnullString:self.model.bankuser ReplaceStr:@"暂无信息"]];//姓名
                 switch ([self.model.order_status intValue]) {//0、已支付;1、已发单;2、已接单;3、已作废;4、已发货;5、已完成
                     case 0:{
                         [self.dataMutArr addObject:@"已支付"];

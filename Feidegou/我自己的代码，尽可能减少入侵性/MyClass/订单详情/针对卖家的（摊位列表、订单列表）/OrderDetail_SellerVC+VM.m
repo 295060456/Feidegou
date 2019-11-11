@@ -18,8 +18,8 @@
         dictionary = (NSDictionary *)self.requestParams;//
         orderListModel = dictionary[@"OrderListModel"];
         NSDictionary *dic = @{
-            @"order_id":[NSString ensureNonnullString:orderListModel.ID ReplaceStr:@""],//订单id
-            @"order_type":[NSString ensureNonnullString:orderListModel.order_type ReplaceStr:@""]//订单类型 —— 1、摊位;2、批发;3、产地
+            @"order_id":[NSString ensureNonnullString:orderListModel.ID ReplaceStr:@"无"],//订单id
+            @"order_type":[NSString ensureNonnullString:orderListModel.order_type ReplaceStr:@"无"]//订单类型 —— 1、摊位;2、批发;3、产地
         };
            
         FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST

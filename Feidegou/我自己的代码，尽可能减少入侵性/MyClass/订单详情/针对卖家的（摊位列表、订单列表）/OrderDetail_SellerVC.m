@@ -43,23 +43,23 @@ UITableViewDataSource
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     if ([model isKindOfClass:[OrderDetail_SellerModel class]]) {
         OrderDetail_SellerModel *orderDetail_SellerModel = (OrderDetail_SellerModel *)model;
-        [self.tempMutArr addObject:[NSString ensureNonnullString:orderDetail_SellerModel.ordercode ReplaceStr:@""]];
+        [self.tempMutArr addObject:[NSString ensureNonnullString:orderDetail_SellerModel.ordercode ReplaceStr:@"无"]];
         [self.tempMutArr addObject:[NSString stringWithFormat:@"%d",[orderDetail_SellerModel.price intValue]]];
         [self.tempMutArr addObject:[NSString stringWithFormat:@"%d",[orderDetail_SellerModel.rental intValue]]];
         [self.tempMutArr addObject:@"账号"];
         [self.tempMutArr addObject:@"银行卡"];
-        [self.tempMutArr addObject:[NSString ensureNonnullString:orderDetail_SellerModel.refer ReplaceStr:@""]];
-        [self.tempMutArr addObject:[NSString ensureNonnullString:orderDetail_SellerModel.updateTime ReplaceStr:@""]];
+        [self.tempMutArr addObject:[NSString ensureNonnullString:orderDetail_SellerModel.refer ReplaceStr:@"无"]];
+        [self.tempMutArr addObject:[NSString ensureNonnullString:orderDetail_SellerModel.updateTime ReplaceStr:@"无"]];
         [self.tableView reloadData];
     }else if ([model isKindOfClass:[StallListModel class]]){
         StallListModel *stallListModel = (StallListModel *)model;
-        [self.tempMutArr addObject:[NSString ensureNonnullString:stallListModel.ordercode ReplaceStr:@""]];
-        [self.tempMutArr addObject:[NSString ensureNonnullString:stallListModel.price ReplaceStr:@""]];
-        [self.tempMutArr addObject:[NSString ensureNonnullString:stallListModel.rental ReplaceStr:@""]];
+        [self.tempMutArr addObject:[NSString ensureNonnullString:stallListModel.ordercode ReplaceStr:@"无"]];
+        [self.tempMutArr addObject:[NSString ensureNonnullString:stallListModel.price ReplaceStr:@"无"]];
+        [self.tempMutArr addObject:[NSString ensureNonnullString:stallListModel.rental ReplaceStr:@"无"]];
         [self.tempMutArr addObject:@"账号"];
         [self.tempMutArr addObject:@"银行卡"];
-        [self.tempMutArr addObject:[NSString ensureNonnullString:stallListModel.refer ReplaceStr:@""]];
-        [self.tempMutArr addObject:[NSString ensureNonnullString:stallListModel.updateTime ReplaceStr:@""]];
+        [self.tempMutArr addObject:[NSString ensureNonnullString:stallListModel.refer ReplaceStr:@"无"]];
+        [self.tempMutArr addObject:[NSString ensureNonnullString:stallListModel.updateTime ReplaceStr:@"无"]];
         [self.tableView reloadData];
     }
     self.tableView.alpha = 1;
@@ -190,7 +190,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //        self.titleLab.alpha = 1;
     }else if ([model isKindOfClass:[StallListModel class]]){
         StallListModel *stallListModel = (StallListModel *)model;
-        self.str = [NSString stringWithFormat:@"您向%@购买%@",[NSString ensureNonnullString:stallListModel.seller ReplaceStr:@""],[NSString ensureNonnullString:stallListModel.quantity ReplaceStr:@""]];
+        self.str = [NSString stringWithFormat:@"您向%@购买%@",[NSString ensureNonnullString:stallListModel.seller ReplaceStr:@"暂无信息"],[NSString ensureNonnullString:stallListModel.quantity ReplaceStr:@"暂无消息"]];
 //        self.attributedString = [NSString ensureNonnullString:stallListModel.del_reason ReplaceStr:@""];
         self.titleLab.attributedText = self.attributedString;
 //        self.titleLab.text = [NSString ensureNonnullString:stallListModel.del_reason ReplaceStr:@""];
@@ -327,7 +327,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
     }else if ([model isKindOfClass:[StallListModel class]]){
         StallListModel *stallListModel = (StallListModel *)model;
-        self.titleLab.text = [NSString ensureNonnullString:stallListModel.del_reason ReplaceStr:@""];
+        self.titleLab.text = [NSString ensureNonnullString:stallListModel.del_reason ReplaceStr:@"暂无信息"];
     }else{
         
     }

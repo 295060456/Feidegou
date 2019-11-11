@@ -25,6 +25,7 @@ TZImagePickerControllerDelegate
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
+@property(nonatomic,assign)BOOL isFirstComing;
 
 @end
 
@@ -58,7 +59,7 @@ TZImagePickerControllerDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.gk_navTitle = @"喵粮批发高购买订单";
+    self.gk_navTitle = @"喵粮批发购买订单";
     self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
@@ -66,6 +67,7 @@ TZImagePickerControllerDelegate
     [self.tableView.mj_header beginRefreshing];
     self.paidBtn.alpha = 1;
     self.cancelBtn.alpha = 1;
+    self.isFirstComing = YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -178,16 +180,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{}
 -(void)tableView:(UITableView *)tableView
  willDisplayCell:(UITableViewCell *)cell
 forRowAtIndexPath:(NSIndexPath *)indexPath{
-    cell.layer.transform = CATransform3DMakeScale(0.1,
-                                                  0.1,
-                                                  1);
-    //x和y的最终值为1
-    [UIView animateWithDuration:1
-                     animations:^{
-        cell.layer.transform = CATransform3DMakeScale(1,
-                                                      1,
+    if (self.isFirstComing) {
+        cell.layer.transform = CATransform3DMakeScale(0.1,
+                                                      0.1,
                                                       1);
-    }];
+        //x和y的最终值为1
+        [UIView animateWithDuration:1
+                         animations:^{
+            cell.layer.transform = CATransform3DMakeScale(1,
+                                                          1,
+                                                          1);
+        }];
+    }
+    self.isFirstComing = NO;
 }
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{

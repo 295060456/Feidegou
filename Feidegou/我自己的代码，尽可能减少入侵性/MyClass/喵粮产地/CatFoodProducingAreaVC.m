@@ -48,9 +48,9 @@
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     if ([model isKindOfClass:[CatFoodProducingAreaModel class]]) {
         CatFoodProducingAreaModel *catFoodProducingAreaModel = model;
-        self.sellerNameLab.text = [NSString stringWithFormat:@"厂家:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.seller ReplaceStr:@""]];
-        self.priceLab.text = [NSString stringWithFormat:@"单价:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.price ReplaceStr:@""]];
-        self.numLab.text = [NSString stringWithFormat:@"数量:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.quantity ReplaceStr:@""]];
+        self.sellerNameLab.text = [NSString stringWithFormat:@"厂家:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.seller ReplaceStr:@"无"]];
+        self.priceLab.text = [NSString stringWithFormat:@"单价:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.price ReplaceStr:@"无"]];
+        self.numLab.text = [NSString stringWithFormat:@"数量:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.quantity ReplaceStr:@"无"]];
         self.buyTipsLab.text = @"点击购买";
         [self.sellerNameLab sizeToFit];
         [self.priceLab sizeToFit];
