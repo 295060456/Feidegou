@@ -60,7 +60,7 @@
 //#warning grade_id = 3 Vip商家
 //    strUserNum = @"admin";
 //    strPsw = @"123456";
-//
+
 #warning grade_id = 2 高级商家
     strUserNum = @"shopping";
     strPsw = @"123456";
@@ -89,6 +89,7 @@
 //        [SVProgressHUD showErrorWithStatus:@"请输入正确的密码"];
 //        return;
 //    }
+    Toast(strUserNum);
     [self.view endEditing:YES];
     [SVProgressHUD showWithStatus:@"正在登录..."];
     [self my_NetworkingWithArgumentUsername:strUserNum

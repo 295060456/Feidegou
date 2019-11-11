@@ -26,9 +26,10 @@ UITableViewDataSource
 
 //Q宠
 @property(nonatomic,strong)Q_Pet *pet;
-
+@property(nonatomic,strong)ModelLogin *loginModel;
 @property(nonatomic,strong)NSMutableArray <NSArray *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSArray *>*imgMutArr;
+@property(nonatomic,strong)NSMutableArray <NSString *>*VCMutArr;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
@@ -52,7 +53,7 @@ UITableViewDataSource
     CatFoodsManagementVC *vc = CatFoodsManagementVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-
+    vc.loginModel = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
     if (rootVC.navigationController) {
         vc.isPush = YES;
         vc.isPresent = NO;
@@ -107,6 +108,58 @@ UITableViewDataSource
     NSLog(@"上拉加载更多");
     [self networking];
 }
+
+-(void)launch:(NSString *)vcName{
+    @weakify(self)
+    if ([vcName isEqualToString:@"喵粮订单管理"]) {
+        [OrderListVC pushFromVC:self_weak_
+                  requestParams:Nil
+                        success:^(id data) {}
+                       animated:YES];
+    }else if ([vcName isEqualToString:@"店铺收款码"]){
+        [ShopReceiptQRcodeVC pushFromVC:self_weak_
+                          requestParams:Nil
+                                success:^(id data) {}
+                               animated:YES];
+    }else if ([vcName isEqualToString:@"赠送"]){
+        [GiftVC pushFromVC:self_weak_
+             requestParams:nil
+                   success:^(id data) {}
+                  animated:YES];
+    }else if ([vcName isEqualToString:@"喵粮产地"]){
+        [CatFoodProducingAreaVC pushFromVC:self_weak_
+                             requestParams:nil
+                                   success:^(id data) {}
+                                  animated:YES];
+    }else if ([vcName isEqualToString:@"喵粮直通车"]){
+        [ThroughTrainToPromoteVC pushFromVC:self_weak_
+                              requestParams:nil
+                                    success:^(id data) {}
+                                   animated:YES];
+    }else if ([vcName isEqualToString:@"喵粮批发市场"]){
+        switch ([self.loginModel.grade_id intValue]) {
+            case 2:{
+                [WholesaleMarket_AdvanceVC pushFromVC:self_weak_
+                requestParams:nil
+                      success:^(id data) {}
+                     animated:YES];//喵粮批发市场_仅高级商家可见 2
+            } break;
+            case 3:{
+                [WholesaleMarket_VipVC pushFromVC:self_weak_
+                requestParams:self.dataMutArr
+                      success:^(id data) {}
+                     animated:YES];//喵粮批发市场_仅Vip可见 3
+            } break;
+            default:
+                break;
+        }
+    }else if ([vcName isEqualToString:@"设置收款方式"]){
+        [SettingPaymentWayVC pushFromVC:self_weak_
+                          requestParams:nil
+                                success:^(id data) {}
+                               animated:YES];
+    }
+}
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -117,79 +170,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-    @weakify(self)
-    if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            
-        }else if (indexPath.row == 1){
-            
-        }else{
-            
-        }
-    }else if (indexPath.section == 1){
-        if (indexPath.row == 0) {//订单
-            [OrderListVC pushFromVC:self_weak_
-                      requestParams:Nil
-                            success:^(id data) {
-                
-            }
-                           animated:YES];
-        }else if (indexPath.row == 1){//店铺收款码
-            [ShopReceiptQRcodeVC pushFromVC:self_weak_
-                              requestParams:Nil
-                                    success:^(id data) {
-            }
-                                   animated:YES];
-        }else if (indexPath.row == 2){//赠送
-            [GiftVC pushFromVC:self_weak_
-                 requestParams:nil
-                       success:^(id data) {}
-                      animated:YES];
-        }else if (indexPath.row == 3){//喵粮产地
-            [CatFoodProducingAreaVC pushFromVC:self_weak_
-                                 requestParams:nil
-                                       success:^(id data) {}
-                                      animated:YES];
-        }else if (indexPath.row == 4){//喵粮直通车
-            [ThroughTrainToPromoteVC pushFromVC:self_weak_
-                                  requestParams:nil
-                                        success:^(id data) {}
-                                       animated:YES];
-        }else if (indexPath.row == 5){
-            ModelLogin *loginModel = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-            switch ([loginModel.grade_id intValue]) {
-                case 2:{//批发市场
-                    [WholesaleMarket_AdvanceVC pushFromVC:self_weak_
-                                            requestParams:nil
-                                                  success:^(id data) {}
-                                                 animated:YES];//喵粮批发市场_仅高级商家可见 2
-                } break;
-                case 3:{//批发市场订单管理
-                    [WholesaleMarket_VipVC pushFromVC:self_weak_
-                                        requestParams:self.dataMutArr
-                                              success:^(id data) {}
-                                             animated:YES];//喵粮批发市场_仅Vip可见 3
-                } break;
-                default:
-                    break;
-            }
-        }else if (indexPath.row == 6){
-            [SettingPaymentWayVC pushFromVC:self_weak_
-                              requestParams:nil
-                                    success:^(id data) {}
-                                   animated:YES];
-        }else{}
-    }else{}
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    [self launch:cell.textLabel.text];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-    if (section == 0) {
-        return self.titleMutArr[section].count;
-    }else if (section == 1){
-        ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-        return self.titleMutArr[section].count - ([model.grade_id intValue] == 2 ? 1 : 0);
-    }else return 0;
+    return self.titleMutArr[section].count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -248,7 +235,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.mj_footer = self.tableViewFooter;
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.edges.equalTo(self.view);
             make.left.right.bottom.equalTo(self.view);
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
         }];
@@ -260,13 +246,19 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _titleMutArr = NSMutableArray.array;
         [_titleMutArr addObject:@[@"余额",
                                   @"出售中"]];
-        [_titleMutArr addObject:@[@"喵粮订单管理",
-                                  @"店铺收款码",
-                                  @"赠送",
-                                  @"喵粮产地",
-                                  @"喵粮直通车",
-                                  @"喵粮批发市场",
-                                  @"设置收款方式"]];
+        NSMutableArray *tempMutArr = NSMutableArray.array;
+        [tempMutArr addObject:@"喵粮订单管理"];
+        [tempMutArr addObject:@"店铺收款码"];
+        [tempMutArr addObject:@"赠送"];
+        if ([self.loginModel.grade_id intValue] == 3) {//只有Vip商家可见
+            [tempMutArr addObject:@"喵粮产地"];//喵粮产地
+        }
+        [tempMutArr addObject:@"喵粮直通车"];
+        [tempMutArr addObject:@"喵粮批发市场"];
+        if ([self.loginModel.grade_id intValue] == 3) {
+            [tempMutArr addObject:@"设置收款方式"];
+        }
+        [_titleMutArr addObject:tempMutArr];
     }return _titleMutArr;
 }
 
@@ -275,14 +267,32 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _imgMutArr = NSMutableArray.array;
         [_imgMutArr addObject:@[@"余额",
                                 @"出售中"]];
-        [_imgMutArr addObject:@[@"喵粮订单管理",
-                                @"店铺收款码",
-                                @"赠送",
-                                @"喵粮产地",
-                                @"喵粮直通车",
-                                @"喵粮批发市场",
-                                @"支付"]];
+        NSMutableArray *tempMutArr = NSMutableArray.array;
+        [tempMutArr addObject:@"喵粮订单管理"];
+        [tempMutArr addObject:@"店铺收款码"];
+        [tempMutArr addObject:@"赠送"];
+        if ([self.loginModel.grade_id intValue] == 3) {//只有Vip商家可见
+            [tempMutArr addObject:@"喵粮产地"];//喵粮产地
+        }
+        [tempMutArr addObject:@"喵粮直通车"];
+        [tempMutArr addObject:@"喵粮批发市场"];
+        if ([self.loginModel.grade_id intValue] == 3) {
+            [tempMutArr addObject:@"支付"];
+        }
+        [_imgMutArr addObject:tempMutArr];
     }return _imgMutArr;
+}
+
+-(NSMutableArray<NSString *> *)VCMutArr{
+    if (!_VCMutArr) {
+        _VCMutArr = NSMutableArray.array;
+    }return _VCMutArr;
+}
+
+-(NSMutableArray *)dataMutArr{
+    if (!_dataMutArr) {
+        _dataMutArr = NSMutableArray.array;
+    }return _dataMutArr;
 }
 
 -(Q_Pet *)pet{
@@ -296,12 +306,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [self.view addSubview:_pet];
         [_pet becomeFirstResponder];
     }return _pet;
-}
-
--(NSMutableArray *)dataMutArr{
-    if (!_dataMutArr) {
-        _dataMutArr = NSMutableArray.array;
-    }return _dataMutArr;
 }
 
 @end

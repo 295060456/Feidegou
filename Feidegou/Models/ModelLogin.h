@@ -15,7 +15,7 @@
 @property(nonatomic,copy)NSString *password;
 @property(nonatomic,copy)NSString *userId;
 @property(nonatomic,copy)NSString *head;
-@property(nonatomic,strong)NSNumber *grade_id;
+@property(nonatomic,strong)NSNumber *grade_id;//0、普通用户;1、普通商家;2、高级商家;3、vip商家
 
 
 @end

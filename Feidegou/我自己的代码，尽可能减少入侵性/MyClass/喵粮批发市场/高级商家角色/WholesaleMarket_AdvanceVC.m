@@ -110,11 +110,10 @@ BEMCheckBoxDelegate
                 break;
         }
 #warning 以下是暂时的
-        [self.dataMutArr addObject:@"支付宝"];
-        [self.dataMutArr addObject:@"微信"];
-        [self.dataMutArr addObject:@"银行卡"];
+//        [self.dataMutArr addObject:@"支付宝"];
+//        [self.dataMutArr addObject:@"微信"];
+//        [self.dataMutArr addObject:@"银行卡"];
 #warning 以上是暂时的
-        
         [self BEMCheckBoxWithDataArr:self.dataMutArr];
         [self setupBEMCheckBoxGroup];
         self.framer = self.frame;

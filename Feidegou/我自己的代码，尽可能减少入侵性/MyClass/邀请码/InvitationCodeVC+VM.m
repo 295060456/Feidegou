@@ -12,7 +12,7 @@
 
 -(void)netWorking:(NSString *)inviter{
 #warning tempData
-    inviter = @"1111";
+//    inviter = @"1111";
     NSMutableDictionary *dataMutDic = NSMutableDictionary.dictionary;
     NSMutableDictionary *params = NSMutableDictionary.dictionary;
     [params setObject:inviter forKey:@"inviter"];
