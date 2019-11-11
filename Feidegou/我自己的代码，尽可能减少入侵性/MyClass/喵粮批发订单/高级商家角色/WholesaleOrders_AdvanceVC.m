@@ -138,7 +138,7 @@ TZImagePickerControllerDelegate
     [self.navigationController popViewControllerAnimated:YES];
     [self removeWholesaleMarket_AdvancePopView];
 }
-
+//取消状态走的方法
 -(void)removeWholesaleMarket_AdvancePopView{
     WholesaleMarket_AdvancePopView *wholesaleMarket_AdvancePopView = [WholesaleMarket_AdvancePopView shareManager];
     [wholesaleMarket_AdvancePopView removeFromSuperview];

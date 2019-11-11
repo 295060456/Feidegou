@@ -156,6 +156,42 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }];
 }
 
+-(void)cancelOrder_netWorking{//展示数据
+    extern NSString *randomStr;
+    NSString *text;
+    NSString *paymentWayStr;
+    NSString *order_IDStr;
+    if ([self.requestParams isKindOfClass:[NSArray class]]) {
+        NSArray *arr = (NSArray *)self.requestParams;//购买的数量、付款的方式、订单ID
+        text = arr[0];
+        NSNumber *paymentWay = (NSNumber *)arr[1];
+        paymentWayStr = [paymentWay stringValue] ;
+        NSNumber *order_ID = (NSNumber *)arr[2];
+        order_IDStr = [order_ID stringValue];
+    }
+
+    NSDictionary *dataDic = @{
+        @"order_id":order_IDStr,//订单id
+        @"reason":@""//撤销理由
+    };
+    randomStr = [EncryptUtils shuffledAlphabet:16];
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodSale_pay_delURL
+                                                     parameters:@{
+                                                         @"data":dataDic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key]
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        if (response) {
+            @strongify(self)
+            NSLog(@"--%@",response);
+           
+        }
+    }];
+}
 
 
 @end

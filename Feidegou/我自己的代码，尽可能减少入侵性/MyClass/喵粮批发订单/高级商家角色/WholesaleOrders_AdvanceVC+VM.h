@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)netWorking;
 -(void)upLoadPic_netWorking:(UIImage *)pic;
+-(void)cancelOrder_netWorking;
 
 @end
 
