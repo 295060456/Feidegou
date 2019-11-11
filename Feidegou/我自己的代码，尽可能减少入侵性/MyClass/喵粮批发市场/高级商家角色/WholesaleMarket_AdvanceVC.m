@@ -16,8 +16,6 @@
 UITextFieldDelegate,
 BEMCheckBoxDelegate
 >
-{
-}
 
 @property(nonatomic,strong)UILabel *numLab;
 @property(nonatomic,strong)UILabel *userNameLab;
@@ -33,7 +31,6 @@ BEMCheckBoxDelegate
 @property(nonatomic,strong)NSMutableArray <BEMCheckBox *>*checkBoxMutArr;
 @property(nonatomic,strong)NSNumber *tagger;
 @property(nonatomic,strong)BEMCheckBoxGroup *checkBoxGroup;
-
 
 @end
 
@@ -62,50 +59,45 @@ BEMCheckBoxDelegate
 -(void)drawRect:(CGRect)rect{
     if ([self.requestParams isKindOfClass:[WholesaleMarket_AdvanceModel class]]) {
         WholesaleMarket_AdvanceModel *wholesaleMarket_AdvanceModel = self.requestParams;
-        
         self.numLab.alpha = 1;
         self.userNameLab.text = [NSString stringWithFormat:@"用户名:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.seller_name ReplaceStr:@""]];
         self.purchaseBtn.alpha = 1;
         self.textfield.alpha = 1;
+        NSLog(@"KKK = %d",[wholesaleMarket_AdvanceModel.payment_type intValue]);
+        if (self.dataMutArr.count) {
+            [self.dataMutArr removeAllObjects];
+        }
         //0、都没有;2、支付宝;3、微信;4、银行卡;5、支付宝 + 微信;6、支付宝 + 银行卡;7、微信 + 银行卡;9、支付宝 + 微信 + 银行卡
         switch ([wholesaleMarket_AdvanceModel.payment_type intValue]) {
             case 0:{//都没有
-//                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"" ReplaceStr:@""]];
+
             }break;
             case 2:{//支付宝
                 [self.dataMutArr addObject:@"支付宝"];
-//                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"支付宝" ReplaceStr:@""]];
             }break;
             case 3:{//微信
                 [self.dataMutArr addObject:@"微信"];
-//                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"微信" ReplaceStr:@""]];
             }break;
             case 4:{//银行卡
                 [self.dataMutArr addObject:@"银行卡"];
-//                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"银行卡" ReplaceStr:@""]];
             }break;
             case 5:{//支付宝 + 微信
                 [self.dataMutArr addObject:@"支付宝"];
                 [self.dataMutArr addObject:@"微信"];
-//                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"支付宝 + 微信" ReplaceStr:@""]];
             }break;
             case 6:{//支付宝 + 银行卡
                 [self.dataMutArr addObject:@"支付宝"];
                 [self.dataMutArr addObject:@"银行卡"];
-//                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"支付宝 + 银行卡" ReplaceStr:@""]];
             }break;
             case 7:{//微信 + 银行卡
                 [self.dataMutArr addObject:@"微信"];
                 [self.dataMutArr addObject:@"银行卡"];
-//                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"微信 + 银行卡" ReplaceStr:@""]];
             }break;
             case 9:{//支付宝 + 微信 + 银行卡
                 [self.dataMutArr addObject:@"支付宝"];
                 [self.dataMutArr addObject:@"微信"];
                 [self.dataMutArr addObject:@"银行卡"];
-//                self.paymentMethodLab.text = [NSString stringWithFormat:@"支付方式:%@",[NSString ensureNonnullString:@"支付宝 + 微信 + 银行卡" ReplaceStr:@""]];
             }break;
-                
             default:
                 break;
         }
@@ -128,12 +120,34 @@ BEMCheckBoxDelegate
     NSArray *checkBoxArray = self.checkBoxMutArr;
     self.checkBoxGroup = [BEMCheckBoxGroup groupWithCheckBoxes:checkBoxArray];
     self.tagger = [NSNumber numberWithInteger:0];
-    self.checkBoxGroup.selectedCheckBox = self.checkBoxMutArr[0];
+    if (self.checkBoxMutArr.count) {
+        self.checkBoxGroup.selectedCheckBox = self.checkBoxMutArr[0];
+    }
     self.checkBoxGroup.mustHaveSelection = YES;
 }
 
 -(void)BEMCheckBoxWithDataArr:(NSMutableArray <NSString *>*)dataMutArr{
-//    NSMutableArray <UILabel *>*mutArr = NSMutableArray.array;
+    //防止此子类不销毁，数据异常
+    if (self.mutArr.count ||
+        self.checkBoxMutArr.count) {
+        [self.mutArr removeAllObjects];
+        [self.checkBoxMutArr removeAllObjects];
+        
+        for (UIView *view in self.subviews) {
+            if ([view isKindOfClass:[BEMCheckBox class]]) {
+                [view removeFromSuperview];
+            }
+            if ([view isKindOfClass:[UILabel class]]) {
+                UILabel *lab = (UILabel *)view;
+                if ([lab.text isEqualToString:@"支付宝"] ||
+                    [lab.text isEqualToString:@"微信"] ||
+                    [lab.text isEqualToString:@"银行卡"]) {
+                    [lab removeFromSuperview];
+                }
+            }
+        }
+    }
+
     for (int t = 0; t < self.dataMutArr.count; t++) {
         BEMCheckBox *checkBox = BEMCheckBox.new;
         // 矩形复选框
@@ -216,7 +230,7 @@ BEMCheckBoxDelegate
                                 self.mj_y,
                                 self.mj_w,
                                 self.mj_h);
-        [[WholesaleMarket_AdvancePopView shareManager] removeFromSuperview] ;
+        [[WholesaleMarket_AdvancePopView shareManager] removeFromSuperview];
     }
 }
 #pragma mark —— 点击事件
