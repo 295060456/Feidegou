@@ -61,17 +61,17 @@
 //    strUserNum = @"admin";
 //    strPsw = @"123456";
 //
-//#warning grade_id = 2 高级商家
-//    strUserNum = @"shopping";
-//    strPsw = @"123456";
+#warning grade_id = 2 高级商家
+    strUserNum = @"shopping";
+    strPsw = @"123456";
 //
 //#warning grade_id = 1 普通商家
 //    strUserNum = @"135661";
 //    strPsw = @"123456";
     
-#warning grade_id = 0 普通人
-    strUserNum = @"135663";
-    strPsw = @"123456";
+//#warning grade_id = 0 普通人
+//    strUserNum = @"135663";
+//    strPsw = @"123456";
 
 //    if ([NSString isNullString:strUserNum]) {
 //        [SVProgressHUD showErrorWithStatus:@"请输入用户名"];

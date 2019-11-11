@@ -17,10 +17,10 @@ typedef enum : NSUInteger {
     BusinessType_HadCompleted,//已完成
 } BusinessType;
 
-typedef enum : NSUInteger {//1、摊位;2、批发;3、产地
-    PlatformType_Stall = 0,//摊位
+typedef enum : NSUInteger {//1、摊位;2、批发;3、厂家
+    PlatformType_ProducingArea = 0,//产地 厂家
     PlatformType_Wholesale,//批发
-    PlatformType_ProducingArea,//产地
+    PlatformType_Stall,//摊位
 } PlatformType;
 
 typedef enum : NSUInteger {//按钮状态，下拉刷新的时候，按照谁进行刷新？

@@ -345,16 +345,15 @@ UIScrollViewDelegate
 -(NSMutableArray<NSString *> *)listTitlePlatformStyleDataMutArr{
     if (!_listTitlePlatformStyleDataMutArr) {
         _listTitlePlatformStyleDataMutArr = NSMutableArray.array;
-        [_listTitlePlatformStyleDataMutArr addObject:@"摊位抢购"];
-        [_listTitlePlatformStyleDataMutArr addObject:@"批发市场"];
         [_listTitlePlatformStyleDataMutArr addObject:@"厂家直销"];
+        [_listTitlePlatformStyleDataMutArr addObject:@"批发市场"];
+        [_listTitlePlatformStyleDataMutArr addObject:@"摊位抢购"];
     }return _listTitlePlatformStyleDataMutArr;
 }
 
 -(MMButton *)defaultBtn{
     if (!_defaultBtn) {
         _defaultBtn = MMButton.new;
-        _defaultBtn.backgroundColor = kRedColor;
         [_defaultBtn addTarget:self
                         action:@selector(platformTypeBtnClickEvent:)
               forControlEvents:UIControlEventTouchUpInside];
@@ -371,12 +370,12 @@ UIScrollViewDelegate
                      AndBorderWidth:0.1f];
         _defaultBtn.imageAlignment = MMImageAlignmentRight;
         _defaultBtn.spaceBetweenTitleAndImage = SCALING_RATIO(2);
-        _defaultBtn.frame = CGRectMake(0,
-                                       0,
-                                       SCALING_RATIO(100),
-                                       SCALING_RATIO(10));
-//        [_defaultBtn.titleLabel sizeToFit];
-//        _defaultBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
+//        _defaultBtn.frame = CGRectMake(0,
+//                                       0,
+//                                       SCALING_RATIO(200),
+//                                       SCALING_RATIO(10));
+        [_defaultBtn.titleLabel sizeToFit];
+        _defaultBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
         [self.scrollView addSubview:_defaultBtn];
     }return _defaultBtn;
 }
