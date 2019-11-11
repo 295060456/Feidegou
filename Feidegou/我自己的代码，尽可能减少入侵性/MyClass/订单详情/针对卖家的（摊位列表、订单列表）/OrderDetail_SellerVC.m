@@ -567,7 +567,7 @@ UITableViewDataSource
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.gk_navTitle = @"订单详情";
+    self.gk_navTitle = @"（卖家）订单详情";
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];

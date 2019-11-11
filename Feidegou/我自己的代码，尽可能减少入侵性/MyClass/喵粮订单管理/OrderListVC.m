@@ -225,7 +225,7 @@ UIScrollViewDelegate
 #pragma mark —— 点击事件
 -(void)platformTypeBtnClickEvent:(UIButton *)sender{//
     NSLog(@"平台类型");
-    if (!sender.selected) {
+    if (!sender.selected) {//首次进 sender.selected == NO
         self.tempBtn = sender;
         self.tempMutArr = Nil;
         self.tempMutArr = [self.listTitlePlatformStyleDataMutArr copy];
@@ -320,13 +320,9 @@ UIScrollViewDelegate
         @weakify(self)
         [_historyDataListTBV showSelectedData:^(id data, id data2) {//点击哪条信息、触发者
             @strongify(self)
-//            if (self.block) {
-//                self.block(data,data2);
-//            }
-//            [self.btn setTitle:data
-//                      forState:UIControlStateNormal];
             [self.historyDataListTBV removeFromSuperview];
             self.tradeTypeBtn.selected = !self.tradeTypeBtn.selected;
+            self.defaultBtn.selected = !self.defaultBtn.selected;
             if (self.block) {
                 self.block(data,data2);
             }
@@ -745,7 +741,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 if ([data2 isKindOfClass:[MMButton class]]) {
                     MMButton *btn = (MMButton *)data2;
                     [btn setTitle:data forState:UIControlStateNormal];
-                    NSLog(@"");
                 }
                 if ([self->_viewer.listTitleDataMutArr containsObject:data]) {//按交易状态
                     self->r = 0;

@@ -47,6 +47,8 @@
 		8B8B0D9723683A480040EE53 /* WholesaleMarket_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D9623683A480040EE53 /* WholesaleMarket_VipVC.m */; };
 		8B8B0D9E236960960040EE53 /* ReleaseOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D9D236960960040EE53 /* ReleaseOrderVC.m */; };
 		8B8D59452372E03400F002B9 /* ReleaseOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8D59442372E03400F002B9 /* ReleaseOrderModel.m */; };
+		8B90B39B237921EB0023E394 /* InvitationCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90B39A237921EB0023E394 /* InvitationCodeVC.m */; };
+		8B90B39E237923570023E394 /* InvitationCodeVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90B39D237923570023E394 /* InvitationCodeVC+VM.m */; };
 		8B9EAF87237417390012884C /* SettingPaymentWayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF86237417390012884C /* SettingPaymentWayVC.m */; };
 		8B9EAF8A2374175D0012884C /* SettingPaymentWayVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF892374175D0012884C /* SettingPaymentWayVC+VM.m */; };
 		8B9EAF8D237429950012884C /* SettingPaymentWayTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF8C237429950012884C /* SettingPaymentWayTBViewForHeader.m */; };
@@ -704,6 +706,10 @@
 		8B8B0DA32369635E0040EE53 /* HistoryDataListTBV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDataListTBV.m; sourceTree = "<group>"; };
 		8B8D59432372E03400F002B9 /* ReleaseOrderModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReleaseOrderModel.h; sourceTree = "<group>"; };
 		8B8D59442372E03400F002B9 /* ReleaseOrderModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReleaseOrderModel.m; sourceTree = "<group>"; };
+		8B90B399237921EB0023E394 /* InvitationCodeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvitationCodeVC.h; sourceTree = "<group>"; };
+		8B90B39A237921EB0023E394 /* InvitationCodeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvitationCodeVC.m; sourceTree = "<group>"; };
+		8B90B39C237923570023E394 /* InvitationCodeVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "InvitationCodeVC+VM.h"; sourceTree = "<group>"; };
+		8B90B39D237923570023E394 /* InvitationCodeVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "InvitationCodeVC+VM.m"; sourceTree = "<group>"; };
 		8B9EAF85237417390012884C /* SettingPaymentWayVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingPaymentWayVC.h; sourceTree = "<group>"; };
 		8B9EAF86237417390012884C /* SettingPaymentWayVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingPaymentWayVC.m; sourceTree = "<group>"; };
 		8B9EAF882374175D0012884C /* SettingPaymentWayVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SettingPaymentWayVC+VM.h"; sourceTree = "<group>"; };
@@ -1945,6 +1951,17 @@
 			path = HistoryDataList;
 			sourceTree = "<group>";
 		};
+		8B90B398237921B00023E394 /* 邀请码 */ = {
+			isa = PBXGroup;
+			children = (
+				8B90B399237921EB0023E394 /* InvitationCodeVC.h */,
+				8B90B39A237921EB0023E394 /* InvitationCodeVC.m */,
+				8B90B39C237923570023E394 /* InvitationCodeVC+VM.h */,
+				8B90B39D237923570023E394 /* InvitationCodeVC+VM.m */,
+			);
+			path = "邀请码";
+			sourceTree = "<group>";
+		};
 		8BB0F6CB236BDA77009498B6 /* 喵粮批发订单 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2204,6 +2221,7 @@
 		8BB2D2DC2366C7310047D0E2 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8B90B398237921B00023E394 /* 邀请码 */,
 				8BB2D2FA2366C7310047D0E2 /* 喵粮管理 */,
 				8BB2D2F72366C7310047D0E2 /* 喵粮订单管理 */,
 				8BB2D2E72366C7310047D0E2 /* 订单详情 */,
@@ -4396,6 +4414,7 @@
 				C42CD138213CC2640096675F /* CLCellGoods.m in Sources */,
 				8B8D59452372E03400F002B9 /* ReleaseOrderModel.m in Sources */,
 				C461440D214386B6000C0CDC /* CellVendorGoodList.m in Sources */,
+				8B90B39B237921EB0023E394 /* InvitationCodeVC.m in Sources */,
 				C42CD11D213CC2640096675F /* CBAutoScrollLabel.m in Sources */,
 				C42CD078213CC2640096675F /* CellBlance.m in Sources */,
 				C42CD1AE213CC2640096675F /* JJDBHelper.m in Sources */,
@@ -4404,6 +4423,7 @@
 				8BB2D36B2366CBA70047D0E2 /* TZAssetModel.m in Sources */,
 				8BB2D36C2366CBA70047D0E2 /* NSBundle+TZImagePicker.m in Sources */,
 				8BB2D3442366CB450047D0E2 /* VerifyCodeButton.m in Sources */,
+				8B90B39E237923570023E394 /* InvitationCodeVC+VM.m in Sources */,
 				C42CD093213CC2640096675F /* AreaSelectController.m in Sources */,
 				8BB2D33D2366CB080047D0E2 /* ThroughTrainToPromoteVC.m in Sources */,
 				8BB2D3802366CBF10047D0E2 /* UpLoadCancelReasonVC.m in Sources */,

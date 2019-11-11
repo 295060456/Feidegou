@@ -30,6 +30,7 @@
 #import "ChangeNameController.h"
 #import "CellTwoLblArrow.h"
 #import "CatFoodsManagementVC.h"
+#import "InvitationCodeVC.h"
 
 @interface CenterController ()
 <
@@ -147,15 +148,16 @@ DidClickCollectionViewDelegete
  numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
         return 3;
-    }
-    if (section == 4) {
+    }else if (section == 4) {
         if ([[PersonalInfo sharedInstance] isLogined] &
             [NSString isNullString:self.model.store_id]) {
             return 1;
         }else{
             return 0;
         }
-    }return 1;
+    }else if (section == 6){
+        return 2;
+    }else return 1;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -321,9 +323,20 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         [cell.lblNum setText:@""];
     }
     if(indexPath.section == 6){
-        [cell.imgHead setImage:ImageNamed(@"猫")];
-        [cell.lblName setText:@"喵粮管理"];
-        [cell.lblNum setText:@""];
+        switch (indexPath.row) {
+            case 0:{
+                [cell.imgHead setImage:ImageNamed(@"邀请码")];
+                [cell.lblName setText:@"请输入邀请码"];
+                [cell.lblNum setText:@""];
+            } break;
+            case 1:{
+                [cell.imgHead setImage:ImageNamed(@"猫")];
+                [cell.lblName setText:@"喵粮管理"];
+                [cell.lblNum setText:@""];
+            } break;
+            default:
+                break;
+        }
     }return cell;
 }
 
@@ -435,11 +448,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     if (indexPath.section == 6) {
         if ([[PersonalInfo sharedInstance] isLogined]) {
-                    @weakify(self)
-            [CatFoodsManagementVC pushFromVC:self_weak_
-                               requestParams:nil
-                                     success:^(id data) {}
-                                    animated:YES];
+            @weakify(self)
+            if (indexPath.row == 0) {
+                [InvitationCodeVC pushFromVC:self_weak_
+                requestParams:nil
+                      success:^(id data) {}
+                     animated:YES];
+            }else if (indexPath.row == 1){
+                [CatFoodsManagementVC pushFromVC:self_weak_
+                requestParams:nil
+                      success:^(id data) {}
+                     animated:YES];
+            }else{}
         }else{
             [self pushLoginController];
         }

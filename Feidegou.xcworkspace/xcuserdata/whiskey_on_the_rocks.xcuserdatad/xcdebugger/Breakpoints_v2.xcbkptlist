@@ -7,32 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A41DD792-D23A-451E-AE32-65014E8A81BE"
-            shouldBeEnabled = "No"
+            uuid = "51C72B2D-A335-4FAF-9ECA-1AF3CA7D9F11"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x55b5;&#x7cae;&#x8ba2;&#x5355;&#x7ba1;&#x7406;/OrderListVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "747"
-            endingLineNumber = "747"
-            landmarkName = "-viewer"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
+            landmarkName = "-platformTypeBtnClickEvent:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "68A673C5-674D-40C5-AC66-76BE0E87EDDB"
-            shouldBeEnabled = "No"
+            uuid = "0A9B0322-37DF-4CA2-BE7B-4BED259D4A6B"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x55b5;&#x7cae;&#x8ba2;&#x5355;&#x7ba1;&#x7406;/OrderListVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "748"
-            endingLineNumber = "748"
-            landmarkName = "-viewer"
+            startingLineNumber = "324"
+            endingLineNumber = "324"
+            landmarkName = "-historyDataListTBV"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

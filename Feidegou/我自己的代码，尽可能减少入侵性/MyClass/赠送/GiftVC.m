@@ -390,8 +390,10 @@ UITextFieldDelegate
 
 #pragma mark —— GiftVC
 @interface GiftVC ()
-<UITableViewDelegate,
-UITableViewDataSource>
+<
+UITableViewDelegate,
+UITableViewDataSource
+>
 
 @property(nonatomic,strong)UITableView *tableView;
 
