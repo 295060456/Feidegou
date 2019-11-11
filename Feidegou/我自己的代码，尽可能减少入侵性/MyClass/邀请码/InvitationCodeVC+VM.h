@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface InvitationCodeVC (VM)
 
+-(void)netWorking:(NSString *)inviter;
+
 @end
 
 NS_ASSUME_NONNULL_END

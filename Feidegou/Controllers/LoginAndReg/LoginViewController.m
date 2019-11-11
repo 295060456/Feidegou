@@ -61,17 +61,17 @@
 //    strUserNum = @"admin";
 //    strPsw = @"123456";
 //
-#warning grade_id = 2 高级商家
-    strUserNum = @"shopping";
-    strPsw = @"123456";
+//#warning grade_id = 2 高级商家
+//    strUserNum = @"shopping";
+//    strPsw = @"123456";
 //
 //#warning grade_id = 1 普通商家
 //    strUserNum = @"135661";
 //    strPsw = @"123456";
     
-//#warning grade_id = 0 普通人
-//    strUserNum = @"135663";
-//    strPsw = @"123456";
+#warning grade_id = 0 普通人
+    strUserNum = @"135663";
+    strPsw = @"123456";
 
 //    if ([NSString isNullString:strUserNum]) {
 //        [SVProgressHUD showErrorWithStatus:@"请输入用户名"];
@@ -117,16 +117,6 @@
     strJson = [NSString encodeToPercentEscapeString:strJson];// encodeing  json
     NSString *strKey =  [self encryptionTheParameter:strJson];// 根据json生成Key
     [dataMutDic setObject:strKey forKey:@"key"];
-//    [dataMutDic setObject:@"2200820a3e35ed74648e775cf3164e9d" forKey:@"key"];
-    
-//    // 设置为中国时区
-//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//    NSTimeZone *timeZone = [NSTimeZone timeZoneForSecondsFromGMT:8 * 3600];
-//    [dateFormatter setTimeZone:timeZone];
-//    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-//    NSString *strToday = [dateFormatter stringFromDate:[NSDate date]];
-//    [dataMutDic setObject:strToday forKey:@"datetoken"];
-    
     //最后拼接
     [dataMutDic setObject:strJson forKey:@"data"];
     [dataMutDic setObject:@"4" forKey:@"version"];

@@ -77,7 +77,7 @@ UITextFieldDelegate
 //- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
 //告诉委托人对指定的文本字段停止编辑
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-
+    [self netWorking:textField.text];
 }
 //告诉委托人对指定的文本字段停止编辑
 //- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
@@ -92,6 +92,7 @@ UITextFieldDelegate
 #pragma mark —— 点击事件
 -(void)sendBtnClickEvent:(UIButton *)sender{
     NSLog(@"发送");
+    [self.view endEditing:YES];
 }
 
 -(void)backBtnClickEvent:(UIButton *)sender{
@@ -132,5 +133,11 @@ UITextFieldDelegate
     }return _textField;
 }
 
+-(LoginViewController *)loginVC{
+    if (!_loginVC) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
+        _loginVC = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    }return _loginVC;
+}
 
 @end

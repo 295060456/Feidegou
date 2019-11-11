@@ -21,6 +21,7 @@
 //丹尼尔的
 #define WebSocketLocalhost @"10.1.41.174"
 #define AK @"http://10.1.41.174:8080/SHOPAPP2.0/appShop7/query.do"
+#define YQM @"http://10.1.41.174:8080/SHOPAPP2.0/appShop7/write.do"
 
 //ashui
 #define BaseUrlLogin @"http://10.1.41.198:8080/SHOPAPP2.0/appShop7/query.do"

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface InvitationCodeVC : BaseVC
 
+@property(nonatomic,weak)LoginViewController *loginVC;
+
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
                        requestParams:(nullable id)requestParams
                              success:(DataBlock _Nonnull )block

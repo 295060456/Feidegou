@@ -345,15 +345,16 @@ UIScrollViewDelegate
 -(NSMutableArray<NSString *> *)listTitlePlatformStyleDataMutArr{
     if (!_listTitlePlatformStyleDataMutArr) {
         _listTitlePlatformStyleDataMutArr = NSMutableArray.array;
-        [_listTitlePlatformStyleDataMutArr addObject:@"摊位"];
-        [_listTitlePlatformStyleDataMutArr addObject:@"批发"];
-        [_listTitlePlatformStyleDataMutArr addObject:@"厂家"];
+        [_listTitlePlatformStyleDataMutArr addObject:@"摊位抢购"];
+        [_listTitlePlatformStyleDataMutArr addObject:@"批发市场"];
+        [_listTitlePlatformStyleDataMutArr addObject:@"厂家直销"];
     }return _listTitlePlatformStyleDataMutArr;
 }
 
 -(MMButton *)defaultBtn{
     if (!_defaultBtn) {
         _defaultBtn = MMButton.new;
+        _defaultBtn.backgroundColor = kRedColor;
         [_defaultBtn addTarget:self
                         action:@selector(platformTypeBtnClickEvent:)
               forControlEvents:UIControlEventTouchUpInside];
@@ -370,8 +371,12 @@ UIScrollViewDelegate
                      AndBorderWidth:0.1f];
         _defaultBtn.imageAlignment = MMImageAlignmentRight;
         _defaultBtn.spaceBetweenTitleAndImage = SCALING_RATIO(2);
-        [_defaultBtn.titleLabel sizeToFit];
-        _defaultBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
+        _defaultBtn.frame = CGRectMake(0,
+                                       0,
+                                       SCALING_RATIO(100),
+                                       SCALING_RATIO(10));
+//        [_defaultBtn.titleLabel sizeToFit];
+//        _defaultBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
         [self.scrollView addSubview:_defaultBtn];
     }return _defaultBtn;
 }
@@ -486,7 +491,7 @@ UIScrollViewDelegate
         [_btnTitleMutArr addObject:@"按时间"];
         [_btnTitleMutArr addObject:@"按买/卖"];
         [_btnTitleMutArr addObject:@"交易状态"];
-        [_btnTitleMutArr addObject:@"在此输入查询ID"];
+        [_btnTitleMutArr addObject:@"在此输入查询的订单ID"];
     }return _btnTitleMutArr;
 }
 
@@ -606,42 +611,44 @@ UITableViewDataSource
 }
 #pragma mark —— 点击事件
 -(void)filterBtnClickEvent:(UIButton *)sender{
-    @weakify(self)
-    UIEdgeInsets inset = [self.tableView contentInset];
-    if (!sender.selected) {
-        inset.top = SCALING_RATIO(50);
-        [UIView animateWithDuration:1.f
-                              delay:0.f
-                            options:UIViewAnimationOptionTransitionCurlDown
-                         animations:^{
-            @strongify(self)
-            self.viewer.alpha = 1;
+    if (self.dataMutArr.count) {//不加这个判断会崩
+            @weakify(self)
+        UIEdgeInsets inset = [self.tableView contentInset];
+        if (!sender.selected) {
+            inset.top = SCALING_RATIO(50);
+            [UIView animateWithDuration:1.f
+                                  delay:0.f
+                                options:UIViewAnimationOptionTransitionCurlDown
+                             animations:^{
+                @strongify(self)
+                self.viewer.alpha = 1;
+            }
+                             completion:^(BOOL finished) {
+                
+            }];
+        }else{
+            inset.top = SCALING_RATIO(0);
+            [UIView animateWithDuration:1.f
+                                  delay:0.f
+                                options:UIViewAnimationOptionTransitionCurlUp
+                             animations:^{
+                @strongify(self)
+                self.viewer.alpha = 0;
+            }
+                             completion:^(BOOL finished) {
+                
+            }];
         }
-                         completion:^(BOOL finished) {
-            
-        }];
-    }else{
-        inset.top = SCALING_RATIO(0);
-        [UIView animateWithDuration:1.f
-                              delay:0.f
-                            options:UIViewAnimationOptionTransitionCurlUp
-                         animations:^{
-            @strongify(self)
-            self.viewer.alpha = 0;
-        }
-                         completion:^(BOOL finished) {
-            
-        }];
+        [self.tableView setContentInset:inset];
+        //获取到需要跳转位置的行数
+        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0
+                                                          inSection:0];
+        //滚动到其相应的位置
+        [[self tableView] scrollToRowAtIndexPath:scrollIndexPath
+                atScrollPosition:UITableViewScrollPositionBottom
+                                        animated:YES];
+        sender.selected = !sender.selected;
     }
-    [self.tableView setContentInset:inset];
-    //获取到需要跳转位置的行数
-    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0
-                                                      inSection:0];
-    //滚动到其相应的位置
-    [[self tableView] scrollToRowAtIndexPath:scrollIndexPath
-            atScrollPosition:UITableViewScrollPositionBottom
-                                    animated:YES];
-    sender.selected = !sender.selected;
 }
 
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
