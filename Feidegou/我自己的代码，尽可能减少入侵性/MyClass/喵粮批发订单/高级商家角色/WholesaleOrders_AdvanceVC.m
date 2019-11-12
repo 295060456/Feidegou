@@ -264,6 +264,23 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _cancelBtn;
 }
 
+-(void)prepareToUploadPic{
+    [self showAlertViewTitle:@"是否确定上传此张图片？"
+                     message:@"请再三核对不要选错啦"
+                 btnTitleArr:@[@"继续上传",
+                               @"我选错啦"]
+              alertBtnAction:@[@"GoUploadPic",
+                               @"sorry"]];
+}
+
+-(void)GoUploadPic{
+    [self upLoadPic_netWorking:self.img];
+}
+
+-(void)sorry{
+    [self paidBtnClickEvent:self.paidBtn];
+}
+
 -(TZImagePickerController *)imagePickerVC{
     if (!_imagePickerVC) {
         _imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:9
@@ -274,7 +291,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                           BOOL isSelectOriginalPhoto) {
             @strongify(self)
             if (photos.count == 1) {
-                [self upLoadPic_netWorking:photos.lastObject];
+                self.img = photos.lastObject;
+                [self prepareToUploadPic];
             }else{
                 [self showAlertViewTitle:@"选择一张相片就够啦"
                                  message:@"不要画蛇添足"

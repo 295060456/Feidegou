@@ -159,6 +159,25 @@ TZImagePickerControllerDelegate
     NSLog(@"返回");
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+-(void)upLoadbtnClickEvent:(UIButton *)sender{
+    NSLog(@"立即上传");//KKK 没有判断？？
+    [self showAlertViewTitle:@"是否确定上传此张图片？"
+                     message:@"请再三核对不要选错啦"
+                 btnTitleArr:@[@"继续上传",
+                               @"我选错啦"]
+              alertBtnAction:@[@"GoUploadPic",
+                               @"sorry"]];
+}
+
+-(void)GoUploadPic{
+//    [self CancelDelivery_NetWorking];
+}
+
+-(void)sorry{
+//    [self picBtnClickEvent:Nil];
+}
+
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -263,6 +282,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             @strongify(self)
             if (photos.count == 1) {
                 self.img = photos.lastObject;
+//                upLoadbtnClickEvent
                 [self.tableView reloadData];
                 [self.deliverBtn mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +

@@ -63,10 +63,20 @@ TZImagePickerControllerDelegate
 -(void)upLoadbtnClickEvent:(UIButton *)sender{
     NSLog(@"1234");
     if (self.pic) {
-        [self uploadPic_netWorking:self.pic];
+//        [self uploadPic_netWorking:self.pic];
+        [self showAlertViewTitle:@"是否确定上传此张图片？"
+                         message:@"请再三核对不要选错啦"
+                     btnTitleArr:@[@"继续上传",
+                                   @"我选错啦"]
+                  alertBtnAction:@[@"GoUploadPic",
+                                   @"sorry"]];
     }else{
         Toast(@"请点选图片");
     }
+}
+
+-(void)GoUploadPic{
+    [self uploadPic_netWorking:self.pic];
 }
 
 -(TZImagePickerController *)imagePickerVC{

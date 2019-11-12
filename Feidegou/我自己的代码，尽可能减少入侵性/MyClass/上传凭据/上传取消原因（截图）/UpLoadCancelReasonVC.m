@@ -159,7 +159,6 @@ TZImagePickerControllerDelegate
 @property(nonatomic,strong)UILabel *tipLab;
 @property(nonatomic,strong)UILabel *titleLab;
 
-
 @property(nonatomic,strong)NSMutableArray <NSString *>*tipsMutArr;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -236,8 +235,21 @@ TZImagePickerControllerDelegate
 }
 
 -(void)upLoadbtnClickEvent:(UIButton *)sender{
-    NSLog(@"立即上传");
+    NSLog(@"立即上传");//KKK 没有判断？？
+    [self showAlertViewTitle:@"是否确定上传此张图片？"
+                     message:@"请再三核对不要选错啦"
+                 btnTitleArr:@[@"继续上传",
+                               @"我选错啦"]
+              alertBtnAction:@[@"GoUploadPic",
+                               @"sorry"]];
+}
+
+-(void)GoUploadPic{
     [self CancelDelivery_NetWorking];
+}
+
+-(void)sorry{
+    [self picBtnClickEvent:Nil];
 }
 
 -(void)picBtnClickEvent:(UIButton *)sender{

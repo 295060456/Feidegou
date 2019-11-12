@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
                             animated:(BOOL)animated;
 
 -(void)upLoadbtnClickEvent:(UIButton *)sender;
+-(void)sorry;
 
 @end
 

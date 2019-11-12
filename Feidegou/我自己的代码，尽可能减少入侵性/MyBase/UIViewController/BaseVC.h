@@ -29,6 +29,7 @@ UIGestureRecognizerDelegate
 @property(nonatomic,copy)void (^NotReachableNetWorking)(void);
 @property(nonatomic,copy)void (^ReachableViaWWANNetWorking)(void);
 @property(nonatomic,copy)void (^ReachableViaWiFiNetWorking)(void);
+
 -(void)VCwillComingBlock:(DataBlock)block;//即将进来
 -(void)VCdidComingBlock:(DataBlock)block;//已经进来
 -(void)VCwillBackBlock:(DataBlock)block;//即将出去

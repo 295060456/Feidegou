@@ -16,6 +16,7 @@ TZImagePickerControllerDelegate
 {}
 
 @property(nonatomic,strong)UIButton *upLoadBtn;
+@property(nonatomic,strong)UIImage *img;
 @property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 
 @property(nonatomic,assign)int tap;
@@ -78,14 +79,14 @@ TZImagePickerControllerDelegate
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-//    [self.pet hide];
-//    [self.pet.laAnimation removeFromSuperview];
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
           withEvent:(UIEvent *)event{
-    self.tap++;
-    [self QRcode];
+    if (![NSString isNullString:self.QRcodeStr]) {
+        self.tap++;
+        [self QRcode];
+    }
 }
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
@@ -121,6 +122,24 @@ TZImagePickerControllerDelegate
     if ([[UIApplication sharedApplication] canOpenURL:url]) {
         [[UIApplication sharedApplication] openURL:url];
     }
+}
+
+-(void)upLoadbtnClickEvent{
+    NSLog(@"立即上传");//KKK 没有判断？？
+    [self showAlertViewTitle:@"是否确定上传此张图片？"
+                     message:@"请再三核对不要选错啦"
+                 btnTitleArr:@[@"继续上传",
+                               @"我选错啦"]
+              alertBtnAction:@[@"GoUploadPic",
+                               @"sorry"]];
+}
+
+-(void)GoUploadPic{
+    [self uploadQRcodePic:self.img];
+}
+
+-(void)sorry{
+    [self upLoadBtnClickEvent:self.upLoadBtn];
 }
 
 -(void)QRcode{
@@ -192,10 +211,8 @@ TZImagePickerControllerDelegate
                                                           BOOL isSelectOriginalPhoto) {
             @strongify(self)
             if (photos.count == 1) {
-//                UIImageView *imgv = [[UIImageView alloc]initWithImage:photos.lastObject];
-//                [self.view addSubview:imgv];
-//                imgv.frame = CGRectMake(100, 100, 100, 100);
-                [self uploadQRcodePic:photos.lastObject];
+                self.img = photos.lastObject;
+                [self upLoadbtnClickEvent];
             }else{
                 [self showAlertViewTitle:@"选择一张相片就够啦"
                                  message:@"不要画蛇添足"
