@@ -290,8 +290,9 @@ StockViewDelegate
 - (void)didSelect:(JJStockView*)stockView atRowPath:(NSUInteger)row{
     NSLog(@"DidSelect Row:%ld",row);
     @weakify(self)
+    WholesaleMarket_VipModel *model = self.dataMutArr[row];
     [WholesaleOrders_VipVC pushFromVC:self_weak_
-                    requestParams:nil//self.requestParams
+                    requestParams:model.ID
                           success:^(id data) {}
                          animated:YES];
 }

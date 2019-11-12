@@ -7,6 +7,7 @@
 //
 
 #import "WholesaleOrders_VipVC.h"
+#import "WholesaleOrders_VipVC+VM.h"
 
 @interface WholesaleOrdersTBVCell ()
 
@@ -87,13 +88,11 @@ UITableViewDataSource,
 TZImagePickerControllerDelegate
 >
 
-@property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 @property(nonatomic,strong)__block UIImage *img;
 @property(nonatomic,strong)UIButton *deliverBtn;//发货
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 
-@property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
@@ -111,7 +110,6 @@ TZImagePickerControllerDelegate
              requestParams:(nullable id)requestParams
                    success:(DataBlock)block
                   animated:(BOOL)animated{
-
     WholesaleOrders_VipVC *vc = WholesaleOrders_VipVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
@@ -142,7 +140,7 @@ TZImagePickerControllerDelegate
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.tableView.alpha = 1;
+    [self.tableView.mj_header beginRefreshing];
     [_deliverBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
                                            self.titleMutArr.count * [WholesaleOrdersTBVCell cellHeightWithModel:nil] +
@@ -150,6 +148,16 @@ TZImagePickerControllerDelegate
     }];
 }
 #pragma mark —— 私有方法
+// 下拉刷新
+-(void)pullToRefresh{
+    NSLog(@"下拉刷新");
+    [self netWorking];
+}
+//上拉加载更多
+- (void)loadMoreRefresh{
+    NSLog(@"上拉加载更多");
+   [self.tableView.mj_footer endRefreshing];
+}
 #pragma mark —— 点击事件
 -(void)deliverBtnClickEvent:(UIButton *)sender{
     NSLog(@"发货");
@@ -195,9 +203,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     WholesaleOrdersTBVCell *cell = [WholesaleOrdersTBVCell cellWith:tableView];
     cell.textLabel.text = self.titleMutArr[indexPath.row];
+    cell.detailTextLabel.text = self.detailTextMutArr[indexPath.row];
     if (indexPath.row == 6) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.detailTextLabel.text = @"点击选择凭证(原图)";
         [cell richElementsInCellWithModel:self.img];
     }else{
         [cell richElementsInCellWithModel:Nil];
@@ -260,6 +268,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                      style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.mj_header = self.tableViewHeader;
+        _tableView.mj_footer = self.tableViewFooter;
         _tableView.tableFooterView = UIView.new;
         _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//推荐该方法
@@ -335,6 +345,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [_titleMutArr addObject:@"凭证"];
         [_titleMutArr addObject:@"状态"];//已付款/已完成/待购
     }return _titleMutArr;
+}
+
+-(NSMutableArray<NSString *> *)detailTextMutArr{
+    if (!_detailTextMutArr) {
+        _detailTextMutArr = NSMutableArray.array;
+    }return _detailTextMutArr;
 }
 
 @end

@@ -149,7 +149,8 @@
         if ([[PersonalInfo sharedInstance] isLogined]) {
             [SVProgressHUD showSuccessWithStatus:@"登录成功"];
         }else{
-            [SVProgressHUD showSuccessWithStatus:@"登录成功但是存取状态异常"];Toast(@"登录成功但是存取状态异常");
+            [SVProgressHUD showSuccessWithStatus:@"登录成功但是存取状态异常"];
+            Toast(@"登录成功但是存取状态异常");
         }
         [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSURLSessionDataTask * _Nullable task,

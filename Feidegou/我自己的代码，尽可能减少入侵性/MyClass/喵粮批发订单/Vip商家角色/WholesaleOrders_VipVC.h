@@ -20,6 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WholesaleOrders_VipVC : BaseVC
 
+@property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,strong)WholesaleOrders_VipModel *wholesaleOrders_VipModel;
+@property(nonatomic,strong)id requestParams;
+@property(nonatomic,strong)NSMutableArray <NSString *>*detailTextMutArr;
+//titleMutArr
+
 + (instancetype)pushFromVC:(UIViewController *)rootVC
              requestParams:(nullable id)requestParams
                    success:(DataBlock)block
