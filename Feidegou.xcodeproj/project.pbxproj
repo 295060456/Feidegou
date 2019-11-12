@@ -836,7 +836,6 @@
 		8BB2D3352366C7310047D0E2 /* HQTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HQTextField.m; sourceTree = "<group>"; };
 		8BB2D3372366C7310047D0E2 /* ZYTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYTextField.m; sourceTree = "<group>"; };
 		8BB2D3382366C7310047D0E2 /* ZYTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYTextField.h; sourceTree = "<group>"; };
-		8BB2D3392366C7310047D0E2 /* 10.18会议纪要 */ = {isa = PBXFileReference; lastKnownFileType = text; path = "10.18会议纪要"; sourceTree = "<group>"; };
 		8BB2D33A2366C7310047D0E2 /* ToolMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolMacro.h; sourceTree = "<group>"; };
 		8BB2D3492366CBA60047D0E2 /* TZPhotoPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPreviewCell.h; sourceTree = "<group>"; };
 		8BB2D34A2366CBA60047D0E2 /* TZPhotoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPickerController.h; sourceTree = "<group>"; };
@@ -2092,7 +2091,6 @@
 				8BB2D2DC2366C7310047D0E2 /* MyClass */,
 				8BB2D3072366C7310047D0E2 /* MyModel */,
 				8BB2D3142366C7310047D0E2 /* MyBase */,
-				8BB2D3392366C7310047D0E2 /* 10.18会议纪要 */,
 				8BB2D33A2366C7310047D0E2 /* ToolMacro.h */,
 			);
 			path = "我自己的代码，尽可能减少入侵性";
@@ -2236,7 +2234,6 @@
 				8B8B0D9B2369606A0040EE53 /* 发布订单 */,
 				8BB2D2DD2366C7310047D0E2 /* 喵粮产地 */,
 				8BB2D2E02366C7310047D0E2 /* 示例图 */,
-				8BB2D2E32366C7310047D0E2 /* 钱包 */,
 				8BB2D2E42366C7310047D0E2 /* 店铺收款码 */,
 				8BB2D2EE2366C7310047D0E2 /* Q宠 */,
 				8BB2D2F12366C7310047D0E2 /* 喵粮直通车 */,
@@ -2266,13 +2263,6 @@
 				8BB2D2E12366C7310047D0E2 /* SamplePicVC.m */,
 			);
 			path = "示例图";
-			sourceTree = "<group>";
-		};
-		8BB2D2E32366C7310047D0E2 /* 钱包 */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "钱包";
 			sourceTree = "<group>";
 		};
 		8BB2D2E42366C7310047D0E2 /* 店铺收款码 */ = {

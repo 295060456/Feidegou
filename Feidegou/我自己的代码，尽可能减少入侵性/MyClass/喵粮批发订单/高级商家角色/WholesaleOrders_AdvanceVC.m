@@ -64,7 +64,6 @@ TZImagePickerControllerDelegate
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    [self.tableView.mj_header beginRefreshing];
     self.paidBtn.alpha = 1;
     self.cancelBtn.alpha = 1;
     self.isFirstComing = YES;
@@ -72,7 +71,7 @@ TZImagePickerControllerDelegate
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-
+    [self.tableView.mj_header beginRefreshing];
 }
 #pragma mark —— 截取返回手势
 - (void)didMoveToParentViewController:(UIViewController*)parent{

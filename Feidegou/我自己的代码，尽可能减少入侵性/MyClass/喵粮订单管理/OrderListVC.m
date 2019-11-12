@@ -563,11 +563,11 @@ UITableViewDataSource
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     networking_tpye = NetworkingTpye_default;
-    [self.tableView.mj_header beginRefreshing];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.tableView.mj_header beginRefreshing];
 }
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{

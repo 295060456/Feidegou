@@ -199,11 +199,11 @@ XDMultTableViewDelegate
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.saveBtn];
     self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.tableView.alpha = 1;
-    [self netWorking];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self netWorking];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

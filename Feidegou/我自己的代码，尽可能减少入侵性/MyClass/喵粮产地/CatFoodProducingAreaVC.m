@@ -168,6 +168,9 @@ UITableViewDataSource
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.currentPage = 1;
+}
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     [self.tableView.mj_header beginRefreshing];
 }
 #pragma mark —— 点击事件

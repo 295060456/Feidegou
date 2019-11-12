@@ -136,13 +136,13 @@ TZImagePickerControllerDelegate
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.tableView.alpha = 1;
     self.deliverBtn.alpha = 1;
     self.isFirstComing = YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.tableView.alpha = 1;
     [_deliverBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
                                            self.titleMutArr.count * [WholesaleOrdersTBVCell cellHeightWithModel:nil] +

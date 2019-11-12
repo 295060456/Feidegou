@@ -132,10 +132,17 @@ UITableViewDataSource
                                    success:^(id data) {}
                                   animated:YES];
     }else if ([vcName isEqualToString:@"喵粮直通车"]){
-        [ThroughTrainToPromoteVC pushFromVC:self_weak_
-                              requestParams:nil
-                                    success:^(id data) {}
-                                   animated:YES];
+        if ([self.dataMutArr[0] isKindOfClass:[NSString class]]) {
+            NSString *str = self.dataMutArr[0];
+            if ([str isEqualToString:@"0"]) {
+                Toast(@"余额为0无法开启直通车");
+            }else{
+                [ThroughTrainToPromoteVC pushFromVC:self_weak_
+                requestParams:nil
+                      success:^(id data) {}
+                     animated:YES];
+            }
+        }
     }else if ([vcName isEqualToString:@"喵粮批发市场"]){
         switch ([self.loginModel.grade_id intValue]) {
             case 2:{

@@ -153,7 +153,6 @@ UITableViewDataSource
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
-    [self.tableView.mj_header beginRefreshing];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(SRWebSocketDidOpen)
                                                  name:kWebSocketDidOpenNote
@@ -170,6 +169,7 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 #pragma mark —— 私有方法

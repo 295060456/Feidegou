@@ -117,7 +117,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             if (self.dataMutArr.count) {
                 self.str = self.dataMutArr[indexPath.row];
                 self.lab = UILabel.new;
-                self.lab.backgroundColor = KLightGrayColor;
+//                self.lab.backgroundColor = KLightGrayColor;
                 self.lab.text = self.str;
                 [self.lab sizeToFit];
                 [cell.contentView addSubview:self.lab];
@@ -208,7 +208,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         cell = [[OrderDetail_BuyerTBVCell_02 alloc] initWithStyle:UITableViewCellStyleValue1
                                      reuseIdentifier:ReuseIdentifier
                                               margin:SCALING_RATIO(5)];
-        cell.backgroundColor = KGreenColor;//kClearColor;
+        cell.backgroundColor = kClearColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [UIView cornerCutToCircleWithView:cell.contentView
                           AndCornerRadius:5.f];
@@ -299,8 +299,12 @@ TZImagePickerControllerDelegate
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    [self.tableView.mj_header beginRefreshing];
     self.isFirstComing = YES;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

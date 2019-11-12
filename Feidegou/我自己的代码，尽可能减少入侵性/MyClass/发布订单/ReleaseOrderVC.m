@@ -164,13 +164,13 @@ BEMCheckBoxDelegate
                 }
                 for (int i = 0; i < self.mutArr2.count ; i++) {//
                     BEMCheckBox *checkBox = BEMCheckBox.new;
-                    checkBox.backgroundColor = RandomColor;
+//                    checkBox.backgroundColor = RandomColor;
                     [self.btnMutArr addObject:checkBox];//
                     UILabel *titleLab = UILabel.new;
                     [self.labMutArr addObject:titleLab];//!!
                     titleLab.text = self.listTitleDataMutArr[[self.mutArr2[i] intValue]];
                     titleLab.textAlignment = NSTextAlignmentCenter;
-                    titleLab.backgroundColor = RandomColor;
+//                    titleLab.backgroundColor = RandomColor;
                     [titleLab sizeToFit];
                     // 矩形复选框
                     checkBox.boxType = BEMBoxTypeSquare;
@@ -403,11 +403,11 @@ UITableViewDataSource
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    [self.tableView.mj_header beginRefreshing];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.tableView.mj_header beginRefreshing];
     self.releaseBtn.alpha = 1;
     [self.releaseBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
@@ -564,7 +564,7 @@ forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
         [UIView colourToLayerOfView:_releaseBtn
                          WithColour:KGreenColor
                      AndBorderWidth:.1f];
-        [_releaseBtn setTitle:@"发布"
+        [_releaseBtn setTitle:@"我要发布"
                      forState:UIControlStateNormal];
         [_releaseBtn addTarget:self
                         action:@selector(releaseBtnClickEvent:)
@@ -572,7 +572,7 @@ forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
         [self.view addSubview:_releaseBtn];
         [_releaseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view.mas_centerX);
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(100)));
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(50)));
         }];
     }return _releaseBtn;
 }

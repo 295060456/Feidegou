@@ -69,13 +69,12 @@ StockViewDelegate
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.stockView.alpha = 1;
     self.currentPage = 1;
-    [self netWorking];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.stockView.jjStockTableView.mj_header beginRefreshing];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -93,13 +92,14 @@ StockViewDelegate
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
     }
-    [self.stockView.jjStockTableView.mj_header endRefreshing];
+    [self netWorking];
+    
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
     self.currentPage ++;
-   [self.stockView.jjStockTableView.mj_footer endRefreshing];
+    [self netWorking];
 }
 #pragma mark —— StockViewDataSource,StockViewDelegate
 #pragma mark —— StockViewDataSource

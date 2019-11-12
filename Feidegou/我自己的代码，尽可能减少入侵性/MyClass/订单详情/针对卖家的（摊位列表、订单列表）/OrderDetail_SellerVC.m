@@ -580,7 +580,6 @@ UITableViewDataSource
 //第二步，成为自己的代理，去监听pop的过程，pop之前判断是否为根控制器
     self.navigationController.delegate = self;
     self.isShowViewFinished = YES;
-    [self.tableView.mj_header beginRefreshing];//
 }
 #pragma mark —— UINavigationControllerDelegate
 - (void)navigationController:(UINavigationController *)navigationController
@@ -593,6 +592,11 @@ UITableViewDataSource
     }else if([viewController isKindOfClass:[OrderListVC class]]){
         
     }
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.tableView.mj_header beginRefreshing];//
 }
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{

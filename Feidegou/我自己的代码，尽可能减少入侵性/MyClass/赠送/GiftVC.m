@@ -43,16 +43,20 @@ UITextFieldDelegate
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCREEN_HEIGHT / 10;
+    return SCREEN_HEIGHT / 15;
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.btn.alpha = 1;
-    self.textField.alpha = 1;
+
 }
 
 -(void)actionBlock:(DataBlock)block{
     _block = block;
+}
+
+-(void)drawRect:(CGRect)rect{
+    self.btn.alpha = 1;
+    self.textField.alpha = 1;
 }
 
 #pragma mark —— UITextFieldDelegate
@@ -181,15 +185,19 @@ UITextFieldDelegate
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCREEN_HEIGHT / 10;
+    return SCREEN_HEIGHT / 18;
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.textField.alpha = 1;
+   
 }
 
 -(void)actionBlock:(DataBlock)block{
     _block = block;
+}
+
+-(void)drawRect:(CGRect)rect{
+     self.textField.alpha = 1;
 }
 
 #pragma mark —— UITextFieldDelegate
@@ -270,6 +278,9 @@ UITextFieldDelegate
     self.lab.alpha = 1;
 }
 
+-(void)drawRect:(CGRect)rect{
+    self.lab.alpha = 1;
+}
 #pragma mark —— lazyLoad
 -(UILabel *)lab{
     if (!_lab) {
@@ -311,10 +322,14 @@ UITextFieldDelegate
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCREEN_HEIGHT / 10;
+    return SCREEN_HEIGHT / 15;
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
+
+}
+
+-(void)drawRect:(CGRect)rect{
     self.cancelBtn.alpha = 1;
     self.giftBtn.alpha = 1;
 }
@@ -356,7 +371,8 @@ UITextFieldDelegate
                      AndBorderWidth:1.f];
         [self.contentView addSubview:_cancelBtn];
         [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.top.bottom.equalTo(self.contentView);
+            make.top.bottom.equalTo(self.contentView);
+            make.left.equalTo(self.contentView).offset(SCALING_RATIO(20));
             make.width.mas_equalTo(self.contentView.mj_w / 2 - SCALING_RATIO(10));
         }];
     }return _cancelBtn;
@@ -380,7 +396,8 @@ UITextFieldDelegate
         _giftBtn.backgroundColor = kOrangeColor;
         [self.contentView addSubview:_giftBtn];
         [_giftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.top.bottom.equalTo(self.contentView);
+            make.top.bottom.equalTo(self.contentView);
+            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-20));
             make.width.mas_equalTo(self.contentView.mj_w / 2 - SCALING_RATIO(10));
         }];
     }return _giftBtn;
@@ -442,8 +459,13 @@ UITableViewDataSource
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     self.tableView.alpha = 1;
 }
+
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
