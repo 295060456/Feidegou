@@ -37,7 +37,15 @@ UITextFieldDelegate
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
+    [self layoutIfNeeded];//在cell里面，用[self layoutIfNeeded]刷新立即得到textLabel等的frame值
     self.textField.alpha = 1;
+}
+
+-(void)drawRect:(CGRect)rect{
+    [self setBorderWithView:_textField
+                            borderColor:kRedColor
+                            borderWidth:1.f
+                             borderType:UIBorderSideTypeBottom];
 }
 
 -(void)actionBlock:(DataBlock)block{
@@ -81,12 +89,7 @@ UITextFieldDelegate
             make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(30));
             make.top.bottom.equalTo(self.contentView);
         }];
-        [self.contentView layoutIfNeeded];
-        [UIView cornerCutToCircleWithView:_textField
-                          AndCornerRadius:3.f];
-        [UIView colourToLayerOfView:_textField
-                         WithColour:kOrangeColor
-                     AndBorderWidth:1.f];
+        [self layoutIfNeeded];
     }return _textField;
 }
 
@@ -98,8 +101,6 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
-@property(nonatomic,strong)UITableView *tableView;
-@property(nonatomic,strong)UIButton *btn;
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*detailTitleMutArr;
 @property(nonatomic,strong)id requestParams;
@@ -145,20 +146,31 @@ UITableViewDataSource
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
-    self.tableView.alpha = 1;
-    self.btn.alpha = 1;
+    [self.tableView.mj_header beginRefreshing];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
 }
+#pragma mark —— 私有方法
+// 下拉刷新
+-(void)pullToRefresh{
+    NSLog(@"下拉刷新");
+    [self checkThroughTrainToPromoteStyle_netWorking];
+}
+//上拉加载更多
+- (void)loadMoreRefresh{
+    NSLog(@"上拉加载更多");
+   [self.tableView.mj_footer endRefreshing];
+}
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)btnClickEvent:(UIButton *)sender{
+-(void)openBtnClickEvent:(UIButton *)sender{
     NSLog(@"开启直通车抢摊位")
     [self.view endEditing:YES];
     @weakify(self)
@@ -170,6 +182,16 @@ UITableViewDataSource
     }else{
         Toast(@"请输入您要抢摊位的数量");
     }
+}
+
+-(void)cancelBtnClickEvent:(UIButton *)sender{
+    NSLog(@"%@",sender.titleLabel.text);
+    [self deleteThroughTrainToPromote_netWorking];
+}
+
+-(void)goOnBtnClickEvent:(UIButton *)sender{
+    NSLog(@"%@",sender.titleLabel.text);
+    [self openBtnClickEvent:sender];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
@@ -185,16 +207,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return self.titleMutArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 1) {
         ThroughTrainToPromoteTBVCell *cell = [ThroughTrainToPromoteTBVCell cellWith:tableView];
-        [cell richElementsInCellWithModel:nil];
         cell.textLabel.text = self.titleMutArr[indexPath.row];
         cell.detailTextLabel.text = self.detailTitleMutArr[indexPath.row];
+        [cell richElementsInCellWithModel:nil];
         @weakify(self)
         [cell actionBlock:^(id data) {
             @strongify(self)
@@ -219,27 +241,79 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     return 1;
 }
 #pragma mark —— lazyLoad
--(UIButton *)btn{
-    if (!_btn) {
-        _btn = UIButton.new;
-        [_btn addTarget:self
-                 action:@selector(btnClickEvent:)
+-(UIButton *)openBtn{
+    if (!_openBtn) {
+        _openBtn = UIButton.new;
+        [_openBtn addTarget:self
+                 action:@selector(openBtnClickEvent:)
        forControlEvents:UIControlEventTouchUpInside];
-        [_btn setTitle:@"开启直通车抢摊位"
+        [_openBtn setTitle:@"开启直通车抢摊位"
               forState:UIControlStateNormal];
-        _btn.backgroundColor = kOrangeColor;
-        [self.view addSubview:_btn];
-        [_btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(100)));
-            make.center.equalTo(self.view);
+        _openBtn.backgroundColor = kOrangeColor;
+        [self.view addSubview:_openBtn];
+        [_openBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100),
+                                             SCALING_RATIO(100)));
+            make.centerX.equalTo(self.view);
+            make.top.equalTo(self.tableView).offset((self.titleMutArr.count + 1) * [ThroughTrainToPromoteTBVCell cellHeightWithModel:nil]);
         }];
         [self.view layoutIfNeeded];
-        [UIView cornerCutToCircleWithView:_btn
+        [UIView cornerCutToCircleWithView:_openBtn
                           AndCornerRadius:5.f];
-        [UIView colourToLayerOfView:_btn
+        [UIView colourToLayerOfView:_openBtn
                          WithColour:KLightGrayColor
                      AndBorderWidth:1.f];
-    }return _btn;
+    }return _openBtn;
+}
+
+-(UIButton *)cancelBtn{
+    if (!_cancelBtn) {
+        _cancelBtn = UIButton.new;
+        [_cancelBtn setTitle:@"取消上一次抢购"
+                    forState:UIControlStateNormal];
+        [_cancelBtn addTarget:self
+                       action:@selector(cancelBtnClickEvent:)
+             forControlEvents:UIControlEventTouchUpInside];
+        _cancelBtn.backgroundColor = KLightGrayColor;
+        [self.view addSubview:_cancelBtn];
+        [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.tableView).offset((self.titleMutArr.count + 1) * [ThroughTrainToPromoteTBVCell cellHeightWithModel:nil]);
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 2 - SCALING_RATIO(50),
+                                             SCALING_RATIO(50)));
+            make.left.equalTo(self.view).offset(SCALING_RATIO(30));
+        }];
+        [self.view layoutIfNeeded];
+        [UIView cornerCutToCircleWithView:_cancelBtn
+                          AndCornerRadius:5.f];
+        [UIView colourToLayerOfView:_cancelBtn
+                         WithColour:KLightGrayColor
+                     AndBorderWidth:1.f];
+    }return _cancelBtn;
+}
+
+-(UIButton *)goOnBtn{
+    if (!_goOnBtn) {
+        _goOnBtn = UIButton.new;
+        [_goOnBtn setTitle:@"继续上一次抢购"
+                  forState:UIControlStateNormal];
+        _goOnBtn.backgroundColor = kRedColor;
+        [_goOnBtn addTarget:self
+                     action:@selector(goOnBtnClickEvent:)
+           forControlEvents:UIControlEventTouchUpInside];
+        [self.view addSubview:_goOnBtn];
+        [_goOnBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.tableView).offset((self.titleMutArr.count + 1) * [ThroughTrainToPromoteTBVCell cellHeightWithModel:nil]);
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH  / 2 - SCALING_RATIO(50),
+                                             SCALING_RATIO(50)));
+            make.right.equalTo(self.view).offset(-SCALING_RATIO(30));
+        }];
+        [self.view layoutIfNeeded];
+        [UIView cornerCutToCircleWithView:_goOnBtn
+                          AndCornerRadius:5.f];
+        [UIView colourToLayerOfView:_goOnBtn
+                         WithColour:KLightGrayColor
+                     AndBorderWidth:1.f];
+    }return _goOnBtn;
 }
 
 -(UITableView *)tableView{
@@ -249,6 +323,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.tableFooterView = UIView.new;
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.mj_header = self.tableViewHeader;
+        _tableView.mj_footer = self.tableViewFooter;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         [self.view addSubview:_tableView];
@@ -273,7 +349,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _detailTitleMutArr = NSMutableArray.array;
         [_detailTitleMutArr addObject:@"喵粮"];
         [_detailTitleMutArr addObject:@"g"];
-        [_detailTitleMutArr addObject:@"1g/元"];
+        [_detailTitleMutArr addObject:@"1g / CNY"];
     }return _detailTitleMutArr;
 }
 

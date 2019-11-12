@@ -64,6 +64,9 @@
 #define CatfoodPayment_quaryURL @"/user/seller/CatfoodPayment_quary.htm"//发布批发市场展示可选支付方式 post 28 Y
 #define CatfoodPayment_setURL @"/user/seller/CatfoodPayment_set.htm"//设置支付方式 Y
 
+#define CatfoodTrain_checkURL @"/user/buyer/CatfoodTrain_check.htm"//查看直通车
+#define CatfoodTrain_delURL @"/user/buyer/CatfoodTrain_del.htm"//关闭直通车
+
 //#define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@:8888/websocket",WebSocketLocalhost]
 #define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@/websocket",fdss]
 

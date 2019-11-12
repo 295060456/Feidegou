@@ -21,7 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ThroughTrainToPromoteVC : BaseVC
 
+@property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,copy)__block NSString *quantity;
+@property(nonatomic,strong)UIButton *openBtn;
+@property(nonatomic,strong)UIButton *cancelBtn;
+@property(nonatomic,strong)UIButton *goOnBtn;
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
                        requestParams:(nullable id)requestParams
