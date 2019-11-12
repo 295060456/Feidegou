@@ -75,7 +75,11 @@ BEMCheckBoxDelegate
 @property(nonatomic,strong)NSMutableArray <NSString *>*listTitleDataMutArr;
 @property(nonatomic,copy)DataBlock block;
 @property(nonatomic,copy)DataBlock dataBlock;
-
+@property(nonatomic,strong)NSMutableArray <NSNumber *>*mutArr;
+@property(nonatomic,strong)NSMutableArray <NSNumber *>*mutArr2;
+@property(nonatomic,strong)NSMutableArray <UILabel *>*labMutArr;
+@property(nonatomic,strong)id model;
+@property(nonatomic,assign)ReleaseOrderTBVCellType type;
 
 @end
 
@@ -89,11 +93,6 @@ BEMCheckBoxDelegate
                                                    margin:SCALING_RATIO(5)];
         cell.backgroundColor = kClearColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        [UIView cornerCutToCircleWithView:cell.contentView
-//                          AndCornerRadius:5.f];
-//        [UIView colourToLayerOfView:cell.contentView
-//                         WithColour:KGreenColor
-//                     AndBorderWidth:.1f];
     }return cell;
 }
 
@@ -101,52 +100,67 @@ BEMCheckBoxDelegate
     return SCALING_RATIO(50);
 }
 
-- (void)richElementsInCellWithModel:(id _Nullable)model
-            ReleaseOrderTBVCellType:(ReleaseOrderTBVCellType)type{
+-(void)drawRect:(CGRect)rect{
     [self.textLabel sizeToFit];
-    if ([model isKindOfClass:[NSArray class]]) {
-        switch (type) {
+    if ([self.model isKindOfClass:[NSArray class]]) {
+        switch (self.type) {
             case ReleaseOrderTBVCellType_Textfield:{
                 self.detailTextLabel.text = @"g";
-                self.textfield.placeholder = model[0];
+                self.textfield.placeholder = self.model[0];
                 [self layoutIfNeeded];
-                if ([model[0] isEqualToString:@"请输入数量"]) {
+                if ([self.model[0] isEqualToString:@"请输入数量"]) {
                     [_textfield mas_remakeConstraints:^(MASConstraintMaker *make) {
                         make.top.bottom.equalTo(self.contentView);
                         make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(40));
                         make.right.equalTo(self.detailTextLabel.mas_left).offset(SCALING_RATIO(-10));
                     }];
                 }else{}
+                [self layoutIfNeeded];
+                [self setBorderWithView:self.textfield
+                            borderColor:kRedColor
+                            borderWidth:1.f
+                             borderType:UIBorderSideTypeBottom];
             }break;
             case ReleaseOrderTBVCellType_Lab:{
-                self.detailTextLabel.text = model[0];
+                self.detailTextLabel.text = self.model[0];
             }break;
             case ReleaseOrderTBVCellType_Btn:{
-                NSMutableArray <NSNumber *>*mutArr = NSMutableArray.array;//data
-                NSMutableArray <NSNumber *>*mutArr2 = NSMutableArray.array;//data
-                if ([model[1] isKindOfClass:[ReleaseOrderModel class]]) {
-                    ReleaseOrderModel *releaseOrderModel = model[1];
-                    [mutArr addObject:releaseOrderModel.alipay];
-                    [mutArr addObject:releaseOrderModel.weixin];
-                    [mutArr addObject:releaseOrderModel.bank];
-                    if ([releaseOrderModel.alipay intValue]) {
-                        [mutArr2 addObject:releaseOrderModel.alipay];
-                    }else if([releaseOrderModel.weixin intValue]){
-                        [mutArr2 addObject:releaseOrderModel.weixin];
-                    }else if([releaseOrderModel.bank intValue]){
-                        [mutArr2 addObject:releaseOrderModel.bank];
+                if ([self.model[1] isKindOfClass:[ReleaseOrderModel class]]) {
+                    if (self.mutArr.count) {
+                        [self.mutArr removeAllObjects];
                     }
-                    if (mutArr2.count == 1) {
+                    if (self.mutArr2.count) {
+                        [self.mutArr2 removeAllObjects];
+                    }
+                    ReleaseOrderModel *releaseOrderModel = self.model[1];
+                    [self.mutArr addObject:releaseOrderModel.alipay];
+                    [self.mutArr addObject:releaseOrderModel.weixin];
+                    [self.mutArr addObject:releaseOrderModel.bank];
+                    if ([releaseOrderModel.alipay intValue]) {
+                        [self.mutArr2 addObject:releaseOrderModel.alipay];
+                    }else if([releaseOrderModel.weixin intValue]){
+                        [self.mutArr2 addObject:releaseOrderModel.weixin];
+                    }else if([releaseOrderModel.bank intValue]){
+                        [self.mutArr2 addObject:releaseOrderModel.bank];
+                    }
+                    if (self.mutArr2.count == 1) {
                         if (self.block) {
-                            self.block(mutArr2.lastObject);
+                            self.block(self.mutArr2.lastObject);
                         }
                     }
                 }
-                NSMutableArray <UILabel *>*labMutArr = NSMutableArray.array;
-                for (int i = 0; i < mutArr.count ; i++) {//
+                
+                if (self.btnMutArr.count) {
+                    [self.btnMutArr removeAllObjects];
+                }
+                if (self.labMutArr.count) {
+                    [self.labMutArr removeAllObjects];
+                }
+                
+                for (int i = 0; i < self.mutArr.count ; i++) {//
                     BEMCheckBox *checkBox = BEMCheckBox.new;
                     UILabel *titleLab = UILabel.new;
-                    titleLab.text = [mutArr[i] intValue] ? self.listTitleDataMutArr[i] : @"";
+                    titleLab.text = [self.mutArr[i] intValue] ? self.listTitleDataMutArr[i] : @"";
                     titleLab.textAlignment = NSTextAlignmentCenter;
     //                titleLab.backgroundColor = RandomColor;
                     [titleLab sizeToFit];
@@ -165,7 +179,7 @@ BEMCheckBoxDelegate
                     checkBox.onCheckColor = HEXCOLOR(0x108EE9);
                     // 默认选中
                     checkBox.on = YES;
-                    checkBox.alpha = [mutArr[i] intValue];
+                    checkBox.alpha = [self.mutArr[i] intValue];
                     [self.contentView addSubview:checkBox];
                     [self.contentView addSubview:titleLab];
 
@@ -186,7 +200,7 @@ BEMCheckBoxDelegate
                                                     SCALING_RATIO(20));
                     }
                     [self.btnMutArr addObject:checkBox];//
-                    [labMutArr addObject:titleLab];//!!
+                    [self.labMutArr addObject:titleLab];//!!
                     titleLab.frame = CGRectMake(checkBox.mj_x + checkBox.mj_w,
                                                 checkBox.mj_y,
                                                 SCALING_RATIO(50),
@@ -194,7 +208,7 @@ BEMCheckBoxDelegate
                 }
             }break;
             case ReleaseOrderTBVCellType_TextfieldOnly:{
-                self.textfield.placeholder = model[0];
+                self.textfield.placeholder = self.model[0];
                 [self layoutIfNeeded];
                 [_textfield mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.top.bottom.equalTo(self.contentView);
@@ -206,8 +220,12 @@ BEMCheckBoxDelegate
                 break;
         }
     }
-    
+}
 
+- (void)richElementsInCellWithModel:(id _Nullable)model
+            ReleaseOrderTBVCellType:(ReleaseOrderTBVCellType)type{
+    self.model = model;
+    self.type = type;
 }
 
 -(void)dataBlock:(DataBlock)block{
@@ -256,7 +274,7 @@ BEMCheckBoxDelegate
     if (!_textfield) {
         _textfield = UITextField.new;
         _textfield.keyboardType = UIKeyboardTypeDecimalPad;
-        _textfield.backgroundColor = KLightGrayColor;
+//        _textfield.backgroundColor = KLightGrayColor;
         _textfield.delegate = self;
         [self.contentView addSubview:_textfield];
         [_textfield mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -264,6 +282,7 @@ BEMCheckBoxDelegate
             make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(10));
             make.right.equalTo(self.detailTextLabel.mas_left).offset(SCALING_RATIO(-10));
         }];
+        [self layoutIfNeeded];
     }return _textfield;
 }
 
@@ -280,6 +299,24 @@ BEMCheckBoxDelegate
         [_listTitleDataMutArr addObject:@"微信"];
         [_listTitleDataMutArr addObject:@"银行卡"];
     }return _listTitleDataMutArr;
+}
+
+-(NSMutableArray<NSNumber *> *)mutArr{
+    if (!_mutArr) {
+        _mutArr = NSMutableArray.array;
+    }return _mutArr;
+}
+
+-(NSMutableArray<NSNumber *> *)mutArr2{
+    if (!_mutArr2) {
+        _mutArr2 = NSMutableArray.array;
+    }return _mutArr2;
+}
+
+-(NSMutableArray<UILabel *> *)labMutArr{
+    if (!_labMutArr) {
+        _labMutArr = NSMutableArray.array;
+    }return _labMutArr;
 }
 
 @end
@@ -423,18 +460,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     self.str_2 = textfield.text;
                 }else if([textfield.placeholder isEqualToString:self.placeholderMutArr[2]]){//请输入最高限额
                     self.str_3 = textfield.text;
-                }
-                
-//                else if([textfield.placeholder isEqualToString:@""]){//请输入最高限额
-//                    self.str_3 = textfield.text;
-//                }
-                
-                
-                
-                else{}
+                }else{}
             }     
         }];
-        
     }else if(indexPath.row == 3){//单价
         [cell richElementsInCellWithModel:@[self.placeholderMutArr[indexPath.row]]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Lab];
@@ -451,10 +479,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     self.str_4 = [NSString stringWithFormat:@"%d",[b intValue]];
                 }
             }];
-            [cell richElementsInCellWithModel:@[self.placeholderMutArr[indexPath.row],self.releaseOrderModel]
+            [cell richElementsInCellWithModel:@[self.placeholderMutArr[indexPath.row],
+                                                self.releaseOrderModel]
                       ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
-           
-
         }
     }return cell;
 }

@@ -297,10 +297,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(Q_Pet *)pet{
     if (!_pet) {
-        _pet = [[Q_Pet alloc]initWithFrame:CGRectMake(100,
-                                                      100,
-                                                      100,
-                                                      100)];
+        _pet = [[Q_Pet alloc]initWithFrame:CGRectMake(SCALING_RATIO(100),
+                                                      SCREEN_HEIGHT - SCALING_RATIO(150),
+                                                      SCALING_RATIO(50),
+                                                      SCALING_RATIO(50))];
         _pet.autoCloseEdge = YES;
         [_pet show];
         [self.view addSubview:_pet];

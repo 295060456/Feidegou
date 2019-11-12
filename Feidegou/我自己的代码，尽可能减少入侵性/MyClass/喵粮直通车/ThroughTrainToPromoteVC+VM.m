@@ -56,9 +56,10 @@
                                                          }];
         self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
         [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-            if (response) {
+            if (!response) {
                 NSLog(@"--%@",response);
-
+                Toast(@"取消成功");
+                [self.navigationController popViewControllerAnimated:YES];
             }
         }];
 }
