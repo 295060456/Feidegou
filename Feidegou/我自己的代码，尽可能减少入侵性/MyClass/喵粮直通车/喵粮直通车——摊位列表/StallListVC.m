@@ -256,15 +256,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
 //                    withRowAnimation:UITableViewRowAnimationNone];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-                                 (int64_t)(0.7 * NSEC_PER_SEC)),
-                   dispatch_get_main_queue(), ^{
-        @weakify(self)
-        [OrderDetail_SellerVC pushFromVC:self_weak_
-                           requestParams:self.dataMutArr[indexPath.row]
-                                 success:^(id data) {}
-                                animated:YES];
-    });
+    @weakify(self)
+    [OrderDetail_SellerVC pushFromVC:self_weak_
+                       requestParams:self.dataMutArr[indexPath.row]
+                             success:^(id data) {}
+                            animated:YES];
 }
 //给cell添加动画
 -(void)tableView:(UITableView *)tableView

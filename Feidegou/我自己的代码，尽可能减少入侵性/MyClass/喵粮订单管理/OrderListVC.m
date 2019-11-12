@@ -517,6 +517,7 @@ UITableViewDataSource
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,assign)BOOL isDelCell;
+@property(nonatomic,assign)BOOL isSelected;//防止TableViewCell重复点击
 
 @end
 
@@ -535,6 +536,7 @@ UITableViewDataSource
     vc.successBlock = block;
     vc.requestParams = requestParams;//nil
     vc.page = 1;
+    vc.isSelected = NO;
     if (rootVC.navigationController) {
         vc.isPush = YES;
         vc.isPresent = NO;
@@ -675,17 +677,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //                    withRowAnimation:UITableViewRowAnimationNone];
     
     @weakify(self)
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
-                                 (int64_t)(0.7 * NSEC_PER_SEC)),
-                   dispatch_get_main_queue(), ^{
-        OrderListModel *orderListModel = self.dataMutArr[indexPath.row];
-        [OrderDetail_SellerVC pushFromVC:self_weak_
-                           requestParams:@{
-                               @"OrderListModel":orderListModel
-                           }
-                          success:^(id data) {}
-                         animated:YES];
-    });
+    OrderListModel *orderListModel = self.dataMutArr[indexPath.row];
+    [OrderDetail_SellerVC pushFromVC:self_weak_
+                       requestParams:@{
+                           @"OrderListModel":orderListModel
+                       }
+                             success:^(id data) {}
+                            animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView

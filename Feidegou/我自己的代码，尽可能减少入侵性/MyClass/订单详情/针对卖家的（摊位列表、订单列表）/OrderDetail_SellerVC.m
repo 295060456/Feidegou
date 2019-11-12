@@ -412,9 +412,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                 forState:UIControlStateNormal];
             }
         }
-        
-        
-//
     }
 }
 
