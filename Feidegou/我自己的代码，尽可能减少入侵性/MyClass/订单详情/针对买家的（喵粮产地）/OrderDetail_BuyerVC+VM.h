@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface OrderDetail_BuyerVC (VM)
 
 -(void)netWorking;
--(void)uploadPic_netWorking:(UIImage *)image;
+//-(void)uploadPic_netWorking:(UIImage *)image;
 -(void)cancelOrder_netWorking;
 
 @end

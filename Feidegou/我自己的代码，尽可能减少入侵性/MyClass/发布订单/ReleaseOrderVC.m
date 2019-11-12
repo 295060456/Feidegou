@@ -290,12 +290,9 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
-
 @property(nonatomic,strong)UIButton *releaseBtn;
-
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*placeholderMutArr;
-
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
@@ -374,6 +371,12 @@ UITableViewDataSource
                                            SCALING_RATIO(50));//附加值
     }];
 }
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.tableView removeFromSuperview];
+}
+
 #pragma mark —— 点击事件
 -(void)releaseBtnClickEvent:(UIButton *)sender{
     NSLog(@"发布");

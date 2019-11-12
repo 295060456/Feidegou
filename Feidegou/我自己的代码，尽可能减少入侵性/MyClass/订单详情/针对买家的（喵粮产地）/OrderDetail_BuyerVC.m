@@ -101,7 +101,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                       reuseIdentifier:ReuseIdentifier];
         cell.backgroundColor = kClearColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
 //        [UIView cornerCutToCircleWithView:cell.contentView
 //                          AndCornerRadius:5.f];
 //        [UIView colourToLayerOfView:cell.contentView
@@ -303,6 +302,13 @@ TZImagePickerControllerDelegate
     [self.tableView.mj_header beginRefreshing];
     self.isFirstComing = YES;
 }
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.tableView removeFromSuperview];
+    
+}
+
 #pragma mark —— 截取 UIViewController 手势返回事件
 //只有 出 才调用
 - (void)didMoveToParentViewController:(UIViewController*)parent{

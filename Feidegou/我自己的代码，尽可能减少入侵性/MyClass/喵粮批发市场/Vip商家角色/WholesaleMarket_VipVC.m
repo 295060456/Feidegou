@@ -76,7 +76,11 @@ StockViewDelegate
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.stockView removeFromSuperview];
 }
 #pragma mark —— 私有方法
 -(void)backBtnClickEvent:(UIButton *)sender{
