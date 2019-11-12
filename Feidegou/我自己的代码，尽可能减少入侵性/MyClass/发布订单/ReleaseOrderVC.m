@@ -129,40 +129,48 @@ BEMCheckBoxDelegate
                     if (self.mutArr.count) {
                         [self.mutArr removeAllObjects];
                     }
-                    if (self.mutArr2.count) {
+                    if (self.mutArr2.count) {//装的是：可以显示的，对应的标题
                         [self.mutArr2 removeAllObjects];
                     }
                     ReleaseOrderModel *releaseOrderModel = self.model[1];
+#warning 以下是测试代码
+//                    releaseOrderModel.alipay = [NSNumber numberWithInt:0];
+//                    releaseOrderModel.weixin = [NSNumber numberWithInt:1];
+//                    releaseOrderModel.bank = [NSNumber numberWithInt:1];
+#warning 以上是测试代码
                     [self.mutArr addObject:releaseOrderModel.alipay];
                     [self.mutArr addObject:releaseOrderModel.weixin];
                     [self.mutArr addObject:releaseOrderModel.bank];
                     if ([releaseOrderModel.alipay intValue]) {
-                        [self.mutArr2 addObject:releaseOrderModel.alipay];
-                    }else if([releaseOrderModel.weixin intValue]){
-                        [self.mutArr2 addObject:releaseOrderModel.weixin];
-                    }else if([releaseOrderModel.bank intValue]){
-                        [self.mutArr2 addObject:releaseOrderModel.bank];
+                        [self.mutArr2 addObject:[NSNumber numberWithInt:0]];
                     }
-                    if (self.mutArr2.count == 1) {
+                    if([releaseOrderModel.weixin intValue]){
+                        [self.mutArr2 addObject:[NSNumber numberWithInt:1]];
+                    }
+                    if([releaseOrderModel.bank intValue]){
+                        [self.mutArr2 addObject:[NSNumber numberWithInt:2]];
+                    }
+                    if (self.mutArr2.count == 1) {//如果只有一个支付方式，那么默认点击
                         if (self.block) {
-                            self.block(self.mutArr2.lastObject);
+                            self.block(self.mutArr[[self.mutArr2.lastObject intValue]]);
                         }
                     }
                 }
-                
                 if (self.btnMutArr.count) {
                     [self.btnMutArr removeAllObjects];
                 }
                 if (self.labMutArr.count) {
                     [self.labMutArr removeAllObjects];
                 }
-                
-                for (int i = 0; i < self.mutArr.count ; i++) {//
+                for (int i = 0; i < self.mutArr2.count ; i++) {//
                     BEMCheckBox *checkBox = BEMCheckBox.new;
+                    checkBox.backgroundColor = RandomColor;
+                    [self.btnMutArr addObject:checkBox];//
                     UILabel *titleLab = UILabel.new;
-                    titleLab.text = [self.mutArr[i] intValue] ? self.listTitleDataMutArr[i] : @"";
+                    [self.labMutArr addObject:titleLab];//!!
+                    titleLab.text = self.listTitleDataMutArr[[self.mutArr2[i] intValue]];
                     titleLab.textAlignment = NSTextAlignmentCenter;
-    //                titleLab.backgroundColor = RandomColor;
+                    titleLab.backgroundColor = RandomColor;
                     [titleLab sizeToFit];
                     // 矩形复选框
                     checkBox.boxType = BEMBoxTypeSquare;
@@ -179,32 +187,32 @@ BEMCheckBoxDelegate
                     checkBox.onCheckColor = HEXCOLOR(0x108EE9);
                     // 默认选中
                     checkBox.on = YES;
-                    checkBox.alpha = [self.mutArr[i] intValue];
+                    checkBox.alpha = 1;//[self.mutArr[i] intValue];
                     [self.contentView addSubview:checkBox];
                     [self.contentView addSubview:titleLab];
-
-                    if (self.btnMutArr.count == 0) {
-                        checkBox.frame = CGRectMake(SCALING_RATIO(100),
-                                                    SCALING_RATIO(10),
-                                                    SCALING_RATIO(20),
-                                                    SCALING_RATIO(20));
-                    }else if (self.btnMutArr.count == 1) {
-                        checkBox.frame = CGRectMake(SCALING_RATIO(170),
-                                                    SCALING_RATIO(10),
-                                                    SCALING_RATIO(20),
-                                                    SCALING_RATIO(20));
-                    }else if (self.btnMutArr.count == 2) {
-                        checkBox.frame = CGRectMake(SCALING_RATIO(240),
-                                                    SCALING_RATIO(10),
-                                                    SCALING_RATIO(20),
-                                                    SCALING_RATIO(20));
+                    if (self.btnMutArr.count == 1) {
+                        [checkBox mas_makeConstraints:^(MASConstraintMaker *make) {
+                            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(20), SCALING_RATIO(20)));
+                            make.top.equalTo(self.contentView).offset(SCALING_RATIO(10));
+                            make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(10));
+                        }];
+                        [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+                            make.left.equalTo(checkBox.mas_right).offset(SCALING_RATIO(10));
+                            make.top.bottom.equalTo(checkBox);
+                        }];
+                    }else{
+                        [checkBox mas_makeConstraints:^(MASConstraintMaker *make) {
+                            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(20), SCALING_RATIO(20)));
+                            make.top.equalTo(self.contentView).offset(SCALING_RATIO(10));
+                            make.left.equalTo(self.labMutArr[i - 1].mas_right).offset(SCALING_RATIO(10));
+                        }];
+                        [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+                            make.left.equalTo(checkBox.mas_right).offset(SCALING_RATIO(10));
+                            make.top.bottom.equalTo(checkBox);
+                        }];
                     }
-                    [self.btnMutArr addObject:checkBox];//
-                    [self.labMutArr addObject:titleLab];//!!
-                    titleLab.frame = CGRectMake(checkBox.mj_x + checkBox.mj_w,
-                                                checkBox.mj_y,
-                                                SCALING_RATIO(50),
-                                                SCALING_RATIO(20));
+                    [self layoutIfNeeded];
+                    NSLog(@"");
                 }
             }break;
             case ReleaseOrderTBVCellType_TextfieldOnly:{
