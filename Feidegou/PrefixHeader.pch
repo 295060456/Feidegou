@@ -112,9 +112,10 @@
 #import "CatFoodProducingAreaModel.h"
 #import "WholesaleMarket_AdvanceModel.h"
 #import "WholesaleOrders_AdvanceModel.h"
-#import "StallListModel.h"//没写？
+#import "StallListModel.h"
 #import "OrderDetail_BuyerModel.h"
 #import "JJBaseModel.h"
+#import "SettingPaymentWayModel.h"
 
 #import "LoginViewController.h"
 

@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SettingPaymentWayVC (VM)
 
 -(void)netWorking;
+-(void)save_netWorking;
 
 @end
 

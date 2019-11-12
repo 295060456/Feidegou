@@ -22,13 +22,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SettingPaymentWayVC : BaseVC
 
-@property(nonatomic,strong)XDMultTableView *tableView;
+@property(nonatomic,weak)XDMultTableView *tableView;
 @property(nonatomic,copy)NSString *wechatAccStr;//微信账号
 @property(nonatomic,copy)NSString *aliPayAccStr;//支付宝账号
 @property(nonatomic,copy)NSString *bankCardNameStr;//银行卡名字
 @property(nonatomic,copy)NSString *bankAccStr;//银行卡账号
 @property(nonatomic,copy)NSString *bankNameStr;//开户行
 @property(nonatomic,copy)NSString *branchInfoStr;//支行信息
+@property(nonatomic,strong)__block SettingPaymentWayModel *settingPaymentWayModel;
 
 + (instancetype)pushFromVC:(UIViewController *)rootVC
              requestParams:(nullable id)requestParams

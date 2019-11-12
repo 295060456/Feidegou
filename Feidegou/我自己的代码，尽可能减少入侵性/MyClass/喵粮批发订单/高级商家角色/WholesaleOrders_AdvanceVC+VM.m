@@ -184,10 +184,13 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-        if ([NSString isNullString:response]) {
-            @strongify(self)
-            NSLog(@"--%@",response);
-            Toast(@"取消成功");
+        if ([response isKindOfClass:[NSString class]]) {
+            NSString *str = (NSString *)response;
+            if ([NSString isNullString:str]) {
+                @strongify(self)
+                NSLog(@"--%@",response);
+                Toast(@"取消成功");
+            }
         }
     }];
 }

@@ -42,15 +42,51 @@ UITextFieldDelegate
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    
     self.textLabel.numberOfLines = 0;
     self.textLabel.adjustsFontSizeToFitWidth = YES;
     [self.textLabel sizeToFit];
-    
     if ([model isKindOfClass:[NSArray class]]) {
         self.textLabel.text = model[0];
-        self.textField.text = model[1];
-        self.indexPath = model[2];
+        self.textField.placeholder = model[1];
+        SettingPaymentWayModel *settingPaymentWayModel = model[2];
+        self.indexPath = model[3];
+        if (self.indexPath.section == 0) {//微信
+            if (![NSString isNullString:settingPaymentWayModel.weixin_name]) {
+                self.textField.text = settingPaymentWayModel.weixin_name;
+            }
+        }else if (self.indexPath.section == 1){//支付宝
+            if (self.indexPath.row == 0) {
+                if (![NSString isNullString:settingPaymentWayModel.alipay_name]) {
+                    self.textField.text = settingPaymentWayModel.alipay_name;
+                }
+            }
+        }else if (self.indexPath.section == 2){//银行卡
+            switch (self.indexPath.row) {
+                case 0:{//银行卡姓名
+                    if (![NSString isNullString:settingPaymentWayModel.bankuser]) {
+                        self.textField.text = settingPaymentWayModel.bankuser;
+                    }
+                }break;
+                case 1:{//银行卡账号
+                    if (![NSString isNullString:settingPaymentWayModel.bankcard]) {
+                        self.textField.text = settingPaymentWayModel.bankcard;
+                    }
+                }break;
+                case 2:{//银行卡类型
+                    if (![NSString isNullString:[settingPaymentWayModel.bank stringValue]]) {
+                        self.textField.text = [settingPaymentWayModel.bank stringValue];
+                    }
+                }break;
+                case 3:{//支行信息
+                    if (![NSString isNullString:settingPaymentWayModel.bankname]) {
+                        self.textField.text = settingPaymentWayModel.bankname;
+                    }
+                }break;
+                default:
+                    break;
+            }
+        }else{}
+
     }
 }
 
@@ -163,12 +199,18 @@ XDMultTableViewDelegate
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.saveBtn];
     self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.tableView.alpha = 1;
+    [self netWorking];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    [self.tableView.mj_header beginRefreshing];
 }
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.tableView removeFromSuperview];
+}
+
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
@@ -176,7 +218,7 @@ XDMultTableViewDelegate
 
 -(void)saveBtnClickEvent:(UIButton *)sender{
     NSLog(@"保存");
-    [self netWorking];
+    [self save_netWorking];
 }
 #pragma mark —— XDMultTableViewDatasource & XDMultTableViewDelegate
 - (NSInteger)mTableView:(XDMultTableView *)mTableView
@@ -193,6 +235,7 @@ XDMultTableViewDelegate
     SettingPaymentWayTBVCell *cell = [SettingPaymentWayTBVCell cellWith:mTableView];
     [cell richElementsInCellWithModel:@[self.dataMutArr[indexPath.section][indexPath.row],
                                         self.placeholderMutArr[indexPath.section][indexPath.row],
+                                        self.settingPaymentWayModel,
                                         indexPath]];
     [cell actionBlock:^(id data, id data2) {//textField, self.indexPath
         UITextField *textField;

@@ -49,6 +49,7 @@
 		8B8D59452372E03400F002B9 /* ReleaseOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8D59442372E03400F002B9 /* ReleaseOrderModel.m */; };
 		8B90B39B237921EB0023E394 /* InvitationCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90B39A237921EB0023E394 /* InvitationCodeVC.m */; };
 		8B90B39E237923570023E394 /* InvitationCodeVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90B39D237923570023E394 /* InvitationCodeVC+VM.m */; };
+		8B90B3A12379BBD40023E394 /* SettingPaymentWayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90B3A02379BBD40023E394 /* SettingPaymentWayModel.m */; };
 		8B9EAF87237417390012884C /* SettingPaymentWayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF86237417390012884C /* SettingPaymentWayVC.m */; };
 		8B9EAF8A2374175D0012884C /* SettingPaymentWayVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF892374175D0012884C /* SettingPaymentWayVC+VM.m */; };
 		8B9EAF8D237429950012884C /* SettingPaymentWayTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF8C237429950012884C /* SettingPaymentWayTBViewForHeader.m */; };
@@ -710,6 +711,8 @@
 		8B90B39A237921EB0023E394 /* InvitationCodeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvitationCodeVC.m; sourceTree = "<group>"; };
 		8B90B39C237923570023E394 /* InvitationCodeVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "InvitationCodeVC+VM.h"; sourceTree = "<group>"; };
 		8B90B39D237923570023E394 /* InvitationCodeVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "InvitationCodeVC+VM.m"; sourceTree = "<group>"; };
+		8B90B39F2379BBD40023E394 /* SettingPaymentWayModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingPaymentWayModel.h; sourceTree = "<group>"; };
+		8B90B3A02379BBD40023E394 /* SettingPaymentWayModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingPaymentWayModel.m; sourceTree = "<group>"; };
 		8B9EAF85237417390012884C /* SettingPaymentWayVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingPaymentWayVC.h; sourceTree = "<group>"; };
 		8B9EAF86237417390012884C /* SettingPaymentWayVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingPaymentWayVC.m; sourceTree = "<group>"; };
 		8B9EAF882374175D0012884C /* SettingPaymentWayVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SettingPaymentWayVC+VM.h"; sourceTree = "<group>"; };
@@ -1865,6 +1868,8 @@
 				8BC386642374718100FE8C02 /* XDMultTableView */,
 				8B9EAF85237417390012884C /* SettingPaymentWayVC.h */,
 				8B9EAF86237417390012884C /* SettingPaymentWayVC.m */,
+				8B90B39F2379BBD40023E394 /* SettingPaymentWayModel.h */,
+				8B90B3A02379BBD40023E394 /* SettingPaymentWayModel.m */,
 				8B9EAF8B237429950012884C /* SettingPaymentWayTBViewForHeader.h */,
 				8B9EAF8C237429950012884C /* SettingPaymentWayTBViewForHeader.m */,
 				8B9EAF882374175D0012884C /* SettingPaymentWayVC+VM.h */,
@@ -4508,6 +4513,7 @@
 				C42CD1C9213CC2640096675F /* ModelOrderDtail.m in Sources */,
 				8BB2D37C2366CBD20047D0E2 /* OrderDetail_SellerVC.m in Sources */,
 				C42CD0AA213CC2640096675F /* CellOrderAddressNo.m in Sources */,
+				8B90B3A12379BBD40023E394 /* SettingPaymentWayModel.m in Sources */,
 				C42CD09E213CC2640096675F /* CellLogisticsFirst.m in Sources */,
 				C461440B214386B6000C0CDC /* CellVendorGoodBuy.m in Sources */,
 				C42CD126213CC2640096675F /* CellGoodGift.m in Sources */,

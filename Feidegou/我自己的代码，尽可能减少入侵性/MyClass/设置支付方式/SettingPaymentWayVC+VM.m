@@ -12,6 +12,28 @@
 
 -(void)netWorking{
     extern NSString *randomStr;
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodPayment_quaryURL
+                                                     parameters:@{
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key]
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        @strongify(self)
+        if (response) {
+            self.settingPaymentWayModel = [SettingPaymentWayModel mj_objectWithKeyValues:response];
+            NSLog(@"--%@",response);
+            if (self.settingPaymentWayModel) {
+                Toast(@"获取资料成功");
+            }
+        }
+    }];
+}
+
+-(void)save_netWorking{
+    extern NSString *randomStr;
     NSDictionary *dataDic = @{
         @"alipay":[NSString ensureNonnullString:self.aliPayAccStr ReplaceStr:@"暂无信息"],//支付宝账户
         @"weixin":[NSString ensureNonnullString:self.wechatAccStr ReplaceStr:@"暂无信息"],//微信账户
