@@ -51,9 +51,10 @@
                     [self.detailTextMutArr addObject:[NSString ensureNonnullString:self.wholesaleOrders_VipModel.catFoodOrder.bankcard ReplaceStr:@"异常数据"]];
                     break;
             }
-            
             if ([self.requestParams[1] intValue] == 0) {
-                [self.detailTextMutArr addObject:@"点击选择凭证(原图)"];//凭证 self.wholesaleOrders_VipModel.catFoodOrder.payment_print
+                if (![NSString isNullString:self.wholesaleOrders_VipModel.payment_print]) {
+                    [self.detailTextMutArr addObject:self.wholesaleOrders_VipModel.payment_print];//凭证
+                }
             }
             switch ([self.wholesaleOrders_VipModel.catFoodOrder.order_status intValue]) {//状态
                 case 0:{
@@ -63,7 +64,7 @@
                     [self.detailTextMutArr addObject:@"已发单"];
                 } break;
                 case 2:{
-                    [self.detailTextMutArr addObject:@"已接单"];
+                    [self.detailTextMutArr addObject:@"已下单"];
                 } break;
                 case 3:{
                     [self.detailTextMutArr addObject:@"已作废"];
@@ -80,6 +81,25 @@
             }
             Toast(@"拉取到数据");
             [self.tableView reloadData];
+            [self.deliverBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
+                                                    (self.titleMutArr.count - 1) * [WholesaleOrdersTBVCell cellHeightWithModel:nil] +
+                                                    [WholesaleOrdersTBVCell cellHeightWithModel:self.detailTextMutArr[6]] +
+                                                    SCALING_RATIO(30));//附加值
+                 make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2,
+                                                  SCALING_RATIO(50)));
+                 make.right.equalTo(self.view).offset(SCALING_RATIO(-30));
+            }];
+            
+            [self.cancelOrderBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
+                                                   (self.titleMutArr.count - 1) * [WholesaleOrdersTBVCell cellHeightWithModel:nil] +
+                                                   [WholesaleOrdersTBVCell cellHeightWithModel:self.detailTextMutArr[6]] +
+                                                   SCALING_RATIO(30));//附加值
+                make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2,
+                                                 SCALING_RATIO(50)));
+                make.left.equalTo(self.view).offset(SCALING_RATIO(30));
+            }];
             [self.tableView.mj_header endRefreshing];
             [self.tableView.mj_footer endRefreshing];
         }

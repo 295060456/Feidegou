@@ -26,11 +26,6 @@
                                                       margin:SCALING_RATIO(5)];
         cell.backgroundColor = kClearColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        [UIView cornerCutToCircleWithView:cell.contentView
-//                          AndCornerRadius:5.f];
-//        [UIView colourToLayerOfView:cell.contentView
-//                         WithColour:KGreenColor
-//                     AndBorderWidth:.1f];
     }return cell;
 }
 
@@ -45,7 +40,8 @@
         self.titleLab.text = self.textLabel.text;
         self.textLabel.text = @"";
         [self.titleLab sizeToFit];
-        self.imageViewer.image = (UIImage *)model;
+        [self.imageViewer sd_setImageWithURL:[NSURL URLWithString:model]
+                            placeholderImage:kIMG(@"暂无图片")];
         self.accessoryType = UITableViewCellAccessoryNone;
         self.detailTextLabel.text = @"";
     }
@@ -90,10 +86,9 @@ TZImagePickerControllerDelegate
 
 @property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 @property(nonatomic,strong)__block UIImage *img;
-@property(nonatomic,strong)UIButton *deliverBtn;//发货
-@property(nonatomic,strong)UIButton *cancelOrderBtn;//取消订单
-@property(nonatomic,strong)UIButton *uploadPrintBtn;//上传支付凭证
-@property(nonatomic,strong)__block UIImageView *imgView;
+
+//@property(nonatomic,strong)UIButton *uploadPrintBtn;//上传支付凭证
+
 
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -135,20 +130,11 @@ TZImagePickerControllerDelegate
     self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
-//    self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.deliverBtn];
-//    self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    
     if ([self.requestParams[1] intValue] == 0) {
-        self.deliverBtn.alpha = 0;
-    }else if ([self.requestParams[1] intValue] == 2){
         self.cancelOrderBtn.alpha = 1;
-        self.uploadPrintBtn.alpha = 1;
+        self.deliverBtn.alpha = 1;
     }
-    
-//    self.cancelOrderBtn.alpha = 1;
-//    self.uploadPrintBtn.alpha = 1;
-    
     self.isFirstComing = YES;
 }
 
@@ -175,19 +161,21 @@ TZImagePickerControllerDelegate
 #pragma mark —— 点击事件
 -(void)cancelOrderBtnClickEvent:(UIButton *)sender{
     NSLog(@"取消订单");
+    //选择取消原因
 }
 
--(void)uploadPrintBtnClickEvent:(UIButton *)sender{
-    NSLog(@"选择支付凭证");
-    if ([sender.titleLabel.text isEqualToString:@"选择支付凭证"]) {
-        [self gettingPrintPic];
-    }else if ([sender.titleLabel.text isEqualToString:@"上传支付凭证"]){
-        [self upLoadbtnClickEvent:sender];
-    }
-}
+//-(void)uploadPrintBtnClickEvent:(UIButton *)sender{
+//    NSLog(@"选择支付凭证");
+//    if ([sender.titleLabel.text isEqualToString:@"选择支付凭证"]) {
+//        [self gettingPrintPic];
+//    }else if ([sender.titleLabel.text isEqualToString:@"上传支付凭证"]){
+//        [self upLoadbtnClickEvent:sender];
+//    }
+//}
 
 -(void)deliverBtnClickEvent:(UIButton *)sender{
     NSLog(@"发货");
+    //发货接口
 }
 
 -(void)backBtnClickEvent:(UIButton *)sender{
@@ -218,7 +206,7 @@ TZImagePickerControllerDelegate
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 6 && [self.requestParams[1] intValue] == 0) {
-        return [WholesaleOrdersTBVCell cellHeightWithModel:self.img];
+    return [WholesaleOrdersTBVCell cellHeightWithModel:self.detailTextMutArr.count == 0 ? nil : self.detailTextMutArr[indexPath.row]];
     }return [WholesaleOrdersTBVCell cellHeightWithModel:nil];
 }
 
@@ -237,7 +225,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([self.requestParams[1] intValue] == 0) {
         if (indexPath.row == 6) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            [cell richElementsInCellWithModel:self.img];
+            if (self.detailTextMutArr.count) {
+                [cell richElementsInCellWithModel:self.detailTextMutArr[indexPath.row]];//self.img
+            }
         }
     }
     [cell richElementsInCellWithModel:Nil];
@@ -296,7 +286,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         self.isFirstComing = NO;
     }
 }
-
 #pragma mark —— lazyLoad
 -(UIImageView *)imgView{
     if (!_imgView) {
@@ -356,20 +345,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     self.deliverBtn.alpha = 1;
                 }else if ([self.requestParams[1] intValue] == 2){
                     self.imgView.image = photos.lastObject;
-                    [self.uploadPrintBtn setTitle:@"上传支付凭证"
-                                         forState:UIControlStateNormal];
-                    [self->_cancelOrderBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.top.equalTo(self.imgView.mas_bottom).offset(SCALING_RATIO(10));
-                        make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2,
-                                                         SCALING_RATIO(50)));
-                        make.left.equalTo(self.view).offset(SCALING_RATIO(30));
-                    }];
-                    [self->_uploadPrintBtn mas_remakeConstraints:^(MASConstraintMaker *make) {
-                        make.top.equalTo(self.imgView.mas_bottom).offset(SCALING_RATIO(10));
-                        make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2,
-                                                         SCALING_RATIO(50)));
-                        make.right.equalTo(self.view).offset(SCALING_RATIO(-30));
-                    }];
                 }else{}
             }else{
                 [self showAlertViewTitle:@"选择一张相片就够啦"
@@ -397,9 +372,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      AndBorderWidth:.1f];
         [self.tableView addSubview:_deliverBtn];
         [_deliverBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.view);
+            make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
+                                               (self.titleMutArr.count - 1) * [WholesaleOrdersTBVCell cellHeightWithModel:nil] +
+                                               [WholesaleOrdersTBVCell cellHeightWithModel:self.img] +
+                                               SCALING_RATIO(30));//附加值
             make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2,
                                              SCALING_RATIO(50)));
+            make.right.equalTo(self.view).offset(SCALING_RATIO(-30));
         }];
     }return _deliverBtn;
 }
@@ -408,7 +387,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_cancelOrderBtn) {
         _cancelOrderBtn = UIButton.new;
         _cancelOrderBtn.backgroundColor = KLightGrayColor;
-        [_cancelOrderBtn setTitle:@"取消订单"
+        [_cancelOrderBtn setTitle:@"撤销订单"
                          forState:UIControlStateNormal];
         [_cancelOrderBtn addTarget:self
                             action:@selector(cancelOrderBtnClickEvent:)
@@ -429,33 +408,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             make.left.equalTo(self.view).offset(SCALING_RATIO(30));
         }];
     }return _cancelOrderBtn;
-}
-
--(UIButton *)uploadPrintBtn{
-    if (!_uploadPrintBtn) {
-        _uploadPrintBtn = UIButton.new;
-        _uploadPrintBtn.backgroundColor = kOrangeColor;
-        [_uploadPrintBtn addTarget:self
-                            action:@selector(uploadPrintBtnClickEvent:)
-                  forControlEvents:UIControlEventTouchUpInside];
-        [_uploadPrintBtn setTitle:@"选择支付凭证"//@"上传支付凭证"
-                         forState:UIControlStateNormal];
-        [UIView cornerCutToCircleWithView:_uploadPrintBtn
-                          AndCornerRadius:5.f];
-        [UIView colourToLayerOfView:_uploadPrintBtn
-                         WithColour:KGreenColor
-                     AndBorderWidth:.1f];
-        [self.tableView addSubview:_uploadPrintBtn];
-        [_uploadPrintBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
-                                               (self.titleMutArr.count - 1) * [WholesaleOrdersTBVCell cellHeightWithModel:nil] +
-                                               [WholesaleOrdersTBVCell cellHeightWithModel:self.img] +
-                                               SCALING_RATIO(30));//附加值
-            make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2,
-                                             SCALING_RATIO(50)));
-            make.right.equalTo(self.view).offset(SCALING_RATIO(-30));
-        }];
-    }return _uploadPrintBtn;
 }
 
 -(NSMutableArray<NSString *> *)titleMutArr{

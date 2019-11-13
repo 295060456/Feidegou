@@ -7,32 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E75FDA62-0CA9-4B01-BABC-DFC46C124DC3"
+            uuid = "DADB163B-B3BF-4191-B9F6-87BA57A7FD52"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x55b5;&#x7cae;&#x6279;&#x53d1;&#x8ba2;&#x5355;/Vip&#x5546;&#x5bb6;&#x89d2;&#x8272;/WholesaleOrders_VipVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "210"
-            endingLineNumber = "210"
-            landmarkName = "-GoUploadPic"
+            startingLineNumber = "386"
+            endingLineNumber = "386"
+            landmarkName = "-cancelOrderBtn"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D293FAD7-2387-40DD-ABAE-D2A6C6F3F2A9"
+            uuid = "AB3182D0-97D0-4AB8-A34E-2B97EFFF4D71"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x55b5;&#x7cae;&#x6279;&#x53d1;&#x8ba2;&#x5355;/Vip&#x5546;&#x5bb6;&#x89d2;&#x8272;/WholesaleOrders_VipVC+VM.m"
+            filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x55b5;&#x7cae;&#x6279;&#x53d1;&#x8ba2;&#x5355;/Vip&#x5546;&#x5bb6;&#x89d2;&#x8272;/WholesaleOrders_VipVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
-            landmarkName = "-deliver_Networking"
+            startingLineNumber = "359"
+            endingLineNumber = "359"
+            landmarkName = "-deliverBtn"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

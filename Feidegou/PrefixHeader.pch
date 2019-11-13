@@ -23,6 +23,9 @@
 #import "RefreshControl.h"
 #import "PublicFunction.h"
 #import "ToolMacro.h"
+#import "SDWebImageManager.h"
+#import "SDImageCache.h"
+#import "UIImageView+WebCache.h"
 
 //我自己引入的Pods
 #import <lottie-ios/Lottie/Lottie.h>

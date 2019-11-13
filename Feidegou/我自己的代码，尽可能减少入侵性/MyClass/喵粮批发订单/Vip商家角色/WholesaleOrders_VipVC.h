@@ -21,7 +21,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WholesaleOrders_VipVC : BaseVC
 
 @property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,strong)UIButton *deliverBtn;//发货
+@property(nonatomic,strong)UIButton *cancelOrderBtn;//撤销订单
 @property(nonatomic,strong)WholesaleOrders_VipModel *wholesaleOrders_VipModel;
+@property(nonatomic,strong)__block UIImageView *imgView;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,strong)NSMutableArray <NSString *>*detailTextMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
