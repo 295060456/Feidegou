@@ -23,8 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSNumber *order_state;//订单状态
 @property(nonatomic,strong)NSNumber *payment_status;//支付类型:1、支付宝;2、微信;3、银行卡
 @property(nonatomic,copy)NSString *payment_print;//支付凭证
-@property(nonatomic,copy)NSString *payment_print_path;//?
-@property(nonatomic,copy)NSString *payment_print_name;//?
 @property(nonatomic,copy)NSString *ordercode;//订单号
 @property(nonatomic,strong)NSNumber *quantity;//喵粮数量
 @property(nonatomic,strong)NSNumber *price;//喵粮单价
@@ -44,16 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *bankName;//银行名称
 @property(nonatomic,copy)NSString *bankaddress;//支行
 @property(nonatomic,copy)NSString *bankuser;//持卡人
-@property(nonatomic,copy)NSString *payment_weixin_id;//微信账号
-//@property(nonatomic,strong)NSNumber *Payment_weixin_id;//??
-@property(nonatomic,copy)NSString *payment_weixin_path;
-@property(nonatomic,copy)NSString *payment_weixin_name;
-@property(nonatomic,copy)NSString *payment_alipay_id;//支付宝账号
-//@property(nonatomic,strong)NSNumber *payment_alipay_id;//支付宝账号
-@property(nonatomic,copy)NSString *payment_alipay_path;//支付宝二维码
-@property(nonatomic,copy)NSString *payment_alipay_name;
 @property(nonatomic,strong)NSNumber *deal;//1、买家 2、卖家 卖家才有 发货&撤销
-
 @property(nonatomic,strong)NSNumber *ID;
 
 @end
