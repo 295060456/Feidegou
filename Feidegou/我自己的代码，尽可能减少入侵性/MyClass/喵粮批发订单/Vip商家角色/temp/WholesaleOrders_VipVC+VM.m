@@ -1,14 +1,14 @@
 //
-//  WholesaleOrders_AdvanceVC+VM.m
+//  WholesaleOrders_VipVC+VM.m
 //  Feidegou
 //
-//  Created by Kite on 2019/11/6.
+//  Created by Kite on 2019/11/13.
 //  Copyright © 2019 朝花夕拾. All rights reserved.
 //
 
-#import "WholesaleOrders_AdvanceVC+VM.h"
+#import "WholesaleOrders_VipVC+VM.h"
 
-@implementation WholesaleOrders_AdvanceVC (VM)
+@implementation WholesaleOrders_VipVC (VM)
 
 -(void)netWorking{//展示数据
     extern NSString *randomStr;
@@ -194,5 +194,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         }
     }];
 }
+
 
 @end

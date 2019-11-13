@@ -2,7 +2,7 @@
 //  WholesaleMarket_VipVC+VM.m
 //  Feidegou
 //
-//  Created by Kite on 2019/11/13.
+//  Created by Kite on 2019/11/5.
 //  Copyright © 2019 朝花夕拾. All rights reserved.
 //
 
@@ -14,11 +14,11 @@
     extern NSString *randomStr;
     NSDictionary *dataDic = @{
         @"currentPage":[NSString stringWithFormat:@"%ld",self.currentPage],
-        @"pagesize":@"32"
+        @"pagesize":@"30"
     };
     randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
-                                                           path:CatfoodSale_listURL //#15
+                                                           path:CatfoodSaleOrder_listURL //#11
                                                      parameters:@{
                                                          @"data":dataDic,
                                                          @"key":[RSAUtil encryptString:randomStr
@@ -30,17 +30,21 @@
         if (response) {
             NSLog(@"--%@",response);
             if ([response isKindOfClass:[NSArray class]]) {
-                NSArray *array = [WholesaleMarket_VipModel mj_objectArrayWithKeyValuesArray:response];
-                [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
-                                                    NSUInteger idx,
-                                                    BOOL * _Nonnull stop) {
-                    @strongify(self)
-                    WholesaleMarket_VipModel *model = array[idx];
-                    [self.dataMutArr addObject:model];
-                }];
-                [self.tableView.mj_header endRefreshing];
-                [self.tableView.mj_footer endRefreshing];
-                [self.tableView reloadData];
+                            NSArray *array = [WholesaleMarket_VipModel mj_objectArrayWithKeyValuesArray:response];
+                if (array) {
+                    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
+                                                        NSUInteger idx,
+                                                        BOOL * _Nonnull stop) {
+                        @strongify(self)
+                        WholesaleMarket_VipModel *model = array[idx];
+                        [self.dataMutArr addObject:model];
+                    }];
+                    NSLog(@"1234");
+                    self.stockView.jjStockTableView.mj_footer.hidden = NO;
+                    [self.stockView.jjStockTableView reloadData];
+                    [self.stockView.jjStockTableView.mj_header endRefreshing];
+                    [self.stockView.jjStockTableView.mj_footer endRefreshing];
+                }
             }
         }
     }];

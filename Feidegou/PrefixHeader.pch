@@ -120,7 +120,7 @@
 #import "JJBaseModel.h"
 #import "SettingPaymentWayModel.h"
 #import "WholesaleOrders_VipModel.h"
-
+#import "WholesaleMarket_VipModel.h"
 #import "LoginViewController.h"
 
 //Test

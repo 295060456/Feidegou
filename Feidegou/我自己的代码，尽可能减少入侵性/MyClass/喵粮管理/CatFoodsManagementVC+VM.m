@@ -14,8 +14,6 @@ NSString *randomStr;
 
 -(void)networking{
     NSDictionary *dataDic = @{
-//        @"user_id":@"1"//KKK
-        @"temp":@"1234"
     };
     randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
@@ -37,6 +35,12 @@ NSString *randomStr;
                 [self.tableView reloadData];
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView.mj_footer endRefreshing];
+            }else{
+                if (response.code == 300) {//被挤下线逻辑
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
+                    LoginViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+                    [self.navigationController pushViewController:controller animated:YES];
+                }
             }
         }
     }];
