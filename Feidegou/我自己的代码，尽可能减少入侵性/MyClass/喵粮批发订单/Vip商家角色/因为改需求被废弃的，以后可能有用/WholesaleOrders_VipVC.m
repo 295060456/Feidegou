@@ -136,6 +136,7 @@ TZImagePickerControllerDelegate
         self.deliverBtn.alpha = 1;
     }
     self.isFirstComing = YES;
+    self.tableView.alpha = 1;
 }
 
 -(void)viewWillAppear:(BOOL)animated{

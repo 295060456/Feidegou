@@ -84,6 +84,7 @@ UITableViewDataSource
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.pet.alpha = 1;
     [self.pet becomeFirstResponder];
+    self.tableView.alpha = 1;
 }
 
 -(void)viewWillAppear:(BOOL)animated{

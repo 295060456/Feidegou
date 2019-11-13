@@ -373,7 +373,7 @@ UITextFieldDelegate
         [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.equalTo(self.contentView);
             make.left.equalTo(self.contentView).offset(SCALING_RATIO(20));
-            make.width.mas_equalTo(self.contentView.mj_w / 2 - SCALING_RATIO(10));
+            make.width.mas_equalTo(self.contentView.mj_w / 2 - SCALING_RATIO(80));
         }];
     }return _cancelBtn;
 }
@@ -398,7 +398,7 @@ UITextFieldDelegate
         [_giftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.equalTo(self.contentView);
             make.right.equalTo(self.contentView).offset(SCALING_RATIO(-20));
-            make.width.mas_equalTo(self.contentView.mj_w / 2 - SCALING_RATIO(10));
+            make.width.mas_equalTo(self.contentView.mj_w / 2 - SCALING_RATIO(80));
         }];
     }return _giftBtn;
 }

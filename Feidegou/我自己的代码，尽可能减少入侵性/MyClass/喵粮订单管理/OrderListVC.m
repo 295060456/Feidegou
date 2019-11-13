@@ -562,6 +562,7 @@ UITableViewDataSource
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     networking_tpye = NetworkingTpye_default;
+    self.tableView.alpha = 1;
 }
 
 -(void)viewWillAppear:(BOOL)animated{

@@ -580,18 +580,7 @@ UITableViewDataSource
 //第二步，成为自己的代理，去监听pop的过程，pop之前判断是否为根控制器
     self.navigationController.delegate = self;
     self.isShowViewFinished = YES;
-}
-#pragma mark —— UINavigationControllerDelegate
-- (void)navigationController:(UINavigationController *)navigationController
-      willShowViewController:(UIViewController *)viewController
-                    animated:(BOOL)animated{
-    if ([viewController isKindOfClass:[StallListVC class]] && self.isShowViewFinished) {
-        [navigationController popToViewController:navigationController.viewControllers[navigationController.viewControllers.count - 2]
-                                         animated:NO];
-
-    }else if([viewController isKindOfClass:[OrderListVC class]]){
-        
-    }
+    self.tableView.alpha = 1;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -656,6 +645,18 @@ UITableViewDataSource
     NSLog(@"上拉加载更多");
     [self netWorking];
     [self.tableView.mj_footer endRefreshing];
+}
+#pragma mark —— UINavigationControllerDelegate
+- (void)navigationController:(UINavigationController *)navigationController
+      willShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated{
+    if ([viewController isKindOfClass:[StallListVC class]] && self.isShowViewFinished) {
+        [navigationController popToViewController:navigationController.viewControllers[navigationController.viewControllers.count - 2]
+                                         animated:NO];
+
+    }else if([viewController isKindOfClass:[OrderListVC class]]){
+        
+    }
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
