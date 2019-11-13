@@ -614,7 +614,6 @@ UITableViewDataSource
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
     self.currentPage++;
-   [self.tableView.mj_footer endRefreshing];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView

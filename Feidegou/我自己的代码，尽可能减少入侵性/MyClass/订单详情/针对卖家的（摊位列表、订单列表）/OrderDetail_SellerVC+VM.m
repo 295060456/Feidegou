@@ -41,6 +41,9 @@
                     self.orderDetail_SellerModel = [OrderDetail_SellerModel mj_objectWithKeyValues:dic[@"catFoodOrder"]];
                     self.orderDetail_SellerModel.deal = dic[@"deal"];
                 }
+                self.tableView.mj_footer.hidden = NO;
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView.mj_footer endRefreshing];
                 [self.tableView reloadData];
             }
         }];

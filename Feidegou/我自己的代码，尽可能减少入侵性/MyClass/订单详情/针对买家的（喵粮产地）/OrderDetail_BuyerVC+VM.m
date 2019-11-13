@@ -66,6 +66,9 @@
                         [self.dataMutArr addObject:@"异常数据"];
                         break;
                 }
+                self.tableView.mj_footer.hidden = NO;
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView.mj_footer endRefreshing];
                 [self.tableView reloadData];
             }
         }];

@@ -241,6 +241,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.delegate = self;
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
+        _tableView.mj_footer.hidden = YES;
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);

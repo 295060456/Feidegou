@@ -27,8 +27,6 @@
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         @strongify(self)
         if (response) {
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView.mj_footer endRefreshing];
             NSLog(@"--%@",response);
             if ([response isKindOfClass:[NSNumber class]]) {
                 NSNumber *d = (NSNumber *)response;
@@ -39,6 +37,10 @@
                     self.goOnBtn.alpha = 1;
                 }
             }
+            self.tableView.mj_footer.hidden = NO;
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
+            [self.tableView reloadData];
         }
     }];
 }

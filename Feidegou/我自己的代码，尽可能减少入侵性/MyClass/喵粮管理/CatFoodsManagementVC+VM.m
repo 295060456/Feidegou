@@ -32,9 +32,10 @@ NSString *randomStr;
                 [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"Foodsell"]] ReplaceStr:@"无"]];
                 [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"Foodstuff"]] ReplaceStr:@"无"]];
                 [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price"]] ReplaceStr:@"无"]];
-                [self.tableView reloadData];
+                self.tableView.mj_footer.hidden = NO;
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView.mj_footer endRefreshing];
+                [self.tableView reloadData];
             }else{
                 if (response.code == 300) {//被挤下线逻辑
                     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];

@@ -387,7 +387,7 @@ UITableViewDataSource
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-    [self.tableView.mj_footer endRefreshing];
+     [self gettingPaymentWay];
 }
 #pragma mark —— Lifecycle
 -(instancetype)init{

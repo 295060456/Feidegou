@@ -94,7 +94,6 @@ StockViewDelegate
         [self.dataMutArr removeAllObjects];
     }
     [self netWorking];
-    
 }
 //上拉加载更多
 - (void)loadMoreRefresh{

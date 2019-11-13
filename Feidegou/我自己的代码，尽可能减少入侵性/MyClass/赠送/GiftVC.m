@@ -131,11 +131,12 @@ UITextFieldDelegate
     if (!_textField) {
         _textField = ZYTextField.new;
         _textField.delegate = self;
-        [UIView colourToLayerOfView:_textField
-                         WithColour:KLightGrayColor
-                     AndBorderWidth:1.f];
-        [UIView cornerCutToCircleWithView:_textField
-                          AndCornerRadius:3.f];
+        _textField.keyboardType = UIKeyboardTypeNumberPad;
+//        [UIView colourToLayerOfView:_textField
+//                         WithColour:KLightGrayColor
+//                     AndBorderWidth:1.f];
+//        [UIView cornerCutToCircleWithView:_textField
+//                          AndCornerRadius:3.f];
         _textField.placeholder = [NSString stringWithFormat:@"在此输入%@",self.mutArr[0]];
         [self.contentView addSubview:_textField];
         [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -143,6 +144,11 @@ UITextFieldDelegate
             make.left.equalTo(self.btn.mas_right).offset(SCALING_RATIO(5));
             make.top.bottom.equalTo(self.btn);
         }];
+        [self.contentView layoutIfNeeded];
+        [self setBorderWithView:_textField
+                    borderColor:kRedColor
+                    borderWidth:1.f
+                     borderType:UIBorderSideTypeBottom];
     }return _textField;
 }
 
@@ -230,17 +236,22 @@ UITextFieldDelegate
 -(ZYTextField *)textField{
     if (!_textField) {
         _textField = ZYTextField.new;
-        [UIView cornerCutToCircleWithView:_textField
-                          AndCornerRadius:3];
-        [UIView colourToLayerOfView:_textField
-                         WithColour:KLightGrayColor
-                     AndBorderWidth:1.f];
+//        [UIView cornerCutToCircleWithView:_textField
+//                          AndCornerRadius:3];
+//        [UIView colourToLayerOfView:_textField
+//                         WithColour:KLightGrayColor
+//                     AndBorderWidth:1.f];
         _textField.placeholder = @"赠送数量";
+        _textField.keyboardType = UIKeyboardTypeDecimalPad;
         _textField.delegate = self;
         [self.contentView addSubview:_textField];
         [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
         }];
+        [self.contentView layoutIfNeeded];
+        [self setBorderWithView:_textField
+                    borderColor:kRedColor
+                    borderWidth:1.f borderType:UIBorderSideTypeBottom];
     }return _textField;
 }
 

@@ -92,7 +92,7 @@ TZImagePickerControllerDelegate
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-   [self.tableView.mj_footer endRefreshing];
+    [self netWorking];
 }
 #pragma mark —— 点击事件
 -(void)paidBtnClickEvent:(UIButton *)sender{
@@ -203,6 +203,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.dataSource = self;
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
+        _tableView.mj_footer.hidden = YES;
         _tableView.tableFooterView = UIView.new;
         _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//推荐该方法

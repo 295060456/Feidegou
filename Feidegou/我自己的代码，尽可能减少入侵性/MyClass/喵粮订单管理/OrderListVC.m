@@ -601,14 +601,13 @@ UITableViewDataSource
         }break;
         default:
             break;
-    }[self.tableView.mj_header endRefreshing];
+    }
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
     self.page++;
     [self pullToRefresh];
-    [self.tableView.mj_footer endRefreshing];
 }
 #pragma mark —— 点击事件
 -(void)filterBtnClickEvent:(UIButton *)sender{

@@ -23,8 +23,10 @@
         if (response) {
             NSLog(@"--%@",response);
             if ([response isKindOfClass:[NSDictionary class]]) {
-                [self.tableView.mj_header endRefreshing];
                 self.releaseOrderModel = [ReleaseOrderModel mj_objectWithKeyValues:response];
+                self.tableView.mj_footer.hidden = NO;
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView.mj_footer endRefreshing];
                 [self.tableView reloadData];
             }
         }

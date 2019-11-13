@@ -194,7 +194,7 @@ UITableViewDataSource
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-   [self.tableView.mj_footer endRefreshing];
+   [self pullToRefresh];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
@@ -296,6 +296,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.dataSource = self;
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
+        _tableView.mj_footer.hidden = YES;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         [self.view addSubview:_tableView];

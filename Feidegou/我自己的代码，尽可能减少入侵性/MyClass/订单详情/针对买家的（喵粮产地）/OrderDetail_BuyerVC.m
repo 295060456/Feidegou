@@ -363,12 +363,11 @@ TZImagePickerControllerDelegate
 //    if (self.dataMutArr.count) {
 //        [self.dataMutArr removeAllObjects];
 //    }
-    [self netWorking];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-    [self.tableView.mj_footer endRefreshing];
+    [self netWorking];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
@@ -465,6 +464,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.delegate = self;
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
+        _tableView.mj_footer.hidden = YES;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//去掉cell下划线
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
