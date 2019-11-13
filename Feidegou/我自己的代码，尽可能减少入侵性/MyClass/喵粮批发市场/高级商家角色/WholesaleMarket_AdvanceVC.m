@@ -643,8 +643,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     WholesaleMarket_AdvanceTBVCell *cell = [WholesaleMarket_AdvanceTBVCell cellWith:tableView];
     cell.backgroundColor = RandomColor;
-    [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
-    return cell;
+    if (self.dataMutArr.count) {
+        [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+    }return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

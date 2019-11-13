@@ -531,7 +531,6 @@ UITableViewDataSource
                        requestParams:(nullable id)requestParams
                              success:(DataBlock _Nonnull )block
                             animated:(BOOL)animated{
-    
     OrderListVC *vc = OrderListVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;//nil
@@ -693,9 +692,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     OrderTBVCell *cell = [OrderTBVCell cellWith:tableView];
-    [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+    if (self.dataMutArr.count) {
+        [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+    }
     return cell;
 }
 

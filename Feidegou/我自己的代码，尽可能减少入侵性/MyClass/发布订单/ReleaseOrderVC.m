@@ -455,8 +455,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0 ||//数量
         indexPath.row == 1 ||//最低限额
         indexPath.row == 2) {//最高限额
-        [cell richElementsInCellWithModel:@[self.placeholderMutArr[indexPath.row]]
-                  ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Textfield];
+        if (self.placeholderMutArr.count) {
+            [cell richElementsInCellWithModel:@[self.placeholderMutArr[indexPath.row]]
+                      ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Textfield];
+        }
         @weakify(self)
         [cell dataBlock:^(id data) {
             @strongify(self)
@@ -472,8 +474,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             }     
         }];
     }else if(indexPath.row == 3){//单价
-        [cell richElementsInCellWithModel:@[self.placeholderMutArr[indexPath.row]]
-                  ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Lab];
+        if (self.placeholderMutArr.count) {
+            [cell richElementsInCellWithModel:@[self.placeholderMutArr[indexPath.row]]
+                      ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Lab];
+        }
     }else if (indexPath.row == 4){//收款方式
         if (self.releaseOrderModel) {
             @weakify(self)
@@ -487,9 +491,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     self.str_4 = [NSString stringWithFormat:@"%d",[b intValue]];
                 }
             }];
-            [cell richElementsInCellWithModel:@[self.placeholderMutArr[indexPath.row],
-                                                self.releaseOrderModel]
-                      ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
+            if (self.placeholderMutArr.count) {
+                [cell richElementsInCellWithModel:@[self.placeholderMutArr[indexPath.row],
+                                          self.releaseOrderModel]
+                ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
+            }
         }
     }return cell;
 }

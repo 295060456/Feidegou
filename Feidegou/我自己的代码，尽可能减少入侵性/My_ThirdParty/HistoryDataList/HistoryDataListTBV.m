@@ -75,8 +75,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     HistoryDataListTBVCell *cell = [HistoryDataListTBVCell cellWith:tableView];
-    [cell richElementsInCellWithModel:self.dataArr[indexPath.row]];
-    return cell;
+    if (self.dataArr.count) {
+        [cell richElementsInCellWithModel:self.dataArr[indexPath.row]];
+    }return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

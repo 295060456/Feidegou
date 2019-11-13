@@ -415,7 +415,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0 &&
         indexPath.row == 0) {
         OrderDetail_BuyerTBVCell_01 *cell = [OrderDetail_BuyerTBVCell_01 cellWith:tableView];
-        [cell richElementsInCellWithModel:self.dataMutArr];
+        if (self.dataMutArr.count) {
+            [cell richElementsInCellWithModel:self.dataMutArr];
+        }
         OrderDetail_BuyerTBVCell_01_Hight = [cell cellHeightWithModel:nil];
         return cell;
     }else if (indexPath.section == 1){

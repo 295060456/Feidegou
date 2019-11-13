@@ -238,7 +238,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     CatFoodProducingAreaTBVCell *cell = [CatFoodProducingAreaTBVCell cellWith:tableView];
 //    cell.backgroundColor = RandomColor;
-    [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+    if (self.dataMutArr.count) {
+        [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+    }
     CatFoodProducingAreaTBVCellHeight = [cell cellHeightWithModel:nil];
     return cell;
 }
