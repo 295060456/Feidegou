@@ -293,7 +293,7 @@ StockViewDelegate
     WholesaleMarket_VipModel *model = self.dataMutArr[row];
     [WholesaleOrders_VipVC pushFromVC:self_weak_
                     requestParams:@[model.ID,
-                                    [NSNumber numberWithInt:3]]//[NSNumber numberWithInt:3] 测试数据2、3 model.order_status
+                                    [NSNumber numberWithInt:2]]//[NSNumber numberWithInt:0] 测试数据2、0 model.order_status 0已支付 2已接单
                           success:^(id data) {}
                          animated:YES];
 }

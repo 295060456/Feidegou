@@ -139,7 +139,7 @@ TZImagePickerControllerDelegate
 //    self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     
-    if ([self.requestParams[1] intValue] == 3) {
+    if ([self.requestParams[1] intValue] == 0) {
         self.deliverBtn.alpha = 0;
     }else if ([self.requestParams[1] intValue] == 2){
         self.cancelOrderBtn.alpha = 1;
@@ -207,7 +207,7 @@ TZImagePickerControllerDelegate
 }
 
 -(void)GoUploadPic{
-//    [self CancelDelivery_NetWorking];
+    [self uploadPrint_netWorking:self.img];
 }
 
 -(void)sorry{
@@ -217,7 +217,7 @@ TZImagePickerControllerDelegate
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 6 && [self.requestParams[1] intValue] == 3) {
+    if (indexPath.row == 6 && [self.requestParams[1] intValue] == 0) {
         return [WholesaleOrdersTBVCell cellHeightWithModel:self.img];
     }return [WholesaleOrdersTBVCell cellHeightWithModel:nil];
 }
@@ -234,7 +234,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.detailTextMutArr.count) {
         cell.detailTextLabel.text = self.detailTextMutArr[indexPath.row];
     }
-    if ([self.requestParams[1] intValue] == 3) {
+    if ([self.requestParams[1] intValue] == 0) {
         if (indexPath.row == 6) {
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             [cell richElementsInCellWithModel:self.img];
@@ -346,7 +346,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 //                upLoadbtnClickEvent
                 [self.tableView reloadData];
                 self.img = photos.lastObject;
-                if ([self.requestParams[1] intValue] == 3) {
+                if ([self.requestParams[1] intValue] == 0) {
                     [self.deliverBtn mas_updateConstraints:^(MASConstraintMaker *make) {
                         make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
                                                            (self.titleMutArr.count - 1) * [WholesaleOrdersTBVCell cellHeightWithModel:nil] +
@@ -467,7 +467,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [_titleMutArr addObject:@"总额"];
         [_titleMutArr addObject:@"支付方式"];
         [_titleMutArr addObject:@"付款账户"];
-        if ([self.requestParams[1] intValue] == 3) {
+        if ([self.requestParams[1] intValue] == 0) {
             [_titleMutArr addObject:@"凭证"];
         }
         [_titleMutArr addObject:@"状态"];//已付款/已完成/待购

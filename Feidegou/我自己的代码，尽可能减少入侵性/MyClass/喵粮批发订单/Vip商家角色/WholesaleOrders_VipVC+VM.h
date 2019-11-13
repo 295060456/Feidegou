@@ -12,8 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WholesaleOrders_VipVC (VM)
 
--(void)netWorking;
--(void)deliver_Networking;
+-(void)netWorking;//拉取数据
+-(void)deliver_Networking;//发货
+-(void)cancelOrder_netWorking;//取消订单
+-(void)uploadPrint_netWorking:(UIImage *)pic;//上传支付凭证
 
 @end
 

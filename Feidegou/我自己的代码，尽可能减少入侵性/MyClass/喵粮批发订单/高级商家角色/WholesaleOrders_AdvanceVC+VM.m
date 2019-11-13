@@ -182,12 +182,12 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                                                                              publicKey:RSA_Public_key]
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
-    @weakify(self)
+//    @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if ([response isKindOfClass:[NSString class]]) {
             NSString *str = (NSString *)response;
             if ([NSString isNullString:str]) {
-                @strongify(self)
+//                @strongify(self)
                 NSLog(@"--%@",response);
                 Toast(@"取消成功");
             }

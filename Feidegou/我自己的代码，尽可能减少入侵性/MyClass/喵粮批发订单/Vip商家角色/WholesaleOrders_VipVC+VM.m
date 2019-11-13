@@ -9,7 +9,7 @@
 #import "WholesaleOrders_VipVC+VM.h"
 
 @implementation WholesaleOrders_VipVC (VM)
-
+//拉取数据
 -(void)netWorking{
     extern NSString *randomStr;
     NSDictionary *dataDic = @{
@@ -52,7 +52,7 @@
                     break;
             }
             
-            if ([self.requestParams[1] intValue] == 3) {
+            if ([self.requestParams[1] intValue] == 0) {
                 [self.detailTextMutArr addObject:@"点击选择凭证(原图)"];//凭证 self.wholesaleOrders_VipModel.catFoodOrder.payment_print
             }
             switch ([self.wholesaleOrders_VipModel.catFoodOrder.order_status intValue]) {//状态
@@ -85,9 +85,136 @@
         }
     }];
 }
-
+//发货
 -(void)deliver_Networking{
-    
+    extern NSString *randomStr;
+    NSString *order_IDStr;
+    if ([self.requestParams isKindOfClass:[NSArray class]]) {
+        NSNumber *order_ID = (NSNumber *)self.requestParams[0];
+        order_IDStr = [order_ID stringValue];
+    }
+    NSDictionary *dataDic = @{
+        @"order_id":order_IDStr,//订单id
+    };
+    randomStr = [EncryptUtils shuffledAlphabet:16];
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodSale_goodsURL
+                                                     parameters:@{
+                                                         @"data":dataDic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key]
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+//    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        NSLog(@"%@",response);
+//        if ([response isKindOfClass:[NSString class]]) {
+//            NSString *str = (NSString *)response;
+//            if ([NSString isNullString:str]) {
+////                @strongify(self)
+//                NSLog(@"--%@",response);
+//                Toast(@"取消成功");
+//            }
+//        }
+    }];
+}
+//取消订单
+-(void)cancelOrder_netWorking{
+    extern NSString *randomStr;
+    NSString *text;
+    NSString *paymentWayStr;
+    NSString *order_IDStr;
+    if ([self.requestParams isKindOfClass:[NSArray class]]) {
+        NSArray *arr = (NSArray *)self.requestParams;//订单ID、order_status
+        text = arr[0];
+        NSNumber *paymentWay = (NSNumber *)arr[1];
+        paymentWayStr = [paymentWay stringValue] ;
+        NSNumber *order_ID = (NSNumber *)arr[2];
+        order_IDStr = [order_ID stringValue];
+    }
+    NSDictionary *dataDic = @{
+        @"order_id":order_IDStr,//订单id
+        @"reason":@""//撤销理由 现在不要了
+    };
+    randomStr = [EncryptUtils shuffledAlphabet:16];
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodSale_pay_delURL
+                                                     parameters:@{
+                                                         @"data":dataDic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key]
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+//    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        if ([response isKindOfClass:[NSString class]]) {
+            NSString *str = (NSString *)response;
+            if ([NSString isNullString:str]) {
+//                @strongify(self)
+                NSLog(@"--%@",response);
+                Toast(@"取消成功");
+            }
+        }
+    }];
+}
+//上传支付凭证
+-(void)uploadPrint_netWorking:(UIImage *)pic{//真正开始购买
+//    extern NSString *randomStr;
+//    NSString *order_IDStr;
+//    if ([self.requestParams isKindOfClass:[NSArray class]]) {
+//        NSArray *arr = (NSArray *)self.requestParams;//购买的数量、付款的方式、订单ID
+//        NSNumber *order_ID = (NSNumber *)arr[2];
+//        order_IDStr = [order_ID stringValue];
+//    }
+//    ModelLogin *modelLogin;
+//    if ([[PersonalInfo sharedInstance] isLogined]) {
+//        modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+//    }
+//    NSDictionary *dataDic = @{
+//        @"order_id":order_IDStr,
+//        @"user_id":modelLogin.userId,
+//        @"identity":[YDDevice getUQID]
+//    };
+//    __block NSData *picData = [UIImage imageZipToData:pic];
+//    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+//    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    [mgr POST:API(BaseUrl2, CatfoodSale_payURL)
+//   parameters:@{
+//       @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
+//       @"key":[RSAUtil encryptString:randomStr
+//                           publicKey:RSA_Public_key]
+//   }
+//constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+//        [formData appendPartWithFileData:picData
+//                                    name:@"payment_print"
+//                                fileName:@"test.png"
+//                                mimeType:@"image/png"];
+//    }
+//     progress:^(NSProgress * _Nonnull uploadProgress) {
+//        NSLog(@"uploadProgress = %@",uploadProgress);
+//    }
+//      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        NSDictionary *dataDic = [NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)];
+//        Toast(dataDic[@"message"]);
+//        switch ([dataDic[@"code"] longValue]) {
+//            case 200:{//已完成付款.请等待审核后发货！
+//                [self.paidBtn setTitle:@"已付款"
+//                              forState:UIControlStateNormal];
+//            }break;
+//            case 300:{//订单状态异常，请检查！
+//
+//            }break;
+//            case 500:{//订单有误，请检查订单！
+//
+//            }break;
+//            default:
+//                break;
+//        }
+//    }
+//      failure:^(NSURLSessionDataTask * _Nullable task,
+//                NSError * _Nonnull error) {
+//        NSLog(@"error = %@",error);
+//    }];
 }
 
 @end
