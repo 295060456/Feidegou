@@ -292,7 +292,8 @@ StockViewDelegate
     @weakify(self)
     WholesaleMarket_VipModel *model = self.dataMutArr[row];
     [WholesaleOrders_VipVC pushFromVC:self_weak_
-                    requestParams:model.ID
+                    requestParams:@[model.ID,
+                                    [NSNumber numberWithInt:3]]//[NSNumber numberWithInt:3] 测试数据2、3 model.order_status
                           success:^(id data) {}
                          animated:YES];
 }

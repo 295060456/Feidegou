@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WholesaleOrders_VipVC (VM)
 
 -(void)netWorking;
+-(void)deliver_Networking;
 
 @end
 

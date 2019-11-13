@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)WholesaleOrders_VipModel *wholesaleOrders_VipModel;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,strong)NSMutableArray <NSString *>*detailTextMutArr;
-//titleMutArr
+@property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 
 + (instancetype)pushFromVC:(UIViewController *)rootVC
              requestParams:(nullable id)requestParams
