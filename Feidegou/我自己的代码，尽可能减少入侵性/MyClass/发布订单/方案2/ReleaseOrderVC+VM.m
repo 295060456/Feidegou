@@ -60,6 +60,7 @@
         @"quantity_min":self.str_2,//最小
         @"quantity_max":self.str_3,//最大可购数量
         @"price":str,//单价
+        @"payment_type":[NSString stringWithFormat:@"%d",[self.str_4 intValue] + 1],
         @"payment_status":self.str_4,//支付类型 1、支付宝；2、微信；3、银行卡
         @"Weixin_id":[NSString isNullString:self.str_5] ? @"" : self.str_5,//微信账户
         @"Alipay_id":[NSString isNullString:self.str_6] ? @"" : self.str_6,//支付宝账户
@@ -79,8 +80,7 @@
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response) {
             NSLog(@"--%@",response);
- 
-
+            [self.navigationController popViewControllerAnimated:YES];
         }
     }];
 }

@@ -177,6 +177,7 @@ static FMARCNetwork *_instance = nil;
                 if (statusCode == HTTPResponseCodeSuccess) {//200 请求成功
                     if (httpResponse.isSuccess) {
                         [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseDataKey]];//
+                        Toast(httpResponse.reqResult[@"message"]);
                         [subscriber sendCompleted];
                     }
                 }else if (statusCode == HTTPResponseCodeNotLogin){//用户尚未登录
