@@ -17,36 +17,39 @@
 
 @implementation JJHttpClient
 
-- (RACSignal *)requestPOSTWithRelativePathByBaseURL:(NSString *)strBaseUrl andRelativePath:(NSString *)relativePath
-                                         parameters:(NSDictionary *)parameters{
-    AFHTTPSessionManager *manager = [self __httpSessionManagerWithBaseUrl:strBaseUrl];
-    return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        NSURLSessionDataTask *dataTask = [manager POST:relativePath parameters:parameters progress:^(NSProgress *_Nonnull uploadProgress) {
-            
-        } success:^(NSURLSessionDataTask *_Nonnull task,id _Nullable responseObject) {
-//            [self __handleResponseObject:responseObject subscriber:subscriber];
-            
-            [subscriber sendNext:responseObject];
-            [subscriber sendCompleted];
-            
-        } failure:^(NSURLSessionDataTask *_Nullable task,NSError *_Nonnull error) {
-            [self __handleRequestFailure:error subscriber:subscriber];
-            
-        }];
-        return [RACDisposable disposableWithBlock:^{
-            
-            [dataTask cancel];
-            
-        }];
-        
-    }] doError:^(NSError *error) {
-        
-        NSLog(@"ERROR:%@",error);
-        
-    }];
-    
+//每个接口都加 user_id 和 identity
+-(NSDictionary *)newParameters:(NSDictionary *)oldParameters{
+    NSMutableDictionary *dataMutDic = [NSMutableDictionary dictionaryWithDictionary:oldParameters];
+    [dataMutDic setValue:[YDDevice getUQID] forKey:@"identity"];
+    return dataMutDic;
 }
 
+- (RACSignal *)requestPOSTWithRelativePathByBaseURL:(NSString *)strBaseUrl
+                                    andRelativePath:(NSString *)relativePath
+                                         parameters:(NSDictionary *)parameters{
+    NSDictionary *newparameters = [self newParameters:parameters];
+    AFHTTPSessionManager *manager = [self __httpSessionManagerWithBaseUrl:strBaseUrl];
+    return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        NSURLSessionDataTask *dataTask = [manager POST:relativePath
+                                            parameters:newparameters
+                                              progress:^(NSProgress *_Nonnull uploadProgress) {
+        } success:^(NSURLSessionDataTask *_Nonnull task,
+                    id _Nullable responseObject) {
+//            [self __handleResponseObject:responseObject subscriber:subscriber];
+            [subscriber sendNext:responseObject];
+            [subscriber sendCompleted];
+        } failure:^(NSURLSessionDataTask *_Nullable task,
+                    NSError *_Nonnull error) {
+            [self __handleRequestFailure:error
+                              subscriber:subscriber];
+        }];
+        return [RACDisposable disposableWithBlock:^{
+            [dataTask cancel];
+        }];
+    }] doError:^(NSError *error) {
+        NSLog(@"ERROR:%@",error);
+    }];
+}
 /*!
  * 功能描述:POST请求
  * @param relativePath 请求相对路径地址
@@ -54,43 +57,35 @@
  */
 - (RACSignal *)requestPOSTWithRelativePath:(NSString *)relativePath
                                 parameters:(NSDictionary *)parameters{
+    NSDictionary *newparameters = [self newParameters:parameters];
     AFHTTPSessionManager *manager = [self __httpSessionManagerWithBaseUrl:BASE_URL];
-    
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        NSURLSessionDataTask *dataTask = [manager POST:relativePath parameters:parameters progress:^(NSProgress *_Nonnull uploadProgress) {
+        NSURLSessionDataTask *dataTask = [manager POST:relativePath
+                                            parameters:newparameters
+                                              progress:^(NSProgress *_Nonnull uploadProgress) {
             
-        } success:^(NSURLSessionDataTask *_Nonnull task,id _Nullable responseObject) {
-            [self __handleResponseObject:responseObject subscriber:subscriber];
-            
+        } success:^(NSURLSessionDataTask *_Nonnull task,
+                    id _Nullable responseObject) {
+            [self __handleResponseObject:responseObject
+                              subscriber:subscriber];
         } failure:^(NSURLSessionDataTask *_Nullable task,NSError *_Nonnull error) {
             [self __handleRequestFailure:error subscriber:subscriber];
-            
         }];
         return [RACDisposable disposableWithBlock:^{
-
             [dataTask cancel];
-            
         }];
-        
     }] doError:^(NSError *error) {
-        
         NSLog(@"ERROR:%@",error);
-        
     }];
-
 }
-
-
 #pragma mark -
 #pragma mark - 创建AFHTTPSessionManager
 -(AFHTTPSessionManager*)__httpSessionManagerWithBaseUrl:(NSString*)baseUrl{
-
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     //设置请求超时时间
     sessionConfiguration.timeoutIntervalForRequest =HTTPTimeoutInterval;
     //设置请求headers
     sessionConfiguration.HTTPAdditionalHeaders = @{@"source":@"ios"};
-    
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager manager] initWithBaseURL:[NSURL URLWithString:baseUrl]  sessionConfiguration:sessionConfiguration];
     
     //设置请求数据格式(默认二进制)
@@ -111,14 +106,12 @@
                                                          @"text/javascript",
                                                          @"text/plan",
                                                          @"text/html", nil];
-    
-    
     return manager;
 }
 #pragma mark -
 #pragma mark - 请求成功,处理响应数据
--(void)__handleResponseObject:(id)responseObject subscriber:(id<RACSubscriber>)subscriber{
-    
+-(void)__handleResponseObject:(id)responseObject
+                   subscriber:(id<RACSubscriber>)subscriber{
     D_NSLog(@"请求完成!ResponseObject:%@",responseObject);
     NSInteger result = [[responseObject objectForKey:@"result"] integerValue];
     if (result == 1) {
@@ -133,33 +126,35 @@
             strMsg = StringFormat(@"%ld请求失败!",(long)result);
 
         }
-        [subscriber sendError:[self requestErrorWithDescription:strMsg errorCode:result]];
+        [subscriber sendError:[self requestErrorWithDescription:strMsg
+                                                      errorCode:result]];
     }
 }
 #pragma mark -
 #pragma mark - 请求失败
--(void)__handleRequestFailure:(NSError*)error subscriber:(id<RACSubscriber>)subscriber{
+-(void)__handleRequestFailure:(NSError*)error
+                   subscriber:(id<RACSubscriber>)subscriber{
     D_NSLog(@"请求失败 - error:[%@]%@",@(error.code),error.userInfo);
     D_NSLog(@"msg_server is %@",error.description);
     NSString *errorMsg = nil;
     errorMsg = error.localizedDescription;
     if ([NSString isNullString:errorMsg]) {
 //        errorMsg = @"请求失败";
-        
         errorMsg = StringFormat(@"%ld请求失败",(long)error.code);
-
     }
     errorMsg = StringFormat(@"%ld,%@",(long)error.code,errorMsg);
-    [subscriber sendError:[self requestErrorWithDescription:errorMsg errorCode:error.code]];
+    [subscriber sendError:[self requestErrorWithDescription:errorMsg
+                                                  errorCode:error.code]];
 }
-
-
 #pragma mark -
 #pragma mark - 生成错误信息
--(NSError*)requestErrorWithDescription:(NSString*)description errorCode:(NSInteger)errorCode{
-    
-    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:description forKey:NSLocalizedDescriptionKey];
-    NSError *error = [NSError errorWithDomain:@"Domain" code:errorCode userInfo:userInfo];
+-(NSError*)requestErrorWithDescription:(NSString*)description
+                             errorCode:(NSInteger)errorCode{
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:description
+                                                         forKey:NSLocalizedDescriptionKey];
+    NSError *error = [NSError errorWithDomain:@"Domain"
+                                         code:errorCode
+                                     userInfo:userInfo];
     return error;
 }
 /**
@@ -172,11 +167,12 @@
  */
 -(NSDictionary*)paramStringWithStype:(NSString*)stype
                                 data:(NSDictionary*)data{
+    NSDictionary *newparameters = [self newParameters:data];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params addEntriesFromDictionary:data];//??
+    [params addEntriesFromDictionary:newparameters];//??
     [params setObject:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] forKey:@"user_id"];
     [params setObject:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] forKey:@"userId"];
-    D_NSLog(@"data is %@",data);
+    D_NSLog(@"data is %@",newparameters);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //    设置为中国时区
     NSTimeZone *timeZone = [NSTimeZone timeZoneForSecondsFromGMT:8 * 3600];
@@ -201,6 +197,7 @@
     D_NSLog(@"请求数据为：%@",params);
     return params;
 }
+
 - (NSString *)encryptionTheParameter:(NSString *)strJson{
     NSString *strKey = [self md5HexDigestSmall:strJson];
 //    strKey = StringFormat(@"%@unknown",strKey);
@@ -236,8 +233,8 @@
              result[12], result[13], result[14], result[15]
              ];
 }
--(NSString*)DataTOjsonString:(id)object
-{
+
+-(NSString*)DataTOjsonString:(id)object{
     // Pass 0 if you don't care about the readability of the generated string
     NSString *jsonString = nil;
     NSError *error;
@@ -247,9 +244,9 @@
     if (! jsonData) {
         NSLog(@"Got an error: %@", error);
     } else {
-        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    }
-    return jsonString;
+        jsonString = [[NSString alloc] initWithData:jsonData
+                                           encoding:NSUTF8StringEncoding];
+    }return jsonString;
 }
 @end
 
