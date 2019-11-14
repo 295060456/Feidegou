@@ -43,6 +43,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)__block NSString *str_2;//最低限额
 @property(nonatomic,copy)__block NSString *str_3;//最高限额
 @property(nonatomic,copy)__block NSString *str_4;//收款方式
+@property(nonatomic,copy)__block NSString *str_5;//微信账号
+@property(nonatomic,copy)__block NSString *str_6;//支付宝账号
+@property(nonatomic,copy)__block NSString *str_7;//银行卡账号
+@property(nonatomic,copy)__block NSString *str_8;//姓名
+@property(nonatomic,copy)__block NSString *str_9;//银行类型
+@property(nonatomic,copy)__block NSString *str_10;//支行信息
 @property(nonatomic,strong)id requestParams;
 
 + (instancetype)pushFromVC:(UIViewController *)rootVC

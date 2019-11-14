@@ -34,9 +34,11 @@
 - (UIView *)hitTest:(CGPoint)point
           withEvent:(UIEvent *)event {
     static UIEvent *e = nil;
-    if (e != nil && e == event) {
+    if (e != nil &&
+        e == event) {
         e = nil;
-        return [super hitTest:point withEvent:event];
+        return [super hitTest:point
+                    withEvent:event];
     }
     e = event;
     if (event.type == UIEventTypeTouches) {
@@ -51,7 +53,8 @@
         }else if (touch.phase == UITouchPhaseMoved){
             NSLog(@"Touches Moved");
         }
-    }return [super hitTest:point withEvent:event];
+    }return [super hitTest:point
+                 withEvent:event];
 }
 
 @end

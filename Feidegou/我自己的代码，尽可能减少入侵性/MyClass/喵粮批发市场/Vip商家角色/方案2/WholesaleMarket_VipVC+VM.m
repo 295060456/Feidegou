@@ -16,7 +16,6 @@
         @"currentPage":[NSString stringWithFormat:@"%ld",self.currentPage],
         @"pagesize":@"30"
     };
-    randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodSaleOrder_listURL //#11
                                                      parameters:@{

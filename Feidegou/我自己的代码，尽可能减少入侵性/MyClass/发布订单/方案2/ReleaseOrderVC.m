@@ -327,8 +327,8 @@ UITableViewDataSource
 //    ReleaseOrderTBVCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
 //    [cell.btn setTitle:@"请选择收款方式"
 //              forState:UIControlStateNormal];
-//    [self.tableView.mj_header endRefreshing];
-//    [self.tableView.mj_footer endRefreshing];
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
     Toast(@"清空输入数据");
 }
 // 下拉刷新
@@ -372,6 +372,8 @@ UITableViewDataSource
 #pragma mark —— 点击事件
 -(void)releaseBtnClickEvent:(UIButton *)sender{
     NSLog(@"发布");
+    [self.view endEditing:YES];
+    [self releaseOrder_netWorking];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView
@@ -426,6 +428,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
         self.historyDataListTBV = cell.historyDataListTBV;
         @weakify(self)
+        //点选择付款方式的按钮
         [cell btnClickEventBlock:^(id data,//button
                                    id data2,//支付宝、微信、银行卡
                                    id data3) {//button的宽
@@ -439,7 +442,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 if (self.titleMutArr.count == 11) {}else{}
             }
             }];
-        [cell actionBlock:^(id data) {//点选后
+        //点选下拉列表，已经选择的
+        [cell actionBlock:^(id data) {
             @strongify(self)
 //            1、支付宝；2、微信；3、银行卡
             if ([data isEqualToString:@"支付宝"]) {
@@ -511,11 +515,42 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }else if(indexPath.row == 5){//
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_TextfieldOnly];
+        cell.backgroundColor = kRedColor;
+        @weakify(self)
+        [cell dataBlock:^(id data) {
+            @strongify(self)
+            if ([data isKindOfClass:[UITextField class]]) {
+                UITextField *textfield = (UITextField *)data;
+                [self.textFieldMutSet addObject:textfield];//准备以后清空输入数据
+                if ([textfield.placeholder isEqualToString:@"请填写微信账号"]){//请填写微信账号
+                    self.str_5 = textfield.text;
+                }else if ([textfield.placeholder isEqualToString:@"请填写支付宝账号"]){//请填写支付宝账号
+                    self.str_6 = textfield.text;
+                }else if ([textfield.placeholder isEqualToString:@"请填写银行卡"]){//请填写银行卡
+                    self.str_7 = textfield.text;
+                }else{}
+            }
+        }];
     }else{//
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_TextfieldOnly];
-    }
-    return cell;
+        cell.backgroundColor = KGreenColor;
+        @weakify(self)
+        [cell dataBlock:^(id data) {
+            @strongify(self)
+            if ([data isKindOfClass:[UITextField class]]) {
+                UITextField *textfield = (UITextField *)data;
+                [self.textFieldMutSet addObject:textfield];//准备以后清空输入数据
+                if ([textfield.placeholder isEqualToString:@"请填写姓名"]){//请填写姓名
+                    self.str_8 = textfield.text;
+                }else if ([textfield.placeholder isEqualToString:@"请填写银行类型"]){//请填写银行类型
+                    self.str_9 = textfield.text;
+                }else if ([textfield.placeholder isEqualToString:@"请填写支行信息"]){//请填写支行信息
+                    self.str_10 = textfield.text;
+                }else{}
+            }
+        }];
+    }return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

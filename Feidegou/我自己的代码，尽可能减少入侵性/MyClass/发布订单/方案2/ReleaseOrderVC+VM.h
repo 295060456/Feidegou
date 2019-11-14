@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ReleaseOrderVC (VM)
 
--(void)netWorking;
+-(void)releaseOrder_netWorking;
 
 @end
 

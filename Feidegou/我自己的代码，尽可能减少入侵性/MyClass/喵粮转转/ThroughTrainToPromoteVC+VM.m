@@ -61,7 +61,6 @@
             if (!response) {
                 NSLog(@"--%@",response);
                 Toast(@"取消成功");
-                [self.navigationController popViewControllerAnimated:YES];
             }
         }];
 }

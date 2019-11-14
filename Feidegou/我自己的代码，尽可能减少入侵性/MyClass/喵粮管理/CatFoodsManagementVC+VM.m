@@ -9,6 +9,9 @@
 #import "CatFoodsManagementVC+VM.h"
 
 NSString *randomStr;
+NSString *market_price_co;//产地均价
+NSString *market_price_sale;//批发均价
+NSString *market_price_booth;//摊位均价
 
 @implementation CatFoodsManagementVC (VM)
 
@@ -31,7 +34,12 @@ NSString *randomStr;
                 NSDictionary *dic = (NSDictionary *)response;
                 [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"Foodsell"]] ReplaceStr:@"无"]];
                 [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"Foodstuff"]] ReplaceStr:@"无"]];
-                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price"]] ReplaceStr:@"无"]];
+                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price_booth"]] ReplaceStr:@"无"]];// 摊位均价
+                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price_sale"]] ReplaceStr:@"无"]];//批发均价
+                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price_co"]] ReplaceStr:@"无"]];// 产地均价
+                market_price_co = self.dataMutArr[4];
+                market_price_sale = self.dataMutArr[3];
+                market_price_booth = self.dataMutArr[2];
                 self.tableView.mj_footer.hidden = NO;
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView.mj_footer endRefreshing];

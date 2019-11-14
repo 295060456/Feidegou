@@ -153,6 +153,11 @@ UITableViewDataSource
     [super viewWillAppear:animated];
     [self.tableView.mj_header beginRefreshing];
 }
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.openBtn removeFromSuperview];
+}
 #pragma mark —— 私有方法
 // 下拉刷新
 -(void)pullToRefresh{
@@ -186,6 +191,7 @@ UITableViewDataSource
 -(void)cancelBtnClickEvent:(UIButton *)sender{
     NSLog(@"%@",sender.titleLabel.text);
     [self deleteThroughTrainToPromote_netWorking];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)goOnBtnClickEvent:(UIButton *)sender{
@@ -339,7 +345,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
         [_titleMutArr addObject:@"商品"];
-        [_titleMutArr addObject:@"参与抢摊位的数量"];
+        [_titleMutArr addObject:@"参与转转的数量"];
         [_titleMutArr addObject:@"市场价"];
     }return _titleMutArr;
 }

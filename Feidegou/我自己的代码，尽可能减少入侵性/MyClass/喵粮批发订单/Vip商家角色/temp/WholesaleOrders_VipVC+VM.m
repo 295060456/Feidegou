@@ -29,7 +29,6 @@
         @"quantity":text,//数量
         @"payment_status": paymentWayStr//支付类型 ：1、支付宝;2、微信;3、银行卡
     };
-    randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodSale_BuyeroneURL
                                                      parameters:@{
@@ -174,7 +173,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         @"order_id":order_IDStr,//订单id
         @"reason":@""//撤销理由 现在不要了
     };
-    randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodSale_pay_delURL
                                                      parameters:@{

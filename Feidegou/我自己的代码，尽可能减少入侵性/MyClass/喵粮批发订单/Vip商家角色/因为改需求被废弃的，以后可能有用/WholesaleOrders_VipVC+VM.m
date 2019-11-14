@@ -116,7 +116,6 @@
     NSDictionary *dataDic = @{
         @"order_id":order_IDStr,//订单id
     };
-    randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodSale_goodsURL
                                                      parameters:@{
@@ -156,7 +155,6 @@
         @"order_id":order_IDStr,//订单id
         @"reason":@""//撤销理由 现在不要了
     };
-    randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodSale_pay_delURL
                                                      parameters:@{
