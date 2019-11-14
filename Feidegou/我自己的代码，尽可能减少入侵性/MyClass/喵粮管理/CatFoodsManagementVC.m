@@ -11,7 +11,7 @@
 #import "ShopReceiptQRcodeVC.h"//店铺收款码
 #import "GiftVC.h"//赠送
 #import "CatFoodProducingAreaVC.h"//喵粮产地
-#import "ThroughTrainToPromoteVC.h"//喵粮直通车
+#import "ThroughTrainToPromoteVC.h"//喵粮转转
 #import "WholesaleMarket_AdvanceVC.h"//喵粮批发市场_仅高级商家可见
 #import "WholesaleMarket_VipVC.h"//喵粮批发市场_仅Vip可见
 #import "SettingPaymentWayVC.h"//设置支付方式
@@ -132,11 +132,11 @@ UITableViewDataSource
                              requestParams:nil
                                    success:^(id data) {}
                                   animated:YES];
-    }else if ([vcName isEqualToString:@"喵粮直通车"]){
+    }else if ([vcName isEqualToString:@"喵粮转转"]){
         if ([self.dataMutArr[0] isKindOfClass:[NSString class]]) {
             NSString *str = self.dataMutArr[0];
             if ([str isEqualToString:@"0"]) {
-                Toast(@"余额为0无法开启直通车");
+                Toast(@"余额为0无法开启转转");
             }else{
                 [ThroughTrainToPromoteVC pushFromVC:self_weak_
                 requestParams:nil
@@ -262,7 +262,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         if ([self.loginModel.grade_id intValue] == 3) {//只有Vip商家可见
             [tempMutArr addObject:@"喵粮产地"];//喵粮产地
         }
-        [tempMutArr addObject:@"喵粮直通车"];
+        [tempMutArr addObject:@"喵粮转转"];
         [tempMutArr addObject:@"喵粮批发市场"];
         if ([self.loginModel.grade_id intValue] == 3) {
 //            [tempMutArr addObject:@"设置收款方式"];
@@ -283,7 +283,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         if ([self.loginModel.grade_id intValue] == 3) {//只有Vip商家可见
             [tempMutArr addObject:@"喵粮产地"];//喵粮产地
         }
-        [tempMutArr addObject:@"喵粮直通车"];
+        [tempMutArr addObject:@"喵粮转转"];
         [tempMutArr addObject:@"喵粮批发市场"];
         if ([self.loginModel.grade_id intValue] == 3) {
             [tempMutArr addObject:@"支付"];

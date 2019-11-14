@@ -50,7 +50,7 @@
 #define CatfoodSale_BuyeroneURL @"/user/buyer/CatfoodSale_Buyerone.htm"//喵粮批发购买 post 16 Y
 #define CatfoodSale_payURL @"/user/buyer/CatfoodSale_pay.htm"//喵粮批发已支付 post 17 Y 不加catfoodapp
 #define CatfoodSale_pay_delURL @"/user/buyer/CatfoodSale_pay_del.htm"//喵粮批发取消 post 18 Y
-#define CatfoodTrainURL @"/user/buyer/CatfoodTrain.htm"//喵粮直通车 post 19 说是废弃了
+#define CatfoodTrainURL @"/user/buyer/CatfoodTrain.htm"//喵粮转转 post 19 说是废弃了
 //#define //喵粮抢摊位 20
 #define Catfoodbooth_robURL @"/user/buyer/Catfoodbooth_rob.htm"
 //http://10.1.41.174:8888/catfoodapp/user/buyer/Catfoodbooth_rob.htm
@@ -64,8 +64,8 @@
 #define CatfoodPayment_quaryURL @"/user/seller/CatfoodPayment_quary.htm"//发布批发市场展示可选支付方式 post 28 Y
 #define CatfoodPayment_setURL @"/user/seller/CatfoodPayment_set.htm"//设置支付方式 Y
 
-#define CatfoodTrain_checkURL @"/user/buyer/CatfoodTrain_check.htm"//查看直通车
-#define CatfoodTrain_delURL @"/user/buyer/CatfoodTrain_del.htm"//关闭直通车
+#define CatfoodTrain_checkURL @"/user/buyer/CatfoodTrain_check.htm"//查看转转
+#define CatfoodTrain_delURL @"/user/buyer/CatfoodTrain_del.htm"//关闭转转
 
 //#define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@:8888/websocket",WebSocketLocalhost]
 #define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@/websocket",fdss]

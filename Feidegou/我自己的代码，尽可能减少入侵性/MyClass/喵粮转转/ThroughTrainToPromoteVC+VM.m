@@ -9,7 +9,7 @@
 #import "ThroughTrainToPromoteVC+VM.h"
 
 @implementation ThroughTrainToPromoteVC (VM)
-//查看直通车状态
+//查看转转状态
 -(void)checkThroughTrainToPromoteStyle_netWorking{
     extern NSString *randomStr;
     NSDictionary *dataDic = @{
@@ -30,9 +30,9 @@
             NSLog(@"--%@",response);
             if ([response isKindOfClass:[NSNumber class]]) {
                 NSNumber *d = (NSNumber *)response;
-                if ([d intValue] == 0) {//没开通直通车
+                if ([d intValue] == 0) {//没开通转转
                     self.openBtn.alpha = 1;
-                }else{//已经开通直通车
+                }else{//已经开通转转
                     self.cancelBtn.alpha = 1;
                     self.goOnBtn.alpha = 1;
                 }
@@ -44,7 +44,7 @@
         }
     }];
 }
-//关闭直通车
+//关闭转转
 -(void)deleteThroughTrainToPromote_netWorking{
         extern NSString *randomStr;
         NSDictionary *dataDic = @{

@@ -146,7 +146,7 @@ UITableViewDataSource
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.gk_navTitle = @"喵粮直通车";
+    self.gk_navTitle = @"喵粮转转";
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];

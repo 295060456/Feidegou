@@ -11,9 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ThroughTrainToPromoteVC (VM)
-//查看直通车状态
+//查看转转状态
 -(void)checkThroughTrainToPromoteStyle_netWorking;
-//关闭直通车
+//关闭转转
 -(void)deleteThroughTrainToPromote_netWorking;
 
 @end

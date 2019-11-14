@@ -139,7 +139,7 @@ UITableViewDataSource
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.gk_navTitle = @"喵粮直通车";
+    self.gk_navTitle = @"喵粮转转";
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
@@ -170,7 +170,7 @@ UITableViewDataSource
 }
 
 -(void)openBtnClickEvent:(UIButton *)sender{
-    NSLog(@"开启直通车抢摊位")
+    NSLog(@"开启转转抢摊位")
     [self.view endEditing:YES];
     @weakify(self)
     if (![NSString isNullString:self.quantity]) {
@@ -246,7 +246,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [_openBtn addTarget:self
                  action:@selector(openBtnClickEvent:)
        forControlEvents:UIControlEventTouchUpInside];
-        [_openBtn setTitle:@"开启直通车抢摊位"
+        [_openBtn setTitle:@"开启转转抢摊位"
               forState:UIControlStateNormal];
         _openBtn.backgroundColor = kOrangeColor;
         [self.view addSubview:_openBtn];
@@ -268,7 +268,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)cancelBtn{
     if (!_cancelBtn) {
         _cancelBtn = UIButton.new;
-        [_cancelBtn setTitle:@"取消上一次抢购"
+        [_cancelBtn setTitle:@"取消上一次转转"
                     forState:UIControlStateNormal];
         [_cancelBtn addTarget:self
                        action:@selector(cancelBtnClickEvent:)
@@ -293,7 +293,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)goOnBtn{
     if (!_goOnBtn) {
         _goOnBtn = UIButton.new;
-        [_goOnBtn setTitle:@"继续上一次抢购"
+        [_goOnBtn setTitle:@"继续上一次转转"
                   forState:UIControlStateNormal];
         _goOnBtn.backgroundColor = kRedColor;
         [_goOnBtn addTarget:self

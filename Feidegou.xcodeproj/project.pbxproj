@@ -2286,7 +2286,7 @@
 				8BB2D2E02366C7310047D0E2 /* 示例图 */,
 				8BB2D2E42366C7310047D0E2 /* 店铺收款码 */,
 				8BB2D2EE2366C7310047D0E2 /* Q宠 */,
-				8BB2D2F12366C7310047D0E2 /* 喵粮直通车 */,
+				8BB2D2F12366C7310047D0E2 /* 喵粮转转 */,
 				8BB2D2FD2366C7310047D0E2 /* 赠送 */,
 				8B7E6DE0237416CA0023314C /* 设置支付方式 */,
 			);
@@ -2376,19 +2376,19 @@
 			path = "Q宠";
 			sourceTree = "<group>";
 		};
-		8BB2D2F12366C7310047D0E2 /* 喵粮直通车 */ = {
+		8BB2D2F12366C7310047D0E2 /* 喵粮转转 */ = {
 			isa = PBXGroup;
 			children = (
-				8BB2D2F22366C7310047D0E2 /* 喵粮直通车——摊位列表 */,
+				8BB2D2F22366C7310047D0E2 /* 喵粮转转——摊位列表 */,
 				8BB2D2F62366C7310047D0E2 /* ThroughTrainToPromoteVC.h */,
 				8BB2D2F52366C7310047D0E2 /* ThroughTrainToPromoteVC.m */,
 				8BCB99352371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.h */,
 				8BCB99362371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.m */,
 			);
-			path = "喵粮直通车";
+			path = "喵粮转转";
 			sourceTree = "<group>";
 		};
-		8BB2D2F22366C7310047D0E2 /* 喵粮直通车——摊位列表 */ = {
+		8BB2D2F22366C7310047D0E2 /* 喵粮转转——摊位列表 */ = {
 			isa = PBXGroup;
 			children = (
 				8BB2D2F42366C7310047D0E2 /* StallListVC.h */,
@@ -2398,7 +2398,7 @@
 				8B7E6DDA2374073B0023314C /* StallListVC+VM.h */,
 				8B7E6DDB2374073B0023314C /* StallListVC+VM.m */,
 			);
-			path = "喵粮直通车——摊位列表";
+			path = "喵粮转转——摊位列表";
 			sourceTree = "<group>";
 		};
 		8BB2D2F72366C7310047D0E2 /* 喵粮订单管理 */ = {
