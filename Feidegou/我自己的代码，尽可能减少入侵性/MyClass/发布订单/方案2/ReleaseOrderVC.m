@@ -68,7 +68,6 @@ UITextFieldDelegate
 >
 {}
 
-@property(nonatomic,strong)UITextField *textfield;
 @property(nonatomic,strong)NSMutableArray <NSString *>*listTitleDataMutArr;
 @property(nonatomic,copy)DataBlock block;
 @property(nonatomic,copy)DataBlock dataBlock;
@@ -205,6 +204,7 @@ UITextFieldDelegate
         _textfield = UITextField.new;
         _textfield.backgroundColor = KLightGrayColor;
         _textfield.delegate = self;
+        _textfield.keyboardType = UIKeyboardTypeDecimalPad;
         [self.contentView addSubview:_textfield];
         [_textfield mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.equalTo(self.contentView);
@@ -270,6 +270,7 @@ UITableViewDataSource
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*placeholderMutArr;
+@property(nonatomic,strong)NSMutableSet <UITextField *>*textFieldMutSet;
 
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -309,15 +310,36 @@ UITableViewDataSource
     NSLog(@"返回");
     [self.navigationController popViewControllerAnimated:YES];
 }
+//清空
+-(void)EmptyInputData{//未完工
+    for (UITextField *textField in self.textFieldMutSet) {
+        textField.text = @"";
+    }
+//    if (self.titleMutArr.count == 11) {
+//        [self.titleMutArr removeObjectsInRange:NSMakeRange(7, 4)];
+//    }else if(self.titleMutArr.count == 8){
+//        [self.titleMutArr removeObjectsInRange:NSMakeRange(7, 1)];
+//    }
+//    NSLog(@"");
+//    [self.tableView reloadData];
+//    NSUInteger indexs[] = {0, 4};
+//    NSIndexPath *indexPath = [NSIndexPath indexPathWithIndexes:indexs length:2];
+//    ReleaseOrderTBVCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//    [cell.btn setTitle:@"请选择收款方式"
+//              forState:UIControlStateNormal];
+//    [self.tableView.mj_header endRefreshing];
+//    [self.tableView.mj_footer endRefreshing];
+    Toast(@"清空输入数据");
+}
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
-    [self.tableView.mj_header endRefreshing];
+    [self EmptyInputData];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-    [self.tableView.mj_footer endRefreshing];
+    [self EmptyInputData];
 }
 #pragma mark —— Lifecycle
 -(instancetype)init{
@@ -340,6 +362,12 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.tableView removeFromSuperview];
+    [self.historyDataListTBV removeFromSuperview];
 }
 #pragma mark —— 点击事件
 -(void)releaseBtnClickEvent:(UIButton *)sender{
@@ -380,6 +408,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             @strongify(self)
             if ([data isKindOfClass:[UITextField class]]) {
                 UITextField *textfield = (UITextField *)data;
+                [self.textFieldMutSet addObject:textfield];//准备以后清空输入数据
                 if ([textfield.placeholder isEqualToString:self.placeholderMutArr[0]]) {//请输入数量
                     self.str_1 = textfield.text;
                 }else if([textfield.placeholder isEqualToString:self.placeholderMutArr[1]]){//请输入最低限额
@@ -397,9 +426,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
         self.historyDataListTBV = cell.historyDataListTBV;
         @weakify(self)
-        [cell btnClickEventBlock:^(id data,
-                                   id data2,
-                                   id data3) {
+        [cell btnClickEventBlock:^(id data,//button
+                                   id data2,//支付宝、微信、银行卡
+                                   id data3) {//button的宽
             @strongify(self)
             UIButton *btn = (UIButton *)data;
 //            NSArray *arr = (NSArray *)data2;
@@ -410,7 +439,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 if (self.titleMutArr.count == 11) {}else{}
             }
             }];
-        [cell actionBlock:^(id data) {
+        [cell actionBlock:^(id data) {//点选后
             @strongify(self)
 //            1、支付宝；2、微信；3、银行卡
             if ([data isEqualToString:@"支付宝"]) {
@@ -603,6 +632,12 @@ forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
         }
         [_placeholderMutArr addObject:@"请选择收款方式"];
     }return _placeholderMutArr;
+}
+
+-(NSMutableSet<UITextField *> *)textFieldMutSet{
+    if (!_textFieldMutSet) {
+        _textFieldMutSet = NSMutableSet.set;
+    }return _textFieldMutSet;
 }
 
 @end

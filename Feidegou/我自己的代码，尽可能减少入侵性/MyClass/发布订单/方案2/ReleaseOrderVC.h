@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong)HistoryDataListTBV *historyDataListTBV;
 @property(nonatomic,strong)UIButton *btn;
+@property(nonatomic,strong)UITextField *textfield;
 
 +(instancetype)cellWith:(UITableView *)tableView;
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;
