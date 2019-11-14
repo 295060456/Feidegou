@@ -70,7 +70,7 @@ StockViewDelegate
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.currentPage = 1;
-    self.tableView.alpha = 1;
+    self.stockView.alpha = 1;
 }
 
 -(void)viewWillAppear:(BOOL)animated{

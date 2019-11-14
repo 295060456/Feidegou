@@ -265,7 +265,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [tempMutArr addObject:@"喵粮直通车"];
         [tempMutArr addObject:@"喵粮批发市场"];
         if ([self.loginModel.grade_id intValue] == 3) {
-            [tempMutArr addObject:@"设置收款方式"];
+//            [tempMutArr addObject:@"设置收款方式"];
         }
         [_titleMutArr addObject:tempMutArr];
     }return _titleMutArr;
