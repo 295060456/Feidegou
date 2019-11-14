@@ -204,7 +204,6 @@ UITextFieldDelegate
         _textfield = UITextField.new;
         _textfield.backgroundColor = KLightGrayColor;
         _textfield.delegate = self;
-        _textfield.keyboardType = UIKeyboardTypeDecimalPad;
         [self.contentView addSubview:_textfield];
         [_textfield mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.equalTo(self.contentView);
@@ -378,7 +377,7 @@ UITableViewDataSource
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section {
-    ReleaseOrder_viewForHeader *viewForHeader = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:ReuseIdentifier];
+    ReleaseOrder_viewForHeader *viewForHeader = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:@"KJHG"];
     return viewForHeader;
 }
 
@@ -405,6 +404,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         indexPath.row == 2) {//最高限额
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Textfield];
+        cell.textfield.keyboardType = UIKeyboardTypeDecimalPad;
         @weakify(self)
         [cell dataBlock:^(id data) {
             @strongify(self)
@@ -515,7 +515,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }else if(indexPath.row == 5){//
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_TextfieldOnly];
-        cell.backgroundColor = kRedColor;
+//        cell.backgroundColor = kRedColor;
+        if ([cell.textLabel.text isEqualToString:@"银行卡号"]) {
+            cell.textfield.keyboardType = UIKeyboardTypeDecimalPad;
+        }
         @weakify(self)
         [cell dataBlock:^(id data) {
             @strongify(self)
@@ -534,7 +537,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }else{//
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_TextfieldOnly];
-        cell.backgroundColor = KGreenColor;
+//        cell.backgroundColor = KGreenColor;
         @weakify(self)
         [cell dataBlock:^(id data) {
             @strongify(self)
@@ -610,7 +613,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             [self.historyDataListTBV removeFromSuperview];
         }];
         [_tableView registerClass:[ReleaseOrder_viewForHeader class]
-forHeaderFooterViewReuseIdentifier:ReuseIdentifier];
+forHeaderFooterViewReuseIdentifier:@"KJHG"];
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
