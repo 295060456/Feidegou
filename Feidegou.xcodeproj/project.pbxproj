@@ -1873,7 +1873,7 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		8B78838D237BE5E700DF74FA /* 因为改需求被废弃的，以后可能有用 */ = {
+		8B78838D237BE5E700DF74FA /* 方案2 */ = {
 			isa = PBXGroup;
 			children = (
 				8BB0F6CC236BDAC2009498B6 /* WholesaleOrders_VipVC.h */,
@@ -1883,10 +1883,10 @@
 				8B788387237AE64500DF74FA /* WholesaleOrders_VipVC+VM.h */,
 				8B788388237AE64500DF74FA /* WholesaleOrders_VipVC+VM.m */,
 			);
-			path = "因为改需求被废弃的，以后可能有用";
+			path = "方案2";
 			sourceTree = "<group>";
 		};
-		8B788399237BECBB00DF74FA /* temp */ = {
+		8B788399237BECBB00DF74FA /* 方案1 */ = {
 			isa = PBXGroup;
 			children = (
 				8B788390237BE63000DF74FA /* WholesaleOrders_VipVC.h */,
@@ -1896,7 +1896,7 @@
 				8B788396237BE66900DF74FA /* WholesaleOrders_VipVC+VM.h */,
 				8B788397237BE66900DF74FA /* WholesaleOrders_VipVC+VM.m */,
 			);
-			path = temp;
+			path = "方案1";
 			sourceTree = "<group>";
 		};
 		8B7E6DE0237416CA0023314C /* 设置支付方式 */ = {
@@ -2028,8 +2028,8 @@
 		8BB0F6CF236C4805009498B6 /* Vip商家角色 */ = {
 			isa = PBXGroup;
 			children = (
-				8B788399237BECBB00DF74FA /* temp */,
-				8B78838D237BE5E700DF74FA /* 因为改需求被废弃的，以后可能有用 */,
+				8B788399237BECBB00DF74FA /* 方案1 */,
+				8B78838D237BE5E700DF74FA /* 方案2 */,
 			);
 			path = "Vip商家角色";
 			sourceTree = "<group>";

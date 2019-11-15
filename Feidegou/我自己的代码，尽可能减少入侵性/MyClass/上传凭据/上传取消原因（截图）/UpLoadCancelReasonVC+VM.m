@@ -47,12 +47,15 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }
      progress:^(NSProgress * _Nonnull uploadProgress) {
         NSLog(@"uploadProgress = %@",uploadProgress);
+        Toast(@"上传图片中...");
     }
       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"responseObject = %@",responseObject);
+        Toast(@"上传图片成功");
     }
       failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error = %@",error);
+        Toast(@"上传图片失败");
     }];
 }
 

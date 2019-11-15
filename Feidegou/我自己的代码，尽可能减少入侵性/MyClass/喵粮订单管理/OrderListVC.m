@@ -134,6 +134,7 @@ UIScrollViewDelegate
 @property(nonatomic,strong)NSMutableArray <UIView *>*viewMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*tempMutArr;
 @property(nonatomic,strong)UIButton *tempBtn;//触发点
+@property(nonatomic,strong)NSMutableAttributedString *placeholder;
 
 @end
 
@@ -162,7 +163,7 @@ UIScrollViewDelegate
         }else if ([v isMemberOfClass:[UITextField class]]){
             UITextField *t = (UITextField *)v;
             t.placeholder = self.btnTitleMutArr[i];
-        }
+        }else{}
         [self layoutIfNeeded];
         offset = self.mj_w - self.textfield.mj_w - self.viewMutArr[i].mj_w;
     }
@@ -455,20 +456,36 @@ UIScrollViewDelegate
     }return _tradeTypeBtn;
 }
 
+-(NSMutableAttributedString *)placeholder{
+    if (!_placeholder) {
+        _placeholder = [[NSMutableAttributedString alloc] initWithString:self.btnTitleMutArr.lastObject];
+        [_placeholder addAttribute:NSForegroundColorAttributeName
+                      value:[UIColor redColor]
+                      range:NSMakeRange(0, self.btnTitleMutArr.lastObject.length)];
+        [_placeholder addAttribute:NSFontAttributeName
+                      value:[UIFont boldSystemFontOfSize:10]
+                      range:NSMakeRange(0, self.btnTitleMutArr.lastObject.length)];
+    }return _placeholder;
+}
+
 -(UITextField *)textfield{
     if (!_textfield) {
         _textfield = UITextField.new;
+        _textfield.attributedPlaceholder = self.placeholder;
         _textfield.delegate = self;
         [self addSubview:_textfield];
         [_textfield mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self);
             make.right.equalTo(self).offset(SCALING_RATIO(-10));
             [self layoutIfNeeded];
-            make.height.mas_equalTo(self.mj_h / 2);
+            make.height.mas_equalTo(self.mj_h - 5);
+            make.width.mas_equalTo(SCREEN_WIDTH / 3);
         }];
-        [UIView colourToLayerOfView:_textfield
-                         WithColour:kBlackColor
-                     AndBorderWidth:0.5f];
+        [self layoutIfNeeded];
+        [self setBorderWithView:_textfield
+                    borderColor:kBlackColor
+                    borderWidth:0.5f
+                     borderType:UIBorderSideTypeBottom];
     }return _textfield;
 }
 
@@ -650,7 +667,6 @@ UITableViewDataSource
         sender.selected = !sender.selected;
     }
 }
-
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{

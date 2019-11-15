@@ -131,6 +131,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }
      progress:^(NSProgress * _Nonnull uploadProgress) {
         NSLog(@"uploadProgress = %@",uploadProgress);
+        Toast(@"上传图片中...");
     }
       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dataDic = [NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)];
@@ -153,6 +154,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
       failure:^(NSURLSessionDataTask * _Nullable task,
                 NSError * _Nonnull error) {
         NSLog(@"error = %@",error);
+        Toast(@"上传图片失败");
     }];
 }
 

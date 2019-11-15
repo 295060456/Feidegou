@@ -98,6 +98,8 @@
         [self networkingWithArgument:dic];
     }else{
         [YKToastView showToastText:@"请键入查询内容"];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
     }
 }
 
