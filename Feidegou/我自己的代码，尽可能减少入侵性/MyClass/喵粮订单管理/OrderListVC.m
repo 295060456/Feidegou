@@ -8,6 +8,7 @@
 
 #import "OrderListVC.h"
 #import "OrderDetail_SellerVC.h"
+#import "OrderDetail_BuyerVC.h"
 #import "OrderListVC+VM.h"
 
 #pragma mark —— OrderTBVCell
@@ -46,10 +47,10 @@
         OrderListModel *orderListModel = (OrderListModel *)model;
         self.titleLab.text = [NSString stringWithFormat:@"喵粮:%@ g",[NSString ensureNonnullString:orderListModel.quantity ReplaceStr:@"无"]];
         self.timeLab.text = [NSString ensureNonnullString:orderListModel.addTime ReplaceStr:@"无"];
-        if ([orderListModel.seller intValue] == 1) {//APQ
+        if ([orderListModel.identity isEqualToString:@"卖家"]) {
             self.typeImgV.image = kIMG(@"Mf_旌旗_红色");
             self.imgV.backgroundColor = kRedColor;
-        }else{
+        }else if ([orderListModel.identity isEqualToString:@"买家"]){
             self.typeImgV.image = kIMG(@"Mf_旌旗_绿色");
             self.imgV.backgroundColor = KGreenColor;
         }
@@ -693,12 +694,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     @weakify(self)
     OrderListModel *orderListModel = self.dataMutArr[indexPath.row];
-    [OrderDetail_SellerVC pushFromVC:self_weak_
-                       requestParams:@{
-                           @"OrderListModel":orderListModel
-                       }
-                             success:^(id data) {}
-                            animated:YES];
+    if ([orderListModel.identity isEqualToString:@"买家"]) {
+        [OrderDetail_BuyerVC pushFromVC:self_weak_
+                          requestParams:orderListModel
+                                success:^(id data) {}
+                               animated:YES];
+    }else if ([orderListModel.identity isEqualToString:@"卖家"]){
+        [OrderDetail_SellerVC pushFromVC:self_weak_
+                           requestParams:orderListModel
+                                 success:^(id data) {}
+                                animated:YES];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView

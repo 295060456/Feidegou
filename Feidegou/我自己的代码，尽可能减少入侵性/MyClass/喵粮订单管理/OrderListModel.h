@@ -12,25 +12,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderListModel : BaseModel
 
-@property(nonatomic,copy)NSString *payment_print_img_name;
-@property(nonatomic,copy)NSString *finishTime;
-@property(nonatomic,copy)NSString *payment_weixin_img_name;
-@property(nonatomic,copy)NSString *payment_alipay_img_name;
-@property(nonatomic,copy)NSString *payment_alipay_img;
-@property(nonatomic,copy)NSString *bankCard;
-@property(nonatomic,copy)NSString *payTime;
-@property(nonatomic,strong)NSNumber *deleteStatus;
-@property(nonatomic,strong)NSNumber *order_status;
-@property(nonatomic,copy)NSString *payment_weixin_img;
-@property(nonatomic,copy)NSString *payment_print_img_path;
-@property(nonatomic,copy)NSString *updateTime;
-@property(nonatomic,strong)NSNumber *seller;
-@property(nonatomic,copy)NSString *buyer;
-@property(nonatomic,copy)NSString *delTime;
-@property(nonatomic,copy)NSString *bankUser;
-@property(nonatomic,strong)NSNumber *catfoodsale_id;
-@property(nonatomic,copy)NSString *payment_weixin_img_path;
-@property(nonatomic,copy)NSString *payment_alipay_img_path;
+@property(nonatomic,copy)NSString *finishTime;//
+@property(nonatomic,copy)NSString *bankCard;//大写
+@property(nonatomic,copy)NSString *payTime;//大写
+@property(nonatomic,strong)NSNumber *deleteStatus;//
+@property(nonatomic,strong)NSNumber *order_status;//
+@property(nonatomic,copy)NSString *updateTime;//
+@property(nonatomic,strong)NSNumber *seller;//
+@property(nonatomic,copy)NSString *buyer;//
+@property(nonatomic,copy)NSString *delTime;//
+@property(nonatomic,copy)NSString *bankUser;//大写
+@property(nonatomic,strong)NSNumber *catfoodsale_id;//
+@property(nonatomic,copy)NSString *payment_weixin;//
+@property(nonatomic,copy)NSString *payment_alipay;//
+
+@property(nonatomic,copy)NSString *identity;//我自己手动加的字段，如果是卖家则1，如果是买家则0
 
 @end
 

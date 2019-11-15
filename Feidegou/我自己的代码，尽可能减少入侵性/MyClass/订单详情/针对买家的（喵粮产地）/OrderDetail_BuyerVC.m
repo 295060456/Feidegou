@@ -313,7 +313,6 @@ TZImagePickerControllerDelegate
     [self.tableView removeFromSuperview];
     
 }
-
 #pragma mark —— 截取 UIViewController 手势返回事件
 //只有 出 才调用
 - (void)didMoveToParentViewController:(UIViewController*)parent{

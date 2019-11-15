@@ -152,7 +152,6 @@ UITableViewDataSource,
 TZImagePickerControllerDelegate
 >
 
-@property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 @property(nonatomic,strong)UIButton *demoPicBtn;
 @property(nonatomic,strong)UIImageView *imageView;
 @property(nonatomic,strong)UITableView *tableView;
@@ -252,31 +251,27 @@ TZImagePickerControllerDelegate
     [self picBtnClickEvent:Nil];
 }
 
+-(void)OK{
+    NSLog(@"OK");
+}
+
 -(void)picBtnClickEvent:(UIButton *)sender{
     NSLog(@"相册");
+    [self choosePic];
     @weakify(self)
-    [ECAuthorizationTools checkAndRequestAccessForType:ECPrivacyType_Photos
-                                          accessStatus:^(ECAuthorizationStatus status,
-                                                         ECPrivacyType type) {
+    [self GettingPicBlock:^(id data) {
         @strongify(self)
-        // status 即为权限状态，
-        //状态类型参考：ECAuthorizationStatus
-        NSLog(@"%lu",(unsigned long)status);
-        if (status == ECAuthorizationStatus_Authorized) {
-            
-//            [self presentViewController:TestVC.new
-//                               animated:YES
-//                             completion:Nil];
-            
-            [self presentViewController:self.imagePickerVC
-                                     animated:YES
-                                   completion:nil];
-        }else{
-            NSLog(@"相册不可用:%lu",(unsigned long)status);
-            [self showAlertViewTitle:@"获取相册权限"
-                                   message:@""
-                               btnTitleArr:@[@"去获取"]
-                            alertBtnAction:@[@"pushToSysConfig"]];
+        if ([data isKindOfClass:[NSArray class]]) {
+            NSArray *arrData = (NSArray *)data;
+            if (arrData.count == 1) {
+                [self.cell reloadPicBtnIMG:arrData.lastObject];
+                self.pic = arrData.lastObject;
+            }else{
+                [self showAlertViewTitle:@"选择一张相片就够啦"
+                       message:@"不要画蛇添足"
+                   btnTitleArr:@[@"好的"]
+                alertBtnAction:@[@"OK"]];
+            }
         }
     }];
 }
@@ -417,32 +412,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _tipLab;
 }
 
--(TZImagePickerController *)imagePickerVC{
-    if (!_imagePickerVC) {
-        _imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:9
-                                                                        delegate:self];
-        @weakify(self)
-        [_imagePickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos,
-                                                          NSArray *assets,
-                                                          BOOL isSelectOriginalPhoto) {
-            @strongify(self)
-            if (photos.count == 1) {
-                [self.cell reloadPicBtnIMG:photos.lastObject];
-                self.pic = photos.lastObject;
-            }else{
-                [self showAlertViewTitle:@"选择一张相片就够啦"
-                                 message:@"不要画蛇添足"
-                             btnTitleArr:@[@"好的"]
-                          alertBtnAction:@[@"OK"]];
-            }
-        }];
-    }return _imagePickerVC;
-}
-
--(void)OK{
-    NSLog(@"OK");
-}
-
 -(NSMutableArray<NSString *> *)tipsMutArr{
     if (!_tipsMutArr) {
         _tipsMutArr = NSMutableArray.array;
@@ -451,5 +420,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [_tipsMutArr addObject:@"同笔账单切勿重复上传，若造成资金损失，平台概不负责"];
     }return _tipsMutArr;
 }
+
+
 
 @end

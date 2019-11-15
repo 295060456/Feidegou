@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;
 - (void)richElementsInCellWithModel:(id _Nullable)model;
 
--(void)actionSureBlock:(DataBlock)block;
+-(void)actionDeliverBlock:(DataBlock)block;
 -(void)actionCancelBlock:(DataBlock)block;
 
 @end

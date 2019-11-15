@@ -14,8 +14,6 @@
 TZImagePickerControllerDelegate
 >
 
-//@property(nonatomic,strong)id requestParams;//父类有
-@property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
@@ -61,15 +59,24 @@ TZImagePickerControllerDelegate
 }
 
 -(void)upLoadbtnClickEvent:(UIButton *)sender{
-    NSLog(@"1234");
     if (self.pic) {
-//        [self uploadPic_netWorking:self.pic];
-        [self showAlertViewTitle:@"是否确定上传此张图片？"
-                         message:@"请再三核对不要选错啦"
-                     btnTitleArr:@[@"继续上传",
-                                   @"我选错啦"]
-                  alertBtnAction:@[@"GoUploadPic",
-                                   @"sorry"]];
+        [self choosePic];
+        @weakify(self)
+        [self GettingPicBlock:^(id data) {
+            @strongify(self)
+            if ([data isKindOfClass:[NSArray class]]) {
+                NSArray *arrData = (NSArray *)data;
+                if (arrData.count == 1) {
+                    [self.cell reloadPicBtnIMG:arrData.lastObject];
+                    self.pic = arrData.lastObject;
+                }else{
+                    [self showAlertViewTitle:@"选择一张相片就够啦"
+                           message:@"不要画蛇添足"
+                       btnTitleArr:@[@"好的"]
+                    alertBtnAction:@[@"OK"]];
+                }
+            }
+        }];
     }else{
         Toast(@"请点选图片");
     }
@@ -79,26 +86,6 @@ TZImagePickerControllerDelegate
     [self uploadPic_netWorking:self.pic];
 }
 
--(TZImagePickerController *)imagePickerVC{
-    if (!_imagePickerVC) {
-        _imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:9
-                                                                        delegate:self];
-        @weakify(self)
-        [_imagePickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos,
-                                                          NSArray *assets,
-                                                          BOOL isSelectOriginalPhoto) {
-            @strongify(self)
-            if (photos.count == 1) {
-                [self.cell reloadPicBtnIMG:photos.lastObject];
-                self.pic = photos.lastObject;
-            }else{
-                [self showAlertViewTitle:@"选择一张相片就够啦"
-                                 message:@"不要画蛇添足"
-                             btnTitleArr:@[@"好的"]
-                          alertBtnAction:@[@"OK"]];
-            }
-        }];
-    }return _imagePickerVC;
-}
+
 
 @end

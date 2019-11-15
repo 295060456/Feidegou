@@ -18,6 +18,7 @@ JXCategoryListContentViewDelegate
 @property(nonatomic,copy)DataBlock didComingBlock;
 @property(nonatomic,copy)DataBlock willBackBlock;
 @property(nonatomic,copy)DataBlock didBackBlock;
+@property(nonatomic,copy)DataBlock picBlock;
 
 @end
 
@@ -90,6 +91,10 @@ JXCategoryListContentViewDelegate
 
 -(void)VCdidBackBlock:(DataBlock)block{//已经出去
     self.didBackBlock = block;
+}
+
+-(void)GettingPicBlock:(DataBlock)block{//点选的图片
+    self.picBlock = block;
 }
 #pragma mark —— JXCategoryListContentViewDelegate
 /**
@@ -244,6 +249,29 @@ JXCategoryListContentViewDelegate
         statusBar.backgroundColor = color;
     }
 }
+//选择图片
+-(void)choosePic{
+    @weakify(self)
+    [ECAuthorizationTools checkAndRequestAccessForType:ECPrivacyType_Photos
+                                          accessStatus:^(ECAuthorizationStatus status,
+                                                         ECPrivacyType type) {
+        @strongify(self)
+        // status 即为权限状态，
+        //状态类型参考：ECAuthorizationStatus
+        NSLog(@"%lu",(unsigned long)status);
+        if (status == ECAuthorizationStatus_Authorized) {
+            [self presentViewController:self.imagePickerVC
+                                     animated:YES
+                                   completion:nil];
+        }else{
+            NSLog(@"相册不可用:%lu",(unsigned long)status);
+            [self showAlertViewTitle:@"获取相册权限"
+                                   message:@""
+                               btnTitleArr:@[@"去获取"]
+                            alertBtnAction:@[@"pushToSysConfig"]];
+        }
+    }];
+}
 #pragma mark —— 子类需要覆写
 -(void)backBtnClickEvent:(UIButton *)sender{
     NSLog(@"返回");
@@ -256,7 +284,9 @@ JXCategoryListContentViewDelegate
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
 }
-
+-(void)OK{
+    
+}
 #pragma mark —— lazyLoad
 -(MJRefreshGifHeader *)tableViewHeader{
     if (!_tableViewHeader) {
@@ -327,6 +357,23 @@ JXCategoryListContentViewDelegate
            forControlEvents:UIControlEventTouchUpInside];
     }return _backBtn;
 }
+
+-(TZImagePickerController *)imagePickerVC{
+    if (!_imagePickerVC) {
+        _imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:9
+                                                                        delegate:self];
+        @weakify(self)
+        [_imagePickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos,
+                                                          NSArray *assets,
+                                                          BOOL isSelectOriginalPhoto) {
+            @strongify(self)
+            if (self.picBlock) {
+                self.picBlock(photos);
+            }
+        }];
+    }return _imagePickerVC;
+}
+
 
 @end
 

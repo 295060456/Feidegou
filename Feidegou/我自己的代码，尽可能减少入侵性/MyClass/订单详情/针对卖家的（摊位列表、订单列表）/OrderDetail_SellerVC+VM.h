@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)netWorkingWithArgumentURL:(NSString *)url
                          ORDERID:(int)orderID;
 
+-(void)发货;
+
 @end
 
 NS_ASSUME_NONNULL_END

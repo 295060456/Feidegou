@@ -84,16 +84,13 @@ UITableViewDataSource,
 TZImagePickerControllerDelegate
 >
 
-@property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 @property(nonatomic,strong)__block UIImage *img;
-
-//@property(nonatomic,strong)UIButton *uploadPrintBtn;//上传支付凭证
-
 
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,assign)BOOL isFirstComing;
+//@property(nonatomic,strong)UIButton *uploadPrintBtn;//上传支付凭证
 
 @end
 
@@ -202,7 +199,6 @@ TZImagePickerControllerDelegate
 -(void)sorry{
     [self gettingPrintPic];
 }
-
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -237,25 +233,29 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(void)gettingPrintPic{
     @weakify(self)
-    [ECAuthorizationTools checkAndRequestAccessForType:ECPrivacyType_Photos
-                                          accessStatus:^(ECAuthorizationStatus status,
-                                                         ECPrivacyType type) {
-        @strongify(self)
-        // status 即为权限状态，
-        //状态类型参考：ECAuthorizationStatus
-        NSLog(@"%lu",(unsigned long)status);
-        if (status == ECAuthorizationStatus_Authorized) {
-            [self presentViewController:self_weak_.imagePickerVC
-                               animated:YES
-                             completion:nil];
-        }else{
-            NSLog(@"相册不可用:%lu",(unsigned long)status);
-            [self showAlertViewTitle:@"获取相册权限"
-                             message:@""
-                         btnTitleArr:@[@"去获取"]
-                      alertBtnAction:@[@"pushToSysConfig"]];
-        }
-    }];
+    
+    [self choosePic];
+//    [self ];
+    
+//    [ECAuthorizationTools checkAndRequestAccessForType:ECPrivacyType_Photos
+//                                          accessStatus:^(ECAuthorizationStatus status,
+//                                                         ECPrivacyType type) {
+//        @strongify(self)
+//        // status 即为权限状态，
+//        //状态类型参考：ECAuthorizationStatus
+//        NSLog(@"%lu",(unsigned long)status);
+//        if (status == ECAuthorizationStatus_Authorized) {
+//            [self presentViewController:self_weak_.imagePickerVC
+//                               animated:YES
+//                             completion:nil];
+//        }else{
+//            NSLog(@"相册不可用:%lu",(unsigned long)status);
+//            [self showAlertViewTitle:@"获取相册权限"
+//                             message:@""
+//                         btnTitleArr:@[@"去获取"]
+//                      alertBtnAction:@[@"pushToSysConfig"]];
+//        }
+//    }];
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -268,7 +268,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-
 //给cell添加动画
 -(void)tableView:(UITableView *)tableView
  willDisplayCell:(UITableViewCell *)cell
@@ -322,40 +321,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             make.left.right.bottom.equalTo(self.view);
         }];
     }return _tableView;
-}
-
--(TZImagePickerController *)imagePickerVC{
-    if (!_imagePickerVC) {
-        _imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:9
-                                                                        delegate:self];
-        @weakify(self)
-        [_imagePickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos,
-                                                          NSArray *assets,
-                                                          BOOL isSelectOriginalPhoto) {
-            @strongify(self)
-            if (photos.count == 1) {
-//                upLoadbtnClickEvent
-                [self.tableView reloadData];
-                self.img = photos.lastObject;
-                if ([self.requestParams[1] intValue] == 0) {
-                    [self.deliverBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-                        make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
-                                                           (self.titleMutArr.count - 1) * [WholesaleOrdersTBVCell cellHeightWithModel:nil] +
-                                                           [WholesaleOrdersTBVCell cellHeightWithModel:self.img] +
-                                                           SCALING_RATIO(30));//附加值
-                    }];
-                    self.deliverBtn.alpha = 1;
-                }else if ([self.requestParams[1] intValue] == 2){
-                    self.imgView.image = photos.lastObject;
-                }else{}
-            }else{
-                [self showAlertViewTitle:@"选择一张相片就够啦"
-                                 message:@"不要画蛇添足"
-                             btnTitleArr:@[@"好的"]
-                          alertBtnAction:@[@"OK"]];
-            }
-        }];
-    }return _imagePickerVC;
 }
 
 -(UIButton *)deliverBtn{
@@ -435,3 +400,27 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 @end
+
+//            @strongify(self)
+//            if (photos.count == 1) {
+////                upLoadbtnClickEvent
+//                [self.tableView reloadData];
+//                self.img = photos.lastObject;
+//                if ([self.requestParams[1] intValue] == 0) {
+//                    [self.deliverBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+//                        make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
+//                                                           (self.titleMutArr.count - 1) * [WholesaleOrdersTBVCell cellHeightWithModel:nil] +
+//                                                           [WholesaleOrdersTBVCell cellHeightWithModel:self.img] +
+//                                                           SCALING_RATIO(30));//附加值
+//                    }];
+//                    self.deliverBtn.alpha = 1;
+//                }else if ([self.requestParams[1] intValue] == 2){
+//                    self.imgView.image = photos.lastObject;
+//                }else{}
+//            }else{
+//                [self showAlertViewTitle:@"选择一张相片就够啦"
+//                                 message:@"不要画蛇添足"
+//                             btnTitleArr:@[@"好的"]
+//                          alertBtnAction:@[@"OK"]];
+//            }
+//        }];

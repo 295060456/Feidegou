@@ -222,6 +222,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    [self.tableView endUpdates];
 //    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
 //                    withRowAnimation:UITableViewRowAnimationNone];
+    
 
     @weakify(self)
     [OrderDetail_BuyerVC pushFromVC:self_weak_

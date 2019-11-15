@@ -17,7 +17,6 @@ UITableViewDataSource,
 TZImagePickerControllerDelegate
 >
 
-@property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 @property(nonatomic,strong)UIButton *cancelBtn;
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)__block UIImage *img;
@@ -97,34 +96,31 @@ TZImagePickerControllerDelegate
 #pragma mark —— 点击事件
 -(void)paidBtnClickEvent:(UIButton *)sender{
     if ([sender.titleLabel.text isEqualToString:@"上传付款凭证"]) {
-        NSLog(@"上传付款凭证");
-        @weakify(self)
-        [ECAuthorizationTools checkAndRequestAccessForType:ECPrivacyType_Photos
-                                              accessStatus:^(ECAuthorizationStatus status,
-                                                             ECPrivacyType type) {
-            @strongify(self)
-            // status 即为权限状态，
-            //状态类型参考：ECAuthorizationStatus
-            NSLog(@"%lu",(unsigned long)status);
-            if (status == ECAuthorizationStatus_Authorized) {
-                [self presentViewController:self.imagePickerVC
-                                         animated:YES
-                                       completion:nil];
-            }else{
-                NSLog(@"相册不可用:%lu",(unsigned long)status);
-                [self showAlertViewTitle:@"获取相册权限"
-                                       message:@""
-                                   btnTitleArr:@[@"去获取"]
-                                alertBtnAction:@[@"pushToSysConfig"]];
-            }
-        }];
+         NSLog(@"上传付款凭证");
+                @weakify(self)
+                [self choosePic];
+                [self GettingPicBlock:^(id data) {
+                    @strongify(self)
+                    if ([data isKindOfClass:[NSArray class]]) {
+                        NSArray *arrData = (NSArray *)data;
+                        if (arrData.count == 1) {
+                            self.img = arrData.lastObject;
+        //                    [self prepareToUploadPic];
+                        }else{
+                            [self showAlertViewTitle:@"选择一张相片就够啦"
+                                             message:@"不要画蛇添足"
+                                         btnTitleArr:@[@"好的"]
+                                      alertBtnAction:@[@"OK"]];
+                        }
+                    }
+                }];
     }else if ([sender.titleLabel.text isEqualToString:@"已付款"]){
         if (self.img) {
             NSLog(@"网络请求 传 self.img");
             [self.navigationController popViewControllerAnimated:YES];
             [self removeWholesaleMarket_AdvancePopView];
         }
-    }
+    }else{}
 }
 
 -(void)cancelBtnClickEvent:(UIButton *)sender{
@@ -282,28 +278,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     [self paidBtnClickEvent:self.paidBtn];
 }
 
--(TZImagePickerController *)imagePickerVC{
-    if (!_imagePickerVC) {
-        _imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:9
-                                                                        delegate:self];
-        @weakify(self)
-        [_imagePickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos,
-                                                          NSArray *assets,
-                                                          BOOL isSelectOriginalPhoto) {
-            @strongify(self)
-            if (photos.count == 1) {
-                self.img = photos.lastObject;
-                [self prepareToUploadPic];
-            }else{
-                [self showAlertViewTitle:@"选择一张相片就够啦"
-                                 message:@"不要画蛇添足"
-                             btnTitleArr:@[@"好的"]
-                          alertBtnAction:@[@"OK"]];
-            }
-        }];
-    }return _imagePickerVC;
-}
-
 -(NSMutableArray<NSString *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
@@ -321,5 +295,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _dataArr = NSMutableArray.array;
     }return _dataArr;
 }
+
+
     
 @end

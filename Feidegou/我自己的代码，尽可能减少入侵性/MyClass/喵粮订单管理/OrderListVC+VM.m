@@ -143,6 +143,12 @@
                                                         BOOL * _Nonnull stop) {
                         @strongify(self)
                         OrderListModel *model = array[idx];
+                        ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+                        if ([modelLogin.userId intValue] == [model.seller intValue]) {
+                            model.identity = @"卖家";
+                        }else{
+                            model.identity = @"买家";
+                        }
                         [self.dataMutArr addObject:model];
                     }];
                     self.tableView.mj_footer.hidden = NO;
