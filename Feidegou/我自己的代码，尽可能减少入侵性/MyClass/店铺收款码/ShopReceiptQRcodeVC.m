@@ -201,27 +201,27 @@ TZImagePickerControllerDelegate
     }return _upLoadBtn;
 }
 
--(TZImagePickerController *)imagePickerVC{
-    if (!_imagePickerVC) {
-        _imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:9
-                                                                        delegate:self];
-        @weakify(self)
-        [_imagePickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos,
-                                                          NSArray *assets,
-                                                          BOOL isSelectOriginalPhoto) {
-            @strongify(self)
-            if (photos.count == 1) {
-                self.img = photos.lastObject;
-                [self upLoadbtnClickEvent];
-            }else{
-                [self showAlertViewTitle:@"选择一张相片就够啦"
-                                 message:@"不要画蛇添足"
-                             btnTitleArr:@[@"好的"]
-                          alertBtnAction:@[@"OK"]];
-            }
-        }];
-    }return _imagePickerVC;
-}
+//-(TZImagePickerController *)imagePickerVC{
+//    if (!_imagePickerVC) {
+//        _imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:9
+//                                                                        delegate:self];
+//        @weakify(self)
+//        [_imagePickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos,
+//                                                          NSArray *assets,
+//                                                          BOOL isSelectOriginalPhoto) {
+//            @strongify(self)
+//            if (photos.count == 1) {
+//                self.img = photos.lastObject;
+//                [self upLoadbtnClickEvent];
+//            }else{
+//                [self showAlertViewTitle:@"选择一张相片就够啦"
+//                                 message:@"不要画蛇添足"
+//                             btnTitleArr:@[@"好的"]
+//                          alertBtnAction:@[@"OK"]];
+//            }
+//        }];
+//    }return _imagePickerVC;
+//}
 
 -(void)OK{
     NSLog(@"OK");

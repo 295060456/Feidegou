@@ -235,7 +235,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     @weakify(self)
     
     [self choosePic];
-//    [self ];
+//    [];
+//    [self ch];
+//    [self ]
+
     
 //    [ECAuthorizationTools checkAndRequestAccessForType:ECPrivacyType_Photos
 //                                          accessStatus:^(ECAuthorizationStatus status,
