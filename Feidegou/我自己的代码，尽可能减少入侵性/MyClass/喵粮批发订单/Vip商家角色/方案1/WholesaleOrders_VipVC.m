@@ -14,8 +14,7 @@
 
 <
 UITableViewDelegate,
-UITableViewDataSource,
-TZImagePickerControllerDelegate
+UITableViewDataSource
 >
 
 @property(nonatomic,strong)UIButton *cancelBtn;

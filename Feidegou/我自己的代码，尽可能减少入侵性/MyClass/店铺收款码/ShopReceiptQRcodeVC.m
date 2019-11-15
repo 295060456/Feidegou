@@ -10,14 +10,10 @@
 #import "ShopReceiptQRcodeVC+VM.h"
 
 @interface ShopReceiptQRcodeVC ()
-<
-TZImagePickerControllerDelegate
->
 {}
 
 @property(nonatomic,strong)UIButton *upLoadBtn;
 @property(nonatomic,strong)UIImage *img;
-@property(nonatomic,weak)TZImagePickerController *imagePickerVC;
 
 @property(nonatomic,assign)int tap;
 @property(nonatomic,strong)id requestParams;
@@ -36,11 +32,9 @@ TZImagePickerControllerDelegate
              requestParams:(nullable id)requestParams
                    success:(DataBlock)block
                   animated:(BOOL)animated{
-
     ShopReceiptQRcodeVC *vc = ShopReceiptQRcodeVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-
     if (rootVC.navigationController) {
         vc.isPush = YES;
         vc.isPresent = NO;
@@ -54,7 +48,6 @@ TZImagePickerControllerDelegate
                            completion:^{}];
     }return vc;
 }
-
 #pragma mark - Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
@@ -88,6 +81,10 @@ TZImagePickerControllerDelegate
         [self QRcode];
     }
 }
+
+-(void)OK{
+    NSLog(@"OK");
+}
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
@@ -96,23 +93,15 @@ TZImagePickerControllerDelegate
 -(void)upLoadBtnClickEvent:(UIButton *)sender{
     NSLog(@"上传二维码");
     @weakify(self)
-    [ECAuthorizationTools checkAndRequestAccessForType:ECPrivacyType_Photos
-                                          accessStatus:^(ECAuthorizationStatus status,
-                                                         ECPrivacyType type) {
+    [self choosePic];
+    [self GettingPicBlock:^(id data) {
         @strongify(self)
-        // status 即为权限状态，
-        //状态类型参考：ECAuthorizationStatus
-        NSLog(@"%lu",(unsigned long)status);
-        if (status == ECAuthorizationStatus_Authorized) {
-            [self presentViewController:self_weak_.imagePickerVC
-                               animated:YES
-                             completion:nil];
-        }else{
-            NSLog(@"相册不可用:%lu",(unsigned long)status);
-            [self showAlertViewTitle:@"获取相册权限"
-                             message:@""
-                         btnTitleArr:@[@"去获取"]
-                      alertBtnAction:@[@"pushToSysConfig"]];
+        if ([data isKindOfClass:[NSArray class]]) {
+            NSArray *arrData = (NSArray *)data;
+            if (arrData.count == 1) {
+                self.img = arrData.lastObject;
+                [self upLoadbtnClickEvent];
+            }
         }
     }];
 }
@@ -200,32 +189,5 @@ TZImagePickerControllerDelegate
              forControlEvents:UIControlEventTouchUpInside];
     }return _upLoadBtn;
 }
-
-//-(TZImagePickerController *)imagePickerVC{
-//    if (!_imagePickerVC) {
-//        _imagePickerVC = [[TZImagePickerController alloc] initWithMaxImagesCount:9
-//                                                                        delegate:self];
-//        @weakify(self)
-//        [_imagePickerVC setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos,
-//                                                          NSArray *assets,
-//                                                          BOOL isSelectOriginalPhoto) {
-//            @strongify(self)
-//            if (photos.count == 1) {
-//                self.img = photos.lastObject;
-//                [self upLoadbtnClickEvent];
-//            }else{
-//                [self showAlertViewTitle:@"选择一张相片就够啦"
-//                                 message:@"不要画蛇添足"
-//                             btnTitleArr:@[@"好的"]
-//                          alertBtnAction:@[@"OK"]];
-//            }
-//        }];
-//    }return _imagePickerVC;
-//}
-
--(void)OK{
-    NSLog(@"OK");
-}
-
 
 @end

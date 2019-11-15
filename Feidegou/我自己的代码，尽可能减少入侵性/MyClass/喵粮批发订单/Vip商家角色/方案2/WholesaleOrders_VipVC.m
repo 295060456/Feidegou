@@ -80,8 +80,7 @@
 @interface WholesaleOrders_VipVC ()
 <
 UITableViewDelegate,
-UITableViewDataSource,
-TZImagePickerControllerDelegate
+UITableViewDataSource
 >
 
 @property(nonatomic,strong)__block UIImage *img;
@@ -233,32 +232,33 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(void)gettingPrintPic{
     @weakify(self)
-    
     [self choosePic];
-//    [];
-//    [self ch];
-//    [self ]
-
-    
-//    [ECAuthorizationTools checkAndRequestAccessForType:ECPrivacyType_Photos
-//                                          accessStatus:^(ECAuthorizationStatus status,
-//                                                         ECPrivacyType type) {
-//        @strongify(self)
-//        // status 即为权限状态，
-//        //状态类型参考：ECAuthorizationStatus
-//        NSLog(@"%lu",(unsigned long)status);
-//        if (status == ECAuthorizationStatus_Authorized) {
-//            [self presentViewController:self_weak_.imagePickerVC
-//                               animated:YES
-//                             completion:nil];
-//        }else{
-//            NSLog(@"相册不可用:%lu",(unsigned long)status);
-//            [self showAlertViewTitle:@"获取相册权限"
-//                             message:@""
-//                         btnTitleArr:@[@"去获取"]
-//                      alertBtnAction:@[@"pushToSysConfig"]];
-//        }
-//    }];
+    [self GettingPicBlock:^(id data) {
+        @strongify(self)
+        if ([data isKindOfClass:[NSArray class]]) {
+            NSArray *arrData = (NSArray *)data;
+            if (arrData.count == 1) {
+                [self.tableView reloadData];
+                self.img = photos.lastObject;
+                if ([self.requestParams[1] intValue] == 0) {
+                    [self.deliverBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+                        make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
+                                                           (self.titleMutArr.count - 1) * [WholesaleOrdersTBVCell cellHeightWithModel:nil] +
+                                                           [WholesaleOrdersTBVCell cellHeightWithModel:self.img] +
+                                                           SCALING_RATIO(30));//附加值
+                    }];
+                    self.deliverBtn.alpha = 1;
+                }else if ([self.requestParams[1] intValue] == 2){
+                    self.imgView.image = photos.lastObject;
+                }else{}
+            }else{
+                [self showAlertViewTitle:@"选择一张相片就够啦"
+                                 message:@"不要画蛇添足"
+                             btnTitleArr:@[@"好的"]
+                          alertBtnAction:@[@"OK"]];
+            }
+        }
+    }];
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -404,26 +404,4 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 
 @end
 
-//            @strongify(self)
-//            if (photos.count == 1) {
-////                upLoadbtnClickEvent
-//                [self.tableView reloadData];
-//                self.img = photos.lastObject;
-//                if ([self.requestParams[1] intValue] == 0) {
-//                    [self.deliverBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-//                        make.top.equalTo(self.view).offset(self.gk_navigationBar.mj_h +
-//                                                           (self.titleMutArr.count - 1) * [WholesaleOrdersTBVCell cellHeightWithModel:nil] +
-//                                                           [WholesaleOrdersTBVCell cellHeightWithModel:self.img] +
-//                                                           SCALING_RATIO(30));//附加值
-//                    }];
-//                    self.deliverBtn.alpha = 1;
-//                }else if ([self.requestParams[1] intValue] == 2){
-//                    self.imgView.image = photos.lastObject;
-//                }else{}
-//            }else{
-//                [self showAlertViewTitle:@"选择一张相片就够啦"
-//                                 message:@"不要画蛇添足"
-//                             btnTitleArr:@[@"好的"]
-//                          alertBtnAction:@[@"OK"]];
-//            }
-//        }];
+

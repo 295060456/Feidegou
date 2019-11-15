@@ -10,9 +10,7 @@
 #import "UpLoadHavePaidVC+VM.h"
 
 @interface UpLoadHavePaidVC ()
-<
-TZImagePickerControllerDelegate
->
+
 
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;

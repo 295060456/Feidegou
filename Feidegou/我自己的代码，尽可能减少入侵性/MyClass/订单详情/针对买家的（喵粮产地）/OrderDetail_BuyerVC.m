@@ -249,9 +249,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 @interface OrderDetail_BuyerVC ()
 <
 UITableViewDelegate,
-UITableViewDataSource,
-TZImagePickerControllerDelegate
->{
+UITableViewDataSource
+>
+{
     CGFloat OrderDetail_BuyerTBVCell_01_Hight;
 }
 

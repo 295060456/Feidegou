@@ -148,8 +148,7 @@
 @interface UpLoadCancelReasonVC ()
 <
 UITableViewDelegate,
-UITableViewDataSource,
-TZImagePickerControllerDelegate
+UITableViewDataSource
 >
 
 @property(nonatomic,strong)UIButton *demoPicBtn;
