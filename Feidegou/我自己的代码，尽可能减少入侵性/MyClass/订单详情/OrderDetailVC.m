@@ -30,12 +30,11 @@ UITableViewDataSource
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,strong)id popGestureDelegate; //用来保存系统手势的代理
-@property(nonatomic,strong)OrderListModel *orderListModel;
 
 @end
 
 @implementation OrderDetailVC
-
+//上个页面给数据，本页面手动的刷新
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
@@ -46,7 +45,7 @@ UITableViewDataSource
                             animated:(BOOL)animated{
     OrderDetailVC *vc = OrderDetailVC.new;
     vc.successBlock = block;
-    vc.requestParams = requestParams;
+    vc.requestParams = requestParams;//OrderListModel
     if ([vc.requestParams isKindOfClass:[OrderListModel class]]) {
         vc.orderListModel = (OrderListModel *)vc.requestParams;
     }
@@ -74,6 +73,7 @@ UITableViewDataSource
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     if (self.orderListModel) {
         if ([self.orderListModel.order_type intValue] == 1) {//摊位 只有卖家
+            self.gk_navTitle = @"卖家订单详情";
         }else if ([self.orderListModel.order_type intValue] == 2){//批发 买家 & 卖家
             //先判断是买家还是卖家 deal :1、买；2、卖
             if ([self.orderListModel.deal intValue] == 1) {//买
@@ -118,21 +118,20 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.tableView.mj_header beginRefreshing];//
 }
 #pragma mark —— 私有方法
-// 下拉刷新
+// 手动下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
-//    if (self.dataMutArr.count) {
-//        [self.dataMutArr removeAllObjects];
-//    }
-//    [self netWorking];
+    if (self.dataMutArr.count) {
+        [self.dataMutArr removeAllObjects];
+    }
+    [self netWorking];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-//    [self netWorking];
+    [self netWorking];
 }
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
@@ -413,6 +412,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _stringPickerView;
 }
 
+-(NSMutableArray<NSString *> *)dataMutArr{
+    if (!_dataMutArr) {
+        _dataMutArr = NSMutableArray.array;
+    }return _dataMutArr;
+}
+
 @end
 
 #pragma mark —— InfoView
@@ -425,6 +430,7 @@ UITableViewDataSource
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*tempMutArr;
+@property(nonatomic,strong)OrderListModel *orderListModel;
 
 @end
 
@@ -446,14 +452,42 @@ UITableViewDataSource
 - (void)richElementsInCellWithModel:(id _Nullable)model{//OrderListModel
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     if ([model isKindOfClass:[OrderListModel class]]) {
-        OrderListModel *orderListModel = (OrderListModel *)model;
-        [self.tempMutArr addObject:[NSString ensureNonnullString:orderListModel.ordercode ReplaceStr:@"无"]];
-        [self.tempMutArr addObject:[NSString ensureNonnullString:orderListModel.price ReplaceStr:@"无"]];
-        [self.tempMutArr addObject:[NSString ensureNonnullString:orderListModel.rental ReplaceStr:@"无"]];
-        [self.tempMutArr addObject:@"账号"];
-        [self.tempMutArr addObject:@"银行卡"];
-        [self.tempMutArr addObject:[NSString ensureNonnullString:orderListModel.refer ReplaceStr:@"无"]];
-        [self.tempMutArr addObject:[NSString ensureNonnullString:orderListModel.updateTime ReplaceStr:@"无"]];
+        self.orderListModel = (OrderListModel *)model;
+        
+        [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"]];//订单号
+        [self.tempMutArr addObject:[[NSString ensureNonnullString:self.orderListModel.price ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//单价
+        [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@"无"]];//数量
+        [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.rental ReplaceStr:@"无"]];//总额
+        switch ([self.orderListModel.payment_status intValue]) {//支付方式: 1、支付宝;2、微信;3、银行卡
+            case 1:{
+                [self.tempMutArr addObject:@"支付宝"];
+            }break;
+            case 2:{
+                [self.tempMutArr addObject:@"微信"];
+            }break;
+             case 3:{
+                 [self.tempMutArr addObject:@"银行卡"];
+             }break;
+            default:
+                [self.tempMutArr addObject:@"无支付方式"];
+                break;
+        }
+        //1、支付宝;2、微信;3、银行卡
+        if ([self.orderListModel.payment_status intValue] == 3) {//银行卡
+            [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankCard ReplaceStr:@"暂无信息"]];//银行卡号
+            [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankUser ReplaceStr:@"暂无信息"]];//姓名
+            [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankName ReplaceStr:@"暂无信息"]];//银行类型
+            [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankaddress ReplaceStr:@"暂无信息"]];//支行信息
+        }else if ([self.orderListModel.payment_status intValue] == 2){//微信
+            [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.payment_weixin ReplaceStr:@"无"]];
+        }else if ([self.orderListModel.payment_status intValue] == 1){//支付宝
+            [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.payment_alipay ReplaceStr:@"无"]];
+        }else{
+            [self.tempMutArr addObject:@"无支付账户"];
+        }
+        [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.refer ReplaceStr:@"无"]];//参考号
+        [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.updateTime ReplaceStr:@"无"]];//时间
+        
         [self.tableView reloadData];
     }
     self.tableView.alpha = 1;
@@ -506,11 +540,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSMutableArray<NSString *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
-        [_titleMutArr addObject:@"订单:"];
+        [_titleMutArr addObject:@"订单号:"];
         [_titleMutArr addObject:@"单价:"];
+        [_titleMutArr addObject:@"数量:"];
         [_titleMutArr addObject:@"总价:"];
-        [_titleMutArr addObject:@"账号:"];
         [_titleMutArr addObject:@"支付方式:"];
+        if ([self.orderListModel.payment_status intValue] == 3) {//1、支付宝;2、微信;3、银行卡
+            [_titleMutArr addObject:@"银行卡号:"];
+            [_titleMutArr addObject:@"姓名:"];
+            [_titleMutArr addObject:@"银行类型:"];
+            [_titleMutArr addObject:@"支行信息:"];
+        }else{
+            [_titleMutArr addObject:@"账号:"];
+        }
         [_titleMutArr addObject:@"参考号:"];
         [_titleMutArr addObject:@"下单时间:"];
     }return _titleMutArr;

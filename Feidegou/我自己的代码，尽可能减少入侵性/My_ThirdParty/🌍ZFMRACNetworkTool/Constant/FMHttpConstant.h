@@ -20,7 +20,7 @@
 #define BaseUrl2 @"http://10.1.41.158:8080"
 //丹尼尔的
 #define WebSocketLocalhost @"10.1.41.174"
-#define AK @"http://10.1.41.174:8080/SHOPAPP2.0/appShop7/query.do"
+#define AK @"http://10.1.41.174:8888/SHOPAPP2.0/appShop7/query.do"
 #define YQM @"http://10.1.41.174:8080/SHOPAPP2.0/appShop7/write.do"
 
 //ashui

@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderDetailVC (VM)
 
+-(void)netWorking;
+-(void)cancelOrder_netWorking;
+
 @end
 
 NS_ASSUME_NONNULL_END
