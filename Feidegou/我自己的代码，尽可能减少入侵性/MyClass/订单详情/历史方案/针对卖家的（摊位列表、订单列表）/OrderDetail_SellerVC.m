@@ -609,7 +609,6 @@ UITableViewDataSource
 
 @property(nonatomic,strong)BRStringPickerView *stringPickerView;
 
-
 @property(nonatomic,strong)__block UIImage *pic;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -933,7 +932,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         };
     }return _stringPickerView;
 }
-//self.pic
+
 
 
 

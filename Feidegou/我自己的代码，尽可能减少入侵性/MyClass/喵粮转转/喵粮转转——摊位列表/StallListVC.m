@@ -7,7 +7,7 @@
 //
 
 #import "StallListVC.h"
-#import "OrderDetail_SellerVC.h"
+//#import "OrderDetail_SellerVC.h"
 #import "StallListVC+VM.h"
 
 @interface StallListTBVCell ()
@@ -258,10 +258,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //                    withRowAnimation:UITableViewRowAnimationNone];
     
     @weakify(self)
-    [OrderDetail_SellerVC pushFromVC:self_weak_
-                       requestParams:self.dataMutArr[indexPath.row]
-                             success:^(id data) {}
-                            animated:YES];
+//    [OrderDetail_SellerVC pushFromVC:self_weak_
+//                       requestParams:self.dataMutArr[indexPath.row]
+//                             success:^(id data) {}
+//                            animated:YES];
 }
 //给cell添加动画
 -(void)tableView:(UITableView *)tableView

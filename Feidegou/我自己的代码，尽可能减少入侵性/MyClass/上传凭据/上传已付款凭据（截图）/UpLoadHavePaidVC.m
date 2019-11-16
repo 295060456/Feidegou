@@ -58,32 +58,11 @@
 
 -(void)upLoadbtnClickEvent:(UIButton *)sender{
     if (self.pic) {
-        [self choosePic];
-        @weakify(self)
-        [self GettingPicBlock:^(id data) {
-            @strongify(self)
-            if ([data isKindOfClass:[NSArray class]]) {
-                NSArray *arrData = (NSArray *)data;
-                if (arrData.count == 1) {
-                    [self.cell reloadPicBtnIMG:arrData.lastObject];
-                    self.pic = arrData.lastObject;
-                }else{
-                    [self showAlertViewTitle:@"选择一张相片就够啦"
-                           message:@"不要画蛇添足"
-                       btnTitleArr:@[@"好的"]
-                    alertBtnAction:@[@"OK"]];
-                }
-            }
-        }];
+        [self uploadPic_netWorking:self.pic];
     }else{
         Toast(@"请点选图片");
     }
 }
-
--(void)GoUploadPic{
-    [self uploadPic_netWorking:self.pic];
-}
-
 
 
 @end

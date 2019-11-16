@@ -7,9 +7,10 @@
 //
 
 #import "OrderListVC.h"
-#import "OrderDetail_SellerVC.h"
-#import "OrderDetail_BuyerVC.h"
+//#import "OrderDetail_SellerVC.h"
+//#import "OrderDetail_BuyerVC.h"
 #import "OrderListVC+VM.h"
+#import "OrderDetailVC.h"
 
 #pragma mark —— OrderTBVCell
 @interface OrderTBVCell ()
@@ -694,17 +695,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     @weakify(self)
     OrderListModel *orderListModel = self.dataMutArr[indexPath.row];
-    if ([orderListModel.identity isEqualToString:@"买家"]) {
-        [OrderDetail_BuyerVC pushFromVC:self_weak_
-                          requestParams:orderListModel
-                                success:^(id data) {}
-                               animated:YES];
-    }else if ([orderListModel.identity isEqualToString:@"卖家"]){
-        [OrderDetail_SellerVC pushFromVC:self_weak_
-                           requestParams:orderListModel
-                                 success:^(id data) {}
-                                animated:YES];
-    }
+    [OrderDetailVC pushFromVC:self_weak_
+                requestParams:orderListModel
+                      success:^(id data) {}
+                     animated:YES];
+    
+//    if ([orderListModel.identity isEqualToString:@"买家"]) {
+//        [OrderDetail_BuyerVC pushFromVC:self_weak_
+//                          requestParams:orderListModel
+//                                success:^(id data) {}
+//                               animated:YES];
+//    }else if ([orderListModel.identity isEqualToString:@"卖家"]){
+//        [OrderDetail_SellerVC pushFromVC:self_weak_
+//                           requestParams:orderListModel
+//                                 success:^(id data) {}
+//                                animated:YES];
+//    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView

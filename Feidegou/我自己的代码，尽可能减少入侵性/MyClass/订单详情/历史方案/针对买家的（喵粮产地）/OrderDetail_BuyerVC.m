@@ -333,7 +333,7 @@ UITableViewDataSource
 //                    [self.sureBtn addTarget:self
 //                              action:@selector(err:)
 //                    forControlEvents:UIControlEventTouchUpInside];
-                    
+#warning 上面要，下面的是临时测试使用
                     [self.sureBtn setTitle:self.titleMutArr[0]
                                   forState:UIControlStateNormal];//上传凭证
                     [self.sureBtn addTarget:self
@@ -378,22 +378,11 @@ UITableViewDataSource
 }
 //上传支付凭证
 -(void)uploadPrintPic:(UIButton *)sender{
-    [self choosePic];
     @weakify(self)
-    [self GettingPicBlock:^(id data) {
-        @strongify(self)
-        if ([data isKindOfClass:[NSArray class]]) {
-            NSArray *arrData = (NSArray *)data;
-            if (arrData.count == 1) {
-                self.pic = arrData.lastObject;
-            }else{
-                [self showAlertViewTitle:@"选择一张相片就够啦"
-                                 message:@"不要画蛇添足"
-                             btnTitleArr:@[@"好的"]
-                          alertBtnAction:@[@"OK"]];
-            }
-        }
-    }];
+    [UpLoadHavePaidVC pushFromVC:self_weak_
+                   requestParams:self.model
+                         success:^(id data) {}
+                        animated:YES];
 }
 //完成支付
 -(void)paymentFinish:(UIButton *)sender{
@@ -403,16 +392,6 @@ UITableViewDataSource
 -(void)err:(UIButton *)sender{
     OrderListModel *orderListModel = (OrderListModel *)self.requestParams;
     Toast([NSString ensureNonnullString:orderListModel.order_status ReplaceStr:@"无"]);
-}
-//已付款
--(void)havePaid{
-    NSLog(@"已付款");
-    //上传成功，等待后台进行审核 tips
-    @weakify(self)
-    [UpLoadHavePaidVC pushFromVC:self_weak_
-                   requestParams:self.model
-                         success:^(id data) {}
-                        animated:YES];
 }
 //取消订单
 -(void)cancelOrder{
@@ -547,6 +526,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)cancelBtn{
     if (!_cancelBtn) {
         _cancelBtn = UIButton.new;
+        [_cancelBtn addTarget:self
+                       action:@selector(backBtnClickEvent:)
+             forControlEvents:UIControlEventTouchUpInside];
+        [UIView cornerCutToCircleWithView:_cancelBtn
+                          AndCornerRadius:3.f];
+        _cancelBtn.backgroundColor = KLightGrayColor;
+        [_cancelBtn setTitle:self.titleMutArr.lastObject
+                    forState:UIControlStateNormal];
         [self.view addSubview:_cancelBtn];
         [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view);
