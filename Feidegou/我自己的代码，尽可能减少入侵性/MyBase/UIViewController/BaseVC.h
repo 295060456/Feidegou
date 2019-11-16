@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ViewForHeader.h"
-#import "ViewForFooter.h"
+//#import "ViewForHeader.h"
+//#import "ViewForFooter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,6 +23,7 @@ TZImagePickerControllerDelegate
 @property(nonatomic,strong)MJRefreshAutoGifFooter *tableViewFooter;
 @property(nonatomic,strong)MJRefreshGifHeader *tableViewHeader;
 @property(nonatomic,weak)TZImagePickerController *imagePickerVC;
+@property(nonatomic,strong)BRStringPickerView *stringPickerView;
 //@property(nonatomic,strong)ViewForHeader *viewForHeader;
 //@property(nonatomic,strong)ViewForFooter *viewForFooter;
 @property(nonatomic,strong)UIButton *backBtn;
@@ -31,12 +32,15 @@ TZImagePickerControllerDelegate
 @property(nonatomic,copy)void (^NotReachableNetWorking)(void);
 @property(nonatomic,copy)void (^ReachableViaWWANNetWorking)(void);
 @property(nonatomic,copy)void (^ReachableViaWiFiNetWorking)(void);
+@property(nonatomic,assign)BRStringPickerMode brStringPickerMode;
+@property(nonatomic,strong)NSArray *BRStringPickerViewDataMutArr;
 
 -(void)VCwillComingBlock:(DataBlock)block;//即将进来
 -(void)VCdidComingBlock:(DataBlock)block;//已经进来
 -(void)VCwillBackBlock:(DataBlock)block;//即将出去
 -(void)VCdidBackBlock:(DataBlock)block;//已经出去
 -(void)GettingPicBlock:(DataBlock)block;//点选的图片
+-(void)BRStringPickerViewBlock:(DataBlock)block;
 
 -(void)AFNReachability;
 -(void)showLoginAlertView;

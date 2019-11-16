@@ -22,10 +22,8 @@ UITableViewDataSource
 }
 
 @property(nonatomic,strong)BRStringPickerView *stringPickerView;
-@property(nonatomic,strong)UIButton *sureBtn;
 @property(nonatomic,strong)UIButton *cancelBtn;
 
-@property(nonatomic,strong)__block UIImage *pic;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
@@ -81,22 +79,22 @@ UITableViewDataSource
                 if ([self.orderListModel.order_status intValue] == 2) {//已下单
                     [self.cancelBtn setTitle:@"取消"
                                     forState:UIControlStateNormal];
-                    [self.sureBtn setTitle:@"上传支付凭证"
+                    [self.sureBtn setTitle:@"上传支付凭证"//
                                   forState:UIControlStateNormal];
                 }else if([self.orderListModel.order_status intValue] == 0){//已支付
-                    [self.sureBtn setTitle:@"重新上传支付凭证"
+                    [self.sureBtn setTitle:@"重新上传支付凭证"//
                                   forState:UIControlStateNormal];
-                }
+                }else{}
             }else if([self.orderListModel.deal intValue] == 2){//卖
                 self.gk_navTitle = @"卖家订单详情";
                 if ([self.orderListModel.order_status intValue] == 2) {
                     //不管
                 }else if ([self.orderListModel.order_status intValue] == 0){//已支付
-                    [self.cancelBtn setTitle:@"上传撤销凭证"
+                    [self.cancelBtn setTitle:@"撤销"// ..
                                     forState:UIControlStateNormal];
                     [self.sureBtn setTitle:@"立即发货"
                                   forState:UIControlStateNormal];
-                }
+                }else{}
             }
         }else if ([self.orderListModel.order_type intValue] == 3){//产地 只有买家
             self.gk_navTitle = @"买家订单详情";
@@ -108,7 +106,7 @@ UITableViewDataSource
             }else if ([self.orderListModel.order_status intValue] == 0){//已支付
                 [self.sureBtn setTitle:@"重新上传支付凭证"
                               forState:UIControlStateNormal];
-            }
+            }else{}
         }else{}
     }
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_sureBtn];
@@ -139,21 +137,63 @@ UITableViewDataSource
 }
 
 -(void)tips:(UIButton *)sender{
-    if ([sender isEqual:self.cancelBtn]) {
-        [self showAlertViewTitle:sender.titleLabel.text
-                         message:@""
-                     btnTitleArr:@[@"取消",
-                                   @"手滑，点错了"]
-                  alertBtnAction:@[@"sureBtnClickEvent",//取消
-                                   @"Cancel"]];//取消
-    }else if ([sender isEqual:self.sureBtn]){
-        [self showAlertViewTitle:sender.titleLabel.text
-                         message:@""
-                     btnTitleArr:@[@"我已确认",
-                                   @"手滑，点错了"]
-                  alertBtnAction:@[@"cancelBtnClickEvent",//继续
-                                   @"Cancel"]];//取消
-    }
+    if ([sender isEqual:self.cancelBtn]) {//取消按钮
+        if ([sender.titleLabel.text isEqualToString:@"撤销"]) {
+            //选择撤销理由
+            self.BRStringPickerViewDataMutArr = @[@"请选择取消原因",
+                                                  @"未收到款项",
+                                                  @"收到了,但是款项不符"];
+            @weakify(self)
+            [self BRStringPickerViewBlock:^(id data) {
+                @strongify(self)
+                if ([data isKindOfClass:[BRResultModel class]]) {
+                    BRResultModel *resultModel = (BRResultModel *)data;
+                    self.resultStr = resultModel.selectValue;
+                    [UpLoadCancelReasonVC pushFromVC:self_weak_
+                                       requestParams:@{
+                                           @"OrderListModel":self.requestParams,
+                                           @"Result":self.resultStr,//撤销理由
+                                       }
+                                             success:^(id data) {}
+                                            animated:YES];
+                }
+            }];
+            [self.stringPickerView show];
+        }else{
+            [self showAlertViewTitle:sender.titleLabel.text
+                   message:@""
+               btnTitleArr:@[@"取消",
+                             @"手滑，点错了"]
+            alertBtnAction:@[@"cancelBtnClickEvent",//取消
+                             @"Cancel"]];//取消
+        }
+    }else if ([sender isEqual:self.sureBtn]){//GOon
+        if ([sender.titleLabel.text containsString:@"凭证"]) {//上传撤销凭证 上传支付凭证 重新上传支付凭证
+            [self choosePic];
+            @weakify(self)
+            [self GettingPicBlock:^(id data) {
+                @strongify(self)
+                if ([data isKindOfClass:[NSArray class]]) {
+                    NSArray *arrData = (NSArray *)data;
+                    if (arrData.count == 1) {
+                        self.pic = arrData.lastObject;
+                    }else{
+                        [self showAlertViewTitle:@"选择一张相片就够啦"
+                               message:@"不要画蛇添足"
+                           btnTitleArr:@[@"好的"]
+                        alertBtnAction:@[@"OK"]];
+                    }
+                }
+            }];
+        }else{
+            [self showAlertViewTitle:sender.titleLabel.text
+                             message:@""
+                         btnTitleArr:@[@"我已确认",
+                                       @"手滑，点错了"]
+                      alertBtnAction:@[@"sureBtnClickEvent",//继续
+                                       @"Cancel"]];//取消
+        }
+    }else{}
 }
 
 -(void)cancelBtnClickEvent{
@@ -161,16 +201,16 @@ UITableViewDataSource
         if ([self.orderListModel.order_type intValue] == 2) {//批发
             if ([self.orderListModel.deal intValue] == 1) {//买
                 if ([self.orderListModel.order_status intValue] == 2) {//#18
-                    
+                    [self cancelOrder_wholesaleMarket_netWorking];
                 }
             }else if ([self.orderListModel.deal intValue] == 2){//卖
                 if ([self.orderListModel.order_status intValue] == 0) {//#5
-                    
+                    [self CancelDelivery_NetWorking];
                 }
             }else{}
         }else if ([self.orderListModel.order_type intValue] == 3){//产地
             if ([self.orderListModel.order_status intValue] == 2) {//#9
-                
+                [self cancelOrder_producingArea_netWorking];
             }
         }else{}
     }
@@ -181,29 +221,25 @@ UITableViewDataSource
         if ([self.orderListModel.order_type intValue] == 2) {//批发
             if ([self.orderListModel.deal intValue] == 1) {//买
                 if ([self.orderListModel.order_status intValue] == 2) {//#17
-                    
+                    [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.pic];
                 }else if ([self.orderListModel.order_status intValue] == 0){//#17
-                    
+                    [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.pic];
                 }else{}
             }else if([self.orderListModel.deal intValue] == 2){//卖
                 if ([self.orderListModel.order_status intValue] == 0) {//#14
-                    
+                    [self deliver_wholesaleMarket_PNetworking];
                 }
             }else{}
         }else if ([self.orderListModel.order_type intValue] == 3){//产地
             if ([self.orderListModel.order_status intValue] == 2) {//#8
-                
+                [self uploadPic_producingArea_havePaid_netWorking:self.pic];
             }else if ([self.orderListModel.order_status intValue] == 0){//#8
-                
+                [self uploadPic_producingArea_havePaid_netWorking:self.pic];
             }
         }else{}
     }
 }
 
-//-(void)ConfirmDelivery{//确认发货
-//    NSLog(@"确认发货");
-////    [self ConfirmDelivery_NetWorking];
-//}
 //
 //-(void)CancelDelivery{//取消发货
 //
@@ -398,29 +434,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             make.left.right.bottom.equalTo(self.view);
         }];
     }return _tableView;
-}
-
--(BRStringPickerView *)stringPickerView{
-    if (!_stringPickerView) {
-        _stringPickerView = [[BRStringPickerView alloc]initWithPickerMode:BRStringPickerComponentSingle];
-        _stringPickerView.title = @"请选择取消原因";
-        _stringPickerView.dataSourceArr = @[@"未收到款项",
-                                           @"收到了,但是款项不符"];
-//        _stringPickerView.selectValue = textField.text;
-        @weakify(self)
-        _stringPickerView.resultModelBlock = ^(BRResultModel *resultModel) {
-            NSLog(@"选择的值：%@", resultModel.selectValue);
-            @strongify(self)
-            self.resultStr = resultModel.selectValue;
-            [UpLoadCancelReasonVC pushFromVC:self_weak_
-                               requestParams:@{
-                                   @"OrderListModel":self.requestParams,
-                                   @"Result":self.resultStr,//撤销理由
-                               }
-                                     success:^(id data) {}
-                                    animated:YES];
-        };
-    }return _stringPickerView;
 }
 
 -(NSMutableArray<NSString *> *)dataMutArr{
@@ -635,8 +648,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }else if ([model isKindOfClass:[NSString class]]){
         self.str = model;//您向厂家2购买333g喵粮
         self.titleLab.attributedText = self.attributedString;
-        
-        NSLog(@"");
     }else{}
 }
 #pragma mark —— lazyLoad

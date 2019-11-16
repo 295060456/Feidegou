@@ -47,9 +47,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface OrderDetailVC : BaseVC
 
 @property(nonatomic,strong)UITableView *tableView;
-@property(nonatomic,strong)id requestParams;
-//@property(nonatomic,strong)OrderDetail_SellerModel *orderDetail_SellerModel;
+@property(nonatomic,strong)UIButton *sureBtn;
+
+@property(nonatomic,strong)__block UIImage *pic;
 @property(nonatomic,copy)__block NSString *resultStr;
+@property(nonatomic,strong)id requestParams;
 @property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
 @property(nonatomic,strong)OrderListModel *orderListModel;
 

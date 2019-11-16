@@ -19,6 +19,7 @@ JXCategoryListContentViewDelegate
 @property(nonatomic,copy)DataBlock willBackBlock;
 @property(nonatomic,copy)DataBlock didBackBlock;
 @property(nonatomic,copy)DataBlock picBlock;
+@property(nonatomic,copy)DataBlock brStringPickerViewBlock;
 
 @end
 
@@ -95,6 +96,10 @@ JXCategoryListContentViewDelegate
 
 -(void)GettingPicBlock:(DataBlock)block{//点选的图片
     self.picBlock = block;
+}
+
+-(void)BRStringPickerViewBlock:(DataBlock)block{
+    self.brStringPickerViewBlock = block;
 }
 #pragma mark —— JXCategoryListContentViewDelegate
 /**
@@ -374,6 +379,26 @@ JXCategoryListContentViewDelegate
     }return _imagePickerVC;
 }
 
+-(BRStringPickerView *)stringPickerView{
+    if (!_stringPickerView) {
+        _stringPickerView = [[BRStringPickerView alloc]initWithPickerMode:self.brStringPickerMode];
+        if (self.BRStringPickerViewDataMutArr.count > 2) {
+            _stringPickerView.title = self.BRStringPickerViewDataMutArr[0];
+            NSMutableArray *temp = NSMutableArray.array;
+            temp = self.BRStringPickerViewDataMutArr.copy;
+            [temp removeObjectAtIndex:0];
+            _stringPickerView.dataSourceArr = temp;
+        }
+        @weakify(self)
+        _stringPickerView.resultModelBlock = ^(BRResultModel *resultModel) {
+            NSLog(@"选择的值：%@", resultModel.selectValue);
+            @strongify(self)
+            if (self.brStringPickerViewBlock) {
+                self.brStringPickerViewBlock(resultModel);
+            }
+        };
+    }return _stringPickerView;
+}
 
 @end
 
