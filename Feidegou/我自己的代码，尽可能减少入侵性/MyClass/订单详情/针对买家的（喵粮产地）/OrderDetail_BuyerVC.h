@@ -19,14 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)richElementsInCellWithModel:(id _Nullable)model;
 
 @end
-//已付款 & 取消订单
-@interface OrderDetail_BuyerTBVCell_02 : TBVCell_style_01
-
-+(instancetype)cellWith:(UITableView *)tableView;
-+(CGFloat)cellHeightWithModel:(id _Nullable)model;
-- (void)richElementsInCellWithModel:(id _Nullable)model;
-
-@end
 
 @interface OrderDetail_BuyerVC : BaseVC
 

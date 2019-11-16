@@ -51,42 +51,51 @@
                 [self.dataArr addObject:[NSString ensureNonnullString:self.model.price ReplaceStr:@"暂无信息"]];//单价
                 [self.dataArr addObject:[NSString ensureNonnullString:self.model.rental ReplaceStr:@"暂无信息"]];//总额
                 
-                switch ([self.model.payment_status intValue]) {//支付类型:1、支付宝;2、微信;3、银行卡
-                    case 1:{
-                        [self.dataArr addObject:@"支付宝"];
-                    }break;
-                    case 2:{
-                        [self.dataArr addObject:@"微信"];
-                    }break;
-                    case 3:{
-                        [self.dataArr addObject:@"银行卡"];
-                    }break;
-                    default:
-                        [self.dataArr addObject:@"支付方式异常"];
-                        break;
+                if ([[NSString ensureNonnullString:self.model.payment_status ReplaceStr:@"无"] isEqualToString:@"无"]) {
+                    [self.dataArr addObject:@"支付方式异常"];
+                }else{
+                    switch ([self.model.payment_status intValue]) {//支付类型:1、支付宝;2、微信;3、银行卡
+                        case 1:{
+                            [self.dataArr addObject:@"支付宝"];
+                        }break;
+                        case 2:{
+                            [self.dataArr addObject:@"微信"];
+                        }break;
+                        case 3:{
+                            [self.dataArr addObject:@"银行卡"];
+                        }break;
+                        default:
+                            [self.dataArr addObject:@"支付方式异常"];
+                            break;
+                    }
                 }
-                switch ([self.model.order_status intValue]) {//0、已支付;1、已发单;2、已接单;3、已作废;4、已发货;5、已完成
-                    case 0:{
-                        [self.dataArr addObject:@"已支付"];
-                    }break;
-                    case 1:{
-                         [self.dataArr addObject:@"已发单"];
-                    }break;
-                    case 2:{
-                        [self.dataArr addObject:@"已接单"];
-                    }break;
-                    case 3:{
-                        [self.dataArr addObject:@"已作废"];
-                    }break;
-                    case 4:{
-                        [self.dataArr addObject:@"已发货"];
-                    }break;
-                    case 5:{
-                        [self.dataArr addObject:@"已完成"];
-                    }break;
-                    default:
-                        [self.dataArr addObject:@"订单状态异常"];
-                        break;
+                
+                if ([[NSString ensureNonnullString:self.model.order_status ReplaceStr:@"无"] isEqualToString:@"无"]) {
+                    [self.dataArr addObject:@"订单状态异常"];
+                }else{
+                    switch ([self.model.order_status intValue]) {//0、已支付;1、已发单;2、已接单;3、已作废;4、已发货;5、已完成
+                        case 0:{
+                            [self.dataArr addObject:@"已支付"];
+                        }break;
+                        case 1:{
+                             [self.dataArr addObject:@"已发单"];
+                        }break;
+                        case 2:{
+                            [self.dataArr addObject:@"已接单"];
+                        }break;
+                        case 3:{
+                            [self.dataArr addObject:@"已作废"];
+                        }break;
+                        case 4:{
+                            [self.dataArr addObject:@"已发货"];
+                        }break;
+                        case 5:{
+                            [self.dataArr addObject:@"已完成"];
+                        }break;
+                        default:
+                            [self.dataArr addObject:@"订单状态异常"];
+                            break;
+                    }
                 }
                 self.tableView.mj_footer.hidden = NO;
                 [self.tableView.mj_header endRefreshing];

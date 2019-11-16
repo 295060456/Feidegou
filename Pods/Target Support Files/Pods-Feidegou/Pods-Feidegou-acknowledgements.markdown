@@ -1058,6 +1058,10 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 </html>
 
 
+## RongCloudIM
+
+Copyright 2014 Rong Cloud
+
 ## SDCycleScrollView
 
 The MIT License (MIT)

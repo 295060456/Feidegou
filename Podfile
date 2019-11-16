@@ -64,6 +64,8 @@ pod 'MLeaksFinder' #在开发时在iOS应用中查找内存泄漏 https://github
 pod 'YYText'
 pod 'BEMCheckBox'
 pod 'SocketRocket'
+pod 'RongCloudIM/IMLib'
+pod 'RongCloudIM/IMKit'
 #pod 'SDWebImage'
 #pod 'YYKit'#有问题
 

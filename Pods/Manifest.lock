@@ -67,6 +67,9 @@ PODS:
   - RegexKitLite (4.0)
   - REMenu (1.10)
   - Reveal-SDK (24)
+  - RongCloudIM/IMKit (2.10.0):
+    - RongCloudIM/IMLib
+  - RongCloudIM/IMLib (2.10.0)
   - SDCycleScrollView (1.75):
     - SDWebImage (>= 4.0.0)
   - SDWebImage (4.4.7):
@@ -121,6 +124,8 @@ DEPENDENCIES:
   - RegexKitLite
   - REMenu (~> 1.10)
   - Reveal-SDK
+  - RongCloudIM/IMKit
+  - RongCloudIM/IMLib
   - SDCycleScrollView (~> 1.75)
   - SDWebImage (~> 4.4.2)
   - SGQRCode
@@ -170,6 +175,7 @@ SPEC REPOS:
     - RegexKitLite
     - REMenu
     - Reveal-SDK
+    - RongCloudIM
     - SDCycleScrollView
     - SDWebImage
     - SGQRCode
@@ -218,6 +224,7 @@ SPEC CHECKSUMS:
   RegexKitLite: c0e4c12e6e7de0769f3a3ed679f0f61604170661
   REMenu: 30dad195930adf6c5eeb8041e3257aa60bf9fa49
   Reveal-SDK: 5d7e56b8f018c0a88b3a2c10bf68d598bbd3b071
+  RongCloudIM: 2f513fa5079744e52d2a383c3514d0971797afbb
   SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
   SDWebImage: c10d14a8883ebd89664f02a422006f66a85c0c5d
   SGQRCode: bf02d60e18d6660a9d75ff1c8b9b467f064f054e
@@ -231,6 +238,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: 0543dd84f8712cf5aba665d8e07afba225236068
+PODFILE CHECKSUM: 0cbc9a48b15720bcdbec77ceb4173b31833c8c39
 
 COCOAPODS: 1.8.4

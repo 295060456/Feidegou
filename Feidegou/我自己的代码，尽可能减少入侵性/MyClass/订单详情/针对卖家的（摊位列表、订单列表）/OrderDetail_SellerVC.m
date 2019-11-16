@@ -691,7 +691,9 @@ UITableViewDataSource
     
     //要求上传取消凭证
     [self choosePic];
+    @weakify(self)
     [self GettingPicBlock:^(id data) {
+        @strongify(self)
         if ([data isKindOfClass:[NSArray class]]) {
             NSArray *arrData = (NSArray *)data;
             if (arrData.count == 1) {
