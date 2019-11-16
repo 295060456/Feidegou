@@ -311,8 +311,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {//待考究
         if (indexPath.row == 0) {
             OrderDetailTBVCell_04 *cell = [OrderDetailTBVCell_04 cellWith:tableView];
-            if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
-                [cell richElementsInCellWithModel:self.requestParams];
+            if (self.dataMutArr.count) {
+                 [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+            }else{
+                if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
+                    [cell richElementsInCellWithModel:self.requestParams];
+                }
             }
             OrderDetailTBVCell_04_Height = [cell cellHeightWithModel:NULL];
             return cell;
@@ -321,14 +325,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         if (indexPath.row == 0) {
             OrderDetailTBVCell_02 *cell = [OrderDetailTBVCell_02 cellWith:tableView];
             OrderDetailTBVCell_02_Height = [cell cellHeightWithModel:NULL];
-            if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
-                [cell richElementsInCellWithModel:self.requestParams];
+            if (self.dataMutArr.count) {
+                [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row + 1]];
+            }else{
+                if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
+                    [cell richElementsInCellWithModel:self.requestParams];
+                }
             }return cell;
         }else if(indexPath.row == 1){//状态栏
             OrderDetailTBVCell_05 *cell = [OrderDetailTBVCell_05 cellWith:tableView];
-            cell.backgroundColor = KGreenColor;
-            if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
-                [cell richElementsInCellWithModel:self.requestParams];
+            if (self.dataMutArr.count) {
+                [cell richElementsInCellWithModel:self.dataMutArr.lastObject];
+            }else{
+                if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
+                    [cell richElementsInCellWithModel:self.requestParams];
+                }
             }return cell;
         }
         else{}
@@ -618,30 +629,37 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (void)richElementsInCellWithModel:(id _Nullable)model{//OrderListModel
     self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     if ([model isKindOfClass:[OrderListModel class]]) {
-        OrderListModel *orderListModel = (OrderListModel *)model;
+        OrderListModel *orderListModel = (OrderListModel *)model;//您向2222购买333
         self.str = [NSString stringWithFormat:@"您向%@购买%d",orderListModel.seller_name,[orderListModel.quantity intValue]];
         self.titleLab.attributedText = self.attributedString;
-    }
+    }else if ([model isKindOfClass:[NSString class]]){
+        self.str = model;//您向厂家2购买333g喵粮
+        self.titleLab.attributedText = self.attributedString;
+        
+        NSLog(@"");
+    }else{}
 }
 #pragma mark —— lazyLoad
 -(NSMutableAttributedString *)attributedString{
+    NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+    paragraphStyle.lineSpacing = 1;//行间距
+    paragraphStyle.firstLineHeadIndent = 40;//首行缩进
+    
+    NSDictionary *attributeDic = @{
+        NSFontAttributeName : [UIFont systemFontOfSize:24],
+        NSParagraphStyleAttributeName : paragraphStyle,
+        NSForegroundColorAttributeName : kRedColor
+    };
     if (!_attributedString) {
-        
-        NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
-        paragraphStyle.lineSpacing = 1;//行间距
-        paragraphStyle.firstLineHeadIndent = 40;//首行缩进
-        
-        NSDictionary *attributeDic = @{
-            NSFontAttributeName : [UIFont systemFontOfSize:24],
-            NSParagraphStyleAttributeName : paragraphStyle,
-            NSForegroundColorAttributeName : kRedColor
-        };
-            
         _attributedString = [[NSMutableAttributedString alloc]initWithString:self.str
                                                                   attributes:attributeDic];
-
-        NSRange selRange_01 = [self.str rangeOfString:@"您向"];
-        NSRange selRange_02 = [self.str rangeOfString:@"购买"];
+    }else{
+        _attributedString = Nil;
+        _attributedString = [[NSMutableAttributedString alloc]initWithString:self.str
+                                                                  attributes:attributeDic];
+    }
+        NSRange selRange_01 = [self.str rangeOfString:@"您向"];//location=0, length=2
+        NSRange selRange_02 = [self.str rangeOfString:@"购买"];//location=6, length=2
 
         //设定可点击文字的的大小
         UIFont *selFont = [UIFont systemFontOfSize:18];
@@ -681,7 +699,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         //        } else {
         //            // Fallback on earlier versions
         //        }
-    }return _attributedString;
+    return _attributedString;
 }
 
 -(YYLabel *)titleLab{
@@ -751,6 +769,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             default:
                 break;
         }
+    }else if ([model isKindOfClass:[NSString class]]){
+        self.titleLab.text = [@"订单" stringByAppendingString:model];
+    }else{
+        self.titleLab.text = @"数据异常";
     }
 }
 
