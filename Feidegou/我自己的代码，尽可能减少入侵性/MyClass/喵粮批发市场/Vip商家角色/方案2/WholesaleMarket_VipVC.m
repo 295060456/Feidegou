@@ -37,7 +37,6 @@ StockViewDelegate
              requestParams:(nullable id)requestParams
                    success:(DataBlock)block
                   animated:(BOOL)animated{
-
     WholesaleMarket_VipVC *vc = WholesaleMarket_VipVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;

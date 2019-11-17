@@ -36,6 +36,7 @@ UITableViewDataSource
 //上个页面给数据，本页面手动的刷新
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
+    [self.contactBuyer.timer invalidate];
 }
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
@@ -140,6 +141,10 @@ UITableViewDataSource
         }
     }
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+}
+
 #pragma mark —— 私有方法
 // 手动下拉刷新
 -(void)pullToRefresh{

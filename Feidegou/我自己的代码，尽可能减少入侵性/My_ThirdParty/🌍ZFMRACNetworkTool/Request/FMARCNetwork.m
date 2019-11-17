@@ -176,7 +176,9 @@ static FMARCNetwork *_instance = nil;
                 
                 if (statusCode == HTTPResponseCodeSuccess) {//200 请求成功
                     if (httpResponse.isSuccess) {
-                        [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseDataKey]];//
+                        if (httpResponse.reqResult[HTTPServiceResponseDataKey]) {
+                            [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseDataKey]];//
+                        }
                         Toast(httpResponse.reqResult[@"message"]);
                         [subscriber sendCompleted];
                     }

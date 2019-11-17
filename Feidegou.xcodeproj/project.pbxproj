@@ -2652,10 +2652,10 @@
 		8BFB45AC237CF33600EDE418 /* 方案2 */ = {
 			isa = PBXGroup;
 			children = (
-				8BFB45B1237CF33600EDE418 /* WholesaleMarket_VipModel.h */,
-				8BFB45AD237CF33600EDE418 /* WholesaleMarket_VipModel.m */,
 				8BFB45B0237CF33600EDE418 /* WholesaleMarket_VipVC.h */,
 				8BFB45AE237CF33600EDE418 /* WholesaleMarket_VipVC.m */,
+				8BFB45B1237CF33600EDE418 /* WholesaleMarket_VipModel.h */,
+				8BFB45AD237CF33600EDE418 /* WholesaleMarket_VipModel.m */,
 				8BFB45B2237CF33600EDE418 /* WholesaleMarket_VipVC+VM.h */,
 				8BFB45AF237CF33600EDE418 /* WholesaleMarket_VipVC+VM.m */,
 			);

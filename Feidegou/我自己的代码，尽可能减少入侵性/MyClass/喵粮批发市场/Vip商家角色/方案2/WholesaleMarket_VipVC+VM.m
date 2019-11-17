@@ -38,7 +38,6 @@
                         WholesaleMarket_VipModel *model = array[idx];
                         [self.dataMutArr addObject:model];
                     }];
-                    NSLog(@"1234");
                     self.stockView.jjStockTableView.mj_footer.hidden = NO;
                     [self.stockView.jjStockTableView reloadData];
                     [self.stockView.jjStockTableView.mj_header endRefreshing];
