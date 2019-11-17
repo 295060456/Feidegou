@@ -18,7 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)deliver_wholesaleMarket_PNetworking;//喵粮批发订单发货 #14
 -(void)upLoadPic_wholesaleMarket_havePaid_netWorking:(UIImage *)pic;//喵粮批发已支付 #17
 -(void)cancelOrder_wholesaleMarket_netWorking;//喵粮批发取消 #18
-
+-(void)boothDeliver_networking;//喵粮抢摊位发货 #21
+-(void)CatfoodBooth_del_netWorking;//喵粮抢摊位取消 #22_1
+-(void)CatfoodBooth_del_time_netWorking;//喵粮抢摊位取消剩余时间 #22_2
 
 @end
 

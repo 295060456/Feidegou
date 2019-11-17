@@ -357,9 +357,102 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         }
     }];
 }
-
-
-
+//CatfoodBooth_goodsURL 喵粮抢摊位发货 #21
+-(void)boothDeliver_networking{
+    extern NSString *randomStr;
+    NSString *order_IDStr;
+    if ([self.requestParams isKindOfClass:[NSArray class]]) {
+        NSArray *arr = (NSArray *)self.requestParams;//购买的数量、付款的方式、订单ID
+        NSNumber *order_ID = (NSNumber *)arr[2];
+        order_IDStr = [order_ID stringValue];
+    }
+    NSDictionary *dataDic = @{
+        @"order_id":order_IDStr,//订单id
+    };
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodBooth_goodsURL
+                                                     parameters:@{
+                                                         @"data":dataDic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key]
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+//    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        if ([response isKindOfClass:[NSString class]]) {
+            NSString *str = (NSString *)response;
+            if ([NSString isNullString:str]) {
+//                @strongify(self)
+                NSLog(@"--%@",response);
+                Toast(@"取消成功");
+            }
+        }
+    }];
+}
+//CatfoodBooth_del 喵粮抢摊位取消 22_1
+-(void)CatfoodBooth_del_netWorking{
+    extern NSString *randomStr;
+    NSString *order_IDStr;
+    if ([self.requestParams isKindOfClass:[NSArray class]]) {
+        NSArray *arr = (NSArray *)self.requestParams;//购买的数量、付款的方式、订单ID
+        NSNumber *order_ID = (NSNumber *)arr[2];
+        order_IDStr = [order_ID stringValue];
+    }
+    NSDictionary *dataDic = @{
+        @"order_id":order_IDStr,//订单id
+    };
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodBooth_del
+                                                     parameters:@{
+                                                         @"data":dataDic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key]
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+//    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        if ([response isKindOfClass:[NSString class]]) {
+            NSString *str = (NSString *)response;
+            if ([NSString isNullString:str]) {
+//                @strongify(self)
+                NSLog(@"--%@",response);
+                Toast(@"取消成功");
+            }
+        }
+    }];
+}
+//CatfoodBooth_del_time 喵粮抢摊位取消剩余时间 #22_2
+-(void)CatfoodBooth_del_time_netWorking{
+    extern NSString *randomStr;
+    NSString *order_IDStr;
+    if ([self.requestParams isKindOfClass:[NSArray class]]) {
+        NSArray *arr = (NSArray *)self.requestParams;//购买的数量、付款的方式、订单ID
+        NSNumber *order_ID = (NSNumber *)arr[2];
+        order_IDStr = [order_ID stringValue];
+    }
+    NSDictionary *dataDic = @{
+        @"order_id":order_IDStr,//订单id
+    };
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodBooth_del_time
+                                                     parameters:@{
+                                                         @"data":dataDic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key]
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+//    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        if ([response isKindOfClass:[NSString class]]) {
+            NSString *str = (NSString *)response;
+            if ([NSString isNullString:str]) {
+//                @strongify(self)
+                NSLog(@"--%@",response);
+                Toast(@"取消成功");
+            }
+        }
+    }];
+}
 
 
 

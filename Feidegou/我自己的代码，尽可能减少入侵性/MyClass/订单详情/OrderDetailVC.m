@@ -21,8 +21,8 @@ UITableViewDataSource
     CGFloat OrderDetailTBVCell_02_Height;
 }
 
-@property(nonatomic,strong)BRStringPickerView *stringPickerView;
 @property(nonatomic,strong)UIButton *cancelBtn;
+@property(nonatomic,strong)VerifyCodeButton *contactBuyer;
 
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -72,6 +72,17 @@ UITableViewDataSource
     if (self.orderListModel) {
         if ([self.orderListModel.order_type intValue] == 1) {//摊位 只有卖家
             self.gk_navTitle = @"卖家订单详情";
+            if ([self.orderListModel.order_status intValue] == 2) {//已抢、已下单
+                if ([self.orderListModel.del_state intValue] == 0) {
+                    [self.cancelBtn setTitle:@"取消"
+                                    forState:UIControlStateNormal];
+                    [self.sureBtn setTitle:@"发货"//
+                                  forState:UIControlStateNormal];
+                }else if ([self.orderListModel.del_state intValue] == 1){
+                    //3小时内，等待买家确认
+//                    self.contactBuyer.alpha = 1;
+                }else{}
+            }
         }else if ([self.orderListModel.order_type intValue] == 2){//批发 买家 & 卖家
             //先判断是买家还是卖家 deal :1、买；2、卖
             if ([self.orderListModel.deal intValue] == 1) {//买
@@ -90,7 +101,7 @@ UITableViewDataSource
                 if ([self.orderListModel.order_status intValue] == 2) {
                     //不管
                 }else if ([self.orderListModel.order_status intValue] == 0){//已支付
-                    [self.cancelBtn setTitle:@"撤销"// ..
+                    [self.cancelBtn setTitle:@"撤销"// .. tips
                                     forState:UIControlStateNormal];
                     [self.sureBtn setTitle:@"立即发货"
                                   forState:UIControlStateNormal];
@@ -112,10 +123,20 @@ UITableViewDataSource
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_sureBtn];
     self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.tableView.alpha = 1;
+    #
+    self.contactBuyer.alpha = 1;
+    self.cancelBtn.alpha = 0;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    if ([self.orderListModel.order_type intValue] == 1) {
+        if ([self.orderListModel.order_status intValue] == 2) {
+            if ([self.orderListModel.del_state intValue] == 0) {
+                [self.tableView.mj_header beginRefreshing];
+            }
+        }
+    }
 }
 #pragma mark —— 私有方法
 // 手动下拉刷新
@@ -123,6 +144,13 @@ UITableViewDataSource
     NSLog(@"下拉刷新");
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
+    }
+    if ([self.orderListModel.order_type intValue] == 1) {
+        if ([self.orderListModel.order_status intValue] == 2) {
+            if ([self.orderListModel.del_state intValue] == 0) {
+                [self CatfoodBooth_del_time_netWorking];
+            }
+        }
     }
     [self netWorking];
 }
@@ -132,6 +160,11 @@ UITableViewDataSource
     [self netWorking];
 }
 #pragma mark —— 点击事件
+-(void)contactBuyerClickEvent:(VerifyCodeButton *)sender{
+    NSLog(@"倒计时结束，联系买家");//22_1
+    [self CatfoodBooth_del_netWorking];
+}
+
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -198,7 +231,13 @@ UITableViewDataSource
 
 -(void)cancelBtnClickEvent{
     if(self.orderListModel){
-        if ([self.orderListModel.order_type intValue] == 2) {//批发
+        if ([self.orderListModel.order_type intValue] == 1) {//摊位
+            if ([self.orderListModel.order_status intValue] == 2) {
+                if ([self.orderListModel.del_state intValue] == 0) {
+                    //5分钟以后才可以进行取消 22-2
+                }
+            }
+        }else if ([self.orderListModel.order_type intValue] == 2) {//批发
             if ([self.orderListModel.deal intValue] == 1) {//买
                 if ([self.orderListModel.order_status intValue] == 2) {//#18
                     [self cancelOrder_wholesaleMarket_netWorking];
@@ -218,7 +257,13 @@ UITableViewDataSource
 
 -(void)sureBtnClickEvent{
     if (self.orderListModel) {
-        if ([self.orderListModel.order_type intValue] == 2) {//批发
+        if ([self.orderListModel.order_type intValue] == 1) {//摊位
+            if ([self.orderListModel.order_status intValue] == 2) {
+                if ([self.orderListModel.del_state intValue] == 0) {
+                    //#21 发货
+                }
+            }
+        }else if ([self.orderListModel.order_type intValue] == 2) {//批发
             if ([self.orderListModel.deal intValue] == 1) {//买
                 if ([self.orderListModel.order_status intValue] == 2) {//#17
                     [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.pic];
@@ -239,63 +284,6 @@ UITableViewDataSource
         }else{}
     }
 }
-
-//
-//-(void)CancelDelivery{//取消发货
-//
-//    //#5 CatfoodRecord_delURL 喵粮订单撤销 order_id reason del_print(pic) order_type
-//    //#9 CatfoodCO_pay_delURL 喵粮产地购买取消 order_id
-//    //#18 CatfoodSale_pay_delURL 喵粮批发取消 order_id
-//    //#22 CatfoodBooth_delURL 喵粮抢摊位取消 order_id
-//
-//    //要求上传取消凭证
-//    [self choosePic];
-//    @weakify(self)
-//    [self GettingPicBlock:^(id data) {
-//        @strongify(self)
-//        if ([data isKindOfClass:[NSArray class]]) {
-//            NSArray *arrData = (NSArray *)data;
-//            if (arrData.count == 1) {
-//                self.pic = arrData.lastObject;
-//            }else{
-//                [self showAlertViewTitle:@"选择一张相片就够啦"
-//                                 message:@"不要画蛇添足"
-//                             btnTitleArr:@[@"好的"]
-//                          alertBtnAction:@[@"OK"]];
-//            }
-//        }
-//    }];
-//    OrderListModel *orderListModel;
-//    if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
-//        orderListModel = (OrderListModel *)self.requestParams;
-//    }
-//    if ([orderListModel.order_status intValue] == 0) {//#5
-//        //选择取消发货的原因
-//        [self.stringPickerView show];
-//    }else if ([orderListModel.order_status intValue] == 2){
-////        if ([orderListModel.order_type intValue] == 1) {//#22
-////            [self netWorkingWithArgumentURL:CatfoodBooth_delURL
-////                                    ORDERID:[orderListModel.ID intValue]];
-////        }else if ([orderListModel.order_type intValue] == 2){//#18
-////            [self netWorkingWithArgumentURL:CatfoodSale_pay_delURL
-////                                    ORDERID:[orderListModel.ID intValue]];
-////        }else if ([orderListModel.order_type intValue] == 3){//#9
-////            [self netWorkingWithArgumentURL:CatfoodCO_pay_delURL
-////                                    ORDERID:[orderListModel.ID intValue]];
-//    }
-
-//#pragma mark —— UINavigationControllerDelegate
-//- (void)navigationController:(UINavigationController *)navigationController
-//      willShowViewController:(UIViewController *)viewController
-//                    animated:(BOOL)animated{
-////    if ([viewController isKindOfClass:[StallListVC class]] && self.isShowViewFinished) {
-////        [navigationController popToViewController:navigationController.viewControllers[navigationController.viewControllers.count - 2]
-////                                         animated:NO];
-////
-////    }else if([viewController isKindOfClass:[OrderListVC class]]){
-////
-////    }
-//}
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -387,6 +375,31 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     return 2;
 }
 #pragma mark —— lazyLoad
+-(VerifyCodeButton *)contactBuyer{
+    if (!_contactBuyer) {
+        _contactBuyer = VerifyCodeButton.new;
+        _contactBuyer.backgroundColor = kOrangeColor;
+        _contactBuyer.titleBeginStr = @"取消";
+        _contactBuyer.titleEndStr = @"取消";
+        _contactBuyer.titleColor = kWhiteColor;
+        _contactBuyer.bgBeginColor = KLightGrayColor;
+        _contactBuyer.bgEndColor = kOrangeColor;
+        _contactBuyer.layerBorderColor = kWhiteColor;
+        _contactBuyer.layerCornerRadius = 5;
+        [_contactBuyer timeFailBeginFrom:30];
+        [_contactBuyer addTarget:self
+                       action:@selector(contactBuyerClickEvent:)
+             forControlEvents:UIControlEventTouchUpInside];
+        [self.tableView addSubview:_contactBuyer];
+        [_contactBuyer mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.view).offset(SCALING_RATIO(-100));
+            make.centerX.equalTo(self.view);
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100),
+                                             SCALING_RATIO(50)));
+        }];
+    }return _contactBuyer;
+}
+
 -(UIButton *)sureBtn{
     if (!_sureBtn) {
         _sureBtn = UIButton.new;
@@ -800,29 +813,58 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 @end
 
-//-(VerifyCodeButton *)cancelCountDownBtn{
-//    if (!_cancelCountDownBtn) {
-//        _cancelCountDownBtn = VerifyCodeButton.new;
-//        _cancelCountDownBtn.titleBeginStr = @"取消";
-//        _cancelCountDownBtn.titleEndStr = @"取消";
-//        _cancelCountDownBtn.titleColor = kWhiteColor;
-//        _cancelCountDownBtn.bgBeginColor = KLightGrayColor;
-//        _cancelCountDownBtn.bgEndColor = kOrangeColor;
-//        _cancelCountDownBtn.layerBorderColor = kWhiteColor;
-//        _cancelCountDownBtn.layerCornerRadius = 5;
-//        _cancelCountDownBtn.isClipsToBounds = YES;
-////        [_cancelBtn.titleLabel sizeToFit];
-//        _cancelCountDownBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
-//        [_cancelCountDownBtn timeFailBeginFrom:3];
-//        [_cancelCountDownBtn addTarget:self
-//                       action:@selector(cancelBtnClickEvent:)
-//             forControlEvents:UIControlEventTouchUpInside];
-//        [self.contentView addSubview:_cancelCountDownBtn];
-//        [_cancelCountDownBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-//            make.centerY.equalTo(self.contentView);
-//            make.size.mas_equalTo(self.sureBtn);
-//        }];
-//    }return _cancelCountDownBtn;
-//}
+//-(void)CancelDelivery{//取消发货
 //
+//    //#5 CatfoodRecord_delURL 喵粮订单撤销 order_id reason del_print(pic) order_type
+//    //#9 CatfoodCO_pay_delURL 喵粮产地购买取消 order_id
+//    //#18 CatfoodSale_pay_delURL 喵粮批发取消 order_id
+//    //#22 CatfoodBooth_delURL 喵粮抢摊位取消 order_id
+//
+//    //要求上传取消凭证
+//    [self choosePic];
+//    @weakify(self)
+//    [self GettingPicBlock:^(id data) {
+//        @strongify(self)
+//        if ([data isKindOfClass:[NSArray class]]) {
+//            NSArray *arrData = (NSArray *)data;
+//            if (arrData.count == 1) {
+//                self.pic = arrData.lastObject;
+//            }else{
+//                [self showAlertViewTitle:@"选择一张相片就够啦"
+//                                 message:@"不要画蛇添足"
+//                             btnTitleArr:@[@"好的"]
+//                          alertBtnAction:@[@"OK"]];
+//            }
+//        }
+//    }];
+//    OrderListModel *orderListModel;
+//    if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
+//        orderListModel = (OrderListModel *)self.requestParams;
+//    }
+//    if ([orderListModel.order_status intValue] == 0) {//#5
+//        //选择取消发货的原因
+//        [self.stringPickerView show];
+//    }else if ([orderListModel.order_status intValue] == 2){
+////        if ([orderListModel.order_type intValue] == 1) {//#22
+////            [self netWorkingWithArgumentURL:CatfoodBooth_delURL
+////                                    ORDERID:[orderListModel.ID intValue]];
+////        }else if ([orderListModel.order_type intValue] == 2){//#18
+////            [self netWorkingWithArgumentURL:CatfoodSale_pay_delURL
+////                                    ORDERID:[orderListModel.ID intValue]];
+////        }else if ([orderListModel.order_type intValue] == 3){//#9
+////            [self netWorkingWithArgumentURL:CatfoodCO_pay_delURL
+////                                    ORDERID:[orderListModel.ID intValue]];
+//    }
+
+//#pragma mark —— UINavigationControllerDelegate
+//- (void)navigationController:(UINavigationController *)navigationController
+//      willShowViewController:(UIViewController *)viewController
+//                    animated:(BOOL)animated{
+////    if ([viewController isKindOfClass:[StallListVC class]] && self.isShowViewFinished) {
+////        [navigationController popToViewController:navigationController.viewControllers[navigationController.viewControllers.count - 2]
+////                                         animated:NO];
+////
+////    }else if([viewController isKindOfClass:[OrderListVC class]]){
+////
+////    }
+//}
