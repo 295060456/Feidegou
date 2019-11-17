@@ -28,6 +28,7 @@ UITableViewDataSource
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,strong)id popGestureDelegate; //用来保存系统手势的代理
+@property(nonatomic,assign)int time;
 
 @end
 
@@ -124,6 +125,7 @@ UITableViewDataSource
     self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.tableView.alpha = 1;
     #
+    self.time = 8;
     self.contactBuyer.alpha = 1;
     self.cancelBtn.alpha = 0;
 }
@@ -378,15 +380,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(VerifyCodeButton *)contactBuyer{
     if (!_contactBuyer) {
         _contactBuyer = VerifyCodeButton.new;
-        _contactBuyer.backgroundColor = kOrangeColor;
-        _contactBuyer.titleBeginStr = @"取消";
-        _contactBuyer.titleEndStr = @"取消";
-        _contactBuyer.titleColor = kWhiteColor;
-        _contactBuyer.bgBeginColor = KLightGrayColor;
-        _contactBuyer.bgEndColor = kOrangeColor;
-        _contactBuyer.layerBorderColor = kWhiteColor;
-        _contactBuyer.layerCornerRadius = 5;
-        [_contactBuyer timeFailBeginFrom:30];
+        _contactBuyer.showTimeType = ShowTimeType_HHMMSS;
+        _contactBuyer.layerCornerRadius = 5.f;
+        if (@available(iOS 8.2, *)) {
+            _contactBuyer.titleLabelFont = [UIFont systemFontOfSize:20.f weight:1];
+        } else {
+            // Fallback on earlier versions
+        }
+        _contactBuyer.clipsToBounds = YES;
+        [_contactBuyer timeFailBeginFrom:self.time];
         [_contactBuyer addTarget:self
                        action:@selector(contactBuyerClickEvent:)
              forControlEvents:UIControlEventTouchUpInside];

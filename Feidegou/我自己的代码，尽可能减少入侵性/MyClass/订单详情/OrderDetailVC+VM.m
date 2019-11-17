@@ -14,21 +14,14 @@
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
     extern NSString *randomStr;
-    NSDictionary *dic;
-    OrderListModel *model;
-    if ([self.requestParams isKindOfClass:[NSDictionary class]]) {
-        dic = (NSDictionary *)self.requestParams;
-        model = dic[@"OrderListModel"][@"OrderListModel"];
-    }
     ModelLogin *modelLogin;
     if ([[PersonalInfo sharedInstance] isLogined]) {
         modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
     }
-    
     NSDictionary *dataDic = @{
-         @"order_id":[NSString ensureNonnullString:model.ID ReplaceStr:@"无"],//订单id
-         @"reason":dic[@"Result"],//撤销理由
-         @"order_type":[NSString ensureNonnullString:model.order_type ReplaceStr:@"无"],//订单类型 —— 1、摊位;2、批发;3、产地
+         @"order_id":[NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"],//订单id
+//         @"reason":dic[@"Result"],//撤销理由
+         @"order_type":[NSString ensureNonnullString:self.orderListModel.order_type ReplaceStr:@"无"],//订单类型 —— 1、摊位;2、批发;3、产地
          @"user_id":modelLogin.userId,
          @"identity":[YDDevice getUQID]
     };
@@ -61,14 +54,9 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //CatfoodCO_BuyerURL 喵粮产地购买 #7
 -(void)netWorking{
     extern NSString *randomStr;
-    NSDictionary *dataDic;
-    if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
-        OrderListModel *orderListModel = self.requestParams;
-            dataDic = @{
-                @"order_id":[orderListModel.ID stringValue]//order_id
-            };
-    }
-    
+    NSDictionary *dataDic = @{
+        @"order_id":[self.orderListModel.ID stringValue]//order_id
+    };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodCO_BuyerURL
                                                      parameters:@{
@@ -97,9 +85,9 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                 case 2:{
                     [self.dataMutArr addObject:@"微信"];
                 }break;
-                 case 3:{
-                     [self.dataMutArr addObject:@"银行卡"];
-                 }break;
+                case 3:{
+                 [self.dataMutArr addObject:@"银行卡"];
+                }break;
                 default:
                     break;
             }
@@ -200,42 +188,34 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //CatfoodCO_pay_delURL 喵粮产地购买取消 #9
 -(void)cancelOrder_producingArea_netWorking{
     extern NSString *randomStr;
-    if ([self.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]) {
-        CatFoodProducingAreaModel *model = (CatFoodProducingAreaModel *)self.requestParams;
-        NSDictionary *dataDic = @{
-            @"order_id":[model.ID stringValue]//order_id
-        };
-        FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
-                                                               path:CatfoodCO_pay_delURL
-                                                         parameters:@{
-                                                             @"data":dataDic,
-                                                             @"key":[RSAUtil encryptString:randomStr
-                                                                                 publicKey:RSA_Public_key]
-                                                         }];
-        self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
-        @weakify(self)
-        [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-            @strongify(self)
-            if ([response isKindOfClass:[NSString class]]) {
-                NSString *str = (NSString *)response;
-                if ([str isEqualToString:@""]) {
-                    Toast(@"取消成功");
-                    [self.navigationController popViewControllerAnimated:YES];
-                }
+    NSDictionary *dataDic = @{
+        @"order_id":[self.orderListModel.ID stringValue]//order_id
+    };
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodCO_pay_delURL
+                                                     parameters:@{
+                                                         @"data":dataDic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key]
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        @strongify(self)
+        if ([response isKindOfClass:[NSString class]]) {
+            NSString *str = (NSString *)response;
+            if ([str isEqualToString:@""]) {
+                Toast(@"取消成功");
+                [self.navigationController popViewControllerAnimated:YES];
             }
-        }];
-    }
+        }
+    }];
 }
 //CatfoodSale_goodsURL 喵粮批发订单发货 #14
 -(void)deliver_wholesaleMarket_PNetworking{
     extern NSString *randomStr;
-    NSString *order_IDStr;
-    if ([self.requestParams isKindOfClass:[NSArray class]]) {
-        NSNumber *order_ID = (NSNumber *)self.requestParams[0];
-        order_IDStr = [order_ID stringValue];
-    }
     NSDictionary *dataDic = @{
-        @"order_id":order_IDStr,//订单id
+        @"order_id":self.orderListModel.ID,//订单id
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodSale_goodsURL
@@ -261,18 +241,12 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //CatfoodSale_payURL 喵粮批发已支付 #17
 -(void)upLoadPic_wholesaleMarket_havePaid_netWorking:(UIImage *)pic{//真正开始购买
     extern NSString *randomStr;
-    NSString *order_IDStr;
-    if ([self.requestParams isKindOfClass:[NSArray class]]) {
-        NSArray *arr = (NSArray *)self.requestParams;//购买的数量、付款的方式、订单ID
-        NSNumber *order_ID = (NSNumber *)arr[2];
-        order_IDStr = [order_ID stringValue];
-    }
     ModelLogin *modelLogin;
     if ([[PersonalInfo sharedInstance] isLogined]) {
         modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
     }
     NSDictionary *dataDic = @{
-        @"order_id":order_IDStr,
+        @"order_id":self.orderListModel.ID,
         @"user_id":modelLogin.userId,
         @"identity":[YDDevice getUQID]
     };
@@ -322,20 +296,9 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //CatfoodSale_pay_delURL 喵粮批发取消 18
 -(void)cancelOrder_wholesaleMarket_netWorking{//展示数据
     extern NSString *randomStr;
-    NSString *text;
-    NSString *paymentWayStr;
-    NSString *order_IDStr;
-    if ([self.requestParams isKindOfClass:[NSArray class]]) {
-        NSArray *arr = (NSArray *)self.requestParams;//购买的数量、付款的方式、订单ID
-        text = arr[0];
-        NSNumber *paymentWay = (NSNumber *)arr[1];
-        paymentWayStr = [paymentWay stringValue] ;
-        NSNumber *order_ID = (NSNumber *)arr[2];
-        order_IDStr = [order_ID stringValue];
-    }
     NSDictionary *dataDic = @{
-        @"order_id":order_IDStr,//订单id
-        @"reason":@""//撤销理由 现在不要了
+        @"order_id":self.orderListModel.ID,//订单id
+        @"reason":@""
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodSale_pay_delURL
@@ -360,14 +323,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //CatfoodBooth_goodsURL 喵粮抢摊位发货 #21
 -(void)boothDeliver_networking{
     extern NSString *randomStr;
-    NSString *order_IDStr;
-    if ([self.requestParams isKindOfClass:[NSArray class]]) {
-        NSArray *arr = (NSArray *)self.requestParams;//购买的数量、付款的方式、订单ID
-        NSNumber *order_ID = (NSNumber *)arr[2];
-        order_IDStr = [order_ID stringValue];
-    }
     NSDictionary *dataDic = @{
-        @"order_id":order_IDStr,//订单id
+        @"order_id":self.orderListModel.ID,//订单id
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodBooth_goodsURL
@@ -392,14 +349,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //CatfoodBooth_del 喵粮抢摊位取消 22_1
 -(void)CatfoodBooth_del_netWorking{
     extern NSString *randomStr;
-    NSString *order_IDStr;
-    if ([self.requestParams isKindOfClass:[NSArray class]]) {
-        NSArray *arr = (NSArray *)self.requestParams;//购买的数量、付款的方式、订单ID
-        NSNumber *order_ID = (NSNumber *)arr[2];
-        order_IDStr = [order_ID stringValue];
-    }
     NSDictionary *dataDic = @{
-        @"order_id":order_IDStr,//订单id
+        @"order_id":self.orderListModel.ID
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodBooth_del
@@ -424,14 +375,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //CatfoodBooth_del_time 喵粮抢摊位取消剩余时间 #22_2
 -(void)CatfoodBooth_del_time_netWorking{
     extern NSString *randomStr;
-    NSString *order_IDStr;
-    if ([self.requestParams isKindOfClass:[NSArray class]]) {
-        NSArray *arr = (NSArray *)self.requestParams;//购买的数量、付款的方式、订单ID
-        NSNumber *order_ID = (NSNumber *)arr[2];
-        order_IDStr = [order_ID stringValue];
-    }
     NSDictionary *dataDic = @{
-        @"order_id":order_IDStr,//订单id
+        @"order_id":self.orderListModel.ID,//订单id
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodBooth_del_time
@@ -453,14 +398,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         }
     }];
 }
-
-
-
-
-
-
-
-
 
 
 @end
