@@ -10,14 +10,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WholesaleMarket_VipPopView : UIView
-
-+ (WholesaleMarket_VipPopView *) shareManager;
-- (instancetype)initWithRequestParams:(id)requestParams;
--(void)clickBlock:(TwoDataBlock)block;
-
-@end
-
 @interface WholesaleMarket_VipTBVCell : TBVCell_style_01
 
 +(instancetype)cellWith:(UITableView *)tableView;
@@ -31,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,assign)long currentPage;
 @property(nonatomic,strong)NSMutableArray <WholesaleMarket_VipModel *>*dataMutArr;
-
+@property(nonatomic,strong)WholesaleMarket_VipModel *wholesaleMarket_VipModel;
 
 + (instancetype)pushFromVC:(UIViewController *)rootVC
              requestParams:(nullable id)requestParams

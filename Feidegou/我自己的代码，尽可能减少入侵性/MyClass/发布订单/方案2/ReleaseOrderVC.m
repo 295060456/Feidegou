@@ -365,9 +365,9 @@ UITableViewDataSource
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-//    [self.tableView removeFromSuperview];
     [self.historyDataListTBV removeFromSuperview];
 }
+
 #pragma mark —— 点击事件
 -(void)releaseBtnClickEvent:(UIButton *)sender{
     NSLog(@"发布");

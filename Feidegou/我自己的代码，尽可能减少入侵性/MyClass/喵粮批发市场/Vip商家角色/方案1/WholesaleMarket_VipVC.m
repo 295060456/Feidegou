@@ -9,6 +9,7 @@
 #import "WholesaleMarket_VipVC.h"
 #import "WholesaleMarket_VipVC+VM.h"
 #import "WholesaleOrders_AdvanceVC.h"
+#import "ReleaseOrderVC.h"
 
 @interface WholesaleMarket_VipVC ()
 <
@@ -17,7 +18,6 @@ UITableViewDataSource
 >
 
 @property(nonatomic,strong)UIButton *releaseBtn;
-@property(nonatomic,weak)WholesaleMarket_VipPopView *popView;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
@@ -78,15 +78,29 @@ UITableViewDataSource
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    if (_popView) {
-        [_popView removeFromSuperview];
-        _popView = Nil;
+}
+#pragma mark —— 点击事件
+-(void)OutofStock{
+    //去下架
+    self.wholesaleMarket_VipModel = self.dataMutArr[self.indexPathRow];
+    if (self.wholesaleMarket_VipModel) {
+        [self CatfoodSale_delURL_networking];
+    }else{
+        Toast(@"数据异常");
     }
 }
 
+-(void)sorry{
+
+}
 #pragma mark —— 私有方法
 -(void)releaseBtnClickEvent:(UIButton *)sender{
-    //发布订单
+    NSLog(@"发布订单");
+    @weakify(self)
+    [ReleaseOrderVC pushFromVC:self_weak_
+                 requestParams:self.requestParams
+                       success:^(id data) {}
+                      animated:YES];
 }
 
 -(void)backBtnClickEvent:(UIButton *)sender{
@@ -117,16 +131,20 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
     self.indexPathRow = indexPath.row;
-    Toast(@"Vip商家不可购买");
-//    if (_popView) {
-//        _popView = nil;
-//    }
-//    self.popView.alpha = 1;
+//    Toast(@"Vip商家不可购买");
+//    self.dataMutArr[indexPath.row];
+    if (self.dataMutArr.count) {
+        [self showAlertViewTitle:@"您确定要下架？"
+                     message:@""
+                 btnTitleArr:@[@"去下架",@"手滑，点错了"]
+              alertBtnAction:@[@"OutofStock",@"sorry"]];
+    }else{
+        Toast(@"数据异常");
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-
     return self.dataMutArr.count;
 }
 
@@ -193,407 +211,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _releaseBtn;
 }
 
--(WholesaleMarket_VipPopView *)popView{
-    if (!_popView) {
-        _popView = [[WholesaleMarket_VipPopView shareManager] initWithRequestParams:self.dataMutArr[self.indexPathRow]];//支付方式
-        _popView.backgroundColor = KLightGrayColor;
-        [UIView cornerCutToCircleWithView:_popView
-                          AndCornerRadius:10.f];
-        [UIView colourToLayerOfView:_popView
-                         WithColour:kWhiteColor
-                     AndBorderWidth:0.3f];
-        [self.view addSubview:_popView];
-        [self.view bringSubviewToFront:_popView];
-        _popView.frame = CGRectMake(SCALING_RATIO(50),
-                                    self.view.mj_h,
-                                    SCREEN_WIDTH - SCALING_RATIO(90),
-                                    SCALING_RATIO(100));
-        @weakify(self)
-        [UIView animateWithDuration:0.5f
-                              delay:0.1f
-             usingSpringWithDamping:0.1//弹簧动画的阻尼值 当该属性为1时，表示阻尼非常大，可以看到几乎是没有什么弹动的幅度
-              initialSpringVelocity:1.f//值越小弹簧的动力越小，弹簧拉伸的幅度越小，反之动力越大，弹簧拉伸的幅度越大
-                            options:UIViewAnimationOptionCurveEaseOut//时间曲线函数，由快到慢(快入缓出)
-                         animations:^{
-            @strongify(self)
-            self->_popView.frame = CGRectMake(SCALING_RATIO(50),
-                                              self.view.mj_h - SCALING_RATIO(200),
-                                              SCREEN_WIDTH - SCALING_RATIO(90),
-                                              SCALING_RATIO(100));//弹出框高度
-        }
-                         completion:^(BOOL finished) {
-//            @strongify(self)
-        }];
-        
-        [_popView clickBlock:^(id data, id data2) {//点击购买 发送 (self.textfield,self.tagger)
-//            @strongify(self)
-            WholesaleMarket_AdvanceModel *model = (WholesaleMarket_AdvanceModel *)self.dataMutArr[self.indexPathRow];
-            if ([data isKindOfClass:[UITextField class]] &&
-                [data2 isKindOfClass:[NSNumber class]]) {
-                UITextField *textfield = (UITextField *)data;
-                if (![NSString isNullString:textfield.text]) {
-                    [WholesaleOrders_AdvanceVC pushFromVC:self_weak_
-                                            requestParams:@[textfield.text,data2,model.ID]//购买的数量、付款的方式、订单ID
-                                                  success:^(id data) {}
-                                                 animated:YES];
-                }else{
-                    Toast(@"请输入金额");
-                }
-            }
-        }];
-    }return _popView;
-}
-
 -(NSMutableArray<WholesaleMarket_VipModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
     }return _dataMutArr;
-}
-
-@end
-
-
-@interface WholesaleMarket_VipPopView ()
-<
-UITextFieldDelegate,
-BEMCheckBoxDelegate
->
-
-@property(nonatomic,strong)UILabel *numLab;
-@property(nonatomic,strong)UILabel *userNameLab;
-@property(nonatomic,strong)UILabel *paymentMethodLab;
-@property(nonatomic,strong)UITextField *textfield;
-@property(nonatomic,strong)UIButton *purchaseBtn;
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,assign)CGRect framer;
-@property(nonatomic,copy)ActionBlock block;
-@property(nonatomic,copy)TwoDataBlock dataBlock;
-@property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
-@property(nonatomic,strong)NSMutableArray <UILabel *>*mutArr;
-@property(nonatomic,strong)NSMutableArray <BEMCheckBox *>*checkBoxMutArr;
-@property(nonatomic,strong)NSNumber *tagger;
-@property(nonatomic,strong)BEMCheckBoxGroup *checkBoxGroup;
-
-@end
-
-@implementation WholesaleMarket_VipPopView
-
-- (void)dealloc {
-    NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
-}
-
-+ (WholesaleMarket_VipPopView *)shareManager {
-    static WholesaleMarket_VipPopView *wholesaleMarket_VipPopView;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        if (!wholesaleMarket_VipPopView) {
-            wholesaleMarket_VipPopView = WholesaleMarket_VipPopView.new;
-        }
-    });return wholesaleMarket_VipPopView;
-}
-
-- (instancetype)initWithRequestParams:(id)requestParams{
-    if (self = [super init]) {
-        self.requestParams = requestParams;//支付方式
-    }return self;
-}
-
--(void)drawRect:(CGRect)rect{
-    if ([self.requestParams isKindOfClass:[WholesaleMarket_AdvanceModel class]]) {
-        WholesaleMarket_AdvanceModel *wholesaleMarket_AdvanceModel = self.requestParams;
-        self.numLab.alpha = 1;
-        self.userNameLab.text = [NSString stringWithFormat:@"用户名:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.seller_name ReplaceStr:@"暂无信息"]];
-        self.purchaseBtn.alpha = 1;
-        self.textfield.alpha = 1;
-        NSLog(@"KKK = %d",[wholesaleMarket_AdvanceModel.payment_type intValue]);
-        if (self.dataMutArr.count) {
-            [self.dataMutArr removeAllObjects];
-        }
-        //0、都没有;2、支付宝;3、微信;4、银行卡;5、支付宝 + 微信;6、支付宝 + 银行卡;7、微信 + 银行卡;9、支付宝 + 微信 + 银行卡
-        switch ([wholesaleMarket_AdvanceModel.payment_type intValue]) {
-            case 0:{//都没有
-
-            }break;
-            case 2:{//支付宝
-                [self.dataMutArr addObject:@"支付宝"];
-            }break;
-            case 3:{//微信
-                [self.dataMutArr addObject:@"微信"];
-            }break;
-            case 4:{//银行卡
-                [self.dataMutArr addObject:@"银行卡"];
-            }break;
-            case 5:{//支付宝 + 微信
-                [self.dataMutArr addObject:@"支付宝"];
-                [self.dataMutArr addObject:@"微信"];
-            }break;
-            case 6:{//支付宝 + 银行卡
-                [self.dataMutArr addObject:@"支付宝"];
-                [self.dataMutArr addObject:@"银行卡"];
-            }break;
-            case 7:{//微信 + 银行卡
-                [self.dataMutArr addObject:@"微信"];
-                [self.dataMutArr addObject:@"银行卡"];
-            }break;
-            case 9:{//支付宝 + 微信 + 银行卡
-                [self.dataMutArr addObject:@"支付宝"];
-                [self.dataMutArr addObject:@"微信"];
-                [self.dataMutArr addObject:@"银行卡"];
-            }break;
-            default:
-                break;
-        }
-#warning 以下是暂时的
-//        [self.dataMutArr addObject:@"支付宝"];
-//        [self.dataMutArr addObject:@"微信"];
-//        [self.dataMutArr addObject:@"银行卡"];
-#warning 以上是暂时的
-        [self BEMCheckBoxWithDataArr:self.dataMutArr];
-        [self setupBEMCheckBoxGroup];
-        self.framer = self.frame;
-    }
-}
-#pragma mark —— BEMCheckBoxDelegate
-- (void)didTapCheckBox:(BEMCheckBox*)checkBox{
-    self.tagger = [NSNumber numberWithInteger:checkBox.tag];
-}
-#pragma mark —— 私有方法
-- (void)setupBEMCheckBoxGroup {//单选
-    NSArray *checkBoxArray = self.checkBoxMutArr;
-    self.checkBoxGroup = [BEMCheckBoxGroup groupWithCheckBoxes:checkBoxArray];
-    self.tagger = [NSNumber numberWithInteger:0];
-    if (self.checkBoxMutArr.count) {
-        self.checkBoxGroup.selectedCheckBox = self.checkBoxMutArr[0];
-    }
-    self.checkBoxGroup.mustHaveSelection = YES;
-}
-
--(void)BEMCheckBoxWithDataArr:(NSMutableArray <NSString *>*)dataMutArr{
-    //防止此子类不销毁，数据异常
-    if (self.mutArr.count ||
-        self.checkBoxMutArr.count) {
-        [self.mutArr removeAllObjects];
-        [self.checkBoxMutArr removeAllObjects];
-        
-        for (UIView *view in self.subviews) {
-            if ([view isKindOfClass:[BEMCheckBox class]]) {
-                [view removeFromSuperview];
-            }
-            if ([view isKindOfClass:[UILabel class]]) {
-                UILabel *lab = (UILabel *)view;
-                if ([lab.text isEqualToString:@"支付宝"] ||
-                    [lab.text isEqualToString:@"微信"] ||
-                    [lab.text isEqualToString:@"银行卡"]) {
-                    [lab removeFromSuperview];
-                }
-            }
-        }
-    }//
-
-    for (int t = 0; t < self.dataMutArr.count; t++) {
-        BEMCheckBox *checkBox = BEMCheckBox.new;
-        // 矩形复选框
-        checkBox.boxType = BEMBoxTypeSquare;
-        checkBox.tag = t;
-        checkBox.delegate = self;
-        // 动画样式
-        checkBox.onAnimationType  = BEMAnimationTypeStroke;
-        checkBox.offAnimationType = BEMAnimationTypeStroke;
-        checkBox.animationDuration = 0.3;
-        // 颜色样式
-        checkBox.tintColor    = kWhiteColor;
-        checkBox.onTintColor  = HEXCOLOR(0x108EE9);
-        checkBox.onFillColor  = kClearColor;
-        checkBox.onCheckColor = HEXCOLOR(0x108EE9);
-
-        UILabel *titleLab = UILabel.new;
-        titleLab.text = dataMutArr[t];
-        titleLab.textAlignment = NSTextAlignmentCenter;
-        [titleLab sizeToFit];
-        [self addSubview:checkBox];
-        [self addSubview:titleLab];
-        [self.mutArr addObject:titleLab];//KKK 这个地方用局部变量会出错？
-        [self.checkBoxMutArr addObject:checkBox];
-        if (self.mutArr.count == 1) {
-            [checkBox mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.paymentMethodLab.mas_right).offset(SCALING_RATIO(5));
-                make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(20), SCALING_RATIO(20)));
-                make.centerY.equalTo(self.paymentMethodLab);
-            }];
-            [self layoutIfNeeded];
-            NSLog(@"12");
-        }else{
-           UILabel *lab = (UILabel *)self.mutArr[self.mutArr.count - 2];
-            [checkBox mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(lab.mas_right).offset(SCALING_RATIO(5));
-                make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(20), SCALING_RATIO(20)));
-                make.centerY.equalTo(self.paymentMethodLab);
-            }];
-            [self layoutIfNeeded];
-            NSLog(@"12");
-        }
-        [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(checkBox.mas_right).offset(SCALING_RATIO(5));
-            make.centerY.equalTo(checkBox);
-        }];
-        [self layoutIfNeeded];
-        NSLog(@"12");
-    }
-}
-
--(void)clickBlock:(TwoDataBlock)block{
-    _dataBlock = block;
-}
-
-- (void)touchesMoved:(NSSet<UITouch *> *)touches
-           withEvent:(UIEvent *)event {
-//    NSLog(@"touchesMoved");
-    UITouch *touch = [touches anyObject];
-    CGPoint currentP = [touch locationInView:self];//当前的point
-    CGPoint preP = [touch previousLocationInView:self];//以前的point
-    CGFloat offsetX = currentP.x - preP.x;//x轴偏移的量
-//    CGFloat offsetY = currentP.y - preP.y;//Y轴偏移的量
-    if (offsetX < 0) {//向左滑
-        NSLog(@"向左滑");
-        self.transform = CGAffineTransformTranslate(self.transform,
-                                                    offsetX,
-                                                    0);
-    }
-}
-
--(void)touchesEnded:(NSSet<UITouch *> *)touches
-          withEvent:(UIEvent *)event{
-    NSLog(@"%f",self.mj_x);
-    if (self.mj_x > (100 - SCREEN_WIDTH) / 2) {
-        self.frame = self.framer;
-    }else{
-        NSLog(@"");
-        self.frame = CGRectMake(-self.mj_w,
-                                self.mj_y,
-                                self.mj_w,
-                                self.mj_h);
-        [[WholesaleMarket_VipPopView shareManager] removeFromSuperview];
-    }
-}
-#pragma mark —— 点击事件
--(void)clickPurchaseBtnEvent:(UIButton *)sender{
-    if (self.dataBlock) {
-        self.dataBlock(self.textfield,self.tagger);
-    }
-}
-#pragma mark —— UITextFieldDelegate
-//询问委托人是否应该在指定的文本字段中开始编辑
-//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
-//告诉委托人在指定的文本字段中开始编辑
-- (void)textFieldDidBeginEditing:(UITextField *)textField{
-    
-}
-//询问委托人是否应在指定的文本字段中停止编辑
-//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
-//告诉委托人对指定的文本字段停止编辑
-- (void)textFieldDidEndEditing:(UITextField *)textField{
-    
-}
-//告诉委托人对指定的文本字段停止编辑
-//- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
-//询问委托人是否应该更改指定的文本
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
-//询问委托人是否应删除文本字段的当前内容
-//- (BOOL)textFieldShouldClear:(UITextField *)textField;
-//询问委托人文本字段是否应处理按下返回按钮
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    return YES;
-}
-#pragma mark —— lazyLoad
--(UILabel *)numLab{
-    if (!_numLab) {
-        _numLab = UILabel.new;
-        _numLab.text = @"欲购数量:";
-        _numLab.font = [UIFont systemFontOfSize:15];
-        [_numLab sizeToFit];
-        [self addSubview:_numLab];
-        [_numLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.equalTo(self).offset(SCALING_RATIO(5));
-        }];
-    }return _numLab;
-}
-
--(UILabel *)userNameLab{
-    if (!_userNameLab) {
-        _userNameLab = UILabel.new;
-        _userNameLab.font = [UIFont systemFontOfSize:15];
-        [self addSubview:_userNameLab];
-        [_userNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.numLab);
-            make.top.equalTo(self.numLab.mas_bottom).offset(SCALING_RATIO(5));
-        }];
-    }return _userNameLab;
-}
-
--(UILabel *)paymentMethodLab{
-    if (!_paymentMethodLab) {
-        _paymentMethodLab = UILabel.new;
-        _paymentMethodLab.text = @"支付方式:";
-        _paymentMethodLab.font = [UIFont systemFontOfSize:15];
-        [self addSubview:_paymentMethodLab];
-        [_paymentMethodLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.numLab);
-            make.bottom.equalTo(self).offset(SCALING_RATIO(-5));
-        }];
-    }return _paymentMethodLab;
-}
-
--(UITextField *)textfield{
-    if (!_textfield) {
-        _textfield = UITextField.new;
-        _textfield.placeholder = @"在此输入数量";
-        _textfield.backgroundColor = KGreenColor;
-        _textfield.delegate = self;
-        _textfield.keyboardType = UIKeyboardTypeDecimalPad;
-        [self addSubview:_textfield];
-        [_textfield mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self).offset(SCALING_RATIO(5));
-            make.right.equalTo(self.purchaseBtn.mas_left).offset(SCALING_RATIO(-5));
-            make.left.equalTo(self.numLab.mas_right);
-        }];
-    }return _textfield;
-}
-
--(UIButton *)purchaseBtn{
-    if (!_purchaseBtn) {
-        _purchaseBtn = UIButton.new;
-        _purchaseBtn.backgroundColor = kRedColor;
-        [_purchaseBtn setTitle:@"购买"
-                      forState:UIControlStateNormal];
-        [_purchaseBtn addTarget:self
-                         action:@selector(clickPurchaseBtnEvent:)
-               forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_purchaseBtn];
-        [_purchaseBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self).offset(SCALING_RATIO(5));
-            make.right.equalTo(self).offset(SCALING_RATIO(-5));
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(50),
-                                             SCALING_RATIO(20)));
-        }];
-    }return _purchaseBtn;
-}
-
--(NSMutableArray<NSString *> *)dataMutArr{
-    if (!_dataMutArr) {
-        _dataMutArr = NSMutableArray.array;
-    }return _dataMutArr;
-}
-
--(NSMutableArray<UILabel *> *)mutArr{
-    if (!_mutArr) {
-        _mutArr = NSMutableArray.array;
-    }return _mutArr;
-}
-
--(NSMutableArray<BEMCheckBox *> *)checkBoxMutArr{
-    if (!_checkBoxMutArr) {
-        _checkBoxMutArr = NSMutableArray.array;
-    }return _checkBoxMutArr;
 }
 
 @end
@@ -642,9 +263,9 @@ BEMCheckBoxDelegate
         WholesaleMarket_VipModel *wholesaleMarket_AdvanceModel = (WholesaleMarket_VipModel *)model;
         //payment_type 0、都没有;2、支付宝;3、微信;4、银行卡;5、支付宝 + 微信;6、支付宝 + 银行卡;7、微信 + 银行卡;9、支付宝 + 微信 + 银行卡
         self.userNameLab.text = [NSString stringWithFormat:@"用户名:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.seller_name ReplaceStr:@"暂无信息"]];
-        self.numLab.text = [NSString stringWithFormat:@"数量:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity ReplaceStr:@"无"]];
-        self.priceLab.text = [NSString stringWithFormat:@"单价:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.price ReplaceStr:@"无"]];
-        self.limitLab.text = [NSString stringWithFormat:@"限额:%@ ~ %@ ",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity_min ReplaceStr:@"无"],[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity_max ReplaceStr:@"无"]];
+        self.numLab.text = [NSString stringWithFormat:@"数量:%@",[[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity ReplaceStr:@"无"] stringByAppendingString:@" g"]];
+        self.priceLab.text = [NSString stringWithFormat:@"单价:%@",[[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.price ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];
+        self.limitLab.text = [NSString stringWithFormat:@"限额:%@ ~ %@ ",[[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity_min ReplaceStr:@"无"] stringByAppendingString:@"g"],[[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity_max ReplaceStr:@"无"] stringByAppendingString:@"g"]];
         switch ([wholesaleMarket_AdvanceModel.payment_type intValue]) {
             case 0:{//都没有
                 self.paymentMethodLab.text = @"支付方式:暂时缺乏";
@@ -734,7 +355,7 @@ BEMCheckBoxDelegate
         [UIView colourToLayerOfView:_purchaseLab
                          WithColour:kWhiteColor
                      AndBorderWidth:0.3f];
-        _purchaseLab.text = @"点击进行撤回";
+        _purchaseLab.text = @"点击进行下架";
         [_purchaseLab sizeToFit];
         [self.contentView addSubview:_purchaseLab];
         [_purchaseLab mas_makeConstraints:^(MASConstraintMaker *make) {

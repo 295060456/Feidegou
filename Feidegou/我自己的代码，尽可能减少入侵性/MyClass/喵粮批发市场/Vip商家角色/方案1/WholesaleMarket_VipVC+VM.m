@@ -9,16 +9,15 @@
 #import "WholesaleMarket_VipVC+VM.h"
 
 @implementation WholesaleMarket_VipVC (VM)
-
+//喵粮批发管理 #10
 -(void)netWorking{
     extern NSString *randomStr;
     NSDictionary *dataDic = @{
         @"currentPage":[NSString stringWithFormat:@"%ld",self.currentPage],
         @"pagesize":@"32"
     };
-    randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
-                                                           path:CatfoodSale_listURL //#15
+                                                           path:CatfoodSale_listURL
                                                      parameters:@{
                                                          @"data":dataDic,
                                                          @"key":[RSAUtil encryptString:randomStr
@@ -43,6 +42,29 @@
                 [self.tableView.mj_footer endRefreshing];
                 [self.tableView reloadData];
             }
+        }
+    }];
+}
+
+-(void)CatfoodSale_delURL_networking{
+    extern NSString *randomStr;
+    NSDictionary *dataDic = @{
+        @"order_id":self.wholesaleMarket_VipModel.ID
+    };
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodSale_delURL
+                                                     parameters:@{
+                                                         @"data":dataDic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key]
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        @strongify(self)
+        if (response) {
+            NSLog(@"--%@",response);
+            [self.tableView.mj_header beginRefreshing];
         }
     }];
 }
