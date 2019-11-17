@@ -10,6 +10,249 @@
 #import "WholesaleMarket_VipVC+VM.h"
 #import "WholesaleOrders_AdvanceVC.h"
 
+@interface WholesaleMarket_VipVC ()
+<
+UITableViewDelegate,
+UITableViewDataSource
+>
+
+@property(nonatomic,strong)UIButton *releaseBtn;
+@property(nonatomic,weak)WholesaleMarket_VipPopView *popView;
+
+@property(nonatomic,strong)id requestParams;
+@property(nonatomic,copy)DataBlock successBlock;
+@property(nonatomic,assign)BOOL isPush;
+@property(nonatomic,assign)BOOL isPresent;
+@property(nonatomic,assign)long indexPathRow;
+
+@end
+
+@implementation WholesaleMarket_VipVC
+
+- (void)dealloc {
+    NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
+}
+
++ (instancetype)pushFromVC:(UIViewController *)rootVC
+             requestParams:(nullable id)requestParams
+                   success:(DataBlock)block
+                  animated:(BOOL)animated{
+    WholesaleMarket_VipVC *vc = WholesaleMarket_VipVC.new;
+    vc.successBlock = block;
+    vc.requestParams = requestParams;
+    if (rootVC.navigationController) {
+        vc.isPush = YES;
+        vc.isPresent = NO;
+        [rootVC.navigationController pushViewController:vc
+                                               animated:animated];
+    }else{
+        vc.isPush = NO;
+        vc.isPresent = YES;
+        [rootVC presentViewController:vc
+                             animated:animated
+                           completion:^{}];
+    }return vc;
+}
+#pragma mark - Lifecycle
+-(instancetype)init{
+    if (self = [super init]) {
+    }return self;
+}
+
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    self.gk_navTitle = @"喵粮批发市场管理";
+    self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.releaseBtn];
+    self.gk_navItemRightSpace = SCALING_RATIO(30);
+    self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
+    self.gk_navItemLeftSpace = SCALING_RATIO(15);
+    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    self.currentPage = 1;
+    self.tableView.alpha = 1;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.tableView.mj_header beginRefreshing];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if (_popView) {
+        [_popView removeFromSuperview];
+        _popView = Nil;
+    }
+}
+
+#pragma mark —— 私有方法
+-(void)releaseBtnClickEvent:(UIButton *)sender{
+    //发布订单
+}
+
+-(void)backBtnClickEvent:(UIButton *)sender{
+    NSLog(@"返回");
+    [self.navigationController popViewControllerAnimated:YES];
+}
+// 下拉刷新
+-(void)pullToRefresh{
+    NSLog(@"下拉刷新");
+    if (self.dataMutArr.count) {
+        [self.dataMutArr removeAllObjects];
+    }
+    [self netWorking];
+}
+//上拉加载更多
+- (void)loadMoreRefresh{
+    NSLog(@"上拉加载更多");
+    self.currentPage++;
+}
+#pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return [WholesaleMarket_VipTBVCell cellHeightWithModel:Nil];
+}
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath
+                             animated:NO];
+    self.indexPathRow = indexPath.row;
+    Toast(@"Vip商家不可购买");
+//    if (_popView) {
+//        _popView = nil;
+//    }
+//    self.popView.alpha = 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
+
+    return self.dataMutArr.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    WholesaleMarket_VipTBVCell *cell = [WholesaleMarket_VipTBVCell cellWith:tableView];
+    cell.backgroundColor = RandomColor;
+    if (self.dataMutArr.count) {
+        [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+    }return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+//给cell添加动画
+-(void)tableView:(UITableView *)tableView
+ willDisplayCell:(UITableViewCell *)cell
+forRowAtIndexPath:(NSIndexPath *)indexPath{
+    //设置Cell的动画效果为3D效果
+    //设置x和y的初始值为0.1；
+    cell.layer.transform = CATransform3DMakeScale(0.1,
+                                                  0.1,
+                                                  1);
+    //x和y的最终值为1
+    [UIView animateWithDuration:1
+                     animations:^{
+        cell.layer.transform = CATransform3DMakeScale(1,
+                                                      1,
+                                                      1);
+    }];
+}
+#pragma mark —— lazyLoad
+-(UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:CGRectZero
+                                                 style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.tableFooterView = UIView.new;
+        _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+        _tableView.mj_header = self.tableViewHeader;
+        _tableView.mj_footer = self.tableViewFooter;
+        _tableView.mj_footer.hidden = YES;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//推荐该方法
+        [self.view addSubview:_tableView];
+        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.gk_navigationBar.mas_bottom);
+            make.left.right.bottom.equalTo(self.view);
+        }];
+    }return _tableView;
+}
+
+-(UIButton *)releaseBtn{
+    if (!_releaseBtn) {
+        _releaseBtn = UIButton.new;
+        [_releaseBtn setTitle:@"发布订单"
+                     forState:UIControlStateNormal];
+        [_releaseBtn setTitleColor:kBlueColor
+                          forState:UIControlStateNormal];
+        [_releaseBtn addTarget:self
+                        action:@selector(releaseBtnClickEvent:)
+              forControlEvents:UIControlEventTouchUpInside];
+    }return _releaseBtn;
+}
+
+-(WholesaleMarket_VipPopView *)popView{
+    if (!_popView) {
+        _popView = [[WholesaleMarket_VipPopView shareManager] initWithRequestParams:self.dataMutArr[self.indexPathRow]];//支付方式
+        _popView.backgroundColor = KLightGrayColor;
+        [UIView cornerCutToCircleWithView:_popView
+                          AndCornerRadius:10.f];
+        [UIView colourToLayerOfView:_popView
+                         WithColour:kWhiteColor
+                     AndBorderWidth:0.3f];
+        [self.view addSubview:_popView];
+        [self.view bringSubviewToFront:_popView];
+        _popView.frame = CGRectMake(SCALING_RATIO(50),
+                                    self.view.mj_h,
+                                    SCREEN_WIDTH - SCALING_RATIO(90),
+                                    SCALING_RATIO(100));
+        @weakify(self)
+        [UIView animateWithDuration:0.5f
+                              delay:0.1f
+             usingSpringWithDamping:0.1//弹簧动画的阻尼值 当该属性为1时，表示阻尼非常大，可以看到几乎是没有什么弹动的幅度
+              initialSpringVelocity:1.f//值越小弹簧的动力越小，弹簧拉伸的幅度越小，反之动力越大，弹簧拉伸的幅度越大
+                            options:UIViewAnimationOptionCurveEaseOut//时间曲线函数，由快到慢(快入缓出)
+                         animations:^{
+            @strongify(self)
+            self->_popView.frame = CGRectMake(SCALING_RATIO(50),
+                                              self.view.mj_h - SCALING_RATIO(200),
+                                              SCREEN_WIDTH - SCALING_RATIO(90),
+                                              SCALING_RATIO(100));//弹出框高度
+        }
+                         completion:^(BOOL finished) {
+//            @strongify(self)
+        }];
+        
+        [_popView clickBlock:^(id data, id data2) {//点击购买 发送 (self.textfield,self.tagger)
+//            @strongify(self)
+            WholesaleMarket_AdvanceModel *model = (WholesaleMarket_AdvanceModel *)self.dataMutArr[self.indexPathRow];
+            if ([data isKindOfClass:[UITextField class]] &&
+                [data2 isKindOfClass:[NSNumber class]]) {
+                UITextField *textfield = (UITextField *)data;
+                if (![NSString isNullString:textfield.text]) {
+                    [WholesaleOrders_AdvanceVC pushFromVC:self_weak_
+                                            requestParams:@[textfield.text,data2,model.ID]//购买的数量、付款的方式、订单ID
+                                                  success:^(id data) {}
+                                                 animated:YES];
+                }else{
+                    Toast(@"请输入金额");
+                }
+            }
+        }];
+    }return _popView;
+}
+
+-(NSMutableArray<WholesaleMarket_VipModel *> *)dataMutArr{
+    if (!_dataMutArr) {
+        _dataMutArr = NSMutableArray.array;
+    }return _dataMutArr;
+}
+
+@end
+
+
 @interface WholesaleMarket_VipPopView ()
 <
 UITextFieldDelegate,
@@ -491,7 +734,7 @@ BEMCheckBoxDelegate
         [UIView colourToLayerOfView:_purchaseLab
                          WithColour:kWhiteColor
                      AndBorderWidth:0.3f];
-        _purchaseLab.text = @"点击立即购买";
+        _purchaseLab.text = @"点击进行撤回";
         [_purchaseLab sizeToFit];
         [self.contentView addSubview:_purchaseLab];
         [_purchaseLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -515,246 +758,6 @@ BEMCheckBoxDelegate
             make.left.equalTo(self.userNameLab);
         }];
     }return _paymentMethodLab;
-}
-
-@end
-
-@interface WholesaleMarket_VipVC ()
-<
-UITableViewDelegate,
-UITableViewDataSource
->
-
-@property(nonatomic,strong)UIButton *refreshBtn;
-@property(nonatomic,weak)WholesaleMarket_VipPopView *popView;
-
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,copy)DataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
-@property(nonatomic,assign)long indexPathRow;
-
-@end
-
-@implementation WholesaleMarket_VipVC
-
-- (void)dealloc {
-    NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
-}
-
-+ (instancetype)pushFromVC:(UIViewController *)rootVC
-             requestParams:(nullable id)requestParams
-                   success:(DataBlock)block
-                  animated:(BOOL)animated{
-    WholesaleMarket_VipVC *vc = WholesaleMarket_VipVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-    if (rootVC.navigationController) {
-        vc.isPush = YES;
-        vc.isPresent = NO;
-        [rootVC.navigationController pushViewController:vc
-                                               animated:animated];
-    }else{
-        vc.isPush = NO;
-        vc.isPresent = YES;
-        [rootVC presentViewController:vc
-                             animated:animated
-                           completion:^{}];
-    }return vc;
-}
-#pragma mark - Lifecycle
--(instancetype)init{
-    if (self = [super init]) {
-    }return self;
-}
-
--(void)viewDidLoad{
-    [super viewDidLoad];
-    self.gk_navTitle = @"喵粮批发市场管理";
-    self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.refreshBtn];
-    self.gk_navItemRightSpace = SCALING_RATIO(30);
-    self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
-    self.gk_navItemLeftSpace = SCALING_RATIO(15);
-    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.currentPage = 1;
-    self.tableView.alpha = 1;
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self.tableView.mj_header beginRefreshing];
-}
-
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    if (_popView) {
-        [_popView removeFromSuperview];
-        _popView = Nil;
-    }
-}
-
-#pragma mark —— 私有方法
--(void)refreshBtnClickEvent:(UIButton *)sender{
-    [self.tableView.mj_header beginRefreshing];
-}
-
--(void)backBtnClickEvent:(UIButton *)sender{
-    NSLog(@"返回");
-    [self.navigationController popViewControllerAnimated:YES];
-}
-// 下拉刷新
--(void)pullToRefresh{
-    NSLog(@"下拉刷新");
-    if (self.dataMutArr.count) {
-        [self.dataMutArr removeAllObjects];
-    }
-    [self netWorking];
-}
-//上拉加载更多
-- (void)loadMoreRefresh{
-    NSLog(@"上拉加载更多");
-    self.currentPage++;
-}
-#pragma mark —— UITableViewDelegate,UITableViewDataSource
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [WholesaleMarket_VipTBVCell cellHeightWithModel:Nil];
-}
-
-- (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath
-                             animated:NO];
-    self.indexPathRow = indexPath.row;
-    Toast(@"Vip商家不可购买");
-//    if (_popView) {
-//        _popView = nil;
-//    }
-//    self.popView.alpha = 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section{
-
-    return self.dataMutArr.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    WholesaleMarket_VipTBVCell *cell = [WholesaleMarket_VipTBVCell cellWith:tableView];
-    cell.backgroundColor = RandomColor;
-    if (self.dataMutArr.count) {
-        [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
-    }return cell;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-//给cell添加动画
--(void)tableView:(UITableView *)tableView
- willDisplayCell:(UITableViewCell *)cell
-forRowAtIndexPath:(NSIndexPath *)indexPath{
-    //设置Cell的动画效果为3D效果
-    //设置x和y的初始值为0.1；
-    cell.layer.transform = CATransform3DMakeScale(0.1,
-                                                  0.1,
-                                                  1);
-    //x和y的最终值为1
-    [UIView animateWithDuration:1
-                     animations:^{
-        cell.layer.transform = CATransform3DMakeScale(1,
-                                                      1,
-                                                      1);
-    }];
-}
-#pragma mark —— lazyLoad
--(UITableView *)tableView{
-    if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectZero
-                                                 style:UITableViewStylePlain];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.tableFooterView = UIView.new;
-        _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-        _tableView.mj_header = self.tableViewHeader;
-        _tableView.mj_footer = self.tableViewFooter;
-        _tableView.mj_footer.hidden = YES;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//推荐该方法
-        [self.view addSubview:_tableView];
-        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.gk_navigationBar.mas_bottom);
-            make.left.right.bottom.equalTo(self.view);
-        }];
-    }return _tableView;
-}
-
--(UIButton *)refreshBtn{
-    if (!_refreshBtn) {
-        _refreshBtn = UIButton.new;
-        [_refreshBtn setImage:kIMG(@"刷新")
-                     forState:UIControlStateNormal];
-        [_refreshBtn addTarget:self
-                        action:@selector(refreshBtnClickEvent:)
-              forControlEvents:UIControlEventTouchUpInside];
-    }return _refreshBtn;
-}
-
--(WholesaleMarket_VipPopView *)popView{
-    if (!_popView) {
-        _popView = [[WholesaleMarket_VipPopView shareManager] initWithRequestParams:self.dataMutArr[self.indexPathRow]];//支付方式
-        _popView.backgroundColor = KLightGrayColor;
-        [UIView cornerCutToCircleWithView:_popView
-                          AndCornerRadius:10.f];
-        [UIView colourToLayerOfView:_popView
-                         WithColour:kWhiteColor
-                     AndBorderWidth:0.3f];
-        [self.view addSubview:_popView];
-        [self.view bringSubviewToFront:_popView];
-        _popView.frame = CGRectMake(SCALING_RATIO(50),
-                                    self.view.mj_h,
-                                    SCREEN_WIDTH - SCALING_RATIO(90),
-                                    SCALING_RATIO(100));
-        @weakify(self)
-        [UIView animateWithDuration:0.5f
-                              delay:0.1f
-             usingSpringWithDamping:0.1//弹簧动画的阻尼值 当该属性为1时，表示阻尼非常大，可以看到几乎是没有什么弹动的幅度
-              initialSpringVelocity:1.f//值越小弹簧的动力越小，弹簧拉伸的幅度越小，反之动力越大，弹簧拉伸的幅度越大
-                            options:UIViewAnimationOptionCurveEaseOut//时间曲线函数，由快到慢(快入缓出)
-                         animations:^{
-            @strongify(self)
-            self->_popView.frame = CGRectMake(SCALING_RATIO(50),
-                                              self.view.mj_h - SCALING_RATIO(200),
-                                              SCREEN_WIDTH - SCALING_RATIO(90),
-                                              SCALING_RATIO(100));//弹出框高度
-        }
-                         completion:^(BOOL finished) {
-//            @strongify(self)
-        }];
-        
-        [_popView clickBlock:^(id data, id data2) {//点击购买 发送 (self.textfield,self.tagger)
-//            @strongify(self)
-            WholesaleMarket_AdvanceModel *model = (WholesaleMarket_AdvanceModel *)self.dataMutArr[self.indexPathRow];
-            if ([data isKindOfClass:[UITextField class]] &&
-                [data2 isKindOfClass:[NSNumber class]]) {
-                UITextField *textfield = (UITextField *)data;
-                if (![NSString isNullString:textfield.text]) {
-                    [WholesaleOrders_AdvanceVC pushFromVC:self_weak_
-                                            requestParams:@[textfield.text,data2,model.ID]//购买的数量、付款的方式、订单ID
-                                                  success:^(id data) {}
-                                                 animated:YES];
-                }else{
-                    Toast(@"请输入金额");
-                }
-            }
-        }];
-    }return _popView;
-}
-
--(NSMutableArray<WholesaleMarket_VipModel *> *)dataMutArr{
-    if (!_dataMutArr) {
-        _dataMutArr = NSMutableArray.array;
-    }return _dataMutArr;
 }
 
 @end

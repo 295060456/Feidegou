@@ -139,9 +139,9 @@
 		8BCB98DC23715D660063E01E /* AESCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98D923715D660063E01E /* AESCipher.m */; };
 		8BCB993423719DEA0063E01E /* GiftVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB993323719DEA0063E01E /* GiftVC+VM.m */; };
 		8BCB99372371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB99362371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.m */; };
-		8BFB45B3237CF33700EDE418 /* WholesaleMarket_VipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFB45AD237CF33600EDE418 /* WholesaleMarket_VipModel.m */; };
-		8BFB45B4237CF33700EDE418 /* WholesaleMarket_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFB45AE237CF33600EDE418 /* WholesaleMarket_VipVC.m */; };
-		8BFB45B5237CF33700EDE418 /* WholesaleMarket_VipVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BFB45AF237CF33600EDE418 /* WholesaleMarket_VipVC+VM.m */; };
+		8BEAE8812381138C006E40A4 /* WholesaleMarket_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87C2381138C006E40A4 /* WholesaleMarket_VipVC.m */; };
+		8BEAE8822381138C006E40A4 /* WholesaleMarket_VipVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87D2381138C006E40A4 /* WholesaleMarket_VipVC+VM.m */; };
+		8BEAE8832381138C006E40A4 /* WholesaleMarket_VipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87F2381138C006E40A4 /* WholesaleMarket_VipModel.m */; };
 		C4026DBD2148161D00D81974 /* AchievementController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBB2148161D00D81974 /* AchievementController.m */; };
 		C4026DC02148164E00D81974 /* ButtonShare.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBE2148164E00D81974 /* ButtonShare.m */; };
 		C405FEFB218C2A0900C02CDC /* CLCellInterger.m in Sources */ = {isa = PBXBuildFile; fileRef = C405FEF9218C2A0900C02CDC /* CLCellInterger.m */; };
@@ -894,12 +894,13 @@
 		8BCB993323719DEA0063E01E /* GiftVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GiftVC+VM.m"; sourceTree = "<group>"; };
 		8BCB99352371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ThroughTrainToPromoteVC+VM.h"; sourceTree = "<group>"; };
 		8BCB99362371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ThroughTrainToPromoteVC+VM.m"; sourceTree = "<group>"; };
-		8BFB45AD237CF33600EDE418 /* WholesaleMarket_VipModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_VipModel.m; sourceTree = "<group>"; };
-		8BFB45AE237CF33600EDE418 /* WholesaleMarket_VipVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_VipVC.m; sourceTree = "<group>"; };
-		8BFB45AF237CF33600EDE418 /* WholesaleMarket_VipVC+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WholesaleMarket_VipVC+VM.m"; sourceTree = "<group>"; };
-		8BFB45B0237CF33600EDE418 /* WholesaleMarket_VipVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_VipVC.h; sourceTree = "<group>"; };
-		8BFB45B1237CF33600EDE418 /* WholesaleMarket_VipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_VipModel.h; sourceTree = "<group>"; };
-		8BFB45B2237CF33600EDE418 /* WholesaleMarket_VipVC+VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WholesaleMarket_VipVC+VM.h"; sourceTree = "<group>"; };
+		8BEAE87B2381138C006E40A4 /* WholesaleMarket_VipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_VipModel.h; sourceTree = "<group>"; };
+		8BEAE87C2381138C006E40A4 /* WholesaleMarket_VipVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_VipVC.m; sourceTree = "<group>"; };
+		8BEAE87D2381138C006E40A4 /* WholesaleMarket_VipVC+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WholesaleMarket_VipVC+VM.m"; sourceTree = "<group>"; };
+		8BEAE87E2381138C006E40A4 /* WholesaleMarket_VipVC+VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WholesaleMarket_VipVC+VM.h"; sourceTree = "<group>"; };
+		8BEAE87F2381138C006E40A4 /* WholesaleMarket_VipModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_VipModel.m; sourceTree = "<group>"; };
+		8BEAE8802381138C006E40A4 /* WholesaleMarket_VipVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_VipVC.h; sourceTree = "<group>"; };
+		8BEAE884238113D5006E40A4 /* Snip20191117_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snip20191117_1.png; sourceTree = "<group>"; };
 		947AD75F86191C8F32BD1901 /* Pods-Feidegou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.debug.xcconfig"; sourceTree = "<group>"; };
 		B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Feidegou.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4026DBB2148161D00D81974 /* AchievementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementController.m; sourceTree = "<group>"; };
@@ -2645,6 +2646,12 @@
 		8BFB45AB237CF32100EDE418 /* 方案1 */ = {
 			isa = PBXGroup;
 			children = (
+				8BEAE8802381138C006E40A4 /* WholesaleMarket_VipVC.h */,
+				8BEAE87C2381138C006E40A4 /* WholesaleMarket_VipVC.m */,
+				8BEAE87B2381138C006E40A4 /* WholesaleMarket_VipModel.h */,
+				8BEAE87F2381138C006E40A4 /* WholesaleMarket_VipModel.m */,
+				8BEAE87E2381138C006E40A4 /* WholesaleMarket_VipVC+VM.h */,
+				8BEAE87D2381138C006E40A4 /* WholesaleMarket_VipVC+VM.m */,
 			);
 			path = "方案1";
 			sourceTree = "<group>";
@@ -2652,12 +2659,7 @@
 		8BFB45AC237CF33600EDE418 /* 方案2 */ = {
 			isa = PBXGroup;
 			children = (
-				8BFB45B0237CF33600EDE418 /* WholesaleMarket_VipVC.h */,
-				8BFB45AE237CF33600EDE418 /* WholesaleMarket_VipVC.m */,
-				8BFB45B1237CF33600EDE418 /* WholesaleMarket_VipModel.h */,
-				8BFB45AD237CF33600EDE418 /* WholesaleMarket_VipModel.m */,
-				8BFB45B2237CF33600EDE418 /* WholesaleMarket_VipVC+VM.h */,
-				8BFB45AF237CF33600EDE418 /* WholesaleMarket_VipVC+VM.m */,
+				8BEAE884238113D5006E40A4 /* Snip20191117_1.png */,
 			);
 			path = "方案2";
 			sourceTree = "<group>";
@@ -4442,10 +4444,8 @@
 			files = (
 				C42CD06E213CC2640096675F /* ChangePswController.m in Sources */,
 				C46D6B5321438F6400428D7A /* PayMoneySuccedController.m in Sources */,
-				8BFB45B5237CF33700EDE418 /* WholesaleMarket_VipVC+VM.m in Sources */,
 				C42CD09D213CC2640096675F /* CellLogisticsEnd.m in Sources */,
 				C42CD0F0213CC2640096675F /* RegisterInviterController.m in Sources */,
-				8BFB45B4237CF33700EDE418 /* WholesaleMarket_VipVC.m in Sources */,
 				C46143F2214386B6000C0CDC /* CellVendorAddress.m in Sources */,
 				C42CD138213CC2640096675F /* CLCellGoods.m in Sources */,
 				C461440D214386B6000C0CDC /* CellVendorGoodList.m in Sources */,
@@ -4641,6 +4641,7 @@
 				8B9EAF8D237429950012884C /* SettingPaymentWayTBViewForHeader.m in Sources */,
 				C42CD1A1213CC2640096675F /* UITextFieldPassWord.m in Sources */,
 				C42CD103213CC2640096675F /* BrandRoneListController.m in Sources */,
+				8BEAE8822381138C006E40A4 /* WholesaleMarket_VipVC+VM.m in Sources */,
 				C42CD0F1213CC2640096675F /* RegisterCodeController.m in Sources */,
 				C42CD086213CC2640096675F /* NSDataEx.m in Sources */,
 				C46D6B562143A48D00428D7A /* UIButton+EnlargeTouchArea.m in Sources */,
@@ -4713,6 +4714,7 @@
 				C41628162171C14300DC0D10 /* CellTuihuoInfo.m in Sources */,
 				C42CD1D1213CC2650096675F /* ModelRankList.m in Sources */,
 				C42CD1AD213CC2640096675F /* PersonalInfo.m in Sources */,
+				8BEAE8832381138C006E40A4 /* WholesaleMarket_VipModel.m in Sources */,
 				8B7A54EB236D6DD1006B12F8 /* WBPopMenuSingleton.m in Sources */,
 				C42CD0C4213CC2640096675F /* CellAddress.m in Sources */,
 				C42CD12D213CC2640096675F /* CellDiscuss.m in Sources */,
@@ -4787,6 +4789,7 @@
 				C42CD150213CC2640096675F /* CLCellTypeSelected.m in Sources */,
 				8B3C0B5B237FCAD500BFFA86 /* OrderDetailModel.m in Sources */,
 				C42F5D2E213F858B00114E0E /* CellIncomeAll.m in Sources */,
+				8BEAE8812381138C006E40A4 /* WholesaleMarket_VipVC.m in Sources */,
 				8BCB99372371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.m in Sources */,
 				C46D6B5E2143A5FF00428D7A /* ModelOrderGoodList.m in Sources */,
 				8BB2D3892366CC1F0047D0E2 /* ViewForFooter.m in Sources */,
@@ -4846,7 +4849,6 @@
 				C42CD187213CC2640096675F /* DateSelecet.m in Sources */,
 				C42CD148213CC2640096675F /* GoodDetailController.m in Sources */,
 				C42CD129213CC2640096675F /* ReusableViewProperty.m in Sources */,
-				8BFB45B3237CF33700EDE418 /* WholesaleMarket_VipModel.m in Sources */,
 				C42CD14B213CC2640096675F /* TypeSelectFunction.m in Sources */,
 				8BB2D3772366CBA70047D0E2 /* TZImageRequestOperation.m in Sources */,
 				C4A0DA7A213E953F00B45B65 /* FDAlertView.m in Sources */,
