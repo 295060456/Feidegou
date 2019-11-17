@@ -57,14 +57,14 @@
     NSString *strUserNum = self.txtUserName.text;
     NSString *strPsw = self.txtPsw.text;
     
-#warning grade_id = 3 Vip商家
-    strUserNum = @"admin";
+//#warning grade_id = 3 Vip商家
+//    strUserNum = @"admin";
+//    strPsw = @"123456";
+
+#warning grade_id = 2 高级商家
+    strUserNum = @"shopping";
     strPsw = @"123456";
 
-//#warning grade_id = 2 高级商家
-//    strUserNum = @"shopping";
-//    strPsw = @"123456";
-//
 //#warning grade_id = 1 普通商家
 //    strUserNum = @"135661";
 //    strPsw = @"123456";

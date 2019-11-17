@@ -9,9 +9,12 @@
 #import "CatFoodsManagementVC+VM.h"
 
 NSString *randomStr;
-NSString *market_price_co;//产地均价
-NSString *market_price_sale;//批发均价
 NSString *market_price_booth;//摊位均价
+NSString *weixin_qr_img;//微信收款二维码
+NSString *Foodstuff;
+NSString *market_price_sale;//批发均价
+NSString *market_price_co;//产地均价
+NSString *Foodsell;
 
 @implementation CatFoodsManagementVC (VM)
 
@@ -32,14 +35,25 @@ NSString *market_price_booth;//摊位均价
             NSLog(@"--%@",response);
             if ([response isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *dic = (NSDictionary *)response;
-                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"Foodsell"]] ReplaceStr:@"无"]];
-                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"Foodstuff"]] ReplaceStr:@"无"]];
-                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price_booth"]] ReplaceStr:@"无"]];// 摊位均价
-                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price_sale"]] ReplaceStr:@"无"]];//批发均价
-                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price_co"]] ReplaceStr:@"无"]];// 产地均价
-                market_price_co = self.dataMutArr[4];
+                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price_booth"]]
+                                                              ReplaceStr:@"无"]];// 摊位均价
+                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"weixin_qr_img"]]
+                                                              ReplaceStr:@"无"]];// 微信收款二维码
+                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"Foodstuff"]]
+                                                              ReplaceStr:@"无"]];
+                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price_sale"]]
+                                                              ReplaceStr:@"无"]];//批发均价
+                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price_co"]]
+                                                              ReplaceStr:@"无"]];// 产地均价
+                [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"Foodsell"]]
+                                                              ReplaceStr:@"无"]];
+                market_price_booth = self.dataMutArr[0];
+                weixin_qr_img = self.dataMutArr[1];
+                Foodstuff = self.dataMutArr[2];
                 market_price_sale = self.dataMutArr[3];
-                market_price_booth = self.dataMutArr[2];
+                market_price_co = self.dataMutArr[4];
+                Foodsell = self.dataMutArr[5];
+                
                 self.tableView.mj_footer.hidden = NO;
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView.mj_footer endRefreshing];
@@ -54,5 +68,7 @@ NSString *market_price_booth;//摊位均价
         }
     }];
 }
+
+
 
 @end
