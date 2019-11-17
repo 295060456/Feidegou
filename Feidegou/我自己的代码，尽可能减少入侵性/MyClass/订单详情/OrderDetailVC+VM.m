@@ -398,6 +398,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         }
     }];
 }
+//buyer_CatfoodRecord_checkURL 3小时 del_wait_left_time
+
 
 
 @end

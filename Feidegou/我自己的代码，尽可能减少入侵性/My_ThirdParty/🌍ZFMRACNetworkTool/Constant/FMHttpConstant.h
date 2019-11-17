@@ -58,7 +58,7 @@
 #define CatfoodBooth_goodsURL @"/user/buyer/CatfoodBooth_goods.htm"//喵粮抢摊位发货 post 21Y
 #define CatfoodBooth_delURL @"/user/buyer/CatfoodBooth_del.htm"//喵粮抢摊位取消 post 22 Y
 #define CatfoodBooth_del @"/user/buyer/CatfoodBooth_del.htm"//喵粮抢摊位取消 post 22_1
-#define CatfoodBooth_del_time @"/user/buyer/CatfoodBooth_del_time.htm"//喵粮抢摊位取消剩余时间 post 22_2
+#define CatfoodBooth_del_time @"/user/buyer/CatfoodBooth_del_time.htm"//喵粮抢摊位取消剩余时间 post 22_2 5min
 #define CatfoodRecord_goodsURL @"/user/buyer/CatfoodMeowFood.htm"//喵粮赠送 post 23 Y
 #define CatfoodOrdernumberUpdateURL @"/user/seller/CatfoodOrdernumberUpdate.htm"//喵粮订单数量修改 post 24 ?
 #define CatfoodBooth_listURL @"/user/seller/CatfoodBooth_list.htm"//抢摊位列表 post 25
