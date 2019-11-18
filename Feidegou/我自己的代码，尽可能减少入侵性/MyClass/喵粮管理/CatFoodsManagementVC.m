@@ -16,6 +16,7 @@
 #import "WholesaleMarket_AdvanceVC.h"//喵粮批发市场_仅高级商家可见
 #import "WholesaleMarket_VipVC.h"//喵粮批发市场_仅Vip可见
 #import "SettingPaymentWayVC.h"//设置支付方式
+#import "ChatVC.h"//喵粮会话
 
 #import "CatFoodsManagementVC+VM.h"
 
@@ -190,7 +191,12 @@ UITableViewDataSource
                           requestParams:nil
                                 success:^(id data) {}
                                animated:YES];
-    }
+    }else if ([vcName isEqualToString:@"喵粮会话"]){
+        [ChatVC pushFromVC:self_weak_
+             requestParams:nil
+                   success:^(id data) {}
+                  animated:YES];
+    }else{}
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
@@ -288,6 +294,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         }
         [tempMutArr addObject:@"喵粮转转"];
         [tempMutArr addObject:@"喵粮批发市场"];
+        [tempMutArr addObject:@"喵粮会话"];
         if ([self.loginModel.grade_id intValue] == 3) {
 //            [tempMutArr addObject:@"设置收款方式"];
         }
@@ -309,6 +316,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         }
         [tempMutArr addObject:@"喵粮转转"];
         [tempMutArr addObject:@"喵粮批发市场"];
+        [tempMutArr addObject:@"电 话"];
         if ([self.loginModel.grade_id intValue] == 3) {
             [tempMutArr addObject:@"支付"];
         }

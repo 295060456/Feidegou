@@ -13,7 +13,7 @@
 -(void)allowWebSocketOpen_networking:(NSString *)quantity{
     extern NSString *randomStr;
     NSDictionary *dic = @{
-         @"quantity":quantity
+        @"quantity":[NSString isNullString:quantity] ? @"" :quantity
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodTrainURL

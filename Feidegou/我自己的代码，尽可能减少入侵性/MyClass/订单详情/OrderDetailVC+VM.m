@@ -55,7 +55,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 -(void)netWorking{
     extern NSString *randomStr;
     NSDictionary *dataDic = @{
-        @"order_id":[self.orderListModel.ID stringValue]//order_id
+        @"order_id":self.orderListModel.ID//order_id
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodCO_BuyerURL
@@ -421,10 +421,13 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             if (response) {
                 @strongify(self)
                 NSLog(@"--%@",response);
-//                self.tableView.mj_footer.hidden = NO;
-//                [self.tableView.mj_header endRefreshing];
-//                [self.tableView.mj_footer endRefreshing];
-//                [self.tableView reloadData];
+                
+                
+                
+                self.tableView.mj_footer.hidden = NO;
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView.mj_footer endRefreshing];
+                [self.tableView reloadData];
             }
         }];
     

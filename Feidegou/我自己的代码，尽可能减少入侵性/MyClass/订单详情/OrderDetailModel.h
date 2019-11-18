@@ -32,7 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *payment_alipay;
 @property(nonatomic,copy)NSString *payment_weixin;
 
+
 @end
 
 NS_ASSUME_NONNULL_END
+
 

@@ -46,9 +46,11 @@ UITableViewDataSource
     OrderDetailVC *vc = OrderDetailVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;//OrderListModel
-    if ([vc.requestParams isKindOfClass:[OrderListModel class]]) {
+    if ([vc.requestParams isKindOfClass:[OrderListModel class]]) {//买家、卖家进
         vc.orderListModel = (OrderListModel *)vc.requestParams;
-    }
+    }else if ([vc.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){
+        vc.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)vc.requestParams;
+    }else{}
     if (rootVC.navigationController) {
         vc.isPush = YES;
         vc.isPresent = NO;
@@ -75,7 +77,6 @@ UITableViewDataSource
     self.gk_navItemRightSpace = SCALING_RATIO(30);
     
     if (self.orderListModel) {
-        
         NSString *str1 = [NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"];
         NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
         self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
@@ -162,19 +163,25 @@ UITableViewDataSource
                     [self.dataMutArr addObject:@"订单已发货"];//1111
                 }else{}
             }else{}
-        }
+    }else if (self.catFoodProducingAreaModel){
+        [self.dataMutArr addObject:@"??"];
+    }else{}
     self.tableView.alpha = 1;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if ([self.orderListModel.order_type intValue] == 1) {
-        if ([self.orderListModel.order_status intValue] == 2) {
-            if ([self.orderListModel.del_state intValue] == 0) {
-                [self.tableView.mj_header beginRefreshing];
+    if (self.orderListModel) {
+        if ([self.orderListModel.order_type intValue] == 1) {
+            if ([self.orderListModel.order_status intValue] == 2) {
+                if ([self.orderListModel.del_state intValue] == 0) {
+                    [self.tableView.mj_header beginRefreshing];
+                }
             }
         }
-    }
+    }else if (self.catFoodProducingAreaModel){
+        
+    }else{}
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -187,19 +194,26 @@ UITableViewDataSource
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
     }
-    if ([self.orderListModel.order_type intValue] == 1) {
-        if ([self.orderListModel.order_status intValue] == 2) {
-            if ([self.orderListModel.del_state intValue] == 0) {
-                [self CatfoodBooth_del_time_netWorking];
+    
+    if (self.orderListModel) {
+            if ([self.orderListModel.order_type intValue] == 1) {
+            if ([self.orderListModel.order_status intValue] == 2) {
+                if ([self.orderListModel.del_state intValue] == 0) {
+                    [self CatfoodBooth_del_time_netWorking];
+                }
             }
         }
+        [self buyer_CatfoodRecord_checkURL_NetWorking];
+    }else if (self.catFoodProducingAreaModel){
+        
+    }else{
+        
     }
-    [self netWorking];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-    [self netWorking];
+    [self buyer_CatfoodRecord_checkURL_NetWorking];
 }
 #pragma mark —— 点击事件
 -(void)contactBuyerClickEvent:(VerifyCodeButton *)sender{
@@ -212,7 +226,8 @@ UITableViewDataSource
 }
 
 -(void)tips:(UIButton *)sender{
-    if ([sender isEqual:self.normalCancel] ||
+    if (self.orderListModel) {
+        if ([sender isEqual:self.normalCancel] ||
         [sender isEqual:self.countDownCancelBtn]) {//取消按钮
         if ([sender.titleLabel.text isEqualToString:@"撤销"]) {
             //选择撤销理由
@@ -277,6 +292,9 @@ UITableViewDataSource
                                        @"Cancel"]];//取消
         }
     }else{}
+    }else if (self.catFoodProducingAreaModel){
+        
+    }else{}
 }
 
 -(void)cancelBtnClickEvent{
@@ -302,7 +320,9 @@ UITableViewDataSource
                 [self cancelOrder_producingArea_netWorking];
             }
         }else{}
-    }
+    }else if (self.catFoodProducingAreaModel){
+        
+    }else{}
 }
 
 -(void)sureBtnClickEvent{
@@ -332,7 +352,9 @@ UITableViewDataSource
                 [self uploadPic_producingArea_havePaid_netWorking:self.pic];
             }
         }else{}
-    }
+    }else if (self.catFoodProducingAreaModel){
+        
+    }else{}
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView

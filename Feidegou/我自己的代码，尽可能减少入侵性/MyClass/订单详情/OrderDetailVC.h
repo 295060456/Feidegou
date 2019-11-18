@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
 @property(nonatomic,strong)OrderListModel *orderListModel;
+@property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
                        requestParams:(nullable id)requestParams

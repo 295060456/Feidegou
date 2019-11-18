@@ -7,7 +7,7 @@
 //
 
 #import "CatFoodProducingAreaVC.h"
-//#import "OrderDetail_BuyerVC.h"
+#import "OrderDetailVC.h"
 #import "CatFoodProducingAreaVC+VM.h"
 
 @interface CatFoodProducingAreaTBVCell ()
@@ -225,10 +225,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
 
     @weakify(self)
-//    [OrderDetail_BuyerVC pushFromVC:self_weak_
-//                      requestParams:self.dataMutArr[indexPath.row]
-//                            success:^(id data) {}
-//                           animated:YES];
+    [OrderDetailVC pushFromVC:self_weak_
+                requestParams:self.dataMutArr[indexPath.row]
+                      success:^(id data) {}
+                     animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
