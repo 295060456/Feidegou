@@ -72,7 +72,9 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:response];
             NSString *str1 = [NSString ensureNonnullString:orderDetailModel.ID ReplaceStr:@"无"];
             NSString *str2 = [NSString ensureNonnullString:orderDetailModel.quantity ReplaceStr:@""];
-            [self.dataMutArr addObject:[NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2]];
+//            [self.dataMutArr addObject:[NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2]];
+    
+            self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
             
             [self.dataMutArr addObject:[NSString ensureNonnullString:orderDetailModel.ID ReplaceStr:@"无"]];//订单号
             [self.dataMutArr addObject:[[NSString ensureNonnullString:orderDetailModel.price ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//单价
@@ -398,7 +400,37 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         }
     }];
 }
-//buyer_CatfoodRecord_checkURL 3小时 del_wait_left_time
+//buyer_CatfoodRecord_checkURL 喵粮订单查看 3小时 del_wait_left_time
+-(void)buyer_CatfoodRecord_checkURL_NetWorking{
+    extern NSString *randomStr;
+        NSDictionary *dic = @{
+            @"order_id":[NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"],//订单id
+            @"order_type":[NSString ensureNonnullString:self.orderListModel.order_type ReplaceStr:@"无"]//订单类型 —— 1、摊位;2、批发;3、产地
+        };
+           
+        FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                               path:buyer_CatfoodRecord_checkURL
+                                                         parameters:@{
+                                                             @"data":dic,
+                                                             @"key":[RSAUtil encryptString:randomStr
+                                                                                 publicKey:RSA_Public_key]
+                                                         }];
+        self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+        @weakify(self)
+        [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+            if (response) {
+                @strongify(self)
+                NSLog(@"--%@",response);
+//                self.tableView.mj_footer.hidden = NO;
+//                [self.tableView.mj_header endRefreshing];
+//                [self.tableView.mj_footer endRefreshing];
+//                [self.tableView reloadData];
+            }
+        }];
+    
+//    self.time = 8;
+//    self.contactBuyer.alpha = 1;
+}
 
 
 

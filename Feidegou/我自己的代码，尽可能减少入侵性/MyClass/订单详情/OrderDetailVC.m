@@ -2,13 +2,14 @@
 //  OrderDetailVC.m
 //  Feidegou
 //
-//  Created by Kite on 2019/11/16.
+//  Created by Kite on 2019/11/17.
 //  Copyright © 2019 朝花夕拾. All rights reserved.
 //
 
 #import "OrderDetailVC.h"
 #import "OrderDetailVC+VM.h"
 #import "UpLoadCancelReasonVC.h"
+#import "OrderDetailTBViewForHeader.h"
 
 #pragma mark —— OrderDetailVC
 @interface OrderDetailVC ()
@@ -16,27 +17,25 @@
 UITableViewDelegate,
 UITableViewDataSource
 >
-{
-    CGFloat OrderDetailTBVCell_04_Height;
-    CGFloat OrderDetailTBVCell_02_Height;
-}
 
 @property(nonatomic,strong)UIButton *cancelBtn;
-@property(nonatomic,strong)VerifyCodeButton *contactBuyer;
 
+@property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,strong)id popGestureDelegate; //用来保存系统手势的代理
 @property(nonatomic,assign)int time;
 
+
 @end
 
 @implementation OrderDetailVC
+
 //上个页面给数据，本页面手动的刷新
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
-    [self.contactBuyer.timer invalidate];
+    [_contactBuyer.timer invalidate];
 }
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
@@ -71,64 +70,94 @@ UITableViewDataSource
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
-    if (self.orderListModel) {
-        if ([self.orderListModel.order_type intValue] == 1) {//摊位 只有卖家
-            self.gk_navTitle = @"卖家订单详情";
-            if ([self.orderListModel.order_status intValue] == 2) {//已抢、已下单
-                if ([self.orderListModel.del_state intValue] == 0) {
-                    [self.cancelBtn setTitle:@"取消"
-                                    forState:UIControlStateNormal];
-                    [self.sureBtn setTitle:@"发货"//
-                                  forState:UIControlStateNormal];
-                }else if ([self.orderListModel.del_state intValue] == 1){
-                    //3小时内，等待买家确认
-//                    self.contactBuyer.alpha = 1;
-                }else{}
-            }
-        }else if ([self.orderListModel.order_type intValue] == 2){//批发 买家 & 卖家
-            //先判断是买家还是卖家 deal :1、买；2、卖
-            if ([self.orderListModel.deal intValue] == 1) {//买
-                self.gk_navTitle = @"买家订单详情";
-                if ([self.orderListModel.order_status intValue] == 2) {//已下单
-                    [self.cancelBtn setTitle:@"取消"
-                                    forState:UIControlStateNormal];
-                    [self.sureBtn setTitle:@"上传支付凭证"//
-                                  forState:UIControlStateNormal];
-                }else if([self.orderListModel.order_status intValue] == 0){//已支付
-                    [self.sureBtn setTitle:@"重新上传支付凭证"//
-                                  forState:UIControlStateNormal];
-                }else{}
-            }else if([self.orderListModel.deal intValue] == 2){//卖
-                self.gk_navTitle = @"卖家订单详情";
-                if ([self.orderListModel.order_status intValue] == 2) {
-                    //不管
-                }else if ([self.orderListModel.order_status intValue] == 0){//已支付
-                    [self.cancelBtn setTitle:@"撤销"// .. tips
-                                    forState:UIControlStateNormal];
-                    [self.sureBtn setTitle:@"立即发货"
-                                  forState:UIControlStateNormal];
-                }else{}
-            }
-        }else if ([self.orderListModel.order_type intValue] == 3){//产地 只有买家
-            self.gk_navTitle = @"买家订单详情";
-            if ([self.orderListModel.order_status intValue] == 2) {//已下单
-                [self.cancelBtn setTitle:@"上传撤销凭证"
-                                forState:UIControlStateNormal];
-                [self.sureBtn setTitle:@"上传支付凭证"
-                              forState:UIControlStateNormal];
-            }else if ([self.orderListModel.order_status intValue] == 0){//已支付
-                [self.sureBtn setTitle:@"重新上传支付凭证"
-                              forState:UIControlStateNormal];
-            }else{}
-        }else{}
-    }
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_sureBtn];
     self.gk_navItemRightSpace = SCALING_RATIO(30);
+    
+    if (self.orderListModel) {
+        
+        NSString *str1 = [NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"];
+        NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
+        self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
+        
+            if ([self.orderListModel.order_type intValue] == 1) {//摊位 只有卖家
+                self.gk_navTitle = @"卖家订单详情";
+                if ([self.orderListModel.order_status intValue] == 2) {//已抢、已下单
+                    if ([self.orderListModel.del_state intValue] == 0) {//
+                        //订单状态显示为 已下单
+                        NSLog(@"1311");
+                        [self.dataMutArr addObject:@"已下单"];
+                        [self.cancelBtn setTitle:@"取消"
+                                        forState:UIControlStateNormal];
+                        [self.sureBtn setTitle:@"发货"//
+                                      forState:UIControlStateNormal];
+                    }else if ([self.orderListModel.del_state intValue] == 1){//在审核中/买家确认中
+                        //3小时内，等待买家确认 倒计时
+    //                    self.contactBuyer.alpha = 1;
+                        [self.dataMutArr addObject:@"等待买家确认(3小时内)"];
+                        NSLog(@"1312");
+                        [self buyer_CatfoodRecord_checkURL_NetWorking];
+                    }else if ([self.orderListModel.del_state intValue] == 2){//确定取消了
+                        NSLog(@"");
+                        [self.dataMutArr addObject:@""];
+                    }else if ([self.orderListModel.del_state intValue] == 3){//撤销被驳回 或者 发货了
+                        NSLog(@"1314");
+                        //订单状态显示为 已取消
+                        [self.dataMutArr addObject:@"订单已取消"];
+                    }else{
+                        NSLog(@"");
+                        [self.dataMutArr addObject:@""];
+                    }
+                }else if ([self.orderListModel.order_status intValue] == 5){
+                    //已完成
+                    NSLog(@"1316");
+                    [self.dataMutArr addObject:@"订单已完成"];
+                }else if ([self.orderListModel.order_status intValue] == 4){
+                    NSLog(@"1315");
+                    [self.dataMutArr addObject:@"订单已发货"];
+                }else{}
+            }else if ([self.orderListModel.order_type intValue] == 2){//批发 买家 & 卖家
+                //先判断是买家还是卖家 deal :1、买；2、卖
+                if ([self.orderListModel.deal intValue] == 1) {//买
+                    self.gk_navTitle = @"买家订单详情";
+                    if ([self.orderListModel.order_status intValue] == 2) {//已下单
+                        [self.cancelBtn setTitle:@"取消"
+                                        forState:UIControlStateNormal];
+                        [self.sureBtn setTitle:@"上传支付凭证"//
+                                      forState:UIControlStateNormal];
+                    }else if([self.orderListModel.order_status intValue] == 0){//已支付
+                        [self.sureBtn setTitle:@"重新上传支付凭证"//
+                                      forState:UIControlStateNormal];
+                    }else{}
+                }else if([self.orderListModel.deal intValue] == 2){//卖
+                    self.gk_navTitle = @"卖家订单详情";
+                    if ([self.orderListModel.order_status intValue] == 2) {
+                        //不管
+                    }else if ([self.orderListModel.order_status intValue] == 0){//已支付
+                        [self.cancelBtn setTitle:@"撤销"// .. tips
+                                        forState:UIControlStateNormal];
+                        [self.sureBtn setTitle:@"立即发货"
+                                      forState:UIControlStateNormal];
+                    }else{}
+                }
+            }else if ([self.orderListModel.order_type intValue] == 3){//产地 只有买家
+                self.gk_navTitle = @"买家订单详情";
+                if ([self.orderListModel.order_status intValue] == 2) {//已下单
+                    [self.cancelBtn setTitle:@"上传撤销凭证"
+                                    forState:UIControlStateNormal];
+                    [self.sureBtn setTitle:@"上传支付凭证"
+                                  forState:UIControlStateNormal];
+                }else if ([self.orderListModel.order_status intValue] == 0){//已支付
+                    [self.sureBtn setTitle:@"重新上传支付凭证"
+                                  forState:UIControlStateNormal];
+                }else{}
+            }else{}
+        }
     self.tableView.alpha = 1;
-    #
-    self.time = 8;
-    self.contactBuyer.alpha = 1;
-    self.cancelBtn.alpha = 0;
+//    #
+//    self.time = 8;
+//    self.contactBuyer.alpha = 1;
+//    self.cancelBtn.alpha = 0;
+//    [self buyer_CatfoodRecord_checkURL_NetWorking];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -141,10 +170,10 @@ UITableViewDataSource
         }
     }
 }
+
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 }
-
 #pragma mark —— 私有方法
 // 手动下拉刷新
 -(void)pullToRefresh{
@@ -292,95 +321,52 @@ UITableViewDataSource
     }
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (UIView *)tableView:(UITableView *)tableView
+viewForHeaderInSection:(NSInteger)section {
+    OrderDetailTBViewForHeader *viewForHeader = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:ReuseIdentifier];
+    if (!viewForHeader) {
+        viewForHeader = [[OrderDetailTBViewForHeader alloc]initWithReuseIdentifier:ReuseIdentifier
+                                                                          withData:self.str];
+    }return viewForHeader;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForHeaderInSection:(NSInteger)section{
+    return SCALING_RATIO(50);
+}
+
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0 &&
-        indexPath.row == 0) {
-        return OrderDetailTBVCell_04_Height;
-    }else if(indexPath.section == 1 &&
-             indexPath.row == 0){
-        return OrderDetailTBVCell_02_Height;
-    }else if (indexPath.section == 1 &&
-              indexPath.row == 1){
-        return [OrderDetailTBVCell_05 cellHeightWithModel:self.requestParams];//order_status
-    }else{}
-    return 0.0f;
+    return [OrderDetailTBVCell cellHeightWithModel:nil];
 }
 
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-    if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            
-        }else{}
-    }else if (indexPath.section == 1){
-        if (indexPath.row == 0) {
-
-        }else{}
-    }else{}
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-    switch (section) {
-        case 0:{
-            return 1;
-        } break;
-        case 1:{
-            return 3;
-        } break;
-        default:{
-            return 0;
-        }break;
-    }
+    return self.titleMutArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{//OrderListModel
-    if (indexPath.section == 0) {//待考究
-        if (indexPath.row == 0) {
-            OrderDetailTBVCell_04 *cell = [OrderDetailTBVCell_04 cellWith:tableView];
-            if (self.dataMutArr.count) {
-                 [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
-            }else{
-                if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
-                    [cell richElementsInCellWithModel:self.requestParams];
-                }
-            }
-            OrderDetailTBVCell_04_Height = [cell cellHeightWithModel:NULL];
-            return cell;
-        }else{}
-    }else if (indexPath.section == 1){
-        if (indexPath.row == 0) {
-            OrderDetailTBVCell_02 *cell = [OrderDetailTBVCell_02 cellWith:tableView];
-            OrderDetailTBVCell_02_Height = [cell cellHeightWithModel:NULL];
-            if (self.dataMutArr.count) {
-                [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row + 1]];
-            }else{
-                if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
-                    [cell richElementsInCellWithModel:self.requestParams];
-                }
-            }return cell;
-        }else if(indexPath.row == 1){//状态栏
-            OrderDetailTBVCell_05 *cell = [OrderDetailTBVCell_05 cellWith:tableView];
-            if (self.dataMutArr.count) {
-                [cell richElementsInCellWithModel:self.dataMutArr.lastObject];
-            }else{
-                if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
-                    [cell richElementsInCellWithModel:self.requestParams];
-                }
-            }return cell;
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    OrderDetailTBVCell *cell = [OrderDetailTBVCell cellWith:tableView];//
+    cell.textLabel.text = self.titleMutArr[indexPath.row];
+    if (self.dataMutArr.count) {
+        [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+    }else{
+        if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
         }
-        else{}
-    }else{}
-    return UITableViewCell.new;
+    }return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 1;
 }
+
 #pragma mark —— lazyLoad
 -(VerifyCodeButton *)contactBuyer{
     if (!_contactBuyer) {
@@ -447,6 +433,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
         _tableView.mj_footer.hidden = YES;
+//        [_tableView registerClass:[OrderDetailTBViewForHeader class] forHeaderFooterViewReuseIdentifier:@"KJHG"];
+        
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//去掉cell下划线
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -459,126 +447,40 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSMutableArray<NSString *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
-    }return _dataMutArr;
-}
-
-@end
-
-#pragma mark —— InfoView
-@interface OrderDetailTBVCell_02 ()
-<
-UITableViewDelegate,
-UITableViewDataSource
->
-
-@property(nonatomic,strong)UITableView *tableView;
-@property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
-@property(nonatomic,strong)NSMutableArray <NSString *>*tempMutArr;
-@property(nonatomic,strong)OrderListModel *orderListModel;
-
-@end
-
-@implementation OrderDetailTBVCell_02
-+(instancetype)cellWith:(UITableView *)tableView{
-    OrderDetailTBVCell_02 *cell = (OrderDetailTBVCell_02 *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
-    if (!cell) {
-        cell = [[OrderDetailTBVCell_02 alloc] initWithStyle:UITableViewCellStyleValue1
-                                            reuseIdentifier:ReuseIdentifier
-                                                     margin:SCALING_RATIO(5)];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }return cell;
-}
-
--(CGFloat)cellHeightWithModel:(id _Nullable)model{//大
-    return self.titleMutArr.count * [OrderDetailTBVCell_03 cellHeightWithModel:NULL] + SCALING_RATIO(20);
-}
-
-- (void)richElementsInCellWithModel:(id _Nullable)model{//OrderListModel
-    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    if ([model isKindOfClass:[OrderListModel class]]) {
-        self.orderListModel = (OrderListModel *)model;
-        
-        [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"]];//订单号
-        [self.tempMutArr addObject:[[NSString ensureNonnullString:self.orderListModel.price ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//单价
-        [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@"无"]];//数量
-        [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.rental ReplaceStr:@"无"]];//总额
+        [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"]];//订单号
+        [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderListModel.price ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//单价
+        [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@"无"] stringByAppendingString:@" g"]];//数量
+        [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderListModel.rental ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//总额
         switch ([self.orderListModel.payment_status intValue]) {//支付方式: 1、支付宝;2、微信;3、银行卡
             case 1:{
-                [self.tempMutArr addObject:@"支付宝"];
+                [_dataMutArr addObject:@"支付宝"];
             }break;
             case 2:{
-                [self.tempMutArr addObject:@"微信"];
+                [_dataMutArr addObject:@"微信"];
             }break;
              case 3:{
-                 [self.tempMutArr addObject:@"银行卡"];
+                 [_dataMutArr addObject:@"银行卡"];
              }break;
             default:
-                [self.tempMutArr addObject:@"无支付方式"];
+                [_dataMutArr addObject:@"无支付方式"];
                 break;
         }
         //1、支付宝;2、微信;3、银行卡
         if ([self.orderListModel.payment_status intValue] == 3) {//银行卡
-            [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankCard ReplaceStr:@"暂无信息"]];//银行卡号
-            [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankUser ReplaceStr:@"暂无信息"]];//姓名
-            [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankName ReplaceStr:@"暂无信息"]];//银行类型
-            [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankaddress ReplaceStr:@"暂无信息"]];//支行信息
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankCard ReplaceStr:@"暂无信息"]];//银行卡号
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankUser ReplaceStr:@"暂无信息"]];//姓名
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankName ReplaceStr:@"暂无信息"]];//银行类型
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankaddress ReplaceStr:@"暂无信息"]];//支行信息
         }else if ([self.orderListModel.payment_status intValue] == 2){//微信
-            [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.payment_weixin ReplaceStr:@"无"]];
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.payment_weixin ReplaceStr:@"无"]];
         }else if ([self.orderListModel.payment_status intValue] == 1){//支付宝
-            [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.payment_alipay ReplaceStr:@"无"]];
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.payment_alipay ReplaceStr:@"无"]];
         }else{
-            [self.tempMutArr addObject:@"无支付账户"];
+            [_dataMutArr addObject:@"无支付账户"];
         }
-        [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.refer ReplaceStr:@"无"]];//参考号
-        [self.tempMutArr addObject:[NSString ensureNonnullString:self.orderListModel.updateTime ReplaceStr:@"无"]];//时间
-        
-        [self.tableView reloadData];
-    }
-    self.tableView.alpha = 1;
-}
-#pragma mark —— UITableViewDelegate,UITableViewDataSource
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [OrderDetailTBVCell_03 cellHeightWithModel:Nil];
-}
-
-- (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath
-                             animated:NO];
-    return;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section{
-    return self.titleMutArr.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    OrderDetailTBVCell_03 *cell = [OrderDetailTBVCell_03 cellWith:tableView];
-    cell.textLabel.text = self.titleMutArr[indexPath.row];
-    if (self.tempMutArr.count) {
-        cell.detailTextLabel.text = self.tempMutArr[indexPath.row];
-    }return cell;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-#pragma mark —— lazyLoad
--(UITableView *)tableView{
-    if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectZero
-                                                 style:UITableViewStylePlain];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//去掉cell下划线
-        [self.contentView addSubview:_tableView];
-        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.contentView);
-        }];
-    }return _tableView;
+        [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.refer ReplaceStr:@"无"]];//参考号
+        [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.updateTime ReplaceStr:@"无"]];//时间
+    }return _dataMutArr;
 }
 
 -(NSMutableArray<NSString *> *)titleMutArr{
@@ -599,171 +501,27 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
         [_titleMutArr addObject:@"参考号:"];
         [_titleMutArr addObject:@"下单时间:"];
+        [_titleMutArr addObject:@"订单状态"];
     }return _titleMutArr;
 }
 
--(NSMutableArray<NSString *> *)tempMutArr{
-    if (!_tempMutArr) {
-        _tempMutArr = NSMutableArray.array;
-    }return _tempMutArr;
-}
+@end
+
+//订单、单价、总价、账号、支付方式、参考号、下单时间
+@interface OrderDetailTBVCell ()
+
++(instancetype)cellWith:(UITableView *)tableView;
++(CGFloat)cellHeightWithModel:(id _Nullable)model;
+- (void)richElementsInCellWithModel:(id _Nullable)model;
 
 @end
 
-@interface OrderDetailTBVCell_03 ()
-@end
-
-@implementation OrderDetailTBVCell_03
+@implementation OrderDetailTBVCell
 
 +(instancetype)cellWith:(UITableView *)tableView{
-    OrderDetailTBVCell_03 *cell = (OrderDetailTBVCell_03 *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
+    OrderDetailTBVCell *cell = (OrderDetailTBVCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
     if (!cell) {
-        cell = [[OrderDetailTBVCell_03 alloc] initWithStyle:UITableViewCellStyleValue1
-                                            reuseIdentifier:ReuseIdentifier
-                                                     margin:SCALING_RATIO(5)];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }return cell;
-}
-
-+(CGFloat)cellHeightWithModel:(id _Nullable)model{//小
-    return SCALING_RATIO(40);
-}
-
-- (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-}
-
-@end
-
-@interface OrderDetailTBVCell_04 ()
-
-@property(nonatomic,strong)YYLabel *titleLab;
-@property(nonatomic,copy)NSString *str;
-@property(nonatomic,copy)NSMutableAttributedString *attributedString;
-
-@end
-
-@implementation OrderDetailTBVCell_04
-
-+(instancetype)cellWith:(UITableView *)tableView{
-    OrderDetailTBVCell_04 *cell = (OrderDetailTBVCell_04 *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];//
-    if (!cell) {
-        cell = [[OrderDetailTBVCell_04 alloc] initWithStyle:UITableViewCellStyleDefault
-                                            reuseIdentifier:ReuseIdentifier
-                                                     margin:SCALING_RATIO(5)];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }return cell;
-}
-
--(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return _titleLab.mj_h + SCALING_RATIO(50);//SCALING_RATIO(50) 为补充值
-}
-
-- (void)richElementsInCellWithModel:(id _Nullable)model{//OrderListModel
-    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    if ([model isKindOfClass:[OrderListModel class]]) {
-        OrderListModel *orderListModel = (OrderListModel *)model;//您向2222购买333
-        self.str = [NSString stringWithFormat:@"您向%@购买%d",orderListModel.seller_name,[orderListModel.quantity intValue]];
-        self.titleLab.attributedText = self.attributedString;
-    }else if ([model isKindOfClass:[NSString class]]){
-        self.str = model;//您向厂家2购买333g喵粮
-        self.titleLab.attributedText = self.attributedString;
-    }else{}
-}
-#pragma mark —— lazyLoad
--(NSMutableAttributedString *)attributedString{
-    NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
-    paragraphStyle.lineSpacing = 1;//行间距
-    paragraphStyle.firstLineHeadIndent = 40;//首行缩进
-    
-    NSDictionary *attributeDic = @{
-        NSFontAttributeName : [UIFont systemFontOfSize:24],
-        NSParagraphStyleAttributeName : paragraphStyle,
-        NSForegroundColorAttributeName : kRedColor
-    };
-    if (!_attributedString) {
-        _attributedString = [[NSMutableAttributedString alloc]initWithString:self.str
-                                                                  attributes:attributeDic];
-    }else{
-        _attributedString = Nil;
-        _attributedString = [[NSMutableAttributedString alloc]initWithString:self.str
-                                                                  attributes:attributeDic];
-    }
-        NSRange selRange_01 = [self.str rangeOfString:@"您向"];//location=0, length=2
-        NSRange selRange_02 = [self.str rangeOfString:@"购买"];//location=6, length=2
-
-        //设定可点击文字的的大小
-        UIFont *selFont = [UIFont systemFontOfSize:18];
-        CTFontRef selFontRef = CTFontCreateWithName((__bridge CFStringRef)selFont.fontName,
-                                                    selFont.pointSize,
-                                                    NULL);
-        //设置可点击文本的大小
-        [_attributedString addAttribute:(NSString *)kCTFontAttributeName
-                                  value:(__bridge id)selFontRef
-                                  range:selRange_01];
-        //设置可点击文本的颜色
-        [_attributedString addAttribute:(NSString *)kCTForegroundColorAttributeName
-                                  value:(id)[[UIColor blueColor] CGColor]
-                                  range:selRange_01];
-#warning 打开注释部分会崩，之前都不会崩溃，怀疑是升级Xcode所致
-                 //设置可点击文本的背景颜色
-        //        if (@available(iOS 10.0, *)) {
-        //            [text addAttribute:(NSString *)kCTBackgroundColorAttributeName
-        //                         value:(__bridge id)selFontRef
-        //                         range:selRange_01];
-        //        } else {
-        //            // Fallback on earlier versions
-        //        }
-        //设置可点击文本的大小
-        [_attributedString addAttribute:(NSString *)kCTFontAttributeName
-                                  value:(__bridge id)selFontRef
-                                  range:selRange_02];
-        //设置可点击文本的颜色
-        [_attributedString addAttribute:(NSString *)kCTForegroundColorAttributeName
-                                  value:(id)[[UIColor blueColor] CGColor]
-                                  range:selRange_02];
-        //设置可点击文本的背景颜色
-        //        if (@available(iOS 10.0, *)) {
-        //            [text addAttribute:(NSString *)kCTBackgroundColorAttributeName
-        //                         value:(__bridge id)selFontRef
-        //                         range:selRange_02];
-        //        } else {
-        //            // Fallback on earlier versions
-        //        }
-    return _attributedString;
-}
-
--(YYLabel *)titleLab{
-    if (!_titleLab) {
-        _titleLab = YYLabel.new;
-        _titleLab.textAlignment = NSTextAlignmentCenter;
-        _titleLab.numberOfLines = 0;
-        _titleLab.attributedText = self.attributedString;
-//        _titleLab.lineBreakMode = NSLineBreakByCharWrapping;//？？
-        [_titleLab sizeToFit];
-        [self addSubview:_titleLab];
-        [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.contentView).offset(SCALING_RATIO(20));
-            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-20));
-            make.left.right.equalTo(self.contentView);
-        }];
-    }return _titleLab;
-}
-
-@end
-
-@interface OrderDetailTBVCell_05 ()
-
-@property(nonatomic,strong)UILabel *titleLab;
-
-@end
-
-@implementation OrderDetailTBVCell_05
-
-+(instancetype)cellWith:(UITableView *)tableView{
-    OrderDetailTBVCell_05 *cell = (OrderDetailTBVCell_05 *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];//
-    if (!cell) {
-        cell = [[OrderDetailTBVCell_05 alloc] initWithStyle:UITableViewCellStyleDefault
+        cell = [[OrderDetailTBVCell alloc] initWithStyle:UITableViewCellStyleValue1
                                             reuseIdentifier:ReuseIdentifier
                                                      margin:SCALING_RATIO(5)];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -771,107 +529,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCREEN_HEIGHT / 10;
+    return SCALING_RATIO(50);
 }
 
-- (void)richElementsInCellWithModel:(id _Nullable)model{//OrderListModel
-    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    if ([model isKindOfClass:[OrderListModel class]]) {
-        OrderListModel *orderListModel = (OrderListModel *)model;
-        switch ([orderListModel.order_status intValue]) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-            case 0:{
-                self.titleLab.text = @"订单已支付";
-            }break;
-            case 1:{
-                self.titleLab.text = @"订单已发单";
-            }break;
-            case 2:{
-                self.titleLab.text = @"订单已下单";
-            }break;
-            case 3:{
-                self.titleLab.text = @"订单已支付";
-            }break;
-            case 4:{
-                self.titleLab.text = @"订单已作废";
-            }break;
-            case 5:{
-                self.titleLab.text = @"订单已完成";
-            }break;
-            default:
-                break;
-        }
-    }else if ([model isKindOfClass:[NSString class]]){
-        self.titleLab.text = [@"订单" stringByAppendingString:model];
-    }else{
-        self.titleLab.text = @"数据异常";
-    }
+- (void)richElementsInCellWithModel:(id _Nullable)model{
+    self.detailTextLabel.text = model;
 }
 
-#pragma mark —— lazyLoad
--(UILabel *)titleLab{
-    if (!_titleLab) {
-        _titleLab = UILabel.new;
-        [self.contentView addSubview:_titleLab];
-        [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.contentView);
-        }];
-    }return _titleLab;
-}
 
 @end
-
-//-(void)CancelDelivery{//取消发货
-//
-//    //#5 CatfoodRecord_delURL 喵粮订单撤销 order_id reason del_print(pic) order_type
-//    //#9 CatfoodCO_pay_delURL 喵粮产地购买取消 order_id
-//    //#18 CatfoodSale_pay_delURL 喵粮批发取消 order_id
-//    //#22 CatfoodBooth_delURL 喵粮抢摊位取消 order_id
-//
-//    //要求上传取消凭证
-//    [self choosePic];
-//    @weakify(self)
-//    [self GettingPicBlock:^(id data) {
-//        @strongify(self)
-//        if ([data isKindOfClass:[NSArray class]]) {
-//            NSArray *arrData = (NSArray *)data;
-//            if (arrData.count == 1) {
-//                self.pic = arrData.lastObject;
-//            }else{
-//                [self showAlertViewTitle:@"选择一张相片就够啦"
-//                                 message:@"不要画蛇添足"
-//                             btnTitleArr:@[@"好的"]
-//                          alertBtnAction:@[@"OK"]];
-//            }
-//        }
-//    }];
-//    OrderListModel *orderListModel;
-//    if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
-//        orderListModel = (OrderListModel *)self.requestParams;
-//    }
-//    if ([orderListModel.order_status intValue] == 0) {//#5
-//        //选择取消发货的原因
-//        [self.stringPickerView show];
-//    }else if ([orderListModel.order_status intValue] == 2){
-////        if ([orderListModel.order_type intValue] == 1) {//#22
-////            [self netWorkingWithArgumentURL:CatfoodBooth_delURL
-////                                    ORDERID:[orderListModel.ID intValue]];
-////        }else if ([orderListModel.order_type intValue] == 2){//#18
-////            [self netWorkingWithArgumentURL:CatfoodSale_pay_delURL
-////                                    ORDERID:[orderListModel.ID intValue]];
-////        }else if ([orderListModel.order_type intValue] == 3){//#9
-////            [self netWorkingWithArgumentURL:CatfoodCO_pay_delURL
-////                                    ORDERID:[orderListModel.ID intValue]];
-//    }
-
-//#pragma mark —— UINavigationControllerDelegate
-//- (void)navigationController:(UINavigationController *)navigationController
-//      willShowViewController:(UIViewController *)viewController
-//                    animated:(BOOL)animated{
-////    if ([viewController isKindOfClass:[StallListVC class]] && self.isShowViewFinished) {
-////        [navigationController popToViewController:navigationController.viewControllers[navigationController.viewControllers.count - 2]
-////                                         animated:NO];
-////
-////    }else if([viewController isKindOfClass:[OrderListVC class]]){
-////
-////    }
-//}

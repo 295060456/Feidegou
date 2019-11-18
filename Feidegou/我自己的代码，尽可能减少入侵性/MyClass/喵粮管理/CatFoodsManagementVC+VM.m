@@ -40,13 +40,13 @@ NSString *Foodsell;
                 [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"weixin_qr_img"]]
                                                               ReplaceStr:@"无"]];// 微信收款二维码
                 [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"Foodstuff"]]
-                                                              ReplaceStr:@"无"]];
+                                                              ReplaceStr:@"无"]];//余额
                 [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price_sale"]]
                                                               ReplaceStr:@"无"]];//批发均价
                 [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price_co"]]
                                                               ReplaceStr:@"无"]];// 产地均价
                 [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"Foodsell"]]
-                                                              ReplaceStr:@"无"]];
+                                                              ReplaceStr:@"无"]];//出售中
                 market_price_booth = self.dataMutArr[0];
                 weixin_qr_img = self.dataMutArr[1];
                 Foodstuff = self.dataMutArr[2];

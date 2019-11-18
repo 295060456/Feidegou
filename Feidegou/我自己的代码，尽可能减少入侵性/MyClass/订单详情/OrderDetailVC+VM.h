@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)boothDeliver_networking;//喵粮抢摊位发货 #21
 -(void)CatfoodBooth_del_netWorking;//喵粮抢摊位取消 #22_1
 -(void)CatfoodBooth_del_time_netWorking;//喵粮抢摊位取消剩余时间 #22_2
+-(void)buyer_CatfoodRecord_checkURL_NetWorking;//buyer_CatfoodRecord_checkURL 喵粮订单查看 3小时 del_wait_left_time #3
 
 @end
 

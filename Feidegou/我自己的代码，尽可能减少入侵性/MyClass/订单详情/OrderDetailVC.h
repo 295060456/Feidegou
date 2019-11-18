@@ -2,7 +2,7 @@
 //  OrderDetailVC.h
 //  Feidegou
 //
-//  Created by Kite on 2019/11/16.
+//  Created by Kite on 2019/11/17.
 //  Copyright © 2019 朝花夕拾. All rights reserved.
 //
 
@@ -10,33 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#pragma mark —— 各种UITableViewCell
-//装表格的，UITableViewCell嵌套UITableView
-@interface OrderDetailTBVCell_02 : TBVCell_style_01
-
-+(instancetype)cellWith:(UITableView *)tableView;
--(CGFloat)cellHeightWithModel:(id _Nullable)model;
-- (void)richElementsInCellWithModel:(id _Nullable)model;
-
-@end
-//订单、单价、总价、账号、支付方式、参考号、下单时间
-@interface OrderDetailTBVCell_03 : TBVCell_style_01
-
-+(instancetype)cellWith:(UITableView *)tableView;
-+(CGFloat)cellHeightWithModel:(id _Nullable)model;
-- (void)richElementsInCellWithModel:(id _Nullable)model;
-
-@end
-
-@interface OrderDetailTBVCell_04 : TBVCell_style_01
-
-+(instancetype)cellWith:(UITableView *)tableView;
--(CGFloat)cellHeightWithModel:(id _Nullable)model;
-- (void)richElementsInCellWithModel:(id _Nullable)model;
-
-@end
-
-@interface OrderDetailTBVCell_05 : TBVCell_style_01
+@interface OrderDetailTBVCell : TBVCell_style_01
 
 +(instancetype)cellWith:(UITableView *)tableView;
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;
@@ -48,9 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIButton *sureBtn;
+@property(nonatomic,strong)VerifyCodeButton *contactBuyer;
 
 @property(nonatomic,strong)__block UIImage *pic;
 @property(nonatomic,copy)__block NSString *resultStr;
+@property(nonatomic,copy)__block NSString *str;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
 @property(nonatomic,strong)OrderListModel *orderListModel;
@@ -59,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
                        requestParams:(nullable id)requestParams
                              success:(DataBlock _Nonnull )block
                             animated:(BOOL)animated;
+
 @end
 
 NS_ASSUME_NONNULL_END
