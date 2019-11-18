@@ -73,14 +73,11 @@ UITableViewDataSource
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
-    self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_sureBtn];
     self.gk_navItemRightSpace = SCALING_RATIO(30);
-    
     if (self.orderListModel) {
         NSString *str1 = [NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"];
         NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
         self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
-        
             if ([self.orderListModel.order_type intValue] == 1) {//摊位 只有卖家
                 self.gk_navTitle = @"卖家订单详情";
                 if ([self.orderListModel.order_status intValue] == 2) {//已抢、已下单
@@ -166,6 +163,8 @@ UITableViewDataSource
     }else if (self.catFoodProducingAreaModel){
 
     }else{}
+    self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_sureBtn];
+    
     self.tableView.alpha = 1;
 }
 
@@ -549,6 +548,33 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             }
             [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.refer ReplaceStr:@"无"]];//参考号
             [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.updateTime ReplaceStr:@"无"]];//时间
+            if ([[NSString ensureNonnullString:self.orderListModel.order_status ReplaceStr:@"无"] isEqualToString:@"无"]) {
+                [_dataMutArr addObject:@"订单状态异常"];
+            }else{
+                switch ([self.orderListModel.order_status intValue]) {//0、已支付;1、已发单;2、已接单;3、已作废;4、已发货;5、已完成
+                    case 0:{
+                        [_dataMutArr addObject:@"已支付"];
+                    }break;
+                    case 1:{
+                         [_dataMutArr addObject:@"已发单"];
+                    }break;
+                    case 2:{
+                        [_dataMutArr addObject:@"已接单"];
+                    }break;
+                    case 3:{
+                        [_dataMutArr addObject:@"已作废"];
+                    }break;
+                    case 4:{
+                        [_dataMutArr addObject:@"已发货"];
+                    }break;
+                    case 5:{
+                        [_dataMutArr addObject:@"已完成"];
+                    }break;
+                    default:
+                        [_dataMutArr addObject:@"订单状态异常"];
+                        break;
+                }
+            }
         }else if (self.catFoodProducingAreaModel){
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.ID ReplaceStr:@"无"]];//订单号
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.price ReplaceStr:@"无"]];//单价
