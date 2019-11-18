@@ -28,7 +28,6 @@ UITableViewDataSource
 @property(nonatomic,strong)id popGestureDelegate; //用来保存系统手势的代理
 @property(nonatomic,assign)int time;
 
-
 @end
 
 @implementation OrderDetailVC
@@ -80,22 +79,30 @@ UITableViewDataSource
         self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
             if ([self.orderListModel.order_type intValue] == 1) {//摊位 只有卖家
                 self.gk_navTitle = @"卖家订单详情";
-                if ([self.orderListModel.order_status intValue] == 2) {//已抢、已下单
-                    if ([self.orderListModel.del_state intValue] == 0) {//
-                        //订单状态显示为 已下单
+                if ([self.orderListModel.order_status intValue] == 2) {
+                    if ([self.orderListModel.del_state intValue] == 0) {
                         NSLog(@"1311");
                         [self.dataMutArr addObject:@"已下单"];
-                        [self.normalCancel setTitle:@"取消"
-                                        forState:UIControlStateNormal];
-                        [self.sureBtn setTitle:@"发货"//
+                        //去请求 #22-2 获取最新时间
+                        self.time = 50;
+                        self.countDownCancelBtn.titleEndStr = @"取消";
+                        [self.countDownCancelBtn addTarget:self
+                                                    action:@selector(CatfoodBooth_del_netWorking)
+                                          forControlEvents:UIControlEventTouchUpInside];//#22_1
+                        [self.sureBtn setTitle:@"发货"
                                       forState:UIControlStateNormal];
+                        [self.sureBtn addTarget:self
+                                    action:@selector(CatfoodBooth_del_netWorking)
+                          forControlEvents:UIControlEventTouchUpInside];//#21
                     }else if ([self.orderListModel.del_state intValue] == 1){//在审核中/买家确认中
                         //3小时内，等待买家确认 倒计时
                         self.time = 3600 * 3;
                         self.contactBuyer.alpha = 1;
+                        [self.contactBuyer addTarget:self
+                                              action:@selector(联系买家)
+                                    forControlEvents:UIControlEventTouchUpInside];
                         [self.dataMutArr addObject:@"等待买家确认(3小时内)"];
                         NSLog(@"1312");
-                        [self buyer_CatfoodRecord_checkURL_NetWorking];
                     }else if ([self.orderListModel.del_state intValue] == 2){//确定取消了
                         NSLog(@"");
                         [self.dataMutArr addObject:@""];
@@ -117,43 +124,79 @@ UITableViewDataSource
                 }else{}
             }else if ([self.orderListModel.order_type intValue] == 2){//批发 买家 & 卖家
                 //先判断是买家还是卖家 deal :1、买；2、卖
-                if ([self.orderListModel.identity isEqualToString:@"买家"]) {//买
+                if ([self.orderListModel.identity isEqualToString:@"买家"]) {
                     self.gk_navTitle = @"买家订单详情";
                     if ([self.orderListModel.order_status intValue] == 2) {//已下单
                         [self.normalCancel setTitle:@"取消"
                                         forState:UIControlStateNormal];
                         [self.sureBtn setTitle:@"上传支付凭证"//
                                       forState:UIControlStateNormal];
+                        [self.normalCancel addTarget:self
+                                              action:@selector(cancelOrder_wholesaleMarket_netWorking)
+                                    forControlEvents:UIControlEventTouchUpInside];//#18
+                        [self.sureBtn addTarget:self
+                                         action:@selector(upLoadPic_wholesaleMarket_havePaid_netWorking:)
+                               forControlEvents:UIControlEventTouchUpInside];//#17
                     }else if([self.orderListModel.order_status intValue] == 0){//已支付
                         [self.sureBtn setTitle:@"重新上传支付凭证"//
                                       forState:UIControlStateNormal];
+                        [self.sureBtn addTarget:self
+                                         action:@selector(upLoadPic_wholesaleMarket_havePaid_netWorking:)
+                               forControlEvents:UIControlEventTouchUpInside];//#17
                     }else{}
-                }else if([self.orderListModel.identity isEqualToString:@"卖家"]){//卖
+                }else if([self.orderListModel.identity isEqualToString:@"卖家"]){
                     self.gk_navTitle = @"卖家订单详情";
                     if ([self.orderListModel.order_status intValue] == 2) {
-                        [self.dataMutArr addObject:@"订单已下单"];//5s 取消
+                        [self.dataMutArr addObject:@"订单已下单"];//5s 取消 22 1
+                        [self.normalCancel setTitle:@"取消"
+                                           forState:UIControlStateNormal];
                         
+                        if ([self.orderListModel.order_status intValue] == 0) {
+                            [self.normalCancel addTarget:self
+                                                  action:@selector(CancelDelivery_NetWorking)
+                                        forControlEvents:UIControlEventTouchUpInside];//18
+                        }else if ([self.orderListModel.order_status intValue] == 2){
+                            [self.normalCancel addTarget:self
+                                                  action:@selector(cancelOrder_wholesaleMarket_netWorking)
+                                        forControlEvents:UIControlEventTouchUpInside];//18
+                        }else{}
                     }else if ([self.orderListModel.order_status intValue] == 0){//已支付
-                        [self.dataMutArr addObject:@"订单已支付"];
-                        [self.normalCancel setTitle:@"撤销"// .. tips 5s 显示凭证
-                                        forState:UIControlStateNormal];
+                        [self.dataMutArr addObject:@"订单已支付"];//21 23_1 1
+//                        [self.normalCancel setTitle:@"撤销"// .. tips 5s 显示凭证
+//                                        forState:UIControlStateNormal];
+                        self.countDownCancelBtn.titleEndStr = @"撤销";
+                        [self.countDownCancelBtn addTarget:self
+                                                    action:@selector(CancelDelivery_NetWorking)
+                                          forControlEvents:UIControlEventTouchUpInside];//#5
                         [self.sureBtn setTitle:@"立即发货"
                                       forState:UIControlStateNormal];
+                        [self.sureBtn addTarget:self
+                                         action:@selector(deliver_wholesaleMarket_PNetworking)
+                               forControlEvents:UIControlEventTouchUpInside];//#14
                     }else if ([self.orderListModel.order_status intValue] == 3){//已取消
-                        [self.dataMutArr addObject:@"订单已取消"];
+                        [self.dataMutArr addObject:@"订单已取消"]; //23_6
                     }else{}
                 }
             }else if ([self.orderListModel.order_type intValue] == 3){//产地 只有买家
                 self.gk_navTitle = @"买家订单详情";
                 if ([self.orderListModel.order_status intValue] == 2) {//已下单
                     [self.dataMutArr addObject:@"订单已下单"];//333
-                    self.countDownCancelBtn.alpha = 1;//5秒倒计时
+                    self.countDownCancelBtn.titleEndStr = @"取消";
+                    [self.countDownCancelBtn addTarget:self
+                                                action:@selector(cancelOrder_producingArea_netWorking)
+                                      forControlEvents:UIControlEventTouchUpInside];//#9
                     [self.sureBtn setTitle:@"上传支付凭证"
-                                  forState:UIControlStateNormal];
+                                  forState:UIControlStateNormal];//上传支付凭证结束 改为 去支付
+                    [self.sureBtn addTarget:self
+                                     action:@selector(uploadPic_producingArea_havePaid_netWorking:)
+                           forControlEvents:UIControlEventTouchUpInside];//#8
                 }else if ([self.orderListModel.order_status intValue] == 0){//已支付
                     [self.dataMutArr addObject:@"订单已支付"];//444
                     [self.sureBtn setTitle:@"重新上传支付凭证"
                                   forState:UIControlStateNormal];
+                    [self.sureBtn addTarget:self
+                                     action:@selector(uploadPic_producingArea_havePaid_netWorking:)
+                           forControlEvents:UIControlEventTouchUpInside];//#8
                 }else if ([self.orderListModel.order_status intValue] == 1){
                     [self.dataMutArr addObject:@"订单已发单"];//311
                 }else if ([self.orderListModel.order_status intValue] == 4){
@@ -215,85 +258,8 @@ UITableViewDataSource
     [self buyer_CatfoodRecord_checkURL_NetWorking];
 }
 #pragma mark —— 点击事件
--(void)contactBuyerClickEvent:(VerifyCodeButton *)sender{
-    NSLog(@"倒计时结束，联系买家");//22_1
-    [self CatfoodBooth_del_netWorking];
-}
-
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
-}
-
--(void)tips:(UIButton *)sender{
-    if (self.orderListModel) {
-        if ([sender isEqual:self.normalCancel] ||
-        [sender isEqual:self.countDownCancelBtn]) {//取消按钮
-        if ([sender.titleLabel.text isEqualToString:@"撤销"]) {
-            //选择撤销理由
-            self.BRStringPickerViewDataMutArr = @[@"请选择取消原因",
-                                                  @"未收到款项",
-                                                  @"收到了,但是款项不符"];
-            @weakify(self)
-            [self BRStringPickerViewBlock:^(id data) {
-                @strongify(self)
-                if ([data isKindOfClass:[BRResultModel class]]) {
-                    BRResultModel *resultModel = (BRResultModel *)data;
-                    self.resultStr = resultModel.selectValue;
-                    [UpLoadCancelReasonVC pushFromVC:self_weak_
-                                       requestParams:@{
-                                           @"OrderListModel":self.requestParams,
-                                           @"Result":self.resultStr,//撤销理由
-                                       }
-                                             success:^(id data) {}
-                                            animated:YES];
-                }
-            }];
-            [self.stringPickerView show];
-        }else if ([sender.titleLabel.text isEqualToString:@"取销"]){
-            [self showAlertViewTitle:sender.titleLabel.text
-                             message:@""
-                         btnTitleArr:@[@"取消",
-                                       @"手滑，点错了"]
-                      alertBtnAction:@[@"cancelBtnClickEvent",//取消
-                                       @"Cancel"]];//取消
-        }else if ([sender.titleLabel.text isEqualToString:@"上传撤销凭证"]){
-            [self showAlertViewTitle:sender.titleLabel.text
-                             message:@""
-                         btnTitleArr:@[@"取消",
-                                       @"手滑，点错了"]
-                      alertBtnAction:@[@"cancelBtnClickEvent",//取消
-                                       @"Cancel"]];//取消
-        }
-    }else if ([sender isEqual:self.sureBtn]){//GOon
-        if ([sender.titleLabel.text containsString:@"凭证"]) {//上传撤销凭证 上传支付凭证 重新上传支付凭证
-            [self choosePic];
-            @weakify(self)
-            [self GettingPicBlock:^(id data) {
-                @strongify(self)
-                if ([data isKindOfClass:[NSArray class]]) {
-                    NSArray *arrData = (NSArray *)data;
-                    if (arrData.count == 1) {
-                        self.pic = arrData.lastObject;
-                    }else{
-                        [self showAlertViewTitle:@"选择一张相片就够啦"
-                               message:@"不要画蛇添足"
-                           btnTitleArr:@[@"好的"]
-                        alertBtnAction:@[@"OK"]];
-                    }
-                }
-            }];
-        }else{
-            [self showAlertViewTitle:sender.titleLabel.text
-                             message:@""
-                         btnTitleArr:@[@"我已确认",
-                                       @"手滑，点错了"]
-                      alertBtnAction:@[@"sureBtnClickEvent",//继续
-                                       @"Cancel"]];//取消
-        }
-    }else{}
-    }else if (self.catFoodProducingAreaModel){
-        
-    }else{}
 }
 
 -(void)cancelBtnClickEvent{
@@ -407,7 +373,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-
 #pragma mark —— lazyLoad
 -(VerifyCodeButton *)contactBuyer{
     if (!_contactBuyer) {
@@ -421,9 +386,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
         _contactBuyer.clipsToBounds = YES;
         [_contactBuyer timeFailBeginFrom:self.time];
-        [_contactBuyer addTarget:self
-                       action:@selector(contactBuyerClickEvent:)
-             forControlEvents:UIControlEventTouchUpInside];
+//        [_contactBuyer addTarget:self
+//                       action:@selector(tips:)
+//             forControlEvents:UIControlEventTouchUpInside];
         [self.tableView addSubview:_contactBuyer];
         [_contactBuyer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.view).offset(SCALING_RATIO(-100));
@@ -437,9 +402,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(VerifyCodeButton *)countDownCancelBtn{
     if (!_countDownCancelBtn) {
         _countDownCancelBtn = VerifyCodeButton.new;
-        _countDownCancelBtn.showTimeType = ShowTimeType_HHMMSS;
+        _countDownCancelBtn.showTimeType = ShowTimeType_SS;;
         _countDownCancelBtn.layerCornerRadius = 5.f;
-        _countDownCancelBtn.titleEndStr = @"上传撤销凭证";
+//        _countDownCancelBtn.titleEndStr = @"上传撤销凭证";
         if (@available(iOS 8.2, *)) {
             _countDownCancelBtn.titleLabelFont = [UIFont systemFontOfSize:20.f weight:1];
         } else {
@@ -447,9 +412,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
         _countDownCancelBtn.clipsToBounds = YES;
         [_countDownCancelBtn timeFailBeginFrom:5];
-        [_countDownCancelBtn addTarget:self
-                                action:@selector(tips:)
-                      forControlEvents:UIControlEventTouchUpInside];
+//        [_countDownCancelBtn addTarget:self
+//                                action:@selector(tips:)
+//                      forControlEvents:UIControlEventTouchUpInside];
         [self.tableView addSubview:_countDownCancelBtn];
         [_countDownCancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.view).offset(SCALING_RATIO(-100));
@@ -464,9 +429,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_sureBtn) {
         _sureBtn = UIButton.new;
         _sureBtn.backgroundColor = kOrangeColor;
-        [_sureBtn addTarget:self
-                     action:@selector(tips:)
-           forControlEvents:UIControlEventTouchUpInside];
+//        [_sureBtn addTarget:self
+//                     action:@selector(tips:)
+//           forControlEvents:UIControlEventTouchUpInside];
         [UIView cornerCutToCircleWithView:_sureBtn
                           AndCornerRadius:3.f];
     }return _sureBtn;
@@ -475,16 +440,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)normalCancel{
     if (!_normalCancel) {
         _normalCancel = UIButton.new;
-        [_normalCancel addTarget:self
-                          action:@selector(tips:)
-                forControlEvents:UIControlEventTouchUpInside];
+//        [_normalCancel addTarget:self
+//                          action:@selector(tips:)
+//                forControlEvents:UIControlEventTouchUpInside];
         [UIView cornerCutToCircleWithView:_normalCancel
                           AndCornerRadius:3.f];
         _normalCancel.backgroundColor = KLightGrayColor;
-        [self.view addSubview:_normalCancel];
+        [self.tableView addSubview:_normalCancel];
         [_normalCancel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view);
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(80)));
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(50)));
             make.bottom.equalTo(self.view).offset(SCALING_RATIO(-100));
         }];
     }return _normalCancel;
