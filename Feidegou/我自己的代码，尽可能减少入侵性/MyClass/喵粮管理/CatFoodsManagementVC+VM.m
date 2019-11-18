@@ -69,6 +69,4 @@ NSString *Foodsell;
     }];
 }
 
-
-
 @end

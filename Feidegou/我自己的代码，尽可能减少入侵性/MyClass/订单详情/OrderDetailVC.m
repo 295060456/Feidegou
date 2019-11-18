@@ -211,6 +211,7 @@ UITableViewDataSource
     }else if (self.stallListModel){//喵粮抢购
         //只有10秒取消、发货、状态为已下单
         [self.dataMutArr addObject:@"订单已下单"];//333
+//        self.countDownCancelBtn.titleBeginStr = @"取消";
         self.countDownCancelBtn.titleEndStr = @"取消";
         [self.countDownCancelBtn addTarget:self
                                     action:@selector(CatfoodBooth_del_netWorking)

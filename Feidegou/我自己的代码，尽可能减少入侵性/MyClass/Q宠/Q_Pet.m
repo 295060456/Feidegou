@@ -7,6 +7,7 @@
 //
 
 #import "Q_Pet.h"
+#import "Q_Pet+VM.h"
 #import <CoreMotion/CoreMotion.h>
 
 typedef NS_ENUM  (NSInteger,DYAnimationType){
@@ -22,8 +23,7 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
     kDYAnimationTen     = 10,
 };
 
-@interface Q_Pet ()
-{
+@interface Q_Pet (){
     NSString *jsonString;
     int d;
 }
@@ -60,12 +60,16 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
         info.title = [self titlesMutArr][i];
         [obj addObject:info];
     }
-
+    @weakify(self)
     [[WBPopMenuSingleton shareManager] showPopMenuSelecteWithFrame:self.frame
                                                          menuWidth:150
                                                               item:obj
                                                             action:^(NSInteger index) {
         NSLog(@"index:%ld",(long)index);
+        @strongify(self)
+        if (index == 0) {
+            [self feed];//喂食 点一次调一次
+        }
     }];
 }
 
@@ -105,42 +109,42 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
     }
 }
 
--(NSString *)event_marchWithAnimationType:(DYAnimationType)animationType{
-    switch (animationType) {
-        case kDYAnimationOne:
-            return  @"Watermelon.json";
-            break;
-        case kDYAnimationTwo:
-            return  @"TwitterHeart.json";
-            break;
-        case kDYAnimationThree:
-            return  @"vcTransition1.json";
-            break;
-        case kDYAnimationFour:
-            return  @"HamburgerArrow.json";
-            break;
-        case kDYAnimationFive:
-            return  @"LottieLogo2.json";
-            break;
-        case kDYAnimationSix:
-            return  @"PinJump.json";
-            break;
-        case kDYAnimationSeven:
-            return  @"G.json";
-            break;
-        case kDYAnimationEight:
-            return  @"W.json";
-            break;
-        case kDYAnimationNine:
-            return  @"F.json";
-            break;
-        case kDYAnimationTen:
-            return  @"Q.json";
-            break;
-        default:
-            break;
-    }
-}
+//-(NSString *)event_marchWithAnimationType:(DYAnimationType)animationType{
+//    switch (animationType) {
+//        case kDYAnimationOne:
+//            return  @"Watermelon.json";
+//            break;
+//        case kDYAnimationTwo:
+//            return  @"TwitterHeart.json";
+//            break;
+//        case kDYAnimationThree:
+//            return  @"vcTransition1.json";
+//            break;
+//        case kDYAnimationFour:
+//            return  @"HamburgerArrow.json";
+//            break;
+//        case kDYAnimationFive:
+//            return  @"LottieLogo2.json";
+//            break;
+//        case kDYAnimationSix:
+//            return  @"PinJump.json";
+//            break;
+//        case kDYAnimationSeven:
+//            return  @"G.json";
+//            break;
+//        case kDYAnimationEight:
+//            return  @"W.json";
+//            break;
+//        case kDYAnimationNine:
+//            return  @"F.json";
+//            break;
+//        case kDYAnimationTen:
+//            return  @"Q.json";
+//            break;
+//        default:
+//            break;
+//    }
+//}
 #pragma mark —— lazyload
 -(LOTAnimationView *)laAnimation{
     if (!_laAnimation) {
@@ -157,24 +161,14 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
 -(NSMutableArray<NSString *> *)titlesMutArr{
     if (!_titlesMutArr) {
         _titlesMutArr = NSMutableArray.array;
-        [_titlesMutArr addObject:@"扫一扫"];
-        [_titlesMutArr addObject:@"加好友"];
-        [_titlesMutArr addObject:@"创建讨论组"];
-        [_titlesMutArr addObject:@"发送到电脑"];
-        [_titlesMutArr addObject:@"面对面快传"];
-        [_titlesMutArr addObject:@"收钱"];
+        [_titlesMutArr addObject:@"喂我"];
     }return _titlesMutArr;
 }
 
 -(NSMutableArray<NSString *> *)imagesMutArr{
     if (!_imagesMutArr) {
         _imagesMutArr = NSMutableArray.array;
-        [_imagesMutArr addObject:@"right_menu_QR@3x"];
-        [_imagesMutArr addObject:@"right_menu_addFri@3x"];
-        [_imagesMutArr addObject:@"right_menu_sendFile@3x"];
-        [_imagesMutArr addObject:@"right_menu_multichat@3x"];
-        [_imagesMutArr addObject:@"right_menu_facetoface@3x"];
-        [_imagesMutArr addObject:@"right_menu_payMoney@3x"];
+        [_imagesMutArr addObject:@"饭"];
     }return _imagesMutArr;
 }
 

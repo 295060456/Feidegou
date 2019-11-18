@@ -69,6 +69,7 @@
 
 #define CatfoodTrain_checkURL @"/user/buyer/CatfoodTrain_check.htm"//查看转转
 #define CatfoodTrain_delURL @"/user/buyer/CatfoodTrain_del.htm"//关闭转转
+#define PestFeed @"/catfoodapp/user/PestFeed.htm"
 
 //#define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@:8888/websocket",WebSocketLocalhost]
 #define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@/websocket",fdss]
