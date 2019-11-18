@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *payment_weixin;//
 @property(nonatomic,copy)NSString *payment_alipay;//
 
-@property(nonatomic,copy)NSString *identity;//我自己手动加的字段，如果是卖家则1，如果是买家则0
+@property(nonatomic,copy)NSString *identity;//我自己手动加的字段
 
 @end
 
