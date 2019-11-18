@@ -786,7 +786,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     self->w = 0;
                     for (int d = 0; d < self->_viewer.listTitlePlatformStyleDataMutArr.count; d++) {
                         if ([data isEqualToString:self->_viewer.listTitlePlatformStyleDataMutArr[d]]) {
-                            self->w = d;
+                            self->w = 3 - d;
                             self->networking_tpye = NetworkingTpye_ProducingArea;
                         }
                     }

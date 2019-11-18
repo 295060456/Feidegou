@@ -18,7 +18,8 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
-@property(nonatomic,strong)UIButton *cancelBtn;
+@property(nonatomic,strong)UIButton *normalCancel;
+@property(nonatomic,strong)VerifyCodeButton *countDownCancelBtn;
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,copy)DataBlock successBlock;
@@ -86,13 +87,14 @@ UITableViewDataSource
                         //订单状态显示为 已下单
                         NSLog(@"1311");
                         [self.dataMutArr addObject:@"已下单"];
-                        [self.cancelBtn setTitle:@"取消"
+                        [self.normalCancel setTitle:@"取消"
                                         forState:UIControlStateNormal];
                         [self.sureBtn setTitle:@"发货"//
                                       forState:UIControlStateNormal];
                     }else if ([self.orderListModel.del_state intValue] == 1){//在审核中/买家确认中
                         //3小时内，等待买家确认 倒计时
-    //                    self.contactBuyer.alpha = 1;
+                        self.time = 3600 * 3;
+                        self.contactBuyer.alpha = 1;
                         [self.dataMutArr addObject:@"等待买家确认(3小时内)"];
                         NSLog(@"1312");
                         [self buyer_CatfoodRecord_checkURL_NetWorking];
@@ -117,10 +119,10 @@ UITableViewDataSource
                 }else{}
             }else if ([self.orderListModel.order_type intValue] == 2){//批发 买家 & 卖家
                 //先判断是买家还是卖家 deal :1、买；2、卖
-                if ([self.orderListModel.deal intValue] == 1) {//买
+                if ([self.orderListModel.identity isEqualToString:@"买家"]) {//买
                     self.gk_navTitle = @"买家订单详情";
                     if ([self.orderListModel.order_status intValue] == 2) {//已下单
-                        [self.cancelBtn setTitle:@"取消"
+                        [self.normalCancel setTitle:@"取消"
                                         forState:UIControlStateNormal];
                         [self.sureBtn setTitle:@"上传支付凭证"//
                                       forState:UIControlStateNormal];
@@ -128,36 +130,40 @@ UITableViewDataSource
                         [self.sureBtn setTitle:@"重新上传支付凭证"//
                                       forState:UIControlStateNormal];
                     }else{}
-                }else if([self.orderListModel.deal intValue] == 2){//卖
+                }else if([self.orderListModel.identity isEqualToString:@"卖家"]){//卖
                     self.gk_navTitle = @"卖家订单详情";
                     if ([self.orderListModel.order_status intValue] == 2) {
-                        //不管
+                        [self.dataMutArr addObject:@"订单已下单"];//5s 取消
+                        
                     }else if ([self.orderListModel.order_status intValue] == 0){//已支付
-                        [self.cancelBtn setTitle:@"撤销"// .. tips
+                        [self.dataMutArr addObject:@"订单已支付"];
+                        [self.normalCancel setTitle:@"撤销"// .. tips 5s 显示凭证
                                         forState:UIControlStateNormal];
                         [self.sureBtn setTitle:@"立即发货"
                                       forState:UIControlStateNormal];
+                    }else if ([self.orderListModel.order_status intValue] == 3){//已取消
+                        [self.dataMutArr addObject:@"订单已取消"];
                     }else{}
                 }
             }else if ([self.orderListModel.order_type intValue] == 3){//产地 只有买家
                 self.gk_navTitle = @"买家订单详情";
                 if ([self.orderListModel.order_status intValue] == 2) {//已下单
-                    [self.cancelBtn setTitle:@"上传撤销凭证"
-                                    forState:UIControlStateNormal];
+                    [self.dataMutArr addObject:@"订单已下单"];//333
+                    self.countDownCancelBtn.alpha = 1;//5秒倒计时
                     [self.sureBtn setTitle:@"上传支付凭证"
                                   forState:UIControlStateNormal];
                 }else if ([self.orderListModel.order_status intValue] == 0){//已支付
+                    [self.dataMutArr addObject:@"订单已支付"];//444
                     [self.sureBtn setTitle:@"重新上传支付凭证"
                                   forState:UIControlStateNormal];
+                }else if ([self.orderListModel.order_status intValue] == 1){
+                    [self.dataMutArr addObject:@"订单已发单"];//311
+                }else if ([self.orderListModel.order_status intValue] == 4){
+                    [self.dataMutArr addObject:@"订单已发货"];//1111
                 }else{}
             }else{}
         }
     self.tableView.alpha = 1;
-//    #
-//    self.time = 8;
-//    self.contactBuyer.alpha = 1;
-//    self.cancelBtn.alpha = 0;
-//    [self buyer_CatfoodRecord_checkURL_NetWorking];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -206,7 +212,8 @@ UITableViewDataSource
 }
 
 -(void)tips:(UIButton *)sender{
-    if ([sender isEqual:self.cancelBtn]) {//取消按钮
+    if ([sender isEqual:self.normalCancel] ||
+        [sender isEqual:self.countDownCancelBtn]) {//取消按钮
         if ([sender.titleLabel.text isEqualToString:@"撤销"]) {
             //选择撤销理由
             self.BRStringPickerViewDataMutArr = @[@"请选择取消原因",
@@ -228,13 +235,20 @@ UITableViewDataSource
                 }
             }];
             [self.stringPickerView show];
-        }else{
+        }else if ([sender.titleLabel.text isEqualToString:@"取销"]){
             [self showAlertViewTitle:sender.titleLabel.text
-                   message:@""
-               btnTitleArr:@[@"取消",
-                             @"手滑，点错了"]
-            alertBtnAction:@[@"cancelBtnClickEvent",//取消
-                             @"Cancel"]];//取消
+                             message:@""
+                         btnTitleArr:@[@"取消",
+                                       @"手滑，点错了"]
+                      alertBtnAction:@[@"cancelBtnClickEvent",//取消
+                                       @"Cancel"]];//取消
+        }else if ([sender.titleLabel.text isEqualToString:@"上传撤销凭证"]){
+            [self showAlertViewTitle:sender.titleLabel.text
+                             message:@""
+                         btnTitleArr:@[@"取消",
+                                       @"手滑，点错了"]
+                      alertBtnAction:@[@"cancelBtnClickEvent",//取消
+                                       @"Cancel"]];//取消
         }
     }else if ([sender isEqual:self.sureBtn]){//GOon
         if ([sender.titleLabel.text containsString:@"凭证"]) {//上传撤销凭证 上传支付凭证 重新上传支付凭证
@@ -330,7 +344,8 @@ viewForHeaderInSection:(NSInteger)section {
         @weakify(self)
         [viewForHeader actionBlock:^(id data) {
             @strongify(self)
-            NSLog(@"123");
+            NSLog(@"联系");
+            Toast(@"功能开发中,敬请期待...");
         }];
     }return viewForHeader;
 }
@@ -398,6 +413,32 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _contactBuyer;
 }
 
+-(VerifyCodeButton *)countDownCancelBtn{
+    if (!_countDownCancelBtn) {
+        _countDownCancelBtn = VerifyCodeButton.new;
+        _countDownCancelBtn.showTimeType = ShowTimeType_HHMMSS;
+        _countDownCancelBtn.layerCornerRadius = 5.f;
+        _countDownCancelBtn.titleEndStr = @"上传撤销凭证";
+        if (@available(iOS 8.2, *)) {
+            _countDownCancelBtn.titleLabelFont = [UIFont systemFontOfSize:20.f weight:1];
+        } else {
+            // Fallback on earlier versions
+        }
+        _countDownCancelBtn.clipsToBounds = YES;
+        [_countDownCancelBtn timeFailBeginFrom:5];
+        [_countDownCancelBtn addTarget:self
+                                action:@selector(tips:)
+                      forControlEvents:UIControlEventTouchUpInside];
+        [self.tableView addSubview:_countDownCancelBtn];
+        [_countDownCancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.view).offset(SCALING_RATIO(-100));
+            make.centerX.equalTo(self.view);
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100),
+                                             SCALING_RATIO(50)));
+        }];
+    }return _countDownCancelBtn;
+}
+
 -(UIButton *)sureBtn{
     if (!_sureBtn) {
         _sureBtn = UIButton.new;
@@ -410,22 +451,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _sureBtn;
 }
 
--(UIButton *)cancelBtn{
-    if (!_cancelBtn) {
-        _cancelBtn = UIButton.new;
-        [_cancelBtn addTarget:self
-                       action:@selector(tips:)
-             forControlEvents:UIControlEventTouchUpInside];
-        [UIView cornerCutToCircleWithView:_cancelBtn
+-(UIButton *)normalCancel{
+    if (!_normalCancel) {
+        _normalCancel = UIButton.new;
+        [_normalCancel addTarget:self
+                          action:@selector(tips:)
+                forControlEvents:UIControlEventTouchUpInside];
+        [UIView cornerCutToCircleWithView:_normalCancel
                           AndCornerRadius:3.f];
-        _cancelBtn.backgroundColor = KLightGrayColor;
-        [self.view addSubview:_cancelBtn];
-        [_cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        _normalCancel.backgroundColor = KLightGrayColor;
+        [self.view addSubview:_normalCancel];
+        [_normalCancel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view);
             make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(80)));
             make.bottom.equalTo(self.view).offset(SCALING_RATIO(-100));
         }];
-    }return _cancelBtn;
+    }return _normalCancel;
 }
 
 -(UITableView *)tableView{
