@@ -13,6 +13,8 @@
 }
 
 @property(nonatomic,strong)YYLabel *titleLab;
+@property(nonatomic,strong)UIImageView *tipsIMGV;
+
 @property(nonatomic,copy)NSString *str;
 @property(nonatomic,copy)NSMutableAttributedString *attributedString;
 
@@ -26,9 +28,7 @@
         
         if ([data isKindOfClass:[NSString class]]) {
             self.str = (NSString *)data;
-            if (![NSString isNullString:self.str]) {
-                self.titleLab.attributedText = self.attributedString;
-            }
+
         }
     }return self;
 }
@@ -39,6 +39,12 @@
 }
 
 -(void)drawRect:(CGRect)rect{
+    self.tipsIMGV.alpha = 1;
+    if (![NSString isNullString:self.str]) {
+        self.titleLab.attributedText = self.attributedString;
+    }
+    
+    
 //    if ([model isKindOfClass:[OrderListModel class]]) {
 //        OrderListModel *orderListModel = (OrderListModel *)model;//您向2222购买333
 //        self.str = [NSString stringWithFormat:@"您向%@购买%d",orderListModel.seller_name,[orderListModel.quantity intValue]];
@@ -121,11 +127,25 @@
         [_titleLab sizeToFit];
         [self addSubview:_titleLab];
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.contentView).offset(SCALING_RATIO(20));
-            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-20));
+            make.top.equalTo(self.contentView);
+            make.bottom.equalTo(self.contentView);
             make.left.right.equalTo(self.contentView);
         }];
     }return _titleLab;
 }
+
+-(UIImageView *)tipsIMGV{
+    if (!_tipsIMGV) {
+        _tipsIMGV = UIImageView.new;
+        _tipsIMGV.image = kIMG(@"电 话");
+        [self addSubview:_tipsIMGV];
+        [_tipsIMGV mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self);
+            make.right.equalTo(self).offset(-SCALING_RATIO(20));
+            make.size.mas_equalTo(CGSizeMake(self.mj_h / 1.5, self.mj_h / 1.5));
+        }];
+    }return _tipsIMGV;
+}
+
 
 @end

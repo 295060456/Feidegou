@@ -2343,10 +2343,10 @@
 			isa = PBXGroup;
 			children = (
 				8B9AEDA923812CC700A75CF0 /* 订单详情.png */,
-				8BAC1F0C2381A3B90084B6B4 /* OrderDetailVC.h */,
-				8BAC1F0D2381A3B90084B6B4 /* OrderDetailVC.m */,
 				8BAC1F0F2382374A0084B6B4 /* OrderDetailTBViewForHeader.h */,
 				8BAC1F102382374A0084B6B4 /* OrderDetailTBViewForHeader.m */,
+				8BAC1F0C2381A3B90084B6B4 /* OrderDetailVC.h */,
+				8BAC1F0D2381A3B90084B6B4 /* OrderDetailVC.m */,
 				8B3C0B59237FCAD500BFFA86 /* OrderDetailModel.h */,
 				8B3C0B5A237FCAD500BFFA86 /* OrderDetailModel.m */,
 				8B3C0B56237FCAB800BFFA86 /* OrderDetailVC+VM.h */,

@@ -327,6 +327,11 @@ viewForHeaderInSection:(NSInteger)section {
     if (!viewForHeader) {
         viewForHeader = [[OrderDetailTBViewForHeader alloc]initWithReuseIdentifier:ReuseIdentifier
                                                                           withData:self.str];
+        @weakify(self)
+        [viewForHeader actionBlock:^(id data) {
+            @strongify(self)
+            NSLog(@"123");
+        }];
     }return viewForHeader;
 }
 

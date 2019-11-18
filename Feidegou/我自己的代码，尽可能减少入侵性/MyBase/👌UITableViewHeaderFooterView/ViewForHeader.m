@@ -10,7 +10,7 @@
 
 @interface ViewForHeader()
 
-@property(nonatomic,weak)DataBlock block;
+@property(nonatomic,copy)DataBlock ClickBlock;
 
 @end
 
@@ -22,14 +22,15 @@
     }return self;
 }
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    if (self.block) {
-        self.block(@1);
+-(void)touchesBegan:(NSSet<UITouch *> *)touches
+          withEvent:(UIEvent *)event{
+    if (self.ClickBlock) {
+        self.ClickBlock(@1);
     }
 }
 
 -(void)actionBlock:(DataBlock)block{
-    _block = block;
+    _ClickBlock = block;
 }
 
 #pragma mark —— lazyLoad
