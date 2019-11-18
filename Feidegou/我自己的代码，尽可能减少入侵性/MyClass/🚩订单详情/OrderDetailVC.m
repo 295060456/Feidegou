@@ -34,6 +34,7 @@ UITableViewDataSource
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
     [_contactBuyer.timer invalidate];
+    [_countDownCancelBtn.timer invalidate];
 }
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
@@ -142,7 +143,8 @@ UITableViewDataSource
                     NSLog(@"1315");
                     [self.dataMutArr addObject:@"订单已发货"];
                 }else{}
-            }else if ([self.orderListModel.order_type intValue] == 2){//批发 买家 & 卖家
+            }
+            else if ([self.orderListModel.order_type intValue] == 2){//批发 买家 & 卖家
                 //先判断是买家还是卖家 deal :1、买；2、卖
                 if ([self.orderListModel.identity isEqualToString:@"买家"]) {
                     self.gk_navTitle = @"批发市场（买家）订单详情";
@@ -198,7 +200,8 @@ UITableViewDataSource
                         [self.dataMutArr addObject:@"订单已取消"]; //23_6
                     }else{}
                 }
-            }else if ([self.orderListModel.order_type intValue] == 3){//产地 只有买家
+            }
+            else if ([self.orderListModel.order_type intValue] == 3){//产地 只有买家
                 self.gk_navTitle = @"喵粮产地订单详情";
                 if ([self.orderListModel.order_status intValue] == 2) {//已下单
                     [self.dataMutArr addObject:@"订单已下单"];//333
@@ -225,6 +228,9 @@ UITableViewDataSource
                 }else{}
             }else{}
     }else if (self.catFoodProducingAreaModel){//喵粮产地
+        NSString *str1 = [NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"];
+        NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
+        self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
         self.gk_navTitle = @"喵粮产地订单详情";
         //只有10秒取消、发货、状态为已下单
         [self.dataMutArr addObject:@"订单已下单"];//333
@@ -238,9 +244,11 @@ UITableViewDataSource
                          action:@selector(netWorking)
                forControlEvents:UIControlEventTouchUpInside];//#7
     }else if (self.stallListModel){//喵粮抢购
+        NSString *str1 = [NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"];
+        NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
+        self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
         //只有10秒取消、发货、状态为已下单
         [self.dataMutArr addObject:@"订单已下单"];//333
-//        self.countDownCancelBtn.titleBeginStr = @"取消";
         self.countDownCancelBtn.titleEndStr = @"取消";
         [self.countDownCancelBtn addTarget:self
                                     action:@selector(CatfoodBooth_del_netWorking)
@@ -269,11 +277,11 @@ UITableViewDataSource
         }
         [self buyer_CatfoodRecord_checkURL_NetWorking];
     }else if (self.catFoodProducingAreaModel){
-        
+        [self buyer_CatfoodRecord_checkURL_NetWorking];
     }else if (self.stallListModel){
-        
+        [self buyer_CatfoodRecord_checkURL_NetWorking];
     }else{
-        
+        [self buyer_CatfoodRecord_checkURL_NetWorking];
     }
 }
 //上拉加载更多
@@ -284,70 +292,6 @@ UITableViewDataSource
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
-}
-
--(void)cancelBtnClickEvent{
-    if(self.orderListModel){
-        if ([self.orderListModel.order_type intValue] == 1) {//摊位
-            if ([self.orderListModel.order_status intValue] == 2) {
-                if ([self.orderListModel.del_state intValue] == 0) {
-                    //5分钟以后才可以进行取消 22-2
-                }
-            }
-        }else if ([self.orderListModel.order_type intValue] == 2) {//批发
-            if ([self.orderListModel.deal intValue] == 1) {//买
-                if ([self.orderListModel.order_status intValue] == 2) {//#18
-                    [self cancelOrder_wholesaleMarket_netWorking];
-                }
-            }else if ([self.orderListModel.deal intValue] == 2){//卖
-                if ([self.orderListModel.order_status intValue] == 0) {//#5
-                    [self CancelDelivery_NetWorking];
-                }
-            }else{}
-        }else if ([self.orderListModel.order_type intValue] == 3){//产地
-            if ([self.orderListModel.order_status intValue] == 2) {//#9
-                [self cancelOrder_producingArea_netWorking];
-            }
-        }else{}
-    }else if (self.catFoodProducingAreaModel){
-        
-    }else if (self.stallListModel){
-        
-    }else{}
-}
-
--(void)sureBtnClickEvent{
-    if (self.orderListModel) {
-        if ([self.orderListModel.order_type intValue] == 1) {//摊位
-            if ([self.orderListModel.order_status intValue] == 2) {
-                if ([self.orderListModel.del_state intValue] == 0) {
-                    //#21 发货
-                }
-            }
-        }else if ([self.orderListModel.order_type intValue] == 2) {//批发
-            if ([self.orderListModel.deal intValue] == 1) {//买
-                if ([self.orderListModel.order_status intValue] == 2) {//#17
-                    [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.pic];
-                }else if ([self.orderListModel.order_status intValue] == 0){//#17
-                    [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.pic];
-                }else{}
-            }else if([self.orderListModel.deal intValue] == 2){//卖
-                if ([self.orderListModel.order_status intValue] == 0) {//#14
-                    [self deliver_wholesaleMarket_PNetworking];
-                }
-            }else{}
-        }else if ([self.orderListModel.order_type intValue] == 3){//产地
-            if ([self.orderListModel.order_status intValue] == 2) {//#8
-                [self uploadPic_producingArea_havePaid_netWorking:self.pic];
-            }else if ([self.orderListModel.order_status intValue] == 0){//#8
-                [self uploadPic_producingArea_havePaid_netWorking:self.pic];
-            }
-        }else{}
-    }else if (self.catFoodProducingAreaModel){
-        
-    }else if (self.stallListModel){
-        
-    }else{}
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView
@@ -399,12 +343,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([self.orderListModel.order_type intValue] == 2 &&
         [self.orderListModel.identity isEqualToString:@"卖家"] &&
         [self.orderListModel.order_status intValue] == 0 &&
-        indexPath.row == 9) {
+        indexPath.row == 9) {//凭证图片
         OrderDetailTBVIMGCell *cell = [OrderDetailTBVIMGCell cellWith:tableView];//
         cell.textLabel.text = self.titleMutArr[indexPath.row];
-        if (self.dataMutArr.count) {
+        if (self.dataMutArr.count) {//最新数据
             [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
-        }else{
+        }else{//原始数据
             if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
                 
             }else if ([self.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){
@@ -413,12 +357,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 
             }else{}
         }return cell;
-    }else{
+    }else{//其他
         OrderDetailTBVCell *cell = [OrderDetailTBVCell cellWith:tableView];//
         cell.textLabel.text = self.titleMutArr[indexPath.row];
-        if (self.dataMutArr.count) {
+        if (self.dataMutArr.count) {//最新数据
             [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
-        }else{
+        }else{//原始数据
             if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
                 
             }else if ([self.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){

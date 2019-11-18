@@ -72,8 +72,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:response];
             NSString *str1 = [NSString ensureNonnullString:orderDetailModel.ID ReplaceStr:@"无"];
             NSString *str2 = [NSString ensureNonnullString:orderDetailModel.quantity ReplaceStr:@""];
-//            [self.dataMutArr addObject:[NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2]];
-    
+            [self.dataMutArr addObject:[NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2]];
             self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
             
             [self.dataMutArr addObject:[NSString ensureNonnullString:orderDetailModel.ID ReplaceStr:@"无"]];//订单号

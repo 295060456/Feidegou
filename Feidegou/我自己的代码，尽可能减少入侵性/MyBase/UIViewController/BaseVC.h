@@ -27,6 +27,7 @@ TZImagePickerControllerDelegate
 //@property(nonatomic,strong)ViewForHeader *viewForHeader;
 //@property(nonatomic,strong)ViewForFooter *viewForFooter;
 @property(nonatomic,strong)UIButton *backBtn;
+
 @property(nonatomic,assign)BOOL isRequestFinish;//数据请求是否完毕
 @property(nonatomic,copy)void (^UnknownNetWorking)(void);
 @property(nonatomic,copy)void (^NotReachableNetWorking)(void);
