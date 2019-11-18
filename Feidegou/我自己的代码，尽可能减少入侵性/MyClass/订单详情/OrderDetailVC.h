@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
 @property(nonatomic,strong)OrderListModel *orderListModel;
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
+@property(nonatomic,strong)StallListModel *stallListModel;
 @property(nonatomic,assign)__block int time;
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC

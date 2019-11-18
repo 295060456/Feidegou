@@ -40,7 +40,6 @@
         }
     }];
 }
-#pragma mark —— SRWebSocketDelegate
 //WebSocketURL
 -(void)webSocket:(NSString *)quantity{
     if (![NSString isNullString:quantity]) {//
@@ -50,14 +49,14 @@
         Toast(@"请输入参与抢摊位的数量");
     }
 }
-
-- (void)SRWebSocketDidOpen {//开启
+#pragma mark —— SRWebSocketDelegate
+- (void)SRWebSocketDidOpen{//开启
     NSLog(@"开启成功");
     //在成功后需要做的操作...
     [self.tableView.mj_header endRefreshing];
 }
 
-- (void)SRWebSocketDidReceiveMsg:(NSNotification *)note {//接受消息
+- (void)SRWebSocketDidReceiveMsg:(NSNotification *)note{//接受消息
     @weakify(self)
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];

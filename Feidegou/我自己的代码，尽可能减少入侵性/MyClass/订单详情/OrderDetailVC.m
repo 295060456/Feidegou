@@ -47,6 +47,8 @@ UITableViewDataSource
         vc.orderListModel = (OrderListModel *)vc.requestParams;
     }else if ([vc.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){//喵粮产地
         vc.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)vc.requestParams;
+    }else if ([vc.requestParams isKindOfClass:[StallListModel class]]){
+        vc.stallListModel = (StallListModel *)vc.requestParams;
     }else{}
     if (rootVC.navigationController) {
         vc.isPush = YES;
@@ -194,11 +196,32 @@ UITableViewDataSource
                     [self.dataMutArr addObject:@"订单已发货"];//1111
                 }else{}
             }else{}
-    }else if (self.catFoodProducingAreaModel){
-
+    }else if (self.catFoodProducingAreaModel){//喵粮产地
+        //只有10秒取消、发货、状态为已下单
+        [self.dataMutArr addObject:@"订单已下单"];//333
+        self.countDownCancelBtn.titleEndStr = @"取消";
+        [self.countDownCancelBtn addTarget:self
+                                    action:@selector(cancelOrder_producingArea_netWorking)
+                          forControlEvents:UIControlEventTouchUpInside];//#9
+        [self.sureBtn setTitle:@"发货"
+                      forState:UIControlStateNormal];
+//        [self.sureBtn addTarget:self
+//                         action:@selector(uploadPic_producingArea_havePaid_netWorking:)
+//               forControlEvents:UIControlEventTouchUpInside];//#8
+    }else if (self.stallListModel){//喵粮抢购
+        //只有10秒取消、发货、状态为已下单
+        [self.dataMutArr addObject:@"订单已下单"];//333
+        self.countDownCancelBtn.titleEndStr = @"取消";
+        [self.countDownCancelBtn addTarget:self
+                                    action:@selector(CatfoodBooth_del_netWorking)
+                          forControlEvents:UIControlEventTouchUpInside];//#21_1
+        [self.sureBtn setTitle:@"发货"
+                      forState:UIControlStateNormal];
+        [self.sureBtn addTarget:self
+                         action:@selector(boothDeliver_networking)
+               forControlEvents:UIControlEventTouchUpInside];//#21
     }else{}
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_sureBtn];
-    
     self.tableView.alpha = 1;
 }
 
@@ -213,6 +236,8 @@ UITableViewDataSource
             }
         }
     }else if (self.catFoodProducingAreaModel){
+        
+    }else if (self.stallListModel){
         
     }else{}
 }
@@ -238,6 +263,8 @@ UITableViewDataSource
         }
         [self buyer_CatfoodRecord_checkURL_NetWorking];
     }else if (self.catFoodProducingAreaModel){
+        
+    }else if (self.stallListModel){
         
     }else{
         
@@ -278,6 +305,8 @@ UITableViewDataSource
         }else{}
     }else if (self.catFoodProducingAreaModel){
         
+    }else if (self.stallListModel){
+        
     }else{}
 }
 
@@ -309,6 +338,8 @@ UITableViewDataSource
             }
         }else{}
     }else if (self.catFoodProducingAreaModel){
+        
+    }else if (self.stallListModel){
         
     }else{}
 }
@@ -377,9 +408,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
         _contactBuyer.clipsToBounds = YES;
         [_contactBuyer timeFailBeginFrom:self.time == 0 ? 10 : self.time];
-//        [_contactBuyer addTarget:self
-//                       action:@selector(tips:)
-//             forControlEvents:UIControlEventTouchUpInside];
         [self.tableView addSubview:_contactBuyer];
         [_contactBuyer mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.view).offset(SCALING_RATIO(-100));
@@ -395,7 +423,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _countDownCancelBtn = VerifyCodeButton.new;
         _countDownCancelBtn.showTimeType = ShowTimeType_SS;;
         _countDownCancelBtn.layerCornerRadius = 5.f;
-//        _countDownCancelBtn.titleEndStr = @"上传撤销凭证";
         if (@available(iOS 8.2, *)) {
             _countDownCancelBtn.titleLabelFont = [UIFont systemFontOfSize:20.f weight:1];
         } else {
@@ -403,9 +430,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
         _countDownCancelBtn.clipsToBounds = YES;
         [_countDownCancelBtn timeFailBeginFrom:self.time == 0 ? 10 : self.time];
-//        [_countDownCancelBtn addTarget:self
-//                                action:@selector(tips:)
-//                      forControlEvents:UIControlEventTouchUpInside];
         [self.tableView addSubview:_countDownCancelBtn];
         [_countDownCancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.view).offset(SCALING_RATIO(-100));
@@ -420,9 +444,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_sureBtn) {
         _sureBtn = UIButton.new;
         _sureBtn.backgroundColor = kOrangeColor;
-//        [_sureBtn addTarget:self
-//                     action:@selector(tips:)
-//           forControlEvents:UIControlEventTouchUpInside];
         [UIView cornerCutToCircleWithView:_sureBtn
                           AndCornerRadius:3.f];
     }return _sureBtn;
@@ -431,9 +452,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)normalCancel{
     if (!_normalCancel) {
         _normalCancel = UIButton.new;
-//        [_normalCancel addTarget:self
-//                          action:@selector(tips:)
-//                forControlEvents:UIControlEventTouchUpInside];
         [UIView cornerCutToCircleWithView:_normalCancel
                           AndCornerRadius:3.f];
         _normalCancel.backgroundColor = KLightGrayColor;
@@ -568,6 +586,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                         break;
                 }
             }
+        }else if (self.stallListModel){
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.ID ReplaceStr:@"无"]];//订单号
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.price ReplaceStr:@"无"]];//单价
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.quantity ReplaceStr:@"无"]];//数量
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.rental ReplaceStr:@"无"]];//总价
+            [_dataMutArr addObject:@"微信"];//支付方式
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.payment_weixin ReplaceStr:@"无"]];//微信账号
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.updateTime ReplaceStr:@"无"]];//下单时间
         }else{}
     }return _dataMutArr;
 }
@@ -581,18 +607,23 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [_titleMutArr addObject:@"数量:"];
             [_titleMutArr addObject:@"总价:"];
             [_titleMutArr addObject:@"支付方式:"];
-            if ([self.orderListModel.payment_status intValue] == 3) {//1、支付宝;2、微信;3、银行卡
+            //1、支付宝;2、微信;3、银行卡
+            if ([self.orderListModel.payment_status intValue] == 3) {//3、银行卡
                 [_titleMutArr addObject:@"银行卡号:"];
                 [_titleMutArr addObject:@"姓名:"];
                 [_titleMutArr addObject:@"银行类型:"];
                 [_titleMutArr addObject:@"支行信息:"];
+            }else if ([self.orderListModel.payment_status intValue] == 2){//2、微信
+                [_titleMutArr addObject:@"微信账号:"];
+            }else if ([self.orderListModel.payment_status intValue] == 1){//1、支付宝
+                [_titleMutArr addObject:@"支付宝账号:"];
             }else{
-                [_titleMutArr addObject:@"账号:"];
+                [_titleMutArr addObject:@"异常:"];
             }
             [_titleMutArr addObject:@"参考号:"];
             [_titleMutArr addObject:@"下单时间:"];
             [_titleMutArr addObject:@"订单状态"];
-        }else if (self.catFoodProducingAreaModel){
+        }else if (self.catFoodProducingAreaModel){//只允许银行卡
             [_titleMutArr addObject:@"订单号:"];
             [_titleMutArr addObject:@"单价:"];
             [_titleMutArr addObject:@"数量:"];
@@ -601,6 +632,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [_titleMutArr addObject:@"姓名:"];
             [_titleMutArr addObject:@"银行类型:"];
             [_titleMutArr addObject:@"支行信息:"];
+            [_titleMutArr addObject:@"下单时间:"];
+            [_titleMutArr addObject:@"订单状态"];
+        }else if (self.stallListModel){//只允许微信
+            [_titleMutArr addObject:@"订单号:"];
+            [_titleMutArr addObject:@"单价:"];
+            [_titleMutArr addObject:@"数量:"];
+            [_titleMutArr addObject:@"总价:"];
+            [_titleMutArr addObject:@"支付方式:"];
+            [_titleMutArr addObject:@"微信账号:"];
             [_titleMutArr addObject:@"下单时间:"];
             [_titleMutArr addObject:@"订单状态"];
         }else{}

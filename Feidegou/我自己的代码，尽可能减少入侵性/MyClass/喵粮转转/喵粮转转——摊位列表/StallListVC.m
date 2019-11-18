@@ -9,6 +9,7 @@
 #import "StallListVC.h"
 //#import "OrderDetail_SellerVC.h"
 #import "StallListVC+VM.h"
+#import "OrderDetailVC.h"
 
 @interface StallListVC ()
 <
@@ -55,6 +56,7 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.gk_navTitle = @"喵粮转转";
+    Toast(@"收到款项请立即发货、如果没有及时发货，将可能面临账号被冻结的处理");
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
@@ -81,6 +83,11 @@ UITableViewDataSource
     [self.tableView.mj_header beginRefreshing];
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [[SocketRocketUtility instance] SRWebSocketClose];//关闭WebSocket
+}
+
 #pragma mark —— 私有方法
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
@@ -95,9 +102,7 @@ UITableViewDataSource
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
     }
-    [[SocketRocketUtility instance] SRWebSocketClose];//关闭WebSocket
-//    [self webSocket:self.requestParams];//
-    [self allowWebSocketOpen_networking:self.requestParams];
+    [[SocketRocketUtility instance] SRWebSocketOpenWithURLString:[BaseWebSocketURL stringByAppendingString:[NSString stringWithFormat:@"/%@",@"500"]]];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
@@ -166,10 +171,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //                    withRowAnimation:UITableViewRowAnimationNone];
     
     @weakify(self)
-//    [OrderDetail_SellerVC pushFromVC:self_weak_
-//                       requestParams:self.dataMutArr[indexPath.row]
-//                             success:^(id data) {}
-//                            animated:YES];
+    [OrderDetailVC pushFromVC:self_weak_
+                requestParams:self.dataMutArr[indexPath.row]
+                      success:^(id data) {}
+                     animated:YES];
 }
 //给cell添加动画
 -(void)tableView:(UITableView *)tableView
@@ -220,8 +225,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _dataMutArr = NSMutableArray.array;
     }return _dataMutArr;
 }
-
-
 
 @end
 

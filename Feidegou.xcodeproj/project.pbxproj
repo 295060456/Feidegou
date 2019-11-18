@@ -76,7 +76,6 @@
 		8BB2D2902366C6E00047D0E2 /* YBNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D28F2366C6E00047D0E2 /* YBNotificationManager.m */; };
 		8BB2D33B2366CAF90047D0E2 /* CatFoodsManagementVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2FC2366C7310047D0E2 /* CatFoodsManagementVC.m */; };
 		8BB2D33C2366CAFF0047D0E2 /* OrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2F92366C7310047D0E2 /* OrderListVC.m */; };
-		8BB2D33D2366CB080047D0E2 /* ThroughTrainToPromoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2F52366C7310047D0E2 /* ThroughTrainToPromoteVC.m */; };
 		8BB2D33E2366CB170047D0E2 /* MMButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2972366C7310047D0E2 /* MMButton.m */; };
 		8BB2D33F2366CB200047D0E2 /* YKToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D29B2366C7310047D0E2 /* YKToastView.m */; };
 		8BB2D3402366CB280047D0E2 /* MISCustomButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D29D2366C7310047D0E2 /* MISCustomButton.m */; };
@@ -140,7 +139,6 @@
 		8BCB98DB23715D660063E01E /* File in Resources */ = {isa = PBXBuildFile; fileRef = 8BCB98D823715D650063E01E /* File */; };
 		8BCB98DC23715D660063E01E /* AESCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98D923715D660063E01E /* AESCipher.m */; };
 		8BCB993423719DEA0063E01E /* GiftVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB993323719DEA0063E01E /* GiftVC+VM.m */; };
-		8BCB99372371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB99362371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.m */; };
 		8BEAE8812381138C006E40A4 /* WholesaleMarket_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87C2381138C006E40A4 /* WholesaleMarket_VipVC.m */; };
 		8BEAE8822381138C006E40A4 /* WholesaleMarket_VipVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87D2381138C006E40A4 /* WholesaleMarket_VipVC+VM.m */; };
 		8BEAE8832381138C006E40A4 /* WholesaleMarket_VipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87F2381138C006E40A4 /* WholesaleMarket_VipModel.m */; };
@@ -800,8 +798,6 @@
 		8BB2D2F02366C7310047D0E2 /* Q_Pet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Q_Pet.h; sourceTree = "<group>"; };
 		8BB2D2F32366C7310047D0E2 /* StallListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StallListVC.m; sourceTree = "<group>"; };
 		8BB2D2F42366C7310047D0E2 /* StallListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StallListVC.h; sourceTree = "<group>"; };
-		8BB2D2F52366C7310047D0E2 /* ThroughTrainToPromoteVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThroughTrainToPromoteVC.m; sourceTree = "<group>"; };
-		8BB2D2F62366C7310047D0E2 /* ThroughTrainToPromoteVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThroughTrainToPromoteVC.h; sourceTree = "<group>"; };
 		8BB2D2F82366C7310047D0E2 /* OrderListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderListVC.h; sourceTree = "<group>"; };
 		8BB2D2F92366C7310047D0E2 /* OrderListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderListVC.m; sourceTree = "<group>"; };
 		8BB2D2FB2366C7310047D0E2 /* CatFoodsManagementVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatFoodsManagementVC.h; sourceTree = "<group>"; };
@@ -903,8 +899,6 @@
 		8BCB98DA23715D660063E01E /* AESCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCipher.h; sourceTree = "<group>"; };
 		8BCB993223719DEA0063E01E /* GiftVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GiftVC+VM.h"; sourceTree = "<group>"; };
 		8BCB993323719DEA0063E01E /* GiftVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GiftVC+VM.m"; sourceTree = "<group>"; };
-		8BCB99352371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ThroughTrainToPromoteVC+VM.h"; sourceTree = "<group>"; };
-		8BCB99362371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ThroughTrainToPromoteVC+VM.m"; sourceTree = "<group>"; };
 		8BEAE87B2381138C006E40A4 /* WholesaleMarket_VipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_VipModel.h; sourceTree = "<group>"; };
 		8BEAE87C2381138C006E40A4 /* WholesaleMarket_VipVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_VipVC.m; sourceTree = "<group>"; };
 		8BEAE87D2381138C006E40A4 /* WholesaleMarket_VipVC+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WholesaleMarket_VipVC+VM.m"; sourceTree = "<group>"; };
@@ -2020,17 +2014,6 @@
 			path = "邀请码";
 			sourceTree = "<group>";
 		};
-		8B9AEDAC23812EC700A75CF0 /* 被取消的页面 */ = {
-			isa = PBXGroup;
-			children = (
-				8BB2D2F62366C7310047D0E2 /* ThroughTrainToPromoteVC.h */,
-				8BB2D2F52366C7310047D0E2 /* ThroughTrainToPromoteVC.m */,
-				8BCB99352371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.h */,
-				8BCB99362371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.m */,
-			);
-			path = "被取消的页面";
-			sourceTree = "<group>";
-		};
 		8BAC1F1823826F950084B6B4 /* 喵粮会话 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2386,7 +2369,6 @@
 		8BB2D2F12366C7310047D0E2 /* 喵粮转转 */ = {
 			isa = PBXGroup;
 			children = (
-				8B9AEDAC23812EC700A75CF0 /* 被取消的页面 */,
 				8BB2D2F22366C7310047D0E2 /* 喵粮转转——摊位列表 */,
 			);
 			path = "喵粮转转";
@@ -4496,7 +4478,6 @@
 				8BB2D3442366CB450047D0E2 /* VerifyCodeButton.m in Sources */,
 				8B90B39E237923570023E394 /* InvitationCodeVC+VM.m in Sources */,
 				C42CD093213CC2640096675F /* AreaSelectController.m in Sources */,
-				8BB2D33D2366CB080047D0E2 /* ThroughTrainToPromoteVC.m in Sources */,
 				8BB2D3802366CBF10047D0E2 /* UpLoadCancelReasonVC.m in Sources */,
 				C42CD064213CC2640096675F /* CellTwoLblArrow.m in Sources */,
 				C42CD04A213CC2640096675F /* JJHttpClient+FourZero.m in Sources */,
@@ -4829,7 +4810,6 @@
 				8B3C0B5B237FCAD500BFFA86 /* OrderDetailModel.m in Sources */,
 				C42F5D2E213F858B00114E0E /* CellIncomeAll.m in Sources */,
 				8BEAE8812381138C006E40A4 /* WholesaleMarket_VipVC.m in Sources */,
-				8BCB99372371AC6F0063E01E /* ThroughTrainToPromoteVC+VM.m in Sources */,
 				C46D6B5E2143A5FF00428D7A /* ModelOrderGoodList.m in Sources */,
 				C46368D8213FBE6C006922D5 /* CellAdver.m in Sources */,
 				C42CCCE9213CC0520096675F /* main.m in Sources */,
