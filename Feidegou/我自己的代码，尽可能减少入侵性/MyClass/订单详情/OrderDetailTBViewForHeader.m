@@ -25,10 +25,8 @@
 - (instancetype)initWithReuseIdentifier:(nullable NSString *)reuseIdentifier
                                withData:(id)data{
     if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
-        
         if ([data isKindOfClass:[NSString class]]) {
             self.str = (NSString *)data;
-
         }
     }return self;
 }
@@ -43,16 +41,6 @@
     if (![NSString isNullString:self.str]) {
         self.titleLab.attributedText = self.attributedString;
     }
-    
-    
-//    if ([model isKindOfClass:[OrderListModel class]]) {
-//        OrderListModel *orderListModel = (OrderListModel *)model;//您向2222购买333
-//        self.str = [NSString stringWithFormat:@"您向%@购买%d",orderListModel.seller_name,[orderListModel.quantity intValue]];
-//        self.titleLab.attributedText = self.attributedString;
-//    }else if ([model isKindOfClass:[NSString class]]){
-//        self.str = model;//您向厂家2购买333g喵粮
-//        self.titleLab.attributedText = self.attributedString;
-//    }else{}
 }
 #pragma mark —— lazyLoad
 -(NSMutableAttributedString *)attributedString{

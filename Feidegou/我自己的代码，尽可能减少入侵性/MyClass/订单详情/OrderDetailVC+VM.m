@@ -388,14 +388,26 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                                                                              publicKey:RSA_Public_key]
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
-//    @weakify(self)
+    @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        @strongify(self)
         if ([response isKindOfClass:[NSString class]]) {
             NSString *str = (NSString *)response;
-            if ([NSString isNullString:str]) {
-//                @strongify(self)
-                NSLog(@"--%@",response);
-                Toast(@"取消成功");
+            NSCharacterSet *nonDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+            self.time = [[str stringByTrimmingCharactersInSet:nonDigits] intValue];
+            if ([self.orderListModel.order_type intValue] == 1) {
+                if ([self.orderListModel.order_status intValue] == 2) {
+                    if ([self.orderListModel.del_state intValue] == 0) {
+                        self.countDownCancelBtn.titleEndStr = @"取消";
+                        [self.countDownCancelBtn addTarget:self
+                                                    action:@selector(CatfoodBooth_del_netWorking)
+                                          forControlEvents:UIControlEventTouchUpInside];//#22_1
+                    }else if ([self.orderListModel.del_state intValue] == 1){
+                        [self.contactBuyer addTarget:self
+                                              action:@selector(联系买家)
+                                    forControlEvents:UIControlEventTouchUpInside];
+                    }else{}
+                }
             }
         }
     }];
@@ -435,6 +447,9 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //    self.contactBuyer.alpha = 1;
 }
 
+-(void)联系买家{
+    Toast(@"开发中...");
+}
 
 
 @end

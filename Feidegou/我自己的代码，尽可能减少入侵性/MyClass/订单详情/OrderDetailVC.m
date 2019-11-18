@@ -19,14 +19,12 @@ UITableViewDataSource
 >
 
 @property(nonatomic,strong)UIButton *normalCancel;
-@property(nonatomic,strong)VerifyCodeButton *countDownCancelBtn;
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,strong)id popGestureDelegate; //用来保存系统手势的代理
-@property(nonatomic,assign)int time;
 
 @end
 
@@ -84,11 +82,7 @@ UITableViewDataSource
                         NSLog(@"1311");
                         [self.dataMutArr addObject:@"已下单"];
                         //去请求 #22-2 获取最新时间
-                        self.time = 50;
-                        self.countDownCancelBtn.titleEndStr = @"取消";
-                        [self.countDownCancelBtn addTarget:self
-                                                    action:@selector(CatfoodBooth_del_netWorking)
-                                          forControlEvents:UIControlEventTouchUpInside];//#22_1
+                        [self CatfoodBooth_del_time_netWorking];//#22-2
                         [self.sureBtn setTitle:@"发货"
                                       forState:UIControlStateNormal];
                         [self.sureBtn addTarget:self
@@ -96,11 +90,8 @@ UITableViewDataSource
                           forControlEvents:UIControlEventTouchUpInside];//#21
                     }else if ([self.orderListModel.del_state intValue] == 1){//在审核中/买家确认中
                         //3小时内，等待买家确认 倒计时
-                        self.time = 3600 * 3;
-                        self.contactBuyer.alpha = 1;
-                        [self.contactBuyer addTarget:self
-                                              action:@selector(联系买家)
-                                    forControlEvents:UIControlEventTouchUpInside];
+                        //去请求 #22-2 获取最新时间
+                        [self CatfoodBooth_del_time_netWorking];//#22-2
                         [self.dataMutArr addObject:@"等待买家确认(3小时内)"];
                         NSLog(@"1312");
                     }else if ([self.orderListModel.del_state intValue] == 2){//确定取消了
@@ -385,7 +376,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             // Fallback on earlier versions
         }
         _contactBuyer.clipsToBounds = YES;
-        [_contactBuyer timeFailBeginFrom:self.time];
+        [_contactBuyer timeFailBeginFrom:self.time == 0 ? 10 : self.time];
 //        [_contactBuyer addTarget:self
 //                       action:@selector(tips:)
 //             forControlEvents:UIControlEventTouchUpInside];
@@ -411,7 +402,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             // Fallback on earlier versions
         }
         _countDownCancelBtn.clipsToBounds = YES;
-        [_countDownCancelBtn timeFailBeginFrom:5];
+        [_countDownCancelBtn timeFailBeginFrom:self.time == 0 ? 10 : self.time];
 //        [_countDownCancelBtn addTarget:self
 //                                action:@selector(tips:)
 //                      forControlEvents:UIControlEventTouchUpInside];
