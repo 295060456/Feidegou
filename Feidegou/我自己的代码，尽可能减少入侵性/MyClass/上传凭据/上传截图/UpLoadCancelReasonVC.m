@@ -24,127 +24,6 @@
 
 @end
 
-@implementation UpLoadCancelReasonTBVCell
-
-+(instancetype)cellWith:(UITableView *)tableView{
-    UpLoadCancelReasonTBVCell *cell = (UpLoadCancelReasonTBVCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
-    if (!cell) {
-        cell = [[UpLoadCancelReasonTBVCell alloc]initWithStyle:UITableViewCellStyleValue1
-                                               reuseIdentifier:ReuseIdentifier
-                                                        margin:SCALING_RATIO(10)];
-        [UIView cornerCutToCircleWithView:cell
-                          AndCornerRadius:10.f];
-        [UIView colourToLayerOfView:cell
-                         WithColour:kWhiteColor
-                     AndBorderWidth:0.3f];
-    }return cell;
-}
-
-+(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCREEN_HEIGHT / 2;
-}
-
-- (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.picBtn.alpha = 1;
-    self.upLoadbtn.alpha = 1;
-
-}
-
--(void)reloadPicBtnIMG:(UIImage *)IMG{
-    [self.IMGV setImage:IMG];
-    [self.picBtn setImage:kIMG(@"透明图标")
-                 forState:UIControlStateNormal];
-}
-
--(void)actionPicBtnBlock:(DataBlock)block{
-    _picBtnBlock = block;
-}
-
--(void)actionUpLoadbtnBlock:(DataBlock)block{
-    _upLoadbtnBlock = block;
-}
-
-#pragma mark —— 点击事件
--(void)upLoadbtnClickEvent:(UIButton *)sender{
-//    NSLog(@"上传");
-    if (_upLoadbtnBlock) {
-        _upLoadbtnBlock(sender);
-    }
-}
-
--(void)picBtnClickEvent:(UIButton *)sender{
-//    NSLog(@"相册");
-    if (_picBtnBlock) {
-        _picBtnBlock(sender);
-    }
-}
-
-#pragma mark —— lazyLoad
--(MMButton *)picBtn{
-    if (!_picBtn) {
-        _picBtn = MMButton.new;
-        [_picBtn setImage:kIMG(@"相册")
-                 forState:UIControlStateNormal];
-        [_picBtn addTarget:self
-                    action:@selector(picBtnClickEvent:)
-          forControlEvents:UIControlEventTouchUpInside];
-        _picBtn.imageAlignment = MMImageAlignmentTop;
-        _picBtn.spaceBetweenTitleAndImage = SCALING_RATIO(30);
-        [_picBtn setTitleColor:COLOR_HEX(0x7D7D7D, 1)
-                      forState:UIControlStateNormal];
-        [_picBtn setTitle:@"上传图片必须为原图"
-                 forState:UIControlStateNormal];
-        [self.contentView addSubview:_picBtn];
-        [_picBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.contentView);
-        }];
-    }return _picBtn;
-}
-
--(UIButton *)upLoadbtn{
-    if (!_upLoadbtn) {
-        _upLoadbtn = UIButton.new;
-        _upLoadbtn.backgroundColor = COLOR_HEX(0x4870EF, 1);
-        [_upLoadbtn addTarget:self
-                       action:@selector(upLoadbtnClickEvent:)
-             forControlEvents:UIControlEventTouchUpInside];
-        [_upLoadbtn setTitleColor:kWhiteColor
-                         forState:UIControlStateNormal];
-        [_upLoadbtn setTitle:@"立即上传"
-                    forState:UIControlStateNormal];
-        [self.contentView addSubview:_upLoadbtn];
-        [_upLoadbtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.contentView);
-            make.height.mas_equalTo(SCALING_RATIO(50));
-            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-25));
-            make.width.mas_equalTo(SCREEN_WIDTH - SCALING_RATIO(100));
-        }];
-        [self.contentView layoutIfNeeded];
-        [UIView appointCornerCutToCircleWithTargetView:_upLoadbtn
-                                           cornerRadii:CGSizeMake(SCALING_RATIO(20),
-                                                                  SCALING_RATIO(20))
-                                  TargetCorner_TopLeft:UIRectCornerTopLeft
-                                 TargetCorner_TopRight:UIRectCornerTopRight
-                               TargetCorner_BottomLeft:UIRectCornerBottomLeft
-                              TargetCorner_BottomRight:UIRectCornerBottomRight];
-    }return _upLoadbtn;
-}
-
--(UIImageView *)IMGV{
-    if (!_IMGV) {
-        _IMGV = UIImageView.new;
-        [self.contentView addSubview:_IMGV];
-        [_IMGV mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.contentView);
-            make.bottom.equalTo(self.upLoadbtn.mas_top).offset(SCALING_RATIO(-50));
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 1.5,
-                                             SCREEN_WIDTH / 2));
-        }];
-    }return _IMGV;
-}
-
-@end
-
 @interface UpLoadCancelReasonVC ()
 <
 UITableViewDelegate,
@@ -161,6 +40,7 @@ UITableViewDataSource
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
+@property(nonatomic,strong)__block UIImage *img;
 
 @end
 
@@ -177,7 +57,9 @@ UITableViewDataSource
     UpLoadCancelReasonVC *vc = UpLoadCancelReasonVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-
+    if ([requestParams isKindOfClass:[OrderListModel class]]) {
+        vc.orderListModel = (OrderListModel *)requestParams;
+    }else{}
     if (rootVC.navigationController) {
         vc.isPush = YES;
         vc.isPresent = NO;
@@ -206,17 +88,10 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.gk_navTitle = @"上传取消凭证";
+    self.gk_navTitle = @"上传凭证";
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
-}
-//跳转系统设置
--(void)pushToSysConfig{
-    NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-    if ([[UIApplication sharedApplication] canOpenURL:url]) {
-        [[UIApplication sharedApplication] openURL:url];
-    }
 }
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
@@ -243,15 +118,25 @@ UITableViewDataSource
 }
 
 -(void)GoUploadPic{
-    [self CancelDelivery_NetWorking];
+//    [self CancelDelivery_NetWorking];//#5
+    if ([self.orderListModel.order_type intValue] == 3) {
+        if ([self.orderListModel.order_status intValue] == 2 ||
+            [self.orderListModel.order_status intValue] == 0) {
+            //#8
+            [self uploadPic_producingArea_havePaid_netWorking:self.img];
+        }
+    }else if ([self.orderListModel.order_type intValue] == 2){
+        if ([self.orderListModel.identity isEqualToString:@"买家"]) {
+            if ([self.orderListModel.order_status intValue] == 0) {
+                //#17
+                [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.img];
+            }
+        }
+    }else{}
 }
 
 -(void)sorry{
     [self picBtnClickEvent:Nil];
-}
-
--(void)OK{
-    NSLog(@"OK");
 }
 
 -(void)picBtnClickEvent:(UIButton *)sender{
@@ -273,6 +158,10 @@ UITableViewDataSource
             }
         }
     }];
+}
+
+-(void)OK{
+    NSLog(@"OK");
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
@@ -420,6 +309,125 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _tipsMutArr;
 }
 
+@end
 
+@implementation UpLoadCancelReasonTBVCell
+
++(instancetype)cellWith:(UITableView *)tableView{
+    UpLoadCancelReasonTBVCell *cell = (UpLoadCancelReasonTBVCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
+    if (!cell) {
+        cell = [[UpLoadCancelReasonTBVCell alloc]initWithStyle:UITableViewCellStyleValue1
+                                               reuseIdentifier:ReuseIdentifier
+                                                        margin:SCALING_RATIO(10)];
+        [UIView cornerCutToCircleWithView:cell
+                          AndCornerRadius:10.f];
+        [UIView colourToLayerOfView:cell
+                         WithColour:kWhiteColor
+                     AndBorderWidth:0.3f];
+    }return cell;
+}
+
++(CGFloat)cellHeightWithModel:(id _Nullable)model{
+    return SCREEN_HEIGHT / 2;
+}
+
+- (void)richElementsInCellWithModel:(id _Nullable)model{
+    self.picBtn.alpha = 1;
+    self.upLoadbtn.alpha = 1;
+
+}
+
+-(void)reloadPicBtnIMG:(UIImage *)IMG{
+    [self.IMGV setImage:IMG];
+    [self.picBtn setImage:kIMG(@"透明图标")
+                 forState:UIControlStateNormal];
+}
+
+-(void)actionPicBtnBlock:(DataBlock)block{
+    _picBtnBlock = block;
+}
+
+-(void)actionUpLoadbtnBlock:(DataBlock)block{
+    _upLoadbtnBlock = block;
+}
+
+#pragma mark —— 点击事件
+-(void)upLoadbtnClickEvent:(UIButton *)sender{
+//    NSLog(@"上传");
+    if (_upLoadbtnBlock) {
+        _upLoadbtnBlock(sender);
+    }
+}
+
+-(void)picBtnClickEvent:(UIButton *)sender{
+//    NSLog(@"相册");
+    if (_picBtnBlock) {
+        _picBtnBlock(sender);
+    }
+}
+
+#pragma mark —— lazyLoad
+-(MMButton *)picBtn{
+    if (!_picBtn) {
+        _picBtn = MMButton.new;
+        [_picBtn setImage:kIMG(@"相册")
+                 forState:UIControlStateNormal];
+        [_picBtn addTarget:self
+                    action:@selector(picBtnClickEvent:)
+          forControlEvents:UIControlEventTouchUpInside];
+        _picBtn.imageAlignment = MMImageAlignmentTop;
+        _picBtn.spaceBetweenTitleAndImage = SCALING_RATIO(30);
+        [_picBtn setTitleColor:COLOR_HEX(0x7D7D7D, 1)
+                      forState:UIControlStateNormal];
+        [_picBtn setTitle:@"上传图片必须为原图"
+                 forState:UIControlStateNormal];
+        [self.contentView addSubview:_picBtn];
+        [_picBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.contentView);
+        }];
+    }return _picBtn;
+}
+
+-(UIButton *)upLoadbtn{
+    if (!_upLoadbtn) {
+        _upLoadbtn = UIButton.new;
+        _upLoadbtn.backgroundColor = COLOR_HEX(0x4870EF, 1);
+        [_upLoadbtn addTarget:self
+                       action:@selector(upLoadbtnClickEvent:)
+             forControlEvents:UIControlEventTouchUpInside];
+        [_upLoadbtn setTitleColor:kWhiteColor
+                         forState:UIControlStateNormal];
+        [_upLoadbtn setTitle:@"立即上传"
+                    forState:UIControlStateNormal];
+        [self.contentView addSubview:_upLoadbtn];
+        [_upLoadbtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.contentView);
+            make.height.mas_equalTo(SCALING_RATIO(50));
+            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-25));
+            make.width.mas_equalTo(SCREEN_WIDTH - SCALING_RATIO(100));
+        }];
+        [self.contentView layoutIfNeeded];
+        [UIView appointCornerCutToCircleWithTargetView:_upLoadbtn
+                                           cornerRadii:CGSizeMake(SCALING_RATIO(20),
+                                                                  SCALING_RATIO(20))
+                                  TargetCorner_TopLeft:UIRectCornerTopLeft
+                                 TargetCorner_TopRight:UIRectCornerTopRight
+                               TargetCorner_BottomLeft:UIRectCornerBottomLeft
+                              TargetCorner_BottomRight:UIRectCornerBottomRight];
+    }return _upLoadbtn;
+}
+
+-(UIImageView *)IMGV{
+    if (!_IMGV) {
+        _IMGV = UIImageView.new;
+        [self.contentView addSubview:_IMGV];
+        [_IMGV mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.contentView);
+            make.bottom.equalTo(self.upLoadbtn.mas_top).offset(SCALING_RATIO(-50));
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 1.5,
+                                             SCREEN_WIDTH / 2));
+        }];
+    }return _IMGV;
+}
 
 @end

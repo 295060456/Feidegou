@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)CancelDelivery_NetWorking;
 
+-(void)uploadPic_producingArea_havePaid_netWorking:(UIImage *)image;//喵粮产地购买已支付 #8
+-(void)upLoadPic_wholesaleMarket_havePaid_netWorking:(UIImage *)pic;//喵粮批发已支付 #17
+
 @end
 
 NS_ASSUME_NONNULL_END

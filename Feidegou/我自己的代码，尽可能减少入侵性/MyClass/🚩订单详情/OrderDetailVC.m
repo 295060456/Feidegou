@@ -25,7 +25,6 @@ UITableViewDataSource
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,strong)id popGestureDelegate; //用来保存系统手势的代理
-@property(nonatomic,strong)__block UIImage *img;
 
 @end
 
@@ -264,6 +263,7 @@ UITableViewDataSource
         NSString *str1 = [NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"];
         NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
         self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
+        self.gk_navTitle = @"喵粮抢购订单详情";
         //只有10秒取消、发货、状态为已下单
         [self.dataMutArr addObject:@"订单已下单"];//333
         self.countDownCancelBtn.titleEndStr = @"取消";
@@ -311,41 +311,53 @@ UITableViewDataSource
 #pragma mark —— 点击事件
 //上传支付凭证
 -(void)getPrintPic:(UIButton *)sender{
+    
     if ([sender.titleLabel.text isEqualToString:@"上传支付凭证"] ||
         [sender.titleLabel.text isEqualToString:@"重新上传支付凭证"]) {
-        [self choosePic];
         @weakify(self)
-        [self GettingPicBlock:^(id data) {
-            @strongify(self)
-            if ([data isKindOfClass:[NSArray class]]) {
-                NSArray *arrData = (NSArray *)data;
-                if (arrData.count == 1) {
-                    self.img = arrData.lastObject;
-                    if (self.orderListModel) {
-                        if ([self.orderListModel.order_type intValue] == 3) {
-                            if ([self.orderListModel.order_status intValue] == 2 ||
-                                [self.orderListModel.order_status intValue] == 0) {
-                                //#8
-                                [self uploadPic_producingArea_havePaid_netWorking:self.img];
-                            }
-                        }else if ([self.orderListModel.order_type intValue] == 2){
-                            if ([self.orderListModel.identity isEqualToString:@"买家"]) {
-                                if ([self.orderListModel.order_status intValue] == 0) {
-                                    //#17
-                                    [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.img];
-                                }
-                            }
-                        }else{}
-                    }
-                }else{
-                    [self showAlertViewTitle:@"选择一张相片就够啦"
-                                     message:@"不要画蛇添足"
-                                 btnTitleArr:@[@"好的"]
-                              alertBtnAction:@[@"OK"]];
-                }
-            }
-        }];
+        [UpLoadCancelReasonVC pushFromVC:self_weak_
+                           requestParams:self.orderListModel
+                                 success:^(id data) {}
+                                animated:YES];
     }
+    
+    
+    
+//    if ([sender.titleLabel.text isEqualToString:@"上传支付凭证"] ||
+//        [sender.titleLabel.text isEqualToString:@"重新上传支付凭证"]) {
+//        [self choosePic];
+//        @weakify(self)
+//        [self GettingPicBlock:^(id data) {
+//            @strongify(self)
+//            if ([data isKindOfClass:[NSArray class]]) {
+//                NSArray *arrData = (NSArray *)data;
+//                if (arrData.count == 1) {
+//                    self.img = arrData.lastObject;
+//                    if (self.orderListModel) {
+//                        if ([self.orderListModel.order_type intValue] == 3) {
+//                            if ([self.orderListModel.order_status intValue] == 2 ||
+//                                [self.orderListModel.order_status intValue] == 0) {
+//                                //#8
+//                                [self uploadPic_producingArea_havePaid_netWorking:self.img];
+//                            }
+//                        }else if ([self.orderListModel.order_type intValue] == 2){
+//                            if ([self.orderListModel.identity isEqualToString:@"买家"]) {
+//                                if ([self.orderListModel.order_status intValue] == 0) {
+//                                    //#17
+//                                    [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.img];
+//                                }
+//                            }
+//                        }else{}
+//                    }
+//                }else{
+//                    [self showAlertViewTitle:@"选择一张相片就够啦"
+//                                     message:@"不要画蛇添足"
+//                                 btnTitleArr:@[@"好的"]
+//                              alertBtnAction:@[@"OK"]];
+//                }
+//            }
+//        }];
+//    }
 }
 
 -(void)backBtnClickEvent:(UIButton *)sender{

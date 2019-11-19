@@ -46,10 +46,10 @@
 -(NSMutableAttributedString *)attributedString{
     NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
     paragraphStyle.lineSpacing = 1;//行间距
-    paragraphStyle.firstLineHeadIndent = 40;//首行缩进
+    paragraphStyle.firstLineHeadIndent = 20;//首行缩进
     
     NSDictionary *attributeDic = @{
-        NSFontAttributeName : [UIFont systemFontOfSize:24],
+        NSFontAttributeName : [UIFont systemFontOfSize:14],
         NSParagraphStyleAttributeName : paragraphStyle,
         NSForegroundColorAttributeName : kRedColor
     };
@@ -65,7 +65,7 @@
         NSRange selRange_02 = [self.str rangeOfString:@"购买"];//location=6, length=2
 
         //设定可点击文字的的大小
-        UIFont *selFont = [UIFont systemFontOfSize:18];
+        UIFont *selFont = [UIFont systemFontOfSize:16];
         CTFontRef selFontRef = CTFontCreateWithName((__bridge CFStringRef)selFont.fontName,
                                                     selFont.pointSize,
                                                     NULL);
@@ -108,7 +108,7 @@
 -(YYLabel *)titleLab{
     if (!_titleLab) {
         _titleLab = YYLabel.new;
-        _titleLab.backgroundColor = kRedColor;
+//        _titleLab.backgroundColor = kRedColor;
         _titleLab.textAlignment = NSTextAlignmentCenter;
         _titleLab.numberOfLines = 0;
         _titleLab.attributedText = self.attributedString;

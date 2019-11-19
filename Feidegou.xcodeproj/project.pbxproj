@@ -54,7 +54,6 @@
 		8BAC1F172382392C0084B6B4 /* ViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F142382392B0084B6B4 /* ViewForHeader.m */; };
 		8BAC1F1B2382717F0084B6B4 /* ChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F1A2382717F0084B6B4 /* ChatVC.m */; };
 		8BB0F6D3236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB0F6D2236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m */; };
-		8BB1E80C237590DE00871ECA /* UpLoadHavePaidVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1E80B237590DE00871ECA /* UpLoadHavePaidVC+VM.m */; };
 		8BB1E8212375B6A200871ECA /* SocketRocketUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1E81F2375B6A200871ECA /* SocketRocketUtility.m */; };
 		8BB1E82A2376A2FE00871ECA /* YDKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1E8262376A2FE00871ECA /* YDKeyChain.m */; };
 		8BB1E82B2376A2FE00871ECA /* YDDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB1E8282376A2FE00871ECA /* YDDevice.m */; };
@@ -104,7 +103,6 @@
 		8BB2D37E2366CBE10047D0E2 /* StallListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2F32366C7310047D0E2 /* StallListVC.m */; };
 		8BB2D37F2366CBE80047D0E2 /* GiftVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2FF2366C7310047D0E2 /* GiftVC.m */; };
 		8BB2D3802366CBF10047D0E2 /* UpLoadCancelReasonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3022366C7310047D0E2 /* UpLoadCancelReasonVC.m */; };
-		8BB2D3812366CBF50047D0E2 /* UpLoadHavePaidVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3062366C7310047D0E2 /* UpLoadHavePaidVC.m */; };
 		8BB2D3822366CBFD0047D0E2 /* AdoptingPetsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D30C2366C7310047D0E2 /* AdoptingPetsModel.m */; };
 		8BB2D3832366CBFF0047D0E2 /* CleanPetsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D30A2366C7310047D0E2 /* CleanPetsModel.m */; };
 		8BB2D3842366CC020047D0E2 /* FeedPetsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3102366C7310047D0E2 /* FeedPetsModel.m */; };
@@ -732,8 +730,6 @@
 		8BB0F6CD236BDAC2009498B6 /* WholesaleOrders_VipVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleOrders_VipVC.m; sourceTree = "<group>"; };
 		8BB0F6D1236C48D8009498B6 /* WholesaleOrders_AdvanceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleOrders_AdvanceVC.h; sourceTree = "<group>"; };
 		8BB0F6D2236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleOrders_AdvanceVC.m; sourceTree = "<group>"; };
-		8BB1E80A237590DE00871ECA /* UpLoadHavePaidVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UpLoadHavePaidVC+VM.h"; sourceTree = "<group>"; };
-		8BB1E80B237590DE00871ECA /* UpLoadHavePaidVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UpLoadHavePaidVC+VM.m"; sourceTree = "<group>"; };
 		8BB1E81F2375B6A200871ECA /* SocketRocketUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SocketRocketUtility.m; sourceTree = "<group>"; };
 		8BB1E8202375B6A200871ECA /* SocketRocketUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketRocketUtility.h; sourceTree = "<group>"; };
 		8BB1E8262376A2FE00871ECA /* YDKeyChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDKeyChain.m; sourceTree = "<group>"; };
@@ -797,8 +793,6 @@
 		8BB2D2FF2366C7310047D0E2 /* GiftVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GiftVC.m; sourceTree = "<group>"; };
 		8BB2D3022366C7310047D0E2 /* UpLoadCancelReasonVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpLoadCancelReasonVC.m; sourceTree = "<group>"; };
 		8BB2D3032366C7310047D0E2 /* UpLoadCancelReasonVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpLoadCancelReasonVC.h; sourceTree = "<group>"; };
-		8BB2D3052366C7310047D0E2 /* UpLoadHavePaidVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpLoadHavePaidVC.h; sourceTree = "<group>"; };
-		8BB2D3062366C7310047D0E2 /* UpLoadHavePaidVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpLoadHavePaidVC.m; sourceTree = "<group>"; };
 		8BB2D3082366C7310047D0E2 /* PetsInfoListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PetsInfoListModel.m; sourceTree = "<group>"; };
 		8BB2D3092366C7310047D0E2 /* GiftFoodsModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftFoodsModel.h; sourceTree = "<group>"; };
 		8BB2D30A2366C7310047D0E2 /* CleanPetsModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CleanPetsModel.m; sourceTree = "<group>"; };
@@ -2413,13 +2407,12 @@
 		8BB2D3002366C7310047D0E2 /* 上传凭据 */ = {
 			isa = PBXGroup;
 			children = (
-				8BB2D3012366C7310047D0E2 /* 上传取消原因（截图） */,
-				8BB2D3042366C7310047D0E2 /* 上传已付款凭据（截图） */,
+				8BB2D3012366C7310047D0E2 /* 上传截图 */,
 			);
 			path = "上传凭据";
 			sourceTree = "<group>";
 		};
-		8BB2D3012366C7310047D0E2 /* 上传取消原因（截图） */ = {
+		8BB2D3012366C7310047D0E2 /* 上传截图 */ = {
 			isa = PBXGroup;
 			children = (
 				8BB2D3032366C7310047D0E2 /* UpLoadCancelReasonVC.h */,
@@ -2427,18 +2420,7 @@
 				8BCB98C0237154940063E01E /* UpLoadCancelReasonVC+VM.h */,
 				8BCB98C1237154940063E01E /* UpLoadCancelReasonVC+VM.m */,
 			);
-			path = "上传取消原因（截图）";
-			sourceTree = "<group>";
-		};
-		8BB2D3042366C7310047D0E2 /* 上传已付款凭据（截图） */ = {
-			isa = PBXGroup;
-			children = (
-				8BB2D3052366C7310047D0E2 /* UpLoadHavePaidVC.h */,
-				8BB2D3062366C7310047D0E2 /* UpLoadHavePaidVC.m */,
-				8BB1E80A237590DE00871ECA /* UpLoadHavePaidVC+VM.h */,
-				8BB1E80B237590DE00871ECA /* UpLoadHavePaidVC+VM.m */,
-			);
-			path = "上传已付款凭据（截图）";
+			path = "上传截图";
 			sourceTree = "<group>";
 		};
 		8BB2D3072366C7310047D0E2 /* MyModel */ = {
@@ -4566,7 +4548,6 @@
 				C4614415214386B6000C0CDC /* VendorMainController.m in Sources */,
 				C42CD080213CC2640096675F /* InputApliayController.m in Sources */,
 				C42CD04D213CC2640096675F /* JJHttpClient+TwoZero.m in Sources */,
-				8BB1E80C237590DE00871ECA /* UpLoadHavePaidVC+VM.m in Sources */,
 				C42CD06A213CC2640096675F /* ButtonImgLbl.m in Sources */,
 				C42CD1BF213CC2640096675F /* JJDBHelper+Center.m in Sources */,
 				8BB2D36E2366CBA70047D0E2 /* TZPhotoPreviewController.m in Sources */,
@@ -4782,7 +4763,6 @@
 				C42CD0EE213CC2640096675F /* LoginViewController.m in Sources */,
 				8B3C0B58237FCAB800BFFA86 /* OrderDetailVC+VM.m in Sources */,
 				C46F8C46214CF1E600F0C7D1 /* CellImageOnly.m in Sources */,
-				8BB2D3812366CBF50047D0E2 /* UpLoadHavePaidVC.m in Sources */,
 				8BB1E8212375B6A200871ECA /* SocketRocketUtility.m in Sources */,
 				8BB2D3722366CBA70047D0E2 /* TZPhotoPickerController.m in Sources */,
 				8BB2D37D2366CBD80047D0E2 /* Q_Pet.m in Sources */,

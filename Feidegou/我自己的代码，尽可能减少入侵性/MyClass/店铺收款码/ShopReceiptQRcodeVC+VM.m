@@ -29,11 +29,19 @@
                 if ([dic[@"weixin_qr_img"] isKindOfClass:[NSString class]]) {
                     if (![NSString isNullString:dic[@"weixin_qr_img"]]) {
                         self.QRcodeStr = dic[@"weixin_qr_img"];
-                        [self QRcode];
+                        @weakify(self)
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                           @strongify(self)
+                           [self QRcode];
+                        });
                     }
                 }
                 if ([NSString isNullString:self.QRcodeStr]) {
-                     self.QRcodeIMGV.image = kIMG(@"上传二维码");
+                    @weakify(self)
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                       @strongify(self)
+                       self.QRcodeIMGV.image = kIMG(@"上传二维码");
+                    });
                 }
             }
         }
