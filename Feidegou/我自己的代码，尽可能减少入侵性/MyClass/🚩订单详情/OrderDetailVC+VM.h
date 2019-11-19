@@ -26,8 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)CatfoodBooth_del_netWorking;//喵粮抢摊位取消 #22_1
 -(void)CatfoodBooth_del_time_netWorking;//喵粮抢摊位取消剩余时间 #22_2
 
-
--(void)联系买家;
+-(void)抢摊位:(StallListModel *)stallListModel
+ indexPath:(NSIndexPath *)indexPath;
 
 @end
 

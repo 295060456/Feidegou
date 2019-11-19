@@ -10,6 +10,35 @@
 
 @implementation StallListVC (VM)
 
+-(void)抢摊位:(StallListModel *)stallListModel
+ indexPath:(NSIndexPath *)indexPath{
+    extern NSString *randomStr;
+    NSDictionary *dic = @{
+        @"order_id":stallListModel.ID ? stallListModel.ID : @""
+    };
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:Catfoodbooth_robURL
+                                                     parameters:@{
+                                                         @"data":dic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key]
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        @strongify(self)
+        if ([response isKindOfClass:[NSString class]]) {
+             NSString *str = (NSString *)response;
+            if ([NSString isNullString:str]) {
+                [OrderDetailVC pushFromVC:self_weak_
+                            requestParams:stallListModel
+                                  success:^(id data) {}
+                                 animated:YES];
+            }
+        }
+    }];
+}
+
 -(void)allowWebSocketOpen_networking:(NSString *)quantity{
     extern NSString *randomStr;
     NSDictionary *dic = @{
@@ -72,9 +101,11 @@
                 @strongify(self)
                 StallListModel *model = array[idx];
                 [self.dataMutArr addObject:model];
+                
             }];
         }
         [self.tableView reloadData];
+        [self.tableView.mj_header endRefreshing];
     }else{}
 }
 

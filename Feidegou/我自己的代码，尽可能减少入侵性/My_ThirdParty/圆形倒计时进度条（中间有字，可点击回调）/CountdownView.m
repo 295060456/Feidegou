@@ -115,6 +115,8 @@
         _animation.fromValue = @(0.f);
         _animation.toValue = @(1.f);
         _animation.removedOnCompletion = NO;
+        _animation.repeatCount = HUGE_VALL;
+        _animation.autoreverses = YES;
         _animation.fillMode = kCAFillModeBoth;
     }return _animation;
 }

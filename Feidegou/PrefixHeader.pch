@@ -123,6 +123,7 @@
 #import "WholesaleOrders_VipModel.h"
 #import "WholesaleMarket_VipModel.h"
 #import "LoginViewController.h"
+#import "OrderDetailVC.h"
 
 //Test
 #import "TestVC.h"

@@ -7,10 +7,7 @@
 //
 
 #import "OrderListVC.h"
-//#import "OrderDetail_SellerVC.h"
-//#import "OrderDetail_BuyerVC.h"
 #import "OrderListVC+VM.h"
-#import "OrderDetailVC.h"
 
 #pragma mark —— OrderTBVCell
 @interface OrderTBVCell ()

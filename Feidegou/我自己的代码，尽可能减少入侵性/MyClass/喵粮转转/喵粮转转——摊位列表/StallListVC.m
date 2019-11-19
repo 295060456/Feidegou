@@ -7,9 +7,7 @@
 //
 
 #import "StallListVC.h"
-//#import "OrderDetail_SellerVC.h"
 #import "StallListVC+VM.h"
-#import "OrderDetailVC.h"
 
 @interface StallListVC ()
 <
@@ -134,7 +132,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     StallListTBVCell *cell = [StallListTBVCell cellWith:tableView];
-    [cell richElementsInCellWithModel:nil];
+    //张三求购11g喵粮
+    [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
 //    @weakify(self)
 //    [cell actionAnimationFinishedBlock:^{
 //        @strongify(self)
@@ -170,11 +169,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
 //                    withRowAnimation:UITableViewRowAnimationNone];
     
-    @weakify(self)
-    [OrderDetailVC pushFromVC:self_weak_
-                requestParams:self.dataMutArr[indexPath.row]
-                      success:^(id data) {}
-                     animated:YES];
+    [self 抢摊位:self.dataMutArr[indexPath.row]
+    indexPath:indexPath];
 }
 //给cell添加动画
 -(void)tableView:(UITableView *)tableView
@@ -231,8 +227,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 
 @interface StallListTBVCell ()
 
-//@property(nonatomic,copy)ActionBlock blockAnimationFinishedAction;
-//@property(nonatomic,copy)ActionBlock blockTapAction;
+@property(nonatomic,copy)ActionBlock blockAnimationFinishedAction;
+@property(nonatomic,copy)ActionBlock blockTapAction;
 
 @end
 
@@ -244,7 +240,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         cell = [[StallListTBVCell alloc] initWithStyle:UITableViewCellStyleValue1
                                                    reuseIdentifier:ReuseIdentifier
                                                             margin:SCALING_RATIO(5)];
-        cell.textLabel.text = @"摊位";
+        
         cell.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         [UIView cornerCutToCircleWithView:cell
                           AndCornerRadius:10.f];
@@ -260,64 +256,68 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-//    self.countdownView.alpha = 1;
-    self.imgView.alpha = 1;
+    self.countdownView.alpha = 1;
+//    self.imgView.alpha = 1;
+    if ([model isKindOfClass:[StallListModel class]]) {
+        StallListModel *stallListModel = (StallListModel *)model;
+        self.textLabel.text = [NSString stringWithFormat:@"%@求购%@g喵粮",stallListModel.byname,stallListModel.quantity];
+    }
 }
 
-//-(void)actionAnimationFinishedBlock:(ActionBlock)block{
-//    _blockAnimationFinishedAction = block;
-//}
-//
-//-(void)actionTapBlock:(ActionBlock)block{
-//    _blockTapAction = block;
-//}
+-(void)actionAnimationFinishedBlock:(ActionBlock)block{
+    _blockAnimationFinishedAction = block;
+}
+
+-(void)actionTapBlock:(ActionBlock)block{
+    _blockTapAction = block;
+}
 
 #pragma mark —— lazyLoad
--(UIImageView *)imgView{
-    if (!_imgView) {
-        _imgView = UIImageView.new;
-        _imgView.image = kIMG(@"抢");
-        [self.contentView addSubview:_imgView];
-        [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.contentView);
-            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-            CGFloat h = MIN(SCALING_RATIO(30), self.contentView.mj_h);
-            make.size.mas_equalTo(CGSizeMake(h, h));
-        }];
-        [self.contentView layoutIfNeeded];
-    }return _imgView;
-}
-
-//-(CountdownView *)countdownView{
-//    if (!_countdownView) {
-//        _countdownView = CountdownView.new;
-//        _countdownView.time = 0;
-//        _countdownView.str = @"抢";
-//        @weakify(self)
-//        _countdownView.blockTapAction = ^{
-//            @strongify(self)
-//            NSLog(@"主动点击");
-//            if (self.blockTapAction) {
-//                self.blockTapAction();
-//            }
-//        };
-//        _countdownView.blockAnimationFinishedAction = ^{
-//             @strongify(self)
-//            NSLog(@"动画结束该干嘛？");
-//            if (self.blockAnimationFinishedAction) {
-//                self.blockAnimationFinishedAction();
-//            }
-//        };
-//        [self.contentView addSubview:_countdownView];
-//        [_countdownView mas_makeConstraints:^(MASConstraintMaker *make) {
+//-(UIImageView *)imgView{
+//    if (!_imgView) {
+//        _imgView = UIImageView.new;
+//        _imgView.image = kIMG(@"抢");
+//        [self.contentView addSubview:_imgView];
+//        [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
 //            make.centerY.equalTo(self.contentView);
 //            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
 //            CGFloat h = MIN(SCALING_RATIO(30), self.contentView.mj_h);
 //            make.size.mas_equalTo(CGSizeMake(h, h));
 //        }];
 //        [self.contentView layoutIfNeeded];
-//    }return _countdownView;
+//    }return _imgView;
 //}
+
+-(CountdownView *)countdownView{
+    if (!_countdownView) {
+        _countdownView = CountdownView.new;
+        _countdownView.time = 2;
+        _countdownView.str = @"抢";
+        @weakify(self)
+        _countdownView.blockTapAction = ^{
+            @strongify(self)
+            NSLog(@"主动点击");
+            if (self.blockTapAction) {
+                self.blockTapAction();
+            }
+        };
+        _countdownView.blockAnimationFinishedAction = ^{
+             @strongify(self)
+            NSLog(@"动画结束该干嘛？");
+            if (self.blockAnimationFinishedAction) {
+                self.blockAnimationFinishedAction();
+            }
+        };
+        [self.contentView addSubview:_countdownView];
+        [_countdownView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.contentView);
+            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+            CGFloat h = MIN(SCALING_RATIO(30), self.contentView.mj_h);
+            make.size.mas_equalTo(CGSizeMake(h, h));
+        }];
+        [self.contentView layoutIfNeeded];
+    }return _countdownView;
+}
 
 @end
 

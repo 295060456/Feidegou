@@ -7,7 +7,6 @@
 //
 
 #import "CatFoodProducingAreaVC.h"
-#import "OrderDetailVC.h"
 #import "CatFoodProducingAreaVC+VM.h"
 
 @interface CatFoodProducingAreaTBVCell ()

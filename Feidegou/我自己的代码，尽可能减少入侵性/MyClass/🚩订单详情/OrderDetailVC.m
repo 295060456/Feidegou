@@ -107,7 +107,7 @@ UITableViewDataSource
         self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
             if ([self.orderListModel.order_type intValue] == 1) {//摊位 只有卖家
                 self.gk_navTitle = @"摊位抢购订单详情";
-                if ([self.orderListModel.order_status intValue] == 2) {
+                if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                     if ([self.orderListModel.del_state intValue] == 0) {
                         NSLog(@"1311");
                         [self.dataMutArr addObject:@"已下单"];
@@ -135,20 +135,23 @@ UITableViewDataSource
                         NSLog(@"");
                         [self.dataMutArr addObject:@""];
                     }
-                }else if ([self.orderListModel.order_status intValue] == 5){
+                }else if ([self.orderListModel.order_status intValue] == 5){//订单状态|已完成 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                     //已完成
                     NSLog(@"1316");
                     [self.dataMutArr addObject:@"订单已完成"];
-                }else if ([self.orderListModel.order_status intValue] == 4){
+                }else if ([self.orderListModel.order_status intValue] == 4){//订单状态|已发货 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                     NSLog(@"1315");
                     [self.dataMutArr addObject:@"订单已发货"];
-                }else{}
+                }else{
+                    [self.dataMutArr addObject:@"数据异常"];
+                }
             }
             else if ([self.orderListModel.order_type intValue] == 2){//批发 买家 & 卖家
                 //先判断是买家还是卖家 deal :1、买；2、卖
                 if ([self.orderListModel.identity isEqualToString:@"买家"]) {
                     self.gk_navTitle = @"批发市场（买家）订单详情";
-                    if ([self.orderListModel.order_status intValue] == 2) {//已下单
+                    if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单  —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                        [self.dataMutArr addObject:@"已下单"];//
                         [self.normalCancel setTitle:@"取消"
                                         forState:UIControlStateNormal];
                         [self.sureBtn setTitle:@"上传支付凭证"//
@@ -159,30 +162,37 @@ UITableViewDataSource
                         [self.sureBtn addTarget:self
                                          action:@selector(upLoadPic_wholesaleMarket_havePaid_netWorking:)
                                forControlEvents:UIControlEventTouchUpInside];//#17
-                    }else if([self.orderListModel.order_status intValue] == 0){//已支付
+                    }else if([self.orderListModel.order_status intValue] == 0){//订单状态|已支付  —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                         [self.sureBtn setTitle:@"重新上传支付凭证"//
                                       forState:UIControlStateNormal];
                         [self.sureBtn addTarget:self
                                          action:@selector(upLoadPic_wholesaleMarket_havePaid_netWorking:)
                                forControlEvents:UIControlEventTouchUpInside];//#17
-                    }else{}
+                        [self.dataMutArr addObject:@"已支付"];
+                    }else{
+                        [self.dataMutArr addObject:@"数据异常"];
+                    }
                 }else if([self.orderListModel.identity isEqualToString:@"卖家"]){
                     self.gk_navTitle = @"批发市场（卖家）订单详情";
-                    if ([self.orderListModel.order_status intValue] == 2) {
+                    if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                         [self.dataMutArr addObject:@"订单已下单"];//5s 取消 22 1
                         [self.normalCancel setTitle:@"取消"
                                            forState:UIControlStateNormal];
                         
-                        if ([self.orderListModel.order_status intValue] == 0) {
+                        if ([self.orderListModel.order_status intValue] == 0) {//订单状态|已支付 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                             [self.normalCancel addTarget:self
                                                   action:@selector(CancelDelivery_NetWorking)
                                         forControlEvents:UIControlEventTouchUpInside];//18
-                        }else if ([self.orderListModel.order_status intValue] == 2){
+                            [self.dataMutArr addObject:@"订单已支付"];
+                        }else if ([self.orderListModel.order_status intValue] == 2){//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                             [self.normalCancel addTarget:self
                                                   action:@selector(cancelOrder_wholesaleMarket_netWorking)
                                         forControlEvents:UIControlEventTouchUpInside];//18
-                        }else{}
-                    }else if ([self.orderListModel.order_status intValue] == 0){//已支付
+                            [self.dataMutArr addObject:@"订单已下单"];
+                        }else{
+                            [self.dataMutArr addObject:@"数据异常"];
+                        }
+                    }else if ([self.orderListModel.order_status intValue] == 0){//订单状态|已支付 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                         [self.dataMutArr addObject:@"订单已支付"];//21 23_1 1
                         //显示凭证
                         [self.titleMutArr addObject:@"凭证"];
@@ -196,14 +206,16 @@ UITableViewDataSource
                         [self.sureBtn addTarget:self
                                          action:@selector(deliver_wholesaleMarket_PNetworking)
                                forControlEvents:UIControlEventTouchUpInside];//#14
-                    }else if ([self.orderListModel.order_status intValue] == 3){//已取消
+                    }else if ([self.orderListModel.order_status intValue] == 3){//订单状态|已取消 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                         [self.dataMutArr addObject:@"订单已取消"]; //23_6
-                    }else{}
+                    }else{
+                        [self.dataMutArr addObject:@"数据异常"];
+                    }
                 }
             }
             else if ([self.orderListModel.order_type intValue] == 3){//产地 只有买家
                 self.gk_navTitle = @"喵粮产地订单详情";
-                if ([self.orderListModel.order_status intValue] == 2) {//已下单
+                if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                     [self.dataMutArr addObject:@"订单已下单"];//333
                     self.countDownCancelBtn.titleEndStr = @"取消";
                     [self.countDownCancelBtn addTarget:self
@@ -214,18 +226,22 @@ UITableViewDataSource
                     [self.sureBtn addTarget:self
                                      action:@selector(uploadPic_producingArea_havePaid_netWorking:)
                            forControlEvents:UIControlEventTouchUpInside];//#8
-                }else if ([self.orderListModel.order_status intValue] == 0){//已支付
+                }else if ([self.orderListModel.order_status intValue] == 0){//订单状态|已支付 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                     [self.dataMutArr addObject:@"订单已支付"];//444
                     [self.sureBtn setTitle:@"重新上传支付凭证"
                                   forState:UIControlStateNormal];
                     [self.sureBtn addTarget:self
                                      action:@selector(uploadPic_producingArea_havePaid_netWorking:)
                            forControlEvents:UIControlEventTouchUpInside];//#8
-                }else if ([self.orderListModel.order_status intValue] == 1){
+                }else if ([self.orderListModel.order_status intValue] == 1){//订单状态|已发单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                     [self.dataMutArr addObject:@"订单已发单"];//311
-                }else if ([self.orderListModel.order_status intValue] == 4){
+                }else if ([self.orderListModel.order_status intValue] == 4){//订单状态|已发货 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                     [self.dataMutArr addObject:@"订单已发货"];//1111
-                }else{}
+                }else if ([self.orderListModel.order_status intValue] == 5){//订单状态|已完成 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                    [self.dataMutArr addObject:@"订单已完成"];
+                }else{
+                    [self.dataMutArr addObject:@"数据异常"];
+                }
             }else{}
     }else if (self.catFoodProducingAreaModel){//喵粮产地
         NSString *str1 = [NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"];
@@ -258,7 +274,9 @@ UITableViewDataSource
         [self.sureBtn addTarget:self
                          action:@selector(boothDeliver_networking)
                forControlEvents:UIControlEventTouchUpInside];//#21
-    }else{}
+    }else{
+        [self.dataMutArr addObject:@"数据异常"];
+    }
 }
 // 手动下拉刷新
 -(void)pullToRefresh{
@@ -453,6 +471,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         _tableView.dataSource = self;
         _tableView.delegate = self;
+        
+        _tableView.contentInset = UIEdgeInsetsMake(0,
+                                                   0,
+                                                   100,
+                                                   0);
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
         _tableView.mj_footer.hidden = YES;

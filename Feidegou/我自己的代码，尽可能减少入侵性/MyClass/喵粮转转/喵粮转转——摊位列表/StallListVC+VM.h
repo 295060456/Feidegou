@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)SRWebSocketDidClose:(NSNotification *)note;//关闭WebSocket
 
 -(void)allowWebSocketOpen_networking:(NSString *)quantity;
+-(void)抢摊位:(StallListModel *)stallListModel
+ indexPath:(NSIndexPath *)indexPath;
 
 @end
 
