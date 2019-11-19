@@ -346,6 +346,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [_pet show];
         [self.view addSubview:_pet];
         [_pet becomeFirstResponder];
+        @weakify(self)
+        [_pet actionBlock:^(id data) {
+            @strongify(self)
+            [self.tableView.mj_header beginRefreshing];
+        }];
     }return _pet;
 }
 

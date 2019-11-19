@@ -5038,7 +5038,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 43N4S844MX;
+				DEVELOPMENT_TEAM = LFJTRVCABB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5074,7 +5074,7 @@
 					"$(PROJECT_DIR)/Feidegou/Controllers/Alipay",
 					"$(PROJECT_DIR)/Feidegou/Utils/Lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.MiaoLiangShangCheng1.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MiaoLiangStore.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -5086,7 +5086,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 43N4S844MX;
+				DEVELOPMENT_TEAM = LFJTRVCABB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5122,7 +5122,7 @@
 					"$(PROJECT_DIR)/Feidegou/Controllers/Alipay",
 					"$(PROJECT_DIR)/Feidegou/Utils/Lib",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.MiaoLiangShangCheng1.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.MiaoLiangStore.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};

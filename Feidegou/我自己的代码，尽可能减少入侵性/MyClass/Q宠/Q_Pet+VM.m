@@ -12,22 +12,30 @@
 
 -(void)feed{
     extern NSString *randomStr;
-        NSDictionary *dic = @{
-            @"lifeValue":[NSNumber numberWithInt:1]
-        };
+    NSDictionary *dic = @{
+        @"lifeValue":[NSNumber numberWithInt:1]
+    };
 
-        FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
-                                                               path:PestFeed
-                                                         parameters:@{
-                                                             @"data":dic,
-                                                             @"key":[RSAUtil encryptString:randomStr
-                                                                                 publicKey:RSA_Public_key]
-                                                         }];
-        self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
-//        @weakify(self)
-        [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-            NSLog(@"");
-        }];
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:PestFeed
+                                                     parameters:@{
+                                                         @"data":dic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key]
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        @strongify(self)
+        if ([response isKindOfClass:[NSString class]]) {
+            NSString *str = (NSString *)response;
+            if ([NSString isNullString:str]) {
+                if (self.block) {
+                    self.block(str);
+                }
+            }
+        }
+    }];
 }
 
 @end

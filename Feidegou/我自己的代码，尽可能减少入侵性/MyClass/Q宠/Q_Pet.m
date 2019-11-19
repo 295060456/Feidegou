@@ -50,6 +50,10 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
     return YES;
 }
 
+-(void)actionBlock:(DataBlock)block{
+    self.block = block;
+}
+
 - (void)motionBegan:(UIEventSubtype)motion
           withEvent:(nullable UIEvent *)event{
     NSLog(@"摇晃");

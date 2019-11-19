@@ -178,6 +178,8 @@ static FMARCNetwork *_instance = nil;
                     if (httpResponse.isSuccess) {
                         if (httpResponse.reqResult[HTTPServiceResponseDataKey]) {
                             [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseDataKey]];//
+                        }else{
+                            [subscriber sendNext:@""];
                         }
                         Toast(httpResponse.reqResult[@"message"]);
                         [subscriber sendCompleted];

@@ -309,7 +309,7 @@ UITableViewDataSource
     [self buyer_CatfoodRecord_checkURL_NetWorking];
 }
 #pragma mark —— 点击事件
-//重新上传支付凭证
+//上传支付凭证
 -(void)getPrintPic:(UIButton *)sender{
     if ([sender.titleLabel.text isEqualToString:@"上传支付凭证"] ||
         [sender.titleLabel.text isEqualToString:@"重新上传支付凭证"]) {
