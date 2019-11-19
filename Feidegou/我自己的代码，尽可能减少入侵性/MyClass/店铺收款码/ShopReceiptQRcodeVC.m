@@ -13,7 +13,7 @@
 {}
 
 @property(nonatomic,strong)UIButton *upLoadBtn;
-@property(nonatomic,strong)UIImage *img;
+@property(nonatomic,strong)__block UIImage *img;
 
 @property(nonatomic,assign)int tap;
 @property(nonatomic,strong)id requestParams;
@@ -63,11 +63,12 @@
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    self.QRcodeIMGV.image = kIMG(@"上传二维码");
+    [self netWorking];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self netWorking];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

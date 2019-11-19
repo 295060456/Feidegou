@@ -78,7 +78,10 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }
      progress:^(NSProgress * _Nonnull uploadProgress) {
         NSLog(@"uploadProgress = %@",uploadProgress);
-        Toast(@"上传图片中...");
+        CGFloat _percent = uploadProgress.fractionCompleted * 100;
+        NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
+        NSLog(@"%@",str);
+        Toast(@"str");
     }
       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"responseObject = %@",responseObject);
@@ -92,6 +95,3 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 
 @end
 
-//Toast(@"上传图片中...");
-//Toast(@"上传图片失败");
-//Toast(@"上传图片成功");

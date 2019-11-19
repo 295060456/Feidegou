@@ -57,9 +57,13 @@
     NSString *strUserNum = self.txtUserName.text;
     NSString *strPsw = self.txtPsw.text;
     
-#warning grade_id = 3 Vip商家
-    strUserNum = @"admin";
-    strPsw = @"123456";
+#warning 线上环境的一个用户
+//    strUserNum = @"15167156784";
+//    strPsw = @"123456";
+    
+//#warning grade_id = 3 Vip商家
+//    strUserNum = @"admin";
+//    strPsw = @"123456";
 
 //#warning grade_id = 2 高级商家
 //    strUserNum = @"shopping";
@@ -138,6 +142,7 @@
         error:错误信息
      响应头:task.response
      */
+    NSString *str = AK;
     [manager POST:AK
        parameters:dataMutDic
          progress:nil
