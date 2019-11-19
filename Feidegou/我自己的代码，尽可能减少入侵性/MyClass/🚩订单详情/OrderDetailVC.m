@@ -25,6 +25,7 @@ UITableViewDataSource
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,strong)id popGestureDelegate; //用来保存系统手势的代理
+@property(nonatomic,strong)__block UIImage *img;
 
 @end
 
@@ -166,8 +167,8 @@ UITableViewDataSource
                         [self.sureBtn setTitle:@"重新上传支付凭证"//
                                       forState:UIControlStateNormal];
                         [self.sureBtn addTarget:self
-                                         action:@selector(upLoadPic_wholesaleMarket_havePaid_netWorking:)
-                               forControlEvents:UIControlEventTouchUpInside];//#17
+                                         action:@selector(getPrintPic:)
+                               forControlEvents:UIControlEventTouchUpInside];//CatfoodSale_payURL 喵粮批发已支付 #17
                         [self.dataMutArr addObject:@"已支付"];
                     }else{
                         [self.dataMutArr addObject:@"数据异常"];
@@ -224,15 +225,15 @@ UITableViewDataSource
                     [self.sureBtn setTitle:@"上传支付凭证"
                                   forState:UIControlStateNormal];//上传支付凭证结束 改为 去支付
                     [self.sureBtn addTarget:self
-                                     action:@selector(uploadPic_producingArea_havePaid_netWorking:)
-                           forControlEvents:UIControlEventTouchUpInside];//#8
+                                     action:@selector(getPrintPic:)
+                           forControlEvents:UIControlEventTouchUpInside];//CatfoodCO_payURL 喵粮产地购买已支付  #8
                 }else if ([self.orderListModel.order_status intValue] == 0){//订单状态|已支付 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                     [self.dataMutArr addObject:@"订单已支付"];//444
                     [self.sureBtn setTitle:@"重新上传支付凭证"
                                   forState:UIControlStateNormal];
                     [self.sureBtn addTarget:self
-                                     action:@selector(uploadPic_producingArea_havePaid_netWorking:)
-                           forControlEvents:UIControlEventTouchUpInside];//#8
+                                     action:@selector(getPrintPic:)
+                           forControlEvents:UIControlEventTouchUpInside];//CatfoodCO_payURL 喵粮产地购买已支付  #8
                 }else if ([self.orderListModel.order_status intValue] == 1){//订单状态|已发单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                     [self.dataMutArr addObject:@"订单已发单"];//311
                 }else if ([self.orderListModel.order_status intValue] == 4){//订单状态|已发货 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
@@ -308,6 +309,45 @@ UITableViewDataSource
     [self buyer_CatfoodRecord_checkURL_NetWorking];
 }
 #pragma mark —— 点击事件
+//重新上传支付凭证
+-(void)getPrintPic:(UIButton *)sender{
+    if ([sender.titleLabel.text isEqualToString:@"上传支付凭证"] ||
+        [sender.titleLabel.text isEqualToString:@"重新上传支付凭证"]) {
+        [self choosePic];
+        @weakify(self)
+        [self GettingPicBlock:^(id data) {
+            @strongify(self)
+            if ([data isKindOfClass:[NSArray class]]) {
+                NSArray *arrData = (NSArray *)data;
+                if (arrData.count == 1) {
+                    self.img = arrData.lastObject;
+                    if (self.orderListModel) {
+                        if ([self.orderListModel.order_type intValue] == 3) {
+                            if ([self.orderListModel.order_status intValue] == 2 ||
+                                [self.orderListModel.order_status intValue] == 0) {
+                                //#8
+                                [self uploadPic_producingArea_havePaid_netWorking:self.img];
+                            }
+                        }else if ([self.orderListModel.order_type intValue] == 2){
+                            if ([self.orderListModel.identity isEqualToString:@"买家"]) {
+                                if ([self.orderListModel.order_status intValue] == 0) {
+                                    //#17
+                                    [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.img];
+                                }
+                            }
+                        }else{}
+                    }
+                }else{
+                    [self showAlertViewTitle:@"选择一张相片就够啦"
+                                     message:@"不要画蛇添足"
+                                 btnTitleArr:@[@"好的"]
+                              alertBtnAction:@[@"OK"]];
+                }
+            }
+        }];
+    }
+}
+
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }

@@ -108,6 +108,7 @@
 -(YYLabel *)titleLab{
     if (!_titleLab) {
         _titleLab = YYLabel.new;
+        _titleLab.backgroundColor = kRedColor;
         _titleLab.textAlignment = NSTextAlignmentCenter;
         _titleLab.numberOfLines = 0;
         _titleLab.attributedText = self.attributedString;
