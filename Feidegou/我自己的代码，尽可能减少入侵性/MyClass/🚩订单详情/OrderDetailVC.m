@@ -259,7 +259,8 @@ UITableViewDataSource
         [self.sureBtn addTarget:self
                          action:@selector(netWorking)
                forControlEvents:UIControlEventTouchUpInside];//#7
-    }else if (self.stallListModel){//喵粮抢购
+    }
+    else if (self.stallListModel){//喵粮抢购
         NSString *str1 = [NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"];
         NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
         self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
@@ -275,7 +276,8 @@ UITableViewDataSource
         [self.sureBtn addTarget:self
                          action:@selector(boothDeliver_networking)
                forControlEvents:UIControlEventTouchUpInside];//#21
-    }else{
+    }
+    else{
         [self.dataMutArr addObject:@"数据异常"];
     }
 }

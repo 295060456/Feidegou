@@ -12,25 +12,27 @@
 #ifndef FMHttpConstant_h
 #define FMHttpConstant_h
 
-/*******URL******/ //@"/catfoodapp"
+#pragma mark - api拼接 stringByAppendingString
+#define API(DomainName,api) [DomainName stringByAppendingString:api]
 
-//狗哥给我的
-#define fdss @"10.1.41.158:8080"
-#define BaseUrl @"http://10.1.41.158:8080/catfoodapp"
-#define BaseUrl2 @"http://10.1.41.158:8080"
-//丹尼尔的
-#define WebSocketLocalhost @"10.1.41.174"
-#define AK @"http://10.1.41.174:8888/SHOPAPP2.0/appShop7/query.do"
-#define YQM @"http://10.1.41.174:8080/SHOPAPP2.0/appShop7/write.do"
-
+#pragma mark —— 线下环境
 //ashui
-#define BaseUrlLogin @"http://10.1.41.198:8080/SHOPAPP2.0/appShop7/query.do"
+//#define BaseUrlLogin @"http://10.1.41.198:8080/SHOPAPP2.0/appShop7/query.do"
+//狗哥给我的
+#define BaseUrl2 @"http://10.1.41.158:8080"//3
+#define BaseUrl API(BaseUrl2,@"/catfoodapp")//@"http://10.1.41.158:8080/catfoodapp"//1
+//Daniel
+#define Daniel @"http://10.1.41.174:8888/SHOPAPP2.0/appShop7"
+#define AK API(Daniel,@"/query.do")//登录
+#define YQM API(Daniel,@"/write.do")//邀请码
+#define WebSocketLocalhost @"10.1.41.174"
+#define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@/websocket",WebSocketLocalhost]
+//ws://10.1.41.174/websocket/500
+
+#pragma mark —— 线上环境
 
 /********ImgBaseURL*****/
 #define ImgBaseURL @""
-
-#pragma mark - api拼接
-#define API(DomainName,api) [NSString stringWithFormat:@"%@%@",DomainName,api]
 
 #define CatfoodManageURL @"/user/seller/Catfoodmanage.htm"//喵粮管理 post 1 Y
 #define buyer_CatfoodRecord_listURL @"/user/seller/CatfoodRecord_list.htm"//喵粮订单列表 post 2 Y
@@ -70,9 +72,6 @@
 #define CatfoodTrain_checkURL @"/user/buyer/CatfoodTrain_check.htm"//查看转转
 #define CatfoodTrain_delURL @"/user/buyer/CatfoodTrain_del.htm"//关闭转转
 #define PestFeed @"/user/PestFeed.htm"
-
-//#define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@:8888/websocket",WebSocketLocalhost]
-#define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@/websocket",fdss]
 
 /********如果需要存储，相应的的 key 宏定义********/
 /// 服务器相关

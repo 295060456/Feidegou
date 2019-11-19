@@ -85,7 +85,6 @@ UITableViewDataSource
     [super viewWillDisappear:animated];
     [[SocketRocketUtility instance] SRWebSocketClose];//关闭WebSocket
 }
-
 #pragma mark —— 私有方法
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
@@ -100,6 +99,7 @@ UITableViewDataSource
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
     }
+    NSString *str = [BaseWebSocketURL stringByAppendingString:[NSString stringWithFormat:@"/%@",@"500"]];
     [[SocketRocketUtility instance] SRWebSocketOpenWithURLString:[BaseWebSocketURL stringByAppendingString:[NSString stringWithFormat:@"/%@",@"500"]]];
 }
 //上拉加载更多
