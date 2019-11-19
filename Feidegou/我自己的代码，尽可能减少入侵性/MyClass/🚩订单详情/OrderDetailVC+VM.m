@@ -26,7 +26,7 @@
          @"identity":[YDDevice getUQID]
     };
     __block NSData *picData = [UIImage imageZipToData:self.pic];
-    [mgr POST:API(BaseUrl2, CatfoodRecord_delURL)
+    [mgr POST:API(BaseUrl, CatfoodRecord_delURL)
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
        @"key":[RSAUtil encryptString:randomStr
@@ -155,7 +155,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             @"user_id":modelLogin.userId,
             @"identity":[YDDevice getUQID]
         };
-        [mgr POST:API(BaseUrl2, CatfoodCO_payURL)
+        [mgr POST:API(BaseUrl, CatfoodCO_payURL)
        parameters:@{
            @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
            @"key":[RSAUtil encryptString:randomStr
@@ -254,7 +254,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     __block NSData *picData = [UIImage imageZipToData:pic];
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [mgr POST:API(BaseUrl2, CatfoodSale_payURL)
+    [mgr POST:API(BaseUrl, CatfoodSale_payURL)
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
        @"key":[RSAUtil encryptString:randomStr

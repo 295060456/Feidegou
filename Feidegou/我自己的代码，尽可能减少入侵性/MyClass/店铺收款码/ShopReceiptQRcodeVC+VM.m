@@ -64,7 +64,7 @@
                    forKey:@"identity"];
     
     __block NSData *picData = [UIImage imageZipToData:image];
-    [mgr POST:API(BaseUrl2, Catfood_qr_addURL)
+    [mgr POST:API(BaseUrl, Catfood_qr_addURL)
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataMutDic], randomStr),
        @"key":[RSAUtil encryptString:randomStr

@@ -712,7 +712,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         NSString *str = (NSString *)model;
         if (![NSString isNullString:str]) {
             @weakify(self)
-            [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:[BaseUrl2 stringByAppendingString:[NSString stringWithFormat:@"/%@",str]]]
+            [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:[BaseUrl stringByAppendingString:[NSString stringWithFormat:@"/%@",str]]]
                                      options:SDWebImageDownloaderProgressiveDownload//渐进式下载
                                                                  progress:^(NSInteger receivedSize,
                                                                             NSInteger expectedSize,

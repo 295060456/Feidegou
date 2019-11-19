@@ -126,7 +126,7 @@
     __block NSData *picData = [UIImage imageZipToData:pic];
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [mgr POST:API(BaseUrl2, CatfoodSale_payURL)
+    [mgr POST:API(BaseUrl, CatfoodSale_payURL)
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
        @"key":[RSAUtil encryptString:randomStr
