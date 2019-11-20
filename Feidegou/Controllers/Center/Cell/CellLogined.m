@@ -19,7 +19,10 @@
 }
 
 - (void)populateData:(ModelCenter *)model{
-    [self.imgHead setImagePathHead:model.head];
+    self.imgHead.backgroundColor = kClearColor;
+    if (![NSString isNullString:model.head]) {
+        [self.imgHead setImagePathHead:model.head];
+    }
     NSString *strName = model.userName;
     NSMutableArray *array = [NSMutableArray array];
     ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
