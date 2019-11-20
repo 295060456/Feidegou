@@ -164,7 +164,6 @@
 //收到消息 --- 更新未读角标
 -(void)onRCIMReceiveMessage:(RCMessage *)message
                        left:(int)left{
-
     [self.conversationListTableView reloadData];
 }
 
