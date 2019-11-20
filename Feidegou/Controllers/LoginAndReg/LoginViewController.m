@@ -58,12 +58,12 @@
     NSString *strPsw = self.txtPsw.text;
     
 #warning 线上环境的一个用户
-    strUserNum = @"15167156784";
-    strPsw = @"123456";
-    
-//#warning grade_id = 3 Vip商家
-//    strUserNum = @"admin";
+//    strUserNum = @"15167156784";
 //    strPsw = @"123456";
+    
+#warning grade_id = 3 Vip商家
+    strUserNum = @"admin";
+    strPsw = @"123456";
 
 //#warning grade_id = 2 高级商家
 //    strUserNum = @"shopping";

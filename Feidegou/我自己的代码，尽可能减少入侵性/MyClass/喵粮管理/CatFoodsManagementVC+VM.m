@@ -15,10 +15,13 @@ NSString *Foodstuff;
 NSString *market_price_sale;//批发均价
 NSString *market_price_co;//产地均价
 NSString *Foodsell;
+NSString *tokenStr;
 
 @implementation CatFoodsManagementVC (VM)
 
 -(void)networking{
+    ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+    tokenStr = modelLogin.token;
     NSDictionary *dataDic = @{
     };
     randomStr = [EncryptUtils shuffledAlphabet:16];

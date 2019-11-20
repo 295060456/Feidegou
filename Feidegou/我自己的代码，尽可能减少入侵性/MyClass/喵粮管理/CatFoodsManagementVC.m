@@ -16,7 +16,7 @@
 #import "WholesaleMarket_AdvanceVC.h"//喵粮批发市场_仅高级商家可见
 #import "WholesaleMarket_VipVC.h"//喵粮批发市场_仅Vip可见
 #import "SettingPaymentWayVC.h"//设置支付方式
-#import "ChatVC.h"//喵粮会话
+#import "ChatListVC.h"//喵粮会话
 
 #import "CatFoodsManagementVC+VM.h"
 
@@ -191,8 +191,8 @@ UITableViewDataSource
                           requestParams:nil
                                 success:^(id data) {}
                                animated:YES];
-    }else if ([vcName isEqualToString:@"喵粮会话"]){
-        [ChatVC pushFromVC:self_weak_
+    }else if ([vcName isEqualToString:@"喵粮会话"]){        
+        [ChatListVC pushFromVC:self_weak_
              requestParams:nil
                    success:^(id data) {}
                   animated:YES];
