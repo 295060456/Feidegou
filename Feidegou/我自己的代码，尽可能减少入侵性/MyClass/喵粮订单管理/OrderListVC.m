@@ -8,7 +8,7 @@
 
 #import "OrderListVC.h"
 #import "OrderListVC+VM.h"
-
+#import "SearchVC.h"
 
 #import "OrderManager_producingAreaVC.h"//厂家（产地）
 #import "OrderManager_wholesaleVC.h"//批发
@@ -16,10 +16,10 @@
 
 @interface OrderListVC ()
 <
-UITextFieldDelegate
-,JXCategoryTitleViewDataSource
+JXCategoryTitleViewDataSource
 ,JXCategoryListContainerViewDelegate
 ,JXCategoryViewDelegate
+,PYSearchViewControllerDataSource
 >
 
 @property(nonatomic,strong)UITextField *textField;
@@ -30,6 +30,8 @@ UITextFieldDelegate
 @property(nonatomic,strong)OrderManager_producingAreaVC *producingAreaVC;
 @property(nonatomic,strong)OrderManager_wholesaleVC *wholesaleVC;
 @property(nonatomic,strong)OrderManager_panicBuyingVC *panicBuyingVC;
+@property(nonatomic,strong)UIButton *filterBtn;
+@property(nonatomic,strong)PYSearchViewController *searchVC;
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*imageNamesMutArr;
@@ -59,7 +61,6 @@ UITextFieldDelegate
     OrderListVC *vc = OrderListVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-    vc.page = 1;
     if ([requestParams isKindOfClass:[RCConversationModel class]]) {
 
     }
@@ -96,53 +97,119 @@ UITextFieldDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.gk_navItemRightSpace = SCALING_RATIO(30);
+    
+    self.gk_navItemLeftSpace = SCALING_RATIO(30);
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
-//    self.gk_navTitle = @"个人喵粮变动清单";
+    self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.filterBtn];
+    self.gk_navItemRightSpace = SCALING_RATIO(30);
+    self.gk_navTitle = @"订单管理";
+    self.gk_navigationBar.backgroundColor = KYellowColor;
+    
     self.categoryView.alpha = 1;
     self.lineView.alpha = 1;
     self.listContainerView.alpha = 1;
-    self.textField.alpha = 1;
-//    self.tableView.alpha = 1;
-
-    self.gk_navigationBar.backgroundColor = KYellowColor;
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-
-    [self.tableView.mj_header beginRefreshing];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
-// 手动下拉刷新
--(void)pullToRefresh{
-    NSLog(@"下拉刷新");
-    if (self.dataMutArr.count) {
-        [self.dataMutArr removeAllObjects];
-    }
-}
-//上拉加载更多
-- (void)loadMoreRefresh{
-    NSLog(@"上拉加载更多");
-    self.page++;
-}
+
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark —— UITextFieldDelegate
+-(void)filterBtnClickEvent:(UIButton *)sender{
+    
+////    [self.navigationController pushViewController:[[UINavigationController alloc] initWithRootViewController:self.searchVC]
+////                                         animated:YES];
+//
+//    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.searchVC];
+//     [self presentViewController:nav  animated:NO completion:nil];
 
-//rong)OrderManager_producingAreaVC *producingAreaVC;
-//@property(nonatomic,strong)OrderManager_wholesaleVC *wholesaleVC;
-//@property(nonatomic,strong)OrderManager_panicBuyingVC *panicBuyingVC;
+    
+//    [self.navigationController pushViewController:self.searchVC
+//                                         animated:YES];
+    @weakify(self)
+    [SearchVC CominngFromVC:self_weak_
+                  withStyle:ComingStyle_PUSH
+              requestParams:@""
+                    success:^(id data) {}
+                   animated:YES];
+}
+#pragma mark —— 私有方法
+- (void)configCategoryViewWithType:(JXCategoryTitleImageType)imageType {
+    if ((NSInteger)imageType == 100) {
+        NSMutableArray *types = [NSMutableArray array];
+        for (int i = 0; i < self.titleMutArr.count; i++) {
+            if (i == 2) {
+                [types addObject:@(JXCategoryTitleImageType_OnlyImage)];
+            }else if (i == 4) {
+                [types addObject:@(JXCategoryTitleImageType_LeftImage)];
+            }else {
+                [types addObject:@(JXCategoryTitleImageType_OnlyTitle)];
+            }
+        }
+        self.categoryView.imageTypes = types;
+    }else {
+        NSMutableArray *types = [NSMutableArray array];
+        for (int i = 0; i < self.titleMutArr.count; i++) {
+            [types addObject:@(imageType)];
+        }
+        self.categoryView.imageTypes = types;
+    }
+    [self.categoryView reloadData];
+}
 
+//#pragma mark —— PYSearchViewControllerDataSource
+///**
+// Return a `UITableViewCell` object.
+//
+// @param searchSuggestionView    view which display search suggestions
+// @param indexPath               indexPath of row
+// @return a `UITableViewCell` object
+// */
+//- (UITableViewCell *)searchSuggestionView:(UITableView *)searchSuggestionView
+//                    cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+//
+//}
+///**
+// Return number of rows in section.
+//
+// @param searchSuggestionView    view which display search suggestions
+// @param section                 index of section
+// @return number of rows in section
+// */
+//- (NSInteger)searchSuggestionView:(UITableView *)searchSuggestionView
+//            numberOfRowsInSection:(NSInteger)section{
+//
+//}
+///**
+// Return number of sections in search suggestion view.
+//
+// @param searchSuggestionView    view which display search suggestions
+// @return number of sections
+// */
+//- (NSInteger)numberOfSectionsInSearchSuggestionView:(UITableView *)searchSuggestionView{
+//
+//}
+///**
+// Return height for row.
+//
+// @param searchSuggestionView    view which display search suggestions
+// @param indexPath               indexPath of row
+// @return height of row
+// */
+//- (CGFloat)searchSuggestionView:(UITableView *)searchSuggestionView
+//        heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+//
+//}
 #pragma mark JXCategoryTitleViewDataSource
 // 如果将JXCategoryTitleView嵌套进UITableView的cell，每次重用的时候，JXCategoryTitleView进行reloadData时，会重新计算所有的title宽度。所以该应用场景，需要UITableView的cellModel缓存titles的文字宽度，再通过该代理方法返回给JXCategoryTitleView。
 // 如果实现了该方法就以该方法返回的宽度为准，不触发内部默认的文字宽度计算。
@@ -179,6 +246,8 @@ UITextFieldDelegate
 - (void)categoryView:(JXCategoryBaseView *)categoryView
 didClickSelectedItemAtIndex:(NSInteger)index {
     [self.listContainerView didClickSelectedItemAtIndex:index];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoryViewAction"
+                                                        object:@(index)];
 }
 
 //传递scrolling事件给listContainerView，必须调用！！！
@@ -192,26 +261,15 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
                                      selectedIndex:categoryView.selectedIndex];
 }
 #pragma mark —— lazyLoad
--(UITextField *)textField{
-    if (!_textField) {
-        _textField = UITextField.new;
-        _textField.backgroundColor = KLightGrayColor;
-        _textField.placeholder = @"请输入查询ID";
-        _textField.delegate = self;
-        [UIView cornerCutToCircleWithView:_textField
-                          AndCornerRadius:5.f];
-        [UIView colourToLayerOfView:_textField
-                         WithColour:kWhiteColor
-                     AndBorderWidth:0.3f];
-        [self.gk_navigationBar addSubview:_textField];
-        [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.mas_equalTo(self.gk_navigationBar.mj_y);
-            make.height.mas_equalTo(SCALING_RATIO(35));
-            make.width.mas_equalTo(SCREEN_WIDTH - SCALING_RATIO(150));
-            make.left.equalTo(self.view).offset(SCALING_RATIO(80));
-            make.right.equalTo(self.view).offset(SCALING_RATIO(-30));
-        }];
-    }return _textField;
+-(UIButton *)filterBtn{
+    if (!_filterBtn) {
+        _filterBtn = UIButton.new;
+        [_filterBtn setImage:kIMG(@"放大镜")
+                    forState:UIControlStateNormal];
+        [_filterBtn addTarget:self
+                       action:@selector(filterBtnClickEvent:)
+             forControlEvents:UIControlEventTouchUpInside];
+    }return _filterBtn;
 }
 
 -(OrderManager_producingAreaVC *)producingAreaVC{
@@ -301,8 +359,8 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         _categoryView.titles = self.titleMutArr;
         _categoryView.backgroundColor = kWhiteColor;//AppMainThemeColor;
         //        _categoryView.titleColorGradientEnabled = YES;
-        _categoryView.imageNames = self.imageNamesMutArr;
-        _categoryView.selectedImageNames = self.selectedImageNamesMutArr;
+//        _categoryView.imageNames = self.imageNamesMutArr;
+//        _categoryView.selectedImageNames = self.selectedImageNamesMutArr;
         _categoryView.imageZoomEnabled = YES;
         _categoryView.imageZoomScale = 1.3;
         _categoryView.averageCellSpacingEnabled = YES;
@@ -311,27 +369,36 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
     }return _categoryView;
 }
 
-- (void)configCategoryViewWithType:(JXCategoryTitleImageType)imageType {
-    if ((NSInteger)imageType == 100) {
-        NSMutableArray *types = [NSMutableArray array];
-        for (int i = 0; i < self.titleMutArr.count; i++) {
-            if (i == 2) {
-                [types addObject:@(JXCategoryTitleImageType_OnlyImage)];
-            }else if (i == 4) {
-                [types addObject:@(JXCategoryTitleImageType_LeftImage)];
-            }else {
-                [types addObject:@(JXCategoryTitleImageType_OnlyTitle)];
-            }
-        }
-        self.categoryView.imageTypes = types;
-    }else {
-        NSMutableArray *types = [NSMutableArray array];
-        for (int i = 0; i < self.titleMutArr.count; i++) {
-            [types addObject:@(imageType)];
-        }
-        self.categoryView.imageTypes = types;
-    }
-    [self.categoryView reloadData];
+-(PYSearchViewController *)searchVC{
+    if (!_searchVC) {
+        NSArray *hotSeaches = @[@"Java",
+                                @"Python",
+                                @"Objective-C",
+                                @"Swift",
+                                @"C",
+                                @"C++",
+                                @"PHP",
+                                @"C#",
+                                @"Perl",
+                                @"Go",
+                                @"JavaScript",
+                                @"R",
+                                @"Ruby",
+                                @"MATLAB"];
+        
+        _searchVC = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches
+                                                           searchBarPlaceholder:@"Search programming language"
+                                                                 didSearchBlock:^(PYSearchViewController *searchViewController,
+                                                                                  UISearchBar *searchBar,
+                                                                                  NSString *searchText) {
+
+            [searchViewController.navigationController pushViewController:[[UIViewController alloc] init]
+                                                                 animated:YES];
+            
+        }];
+        _searchVC.dataSource = self;
+//        _searchVC.searchBar;
+    }return _searchVC;
 }
 
 -(JXCategoryIndicatorLineView *)lineView{

@@ -73,6 +73,7 @@
 #import "BEMCheckBox.h"
 #import <RongIMKit/RongIMKit.h>
 #import <LYEmptyView/LYEmptyViewHeader.h>
+#import <PYSearch.h>
 //#import <YYKit/YYKit.h>
 
 //我自己手动引入的第三方

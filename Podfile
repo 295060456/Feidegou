@@ -67,6 +67,7 @@ pod 'SocketRocket'
 pod 'RongCloudIM/IMLib'
 pod 'RongCloudIM/IMKit'
 pod 'LYEmptyView'
+pod 'PYSearch'
 #pod 'SDWebImage'
 #pod 'YYKit'#有问题
 

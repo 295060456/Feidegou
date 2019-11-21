@@ -24,6 +24,7 @@ UITableViewDataSource
 @property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,assign)BOOL isFirstComing;
 @property(nonatomic,assign)BOOL isDelCell;
+@property(nonatomic,assign)BOOL selected;
 
 @end
 
@@ -31,6 +32,7 @@ UITableViewDataSource
 
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 + (instancetype)CominngFromVC:(UIViewController *)rootVC
@@ -88,11 +90,61 @@ UITableViewDataSource
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navigationBar.hidden = YES;
     self.tableView.alpha = 1;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(CategoryViewActionNotification:)
+                                                 name:@"CategoryViewAction"
+                                               object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.tableView.mj_header beginRefreshing];
+}
+
+-(void)CategoryViewActionNotification:(NSNotification *)notification{
+    NSNumber *b = notification.object;
+    if ([b intValue] == 0) {
+        NSLog(@"2");
+        if (self.dataMutArr.count) {
+            @weakify(self)
+            UIEdgeInsets inset = [self.tableView contentInset];
+            if (!self.selected) {
+                inset.top = SCALING_RATIO(50);
+                [UIView animateWithDuration:1.f
+                                      delay:0.f
+                                    options:UIViewAnimationOptionTransitionCurlDown
+                                 animations:^{
+                    @strongify(self)
+                    self.searchView.alpha = 1;
+                    
+                }
+                                 completion:^(BOOL finished) {
+                    
+                }];
+            }else{
+                inset.top = SCALING_RATIO(0);
+                [UIView animateWithDuration:1.f
+                                      delay:0.f
+                                    options:UIViewAnimationOptionTransitionCurlUp
+                                 animations:^{
+                    @strongify(self)
+                    self.searchView.alpha = 0;
+                }
+                                 completion:^(BOOL finished) {
+                    
+                }];
+            }
+            [self.tableView setContentInset:inset];
+            //获取到需要跳转位置的行数
+            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0
+                                                              inSection:0];
+            //滚动到其相应的位置
+            [[self tableView] scrollToRowAtIndexPath:scrollIndexPath
+                    atScrollPosition:UITableViewScrollPositionBottom
+                                            animated:YES];
+            self.selected = !self.selected;
+        } 
+    }
 }
 #pragma mark —— JXCategoryListContentViewDelegate
 /**
@@ -212,7 +264,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.mj_footer.hidden = YES;
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.view);
+            make.left.right.bottom.equalTo(self.view);
+            make.top.equalTo(self.view).offset(SCALING_RATIO(-30));
         }];
     }return _tableView;
 }
@@ -221,7 +274,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_searchView) {
         _searchView = SearchView.new;
         [self.view addSubview:_searchView];
-        
+        [_searchView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.top.equalTo(self.view);
+            make.height.mas_equalTo(SCALING_RATIO(50));
+        }];
     }return _searchView;
 }
 
