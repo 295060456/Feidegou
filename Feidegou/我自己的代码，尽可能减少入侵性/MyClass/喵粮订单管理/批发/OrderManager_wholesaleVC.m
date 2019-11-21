@@ -268,8 +268,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 //        }];
     }
 }
-
-
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{
     if (!_tableView) {
@@ -297,7 +295,25 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         @weakify(self)
         [_searchView actionBlock:^(id data) {
             @strongify(self)
-            
+            if (self.dataMutArr.count) {
+                [self.dataMutArr removeAllObjects];
+            }
+            if ([data isKindOfClass:[MMButton class]]) {
+                MMButton *btn = (MMButton *)data;
+                if ([btn.titleLabel.text isEqualToString:@"已支付"]) {
+                    [self networking_type:BusinessType_HadPaid];
+                }else if ([btn.titleLabel.text isEqualToString:@"已发单"]){
+                    [self networking_type:BusinessType_HadBilled];
+                }else if ([btn.titleLabel.text isEqualToString:@"已接单"]){
+                    [self networking_type:BusinessType_HadOrdered];
+                }else if ([btn.titleLabel.text isEqualToString:@"已作废"]){
+                    [self networking_type:BusinessType_HadCanceled];
+                }else if ([btn.titleLabel.text isEqualToString:@"已发货"]){
+                    [self networking_type:BusinessType_HadConsigned];
+                }else if ([btn.titleLabel.text isEqualToString:@"已完成"]){
+                    [self networking_type:BusinessType_HadCompleted];
+                }else{}
+            }
         }];
         [self.view addSubview:_searchView];
         [_searchView mas_makeConstraints:^(MASConstraintMaker *make) {

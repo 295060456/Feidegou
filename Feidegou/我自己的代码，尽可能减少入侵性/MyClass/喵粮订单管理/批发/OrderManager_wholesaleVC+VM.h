@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface OrderManager_wholesaleVC (VM)
 
 -(void)networking_platformType:(PlatformType)platformType;
+-(void)networking_type:(BusinessType)businessType;
 
 @end
 
