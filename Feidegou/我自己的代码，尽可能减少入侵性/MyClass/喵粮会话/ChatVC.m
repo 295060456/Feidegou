@@ -32,7 +32,7 @@
     ChatVC *vc = ChatVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-
+                                      
     if ([requestParams isKindOfClass:[RCConversationModel class]]) {
         RCConversationModel *model = (RCConversationModel *)requestParams;
         vc.conversationType = model.conversationType;

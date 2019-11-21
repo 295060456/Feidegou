@@ -17,6 +17,7 @@
 #import "WholesaleMarket_VipVC.h"//喵粮批发市场_仅Vip可见
 #import "SettingPaymentWayVC.h"//设置支付方式
 #import "ChatListVC.h"//喵粮会话
+#import "PersonalDataChangedListVC.h"//个人喵粮变动清单
 
 #import "CatFoodsManagementVC+VM.h"
 
@@ -80,7 +81,6 @@ UITableViewDataSource
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.gk_navTitle = @"喵粮管理";
-    self.tableView.alpha = 1;
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
@@ -196,6 +196,12 @@ UITableViewDataSource
              requestParams:nil
                    success:^(id data) {}
                   animated:YES];
+    }else if ([vcName isEqualToString:@"个人喵粮变动清单"]){
+        [PersonalDataChangedListVC CominngFromVC:self_weak_
+                                       withStyle:ComingStyle_PUSH
+                                   requestParams:nil
+                                         success:^(id data) {}
+                                        animated:YES];
     }else{}
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
@@ -231,8 +237,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             cell.detailTextLabel.text = self.dataMutArr.count != 0 ? self.dataMutArr[2] : @"";
-        }else{
+        }else if (indexPath.row == 1){
             cell.detailTextLabel.text = self.dataMutArr.count != 0 ? self.dataMutArr[5] : @"";
+        }else{
+            cell.detailTextLabel.text = @"";
         }
     }return cell;
 }
@@ -240,7 +248,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return self.titleMutArr.count;
 }
-
 //给cell添加动画
 -(void)tableView:(UITableView *)tableView
  willDisplayCell:(UITableViewCell *)cell
@@ -280,11 +287,30 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _tableView;
 }
 
+-(Q_Pet *)pet{
+    if (!_pet) {
+        _pet = [[Q_Pet alloc]initWithFrame:CGRectMake(SCALING_RATIO(100),
+                                                      SCREEN_HEIGHT - SCALING_RATIO(150),
+                                                      SCALING_RATIO(50),
+                                                      SCALING_RATIO(50))];
+        _pet.autoCloseEdge = YES;
+        [_pet show];
+        [self.view addSubview:_pet];
+        [_pet becomeFirstResponder];
+        @weakify(self)
+        [_pet actionBlock:^(id data) {
+            @strongify(self)
+            [self.tableView.mj_header beginRefreshing];
+        }];
+    }return _pet;
+}
+
 -(NSMutableArray<NSArray *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
         [_titleMutArr addObject:@[@"余额",
-                                  @"出售中"]];
+                                  @"出售中",
+                                  @"个人喵粮变动清单"]];
         NSMutableArray *tempMutArr = NSMutableArray.array;
         [tempMutArr addObject:@"喵粮订单管理"];
         [tempMutArr addObject:@"店铺收款码"];
@@ -306,7 +332,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_imgMutArr) {
         _imgMutArr = NSMutableArray.array;
         [_imgMutArr addObject:@[@"余额",
-                                @"出售中"]];
+                                @"出售中",
+                                @"个人喵粮变动清单"]];
         NSMutableArray *tempMutArr = NSMutableArray.array;
         [tempMutArr addObject:@"喵粮订单管理"];
         [tempMutArr addObject:@"店铺收款码"];
@@ -334,24 +361,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
     }return _dataMutArr;
-}
-
--(Q_Pet *)pet{
-    if (!_pet) {
-        _pet = [[Q_Pet alloc]initWithFrame:CGRectMake(SCALING_RATIO(100),
-                                                      SCREEN_HEIGHT - SCALING_RATIO(150),
-                                                      SCALING_RATIO(50),
-                                                      SCALING_RATIO(50))];
-        _pet.autoCloseEdge = YES;
-        [_pet show];
-        [self.view addSubview:_pet];
-        [_pet becomeFirstResponder];
-        @weakify(self)
-        [_pet actionBlock:^(id data) {
-            @strongify(self)
-            [self.tableView.mj_header beginRefreshing];
-        }];
-    }return _pet;
 }
 
 @end

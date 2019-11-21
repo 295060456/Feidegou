@@ -47,6 +47,10 @@
 		8B86E02F23854607004D4C0A /* ChatListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86E02E23854607004D4C0A /* ChatListVC.m */; };
 		8B86E032238556FA004D4C0A /* OTCConversationListCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86E031238556FA004D4C0A /* OTCConversationListCellTableViewCell.m */; };
 		8B86E035238557ED004D4C0A /* ChatVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86E034238557ED004D4C0A /* ChatVC.m */; };
+		8B86E04E23857107004D4C0A /* PersonalDataChangedListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86E04D23857107004D4C0A /* PersonalDataChangedListVC.m */; };
+		8B86E05123857280004D4C0A /* PersonalDataChangedListVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86E05023857280004D4C0A /* PersonalDataChangedListVC+VM.m */; };
+		8B86E05423857985004D4C0A /* PersonalDataChangedListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86E05323857985004D4C0A /* PersonalDataChangedListModel.m */; };
+		8B86E05723857C1B004D4C0A /* PersonalDataChangedListTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86E05623857C1B004D4C0A /* PersonalDataChangedListTBViewForHeader.m */; };
 		8B8B0D0A236814960040EE53 /* TestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2912366C7290047D0E2 /* TestVC.m */; };
 		8B8B0D0D236815140040EE53 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D0C236815140040EE53 /* TestView.m */; };
 		8B8B0D922368395D0040EE53 /* WholesaleMarket_AdvanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D912368395D0040EE53 /* WholesaleMarket_AdvanceVC.m */; };
@@ -714,6 +718,14 @@
 		8B86E031238556FA004D4C0A /* OTCConversationListCellTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OTCConversationListCellTableViewCell.m; sourceTree = "<group>"; };
 		8B86E033238557ED004D4C0A /* ChatVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatVC.h; sourceTree = "<group>"; };
 		8B86E034238557ED004D4C0A /* ChatVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChatVC.m; sourceTree = "<group>"; };
+		8B86E04C23857107004D4C0A /* PersonalDataChangedListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalDataChangedListVC.h; sourceTree = "<group>"; };
+		8B86E04D23857107004D4C0A /* PersonalDataChangedListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalDataChangedListVC.m; sourceTree = "<group>"; };
+		8B86E04F23857280004D4C0A /* PersonalDataChangedListVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PersonalDataChangedListVC+VM.h"; sourceTree = "<group>"; };
+		8B86E05023857280004D4C0A /* PersonalDataChangedListVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "PersonalDataChangedListVC+VM.m"; sourceTree = "<group>"; };
+		8B86E05223857985004D4C0A /* PersonalDataChangedListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalDataChangedListModel.h; sourceTree = "<group>"; };
+		8B86E05323857985004D4C0A /* PersonalDataChangedListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalDataChangedListModel.m; sourceTree = "<group>"; };
+		8B86E05523857C1B004D4C0A /* PersonalDataChangedListTBViewForHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PersonalDataChangedListTBViewForHeader.h; sourceTree = "<group>"; };
+		8B86E05623857C1B004D4C0A /* PersonalDataChangedListTBViewForHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalDataChangedListTBViewForHeader.m; sourceTree = "<group>"; };
 		8B8B0D0B236815140040EE53 /* TestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
 		8B8B0D0C236815140040EE53 /* TestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
 		8B8B0D902368395D0040EE53 /* WholesaleMarket_AdvanceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_AdvanceVC.h; sourceTree = "<group>"; };
@@ -1938,6 +1950,21 @@
 			path = "方案2";
 			sourceTree = "<group>";
 		};
+		8B86E04B238570A1004D4C0A /* 个人喵粮变动清单 */ = {
+			isa = PBXGroup;
+			children = (
+				8B86E04C23857107004D4C0A /* PersonalDataChangedListVC.h */,
+				8B86E04D23857107004D4C0A /* PersonalDataChangedListVC.m */,
+				8B86E05523857C1B004D4C0A /* PersonalDataChangedListTBViewForHeader.h */,
+				8B86E05623857C1B004D4C0A /* PersonalDataChangedListTBViewForHeader.m */,
+				8B86E05223857985004D4C0A /* PersonalDataChangedListModel.h */,
+				8B86E05323857985004D4C0A /* PersonalDataChangedListModel.m */,
+				8B86E04F23857280004D4C0A /* PersonalDataChangedListVC+VM.h */,
+				8B86E05023857280004D4C0A /* PersonalDataChangedListVC+VM.m */,
+			);
+			path = "个人喵粮变动清单";
+			sourceTree = "<group>";
+		};
 		8B8B0D702368278E0040EE53 /* PopMenuView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2290,9 +2317,10 @@
 		8BB2D2DC2366C7310047D0E2 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8BB2D2FA2366C7310047D0E2 /* 喵粮管理 */,
+				8B86E04B238570A1004D4C0A /* 个人喵粮变动清单 */,
 				8BAC1F1823826F950084B6B4 /* 喵粮会话 */,
 				8B90B398237921B00023E394 /* 邀请码 */,
-				8BB2D2FA2366C7310047D0E2 /* 喵粮管理 */,
 				8BB2D2F72366C7310047D0E2 /* 喵粮订单管理 */,
 				8BB2D2E72366C7310047D0E2 /* 🚩订单详情 */,
 				8BB2D3002366C7310047D0E2 /* 上传凭据 */,
@@ -4465,9 +4493,11 @@
 				C46143F2214386B6000C0CDC /* CellVendorAddress.m in Sources */,
 				C42CD138213CC2640096675F /* CLCellGoods.m in Sources */,
 				C461440D214386B6000C0CDC /* CellVendorGoodList.m in Sources */,
+				8B86E05423857985004D4C0A /* PersonalDataChangedListModel.m in Sources */,
 				8B90B39B237921EB0023E394 /* InvitationCodeVC.m in Sources */,
 				C42CD11D213CC2640096675F /* CBAutoScrollLabel.m in Sources */,
 				C42CD078213CC2640096675F /* CellBlance.m in Sources */,
+				8B86E05123857280004D4C0A /* PersonalDataChangedListVC+VM.m in Sources */,
 				C42CD1AE213CC2640096675F /* JJDBHelper.m in Sources */,
 				C42CD0E3213CC2640096675F /* AddressAddController.m in Sources */,
 				C4614413214386B6000C0CDC /* VendorDetailShopController.m in Sources */,
@@ -4572,6 +4602,7 @@
 				8BB2D3762366CBA70047D0E2 /* TZGifPhotoPreviewController.m in Sources */,
 				8BB0F6D3236C48D8009498B6 /* WholesaleOrders_AdvanceVC.m in Sources */,
 				C46143ED214386B6000C0CDC /* VendorMainShopController.m in Sources */,
+				8B86E05723857C1B004D4C0A /* PersonalDataChangedListTBViewForHeader.m in Sources */,
 				C46143FC214386B6000C0CDC /* CellVendorGoodType.m in Sources */,
 				C42CD0BB213CC2640096675F /* CellOrderTwoLbl.m in Sources */,
 				C42CD18E213CC2640096675F /* TypeSegmentControl.m in Sources */,
@@ -4749,6 +4780,7 @@
 				C42CD0AB213CC2640096675F /* CellOrderButtones.m in Sources */,
 				8B86E02F23854607004D4C0A /* ChatListVC.m in Sources */,
 				8BCB98D423715D520063E01E /* AES.m in Sources */,
+				8B86E04E23857107004D4C0A /* PersonalDataChangedListVC.m in Sources */,
 				C405FEFB218C2A0900C02CDC /* CLCellInterger.m in Sources */,
 				8B86E032238556FA004D4C0A /* OTCConversationListCellTableViewCell.m in Sources */,
 				C46143EC214386B6000C0CDC /* VendorShopTypeController.m in Sources */,

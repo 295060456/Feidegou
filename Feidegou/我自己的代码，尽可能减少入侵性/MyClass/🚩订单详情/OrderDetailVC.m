@@ -372,6 +372,7 @@ viewForHeaderInSection:(NSInteger)section {
     if (!viewForHeader) {
         viewForHeader = [[OrderDetailTBViewForHeader alloc]initWithReuseIdentifier:ReuseIdentifier
                                                                           withData:self.str];
+        [viewForHeader headerViewWithModel:nil];
         @weakify(self)
         [viewForHeader actionBlock:^(id data) {
             @strongify(self)
@@ -383,7 +384,7 @@ viewForHeaderInSection:(NSInteger)section {
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForHeaderInSection:(NSInteger)section{
-    return SCALING_RATIO(50);
+    return [OrderDetailTBViewForHeader headerViewHeightWithModel:nil];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView

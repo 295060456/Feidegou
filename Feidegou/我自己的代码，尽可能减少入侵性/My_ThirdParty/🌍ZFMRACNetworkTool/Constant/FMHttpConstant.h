@@ -20,9 +20,11 @@
 #define BaseUrl @"http://10.1.41.158:8080"//3
 #define BaseUrl2 API(BaseUrl,@"/catfoodapp")//@"http://10.1.41.158:8080/catfoodapp"//1
 //Daniel
-#define DanielUrL @"http://10.1.41.174:8888"
+//#define DanielUrL @"http://10.1.41.174:8888"
+#define DanielUrL @"http://10.1.41.174:8080"
 
-#define AK API(API(DanielUrL,@"/SHOPAPP2.0/appShop7"),@"/query.do")//登录
+//#define AK API(API(DanielUrL,@"/SHOPAPP2.0/appShop7"),@"/query.do")//登录
+#define AK API(API(DanielUrL,@"/SHOPAPP2.0.1/appShop7"),@"/query.do")//登录
 #define YQM API(API(DanielUrL,@"/SHOPAPP2.0/appShop7"),@"/write.do")//邀请码
 
 #define WebSocketLocalhost @"10.1.41.158:8080"
@@ -75,7 +77,8 @@
 
 #define CatfoodTrain_checkURL @"/catfoodapp/user/buyer/CatfoodTrain_check.htm"//查看转转
 #define CatfoodTrain_delURL @"/catfoodapp/user/buyer/CatfoodTrain_del.htm"//关闭转转
-#define PestFeed @"/catfoodapp/user/PestFeed.htm"
+#define PestFeedUrl @"/catfoodapp/user/PestFeed.htm"
+#define PestCatFood_changelistUrl @"/catfoodapp/user/seller/PestCatFood_changelist.htm"//个人喵粮变动记录
 
 /********如果需要存储，相应的的 key 宏定义********/
 /// 服务器相关

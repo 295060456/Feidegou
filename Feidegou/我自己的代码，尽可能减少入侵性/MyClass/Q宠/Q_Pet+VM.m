@@ -17,7 +17,7 @@
     };
 
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
-                                                           path:PestFeed
+                                                           path:PestFeedUrl
                                                      parameters:@{
                                                          @"data":dic,
                                                          @"key":[RSAUtil encryptString:randomStr

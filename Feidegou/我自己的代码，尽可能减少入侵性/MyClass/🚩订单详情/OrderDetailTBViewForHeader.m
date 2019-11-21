@@ -31,6 +31,14 @@
     }return self;
 }
 
++(CGFloat)headerViewHeightWithModel:(id _Nullable)model{
+    return SCALING_RATIO(50);
+}
+
+-(void)headerViewWithModel:(id _Nullable)model{
+    
+}
+
 -(void)layoutSubviews{
     [super layoutSubviews];
     NSLog(@"");

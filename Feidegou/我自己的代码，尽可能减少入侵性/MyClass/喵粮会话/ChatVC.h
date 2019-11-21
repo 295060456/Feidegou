@@ -8,11 +8,6 @@
 
 #import <RongIMKit/RongIMKit.h>
 
-typedef enum : NSUInteger {
-    ComingStyle_PUSH = 0,
-    ComingStyle_PRESENT
-} ComingStyle;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ChatVC : RCConversationViewController
