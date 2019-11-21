@@ -210,11 +210,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //                    withRowAnimation:UITableViewRowAnimationNone];
     
     @weakify(self)
-    OrderListModel *orderListModel = self.dataMutArr[indexPath.row];
-    [OrderDetailVC pushFromVC:self_weak_
-                requestParams:orderListModel
-                      success:^(id data) {}
-                     animated:YES];
+    OrderListModel *orderListModel = self.dataMutArr[indexPath.row];    
+    [OrderDetailVC ComingFromVC:self_weak_
+                      withStyle:ComingStyle_PUSH
+                  requestParams:orderListModel
+                        success:^(id data) {}
+                       animated:YES];
     
 //    if ([orderListModel.identity isEqualToString:@"买家"]) {
 //        [OrderDetail_BuyerVC pushFromVC:self_weak_

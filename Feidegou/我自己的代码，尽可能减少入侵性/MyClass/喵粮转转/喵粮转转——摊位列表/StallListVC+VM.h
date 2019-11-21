@@ -19,6 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)allowWebSocketOpen_networking:(NSString *)quantity;
 -(void)抢摊位:(StallListModel *)stallListModel
  indexPath:(NSIndexPath *)indexPath;
+-(void)onlinePeople:(NSString *)onlinePeople;//Catfood_statisticsUrl 统计转转在线人数
+-(void)check:(StallListModel *)model;
 
 @end
 

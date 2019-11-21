@@ -37,13 +37,14 @@ UITableViewDataSource
     [_countDownCancelBtn.timer invalidate];
 }
 
-+ (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
-                       requestParams:(nullable id)requestParams
-                             success:(DataBlock _Nonnull )block
-                            animated:(BOOL)animated{
++ (instancetype)ComingFromVC:(UIViewController *)rootVC
+                    withStyle:(ComingStyle)comingStyle
+                requestParams:(nullable id)requestParams
+                      success:(DataBlock)block
+                     animated:(BOOL)animated{
     OrderDetailVC *vc = OrderDetailVC.new;
     vc.successBlock = block;
-    vc.requestParams = requestParams;//OrderListModel
+    vc.requestParams = requestParams;
     if ([vc.requestParams isKindOfClass:[OrderListModel class]]) {//买家、卖家进
         vc.orderListModel = (OrderListModel *)vc.requestParams;
     }else if ([vc.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){//喵粮产地
@@ -51,17 +52,31 @@ UITableViewDataSource
     }else if ([vc.requestParams isKindOfClass:[StallListModel class]]){
         vc.stallListModel = (StallListModel *)vc.requestParams;
     }else{}
-    if (rootVC.navigationController) {
-        vc.isPush = YES;
-        vc.isPresent = NO;
-        [rootVC.navigationController pushViewController:vc
-                                               animated:animated];
-    }else{
-        vc.isPush = NO;
-        vc.isPresent = YES;
-        [rootVC presentViewController:vc
-                             animated:animated
-                           completion:^{}];
+    switch (comingStyle) {
+        case ComingStyle_PUSH:{
+            if (rootVC.navigationController) {
+                vc.isPush = YES;
+                vc.isPresent = NO;
+                [rootVC.navigationController pushViewController:vc
+                                                       animated:animated];
+            }else{
+                vc.isPush = NO;
+                vc.isPresent = YES;
+                [rootVC presentViewController:vc
+                                     animated:animated
+                                   completion:^{}];
+            }
+        }break;
+        case ComingStyle_PRESENT:{
+            vc.isPush = NO;
+            vc.isPresent = YES;
+            [rootVC presentViewController:vc
+                                 animated:animated
+                               completion:^{}];
+        }break;
+        default:
+            NSLog(@"错误的推进方式");
+            break;
     }return vc;
 }
 

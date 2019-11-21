@@ -79,18 +79,16 @@ UITableViewDataSource
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.tableView.mj_header beginRefreshing];
+    [self onlinePeople:@"Online"];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [[SocketRocketUtility instance] SRWebSocketClose];//关闭WebSocket
+    [self onlinePeople:@"Offline"];
 }
 #pragma mark —— 私有方法
 -(void)backBtnClickEvent:(UIButton *)sender{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
--(void)sure{
     [self.navigationController popViewControllerAnimated:YES];
 }
 // 下拉刷新
@@ -99,7 +97,7 @@ UITableViewDataSource
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
     }
-    NSString *str = [BaseWebSocketURL stringByAppendingString:[NSString stringWithFormat:@"/%@",@"500"]];
+//    NSString *str = [BaseWebSocketURL stringByAppendingString:[NSString stringWithFormat:@"/%@",@"500"]];
     [[SocketRocketUtility instance] SRWebSocketOpenWithURLString:[BaseWebSocketURL stringByAppendingString:[NSString stringWithFormat:@"/%@",@"500"]]];
 }
 //上拉加载更多
@@ -117,11 +115,21 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-    StallListTBVCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if (cell.userInteractionEnabled) {
-        [self tableView:tableView
-        deleteIndexPath:indexPath];
-    }
+#warning 如果有机会那么进入下个页面
+    [self check:self.dataMutArr[indexPath.row]];
+    //如果有机会那么进入下个页面
+    @weakify(self)
+    [OrderDetailVC ComingFromVC:self_weak_
+                      withStyle:ComingStyle_PUSH
+                  requestParams:self.dataMutArr[indexPath.row]
+                        success:^(id data) {}
+                       animated:YES];
+    
+//    StallListTBVCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    if (cell.userInteractionEnabled) {
+//        [self tableView:tableView
+//        deleteIndexPath:indexPath];
+//    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -134,24 +142,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     StallListTBVCell *cell = [StallListTBVCell cellWith:tableView];
     //张三求购11g喵粮
     [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
-//    @weakify(self)
-//    [cell actionAnimationFinishedBlock:^{
-//        @strongify(self)
-//        cell.userInteractionEnabled = NO;
-//        cell.countdownView.str = @"废";
-//        [self showAlertViewTitle:@"已超时"
-//                         message:@"超过规定时间以后不能继续抢摊"
-//                     btnTitleArr:@[@"确认"]
-//                  alertBtnAction:@[@"sure"]];
-//    }];
-//
-//    [cell actionTapBlock:^{
-//        @strongify(self)
-//        if (cell.userInteractionEnabled) {
-//            [self tableView:tableView
-//            deleteIndexPath:indexPath];
-//        }
-//    }];
     return cell;
 }
 

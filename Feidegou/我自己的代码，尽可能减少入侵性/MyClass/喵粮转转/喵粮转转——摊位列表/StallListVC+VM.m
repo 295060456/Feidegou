@@ -10,6 +10,55 @@
 
 @implementation StallListVC (VM)
 
+//Catfoodbooth_rob_agoUrl 喵粮抢摊位机会查询
+-(void)check:(StallListModel *)model{
+    extern NSString *randomStr;
+    NSDictionary *dic = @{
+        @"order_id":model.ID,
+        @"order_type":[NSNumber numberWithInt:1]
+    };
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:Catfoodbooth_rob_agoUrl
+                                                     parameters:@{
+                                                         @"data":dic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key]
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        @strongify(self)
+
+    }];
+}
+//Catfood_statisticsUrl 统计转转在线人数 35
+-(void)onlinePeople:(NSString *)onlinePeople{
+    extern NSString *randomStr;
+    NSNumber *num;
+    if ([onlinePeople isEqualToString:@"Online"]) {
+        num = [NSNumber numberWithInt:1];
+    }else if ([onlinePeople isEqualToString:@"Offline"]){
+        num = [NSNumber numberWithInt:-1];
+    }else{}
+    NSDictionary *dic = @{
+        @"type":num
+    };
+    NSLog(@"%lu",(unsigned long)onlinePeople)
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:Catfood_statisticsUrl
+                                                     parameters:@{
+                                                         @"data":dic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key]
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        @strongify(self)
+
+    }];
+}
+
 -(void)抢摊位:(StallListModel *)stallListModel
  indexPath:(NSIndexPath *)indexPath{
     extern NSString *randomStr;
@@ -26,14 +75,16 @@
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-        @strongify(self)
+//        @strongify(self)
         if ([response isKindOfClass:[NSString class]]) {
              NSString *str = (NSString *)response;
             if ([NSString isNullString:str]) {
-                [OrderDetailVC pushFromVC:self_weak_
-                            requestParams:stallListModel
-                                  success:^(id data) {}
-                                 animated:YES];
+                [OrderDetailVC ComingFromVC:self_weak_
+                                  withStyle:ComingStyle_PUSH
+                              requestParams:stallListModel
+                                    success:^(id data) {}
+                                   animated:YES];
+                
             }
         }
     }];

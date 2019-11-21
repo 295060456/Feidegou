@@ -222,10 +222,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
 //                    withRowAnimation:UITableViewRowAnimationNone];
     @weakify(self)
-    [OrderDetailVC pushFromVC:self_weak_
-                requestParams:self.dataMutArr[indexPath.row]
-                      success:^(id data) {}
-                     animated:YES];
+    [OrderDetailVC ComingFromVC:self_weak_
+                      withStyle:ComingStyle_PUSH
+                  requestParams:self.dataMutArr[indexPath.row]
+                        success:^(id data) {}
+                       animated:YES];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
