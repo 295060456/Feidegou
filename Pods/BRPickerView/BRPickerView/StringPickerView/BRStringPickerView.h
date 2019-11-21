@@ -10,6 +10,7 @@
 #import "BRBaseView.h"
 #import "BRResultModel.h"
 
+/// 字符串选择器类型
 typedef NS_ENUM(NSInteger, BRStringPickerMode) {
     /** 单列字符串选择 */
     BRStringPickerComponentSingle = 1,
@@ -26,12 +27,14 @@ typedef void(^BRStringResultModelArrayBlock)(NSArray <BRResultModel *>*resultMod
 @interface BRStringPickerView : BRBaseView
 
 /**
- //////////////////////////////////////////////////////////////////////////
- ///   【使用方式一】：传统的创建对象设置属性方式，好处是避免使用方式二导致方法参数过多
- ///    1. 初始化选择器（使用 initWithDataSource: 方法）
- ///    2. 设置相关属性；一些公共的属性参见基类文件 BRBaseView.h
- ///    3. 显示选择器（使用 show 方法）
- ////////////////////////////////////////////////////////////////////////*/
+//////////////////////////////////////////////////////////////////////////
+///
+///   【用法一】：推荐使用！！！
+///    1. 初始化选择器（使用 initWithPickerMode: 方法）
+///    2. 设置相关属性；一些公共的属性或方法参见基类文件 BRBaseView.h
+///    3. 显示选择器（使用 show 方法）
+///
+////////////////////////////////////////////////////////////////////////*/
 
 /**
  *  1.设置数据源
@@ -39,27 +42,24 @@ typedef void(^BRStringResultModelArrayBlock)(NSArray <BRResultModel *>*resultMod
  *    两列：@[@[@"语文", @"数学", @"英语"], @[@"优秀", @"良好", @"及格"]]
  *    多列：... ...
  */
-@property (nonatomic, strong) NSArray *dataSourceArr;
-
+@property (nonatomic, copy) NSArray *dataSourceArr;
 /**
  *  2.设置数据源
  *    直接传plist文件名：NSString类型（如：@"sex.plist"），要带后缀名
  *    场景：可以将数据源数据（数组类型）放到plist文件中，直接传plist文件名更加简单
  */
-@property (nonatomic, strong) NSString *plistName;
+@property (nonatomic, copy) NSString *plistName;
 
-/** 单列设置默认选择的值 */
-@property (nonatomic, strong) NSString *selectValue;
+/** 单列设置默认选中的位置 */
+@property (nonatomic, assign) NSInteger selectIndex;
+@property (nonatomic, copy) NSString *selectValue BRPickerViewDeprecated("推荐使用 selectIndex");
 
-/** 多列设置默认选择的值 */
-@property (nonatomic, strong) NSArray <NSString *>* selectValueArr;
-
-/** 是否自动选择，即选择完(滚动完)执行结果回调，默认为NO */
-@property (nonatomic, assign) BOOL isAutoSelect;
+/** 多列设置默认选中的位置 */
+@property (nonatomic, copy) NSArray <NSNumber *>* selectIndexs;
+@property (nonatomic, copy) NSArray <NSString *>* selectValueArr BRPickerViewDeprecated("推荐使用 selectIndexs");
 
 /** 单列选择结果的回调 */
 @property (nonatomic, copy) BRStringResultModelBlock resultModelBlock;
-
 /** 多列选择结果的回调 */
 @property (nonatomic, copy) BRStringResultModelArrayBlock resultModelArrayBlock;
 
@@ -73,20 +73,18 @@ typedef void(^BRStringResultModelArrayBlock)(NSArray <BRResultModel *>*resultMod
 /// 关闭选择器视图
 - (void)dismiss;
 
-/// 添加选择器到指定容器视图上
-/// @param view 容器视图
-- (void)addPickerToView:(UIView *)view;
 
-/// 从指定容器视图上移除选择器
-/// @param view 容器视图
-- (void)removePickerFromView:(UIView *)view;
 
+
+//======================================== 华丽的分割线（以下为旧版本用法） ========================================
 
 
 /**
-//////////////////////////////////////////////////////////////////
-///   【使用方式二】：快捷使用，直接选择下面其中的一个方法进行使用
-////////////////////////////////////////////////////////////////*/
+//////////////////////////////////////////////////////////////////////////
+///
+///   【用法二】：快捷使用，直接选择下面其中的一个方法进行使用
+///
+////////////////////////////////////////////////////////////////////////*/
 
 /**
  *  1.显示自定义字符串选择器
@@ -118,7 +116,7 @@ typedef void(^BRStringResultModelArrayBlock)(NSArray <BRResultModel *>*resultMod
                   defaultSelValue:(id)defaultSelValue
                      isAutoSelect:(BOOL)isAutoSelect
                        themeColor:(UIColor *)themeColor
-                      resultBlock:(BRStringResultBlock)resultBlock BRPickerViewDeprecated("过期提醒：推荐【使用方式一】，支持自定义UI样式");
+                      resultBlock:(BRStringResultBlock)resultBlock BRPickerViewDeprecated("请使用【用法一】，支持更多的自定义样式");
 
 /**
  *  3.显示自定义字符串选择器（支持 设置自动选择、自定义主题颜色、取消选择的回调）
@@ -138,7 +136,7 @@ typedef void(^BRStringResultModelArrayBlock)(NSArray <BRResultModel *>*resultMod
                      isAutoSelect:(BOOL)isAutoSelect
                        themeColor:(UIColor *)themeColor
                       resultBlock:(BRStringResultBlock)resultBlock
-                      cancelBlock:(BRCancelBlock)cancelBlock BRPickerViewDeprecated("过期提醒：推荐【使用方式一】，支持自定义UI样式");
+                      cancelBlock:(BRCancelBlock)cancelBlock BRPickerViewDeprecated("请使用【用法一】，支持更多的自定义样式");
 
 
 @end

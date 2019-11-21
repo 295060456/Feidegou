@@ -123,10 +123,15 @@ UITableViewDataSource
 -(void)launch:(NSString *)vcName{
     @weakify(self)
     if ([vcName isEqualToString:@"喵粮订单管理"]) {
-        [OrderListVC pushFromVC:self_weak_
-                  requestParams:Nil
-                        success:^(id data) {}
-                       animated:YES];
+//        [OrderListVC pushFromVC:self_weak_
+//                  requestParams:Nil
+//                        success:^(id data) {}
+//                       animated:YES];
+        [OrderListVC CominngFromVC:self_weak_
+                         withStyle:ComingStyle_PUSH
+                     requestParams:Nil
+                           success:^(id data) {}
+                          animated:YES];
     }else if ([vcName isEqualToString:@"店铺收款码"]){
         [ShopReceiptQRcodeVC pushFromVC:self_weak_
                           requestParams:Nil

@@ -226,6 +226,9 @@ alpha:1] \
 #define HEXCOLOR(hexValue)  [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:1]
 #define COLOR_HEX(hexValue, al)  [UIColor colorWithRed:((float)((hexValue & 0xFF0000) >> 16))/255.0 green:((float)((hexValue & 0xFF00) >> 8))/255.0 blue:((float)(hexValue & 0xFF))/255.0 alpha:al]
 
+//主色调
+#define AppMainThemeColor [UIColor colorWithRed:51/255.0 green:52/255.0 blue:53/255.0 alpha:1.0]
+
 #pragma mark - 字体
 #define kFontSize(x) [UIFont systemFontOfSize:x]
 

@@ -21,7 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 <
 UIGestureRecognizerDelegate
 ,UINavigationControllerDelegate,
-TZImagePickerControllerDelegate
+TZImagePickerControllerDelegate,
+JXCategoryListContentViewDelegate
 >
 
 @property(nonatomic,strong)RACSignal *reqSignal;

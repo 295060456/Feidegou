@@ -4,7 +4,7 @@ BRPickerView 封装的是iOS中常用的选择器组件，主要包括：日期�
 
 【**特别提示**】：
 
-- 当前最新版本为： `2.3.1` 。
+- 当前最新版本为： `2.4.2` 。
 - 如果不能找到最新版本，请先执行一下 `pod repo update` 更新本地仓库，待更新完成后；再执行 `pod search BRPickerView` 进行搜索，就会看到最新版本。
 
 # 2. 效果演示
@@ -17,16 +17,40 @@ BRPickerView 封装的是iOS中常用的选择器组件，主要包括：日期�
 
 # 3. 更新记录
 
-#### 2019-10-16（V2.3.1）
+#### 2019-11-07（V2.4.2）
 
-- 将适配深色模式 pickerStyleWithDarkModel 方法从库中提取出来，防止Xcode11之前版本编译不通过
+- 日期选择器添加：BRDatePickerModeYMDH（yyyy-MM-dd HH）类型
+- 地址选择器添加：selectIndexs 属性，可根据索引去设置默认选择
+- 适配横屏及刘海屏安全区域显示效果
 
-#### 2019-10-12（V2.3.0）
+#### 2019-11-04（V2.4.0）
+
+- 优化选择器子目录管理，方便轻量级、模块化集成
+
+  `pod 'BRPickerView'`	// 集成全部的功能
+
+  `pod 'BRPickerView/DatePickerView'`	// 仅集成日期选择器的功能
+
+  `pod 'BRPickerView/AddressPickerView'`	// 仅集成地址选择器的功能
+
+  `pod 'BRPickerView/StringPickerView'`	// 仅集成字符串选择器的功能
+
+#### 2019-11-01（V2.3.8）
+
+- 优化代码，添加更多的自定义样式属性
+
+#### 2019-10-30（V2.3.6）
+
+- 优化代码，添加国际化支持
+
+#### 2019-10-26（V2.3.5）
 
 - 添加传统的创建对象设置属性的使用方式
 - 开放设置选择器颜色及样式，适配深色模式
 - 更新省市区数据源，数据与政府官网最新公布的一致（参见：[行政区划代码](http://www.mca.gov.cn/article/sj/xzqh/2019/)）
-- 支持将选择器添加到指定容器视图上
+- 支持将选择器添加到指定容器视图上（见BaseView.h文件，扩展一方法）
+- 支持将子视图添加到选择器上（见BaseView.h文件，扩展二方法）
+- 优化代码，配置Pod库的层级目录
 
 #### 2018-04-27（V2.2.1）:
 
@@ -126,9 +150,11 @@ typedef NS_ENUM(NSInteger, BRDatePickerMode) {
     BRDatePickerModeDateAndTime,       // yyyy-MM-dd HH:mm
     // UIDatePickerModeCountDownTimer
     BRDatePickerModeCountDownTimer,    // HH:mm
-    // --- 以下7种是自定义样式 ---
+    // --- 以下8种是自定义样式 ---
     // 年月日时分
     BRDatePickerModeYMDHM,      // yyyy-MM-dd HH:mm
+  	// 年月日时
+    BRDatePickerModeYMDH,      // yyyy-MM-dd HH
     // 月日时分
     BRDatePickerModeMDHM,       // MM-dd HH:mm
     // 年月日
@@ -151,7 +177,7 @@ typedef NS_ENUM(NSInteger, BRDatePickerMode) {
 BRDatePickerView *datePickerView = [[BRDatePickerView alloc]initWithPickerMode:BRDatePickerModeYMD];
 // 2.设置属性
 datePickerView.title = @"出生年月日";
-datePickerView.defaultSelValue = textField.text;
+datePickerView.selectValue = @"2019-10-30";
 datePickerView.minDate = [NSDate br_setYear:1990 month:3 day:12];
 datePickerView.maxDate = [NSDate date];
 datePickerView.isAutoSelect = YES;
@@ -206,7 +232,8 @@ datePickerView.pickerStyle = customStyle;
 BRAddressPickerView *addressPickerView = [[BRAddressPickerView alloc]initWithPickerMode:BRAddressPickerModeArea];
 
 addressPickerView.title = @"请选择地区";
-addressPickerView.defaultSelectedArr = @[@"浙江省", @"杭州市", @"西湖区"];
+//addressPickerView.defaultSelectedArr = @[@"浙江省", @"杭州市", @"西湖区"];
+addressPickerView.selectIndexs = @[@10, @0, @4];
 addressPickerView.isAutoSelect = YES;
 addressPickerView.resultBlock = ^(BRProvinceModel *province, BRCityModel *city, BRAreaModel *area) {
     NSLog(@"选择的值：%@", [NSString stringWithFormat:@"%@ %@ %@", province.name, city.name, area.name]);
@@ -237,7 +264,7 @@ BRStringPickerView *stringPickerView = [[BRStringPickerView alloc]initWithPicker
 
 stringPickerView.title = @"请选择性别";
 stringPickerView.dataSourceArr = @[@"男", @"女", @"其他"];
-stringPickerView.selectValue = textField.text;
+stringPickerView.selectIndex = 1;
 stringPickerView.resultModelBlock = ^(BRResultModel *resultModel) {
     NSLog(@"选择的值：%@", resultModel.selectValue);
 };
@@ -250,7 +277,7 @@ BRStringPickerView *stringPickerView = [[BRStringPickerView alloc]initWithPicker
 
 stringPickerView.title = @"自定义多列字符串";
 stringPickerView.dataSourceArr = @[@[@"第1周", @"第2周", @"第3周", @"第4周", @"第5周", @"第6周", @"第7周"], @[@"第1天", @"第2天", @"第3天", @"第4天", @"第5天", @"第6天", @"第7天"]];
-stringPickerView.selectValueArr = [textField.text componentsSeparatedByString:@"，"];
+stringPickerView.selectIndexs = @[@2, @3];
 stringPickerView.isAutoSelect = YES;
 stringPickerView.resultModelArrayBlock = ^(NSArray<BRResultModel *> *resultModelArr) {
     NSLog(@"选择的值：%@", [NSString stringWithFormat:@"%@，%@", resultModelArr[0].selectValue, resultModelArr[1].selectValue]);

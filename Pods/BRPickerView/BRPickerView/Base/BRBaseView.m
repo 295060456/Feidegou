@@ -8,7 +8,6 @@
 //  最新代码下载地址：https://github.com/91renb/BRPickerView
 
 #import "BRBaseView.h"
-#import "BRPickerViewMacro.h"
 
 @interface BRBaseView ()
 // 遮罩背景视图
@@ -18,13 +17,16 @@
 // 标题栏背景视图
 @property (nonatomic, strong) UIView *titleBarView;
 // 左边取消按钮
-@property (nonatomic, strong) UIButton *leftBtn;
+@property (nonatomic, strong) UIButton *cancelBtn;
 // 右边确定按钮
-@property (nonatomic, strong) UIButton *rightBtn;
+@property (nonatomic, strong) UIButton *doneBtn;
 // 中间标题
 @property (nonatomic, strong) UILabel *titleLabel;
-// 标题栏下边框分割线
-@property (nonatomic, strong) UIView *lineView;
+
+// 取消按钮离屏幕边缘的距离
+@property (nonatomic, assign) CGFloat cancelBtnMargin;
+// 确定按钮离屏幕边缘的距离
+@property (nonatomic, assign) CGFloat doneBtnMargin;
 
 @end
 
@@ -35,18 +37,77 @@
     // 设置子视图的宽度随着父视图变化
     self.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    [self addSubview:self.maskView];
+    if (!self.pickerStyle.hiddenMaskView) {
+        [self addSubview:self.maskView];
+    }
+    
     [self addSubview:self.alertView];
     
-    [self.alertView addSubview:self.titleBarView];
-    
-    [self.titleBarView addSubview:self.leftBtn];
-    [self.titleBarView addSubview:self.titleLabel];
-    [self.titleBarView addSubview:self.rightBtn];
-    [self.titleBarView addSubview:self.lineView];
+    // 是否隐藏标题栏
+    if (!self.pickerStyle.hiddenTitleBarView) {
+        [self.alertView addSubview:self.titleBarView];
+        [self.alertView sendSubviewToBack:self.titleBarView];
+
+        if (!self.pickerStyle.hiddenTitleLabel) {
+            [self.titleBarView addSubview:self.titleLabel];
+        }
+        if (!self.pickerStyle.hiddenCancelBtn) {
+            [self.titleBarView addSubview:self.cancelBtn];
+            // 获取边距
+            if (self.pickerStyle.cancelBtnFrame.origin.x < self.bounds.size.width / 2) {
+                self.cancelBtnMargin = self.pickerStyle.cancelBtnFrame.origin.x;
+            } else {
+                self.cancelBtnMargin = self.bounds.size.width - self.pickerStyle.cancelBtnFrame.origin.x - self.pickerStyle.cancelBtnFrame.size.width;
+            }
+        }
+        if (!self.pickerStyle.hiddenDoneBtn) {
+            [self.titleBarView addSubview:self.doneBtn];
+            // 获取边距
+            if (self.pickerStyle.doneBtnFrame.origin.x < self.bounds.size.width / 2) {
+                self.doneBtnMargin = self.pickerStyle.doneBtnFrame.origin.x;
+            } else {
+                self.doneBtnMargin = self.bounds.size.width - self.pickerStyle.doneBtnFrame.origin.x - self.pickerStyle.doneBtnFrame.size.width;
+            }
+        }
+    }
 }
 
-#pragma mark - 背景遮罩图层
+#pragma mark - 适配屏幕安全区域，更新子视图布局
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (_cancelBtn || _doneBtn) {
+        UIEdgeInsets safeInsets = UIEdgeInsetsZero;
+        if (@available(iOS 11.0, *)) {
+            safeInsets = self.safeAreaInsets;
+            
+            if (_cancelBtn) {
+                CGRect cancelBtnFrame = self.pickerStyle.cancelBtnFrame;
+                if (cancelBtnFrame.origin.x < MIN(self.bounds.size.width / 2, self.bounds.size.height / 2)) {
+                    cancelBtnFrame.origin.x += safeInsets.left;
+                } else {
+                    cancelBtnFrame.origin.x = self.bounds.size.width - cancelBtnFrame.size.width - safeInsets.right - self.cancelBtnMargin;
+                }
+                self.cancelBtn.frame = cancelBtnFrame;
+            }
+            if (_doneBtn) {
+                CGRect doneBtnFrame = self.pickerStyle.doneBtnFrame;
+                if (doneBtnFrame.origin.x < MIN(self.bounds.size.width / 2, self.bounds.size.height / 2)) {
+                    doneBtnFrame.origin.x += safeInsets.left;
+                } else {
+                    doneBtnFrame.origin.x = self.bounds.size.width - doneBtnFrame.size.width - safeInsets.right - self.doneBtnMargin;
+                }
+                self.doneBtn.frame = doneBtnFrame;
+            }
+        }
+    }
+    
+    if (_alertView && self.pickerStyle.topCornerRadius > 0) {
+        // 设置顶部圆角
+        [self br_setView:_alertView roundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight withRadius:self.pickerStyle.topCornerRadius];
+    }
+}
+
+#pragma mark - 背景遮罩视图
 - (UIView *)maskView {
     if (!_maskView) {
         _maskView = [[UIView alloc]initWithFrame:SCREEN_BOUNDS];
@@ -60,184 +121,203 @@
     return _maskView;
 }
 
-#pragma mark - 弹出视图
+#pragma mark - 弹框视图
 - (UIView *)alertView {
     if (!_alertView) {
-        _alertView = [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - kTitleBarHeight - kPickerHeight - BR_BOTTOM_MARGIN, SCREEN_WIDTH, kTitleBarHeight + kPickerHeight + BR_BOTTOM_MARGIN)];
-        _alertView.backgroundColor = self.pickerStyle.pickerColor;
+        _alertView = [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - self.pickerStyle.titleBarHeight - self.pickerStyle.pickerHeight - BR_BOTTOM_MARGIN, SCREEN_WIDTH, self.pickerStyle.titleBarHeight + self.pickerStyle.pickerHeight + BR_BOTTOM_MARGIN)];
+        _alertView.backgroundColor = self.pickerStyle.alertViewColor;
+        if (!self.pickerStyle.topCornerRadius && !self.pickerStyle.hiddenShadowLine) {
+            // 设置弹框视图顶部边框线
+            UIView *shadowLineView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, _alertView.frame.size.width, 1.0f)];
+            shadowLineView.backgroundColor = self.pickerStyle.shadowLineColor;
+            shadowLineView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            [_alertView addSubview:shadowLineView];
+        }
         _alertView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
     }
     return _alertView;
 }
 
-#pragma mark - 顶部标题栏视图
+#pragma mark - 标题栏视图
 - (UIView *)titleBarView {
     if (!_titleBarView) {
-        _titleBarView =[[UIView alloc]initWithFrame:CGRectMake(0, 0, self.alertView.frame.size.width, kTitleBarHeight + 0.5)];
+        _titleBarView =[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.pickerStyle.titleBarHeight)];
         _titleBarView.backgroundColor = self.pickerStyle.titleBarColor;
-        _titleBarView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
+        _titleBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        if (!self.pickerStyle.hiddenTitleBottomBorder) {
+            // 设置标题栏底部分割线
+            UIView *titleLineView = [[UIView alloc]initWithFrame:CGRectMake(0, _titleBarView.frame.size.height - 0.5f, _titleBarView.frame.size.width, 0.5f)];
+            titleLineView.backgroundColor = self.pickerStyle.titleLineColor;
+            titleLineView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+            [_titleBarView addSubview:titleLineView];
+        }
     }
     return _titleBarView;
 }
 
-#pragma mark - 左边取消按钮
-- (UIButton *)leftBtn {
-    if (!_leftBtn) {
-        _leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _leftBtn.frame = CGRectMake(5, 8, 60, 28);
-        _leftBtn.backgroundColor = self.pickerStyle.leftColor;;
-        _leftBtn.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin;
-        _leftBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
-        [_leftBtn setTitleColor:self.pickerStyle.leftTextColor forState:UIControlStateNormal];
-        [_leftBtn setTitle:self.leftBtnTitle forState:UIControlStateNormal];
-        [_leftBtn addTarget:self action:@selector(clickLeftBtn) forControlEvents:UIControlEventTouchUpInside];
+#pragma mark - 取消按钮
+- (UIButton *)cancelBtn {
+    if (!_cancelBtn) {
+        _cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _cancelBtn.frame = self.pickerStyle.cancelBtnFrame;
+        _cancelBtn.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+        _cancelBtn.backgroundColor = self.pickerStyle.cancelColor;;
+        _cancelBtn.titleLabel.font = self.pickerStyle.cancelTextFont;
+        [_cancelBtn setTitleColor:self.pickerStyle.cancelTextColor forState:UIControlStateNormal];
+        if (self.pickerStyle.cancelBtnImage) {
+            [_cancelBtn setImage:self.pickerStyle.cancelBtnImage forState:UIControlStateNormal];
+        }
+        if (self.pickerStyle.cancelBtnTitle) {
+            [_cancelBtn setTitle:self.pickerStyle.cancelBtnTitle forState:UIControlStateNormal];
+        }
+        [_cancelBtn addTarget:self action:@selector(clickCancelBtn) forControlEvents:UIControlEventTouchUpInside];
         // 设置按钮圆角或边框
-        if (self.pickerStyle.leftBorderStyle == BRBorderStyleSolid) {
-            _leftBtn.layer.cornerRadius = 6.0f;
-            _leftBtn.layer.borderColor = self.pickerStyle.leftTextColor.CGColor;
-            _leftBtn.layer.borderWidth = 1.0f;
-            _leftBtn.layer.masksToBounds = YES;
-        } else if (self.pickerStyle.leftBorderStyle == BRBorderStyleFill) {
-            _leftBtn.layer.cornerRadius = 6.0f;
-            _leftBtn.layer.masksToBounds = YES;
+        if (self.pickerStyle.cancelBorderStyle == BRBorderStyleSolid) {
+            _cancelBtn.layer.cornerRadius = 6.0f;
+            _cancelBtn.layer.borderColor = self.pickerStyle.cancelTextColor.CGColor;
+            _cancelBtn.layer.borderWidth = 1.0f;
+            _cancelBtn.layer.masksToBounds = YES;
+        } else if (self.pickerStyle.cancelBorderStyle == BRBorderStyleFill) {
+            _cancelBtn.layer.cornerRadius = 6.0f;
+            _cancelBtn.layer.masksToBounds = YES;
         }
     }
-    return _leftBtn;
+    return _cancelBtn;
 }
 
-#pragma mark - 右边确定按钮
-- (UIButton *)rightBtn {
-    if (!_rightBtn) {
-        _rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _rightBtn.frame = CGRectMake(self.alertView.frame.size.width - 65, 8, 60, 28);
-        _rightBtn.backgroundColor = self.pickerStyle.rightColor;
-        _rightBtn.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
-        _rightBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
-        [_rightBtn setTitleColor:self.pickerStyle.rightTextColor forState:UIControlStateNormal];
-        [_rightBtn setTitle:self.rightBtnTitle forState:UIControlStateNormal];
-        [_rightBtn addTarget:self action:@selector(clickRightBtn) forControlEvents:UIControlEventTouchUpInside];
+#pragma mark - 确定按钮
+- (UIButton *)doneBtn {
+    if (!_doneBtn) {
+        _doneBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _doneBtn.frame = self.pickerStyle.doneBtnFrame;
+        _doneBtn.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+        _doneBtn.backgroundColor = self.pickerStyle.doneColor;
+        _doneBtn.titleLabel.font = self.pickerStyle.doneTextFont;
+        [_doneBtn setTitleColor:self.pickerStyle.doneTextColor forState:UIControlStateNormal];
+        if (self.pickerStyle.doneBtnImage) {
+            [_doneBtn setImage:self.pickerStyle.doneBtnImage forState:UIControlStateNormal];
+        }
+        if (self.pickerStyle.doneBtnTitle) {
+            [_doneBtn setTitle:self.pickerStyle.doneBtnTitle forState:UIControlStateNormal];
+        }
+        [_doneBtn addTarget:self action:@selector(clickDoneBtn) forControlEvents:UIControlEventTouchUpInside];
         // 设置按钮圆角或边框
-        if (self.pickerStyle.rightBorderStyle == BRBorderStyleSolid) {
-            _rightBtn.layer.cornerRadius = 6.0f;
-            _rightBtn.layer.borderColor = self.pickerStyle.rightTextColor.CGColor;
-            _rightBtn.layer.borderWidth = 1.0f;
-            _rightBtn.layer.masksToBounds = YES;
-        } else if (self.pickerStyle.rightBorderStyle == BRBorderStyleFill) {
-            _rightBtn.layer.cornerRadius = 6.0f;
-            _rightBtn.layer.masksToBounds = YES;
+        if (self.pickerStyle.doneBorderStyle == BRBorderStyleSolid) {
+            _doneBtn.layer.cornerRadius = 6.0f;
+            _doneBtn.layer.borderColor = self.pickerStyle.doneTextColor.CGColor;
+            _doneBtn.layer.borderWidth = 1.0f;
+            _doneBtn.layer.masksToBounds = YES;
+        } else if (self.pickerStyle.doneBorderStyle == BRBorderStyleFill) {
+            _doneBtn.layer.cornerRadius = 6.0f;
+            _doneBtn.layer.masksToBounds = YES;
         }
     }
-    return _rightBtn;
+    return _doneBtn;
 }
 
-#pragma mark - 中间标题按钮
+#pragma mark - 中间标题label
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
-        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(5 + 60 + 2, 0, SCREEN_WIDTH - 2 * (5 + 60 + 2), kTitleBarHeight)];
-        _titleLabel.backgroundColor = [UIColor clearColor];
-        _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth;
-        _titleLabel.font = [UIFont systemFontOfSize:15.0f];
-        _titleLabel.textColor = [self.pickerStyle.titleTextColor colorWithAlphaComponent:0.8f];
+        _titleLabel = [[UILabel alloc]initWithFrame:self.pickerStyle.titleLabelFrame];
+        _titleLabel.backgroundColor = self.pickerStyle.titleLabelColor;
+        _titleLabel.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
         _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.font = self.pickerStyle.titleTextFont;
+        _titleLabel.textColor = self.pickerStyle.titleTextColor;
+        _titleLabel.text = self.title;
     }
     return _titleLabel;
 }
 
-#pragma mark - 分割线
-- (UIView *)lineView {
-    if (!_lineView) {
-        _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, kTitleBarHeight, self.alertView.frame.size.width, 0.5)];
-        _lineView.backgroundColor = self.pickerStyle.titleLineColor;
-        _lineView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth;
-        [self.alertView addSubview:_lineView];
-    }
-    return _lineView;
-}
-
-#pragma mark - setter方法
-- (void)setTitle:(NSString *)title {
-    self.titleLabel.text = title;
-}
-
 #pragma mark - 点击背景遮罩图层事件
 - (void)didTapMaskView:(UITapGestureRecognizer *)sender {
-    [self dismissWithAnimation:YES toView:nil];
+    [self removePickerFromView:nil];
     if (self.cancelBlock) {
         self.cancelBlock();
     }
 }
 
 #pragma mark - 取消按钮的点击事件
-- (void)clickLeftBtn {
-    [self dismissWithAnimation:YES toView:nil];
+- (void)clickCancelBtn {
+    [self removePickerFromView:nil];
     if (self.cancelBlock) {
         self.cancelBlock();
     }
 }
 
 #pragma mark - 确定按钮的点击事件
-- (void)clickRightBtn {
+- (void)clickDoneBtn {
     if (self.doneBlock) {
         self.doneBlock();
     }
 }
 
-#pragma mark - 弹出视图方法
-- (void)showWithAnimation:(BOOL)animation toView:(UIView *)view {
-    [self initUI];
+#pragma mark - 添加视图方法
+- (void)addPickerToView:(UIView *)view {
     if (view) {
-        self.maskView.hidden = YES;
-        self.titleBarView.hidden = YES;
         self.frame = view.bounds;
-        self.alertView.frame = view.bounds;
+        self.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [view addSubview:self];
     } else {
+        [self initUI];
+        
         UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
         [keyWindow addSubview:self];
-        if (animation) {
-            // 动画前初始位置
-            CGRect rect = self.alertView.frame;
-            rect.origin.y = SCREEN_HEIGHT;
-            self.alertView.frame = rect;
-            // 弹出动画
+        // 动画前初始位置
+        CGRect rect = self.alertView.frame;
+        rect.origin.y = SCREEN_HEIGHT;
+        self.alertView.frame = rect;
+        // 弹出动画
+        if (!self.pickerStyle.hiddenMaskView) {
             self.maskView.alpha = 1;
-            [UIView animateWithDuration:0.3 animations:^{
-                CGRect rect = self.alertView.frame;
-                rect.origin.y -= kPickerHeight + kTitleBarHeight + BR_BOTTOM_MARGIN;
-                self.alertView.frame = rect;
-            }];
         }
+        [UIView animateWithDuration:0.3 animations:^{
+            CGRect rect = self.alertView.frame;
+            rect.origin.y -= self.pickerStyle.pickerHeight + self.pickerStyle.titleBarHeight + BR_BOTTOM_MARGIN;
+            self.alertView.frame = rect;
+        }];
     }
 }
 
-#pragma mark - 关闭视图方法
-- (void)dismissWithAnimation:(BOOL)animation toView:(UIView *)view {
+#pragma mark - 移除视图方法
+- (void)removePickerFromView:(UIView *)view {
     if (view) {
         [self removeFromSuperview];
     } else {
-        if (animation) {
-            // 关闭动画
-            [UIView animateWithDuration:0.2 animations:^{
-                CGRect rect = self.alertView.frame;
-                rect.origin.y += kPickerHeight + kTitleBarHeight + BR_BOTTOM_MARGIN;
-                self.alertView.frame = rect;
+        // 关闭动画
+        [UIView animateWithDuration:0.2 animations:^{
+            CGRect rect = self.alertView.frame;
+            rect.origin.y += self.pickerStyle.pickerHeight + self.pickerStyle.titleBarHeight + BR_BOTTOM_MARGIN;
+            self.alertView.frame = rect;
+            if (!self.pickerStyle.hiddenMaskView) {
                 self.maskView.alpha = 0;
-            } completion:^(BOOL finished) {
-                [self removeFromSuperview];
-            }];
-        } else {
+            }
+        } completion:^(BOOL finished) {
             [self removeFromSuperview];
-        }
+        }];
+    }
+}
+
+#pragma mark - 添加自定义视图到选择器（picker）上
+- (void)addSubViewToPicker:(UIView *)customView {
+    
+}
+
+#pragma mark - 添加自定义视图到标题栏（titleBar）上
+- (void)addSubViewToTitleBar:(UIView *)customView {
+    if (!self.pickerStyle.hiddenTitleBarView) {
+        [self.titleBarView addSubview:customView];
     }
 }
 
 - (void)setPickerView:(UIView *)pickerView toView:(UIView *)view {
     if (view) {
         self.frame = view.bounds;
-        self.alertView.frame = view.bounds;
         pickerView.frame = view.bounds;
+        [self addSubview:pickerView];
+    } else {
+        [self.alertView addSubview:pickerView];
     }
-    [self.alertView addSubview:pickerView];
 }
 
 - (BRPickerStyle *)pickerStyle {
@@ -247,18 +327,13 @@
     return _pickerStyle;
 }
 
-- (NSString *)leftBtnTitle {
-    if (!_leftBtnTitle) {
-        _leftBtnTitle = @"取消";
-    }
-    return _leftBtnTitle;
-}
-
-- (NSString *)rightBtnTitle {
-    if (!_rightBtnTitle) {
-        _rightBtnTitle = @"确定";
-    }
-    return _rightBtnTitle;
+#pragma mark - 设置 view 的部分圆角
+// corners(枚举类型，可组合使用)：UIRectCornerTopLeft | UIRectCornerTopRight | UIRectCornerBottomLeft | UIRectCornerBottomRight | UIRectCornerAllCorners
+- (void)br_setView:(UIView *)view roundingCorners:(UIRectCorner)corners withRadius:(CGFloat)radius {
+    UIBezierPath *rounded = [UIBezierPath bezierPathWithRoundedRect:view.bounds byRoundingCorners:corners cornerRadii:CGSizeMake(radius, radius)];
+    CAShapeLayer *shape = [[CAShapeLayer alloc]init];
+    [shape setPath:rounded.CGPath];
+    view.layer.mask = shape;
 }
 
 - (void)dealloc {

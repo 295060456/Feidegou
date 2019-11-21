@@ -10,9 +10,9 @@
 #import "BaseVC.h"
 
 @interface BaseVC ()
-<
-JXCategoryListContentViewDelegate
->
+//<
+//JXCategoryListContentViewDelegate
+//>
 
 @property(nonatomic,copy)DataBlock willComingBlock;
 @property(nonatomic,copy)DataBlock didComingBlock;
