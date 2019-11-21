@@ -268,9 +268,9 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
 -(NSMutableArray<BaseVC *> *)childVCMutArr{
     if (!_childVCMutArr) {
         _childVCMutArr = NSMutableArray.array;
+        [self.childVCMutArr addObject:self.panicBuyingVC];
         [self.childVCMutArr addObject:self.producingAreaVC];
         [self.childVCMutArr addObject:self.wholesaleVC];
-        [self.childVCMutArr addObject:self.panicBuyingVC];
     }return _childVCMutArr;
 }
 

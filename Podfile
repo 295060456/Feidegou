@@ -66,6 +66,7 @@ pod 'BEMCheckBox'
 pod 'SocketRocket'
 pod 'RongCloudIM/IMLib'
 pod 'RongCloudIM/IMKit'
+pod 'LYEmptyView'
 #pod 'SDWebImage'
 #pod 'YYKit'#有问题
 

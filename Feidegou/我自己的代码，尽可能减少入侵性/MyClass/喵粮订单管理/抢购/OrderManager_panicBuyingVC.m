@@ -94,6 +94,13 @@ UITableViewDataSource
     [super viewWillAppear:animated];
     [self.tableView.mj_header beginRefreshing];
 }
+#pragma mark —— JXCategoryListContentViewDelegate
+/**
+ 可选实现，列表显示的时候调用
+ */
+- (void)listDidAppear{
+    [self.tableView.mj_header beginRefreshing];
+}
 #pragma mark —— 私有方法
 // 下拉刷新
 -(void)pullToRefresh{
@@ -197,6 +204,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                  style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
         _tableView.delegate = self;
+        _tableView.ly_emptyView = [LYEmptyView emptyViewWithImageStr:@"noData"
+                                                            titleStr:@"暂无数据"
+                                                           detailStr:@""];
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
         _tableView.mj_footer.hidden = YES;
