@@ -25,10 +25,15 @@ UIScrollViewDelegate
 -(instancetype)init{
     if (self = [super init]) {
         self.scrollView.alpha = 1;
-    //    self.backgroundColor = kRedColor;
+        self.backgroundColor = kWhiteColor;
         for (int i = 0; i < self.btnTitleMutArr.count; i++) {
             MMButton *btn = MMButton.new;
-            btn.backgroundColor = RandomColor;
+//            btn.backgroundColor = RandomColor;
+            [UIView cornerCutToCircleWithView:btn
+                              AndCornerRadius:7.f];
+            [UIView colourToLayerOfView:btn
+                             WithColour:KLightGrayColor
+                         AndBorderWidth:.5f];
             [btn setTitle:self.btnTitleMutArr[i]
                  forState:UIControlStateNormal];
             [btn setImage:kIMG(@"双向箭头_1")
@@ -50,7 +55,6 @@ UIScrollViewDelegate
                                    SCALING_RATIO(100),
                                    SCALING_RATIO(50));
             [self.btnMutArr addObject:btn];
-
         }
     }return self;
 }
@@ -72,7 +76,7 @@ UIScrollViewDelegate
 -(UIScrollView *)scrollView{
     if (!_scrollView) {
         _scrollView = UIScrollView.new;
-        _scrollView.alwaysBounceHorizontal = YES;
+//        _scrollView.alwaysBounceHorizontal = YES;
         _scrollView.pagingEnabled = YES;
         _scrollView.contentSize = CGSizeMake((SCALING_RATIO(100) + SCALING_RATIO(10)) * (self.btnTitleMutArr.count) + SCALING_RATIO(5),
                                              55);

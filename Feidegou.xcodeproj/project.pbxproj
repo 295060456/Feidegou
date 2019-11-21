@@ -799,8 +799,6 @@
 		8B16F0552386ADF8003941B4 /* Search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search@2x.png"; sourceTree = "<group>"; };
 		8B16F0562386ADF8003941B4 /* AbuSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbuSearchView.h; sourceTree = "<group>"; };
 		8B16F0572386ADF8003941B4 /* AbuSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbuSearchView.m; sourceTree = "<group>"; };
-		8B16F05B2386AE23003941B4 /* AbuSearchViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbuSearchViewCell.m; sourceTree = "<group>"; };
-		8B16F05C2386AE23003941B4 /* AbuSearchViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbuSearchViewCell.h; sourceTree = "<group>"; };
 		8B16F05E2386AE24003941B4 /* AbuStcokModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbuStcokModel.m; sourceTree = "<group>"; };
 		8B16F05F2386AE24003941B4 /* AbuStcokList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbuStcokList.h; sourceTree = "<group>"; };
 		8B16F0602386AE24003941B4 /* AbuStcokModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbuStcokModel.h; sourceTree = "<group>"; };
@@ -2132,7 +2130,6 @@
 		8B16F0532386ADDA003941B4 /* 搜索框 */ = {
 			isa = PBXGroup;
 			children = (
-				8B16F05A2386AE23003941B4 /* AbuSearchCell */,
 				8B16F05D2386AE24003941B4 /* Model */,
 				8B16F0542386ADF8003941B4 /* AbuSearchView */,
 				8B16F0672386AEAC003941B4 /* SearchVC.h */,
@@ -2149,15 +2146,6 @@
 				8B16F0572386ADF8003941B4 /* AbuSearchView.m */,
 			);
 			path = AbuSearchView;
-			sourceTree = "<group>";
-		};
-		8B16F05A2386AE23003941B4 /* AbuSearchCell */ = {
-			isa = PBXGroup;
-			children = (
-				8B16F05B2386AE23003941B4 /* AbuSearchViewCell.m */,
-				8B16F05C2386AE23003941B4 /* AbuSearchViewCell.h */,
-			);
-			path = AbuSearchCell;
 			sourceTree = "<group>";
 		};
 		8B16F05D2386AE24003941B4 /* Model */ = {

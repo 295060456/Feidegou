@@ -85,7 +85,17 @@ AbuSearchViewDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.searchView.alpha = 1;
-    
+    self.tableView.alpha = 1;
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— AbuSearchViewDelegate
 - (void)searchView:(AbuSearchView *)searchView
@@ -145,7 +155,7 @@ AbuSearchViewDelegate
         [self.tableView reloadData];
     });
 }
-
+#pragma mark —— ,UITableViewDelegate & UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
     if (self.dataMutArr.count > 0) {
@@ -170,27 +180,29 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 - (AbuSearchView *)searchView{
     if (!_searchView) {
         _searchView = [[AbuSearchView alloc]initWithFrame:CGRectMake(0,
-                                                                     3,
-                                                                     self.view.frame.size.width,
-                                                                     30)];
+                                                                     SCALING_RATIO(3),
+                                                                     SCREEN_WIDTH,
+                                                                     SCALING_RATIO(40))];
         _searchView.delegate = self;
-        _searchView.backgroundColor = kRedColor;
+//        _searchView.backgroundColor = kRedColor;
         _searchView.placeholder = @"股票名称/代码/全拼";
         if (self.navigationController) {
-            self.navigationController.navigationBar.translucent = NO;
-            [self.navigationController.navigationBar addSubview:_searchView];
-        }else{
-            [self.view addSubview:_searchView];
+            [self.gk_navigationBar addSubview:_searchView];
         }
     }return _searchView;
 }
 
 - (UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc]init];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectZero
+                                                 style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [self.view addSubview:_tableView];
+        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.view);
+        }];
     }return _tableView;
 }
 

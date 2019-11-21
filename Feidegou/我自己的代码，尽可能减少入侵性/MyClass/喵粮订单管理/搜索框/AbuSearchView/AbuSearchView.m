@@ -26,15 +26,13 @@ UITextFieldDelegate
 
 - (instancetype)init{
     if (self = [super init]) {
-//       [self setUI];
-//       [self initData];
+       [self initData];
     }return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-//        [self setUI];
-//        [self initData];
+        [self initData];
     }return self;
 }
 
@@ -57,7 +55,9 @@ UITextFieldDelegate
 }
 
 - (void)initData{
+    @weakify(self)
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        @strongify(self)
         self.stcokArray = [AbuStcokList getStcokData];
     });
 }
@@ -79,7 +79,8 @@ UITextFieldDelegate
                                           30);
         self.textField.textAlignment = NSTextAlignmentCenter;
         CGSize titleSize;
-        if (!self.text || ![self.text isEqualToString:@""]) {
+        if (!self.text ||
+            ![self.text isEqualToString:@""]) {
             titleSize =  [self.text sizeWithAttributes: @{NSFontAttributeName:self.textField.font}];
         }else{
             titleSize =  [self.placeholder?:@"" sizeWithAttributes: @{NSFontAttributeName:_textField.font}];
@@ -102,12 +103,14 @@ UITextFieldDelegate
         }
     }else{
         _iconCenterView.hidden = YES;
+        @weakify(self)
         [UIView animateWithDuration:1
                          animations:^{
+            @strongify(self)
             self.textField.textAlignment = NSTextAlignmentLeft;
             _iconView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Search"]];
-            _iconView.contentMode = UIViewContentModeScaleAspectFit;
-            self.textField.leftView = _iconView;
+            self->_iconView.contentMode = UIViewContentModeScaleAspectFit;
+            self.textField.leftView = self->_iconView;
             self.textField.leftViewMode =  UITextFieldViewModeAlways;
         }];
     }
@@ -228,12 +231,14 @@ UITextFieldDelegate
     if(_iconAlignTemp == SearchBarIconAlignCenter){
         self.iconAlign = SearchBarIconAlignLeft;
     }
+    @weakify(self)
     [UIView animateWithDuration:0.1
                      animations:^{
-        _cancelButton.hidden = NO;
-        _textField.frame = CGRectMake(7,
+        @strongify(self)
+        self->_cancelButton.hidden = NO;
+        self->_textField.frame = CGRectMake(7,
                                       7,
-                                      _cancelButton.frame.origin.x - 7,
+                                      self->_cancelButton.frame.origin.x - 7,
                                       30);
         //        _textField.transform = CGAffineTransformMakeTranslation(-_cancelButton.frame.size.width,0);
     }];
@@ -266,10 +271,12 @@ UITextFieldDelegate
     if(_iconAlignTemp == SearchBarIconAlignCenter){
         self.iconAlign = SearchBarIconAlignCenter;
     }
+    @weakify(self)
     [UIView animateWithDuration:0.1
                      animations:^{
-        _cancelButton.hidden = YES;
-        _textField.frame = CGRectMake(7,
+        @strongify(self)
+        self->_cancelButton.hidden = YES;
+        self->_textField.frame = CGRectMake(7,
                                       7,
                                       self.frame.size.width - 7 * 2,
                                       30);
