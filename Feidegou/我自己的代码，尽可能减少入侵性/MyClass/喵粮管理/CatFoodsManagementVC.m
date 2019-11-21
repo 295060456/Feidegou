@@ -127,7 +127,7 @@ UITableViewDataSource
 //                  requestParams:Nil
 //                        success:^(id data) {}
 //                       animated:YES];
-        [OrderListVC CominngFromVC:self_weak_
+        [OrderListVC ComingFromVC:self_weak_
                          withStyle:ComingStyle_PUSH
                      requestParams:Nil
                            success:^(id data) {}
@@ -202,7 +202,7 @@ UITableViewDataSource
                    success:^(id data) {}
                   animated:YES];
     }else if ([vcName isEqualToString:@"个人喵粮变动清单"]){
-        [PersonalDataChangedListVC CominngFromVC:self_weak_
+        [PersonalDataChangedListVC ComingFromVC:self_weak_
                                        withStyle:ComingStyle_PUSH
                                    requestParams:nil
                                          success:^(id data) {}

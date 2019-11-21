@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)int page;//分页面
 @property(nonatomic,strong)NSMutableArray <PersonalDataChangedListModel *>*dataMutArr;
 
-+ (instancetype)CominngFromVC:(UIViewController *)rootVC
++ (instancetype)ComingFromVC:(UIViewController *)rootVC
                     withStyle:(ComingStyle)comingStyle
                 requestParams:(nullable id)requestParams
                       success:(DataBlock)block

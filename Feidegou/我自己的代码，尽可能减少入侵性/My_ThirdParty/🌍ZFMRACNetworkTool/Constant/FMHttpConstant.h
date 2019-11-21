@@ -17,11 +17,13 @@
 
 #pragma mark —— 线下环境
 //狗哥给我的
-#define BaseUrl @"http://10.1.41.158:8080"//3
+//#define BaseUrl @"http://10.1.41.158:8080"//3
+#define BaseUrl @"http://10.10.37.210:8080"//3
 #define BaseUrl2 API(BaseUrl,@"/catfoodapp")//@"http://10.1.41.158:8080/catfoodapp"//1
 //Daniel
 //#define DanielUrL @"http://10.1.41.174:8888"
-#define DanielUrL @"http://10.1.41.174:8080"
+//#define DanielUrL @"http://10.1.41.174:8080"
+#define DanielUrL @"http://10.10.37.211:8080"
 
 //#define AK API(API(DanielUrL,@"/SHOPAPP2.0/appShop7"),@"/query.do")//登录
 #define AK API(API(DanielUrL,@"/SHOPAPP2.0.1/appShop7"),@"/query.do")//登录

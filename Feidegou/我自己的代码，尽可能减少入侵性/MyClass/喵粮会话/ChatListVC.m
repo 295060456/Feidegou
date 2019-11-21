@@ -156,7 +156,7 @@
          conversationModel:(RCConversationModel *)model
                atIndexPath:(NSIndexPath *)indexPath {
     @weakify(self)
-    [ChatVC CominngFromVC:self_weak_
+    [ChatVC ComingFromVC:self_weak_
                 withStyle:ComingStyle_PUSH
             requestParams:model
                   success:^(id data) {}

@@ -14,6 +14,8 @@
 #import "OrderManager_wholesaleVC.h"//批发
 #import "OrderManager_panicBuyingVC.h"//抢购
 
+OrderListVC *orderListVC;
+
 @interface OrderListVC ()
 <
 JXCategoryTitleViewDataSource
@@ -31,7 +33,6 @@ JXCategoryTitleViewDataSource
 @property(nonatomic,strong)OrderManager_wholesaleVC *wholesaleVC;
 @property(nonatomic,strong)OrderManager_panicBuyingVC *panicBuyingVC;
 @property(nonatomic,strong)UIButton *filterBtn;
-@property(nonatomic,strong)PYSearchViewController *searchVC;
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*imageNamesMutArr;
@@ -53,12 +54,13 @@ JXCategoryTitleViewDataSource
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
 
-+ (instancetype)CominngFromVC:(UIViewController *)rootVC
++ (instancetype)ComingFromVC:(UIViewController *)rootVC
                     withStyle:(ComingStyle)comingStyle
                 requestParams:(nullable id)requestParams
                       success:(DataBlock)block
                      animated:(BOOL)animated{
     OrderListVC *vc = OrderListVC.new;
+    orderListVC = vc;
     vc.successBlock = block;
     vc.requestParams = requestParams;
     if ([requestParams isKindOfClass:[RCConversationModel class]]) {
@@ -119,10 +121,10 @@ JXCategoryTitleViewDataSource
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
-
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 -(void)filterBtnClickEvent:(UIButton *)sender{
@@ -137,7 +139,7 @@ JXCategoryTitleViewDataSource
 //    [self.navigationController pushViewController:self.searchVC
 //                                         animated:YES];
     @weakify(self)
-    [SearchVC CominngFromVC:self_weak_
+    [SearchVC ComingFromVC:self_weak_
                   withStyle:ComingStyle_PUSH
               requestParams:@""
                     success:^(id data) {}
@@ -245,6 +247,7 @@ JXCategoryTitleViewDataSource
 //传递didClickSelectedItemAt事件给listContainerView，必须调用！！！
 - (void)categoryView:(JXCategoryBaseView *)categoryView
 didClickSelectedItemAtIndex:(NSInteger)index {
+    NSLog(@"KKKKK");
     [self.listContainerView didClickSelectedItemAtIndex:index];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"CategoryViewAction"
                                                         object:@(index)];
@@ -367,38 +370,6 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         [self configCategoryViewWithType:JXCategoryTitleImageType_LeftImage];
         [self.view addSubview:_categoryView];
     }return _categoryView;
-}
-
--(PYSearchViewController *)searchVC{
-    if (!_searchVC) {
-        NSArray *hotSeaches = @[@"Java",
-                                @"Python",
-                                @"Objective-C",
-                                @"Swift",
-                                @"C",
-                                @"C++",
-                                @"PHP",
-                                @"C#",
-                                @"Perl",
-                                @"Go",
-                                @"JavaScript",
-                                @"R",
-                                @"Ruby",
-                                @"MATLAB"];
-        
-        _searchVC = [PYSearchViewController searchViewControllerWithHotSearches:hotSeaches
-                                                           searchBarPlaceholder:@"Search programming language"
-                                                                 didSearchBlock:^(PYSearchViewController *searchViewController,
-                                                                                  UISearchBar *searchBar,
-                                                                                  NSString *searchText) {
-
-            [searchViewController.navigationController pushViewController:[[UIViewController alloc] init]
-                                                                 animated:YES];
-            
-        }];
-        _searchVC.dataSource = self;
-//        _searchVC.searchBar;
-    }return _searchVC;
 }
 
 -(JXCategoryIndicatorLineView *)lineView{

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ChatVC : RCConversationViewController
 
-+ (instancetype)CominngFromVC:(UIViewController *)rootVC
++ (instancetype)ComingFromVC:(UIViewController *)rootVC
                     withStyle:(ComingStyle)comingStyle
                 requestParams:(nullable id)requestParams
                       success:(DataBlock)block

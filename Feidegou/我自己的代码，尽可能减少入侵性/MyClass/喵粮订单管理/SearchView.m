@@ -7,6 +7,7 @@
 //
 
 #import "SearchView.h"
+#import "OrderListVC.h"
 
 @interface SearchView ()
 <
@@ -14,51 +15,69 @@ UIScrollViewDelegate
 >
 
 @property(nonatomic,strong)UIScrollView *scrollView;
+@property(nonatomic,strong)NSMutableArray <MMButton *>*btnMutArr;
+@property(nonatomic,copy)DataBlock block;
 
 @end
 
 @implementation SearchView
 
--(void)drawRect:(CGRect)rect{
-    self.scrollView.alpha = 1;
-    self.backgroundColor = kRedColor;
-//    for (int i = 0; i < self.btnTitleMutArr.count; i++) {
-//        MMButton *btn = MMButton.new;
-//        [btn setTitle:self.btnTitleMutArr[i]
-//             forState:UIControlStateNormal];
-//        [btn setImage:kIMG(@"双向箭头_1")
-//             forState:UIControlStateNormal];
-//        [btn setImage:kIMG(@"双向箭头_2")
-//             forState:UIControlStateSelected];
-//        btn.imageAlignment = MMImageAlignmentRight;
-//        btn.spaceBetweenTitleAndImage = SCALING_RATIO(2);
-//        [btn.titleLabel sizeToFit];
-//        btn.titleLabel.adjustsFontSizeToFitWidth = YES;
-//        [btn addTarget:self
-//                action:@selector(MMButtonClickEvent:)
-//      forControlEvents:UIControlEventTouchUpInside];
-//        [btn setTitleColor:kBlackColor
-//                  forState:UIControlStateNormal];
-//        [self addSubview:btn];
-//
-//    }
+-(instancetype)init{
+    if (self = [super init]) {
+        self.scrollView.alpha = 1;
+    //    self.backgroundColor = kRedColor;
+        for (int i = 0; i < self.btnTitleMutArr.count; i++) {
+            MMButton *btn = MMButton.new;
+            btn.backgroundColor = RandomColor;
+            [btn setTitle:self.btnTitleMutArr[i]
+                 forState:UIControlStateNormal];
+            [btn setImage:kIMG(@"双向箭头_1")
+                 forState:UIControlStateNormal];
+            [btn setImage:kIMG(@"双向箭头_2")
+                 forState:UIControlStateSelected];
+            btn.imageAlignment = MMImageAlignmentRight;
+            btn.spaceBetweenTitleAndImage = SCALING_RATIO(2);
+            [btn.titleLabel sizeToFit];
+            btn.titleLabel.adjustsFontSizeToFitWidth = YES;
+            [btn addTarget:self
+                    action:@selector(MMButtonClickEvent:)
+          forControlEvents:UIControlEventTouchUpInside];
+            [btn setTitleColor:kBlackColor
+                      forState:UIControlStateNormal];
+            [self.scrollView addSubview:btn];
+            btn.frame = CGRectMake((SCALING_RATIO(100) + SCALING_RATIO(10)) * (i) + SCALING_RATIO(5),
+                                   0,
+                                   SCALING_RATIO(100),
+                                   SCALING_RATIO(50));
+            [self.btnMutArr addObject:btn];
+
+        }
+    }return self;
+}
+
+-(void)actionBlock:(DataBlock)block{
+    self.block = block;
 }
 
 -(void)MMButtonClickEvent:(MMButton *)sender{
-    
+    if (self.block) {
+        self.block(sender);
+    }
 }
+#pragma mark —— UIScrollViewDelegate
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
 
+}
 #pragma mark —— lazyLoad
 -(UIScrollView *)scrollView{
     if (!_scrollView) {
         _scrollView = UIScrollView.new;
-        _scrollView.backgroundColor = kRedColor;
         _scrollView.alwaysBounceHorizontal = YES;
         _scrollView.pagingEnabled = YES;
-        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH + SCALING_RATIO(150), self.mj_h);
-//        _scrollView.backgroundColor = KYellowColor;
+        _scrollView.contentSize = CGSizeMake((SCALING_RATIO(100) + SCALING_RATIO(10)) * (self.btnTitleMutArr.count) + SCALING_RATIO(5),
+                                             55);
         _scrollView.delegate = self;
-        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.showsHorizontalScrollIndicator = YES;
         [self addSubview:_scrollView];
         [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self);
@@ -76,6 +95,12 @@ UIScrollViewDelegate
         [_btnTitleMutArr addObject:@"已发货"];
         [_btnTitleMutArr addObject:@"已完成"];
     }return _btnTitleMutArr;
+}
+
+-(NSMutableArray<MMButton *> *)btnMutArr{
+    if (!_btnMutArr) {
+        _btnMutArr = NSMutableArray.array;
+    }return _btnMutArr;
 }
 
 @end

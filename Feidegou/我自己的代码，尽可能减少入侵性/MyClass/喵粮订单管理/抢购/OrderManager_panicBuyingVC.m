@@ -35,7 +35,7 @@ UITableViewDataSource
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-+ (instancetype)CominngFromVC:(UIViewController *)rootVC
++ (instancetype)ComingFromVC:(UIViewController *)rootVC
                     withStyle:(ComingStyle)comingStyle
                 requestParams:(nullable id)requestParams
                       success:(DataBlock)block
@@ -47,7 +47,6 @@ UITableViewDataSource
     if ([requestParams isKindOfClass:[RCConversationModel class]]) {
 
     }
- 
     switch (comingStyle) {
         case ComingStyle_PUSH:{
             if (rootVC.navigationController) {
@@ -100,58 +99,21 @@ UITableViewDataSource
     [super viewWillAppear:animated];
     [self.tableView.mj_header beginRefreshing];
 }
-
--(void)CategoryViewActionNotification:(NSNotification *)notification{
-    NSNumber *b = notification.object;
-    if ([b intValue] == 0) {
-        NSLog(@"2");
-        if (self.dataMutArr.count) {
-            @weakify(self)
-            UIEdgeInsets inset = [self.tableView contentInset];
-            if (!self.selected) {
-                inset.top = SCALING_RATIO(50);
-                [UIView animateWithDuration:1.f
-                                      delay:0.f
-                                    options:UIViewAnimationOptionTransitionCurlDown
-                                 animations:^{
-                    @strongify(self)
-                    self.searchView.alpha = 1;
-                    
-                }
-                                 completion:^(BOOL finished) {
-                    
-                }];
-            }else{
-                inset.top = SCALING_RATIO(0);
-                [UIView animateWithDuration:1.f
-                                      delay:0.f
-                                    options:UIViewAnimationOptionTransitionCurlUp
-                                 animations:^{
-                    @strongify(self)
-                    self.searchView.alpha = 0;
-                }
-                                 completion:^(BOOL finished) {
-                    
-                }];
-            }
-            [self.tableView setContentInset:inset];
-            //获取到需要跳转位置的行数
-            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0
-                                                              inSection:0];
-            //滚动到其相应的位置
-            [[self tableView] scrollToRowAtIndexPath:scrollIndexPath
-                    atScrollPosition:UITableViewScrollPositionBottom
-                                            animated:YES];
-            self.selected = !self.selected;
-        } 
-    }
-}
 #pragma mark —— JXCategoryListContentViewDelegate
 /**
  可选实现，列表显示的时候调用
  */
 - (void)listDidAppear{
     [self.tableView.mj_header beginRefreshing];
+}
+/**
+ 可选实现，列表消失的时候调用
+ */
+- (void)listDidDisappear{
+    if (self.dataMutArr.count) {
+        self.selected = YES;
+        [self showOrHiddenSearchView];
+    }
 }
 #pragma mark —— 私有方法
 // 下拉刷新
@@ -167,6 +129,58 @@ UITableViewDataSource
     NSLog(@"上拉加载更多");
     self.page++;
     [self pullToRefresh];
+}
+
+-(void)showOrHiddenSearchView{
+    @weakify(self)
+    UIEdgeInsets inset = [self.tableView contentInset];
+    if (!self.selected) {//开
+        inset.top = SCALING_RATIO(50);
+        [UIView animateWithDuration:1.f
+                              delay:0.f
+                            options:UIViewAnimationOptionTransitionCurlDown
+                         animations:^{
+            @strongify(self)
+            self.searchView.alpha = 1;
+            
+        }
+                         completion:^(BOOL finished) {
+            
+        }];
+    }
+    else{//关
+        inset.top = SCALING_RATIO(0);
+        [UIView animateWithDuration:1.f
+                              delay:0.f
+                            options:UIViewAnimationOptionTransitionCurlUp
+                         animations:^{
+            @strongify(self)
+            self.searchView.alpha = 0;
+        }
+                         completion:^(BOOL finished) {
+            
+        }];
+    }
+    
+    [self.tableView setContentInset:inset];
+    //获取到需要跳转位置的行数
+    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0
+                                                      inSection:0];
+    //滚动到其相应的位置
+    [[self tableView] scrollToRowAtIndexPath:scrollIndexPath
+            atScrollPosition:UITableViewScrollPositionBottom
+                                    animated:YES];
+}
+
+-(void)CategoryViewActionNotification:(NSNotification *)notification{
+    NSNumber *b = notification.object;
+    if ([b intValue] == 0) {
+        NSLog(@"2");
+        if (self.dataMutArr.count) {
+            [self showOrHiddenSearchView];
+            self.selected = !self.selected;
+        }
+    }
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
@@ -236,16 +250,16 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!self.isDelCell) {
         //设置Cell的动画效果为3D效果
         //设置x和y的初始值为0.1；
-        cell.layer.transform = CATransform3DMakeScale(0.1,
-                                                      0.1,
-                                                      1);
-        //x和y的最终值为1
-        [UIView animateWithDuration:1
-                         animations:^{
-            cell.layer.transform = CATransform3DMakeScale(1,
-                                                          1,
-                                                          1);
-        }];
+//        cell.layer.transform = CATransform3DMakeScale(0.1,
+//                                                      0.1,
+//                                                      1);
+//        //x和y的最终值为1
+//        [UIView animateWithDuration:1
+//                         animations:^{
+//            cell.layer.transform = CATransform3DMakeScale(1,
+//                                                          1,
+//                                                          1);
+//        }];
     }
 }
 
@@ -273,6 +287,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(SearchView *)searchView{
     if (!_searchView) {
         _searchView = SearchView.new;
+        @weakify(self)
+        [_searchView actionBlock:^(id data) {
+            @strongify(self)
+            
+        }];
         [self.view addSubview:_searchView];
         [_searchView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
@@ -287,6 +306,5 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _dataMutArr = NSMutableArray.array;
     }return _dataMutArr;
 }
-
 
 @end

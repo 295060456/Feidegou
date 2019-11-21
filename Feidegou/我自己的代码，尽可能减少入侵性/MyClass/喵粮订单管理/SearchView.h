@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SearchView : UIView
 
 @property(nonatomic,strong)NSMutableArray <NSString *>*btnTitleMutArr;
+-(void)actionBlock:(DataBlock)block;
 
 @end
 

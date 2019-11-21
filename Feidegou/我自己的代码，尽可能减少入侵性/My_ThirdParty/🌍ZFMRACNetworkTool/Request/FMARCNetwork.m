@@ -121,6 +121,7 @@ static FMARCNetwork *_instance = nil;
         @strongify(self);
         /// 获取request KKK
         NSError *serializationError = nil;
+#warning
         NSString *url = [BaseUrl stringByAppendingString:req.path];//KKK
 //        NSString *url = [@"" stringByAppendingString:req.path];//KKK
 
@@ -174,7 +175,7 @@ static FMARCNetwork *_instance = nil;
 //                HTTPResponseCodeError = 500,//数据错误
 //                HTTPResponseCodeError_01 = 401,//重新输入喵粮数量
 //                HTTPResponseCodeError_02 = 402,//输入有误请重新输入
-                
+#warning
                 if (statusCode == HTTPResponseCodeSuccess) {//200 请求成功
                     if (httpResponse.isSuccess) {
                         if (httpResponse.reqResult[HTTPServiceResponseDataKey]) {
