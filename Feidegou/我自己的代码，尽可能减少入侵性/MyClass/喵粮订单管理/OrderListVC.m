@@ -9,6 +9,7 @@
 #import "OrderListVC.h"
 #import "OrderListVC+VM.h"
 
+
 #import "OrderManager_producingAreaVC.h"//厂家（产地）
 #import "OrderManager_wholesaleVC.h"//批发
 #import "OrderManager_panicBuyingVC.h"//抢购
@@ -341,5 +342,7 @@ scrollingFromLeftIndex:(NSInteger)leftIndex
         self.categoryView.indicators = @[_lineView];
     }return _lineView;
 }
+
+
 
 @end

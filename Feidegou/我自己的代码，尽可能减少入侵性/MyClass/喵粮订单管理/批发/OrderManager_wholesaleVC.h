@@ -12,6 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderManager_wholesaleVC : BaseVC
 
+@property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,assign)int page;//分页面
+@property(nonatomic,strong)NSMutableArray <OrderListModel *>*dataMutArr;
+
 + (instancetype)CominngFromVC:(UIViewController *)rootVC
                     withStyle:(ComingStyle)comingStyle
                 requestParams:(nullable id)requestParams

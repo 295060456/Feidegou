@@ -137,6 +137,11 @@
 #import "PersonalDataChangedListModel.h"
 //#import "OrderDetail_SellerModel.h"
 //#import "OrderDetail_BuyerModel.h"
+#import "OrderManager_panicBuyingModel.h"
+#import "OrderManager_producingAreaModel.h"
+#import "OrderManager_wholesaleModel.h"
+
+#import "DefineStructure.h"
 
 //Test
 #import "TestVC.h"
