@@ -12,7 +12,7 @@
 
 #import "OrderManager_producingAreaVC.h"//厂家（产地）
 #import "OrderManager_wholesaleVC.h"//批发
-#import "OrderManager_panicBuyingVC.h"//抢购
+#import "OrderManager_panicBuyingVC.h"//转转
 
 OrderListVC *orderListVC;
 
@@ -202,7 +202,7 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
 -(NSMutableArray<NSString *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
-        [_titleMutArr addObject:@"抢购"];
+        [_titleMutArr addObject:@"转转"];
         [_titleMutArr addObject:@"厂家"];
         [_titleMutArr addObject:@"批发"];
     }return _titleMutArr;
@@ -211,7 +211,7 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
 -(NSMutableArray<NSString *> *)imageNamesMutArr{
     if (!_imageNamesMutArr) {
         _imageNamesMutArr = NSMutableArray.array;
-        [_imageNamesMutArr addObject:@"抢购_unselected"];
+        [_imageNamesMutArr addObject:@"转转_unselected"];
         [_imageNamesMutArr addObject:@"厂家_unselected"];
         [_imageNamesMutArr addObject:@"批发_unselected"];
     }return _imageNamesMutArr;
@@ -220,7 +220,7 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
 -(NSMutableArray<NSString *> *)selectedImageNamesMutArr{
     if (!_selectedImageNamesMutArr) {
         _selectedImageNamesMutArr = NSMutableArray.array;
-        [_selectedImageNamesMutArr addObject:@"抢购_selected"];
+        [_selectedImageNamesMutArr addObject:@"转转_selected"];
         [_selectedImageNamesMutArr addObject:@"厂家_selected"];
         [_selectedImageNamesMutArr addObject:@"批发_selected"];
     }return _selectedImageNamesMutArr;

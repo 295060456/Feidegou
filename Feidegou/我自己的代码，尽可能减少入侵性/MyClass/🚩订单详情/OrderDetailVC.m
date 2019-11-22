@@ -121,7 +121,7 @@ UITableViewDataSource
         NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
         self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
             if ([self.orderListModel.order_type intValue] == 1) {//摊位 只有卖家
-                self.gk_navTitle = @"摊位抢购订单详情";
+                self.gk_navTitle = @"摊位转转订单详情";
                 if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                     if ([self.orderListModel.del_state intValue] == 0) {
                         NSLog(@"1311");
@@ -275,11 +275,11 @@ UITableViewDataSource
                          action:@selector(netWorking)
                forControlEvents:UIControlEventTouchUpInside];//#7
     }
-    else if (self.stallListModel){//喵粮抢购
+    else if (self.stallListModel){//喵粮转转
         NSString *str1 = [NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"];
         NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
         self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
-        self.gk_navTitle = @"喵粮抢购订单详情";
+        self.gk_navTitle = @"喵粮转转订单详情";
         //只有10秒取消、发货、状态为已下单
         [self.dataMutArr addObject:@"订单已下单"];//333
         self.countDownCancelBtn.titleEndStr = @"取消";

@@ -51,7 +51,7 @@
 @property (strong, nonatomic) NSString *strGive_integral;
 //是否选择了全部属性
 @property (assign, nonatomic) BOOL isSelectedAll;
-//立即抢购
+//立即转转
 @property (strong, nonatomic) UIView *viBuy;
 @property (strong, nonatomic) UILabel *lblMoney;
 @property (strong, nonatomic) UIView *viSend;
@@ -124,7 +124,7 @@
         [btnBuy setBackgroundColor:ColorHeader];
         [btnBuy setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [btnBuy setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
-        [btnBuy setTitle:@"立即抢购" forState:UIControlStateNormal];
+        [btnBuy setTitle:@"立即转转" forState:UIControlStateNormal];
         [btnBuy.titleLabel setFont:[UIFont systemFontOfSize:15.0]];
         [btnBuy handleControlEvent:UIControlEventTouchUpInside withBlock:^{
             [self clickButtonCreateOrder:btnBuy];

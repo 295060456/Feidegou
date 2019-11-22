@@ -22,11 +22,12 @@ UIScrollViewDelegate
 
 @implementation SearchView
 
--(instancetype)init{
+-(instancetype)initWithBtnTitleMutArr:(NSArray <NSString *>*)btnTitleMutArr{
     if (self = [super init]) {
+        self.btnTitleArr = btnTitleMutArr;
         self.scrollView.alpha = 1;
         self.backgroundColor = kWhiteColor;
-        for (int i = 0; i < self.btnTitleMutArr.count; i++) {
+        for (int i = 0; i < btnTitleMutArr.count; i++) {
             MMButton *btn = MMButton.new;
 //            btn.backgroundColor = RandomColor;
             [UIView cornerCutToCircleWithView:btn
@@ -34,7 +35,7 @@ UIScrollViewDelegate
             [UIView colourToLayerOfView:btn
                              WithColour:KLightGrayColor
                          AndBorderWidth:.5f];
-            [btn setTitle:self.btnTitleMutArr[i]
+            [btn setTitle:btnTitleMutArr[i]
                  forState:UIControlStateNormal];
             [btn setImage:kIMG(@"双向箭头_1")
                  forState:UIControlStateNormal];
@@ -78,7 +79,7 @@ UIScrollViewDelegate
         _scrollView = UIScrollView.new;
 //        _scrollView.alwaysBounceHorizontal = YES;
         _scrollView.pagingEnabled = YES;
-        _scrollView.contentSize = CGSizeMake((SCALING_RATIO(100) + SCALING_RATIO(10)) * (self.btnTitleMutArr.count) + SCALING_RATIO(5),
+        _scrollView.contentSize = CGSizeMake((SCALING_RATIO(100) + SCALING_RATIO(10)) * (self.btnTitleArr.count) + SCALING_RATIO(5),
                                              55);
         _scrollView.delegate = self;
         _scrollView.showsHorizontalScrollIndicator = YES;
@@ -87,18 +88,6 @@ UIScrollViewDelegate
             make.edges.equalTo(self);
         }];
     }return _scrollView;
-}
-
--(NSMutableArray<NSString *> *)btnTitleMutArr{
-    if (!_btnTitleMutArr) {
-        _btnTitleMutArr = NSMutableArray.array;
-        [_btnTitleMutArr addObject:@"已支付"];
-        [_btnTitleMutArr addObject:@"已发单"];
-        [_btnTitleMutArr addObject:@"已接单"];
-        [_btnTitleMutArr addObject:@"已作废"];
-        [_btnTitleMutArr addObject:@"已发货"];
-        [_btnTitleMutArr addObject:@"已完成"];
-    }return _btnTitleMutArr;
 }
 
 -(NSMutableArray<MMButton *> *)btnMutArr{

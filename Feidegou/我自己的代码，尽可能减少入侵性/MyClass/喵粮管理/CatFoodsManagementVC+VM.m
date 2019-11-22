@@ -57,6 +57,13 @@ NSString *tokenStr;
                 market_price_co = self.dataMutArr[4];
                 Foodsell = self.dataMutArr[5];
                 
+                if ([weixin_qr_img intValue] == -1) {
+                    [self showAlertViewTitle:@"请重新上传收款二维码"
+                                     message:@"现在去上传？"
+                                 btnTitleArr:@[@"稍后再说",@"好的"]
+                              alertBtnAction:@[@"Later",@"OK"]];
+                }
+                
                 self.tableView.mj_footer.hidden = NO;
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView.mj_footer endRefreshing];
@@ -71,5 +78,7 @@ NSString *tokenStr;
         }
     }];
 }
+
+
 
 @end

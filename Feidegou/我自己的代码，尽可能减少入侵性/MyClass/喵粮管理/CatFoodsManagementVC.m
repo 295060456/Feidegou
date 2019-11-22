@@ -112,6 +112,10 @@ UITableViewDataSource
     [self networking];
 }
 
+-(void)Later{//稍后去上传
+    NSLog(@"稍后去上传");
+}
+
 -(void)OK{
     @weakify(self)
     [ShopReceiptQRcodeVC pushFromVC:self_weak_

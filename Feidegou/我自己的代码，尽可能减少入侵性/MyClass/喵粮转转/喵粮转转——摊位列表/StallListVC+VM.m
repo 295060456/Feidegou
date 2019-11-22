@@ -11,10 +11,9 @@
 @implementation StallListVC (VM)
 
 //Catfoodbooth_rob_agoUrl 喵粮抢摊位机会查询
--(void)check:(StallListModel *)model{
+-(void)check{
     extern NSString *randomStr;
     NSDictionary *dic = @{
-        @"order_id":model.ID,
         @"order_type":[NSNumber numberWithInt:1]
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
@@ -28,7 +27,13 @@
     @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         @strongify(self)
-
+        if ([response isKindOfClass:[NSString class]]) {
+            NSString *str = (NSString *)response;
+            if ([NSString isNullString:str]) {
+                [self onlinePeople:@"Online"];
+                [self.tableView.mj_header beginRefreshing];
+            }
+        }
     }];
 }
 //Catfood_statisticsUrl 统计转转在线人数 35

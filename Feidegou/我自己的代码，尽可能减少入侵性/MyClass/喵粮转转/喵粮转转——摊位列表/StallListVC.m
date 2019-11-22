@@ -78,8 +78,8 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.tableView.mj_header beginRefreshing];
-    [self onlinePeople:@"Online"];
+    #warning 如果有机会那么进入下个页面
+    [self check];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -97,8 +97,7 @@ UITableViewDataSource
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
     }
-//    NSString *str = [BaseWebSocketURL stringByAppendingString:[NSString stringWithFormat:@"/%@",@"500"]];
-    [[SocketRocketUtility instance] SRWebSocketOpenWithURLString:[BaseWebSocketURL stringByAppendingString:[NSString stringWithFormat:@"/%@",@"500"]]];
+    [[SocketRocketUtility instance] SRWebSocketOpenWithURLString:BaseWebSocketURL];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
@@ -115,8 +114,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-#warning 如果有机会那么进入下个页面
-    [self check:self.dataMutArr[indexPath.row]];
+
     //如果有机会那么进入下个页面
     @weakify(self)
     [OrderDetailVC ComingFromVC:self_weak_
@@ -195,6 +193,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.dataSource = self;
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
+        _tableView.ly_emptyView = [LYEmptyView emptyViewWithImageStr:@"noData"
+                                                            titleStr:@"暂无数据"
+                                                           detailStr:@""];
         _tableView.mj_footer.hidden = YES;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];

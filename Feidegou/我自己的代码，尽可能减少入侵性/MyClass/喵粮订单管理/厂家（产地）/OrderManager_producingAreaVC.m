@@ -27,6 +27,7 @@ UITableViewDataSource
 @property(nonatomic,assign)BOOL isFirstComing;
 @property(nonatomic,assign)BOOL isDelCell;
 @property(nonatomic,assign)BOOL selected;
+@property(nonatomic,strong)NSMutableArray <NSString *>*btnTitleMutArr;
 
 @end
 
@@ -291,7 +292,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(SearchView *)searchView{
     if (!_searchView) {
-        _searchView = SearchView.new;
+        _searchView = [[SearchView alloc]initWithBtnTitleMutArr:self.btnTitleMutArr];
         @weakify(self)
         [_searchView actionBlock:^(id data) {
             @strongify(self)
@@ -300,18 +301,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             }
             if ([data isKindOfClass:[MMButton class]]) {
                 MMButton *btn = (MMButton *)data;
-                if ([btn.titleLabel.text isEqualToString:@"已支付"]) {
-                    [self networking_type:BusinessType_HadPaid];
-                }else if ([btn.titleLabel.text isEqualToString:@"已发单"]){
-                    [self networking_type:BusinessType_HadBilled];
-                }else if ([btn.titleLabel.text isEqualToString:@"已接单"]){
+                if ([btn.titleLabel.text isEqualToString:@"已下单"]) {//2
                     [self networking_type:BusinessType_HadOrdered];
-                }else if ([btn.titleLabel.text isEqualToString:@"已作废"]){
-                    [self networking_type:BusinessType_HadCanceled];
-                }else if ([btn.titleLabel.text isEqualToString:@"已发货"]){
+                }else if ([btn.titleLabel.text isEqualToString:@"已支付"]){//0
+                    [self networking_type:BusinessType_HadPaid];
+                }else if ([btn.titleLabel.text isEqualToString:@"已发货"]){//4
                     [self networking_type:BusinessType_HadConsigned];
-                }else if ([btn.titleLabel.text isEqualToString:@"已完成"]){
-                    [self networking_type:BusinessType_HadCompleted];
                 }else{}
             }
         }];
@@ -331,5 +326,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _dataMutArr;
 }
 
+-(NSMutableArray<NSString *> *)btnTitleMutArr{
+    if (!_btnTitleMutArr) {
+        _btnTitleMutArr = NSMutableArray.array;
+        [_btnTitleMutArr addObject:@"已下单"];
+        [_btnTitleMutArr addObject:@"已支付"];
+        [_btnTitleMutArr addObject:@"已发货"];
+    }return _btnTitleMutArr;
+}
 
 @end

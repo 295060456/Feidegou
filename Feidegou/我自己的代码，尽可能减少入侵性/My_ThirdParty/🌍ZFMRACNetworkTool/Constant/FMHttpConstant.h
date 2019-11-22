@@ -5,7 +5,6 @@
 //  Created by todriver02 on 2018/7/31.
 //  Copyright © 2018年 zhufaming. All rights reserved.
 //
-
 /**
  *  网络请求相关 宏定义
  */
@@ -29,7 +28,8 @@
 #define AK API(API(DanielUrL,@"/SHOPAPP2.0.1/appShop7"),@"/query.do")//登录
 #define YQM API(API(DanielUrL,@"/SHOPAPP2.0/appShop7"),@"/write.do")//邀请码
 
-#define WebSocketLocalhost @"10.1.41.158:8080"
+//#define WebSocketLocalhost @"10.1.41.158:8888/MFW1.0"
+#define WebSocketLocalhost @"10.10.37.211:8888/MFW1.0"
 #define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@/websocket",WebSocketLocalhost]
 
 #pragma mark —— 线上环境

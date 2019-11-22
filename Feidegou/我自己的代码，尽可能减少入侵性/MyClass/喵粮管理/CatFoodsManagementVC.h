@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)NSMutableArray *dataMutArr;
 
+-(void)OK;//跳转二维码页面
+-(void)Later;//稍后去上传
+
 + (instancetype)pushFromVC:(UIViewController *)rootVC
              requestParams:(nullable id)requestParams
                    success:(DataBlock)block

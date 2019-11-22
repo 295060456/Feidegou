@@ -1978,13 +1978,13 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		8B571AAB23874836009624D8 /* New Group */ = {
+		8B571AAB23874836009624D8 /* ContentBaseViewController */ = {
 			isa = PBXGroup;
 			children = (
 				8B571AB823875686009624D8 /* ContentBaseViewController.h */,
 				8B571AB923875686009624D8 /* ContentBaseViewController.m */,
 			);
-			path = "New Group";
+			path = ContentBaseViewController;
 			sourceTree = "<group>";
 		};
 		8B716463236FE784009BA9EF /* UIViewController */ = {
@@ -2101,7 +2101,7 @@
 			path = "方案一";
 			sourceTree = "<group>";
 		};
-		8B86E06923865400004D4C0A /* 抢购 */ = {
+		8B86E06923865400004D4C0A /* 转转 */ = {
 			isa = PBXGroup;
 			children = (
 				8B86E07223865514004D4C0A /* OrderManager_panicBuyingVC.h */,
@@ -2111,7 +2111,7 @@
 				8B16F03923867E23003941B4 /* OrderManager_panicBuyingVC+VM.h */,
 				8B16F03A23867E23003941B4 /* OrderManager_panicBuyingVC+VM.m */,
 			);
-			path = "抢购";
+			path = "转转";
 			sourceTree = "<group>";
 		};
 		8B86E06A23865408004D4C0A /* 厂家（产地） */ = {
@@ -2367,6 +2367,8 @@
 		8BB2D2942366C7310047D0E2 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				8B16F0532386ADDA003941B4 /* 搜索框 */,
+				8B571AAB23874836009624D8 /* ContentBaseViewController */,
 				8BB2D29F2366C7310047D0E2 /* 🌍ZFMRACNetworkTool */,
 				8BB1E8252376A2F300871ECA /* UQID */,
 				8BB1E8112375B56000871ECA /* WebSocket */,
@@ -2597,10 +2599,8 @@
 		8BB2D2F72366C7310047D0E2 /* 喵粮订单管理 */ = {
 			isa = PBXGroup;
 			children = (
-				8B571AAB23874836009624D8 /* New Group */,
 				8B86E05F23864EE4004D4C0A /* 方案一 */,
-				8B16F0532386ADDA003941B4 /* 搜索框 */,
-				8B86E06923865400004D4C0A /* 抢购 */,
+				8B86E06923865400004D4C0A /* 转转 */,
 				8B86E06A23865408004D4C0A /* 厂家（产地） */,
 				8B86E06B23865419004D4C0A /* 批发 */,
 				8B86E06023864F1A004D4C0A /* OrderListVC.h */,
