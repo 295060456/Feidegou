@@ -19,7 +19,7 @@ typedef enum : NSUInteger {//按钮状态，下拉刷新的时候，按照谁进
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface OrderListVC : BaseVC
+@interface OrderListVC : ContentBaseViewController
 
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC

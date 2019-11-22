@@ -10,9 +10,6 @@
 #import "BaseVC.h"
 
 @interface BaseVC ()
-//<
-//JXCategoryListContentViewDelegate
-//>
 
 @property(nonatomic,copy)DataBlock willComingBlock;
 @property(nonatomic,copy)DataBlock didComingBlock;
@@ -45,6 +42,10 @@
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
     return UIStatusBarStyleLightContent;   //状态栏字体白色 UIStatusBarStyleDefault黑色
+}
+#pragma mark - JXCategoryListContentViewDelegate
+- (UIView *)listView {
+    return self.view;
 }
 #pragma mark —— 截取 UIViewController 手势返回事件 这两个方法进出均调用，只不过进场的时候parent有值，出场的时候是nil
 - (void)willMoveToParentViewController:(UIViewController*)parent{
@@ -100,16 +101,6 @@
 
 -(void)BRStringPickerViewBlock:(DataBlock)block{
     self.brStringPickerViewBlock = block;
-}
-#pragma mark —— JXCategoryListContentViewDelegate
-/**
- 如果列表是VC，就返回VC.view
- 如果列表是View，就返回View自己
-
- @return 返回列表视图
- */
-- (UIView *)listView{
-    return self.view;
 }
 
 - (void)AFNReachability {
