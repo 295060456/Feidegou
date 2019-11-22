@@ -33,6 +33,14 @@
 //#define AK API(BaseUrl2,@"/query.do")//登录
 //#define YQM API(BaseUrl2,@"/write.do")//邀请码
 //#define BaseWebSocketURL @"ws://www.miaoxiaodian.shop/websocket/"//喵粮转转
+//商城服务器正式地址
+#define BASE_URL @"http://10.1.41.174:8080"
+#define RELATIVE_PATH_QUERY @"SHOPAPP3.0/appShop7/query.do?"
+#define RELATIVE_PATH_WRITE @"SHOPAPP3.0/appShop7/write.do?"
+//正式
+#define Alipay_url_add_money [NSString stringWithFormat:@"%@/alipay/pay_notify.do", BASE_URL]
+#define Alipay_url_add_time [NSString stringWithFormat:@"%@/alipay/adServiceMoney.do", BASE_URL]
+#define Alipay_url_invite_code [NSString stringWithFormat:@"%@/alipay/inviteCode.do", BASE_URL]
 
 /********ImgBaseURL*****/
 #define ImgBaseURL @""
@@ -41,10 +49,10 @@
 #define buyer_CatfoodRecord_listURL @"/catfoodapp/user/seller/CatfoodRecord_list.htm"//喵粮订单列表 post 2 Y
 #define buyer_CatfoodRecord_checkURL @"/catfoodapp/user/seller/CatfoodRecord_check.htm"//喵粮订单查看 post 3 Y
 #define seller_CatfoodRecord_goodsURL @"/catfoodapp/user/seller/CatfoodRecord_goods.htm"//喵粮订单发货 post 4 没完 Y
-#define CatfoodRecord_delURL @"/catfoodapp/user/seller/CatfoodRecord_del.htm"//喵粮订单撤销 post 5 Y PIC 不加catfoodapp
+#define CatfoodRecord_delURL @"/user/seller/CatfoodRecord_del.htm"//喵粮订单撤销 post 5 Y PIC 不加catfoodapp
 #define CatfoodCOURL @"/catfoodapp/user/buyer/CatfoodCO.htm"//喵粮产地列表 post 6 Y
 #define CatfoodCO_BuyerURL @"/catfoodapp/user/buyer/CatfoodCO_buyer.htm"//喵粮产地购买 post 7 Y
-#define CatfoodCO_payURL @"/catfoodapp/user/buyer/CatfoodCO_pay.htm"//喵粮产地购买已支付 post 8 Y 不加catfoodapp
+#define CatfoodCO_payURL @"/user/buyer/CatfoodCO_pay.htm"//喵粮产地购买已支付 post 8 Y 不加catfoodapp
 #define CatfoodCO_pay_delURL @"/catfoodapp/user/buyer/CatfoodCO_pay_del.htm"//喵粮产地购买取消 9 Y
 #define CatfoodSale_listURL @"/catfoodapp/user/seller/CatfoodSale_list.htm"//喵粮批发管理 post 10
 #define CatfoodSaleOrder_listURL @"/catfoodapp/user/seller/CatfoodSaleOrder_list.htm"//喵粮批发订单管理 post 11 VIP
@@ -54,7 +62,7 @@
 #define CatfoodSale_goodsURL @"/catfoodapp/user/seller/CatfoodSale_goods.htm"//喵粮批发订单发货 post 14
 #define CatfoodSaleURL @"/catfoodapp/user/buyer/CatfoodSale.htm"//喵粮批发市场 post 15 高级 Y
 #define CatfoodSale_BuyeroneURL @"/catfoodapp/user/buyer/CatfoodSale_Buyerone.htm"//喵粮批发购买 post 16 Y
-#define CatfoodSale_payURL @"/catfoodapp/user/buyer/CatfoodSale_pay.htm"//喵粮批发已支付 post 17 Y 不加catfoodapp
+#define CatfoodSale_payURL @"/user/buyer/CatfoodSale_pay.htm"//喵粮批发已支付 post 17 Y 不加catfoodapp
 #define CatfoodSale_pay_delURL @"/catfoodapp/user/buyer/CatfoodSale_pay_del.htm"//喵粮批发取消 post 18 Y
 #define CatfoodTrainURL @"/catfoodapp/user/buyer/CatfoodTrain.htm"//喵粮转转 post 19 说是废弃了
 //#define //喵粮抢摊位 20
@@ -67,7 +75,7 @@
 #define CatfoodRecord_goodsURL @"/catfoodapp/user/buyer/CatfoodMeowFood.htm"//喵粮赠送 post 23 Y
 #define CatfoodOrdernumberUpdateURL @"/catfoodapp/user/seller/CatfoodOrdernumberUpdate.htm"//喵粮订单数量修改 post 24 ?
 #define CatfoodBooth_listURL @"/catfoodapp/user/seller/CatfoodBooth_list.htm"//抢摊位列表 post 25
-#define Catfood_qr_addURL @"/catfoodapp/user/seller/Catfood_qr_add.htm"//上传二维码 post 26 Y 不加catfoodapp
+#define Catfood_qr_addURL @"/user/seller/Catfood_qr_add.htm"//上传二维码 post 26 Y 不加catfoodapp
 #define CatfoodWeixin_quarURL @"/catfoodapp/user/seller/CatfoodWeixin_quary.htm"//展示二维码 post 27 Y
 #define CatfoodPayment_quaryURL @"/catfoodapp/user/seller/CatfoodPayment_quary.htm"//发布批发市场展示可选支付方式 post 28 Y
 #define CatfoodPayment_setURL @"/catfoodapp/user/seller/CatfoodPayment_set.htm"//设置支付方式 Y

@@ -214,15 +214,15 @@
 }
 
 - (IBAction)clickButtonReg:(UIButton *)sender {
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
-//    RegisterViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
-//    [self.navigationController pushViewController:controller animated:YES];
-    @weakify(self)
-    [RegisterVC ComingFromVC:self_weak_
-                   withStyle:ComingStyle_PUSH
-               requestParams:nil
-                     success:^(id data) {}
-                    animated:YES];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
+    RegisterViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
+    [self.navigationController pushViewController:controller animated:YES];
+//    @weakify(self)
+//    [RegisterVC ComingFromVC:self_weak_
+//                   withStyle:ComingStyle_PUSH
+//               requestParams:nil
+//                     success:^(id data) {}
+//                    animated:YES];
     
 }
 - (IBAction)clickButtonForgetPsw:(UIButton *)sender {

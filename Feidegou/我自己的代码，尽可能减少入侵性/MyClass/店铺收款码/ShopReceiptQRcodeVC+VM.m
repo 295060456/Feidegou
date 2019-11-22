@@ -64,6 +64,9 @@
                    forKey:@"identity"];
     
     __block NSData *picData = [UIImage imageZipToData:image];
+    
+    NSString *str = API(BaseUrl, Catfood_qr_addURL);
+    
     [mgr POST:API(BaseUrl, Catfood_qr_addURL)
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataMutDic], randomStr),
@@ -82,7 +85,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
         NSLog(@"%@",str);
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(@"str");
+            Toast(str);
         }];
     }
       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

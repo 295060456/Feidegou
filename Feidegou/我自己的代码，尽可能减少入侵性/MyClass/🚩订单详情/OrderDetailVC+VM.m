@@ -44,7 +44,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
         NSLog(@"%@",str);
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(@"str");
+            Toast(str);
         }];
     }
       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -182,7 +182,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
             NSLog(@"%@",str);
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                Toast(@"str");
+                Toast(str);
             }];
         }
           success:^(NSURLSessionDataTask * _Nonnull task,
@@ -290,7 +290,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
         NSLog(@"%@",str);
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(@"str");
+            Toast(str);
         }];
     }
       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

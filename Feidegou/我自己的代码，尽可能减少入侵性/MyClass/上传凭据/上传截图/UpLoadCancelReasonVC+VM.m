@@ -51,7 +51,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
         NSLog(@"%@",str);
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(@"str");
+            Toast(str);
         }];
     }
       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -138,7 +138,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
             NSLog(@"%@",str);
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                Toast(@"str");
+                Toast(str);
             }];
         }
           success:^(NSURLSessionDataTask * _Nonnull task,
@@ -175,6 +175,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     __block NSData *picData = [UIImage imageZipToData:pic];
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
     [mgr POST:API(BaseUrl, CatfoodSale_payURL)
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
@@ -193,7 +194,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
         NSLog(@"%@",str);
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(@"str");
+            Toast(str);
         }];
     }
       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

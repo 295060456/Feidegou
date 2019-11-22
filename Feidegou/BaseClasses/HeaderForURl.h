@@ -8,28 +8,6 @@
 
 #ifndef JiandaobaoVendor_HeaderForURl_h
 #define JiandaobaoVendor_HeaderForURl_h
-//正式
-#define Alipay_url_add_money [NSString stringWithFormat:@"%@/alipay/pay_notify.do", BASE_URL]
-#define Alipay_url_add_time [NSString stringWithFormat:@"%@/alipay/adServiceMoney.do", BASE_URL]
-#define Alipay_url_invite_code [NSString stringWithFormat:@"%@/alipay/inviteCode.do", BASE_URL]
-//商城服务器正式地址
-//#define BASE_URL @"http://feidegou.com"
-//#define BASE_URL @"http://116.62.46.26"
-//#define BASE_URL @"http://www.miaoxiaodian.shop"
-#define BASE_URL @"http://10.1.41.174:8080"
-
-//#define RELATIVE_PATH_QUERY @"APP/appShop7/query.do?"
-//#define RELATIVE_PATH_WRITE @"APP/appShop7/write.do?"
-
-//#define RELATIVE_PATH_QUERY @"SHOPAPP2.0/appShop7/query.do?"
-#define RELATIVE_PATH_QUERY @"SHOPAPP3.0/appShop7/query.do?"
-
-#define RELATIVE_PATH_WRITE @"APP/appShop7/write.do?"
-
-//商城服务器测试地址
-//#define BASE_URL @"http://10.1.41.174:8080"
-//#define RELATIVE_PATH_QUERY @"APP/appShop7/query.do?"
-//#define RELATIVE_PATH_WRITE @"APP/appShop7/write.do?"
 
 //sotryBoradName
 #define StoryboardExchageArea @"ExhangeArea"
