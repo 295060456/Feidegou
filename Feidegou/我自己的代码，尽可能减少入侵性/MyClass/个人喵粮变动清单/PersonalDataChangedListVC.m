@@ -175,7 +175,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     PersonalDataChangedListTBVCell *cell = [PersonalDataChangedListTBVCell cellWith:tableView];
     if (self.dataMutArr.count) {
-        [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+        [cell richElementsInCellWithModel:self.dataMutArr[indexPath.section]];
     }return cell;
 }
 
@@ -256,12 +256,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                      reuseIdentifier:ReuseIdentifier
                                                               margin:SCALING_RATIO(5)];
         [UIView cornerCutToCircleWithView:cell.contentView
-                          AndCornerRadius:50.f];
+                          AndCornerRadius:5.f];
         [UIView colourToLayerOfView:cell.contentView
                          WithColour:KLightGrayColor
                      AndBorderWidth:.1f];
         [UIView cornerCutToCircleWithView:cell
-                          AndCornerRadius:50.f];
+                          AndCornerRadius:5.f];
         [UIView colourToLayerOfView:cell
                          WithColour:KLightGrayColor
                      AndBorderWidth:.1f];

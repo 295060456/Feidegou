@@ -84,7 +84,7 @@ UITableViewDataSource
     //去下架
     self.wholesaleMarket_VipModel = self.dataMutArr[self.indexPathRow];
     if (self.wholesaleMarket_VipModel) {
-        [self CatfoodSale_delURL_networking];
+        [self CatfoodSale_delURL_networking:(long)self.indexPathRow];
     }else{
         Toast(@"数据异常");
     }

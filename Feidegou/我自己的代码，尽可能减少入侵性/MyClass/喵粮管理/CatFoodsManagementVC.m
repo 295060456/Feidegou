@@ -109,7 +109,7 @@ UITableViewDataSource
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-    [self networking];
+//    [self networking];
 }
 
 -(void)Later{//稍后去上传

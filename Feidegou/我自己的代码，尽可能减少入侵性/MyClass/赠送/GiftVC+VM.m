@@ -12,6 +12,7 @@
 
 -(void)netWorking{
     extern NSString *randomStr;
+    [self.view endEditing:YES];
     if (![NSString isNullString:self.User_phone] &&
         ![NSString isNullString:self.value]) {
         NSDictionary *dictionary;

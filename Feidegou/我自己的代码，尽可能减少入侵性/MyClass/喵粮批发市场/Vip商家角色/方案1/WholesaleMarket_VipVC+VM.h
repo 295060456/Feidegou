@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WholesaleMarket_VipVC (VM)
 
 -(void)netWorking;
--(void)CatfoodSale_delURL_networking;
+-(void)CatfoodSale_delURL_networking:(long)indexPathRow;
 
 @end
 

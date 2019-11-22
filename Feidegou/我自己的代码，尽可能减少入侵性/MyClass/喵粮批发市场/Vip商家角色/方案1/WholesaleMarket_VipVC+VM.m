@@ -46,7 +46,7 @@
     }];
 }
 
--(void)CatfoodSale_delURL_networking{
+-(void)CatfoodSale_delURL_networking:(long)indexPathRow{
     extern NSString *randomStr;
     NSDictionary *dataDic = @{
         @"order_id":self.wholesaleMarket_VipModel.ID
@@ -64,7 +64,11 @@
         @strongify(self)
         if (response) {
             NSLog(@"--%@",response);
-            [self.tableView.mj_header beginRefreshing];
+            Toast(@"下架成功");
+            [self.dataMutArr removeObjectAtIndex:indexPathRow];
+            [self.tableView reloadData];
+//            [self.tableView.mj_header beginRefreshing];
+            
         }
     }];
 }

@@ -5,29 +5,18 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
-         <BreakpointContent
-            uuid = "3586BE80-4EA4-48E9-BB8A-A45FDC4A0F4A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            scope = "1"
-            stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8DF21925-2BCF-425D-875D-E51464F3FA28"
+            uuid = "DEA5B297-4BD4-4497-B7A6-6452C5E80539"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/My_ThirdParty/&#x1f30d;ZFMRACNetworkTool/Request/FMARCNetwork.m"
+            filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x55b5;&#x7cae;&#x6279;&#x53d1;&#x5e02;&#x573a;/Vip&#x5546;&#x5bb6;&#x89d2;&#x8272;/&#x65b9;&#x6848;1/WholesaleMarket_VipVC+VM.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
-            landmarkName = "-requestNetworkData:"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
+            landmarkName = "-CatfoodSale_delURL_networking:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
