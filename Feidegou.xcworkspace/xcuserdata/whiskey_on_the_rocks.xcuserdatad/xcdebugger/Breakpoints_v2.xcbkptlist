@@ -7,28 +7,65 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DC26D7EB-8C0F-4F03-8386-E0ACF4942958"
+            uuid = "8AB929F3-F394-4AB8-9F3E-C1B7F43F0555"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x6ce8;&#x518c;/RegisterVC.m"
+            filePath = "Feidegou/BaseClasses/JJHttpClient.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "-didTapCheckBox:"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "-newParameters:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E77607DE-9F08-4F23-912C-DB3CF20405C4"
+            uuid = "1C089664-3B14-4EF6-8A52-9DD96969FD4C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            scope = "1"
-            stopOnStyle = "0">
+            filePath = "Feidegou/BaseClasses/JJHttpClient.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "-requestPOSTWithRelativePathByBaseURL:andRelativePath:parameters:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0E256087-1B4A-4DD9-B78D-298662362645"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Feidegou/BaseClasses/JJHttpClient.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "-requestPOSTWithRelativePath:parameters:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AB2F2A35-1097-415C-A086-C0C825817293"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Feidegou/BaseClasses/JJHttpClient.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
+            landmarkName = "-paramStringWithStype:data:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

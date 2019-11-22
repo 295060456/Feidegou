@@ -16,12 +16,12 @@
 @end
 
 @implementation JJHttpClient
-
 //每个接口都加 user_id 和 identity
 -(NSDictionary *)newParameters:(NSDictionary *)oldParameters{
     NSMutableDictionary *dataMutDic = [NSMutableDictionary dictionaryWithDictionary:oldParameters];
     [dataMutDic setValue:[YDDevice getUQID] forKey:@"identity"];
-    
+    [dataMutDic setObject:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] forKey:@"user_id"];
+    [dataMutDic setObject:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] forKey:@"userId"];
     if ([NSString isNullString:dataMutDic[@"user_id"]]) {
         [dataMutDic removeObjectForKey:@"user_id"];
     }
@@ -174,8 +174,6 @@
     NSDictionary *newparameters = [self newParameters:data];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params addEntriesFromDictionary:newparameters];//??
-    [params setObject:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] forKey:@"user_id"];
-    [params setObject:[NSString stringStandard:[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId] forKey:@"userId"];
     D_NSLog(@"data is %@",newparameters);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     //    设置为中国时区

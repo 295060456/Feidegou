@@ -7,7 +7,22 @@
 //
 
 #import "RegisterVC+VM.h"
+#import "JJHttpClient+Login.h"
 
 @implementation RegisterVC (VM)
+
+-(void)authCode:(NSString *)iPhone{
+    
+    NSString *str = AK;
+    NSLog(@"");
+    
+    self.disposable = [[JJHttpClient.new requestPswGetBackPHONE:iPhone andType:@""] subscribeNext:^(id  _Nullable x) {
+        NSLog(@"");
+    } error:^(NSError * _Nullable error) {
+        NSLog(@"");
+    } completed:^{
+        NSLog(@"");
+    }];
+}
 
 @end

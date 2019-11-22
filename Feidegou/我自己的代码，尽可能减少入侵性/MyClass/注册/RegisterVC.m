@@ -7,6 +7,7 @@
 //
 
 #import "RegisterVC.h"
+#import "RegisterVC+VM.h"
 
 @interface RegisterTBVCell ()<UITextFieldDelegate>
 
@@ -14,6 +15,8 @@
 @property(nonatomic,strong)UITextField *textField;
 
 @property(nonatomic,assign)__block int time;
+@property(nonatomic,copy)DataBlock block;
+
 
 @end
 
@@ -115,6 +118,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     RegisterTBVCell *cell = [RegisterTBVCell cellWith:tableView];
     [cell richElementsInCellWithModel:indexPath];
+    @weakify(self)
+    [cell actionBlock:^(id data) {
+        @strongify(self)
+        if ([data isKindOfClass:[UITextField class]]) {
+            UITextField *textField = (UITextField *)data;
+            [self authCode:textField.text];
+        }
+    }];
     return cell;
 }
 
@@ -264,14 +275,47 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         }else{}
     }
 }
+#pragma mark —— UITextFieldDelegate
+//询问委托人是否应该在指定的文本字段中开始编辑
+//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
+//告诉委托人在指定的文本字段中开始编辑
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+
+}
+//询问委托人是否应在指定的文本字段中停止编辑
+//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
+//告诉委托人对指定的文本字段停止编辑
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    
+}
+//告诉委托人对指定的文本字段停止编辑
+//- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
+//询问委托人是否应该更改指定的文本
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
+//询问委托人是否应删除文本字段的当前内容
+//- (BOOL)textFieldShouldClear:(UITextField *)textField;
+//询问委托人文本字段是否应处理按下返回按钮
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    return YES;
+}
+
+-(void)actionBlock:(DataBlock)block{
+    self.block = block;
+}
+
 #pragma mark —— 点击事件
 -(void)gettingAuthCodeClickEvent:(UIButton *)sender{
+    [self endEditing:YES];
     [self.gettingAuthCode timeFailBeginFrom:30];
+    if (self.block) {
+        self.block(self.textField);
+    }
 }
 #pragma mark —— lazyLoad
 -(UITextField *)textField{
     if (!_textField) {
         _textField = UITextField.new;
+        _textField.keyboardType = UIKeyboardTypePhonePad;
         _textField.delegate = self;
         [self.contentView addSubview:_textField];
         [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -301,7 +345,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         _gettingAuthCode.bgEndColor = kRedColor;
         _gettingAuthCode.titleBeginStr = @"获取验证码";
         _gettingAuthCode.titleEndStr = @"重新获取";
-        [_gettingAuthCode timeFailBeginFrom:self.time == 0 ? 10 : self.time];
         [_gettingAuthCode addTarget:self
                              action:@selector(gettingAuthCodeClickEvent:)
                    forControlEvents:UIControlEventTouchUpInside];
