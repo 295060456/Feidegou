@@ -248,7 +248,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     self.countdownView.alpha = 1;
-//    self.imgView.alpha = 1;
     if ([model isKindOfClass:[StallListModel class]]) {
         StallListModel *stallListModel = (StallListModel *)model;
         self.textLabel.text = [NSString stringWithFormat:@"%@求购%@g喵粮",stallListModel.byname,stallListModel.quantity];
@@ -264,21 +263,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 #pragma mark —— lazyLoad
-//-(UIImageView *)imgView{
-//    if (!_imgView) {
-//        _imgView = UIImageView.new;
-//        _imgView.image = kIMG(@"抢");
-//        [self.contentView addSubview:_imgView];
-//        [_imgView mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.centerY.equalTo(self.contentView);
-//            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-//            CGFloat h = MIN(SCALING_RATIO(30), self.contentView.mj_h);
-//            make.size.mas_equalTo(CGSizeMake(h, h));
-//        }];
-//        [self.contentView layoutIfNeeded];
-//    }return _imgView;
-//}
-
 -(CountdownView *)countdownView{
     if (!_countdownView) {
         _countdownView = CountdownView.new;

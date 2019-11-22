@@ -541,7 +541,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        
+        _tableView.ly_emptyView = [LYEmptyView emptyViewWithImageStr:@"noData"
+                                                            titleStr:@"暂无数据"
+                                                           detailStr:@""];
         _tableView.contentInset = UIEdgeInsetsMake(0,
                                                    0,
                                                    100,

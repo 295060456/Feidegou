@@ -5,9 +5,25 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DC26D7EB-8C0F-4F03-8386-E0ACF4942958"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x6ce8;&#x518c;/RegisterVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
+            landmarkName = "-didTapCheckBox:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            uuid = "E8B52AF9-BF1F-4F23-9C94-F4BF31E072E3"
+            uuid = "E77607DE-9F08-4F23-912C-DB3CF20405C4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"

@@ -268,7 +268,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 //        }];
     }
 }
-
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{
     if (!_tableView) {

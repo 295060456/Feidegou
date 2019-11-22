@@ -172,6 +172,8 @@
 		8BCB98DB23715D660063E01E /* File in Resources */ = {isa = PBXBuildFile; fileRef = 8BCB98D823715D650063E01E /* File */; };
 		8BCB98DC23715D660063E01E /* AESCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98D923715D660063E01E /* AESCipher.m */; };
 		8BCB993423719DEA0063E01E /* GiftVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB993323719DEA0063E01E /* GiftVC+VM.m */; };
+		8BEAAFBB2387F255008D7F1D /* RegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAAFBA2387F255008D7F1D /* RegisterVC.m */; };
+		8BEAAFBE2387F4B5008D7F1D /* RegisterVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAAFBD2387F4B5008D7F1D /* RegisterVC+VM.m */; };
 		8BEAE8812381138C006E40A4 /* WholesaleMarket_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87C2381138C006E40A4 /* WholesaleMarket_VipVC.m */; };
 		8BEAE8822381138C006E40A4 /* WholesaleMarket_VipVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87D2381138C006E40A4 /* WholesaleMarket_VipVC+VM.m */; };
 		8BEAE8832381138C006E40A4 /* WholesaleMarket_VipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87F2381138C006E40A4 /* WholesaleMarket_VipModel.m */; };
@@ -992,6 +994,10 @@
 		8BCB98DA23715D660063E01E /* AESCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCipher.h; sourceTree = "<group>"; };
 		8BCB993223719DEA0063E01E /* GiftVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GiftVC+VM.h"; sourceTree = "<group>"; };
 		8BCB993323719DEA0063E01E /* GiftVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GiftVC+VM.m"; sourceTree = "<group>"; };
+		8BEAAFB92387F255008D7F1D /* RegisterVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterVC.h; sourceTree = "<group>"; };
+		8BEAAFBA2387F255008D7F1D /* RegisterVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterVC.m; sourceTree = "<group>"; };
+		8BEAAFBC2387F4B5008D7F1D /* RegisterVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RegisterVC+VM.h"; sourceTree = "<group>"; };
+		8BEAAFBD2387F4B5008D7F1D /* RegisterVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RegisterVC+VM.m"; sourceTree = "<group>"; };
 		8BEAE87B2381138C006E40A4 /* WholesaleMarket_VipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_VipModel.h; sourceTree = "<group>"; };
 		8BEAE87C2381138C006E40A4 /* WholesaleMarket_VipVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_VipVC.m; sourceTree = "<group>"; };
 		8BEAE87D2381138C006E40A4 /* WholesaleMarket_VipVC+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WholesaleMarket_VipVC+VM.m"; sourceTree = "<group>"; };
@@ -2494,6 +2500,7 @@
 		8BB2D2DC2366C7310047D0E2 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8BEAAFB82387F222008D7F1D /* 注册 */,
 				8BB2D2FA2366C7310047D0E2 /* 喵粮管理 */,
 				8B86E04B238570A1004D4C0A /* 个人喵粮变动清单 */,
 				8BAC1F1823826F950084B6B4 /* 喵粮会话 */,
@@ -2862,6 +2869,17 @@
 				8BCB98D823715D650063E01E /* File */,
 			);
 			path = AESCipher;
+			sourceTree = "<group>";
+		};
+		8BEAAFB82387F222008D7F1D /* 注册 */ = {
+			isa = PBXGroup;
+			children = (
+				8BEAAFB92387F255008D7F1D /* RegisterVC.h */,
+				8BEAAFBA2387F255008D7F1D /* RegisterVC.m */,
+				8BEAAFBC2387F4B5008D7F1D /* RegisterVC+VM.h */,
+				8BEAAFBD2387F4B5008D7F1D /* RegisterVC+VM.m */,
+			);
+			path = "注册";
 			sourceTree = "<group>";
 		};
 		8BFB45AB237CF32100EDE418 /* 方案1 */ = {
@@ -4714,6 +4732,7 @@
 				C42CD185213CC2640096675F /* DefaultLoadMoreView.m in Sources */,
 				C42CD1B2213CC2640096675F /* JJBaseNavigationController.m in Sources */,
 				C4614416214386B6000C0CDC /* BillHistoryController.m in Sources */,
+				8BEAAFBB2387F255008D7F1D /* RegisterVC.m in Sources */,
 				8B8B0D0D236815140040EE53 /* TestView.m in Sources */,
 				C42CD1B6213CC2640096675F /* JJHttpClient.m in Sources */,
 				C42CD08E213CC2640096675F /* DiscussOrderController.m in Sources */,
@@ -4844,6 +4863,7 @@
 				C42CD0DD213CC2640096675F /* CellSendWay.m in Sources */,
 				C42CD0FD213CC2640096675F /* CLCellRecommend.m in Sources */,
 				C42CD081213CC2640096675F /* Order.m in Sources */,
+				8BEAAFBE2387F4B5008D7F1D /* RegisterVC+VM.m in Sources */,
 				8B464BAA238539640005E3B3 /* AppDelegate+BMKMap.m in Sources */,
 				8B40A2CC23730F7100ED42DB /* WholesaleMarket_AdvanceModel.m in Sources */,
 				8BB2D36D2366CBA70047D0E2 /* UIView+Layout.m in Sources */,

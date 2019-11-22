@@ -62,8 +62,8 @@
 //    strPsw = @"123456";
     
 #warning grade_id = 3 Vip商家
-    strUserNum = @"admin";
-    strPsw = @"123456";
+//    strUserNum = @"admin";
+//    strPsw = @"123456";
 
 //#warning grade_id = 2 高级商家
 //    strUserNum = @"shopping";
@@ -214,9 +214,16 @@
 }
 
 - (IBAction)clickButtonReg:(UIButton *)sender {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
-    RegisterViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
-    [self.navigationController pushViewController:controller animated:YES];
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
+//    RegisterViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
+//    [self.navigationController pushViewController:controller animated:YES];
+    @weakify(self)
+    [RegisterVC ComingFromVC:self_weak_
+                   withStyle:ComingStyle_PUSH
+               requestParams:nil
+                     success:^(id data) {}
+                    animated:YES];
+    
 }
 - (IBAction)clickButtonForgetPsw:(UIButton *)sender {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];

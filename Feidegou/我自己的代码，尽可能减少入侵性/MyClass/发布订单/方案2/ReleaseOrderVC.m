@@ -607,6 +607,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.mj_footer = self.tableViewFooter;
         _tableView.mj_footer.hidden = YES;
         _tableView.tableFooterView = UIView.new;
+        _tableView.ly_emptyView = [LYEmptyView emptyViewWithImageStr:@"noData"
+                                                            titleStr:@"暂无数据"
+                                                           detailStr:@""];
         @weakify(self)
         [_tableView actionBlock:^{
             @strongify(self)

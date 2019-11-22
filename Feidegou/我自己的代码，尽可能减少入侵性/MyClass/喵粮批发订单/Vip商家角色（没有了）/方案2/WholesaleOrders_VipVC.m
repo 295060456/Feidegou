@@ -318,6 +318,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.tableFooterView = UIView.new;
         _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//推荐该方法
+        _tableView.ly_emptyView = [LYEmptyView emptyViewWithImageStr:@"noData"
+                                                            titleStr:@"暂无数据"
+                                                           detailStr:@""];
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
