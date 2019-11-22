@@ -9,6 +9,7 @@
 #import "SearchView.h"
 #import "OrderListTBVCell.h"
 #import "OrderManager_panicBuyingVC+VM.h"
+#import "OrderListVC.h"
 
 @interface OrderManager_panicBuyingVC ()
 <
@@ -311,10 +312,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 }else{}
             }
         }];
+        extern OrderListVC *orderListVC;
         [self.view addSubview:_searchView];
         [_searchView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view);
-            make.top.equalTo(self.view);
+            make.top.equalTo(orderListVC.categoryView.mas_bottom);
             make.height.mas_equalTo(SCALING_RATIO(50));
         }];
     }return _searchView;
