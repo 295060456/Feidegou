@@ -267,8 +267,8 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestFourZeroMainType{
-    NSDictionary *param = [self paramStringWithStype:@"3001"
+-(RACSignal*)requestFourZeroMainType{//首页接口
+    NSDictionary *param = [self paramStringWithStype:@"3001"//
                                                 data:@{}];
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
                                    parameters:param] map:^id(NSDictionary* dictionary) {

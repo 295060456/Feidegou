@@ -106,13 +106,6 @@
         }
     }];
 }
-//跳转系统设置
--(void)pushToSysConfig{
-    NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-    if ([[UIApplication sharedApplication] canOpenURL:url]) {
-        [[UIApplication sharedApplication] openURL:url];
-    }
-}
 
 -(void)upLoadbtnClickEvent{
     NSLog(@"立即上传");//KKK 没有判断？？

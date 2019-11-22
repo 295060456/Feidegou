@@ -43,15 +43,21 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         CGFloat _percent = uploadProgress.fractionCompleted * 100;
         NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
         NSLog(@"%@",str);
-        Toast(@"str");
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            Toast(@"str");
+        }];
     }
       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"responseObject = %@",responseObject);
-        Toast(@"上传图片成功");
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            Toast(@"上传图片成功");
+        }];
     }
       failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error = %@",error);
-        Toast(@"上传图片失败");
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            Toast(@"上传图片失败");
+        }];
     }];
 }
 //CatfoodCO_BuyerURL 喵粮产地购买 #7
@@ -175,12 +181,16 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             CGFloat _percent = uploadProgress.fractionCompleted * 100;
             NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
             NSLog(@"%@",str);
-            Toast(@"str");
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                Toast(@"str");
+            }];
         }
           success:^(NSURLSessionDataTask * _Nonnull task,
                     id  _Nullable responseObject) {
             NSLog(@"responseObject = %@",responseObject);
-            Toast(@"上传凭证成功");
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                Toast(@"上传凭证成功");
+            }];
             NSArray *vcArr = self.navigationController.viewControllers;
             UIViewController *vc = vcArr[2];
             [self.navigationController popToViewController:vc animated:YES];
@@ -188,7 +198,9 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
           failure:^(NSURLSessionDataTask * _Nullable task,
                     NSError * _Nonnull error) {
             NSLog(@"error = %@",error);
-            Toast(@"上传图片失败");
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                Toast(@"上传图片失败");
+            }];
         }];
     }
 }
@@ -277,11 +289,15 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         CGFloat _percent = uploadProgress.fractionCompleted * 100;
         NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
         NSLog(@"%@",str);
-        Toast(@"str");
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            Toast(@"str");
+        }];
     }
       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSDictionary *dataDic = [NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)];
-        Toast(dataDic[@"message"]);
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            Toast(dataDic[@"message"]);
+        }];
         switch ([dataDic[@"code"] longValue]) {
             case 200:{//已完成付款.请等待审核后发货！
                 [self.sureBtn setTitle:@"已付款"
@@ -300,7 +316,9 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
       failure:^(NSURLSessionDataTask * _Nullable task,
                 NSError * _Nonnull error) {
         NSLog(@"error = %@",error);
-        Toast(@"上传图片失败");
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            Toast(@"上传图片失败");
+        }];
     }];
 }
 //CatfoodSale_pay_delURL 喵粮批发取消 18

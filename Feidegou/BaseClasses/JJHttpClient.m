@@ -21,6 +21,10 @@
 -(NSDictionary *)newParameters:(NSDictionary *)oldParameters{
     NSMutableDictionary *dataMutDic = [NSMutableDictionary dictionaryWithDictionary:oldParameters];
     [dataMutDic setValue:[YDDevice getUQID] forKey:@"identity"];
+    
+    if ([NSString isNullString:dataMutDic[@"user_id"]]) {
+        [dataMutDic removeObjectForKey:@"user_id"];
+    }
     return dataMutDic;
 }
 
