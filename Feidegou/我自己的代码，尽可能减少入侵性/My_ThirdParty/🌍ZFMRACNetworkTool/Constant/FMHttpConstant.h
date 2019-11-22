@@ -15,24 +15,24 @@
 #define API(DomainName,api) [DomainName stringByAppendingString:api]
 
 #pragma mark —— 线下环境
-//狗哥给我的
-#define BaseUrl @"http://10.1.41.158:8080"
-#define BaseUrl2 API(BaseUrl,@"/catfoodapp")
-//Daniel
-#define DanielUrL @"http://10.1.41.174:8080"
+////狗哥给我的
+//#define BaseUrl @"http://10.1.41.158:8080"
+//#define BaseUrl2 API(BaseUrl,@"/catfoodapp")
+////Daniel
+//#define DanielUrL @"http://10.1.41.174:8080"
+////#define AK API(API(DanielUrL,@"/SHOPAPP3.0/appShop7"),@"/query.do")//登录
 //#define AK API(API(DanielUrL,@"/SHOPAPP3.0/appShop7"),@"/query.do")//登录
-#define AK API(API(DanielUrL,@"/SHOPAPP3.0/appShop7"),@"/query.do")//登录
-#define YQM API(API(DanielUrL,@"/SHOPAPP3.0/appShop7"),@"/write.do")//邀请码
-
-#define WebSocketLocalhost @"10.1.41.174:8888/MFW1.0"
-#define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@/websocket",WebSocketLocalhost]
+//#define YQM API(API(DanielUrL,@"/SHOPAPP3.0/appShop7"),@"/write.do")//邀请码
+//
+//#define WebSocketLocalhost @"10.1.41.174:8888/MFW1.0"
+//#define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@/websocket",WebSocketLocalhost]
 
 #pragma mark —— 线上环境
-//#define BaseUrl @"http://www.miaoxiaodian.shop"//喵粮管理地址
-//#define BaseUrl2 API(BaseUrl,@"/SHOPAPP2.0/appShop7")//原项目地址
-//#define AK API(BaseUrl2,@"/query.do")//登录
-//#define YQM API(BaseUrl2,@"/write.do")//邀请码
-//#define BaseWebSocketURL @"ws://www.miaoxiaodian.shop/websocket/"//喵粮转转
+#define BaseUrl @"http://www.miaoxiaodian.shop"//喵粮管理地址
+#define BaseUrl2 API(BaseUrl,@"/SHOPAPP2.0/appShop7")//原项目地址
+#define AK API(BaseUrl2,@"/query.do")//登录
+#define YQM API(BaseUrl2,@"/write.do")//邀请码
+#define BaseWebSocketURL @"ws://www.miaoxiaodian.shop/websocket/"//喵粮转转
 //商城服务器正式地址
 #define BASE_URL @"http://10.1.41.174:8080"
 #define RELATIVE_PATH_QUERY @"SHOPAPP3.0/appShop7/query.do?"

@@ -183,7 +183,7 @@ static FMARCNetwork *_instance = nil;
                         }else{
                             [subscriber sendNext:@""];
                         }
-                        Toast(httpResponse.reqResult[@"message"]);
+//                        Toast(httpResponse.reqResult[@"message"]);
                         [subscriber sendCompleted];
                     }
                 }else if (statusCode == HTTPResponseCodeNotLogin){//用户尚未登录

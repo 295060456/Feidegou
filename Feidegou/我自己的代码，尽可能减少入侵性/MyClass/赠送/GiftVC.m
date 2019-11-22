@@ -367,6 +367,7 @@ UITextFieldDelegate
 -(UIButton *)cancelBtn{
     if (!_cancelBtn) {
         _cancelBtn = UIButton.new;
+        _cancelBtn.uxy_acceptEventInterval = 0.5f;
         [_cancelBtn setTitle:@"取消"
                     forState:UIControlStateNormal];
         _cancelBtn.backgroundColor = KLightGrayColor;
@@ -392,6 +393,7 @@ UITextFieldDelegate
 -(UIButton *)giftBtn{
     if (!_giftBtn) {
         _giftBtn = UIButton.new;
+        _giftBtn.uxy_acceptEventInterval = 0.5f;
         [_giftBtn setTitle:@"赠送"
                   forState:UIControlStateNormal];
         [_giftBtn addTarget:self

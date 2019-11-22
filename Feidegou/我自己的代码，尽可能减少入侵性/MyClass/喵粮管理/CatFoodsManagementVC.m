@@ -302,12 +302,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(Q_Pet *)pet{
     if (!_pet) {
         _pet = [[Q_Pet alloc]initWithFrame:CGRectMake(SCALING_RATIO(100),
-                                                      SCREEN_HEIGHT - SCALING_RATIO(150),
+                                                      SCREEN_HEIGHT - SCALING_RATIO(250),
                                                       SCALING_RATIO(50),
                                                       SCALING_RATIO(50))];
         _pet.autoCloseEdge = YES;
         [_pet show];
-        [self.view addSubview:_pet];
+        [self.tableView addSubview:_pet];
         [_pet becomeFirstResponder];
         @weakify(self)
         [_pet actionBlock:^(id data) {
@@ -320,7 +320,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSMutableArray<NSArray *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
-        [_titleMutArr addObject:@[@"余额",
+        [_titleMutArr addObject:@[@"可用的喵粮数量",
                                   @"出售中",
                                   @"个人喵粮变动清单"]];
         NSMutableArray *tempMutArr = NSMutableArray.array;

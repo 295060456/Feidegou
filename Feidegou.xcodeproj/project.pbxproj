@@ -172,6 +172,8 @@
 		8BCB98DB23715D660063E01E /* File in Resources */ = {isa = PBXBuildFile; fileRef = 8BCB98D823715D650063E01E /* File */; };
 		8BCB98DC23715D660063E01E /* AESCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98D923715D660063E01E /* AESCipher.m */; };
 		8BCB993423719DEA0063E01E /* GiftVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB993323719DEA0063E01E /* GiftVC+VM.m */; };
+		8BEAAFC323884DB2008D7F1D /* iOS小技巧：用runtime 解决UIButton 重复点击问题 in Resources */ = {isa = PBXBuildFile; fileRef = 8BEAAFC123884DB2008D7F1D /* iOS小技巧：用runtime 解决UIButton 重复点击问题 */; };
+		8BEAAFC423884DB2008D7F1D /* UIControl+XY.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAAFC223884DB2008D7F1D /* UIControl+XY.m */; };
 		8BEAE8812381138C006E40A4 /* WholesaleMarket_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87C2381138C006E40A4 /* WholesaleMarket_VipVC.m */; };
 		8BEAE8822381138C006E40A4 /* WholesaleMarket_VipVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87D2381138C006E40A4 /* WholesaleMarket_VipVC+VM.m */; };
 		8BEAE8832381138C006E40A4 /* WholesaleMarket_VipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87F2381138C006E40A4 /* WholesaleMarket_VipModel.m */; };
@@ -992,6 +994,9 @@
 		8BCB98DA23715D660063E01E /* AESCipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AESCipher.h; sourceTree = "<group>"; };
 		8BCB993223719DEA0063E01E /* GiftVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GiftVC+VM.h"; sourceTree = "<group>"; };
 		8BCB993323719DEA0063E01E /* GiftVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GiftVC+VM.m"; sourceTree = "<group>"; };
+		8BEAAFC023884DB2008D7F1D /* UIControl+XY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+XY.h"; sourceTree = "<group>"; };
+		8BEAAFC123884DB2008D7F1D /* iOS小技巧：用runtime 解决UIButton 重复点击问题 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "iOS小技巧：用runtime 解决UIButton 重复点击问题"; sourceTree = "<group>"; };
+		8BEAAFC223884DB2008D7F1D /* UIControl+XY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+XY.m"; sourceTree = "<group>"; };
 		8BEAE87B2381138C006E40A4 /* WholesaleMarket_VipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_VipModel.h; sourceTree = "<group>"; };
 		8BEAE87C2381138C006E40A4 /* WholesaleMarket_VipVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_VipVC.m; sourceTree = "<group>"; };
 		8BEAE87D2381138C006E40A4 /* WholesaleMarket_VipVC+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WholesaleMarket_VipVC+VM.m"; sourceTree = "<group>"; };
@@ -2367,6 +2372,7 @@
 		8BB2D2942366C7310047D0E2 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				8BEAAFBF23884DB2008D7F1D /* UIControl+XY */,
 				8B16F0532386ADDA003941B4 /* 搜索框 */,
 				8B571AAB23874836009624D8 /* ContentBaseViewController */,
 				8BB2D29F2366C7310047D0E2 /* 🌍ZFMRACNetworkTool */,
@@ -2870,6 +2876,16 @@
 			children = (
 			);
 			path = "注册";
+			sourceTree = "<group>";
+		};
+		8BEAAFBF23884DB2008D7F1D /* UIControl+XY */ = {
+			isa = PBXGroup;
+			children = (
+				8BEAAFC123884DB2008D7F1D /* iOS小技巧：用runtime 解决UIButton 重复点击问题 */,
+				8BEAAFC023884DB2008D7F1D /* UIControl+XY.h */,
+				8BEAAFC223884DB2008D7F1D /* UIControl+XY.m */,
+			);
+			path = "UIControl+XY";
 			sourceTree = "<group>";
 		};
 		8BFB45AB237CF32100EDE418 /* 方案1 */ = {
@@ -4510,6 +4526,7 @@
 				C41628122171B0C100DC0D10 /* CellProtocol.xib in Resources */,
 				8BB2D28A2366C6990047D0E2 /* W.json in Resources */,
 				C4614401214386B6000C0CDC /* CellHeader.xib in Resources */,
+				8BEAAFC323884DB2008D7F1D /* iOS小技巧：用runtime 解决UIButton 重复点击问题 in Resources */,
 				C46143FA214386B6000C0CDC /* CellVendorGoodBuy.xib in Resources */,
 				C42CD155213CC2640096675F /* CellOneImage.xib in Resources */,
 				C461440F214386B6000C0CDC /* CellVendorGoodList.xib in Resources */,
@@ -4769,6 +4786,7 @@
 				C42CD0BA213CC2640096675F /* CellOrderDetailLogistics.m in Sources */,
 				C4FC07C5215B35F400C6ECF3 /* UAProgressView.m in Sources */,
 				C42CD193213CC2640096675F /* UILabelDarkGarySmall.m in Sources */,
+				8BEAAFC423884DB2008D7F1D /* UIControl+XY.m in Sources */,
 				C42CD1CE213CC2650096675F /* ModelOrderList.m in Sources */,
 				C42CD1C5213CC2640096675F /* ModelAddress.m in Sources */,
 				C42CD153213CC2640096675F /* NotCreateController.m in Sources */,

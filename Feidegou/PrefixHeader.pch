@@ -108,6 +108,7 @@
 #import "HistoryDataListTBV.h"
 #import "SocketRocketUtility.h"
 #import "YDDevice.h"
+#import "UIControl+XY.h"
 //加密体系
 #import "RSAUtil.h"
 #import "EncryptUtils.h"
