@@ -188,6 +188,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
+        _tableView.ly_emptyView = [LYEmptyView emptyViewWithImageStr:@"noData"
+                                                            titleStr:@"暂无数据"
+                                                           detailStr:@""];
         _tableView.mj_footer.hidden = YES;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//推荐该方法
         [self.view addSubview:_tableView];
@@ -201,6 +204,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)releaseBtn{
     if (!_releaseBtn) {
         _releaseBtn = UIButton.new;
+        _releaseBtn.uxy_acceptEventInterval = 5;
         [_releaseBtn setTitle:@"发布订单"
                      forState:UIControlStateNormal];
         [_releaseBtn setTitleColor:kBlueColor

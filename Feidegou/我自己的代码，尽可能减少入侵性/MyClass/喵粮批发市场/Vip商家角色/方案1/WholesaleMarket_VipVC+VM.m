@@ -38,10 +38,10 @@
                     [self.dataMutArr addObject:model];
                 }];
                 self.tableView.mj_footer.hidden = NO;
-                [self.tableView.mj_header endRefreshing];
-                [self.tableView.mj_footer endRefreshing];
                 [self.tableView reloadData];
             }
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
         }
     }];
 }

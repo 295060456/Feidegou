@@ -41,7 +41,6 @@
             if (response) {
                 @strongify(self)
                 NSLog(@"--%@",response);
-                Toast(@"赠送成功");
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }];

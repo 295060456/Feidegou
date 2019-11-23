@@ -81,6 +81,19 @@
     return NO;
 }
 
++(BOOL)isIncludeChinese:(NSString *) str
+{
+    for(int i=0; i< [str length];i++)
+    {
+        int a = [str characterAtIndex:i];
+        if( a > 0x4E00 && a < 0x9FFF)
+        {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 + (NSString *)clearWhitespaceCharacterSet:(NSString *)strFrom{
     NSCharacterSet *whitespace = [NSCharacterSet whitespaceCharacterSet];
     strFrom = [strFrom stringByTrimmingCharactersInSet:whitespace];

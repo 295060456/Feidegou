@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C42CCCD5213CC04F0096675F"
-               BuildableName = "Feidegou.app"
+               BuildableName = "&#x55b5;&#x7cae;&#x5546;&#x57ce;.app"
                BlueprintName = "Feidegou"
                ReferencedContainer = "container:Feidegou.xcodeproj">
             </BuildableReference>
@@ -27,6 +27,15 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "C42CCCD5213CC04F0096675F"
+            BuildableName = "&#x55b5;&#x7cae;&#x5546;&#x57ce;.app"
+            BlueprintName = "Feidegou"
+            ReferencedContainer = "container:Feidegou.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -49,17 +58,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C42CCCD5213CC04F0096675F"
-            BuildableName = "Feidegou.app"
-            BlueprintName = "Feidegou"
-            ReferencedContainer = "container:Feidegou.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -76,13 +74,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C42CCCD5213CC04F0096675F"
-            BuildableName = "Feidegou.app"
+            BuildableName = "&#x55b5;&#x7cae;&#x5546;&#x57ce;.app"
             BlueprintName = "Feidegou"
             ReferencedContainer = "container:Feidegou.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -95,7 +91,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C42CCCD5213CC04F0096675F"
-            BuildableName = "Feidegou.app"
+            BuildableName = "&#x55b5;&#x7cae;&#x5546;&#x57ce;.app"
             BlueprintName = "Feidegou"
             ReferencedContainer = "container:Feidegou.xcodeproj">
          </BuildableReference>

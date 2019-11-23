@@ -98,6 +98,6 @@
 
 +(NSString *)ensureNonnullString:(id)nullableStr
                       ReplaceStr:(NSString *)replaceStr;
-
++(BOOL)isIncludeChinese:(NSString *) str;
 
 @end

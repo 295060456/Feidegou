@@ -666,11 +666,8 @@ forHeaderFooterViewReuseIdentifier:@"KJHG"];
         [_placeholderMutArr addObject:@"请输入数量"];
         [_placeholderMutArr addObject:@"请输入最低限额"];
         [_placeholderMutArr addObject:@"请输入最高限额"];
-        if ([self.requestParams isKindOfClass:[NSArray class]]) {
-            NSArray *arr = (NSArray *)self.requestParams;
-            NSNumber *b = (NSNumber *)arr[2];
-            [_placeholderMutArr addObject:[NSString stringWithFormat:@"%.2f g / CNY",[b floatValue]]];
-        }
+        extern NSString *market_price_sale;//批发均价
+        [_placeholderMutArr addObject:[NSString stringWithFormat:@"%@ g / CNY",[NSString ensureNonnullString:market_price_sale ReplaceStr:@"无"]]];
         [_placeholderMutArr addObject:@"请选择收款方式"];
     }return _placeholderMutArr;
 }
