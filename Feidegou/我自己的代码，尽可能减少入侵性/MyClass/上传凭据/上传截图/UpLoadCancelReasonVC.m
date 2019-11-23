@@ -40,7 +40,6 @@ UITableViewDataSource
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
-@property(nonatomic,strong)__block UIImage *img;
 
 @end
 
@@ -59,6 +58,12 @@ UITableViewDataSource
     vc.requestParams = requestParams;
     if ([requestParams isKindOfClass:[OrderListModel class]]) {
         vc.orderListModel = (OrderListModel *)requestParams;
+        vc.Order_id = vc.orderListModel.ID;
+        vc.Order_type = vc.orderListModel.order_type;
+    }else if ([requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){
+        vc.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)requestParams;
+        vc.Order_id = vc.catFoodProducingAreaModel.ID;
+        vc.Order_type = vc.catFoodProducingAreaModel.order_type;
     }else{}
     if (rootVC.navigationController) {
         vc.isPush = YES;
@@ -109,30 +114,45 @@ UITableViewDataSource
 
 -(void)upLoadbtnClickEvent:(UIButton *)sender{
     NSLog(@"立即上传");//KKK 没有判断？？
-    [self showAlertViewTitle:@"是否确定上传此张图片？"
+    if (self.pic) {
+        [self showAlertViewTitle:@"是否确定上传此张图片？"
                      message:@"请再三核对不要选错啦"
                  btnTitleArr:@[@"继续上传",
                                @"我选错啦"]
               alertBtnAction:@[@"GoUploadPic",
                                @"sorry"]];
+    }else{
+        Toast(@"还没选择要上传的图");
+    }
 }
 
 -(void)GoUploadPic{
-//    [self CancelDelivery_NetWorking];//#5
-    if ([self.orderListModel.order_type intValue] == 3) {
-        if ([self.orderListModel.order_status intValue] == 2 ||
-            [self.orderListModel.order_status intValue] == 0) {
-            //#8
-            [self uploadPic_producingArea_havePaid_netWorking:self.img];
-        }
-    }else if ([self.orderListModel.order_type intValue] == 2){
-        if ([self.orderListModel.identity isEqualToString:@"买家"]) {
-            if ([self.orderListModel.order_status intValue] == 0) {
-                //#17
-                [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.img];
+    if (self.pic) {
+        if (self.catFoodProducingAreaModel) {
+            if ([self.catFoodProducingAreaModel.order_type intValue] == 3) {
+                if ([self.catFoodProducingAreaModel.order_status intValue] == 1) {
+                    [self uploadPic_producingArea_havePaid_netWorking:self.pic];
+                }
             }
         }
-    }else{}
+        else if (self.orderListModel){
+            if ([self.orderListModel.order_type intValue] == 3) {
+            if ([self.orderListModel.order_status intValue] == 2 ||
+                [self.orderListModel.order_status intValue] == 0) {
+                //#8
+                [self uploadPic_producingArea_havePaid_netWorking:self.pic];
+            }
+            }else if ([self.orderListModel.order_type intValue] == 2){
+            if ([self.orderListModel.identity isEqualToString:@"买家"]) {
+                if ([self.orderListModel.order_status intValue] == 0) {
+                    //#17
+                    [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.pic];
+                }
+            }
+            }
+        }
+        else{}
+    }
 }
 
 -(void)sorry{

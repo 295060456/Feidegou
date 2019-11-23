@@ -100,4 +100,9 @@
                       ReplaceStr:(NSString *)replaceStr;
 +(BOOL)isIncludeChinese:(NSString *) str;
 
+//开始时间给定 结束时间不给定就启用现在的时间戳
++(NSTimeInterval)timeIntervalstartDate:(NSString *_Nonnull)startTime
+                               endDate:(NSString *_Nullable)endTime
+                         timeFormatter:(NSDateFormatter *_Nullable)timeFormatter;
+
 @end

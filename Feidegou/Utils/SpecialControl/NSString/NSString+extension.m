@@ -316,6 +316,29 @@
     blue = [NSString stringToInt:[hexColor substringWithRange:range]];
     return [UIColor colorWithRed:(float)(red/255.0f) green:(float)(green / 255.0f) blue:(float)(blue / 255.0f) alpha:1.0f];
 }
+
+//开始时间给定 结束时间不给定就启用现在的时间戳
++(NSTimeInterval)timeIntervalstartDate:(NSString *_Nonnull)startTime
+                               endDate:(NSString *_Nullable)endTime
+                         timeFormatter:(NSDateFormatter *_Nullable)timeFormatter{
+    if (timeFormatter == nil ||
+        timeFormatter == Nil) {
+        timeFormatter = NSDateFormatter.new;
+        [timeFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    }
+    
+    NSDate* startDate = [timeFormatter dateFromString:startTime];
+    NSDate* endDate;
+    if ([NSString isNullString:endTime]) {
+        NSString *now = [timeFormatter stringFromDate:[NSDate date]];
+        endDate = [timeFormatter dateFromString:now];
+    }else{
+        endDate = [timeFormatter dateFromString:endTime];
+    }
+    NSTimeInterval time = [endDate timeIntervalSinceDate:startDate];
+    return time;
+}
+
 //我自己写的
 +(NSString *)ensureNonnullString:(id)nullableStr
                       ReplaceStr:(NSString *)replaceStr{

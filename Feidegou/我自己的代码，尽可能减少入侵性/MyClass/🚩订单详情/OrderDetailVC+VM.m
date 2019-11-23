@@ -369,7 +369,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             if ([NSString isNullString:str]) {
 //                @strongify(self)
                 NSLog(@"--%@",response);
-                Toast(@"取消成功");
+                
             }
         }
     }];
@@ -433,10 +433,9 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                         //计算两个时间的相隔
                         NSDateFormatter *formatter = NSDateFormatter.new;
                         [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                        NSDate* startDate = [formatter dateFromString:self.orderListModel.updateTime];
-                        NSString *now = [formatter stringFromDate:[NSDate date]];
-                        NSDate* endDate = [formatter dateFromString:now];//now
-                        NSTimeInterval time = [endDate timeIntervalSinceDate:startDate];
+                        NSTimeInterval time = [NSString timeIntervalstartDate:self.orderListModel.updateTime
+                                                                      endDate:[formatter stringFromDate:[NSDate date]]
+                                                                timeFormatter:formatter];
                         self.time = 3 * 3600 - time;
                         self.contactBuyer.titleEndStr = @"联系买家";
                         [self.contactBuyer addTarget:self

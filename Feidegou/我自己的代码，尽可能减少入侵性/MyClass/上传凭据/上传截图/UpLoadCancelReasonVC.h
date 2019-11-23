@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)__block UIImage *pic;
 @property(nonatomic,strong)UpLoadCancelReasonTBVCell *cell;
 @property(nonatomic,strong)OrderListModel *orderListModel;
+@property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
+@property(nonatomic,strong)NSNumber *Order_id;
+@property(nonatomic,strong)NSNumber *Order_type;
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
                        requestParams:(nullable id)requestParams

@@ -276,7 +276,7 @@ UITableViewDataSource
         [self.sureBtn setTitle:@"购买"
                       forState:UIControlStateNormal];
         [self.sureBtn addTarget:self
-                         action:@selector(netWorking)
+                         action:@selector(getPrintPic:)
                forControlEvents:UIControlEventTouchUpInside];//#7
     }
     else if (self.stallListModel){//喵粮转转
@@ -286,6 +286,9 @@ UITableViewDataSource
         self.gk_navTitle = @"喵粮转转订单详情";
         //只有10秒取消、发货、状态为已下单
         [self.dataMutArr addObject:@"订单已下单"];//333
+        self.time = [NSString timeIntervalstartDate:self.stallListModel.updateTime
+                                            endDate:Nil
+                                      timeFormatter:Nil];
         self.countDownCancelBtn.titleEndStr = @"取消";
         [self.countDownCancelBtn addTarget:self
                                     action:@selector(CatfoodBooth_del_netWorking)
@@ -334,51 +337,14 @@ UITableViewDataSource
 -(void)getPrintPic:(UIButton *)sender{
     
     if ([sender.titleLabel.text isEqualToString:@"上传支付凭证"] ||
-        [sender.titleLabel.text isEqualToString:@"重新上传支付凭证"]) {
+        [sender.titleLabel.text isEqualToString:@"重新上传支付凭证"] ||
+        [sender.titleLabel.text isEqualToString:@"购买"]) {
         @weakify(self)
         [UpLoadCancelReasonVC pushFromVC:self_weak_
-                           requestParams:self.orderListModel
+                           requestParams:self.requestParams
                                  success:^(id data) {}
                                 animated:YES];
     }
-    
-    
-    
-//    if ([sender.titleLabel.text isEqualToString:@"上传支付凭证"] ||
-//        [sender.titleLabel.text isEqualToString:@"重新上传支付凭证"]) {
-//        [self choosePic];
-//        @weakify(self)
-//        [self GettingPicBlock:^(id data) {
-//            @strongify(self)
-//            if ([data isKindOfClass:[NSArray class]]) {
-//                NSArray *arrData = (NSArray *)data;
-//                if (arrData.count == 1) {
-//                    self.img = arrData.lastObject;
-//                    if (self.orderListModel) {
-//                        if ([self.orderListModel.order_type intValue] == 3) {
-//                            if ([self.orderListModel.order_status intValue] == 2 ||
-//                                [self.orderListModel.order_status intValue] == 0) {
-//                                //#8
-//                                [self uploadPic_producingArea_havePaid_netWorking:self.img];
-//                            }
-//                        }else if ([self.orderListModel.order_type intValue] == 2){
-//                            if ([self.orderListModel.identity isEqualToString:@"买家"]) {
-//                                if ([self.orderListModel.order_status intValue] == 0) {
-//                                    //#17
-//                                    [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.img];
-//                                }
-//                            }
-//                        }else{}
-//                    }
-//                }else{
-//                    [self showAlertViewTitle:@"选择一张相片就够啦"
-//                                     message:@"不要画蛇添足"
-//                                 btnTitleArr:@[@"好的"]
-//                              alertBtnAction:@[@"OK"]];
-//                }
-//            }
-//        }];
-//    }
 }
 
 -(void)backBtnClickEvent:(UIButton *)sender{
@@ -495,7 +461,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(VerifyCodeButton *)countDownCancelBtn{
     if (!_countDownCancelBtn) {
         _countDownCancelBtn = VerifyCodeButton.new;
-        _countDownCancelBtn.showTimeType = ShowTimeType_SS;;
+        _countDownCancelBtn.showTimeType = ShowTimeType_HHMMSS;
         _countDownCancelBtn.layerCornerRadius = 5.f;
         if (@available(iOS 8.2, *)) {
             _countDownCancelBtn.titleLabelFont = [UIFont systemFontOfSize:20.f weight:1];
@@ -532,7 +498,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [self.tableView addSubview:_normalCancel];
         [_normalCancel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view);
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(50)));
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100),
+                                             SCALING_RATIO(50)));
             make.bottom.equalTo(self.view).offset(SCALING_RATIO(-100));
         }];
     }return _normalCancel;
