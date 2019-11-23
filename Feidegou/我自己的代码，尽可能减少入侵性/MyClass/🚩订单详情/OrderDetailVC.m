@@ -454,6 +454,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_contactBuyer) {
         _contactBuyer = VerifyCodeButton.new;
         _contactBuyer.showTimeType = ShowTimeType_HHMMSS;
+        _contactBuyer.uxy_acceptEventInterval = 5;
         _contactBuyer.layerCornerRadius = 5.f;
         if (@available(iOS 8.2, *)) {
             _contactBuyer.titleLabelFont = [UIFont systemFontOfSize:20.f weight:1];
@@ -479,6 +480,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _countDownCancelBtn = VerifyCodeButton.new;
         _countDownCancelBtn.showTimeType = ShowTimeType_HHMMSS;
         _countDownCancelBtn.layerCornerRadius = 5.f;
+        _countDownCancelBtn.uxy_acceptEventInterval = 5;
         if (@available(iOS 8.2, *)) {
             _countDownCancelBtn.titleLabelFont = [UIFont systemFontOfSize:20.f weight:1];
         } else {
@@ -501,6 +503,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)sureBtn{
     if (!_sureBtn) {
         _sureBtn = UIButton.new;
+        _sureBtn.uxy_acceptEventInterval = 5;
         _sureBtn.backgroundColor = kOrangeColor;
         [UIView cornerCutToCircleWithView:_sureBtn
                           AndCornerRadius:3.f];
@@ -510,6 +513,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)normalCancel{
     if (!_normalCancel) {
         _normalCancel = UIButton.new;
+        _normalCancel.uxy_acceptEventInterval = 5;
         [UIView cornerCutToCircleWithView:_normalCancel
                           AndCornerRadius:3.f];
         _normalCancel.backgroundColor = KLightGrayColor;

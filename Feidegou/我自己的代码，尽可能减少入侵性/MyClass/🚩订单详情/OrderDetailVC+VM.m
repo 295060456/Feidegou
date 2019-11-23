@@ -369,7 +369,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             if ([NSString isNullString:str]) {
 //                @strongify(self)
                 NSLog(@"--%@",response);
-                
+                Toast(@"发货成功");
+                [self.navigationController popViewControllerAnimated:YES];
             }
         }
     }];
