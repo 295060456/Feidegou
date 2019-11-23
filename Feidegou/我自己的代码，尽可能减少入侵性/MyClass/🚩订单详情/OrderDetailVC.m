@@ -47,10 +47,13 @@ UITableViewDataSource
     vc.requestParams = requestParams;
     if ([vc.requestParams isKindOfClass:[OrderListModel class]]) {//买家、卖家进
         vc.orderListModel = (OrderListModel *)vc.requestParams;
+        vc.Order_id = vc.orderListModel.ID;
     }else if ([vc.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){//喵粮产地
         vc.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)vc.requestParams;
+        vc.Order_id = vc.catFoodProducingAreaModel.ID;
     }else if ([vc.requestParams isKindOfClass:[StallListModel class]]){
         vc.stallListModel = (StallListModel *)vc.requestParams;
+        vc.Order_id = vc.stallListModel.ID;
     }else{}
     switch (comingStyle) {
         case ComingStyle_PUSH:{

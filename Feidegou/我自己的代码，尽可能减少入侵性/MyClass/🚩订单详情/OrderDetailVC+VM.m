@@ -19,7 +19,7 @@
         modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
     }
     NSDictionary *dataDic = @{
-         @"order_id":[NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"],//订单id
+         @"order_id":[NSString ensureNonnullString:self.Order_id ReplaceStr:@"无"],//订单id
 //         @"reason":dic[@"Result"],//撤销理由
          @"order_type":[NSString ensureNonnullString:self.orderListModel.order_type ReplaceStr:@"无"],//订单类型 —— 1、摊位;2、批发;3、产地
          @"user_id":modelLogin.userId,
@@ -64,7 +64,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 -(void)netWorking{
     extern NSString *randomStr;
     NSDictionary *dataDic = @{
-        @"order_id":self.orderListModel.ID//order_id
+        @"order_id":self.Order_id//order_id
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodCO_BuyerURL
@@ -160,7 +160,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
         __block NSData *picData = [UIImage imageZipToData:image];
         NSDictionary *dataDic = @{
-            @"order_id":[self.orderListModel.ID stringValue],//order_id
+            @"order_id":[self.Order_id stringValue],//order_id
             @"user_id":modelLogin.userId,
             @"identity":[YDDevice getUQID]
         };
@@ -208,7 +208,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 -(void)cancelOrder_producingArea_netWorking{
     extern NSString *randomStr;
     NSDictionary *dataDic = @{
-        @"order_id":[self.orderListModel.ID stringValue]//order_id
+        @"order_id":[self.Order_id stringValue]//order_id
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodCO_pay_delURL
@@ -234,7 +234,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 -(void)deliver_wholesaleMarket_PNetworking{
     extern NSString *randomStr;
     NSDictionary *dataDic = @{
-        @"order_id":self.orderListModel.ID,//订单id
+        @"order_id":self.Order_id,//订单id
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodSale_goodsURL
@@ -265,7 +265,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
     }
     NSDictionary *dataDic = @{
-        @"order_id":self.orderListModel.ID,
+        @"order_id":self.Order_id,
         @"user_id":modelLogin.userId,
         @"identity":[YDDevice getUQID]
     };
@@ -325,7 +325,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 -(void)cancelOrder_wholesaleMarket_netWorking{//展示数据
     extern NSString *randomStr;
     NSDictionary *dataDic = @{
-        @"order_id":self.orderListModel.ID,//订单id
+        @"order_id":self.Order_id,//订单id
         @"reason":@""
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
@@ -352,7 +352,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 -(void)boothDeliver_networking{
     extern NSString *randomStr;
     NSDictionary *dataDic = @{
-        @"order_id":self.orderListModel.ID,//订单id
+        @"order_id":self.Order_id,//订单id
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodBooth_goodsURL
@@ -378,7 +378,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 -(void)CatfoodBooth_del_netWorking{
     extern NSString *randomStr;
     NSDictionary *dataDic = @{
-        @"order_id":self.orderListModel.ID
+        @"order_id":self.Order_id
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodBooth_del
@@ -404,7 +404,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 -(void)CatfoodBooth_del_time_netWorking{
     extern NSString *randomStr;
     NSDictionary *dataDic = @{
-        @"order_id":self.orderListModel.ID,//订单id
+        @"order_id":self.Order_id,//订单id
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodBooth_del_time
@@ -442,7 +442,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 -(void)buyer_CatfoodRecord_checkURL_NetWorking{
     extern NSString *randomStr;
         NSDictionary *dic = @{
-            @"order_id":[NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"],//订单id
+            @"order_id":[NSString ensureNonnullString:self.Order_id ReplaceStr:@"无"],//订单id
             @"order_type":[NSString ensureNonnullString:self.orderListModel.order_type ReplaceStr:@"无"]//订单类型 —— 1、摊位;2、批发;3、产地
         };
            
