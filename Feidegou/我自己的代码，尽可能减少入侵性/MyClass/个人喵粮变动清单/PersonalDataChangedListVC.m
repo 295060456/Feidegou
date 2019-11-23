@@ -183,24 +183,24 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     return self.dataMutArr.count;
 }
 //给cell添加动画
--(void)tableView:(UITableView *)tableView
- willDisplayCell:(UITableViewCell *)cell
-forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (!self.isDelCell) {
-        //设置Cell的动画效果为3D效果
-        //设置x和y的初始值为0.1；
-        cell.layer.transform = CATransform3DMakeScale(0.1,
-                                                      0.1,
-                                                      1);
-        //x和y的最终值为1
-        [UIView animateWithDuration:1
-                         animations:^{
-            cell.layer.transform = CATransform3DMakeScale(1,
-                                                          1,
-                                                          1);
-        }];
-    }
-}
+//-(void)tableView:(UITableView *)tableView
+// willDisplayCell:(UITableViewCell *)cell
+//forRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if (!self.isDelCell) {
+//        //设置Cell的动画效果为3D效果
+//        //设置x和y的初始值为0.1；
+//        cell.layer.transform = CATransform3DMakeScale(0.1,
+//                                                      0.1,
+//                                                      1);
+//        //x和y的最终值为1
+//        [UIView animateWithDuration:1
+//                         animations:^{
+//            cell.layer.transform = CATransform3DMakeScale(1,
+//                                                          1,
+//                                                          1);
+//        }];
+//    }
+//}
 
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{
@@ -270,17 +270,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return cell;
 }
 
--(void)drawRect:(CGRect)rect{
-    self.styleLab.alpha = 1;
-    self.numLab.alpha = 1;
-    self.remarkTitleLab.alpha = 1;
-    self.remarkLab.alpha = 1;
-    self.balanceTitleLab.alpha = 1;
-    self.balanceLab.alpha = 1;
-}
-
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    
     return SCALING_RATIO(200);
 }
 
@@ -288,9 +278,40 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([model isKindOfClass:[PersonalDataChangedListModel class]]) {
         PersonalDataChangedListModel *personalDataChangedListModel = (PersonalDataChangedListModel *)model;
         self.styleLabStr = [NSString ensureNonnullString:personalDataChangedListModel.change_statusStr ReplaceStr:@"无"];
-        self.numLabStr = [NSString stringWithFormat:@"+%@g",[NSString ensureNonnullString:personalDataChangedListModel.number ReplaceStr:@"无"]];
+        switch ([personalDataChangedListModel.change_status intValue]) {
+            case 11://赠送增加
+            case 12://后台增加
+            case 16://结束直通车增加
+            case 23://摊位出售
+            case 33://摊位发布
+            case 24://批发出售
+            case 34://批发发布
+            case 25://产地出售
+            case 35:{//产地发布
+                self.numLabStr = [NSString stringWithFormat:@"+%@g",[NSString ensureNonnullString:personalDataChangedListModel.number ReplaceStr:@"无"]];
+        }break;
+            case 21://赠送减少
+            case 22://后台减少
+            case 13://摊位购买
+            case 14://批发购买
+            case 44://批发下架
+            case 15://产地购买
+            case 26://开启直通车减少
+            case 27:{//喂食喵粮减少
+                self.numLabStr = [NSString stringWithFormat:@"-%@g",[NSString ensureNonnullString:personalDataChangedListModel.number ReplaceStr:@"无"]];
+            }break;
+            default:{
+                self.numLabStr = @"数据异常";
+            }break;
+        }
         self.remarkLabStr = [NSString ensureNonnullString:personalDataChangedListModel.detailed ReplaceStr:@"无"];
         self.balanceLabStr = [NSString stringWithFormat:@"%@g",[NSString ensureNonnullString:personalDataChangedListModel.number_new ReplaceStr:@"无"]];
+        self.styleLab.alpha = 1;
+        self.numLab.alpha = 1;
+        self.remarkTitleLab.alpha = 1;
+        self.remarkLab.alpha = 1;
+        self.balanceTitleLab.alpha = 1;
+        self.balanceLab.alpha = 1;
     }
 }
 #pragma mark —— lazyLoad
@@ -309,6 +330,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UILabel *)numLab{
     if (!_numLab) {
         _numLab = UILabel.new;
+        if ([self.numLabStr containsString:@"-"]) {
+            _numLab.textColor = KGreenColor;
+        }else if ([self.numLabStr containsString:@"+"]){
+            _numLab.textColor = kRedColor;
+        }
         if (@available(iOS 8.2, *)) {
             _numLab.font = [UIFont systemFontOfSize:40.f weight:.7f];
         } else {
@@ -316,7 +342,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         }
         _numLab.textAlignment = NSTextAlignmentCenter;
         _numLab.text = self.numLabStr;
-        _numLab.textColor = kRedColor;
         [self.contentView addSubview:_numLab];
         [_numLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.styleLab.mas_bottom).offset(SCALING_RATIO(0));
