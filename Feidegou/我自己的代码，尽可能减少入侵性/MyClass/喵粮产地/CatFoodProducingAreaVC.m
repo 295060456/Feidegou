@@ -18,96 +18,6 @@
 
 @end
 
-@implementation CatFoodProducingAreaTBVCell
-
-+(instancetype)cellWith:(UITableView *)tableView{
-    CatFoodProducingAreaTBVCell *cell = (CatFoodProducingAreaTBVCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
-    if (!cell) {
-        cell = [[CatFoodProducingAreaTBVCell alloc]initWithStyle:UITableViewCellStyleDefault
-                                               reuseIdentifier:ReuseIdentifier
-                                                        margin:SCALING_RATIO(10)];
-        cell.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"猫和鱼")];
-        [UIView cornerCutToCircleWithView:cell
-                          AndCornerRadius:10.f];
-        [UIView colourToLayerOfView:cell
-                         WithColour:kWhiteColor
-                     AndBorderWidth:0.3f];
-        [UIView cornerCutToCircleWithView:cell.contentView
-                          AndCornerRadius:10.f];
-        [UIView colourToLayerOfView:cell.contentView
-                         WithColour:kWhiteColor
-                     AndBorderWidth:0.3f];
-    }return cell;
-}
-
--(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCALING_RATIO(80);
-}
-
-- (void)richElementsInCellWithModel:(id _Nullable)model{
-    if ([model isKindOfClass:[CatFoodProducingAreaModel class]]) {
-        CatFoodProducingAreaModel *catFoodProducingAreaModel = model;
-        self.sellerNameLab.text = [NSString stringWithFormat:@"厂家:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.seller ReplaceStr:@"无"]];
-        self.priceLab.text = [NSString stringWithFormat:@"单价:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.price ReplaceStr:@"无"]];
-        self.numLab.text = [NSString stringWithFormat:@"数量:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.quantity ReplaceStr:@"无"]];
-        self.buyTipsLab.text = @"点击购买";
-        [self.sellerNameLab sizeToFit];
-        [self.priceLab sizeToFit];
-        [self.numLab sizeToFit];
-        [self.buyTipsLab sizeToFit];
-    }
-}
-#pragma mark —— lazyLoad
--(UILabel *)sellerNameLab{
-    if (!_sellerNameLab) {
-        _sellerNameLab = UILabel.new;
-//        _sellerNameLab.backgroundColor = kRedColor;
-        [self.contentView addSubview:_sellerNameLab];
-        [_sellerNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
-        }];
-    }return _sellerNameLab;
-}
-
--(UILabel *)priceLab{
-    if (!_priceLab) {
-        _priceLab = UILabel.new;
-//        _priceLab.backgroundColor = kBlueColor;
-        [self.contentView addSubview:_priceLab];
-        [_priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.contentView).offset(SCALING_RATIO(10));
-            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-        }];
-    }return _priceLab;
-}
-
--(UILabel *)numLab{
-    if (!_numLab) {
-        _numLab = UILabel.new;
-//        _numLab.backgroundColor = KGreenColor;
-        [self.contentView addSubview:_numLab];
-        [_numLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-            make.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
-            make.top.equalTo(self.sellerNameLab.mas_bottom).offset(SCALING_RATIO(5));
-        }];
-    }return _numLab;
-}
-
--(UILabel *)buyTipsLab{
-    if (!_buyTipsLab) {
-        _buyTipsLab = UILabel.new;
-        [self.contentView addSubview:_buyTipsLab];
-        [_buyTipsLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-            make.top.equalTo(self.sellerNameLab.mas_bottom).offset(SCALING_RATIO(5));
-        }];
-    }return _buyTipsLab;
-}
-
-@end
-
 @interface CatFoodProducingAreaVC ()
 <
 UITableViewDelegate,
@@ -221,12 +131,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    [self.tableView endUpdates];
 //    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
 //                    withRowAnimation:UITableViewRowAnimationNone];
-    @weakify(self)
-    [OrderDetailVC ComingFromVC:self_weak_
-                      withStyle:ComingStyle_PUSH
-                  requestParams:self.dataMutArr[indexPath.row]
-                        success:^(id data) {}
-                       animated:YES];
+    //点击进行购买
+    [self purchase_netWorking:self.dataMutArr[indexPath.row]];//购买完在上传凭证，可以不要凭证
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -309,5 +215,94 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _dataMutArr;
 }
 
+@end
+
+@implementation CatFoodProducingAreaTBVCell
+
++(instancetype)cellWith:(UITableView *)tableView{
+    CatFoodProducingAreaTBVCell *cell = (CatFoodProducingAreaTBVCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
+    if (!cell) {
+        cell = [[CatFoodProducingAreaTBVCell alloc]initWithStyle:UITableViewCellStyleDefault
+                                               reuseIdentifier:ReuseIdentifier
+                                                        margin:SCALING_RATIO(10)];
+        cell.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"猫和鱼")];
+        [UIView cornerCutToCircleWithView:cell
+                          AndCornerRadius:10.f];
+        [UIView colourToLayerOfView:cell
+                         WithColour:kWhiteColor
+                     AndBorderWidth:0.3f];
+        [UIView cornerCutToCircleWithView:cell.contentView
+                          AndCornerRadius:10.f];
+        [UIView colourToLayerOfView:cell.contentView
+                         WithColour:kWhiteColor
+                     AndBorderWidth:0.3f];
+    }return cell;
+}
+
+-(CGFloat)cellHeightWithModel:(id _Nullable)model{
+    return SCALING_RATIO(80);
+}
+
+- (void)richElementsInCellWithModel:(id _Nullable)model{
+    if ([model isKindOfClass:[CatFoodProducingAreaModel class]]) {
+        CatFoodProducingAreaModel *catFoodProducingAreaModel = model;
+        self.sellerNameLab.text = [NSString stringWithFormat:@"厂家:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.seller ReplaceStr:@"无"]];
+        self.priceLab.text = [NSString stringWithFormat:@"单价:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.price ReplaceStr:@"无"]];
+        self.numLab.text = [NSString stringWithFormat:@"数量:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.quantity ReplaceStr:@"无"]];
+        self.buyTipsLab.text = @"点击购买";
+        [self.sellerNameLab sizeToFit];
+        [self.priceLab sizeToFit];
+        [self.numLab sizeToFit];
+        [self.buyTipsLab sizeToFit];
+    }
+}
+#pragma mark —— lazyLoad
+-(UILabel *)sellerNameLab{
+    if (!_sellerNameLab) {
+        _sellerNameLab = UILabel.new;
+//        _sellerNameLab.backgroundColor = kRedColor;
+        [self.contentView addSubview:_sellerNameLab];
+        [_sellerNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
+        }];
+    }return _sellerNameLab;
+}
+
+-(UILabel *)priceLab{
+    if (!_priceLab) {
+        _priceLab = UILabel.new;
+//        _priceLab.backgroundColor = kBlueColor;
+        [self.contentView addSubview:_priceLab];
+        [_priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.contentView).offset(SCALING_RATIO(10));
+            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+        }];
+    }return _priceLab;
+}
+
+-(UILabel *)numLab{
+    if (!_numLab) {
+        _numLab = UILabel.new;
+//        _numLab.backgroundColor = KGreenColor;
+        [self.contentView addSubview:_numLab];
+        [_numLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+            make.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
+            make.top.equalTo(self.sellerNameLab.mas_bottom).offset(SCALING_RATIO(5));
+        }];
+    }return _numLab;
+}
+
+-(UILabel *)buyTipsLab{
+    if (!_buyTipsLab) {
+        _buyTipsLab = UILabel.new;
+        [self.contentView addSubview:_buyTipsLab];
+        [_buyTipsLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+            make.top.equalTo(self.sellerNameLab.mas_bottom).offset(SCALING_RATIO(5));
+        }];
+    }return _buyTipsLab;
+}
 
 @end

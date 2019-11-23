@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CatFoodProducingAreaVC (VM)
 
 -(void)netWorking;
+-(void)purchase_netWorking:(CatFoodProducingAreaModel *)model;
 
 @end
 

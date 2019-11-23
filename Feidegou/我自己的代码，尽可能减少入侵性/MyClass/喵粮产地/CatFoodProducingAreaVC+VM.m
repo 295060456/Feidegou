@@ -49,5 +49,30 @@
         }
     }];
 }
+//CatfoodCO_BuyerURL 喵粮产地购买 #7
+-(void)purchase_netWorking:(CatFoodProducingAreaModel *)model{
+    extern NSString *randomStr;
+    NSDictionary *dataDic = @{
+        @"order_id":model.ID
+    };
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodCO_BuyerURL
+                                                     parameters:@{
+                                                         @"data":dataDic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key]
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        @strongify(self)
+        @weakify(self)
+        [OrderDetailVC ComingFromVC:self_weak_
+                          withStyle:ComingStyle_PUSH
+                      requestParams:model
+                            success:^(id data) {}
+                           animated:YES];
+    }];
+}
 
 @end

@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,assign)long currentPage;
 @property(nonatomic,strong)NSMutableArray <CatFoodProducingAreaModel *>*dataMutArr;
+@property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
                        requestParams:(nullable id)requestParams

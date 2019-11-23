@@ -24,7 +24,8 @@ UITableViewDataSource
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
-@property(nonatomic,strong)id popGestureDelegate; //用来保存系统手势的代理
+@property(nonatomic,copy)NSString *titleEndStr;
+@property(nonatomic,copy)NSString *titleBeginStr;
 
 @end
 
@@ -215,6 +216,12 @@ UITableViewDataSource
                         //显示凭证
                         [self.titleMutArr addObject:@"凭证"];
                         [self.dataMutArr addObject:self.orderListModel.payment_print];//凭证图像地址
+                        NSTimeInterval time = [NSString timeIntervalstartDate:self.stallListModel.updateTime
+                                                                      endDate:nil
+                                                                timeFormatter:nil];
+                        self.time = 5 * 60 - time;
+                        self.titleEndStr = @"撤销";
+                        self.titleBeginStr = @"撤销";
                         self.countDownCancelBtn.titleEndStr = @"撤销";//显示凭证
                         [self.countDownCancelBtn addTarget:self
                                                     action:@selector(CancelDelivery_NetWorking)
@@ -235,7 +242,9 @@ UITableViewDataSource
                 self.gk_navTitle = @"喵粮产地订单详情";
                 if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                     [self.dataMutArr addObject:@"订单已下单"];//333
-                    self.countDownCancelBtn.titleEndStr = @"取消";
+                    self.time = 50;
+                    self.titleEndStr = @"取消";
+                    self.titleBeginStr = @"取消";
                     [self.countDownCancelBtn addTarget:self
                                                 action:@selector(cancelOrder_producingArea_netWorking)
                                       forControlEvents:UIControlEventTouchUpInside];//#9
@@ -268,12 +277,14 @@ UITableViewDataSource
         self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
         self.gk_navTitle = @"喵粮产地订单详情";
         //只有10秒取消、发货、状态为已下单
-        [self.dataMutArr addObject:@"订单已下单"];//333
-        self.countDownCancelBtn.titleEndStr = @"取消";
+        [self.dataMutArr addObject:@"订单已下单"];//
+        self.time = 3;
+        self.titleEndStr = @"取消";
+        self.titleBeginStr = @"取消";
         [self.countDownCancelBtn addTarget:self
                                     action:@selector(cancelOrder_producingArea_netWorking)
                           forControlEvents:UIControlEventTouchUpInside];//#9
-        [self.sureBtn setTitle:@"购买"
+        [self.sureBtn setTitle:@"上传支付凭证"
                       forState:UIControlStateNormal];
         [self.sureBtn addTarget:self
                          action:@selector(getPrintPic:)
@@ -289,7 +300,12 @@ UITableViewDataSource
         self.time = [NSString timeIntervalstartDate:self.stallListModel.updateTime
                                             endDate:Nil
                                       timeFormatter:Nil];
-        self.countDownCancelBtn.titleEndStr = @"取消";
+        NSTimeInterval time = [NSString timeIntervalstartDate:self.stallListModel.updateTime
+                                                      endDate:nil
+                                                timeFormatter:nil];
+        self.time = 5 * 60 - time;
+        self.titleEndStr = @"取消";
+        self.titleBeginStr = @"取消";
         [self.countDownCancelBtn addTarget:self
                                     action:@selector(CatfoodBooth_del_netWorking)
                           forControlEvents:UIControlEventTouchUpInside];//#21_1
@@ -335,10 +351,8 @@ UITableViewDataSource
 #pragma mark —— 点击事件
 //上传支付凭证
 -(void)getPrintPic:(UIButton *)sender{
-    
     if ([sender.titleLabel.text isEqualToString:@"上传支付凭证"] ||
-        [sender.titleLabel.text isEqualToString:@"重新上传支付凭证"] ||
-        [sender.titleLabel.text isEqualToString:@"购买"]) {
+        [sender.titleLabel.text isEqualToString:@"重新上传支付凭证"]) {
         @weakify(self)
         [UpLoadCancelReasonVC pushFromVC:self_weak_
                            requestParams:self.requestParams
@@ -447,6 +461,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             // Fallback on earlier versions
         }
         _contactBuyer.clipsToBounds = YES;
+        _contactBuyer.titleEndStr = self.titleEndStr;
+        _contactBuyer.titleBeginStr = self.titleBeginStr;
         [_contactBuyer timeFailBeginFrom:self.time == 0 ? 10 : self.time];
         [self.tableView addSubview:_contactBuyer];
         [_contactBuyer mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -468,6 +484,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         } else {
             // Fallback on earlier versions
         }
+        _countDownCancelBtn.titleEndStr = self.titleEndStr;
+        _countDownCancelBtn.titleBeginStr = self.titleBeginStr;
         _countDownCancelBtn.clipsToBounds = YES;
         [_countDownCancelBtn timeFailBeginFrom:self.time == 0 ? 10 : self.time];
         [self.tableView addSubview:_countDownCancelBtn];
