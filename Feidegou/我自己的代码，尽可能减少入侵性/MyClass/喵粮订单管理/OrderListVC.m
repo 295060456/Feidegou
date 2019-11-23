@@ -102,7 +102,7 @@ OrderListVC *orderListVC;
     self.gk_navigationBar.backgroundColor = KYellowColor;
     
     self.myCategoryView.titles = (NSArray *)self.titleMutArr;
-//    self.myCategoryView.backgroundColor = kRedColor;
+    self.myCategoryView.backgroundColor = kWhiteColor;
     self.myCategoryView.imageNames = (NSArray *)self.imageNamesMutArr;
     self.myCategoryView.selectedImageNames = (NSArray *)self.selectedImageNamesMutArr;
     self.myCategoryView.imageZoomEnabled = YES;
@@ -242,7 +242,7 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
 -(JXCategoryIndicatorLineView *)lineView{
     if (!_lineView) {
         _lineView = JXCategoryIndicatorLineView.new;
-        _lineView.indicatorWidth = 20;
+        _lineView.indicatorWidth = SCALING_RATIO(80);
     }return _lineView;
 }
 

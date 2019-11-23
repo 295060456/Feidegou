@@ -26,6 +26,7 @@
 		8B16F0662386AE24003941B4 /* AbuStcokList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B16F0622386AE24003941B4 /* AbuStcokList.m */; };
 		8B16F0692386AEAC003941B4 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B16F0682386AEAC003941B4 /* SearchVC.m */; };
 		8B17DE372371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B17DE362371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.m */; };
+		8B225B99238900A6003682CC /* SearchVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B225B98238900A6003682CC /* SearchVC+VM.m */; };
 		8B2CFD0423731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2CFD0323731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.m */; };
 		8B2CFD0A2373EDA900413349 /* WholesaleOrders_AdvanceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B2CFD092373EDA900413349 /* WholesaleOrders_AdvanceModel.m */; };
 		8B3C0B58237FCAB800BFFA86 /* OrderDetailVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3C0B57237FCAB800BFFA86 /* OrderDetailVC+VM.m */; };
@@ -702,6 +703,8 @@
 		8B16F0682386AEAC003941B4 /* SearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchVC.m; sourceTree = "<group>"; };
 		8B17DE352371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WholesaleMarket_AdvanceVC+VM.h"; sourceTree = "<group>"; };
 		8B17DE362371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WholesaleMarket_AdvanceVC+VM.m"; sourceTree = "<group>"; };
+		8B225B97238900A6003682CC /* SearchVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SearchVC+VM.h"; sourceTree = "<group>"; };
+		8B225B98238900A6003682CC /* SearchVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SearchVC+VM.m"; sourceTree = "<group>"; };
 		8B2CFD0223731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WholesaleOrders_AdvanceVC+VM.h"; sourceTree = "<group>"; };
 		8B2CFD0323731FFA00413349 /* WholesaleOrders_AdvanceVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WholesaleOrders_AdvanceVC+VM.m"; sourceTree = "<group>"; };
 		8B2CFD082373EDA900413349 /* WholesaleOrders_AdvanceModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleOrders_AdvanceModel.h; sourceTree = "<group>"; };
@@ -868,8 +871,6 @@
 		8BB2D2982366C7310047D0E2 /* MMButton（自定义图文位置 \ 距离） */ = {isa = PBXFileReference; lastKnownFileType = text; path = "MMButton（自定义图文位置 \\ 距离）"; sourceTree = "<group>"; };
 		8BB2D29A2366C7310047D0E2 /* YKToastView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YKToastView.h; sourceTree = "<group>"; };
 		8BB2D29B2366C7310047D0E2 /* YKToastView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YKToastView.m; sourceTree = "<group>"; };
-		8BB2D29D2366C7310047D0E2 /* MISCustomButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MISCustomButton.m; sourceTree = "<group>"; };
-		8BB2D29E2366C7310047D0E2 /* MISCustomButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MISCustomButton.h; sourceTree = "<group>"; };
 		8BB2D2A12366C7310047D0E2 /* FMHttpResonse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMHttpResonse.h; sourceTree = "<group>"; };
 		8BB2D2A22366C7310047D0E2 /* FMHttpResonse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMHttpResonse.m; sourceTree = "<group>"; };
 		8BB2D2A32366C7310047D0E2 /* ZFMRACNetworkTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZFMRACNetworkTool.h; sourceTree = "<group>"; };
@@ -1954,9 +1955,10 @@
 			isa = PBXGroup;
 			children = (
 				8B16F05D2386AE24003941B4 /* Model */,
-				8B16F0542386ADF8003941B4 /* AbuSearchView */,
 				8B16F0672386AEAC003941B4 /* SearchVC.h */,
 				8B16F0682386AEAC003941B4 /* SearchVC.m */,
+				8B225B97238900A6003682CC /* SearchVC+VM.h */,
+				8B225B98238900A6003682CC /* SearchVC+VM.m */,
 			);
 			path = "搜索框";
 			sourceTree = "<group>";
@@ -2372,8 +2374,8 @@
 		8BB2D2942366C7310047D0E2 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				8B16F0542386ADF8003941B4 /* AbuSearchView */,
 				8BEAAFBF23884DB2008D7F1D /* UIControl+XY */,
-				8B16F0532386ADDA003941B4 /* 搜索框 */,
 				8B571AAB23874836009624D8 /* ContentBaseViewController */,
 				8BB2D29F2366C7310047D0E2 /* 🌍ZFMRACNetworkTool */,
 				8BB1E8252376A2F300871ECA /* UQID */,
@@ -2384,7 +2386,6 @@
 				8BB2D3482366CBA60047D0E2 /* TZImagePickerController */,
 				8BB2D2952366C7310047D0E2 /* MMButton */,
 				8BB2D2992366C7310047D0E2 /* ToastView */,
-				8BB2D29C2366C7310047D0E2 /* MISFloatingBall */,
 				8BB2D2AB2366C7310047D0E2 /* VerifyCodeButton */,
 				8BB2D2AF2366C7310047D0E2 /* 权限相关 */,
 				8BB2D2D62366C7310047D0E2 /* 圆形倒计时进度条（中间有字，可点击回调） */,
@@ -2410,15 +2411,6 @@
 				8BB2D29B2366C7310047D0E2 /* YKToastView.m */,
 			);
 			path = ToastView;
-			sourceTree = "<group>";
-		};
-		8BB2D29C2366C7310047D0E2 /* MISFloatingBall */ = {
-			isa = PBXGroup;
-			children = (
-				8BB2D29E2366C7310047D0E2 /* MISCustomButton.h */,
-				8BB2D29D2366C7310047D0E2 /* MISCustomButton.m */,
-			);
-			path = MISFloatingBall;
 			sourceTree = "<group>";
 		};
 		8BB2D29F2366C7310047D0E2 /* 🌍ZFMRACNetworkTool */ = {
@@ -2500,6 +2492,7 @@
 		8BB2D2DC2366C7310047D0E2 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8B16F0532386ADDA003941B4 /* 搜索框 */,
 				8BEAAFB82387F222008D7F1D /* 注册 */,
 				8BB2D2FA2366C7310047D0E2 /* 喵粮管理 */,
 				8B86E04B238570A1004D4C0A /* 个人喵粮变动清单 */,
@@ -4946,6 +4939,7 @@
 				C42CD0B9213CC2640096675F /* CellTwoImgOneLbl.m in Sources */,
 				8B16F03523867DD3003941B4 /* OrderManager_wholesaleVC+VM.m in Sources */,
 				C42CD1A0213CC2640096675F /* UITextField+EditChanged.m in Sources */,
+				8B225B99238900A6003682CC /* SearchVC+VM.m in Sources */,
 				8B7A54E9236D6DD1006B12F8 /* WBPopMenuView.m in Sources */,
 				C42CD1BD213CC2640096675F /* JJDBHelper+ShopCart.m in Sources */,
 				8B86A7F8237D0FE50058173B /* ReleaseOrderVC+VM.m in Sources */,

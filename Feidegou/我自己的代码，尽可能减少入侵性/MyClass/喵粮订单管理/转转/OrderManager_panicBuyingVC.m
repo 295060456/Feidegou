@@ -282,7 +282,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
-            make.top.equalTo(self.view).offset(SCALING_RATIO(-30));
+            make.top.equalTo(self.view).offset(SCALING_RATIO(0));
         }];
     }return _tableView;
 }

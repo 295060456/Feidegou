@@ -20,5 +20,21 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "954F263F-4D49-4747-8754-DD06DDA79089"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Feidegou/&#x6211;&#x81ea;&#x5df1;&#x7684;&#x4ee3;&#x7801;&#xff0c;&#x5c3d;&#x53ef;&#x80fd;&#x51cf;&#x5c11;&#x5165;&#x4fb5;&#x6027;/MyClass/&#x55b5;&#x7cae;&#x8ba2;&#x5355;&#x7ba1;&#x7406;/SearchView.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "-initWithBtnTitleMutArr:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

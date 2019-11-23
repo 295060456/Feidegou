@@ -8,6 +8,7 @@
 
 #import "SearchVC.h"
 #import "AbuSearchView.h"
+#import "SearchVC+VM.h"
 #import "AbuStcokModel.h"
 
 @interface SearchTBVCell ()

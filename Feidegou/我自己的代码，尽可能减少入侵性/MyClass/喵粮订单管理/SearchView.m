@@ -9,6 +9,8 @@
 #import "SearchView.h"
 #import "OrderListVC.h"
 
+#define BtnDefaultWidth SCALING_RATIO(100)
+
 @interface SearchView ()
 <
 UIScrollViewDelegate
@@ -17,6 +19,7 @@ UIScrollViewDelegate
 @property(nonatomic,strong)UIScrollView *scrollView;
 @property(nonatomic,strong)NSMutableArray <MMButton *>*btnMutArr;
 @property(nonatomic,copy)DataBlock block;
+@property(nonatomic,assign)CGFloat BtnWidth;
 
 @end
 
@@ -27,6 +30,12 @@ UIScrollViewDelegate
         self.btnTitleArr = btnTitleMutArr;
         self.scrollView.alpha = 1;
         self.backgroundColor = kWhiteColor;
+        if (btnTitleMutArr.count * BtnDefaultWidth < SCREEN_WIDTH) {
+            self.BtnWidth = (SCREEN_WIDTH - SCALING_RATIO(5) * 2 - SCALING_RATIO(10) * (btnTitleMutArr.count - 1))/ btnTitleMutArr.count;
+        }else{
+            self.BtnWidth = BtnDefaultWidth;
+        }
+        
         for (int i = 0; i < btnTitleMutArr.count; i++) {
             MMButton *btn = MMButton.new;
 //            btn.backgroundColor = RandomColor;
@@ -51,9 +60,9 @@ UIScrollViewDelegate
             [btn setTitleColor:kBlackColor
                       forState:UIControlStateNormal];
             [self.scrollView addSubview:btn];
-            btn.frame = CGRectMake((SCALING_RATIO(100) + SCALING_RATIO(10)) * (i) + SCALING_RATIO(5),
+            btn.frame = CGRectMake((self.BtnWidth + SCALING_RATIO(10)) * (i) + SCALING_RATIO(5),
                                    0,
-                                   SCALING_RATIO(100),
+                                   self.BtnWidth,
                                    SCALING_RATIO(50));
             [self.btnMutArr addObject:btn];
         }
