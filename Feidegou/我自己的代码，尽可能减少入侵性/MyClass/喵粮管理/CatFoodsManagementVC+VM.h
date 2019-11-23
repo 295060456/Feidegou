@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CatFoodsManagementVC (VM)
 
 -(void)networking;
+-(void)check;
 
 @end
 

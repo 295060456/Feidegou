@@ -7,6 +7,7 @@
 //
 
 #import "BaseVC.h"
+#import "StallListVC.h"//喵粮转转
 
 NS_ASSUME_NONNULL_BEGIN
 

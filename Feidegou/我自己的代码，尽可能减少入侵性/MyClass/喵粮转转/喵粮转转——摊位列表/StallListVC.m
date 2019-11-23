@@ -78,8 +78,8 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    #warning 如果有机会那么进入下个页面
-    [self check];
+    [self onlinePeople:@"Online"];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -118,13 +118,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
 
-    //如果有机会那么进入下个页面
-    @weakify(self)
-    [OrderDetailVC ComingFromVC:self_weak_
-                      withStyle:ComingStyle_PUSH
-                  requestParams:self.dataMutArr[indexPath.row]
-                        success:^(id data) {}
-                       animated:YES];
+    //抢购成功 那么进入下个页面
+    [self 抢摊位:self.dataMutArr[indexPath.row]
+    indexPath:indexPath];
+
     
 //    StallListTBVCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 //    if (cell.userInteractionEnabled) {
@@ -159,9 +156,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    [self.tableView endUpdates];
 //    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
 //                    withRowAnimation:UITableViewRowAnimationNone];
-    
-    [self 抢摊位:self.dataMutArr[indexPath.row]
-    indexPath:indexPath];
+
 }
 //给cell添加动画
 -(void)tableView:(UITableView *)tableView

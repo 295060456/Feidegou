@@ -425,10 +425,20 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                 if ([self.orderListModel.order_status intValue] == 2) {
                     if ([self.orderListModel.del_state intValue] == 0) {
                         self.countDownCancelBtn.titleEndStr = @"取消";
+//                        self.countDownCancelBtn.titleBeginStr = @"";
                         [self.countDownCancelBtn addTarget:self
                                                     action:@selector(CatfoodBooth_del_netWorking)
                                           forControlEvents:UIControlEventTouchUpInside];//#22_1
                     }else if ([self.orderListModel.del_state intValue] == 1){
+                        //计算两个时间的相隔
+                        NSDateFormatter *formatter = NSDateFormatter.new;
+                        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                        NSDate* startDate = [formatter dateFromString:self.orderListModel.updateTime];
+                        NSString *now = [formatter stringFromDate:[NSDate date]];
+                        NSDate* endDate = [formatter dateFromString:now];//now
+                        NSTimeInterval time = [endDate timeIntervalSinceDate:startDate];
+                        self.time = 3 * 3600 - time;
+                        self.contactBuyer.titleEndStr = @"联系买家";
                         [self.contactBuyer addTarget:self
                                               action:@selector(联系买家)
                                     forControlEvents:UIControlEventTouchUpInside];

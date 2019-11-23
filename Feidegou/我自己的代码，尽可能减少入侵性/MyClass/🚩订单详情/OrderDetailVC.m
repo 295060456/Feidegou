@@ -261,7 +261,8 @@ UITableViewDataSource
                     [self.dataMutArr addObject:@"数据异常"];
                 }
             }else{}
-    }else if (self.catFoodProducingAreaModel){//喵粮产地
+    }
+    else if (self.catFoodProducingAreaModel){//喵粮产地
         NSString *str1 = [NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"];
         NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
         self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];

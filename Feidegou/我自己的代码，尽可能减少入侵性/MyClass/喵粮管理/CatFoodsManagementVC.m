@@ -11,14 +11,12 @@
 #import "ShopReceiptQRcodeVC.h"//店铺收款码
 #import "GiftVC.h"//赠送
 #import "CatFoodProducingAreaVC.h"//喵粮产地
-#import "StallListVC.h"//喵粮转转
 //#import "ThroughTrainToPromoteVC.h"//喵粮转转 被取消了
 #import "WholesaleMarket_AdvanceVC.h"//喵粮批发市场_仅高级商家可见
 #import "WholesaleMarket_VipVC.h"//喵粮批发市场_仅Vip可见
 #import "SettingPaymentWayVC.h"//设置支付方式
 #import "ChatListVC.h"//喵粮会话
 #import "PersonalDataChangedListVC.h"//个人喵粮变动清单
-
 #import "CatFoodsManagementVC+VM.h"
 
 @interface CatFoodsManagementVC ()
@@ -167,10 +165,7 @@ UITableViewDataSource
         if (self.dataMutArr.count) {
             NSString *str = (NSString *)self.dataMutArr[1];
             if (![str isEqualToString:@"无"]) {
-                [StallListVC pushFromVC:self_weak_
-                          requestParams:Nil
-                                success:^(id data) {}
-                               animated:YES];
+                [self check];
             }else{
                 [self showAlertViewTitle:@"未上传店铺收款二维码"
                                  message:@"现在去上传？"
