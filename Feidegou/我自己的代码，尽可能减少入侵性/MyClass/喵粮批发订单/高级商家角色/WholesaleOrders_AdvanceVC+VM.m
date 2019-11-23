@@ -44,7 +44,7 @@
             NSLog(@"--%@",response);
             if ([response isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *dic = (NSDictionary *)response;
-                self.model = [WholesaleOrders_AdvanceModel mj_objectWithKeyValues:dic[@"catFoodOrder"]];
+                self.model = [WholesaleOrders_AdvanceModel mj_objectWithKeyValues:dic];
                 
                 [self.dataArr addObject:@"喵粮"];//商品
                 [self.dataArr addObject:[NSString ensureNonnullString:self.model.quantity ReplaceStr:@"暂无信息"]];//数量

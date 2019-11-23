@@ -58,12 +58,14 @@
     NSString *strPsw = self.txtPsw.text;
     
 #warning 线上环境的一个用户
+//    strUserNum = @"88888888888";
+//    strPsw = @"123456";
 //    strUserNum = @"15167156784";
 //    strPsw = @"123456";
     
 #warning grade_id = 3 Vip商家
-    strUserNum = @"admin";
-    strPsw = @"123456";
+//    strUserNum = @"admin";
+//    strPsw = @"123456";
 
 //#warning grade_id = 2 高级商家
 //    strUserNum = @"shopping";
@@ -142,7 +144,7 @@
         error:错误信息
      响应头:task.response
      */
-    NSString *str = AK;
+    NSString *str = AK;//http://10.1.41.174:8888/SHOPAPP2.0/appShop7/query.do
     [manager POST:AK
        parameters:dataMutDic
          progress:nil

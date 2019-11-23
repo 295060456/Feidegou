@@ -41,6 +41,8 @@ DidClickCollectionViewDelegete
 @property (nonatomic,strong) UIView *viHeader;
 @property (nonatomic,strong) UILabel *lblTitle;
 @property (nonatomic,strong) ModelCenter *model;
+//Q宠
+@property(nonatomic,strong)Q_Pet *pet;
 
 @end
 
@@ -48,7 +50,8 @@ DidClickCollectionViewDelegete
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.pet.alpha = 1;
+    [self.pet becomeFirstResponder];
 }
 
 - (void)locationControls{
@@ -346,7 +349,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         switch ([model.grade_id intValue]) {
             case 0:{//普通用户，只显示“邀请码”
                 [cell.imgHead setImage:ImageNamed(@"邀请码")];
-                [cell.lblName setText:@"请输入邀请码"];
+                [cell.lblName setText:@"加入团队"];
                 [cell.lblNum setText:@""];
             }break;
             case 1:{//普通商家，什么都不显示
@@ -634,6 +637,24 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         self.viHeader.backgroundColor = ColorFromHexRGBA(0xf22a2a, 0.9);
         [self.lblTitle setHidden:NO];
     }
+}
+
+-(Q_Pet *)pet{
+    if (!_pet) {
+        _pet = [[Q_Pet alloc]initWithFrame:CGRectMake(SCALING_RATIO(100),
+                                                      SCREEN_HEIGHT - SCALING_RATIO(250),
+                                                      SCALING_RATIO(50),
+                                                      SCALING_RATIO(50))];
+        _pet.autoCloseEdge = YES;
+        [_pet show];
+        [self.view addSubview:_pet];
+        [_pet becomeFirstResponder];
+        @weakify(self)
+        [_pet actionBlock:^(id data) {
+            @strongify(self)
+//            [self.tableView.mj_header beginRefreshing];
+        }];
+    }return _pet;
 }
 
 

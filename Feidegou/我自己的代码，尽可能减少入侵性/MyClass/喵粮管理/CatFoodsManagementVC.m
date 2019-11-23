@@ -25,8 +25,6 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
-//Q宠
-@property(nonatomic,strong)Q_Pet *pet;
 @property(nonatomic,strong)ModelLogin *loginModel;
 @property(nonatomic,strong)NSMutableArray <NSArray *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSArray *>*imgMutArr;
@@ -82,8 +80,6 @@ UITableViewDataSource
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.pet.alpha = 1;
-    [self.pet becomeFirstResponder];
     self.tableView.alpha = 1;
 }
 
@@ -294,30 +290,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _tableView;
 }
 
--(Q_Pet *)pet{
-    if (!_pet) {
-        _pet = [[Q_Pet alloc]initWithFrame:CGRectMake(SCALING_RATIO(100),
-                                                      SCREEN_HEIGHT - SCALING_RATIO(250),
-                                                      SCALING_RATIO(50),
-                                                      SCALING_RATIO(50))];
-        _pet.autoCloseEdge = YES;
-        [_pet show];
-        [self.tableView addSubview:_pet];
-        [_pet becomeFirstResponder];
-        @weakify(self)
-        [_pet actionBlock:^(id data) {
-            @strongify(self)
-            [self.tableView.mj_header beginRefreshing];
-        }];
-    }return _pet;
-}
-
 -(NSMutableArray<NSArray *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
         [_titleMutArr addObject:@[@"可用的喵粮数量",
-                                  @"出售中",
-                                  @"个人喵粮变动清单"]];
+                                  @"出售中的数量",
+                                  @"喵粮记录"]];
         NSMutableArray *tempMutArr = NSMutableArray.array;
         [tempMutArr addObject:@"喵粮订单管理"];
         [tempMutArr addObject:@"店铺收款码"];

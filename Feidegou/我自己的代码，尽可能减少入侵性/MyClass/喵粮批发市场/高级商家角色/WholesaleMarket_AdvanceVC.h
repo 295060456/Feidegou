@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WholesaleMarket_AdvancePopView : UIView
 
+@property(nonatomic,strong)UITextField *textfield;
+
 + (WholesaleMarket_AdvancePopView *) shareManager;
 - (instancetype)initWithRequestParams:(id)requestParams;
 -(void)clickBlock:(TwoDataBlock)block;

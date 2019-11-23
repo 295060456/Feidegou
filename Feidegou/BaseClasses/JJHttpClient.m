@@ -87,7 +87,7 @@
 -(AFHTTPSessionManager*)__httpSessionManagerWithBaseUrl:(NSString*)baseUrl{
     NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
     //设置请求超时时间
-    sessionConfiguration.timeoutIntervalForRequest =HTTPTimeoutInterval;
+    sessionConfiguration.timeoutIntervalForRequest = HTTPTimeoutInterval;
     //设置请求headers
     sessionConfiguration.HTTPAdditionalHeaders = @{@"source":@"ios"};
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager manager] initWithBaseURL:[NSURL URLWithString:baseUrl]  sessionConfiguration:sessionConfiguration];

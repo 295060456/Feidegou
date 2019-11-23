@@ -85,6 +85,9 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
+    if (self.dataArr.count) {
+        [self.dataArr removeAllObjects];
+    }
     [self netWorking];
 }
 //上拉加载更多
