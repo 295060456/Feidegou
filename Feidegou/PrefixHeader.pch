@@ -154,6 +154,7 @@
 #import "OrderDetailVC.h"//订单详情
 #import "UpLoadCancelReasonVC.h"//上传截图
 //#import "RegisterVC.h"//注册
+#import "PersonalInfo.h"
 
 #import "ContentBaseViewController.h"
 #import "JXCategoryTitleImageView.h"
