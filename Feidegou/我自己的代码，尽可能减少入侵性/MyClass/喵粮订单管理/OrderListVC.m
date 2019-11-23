@@ -203,8 +203,15 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
         [_titleMutArr addObject:@"转转"];
-        [_titleMutArr addObject:@"厂家"];
         [_titleMutArr addObject:@"批发"];
+        if ([[PersonalInfo sharedInstance] isLogined]) {
+            ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+            if ([model.grade_id intValue] == 2) {//高级商家
+                
+            }else if ([model.grade_id intValue] == 3){//vip商家
+                [_titleMutArr addObject:@"厂家"];
+            }
+        }
     }return _titleMutArr;
 }
 
@@ -212,8 +219,15 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
     if (!_imageNamesMutArr) {
         _imageNamesMutArr = NSMutableArray.array;
         [_imageNamesMutArr addObject:@"转转_unselected"];
-        [_imageNamesMutArr addObject:@"厂家_unselected"];
         [_imageNamesMutArr addObject:@"批发_unselected"];
+        if ([[PersonalInfo sharedInstance] isLogined]) {
+            ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+            if ([model.grade_id intValue] == 2) {//高级商家
+                
+            }else if ([model.grade_id intValue] == 3){//vip商家
+                [_imageNamesMutArr addObject:@"厂家_unselected"];
+            }
+        }
     }return _imageNamesMutArr;
 }
 
@@ -221,8 +235,15 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
     if (!_selectedImageNamesMutArr) {
         _selectedImageNamesMutArr = NSMutableArray.array;
         [_selectedImageNamesMutArr addObject:@"转转_selected"];
-        [_selectedImageNamesMutArr addObject:@"厂家_selected"];
         [_selectedImageNamesMutArr addObject:@"批发_selected"];
+        if ([[PersonalInfo sharedInstance] isLogined]) {
+            ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+            if ([model.grade_id intValue] == 2) {//高级商家
+                
+            }else if ([model.grade_id intValue] == 3){//vip商家
+                [_selectedImageNamesMutArr addObject:@"厂家_selected"];
+            }
+        }
     }return _selectedImageNamesMutArr;
 }
 
@@ -230,8 +251,15 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
     if (!_childVCMutArr) {
         _childVCMutArr = NSMutableArray.array;
         [self.childVCMutArr addObject:self.panicBuyingVC];
-        [self.childVCMutArr addObject:self.producingAreaVC];
         [self.childVCMutArr addObject:self.wholesaleVC];
+        if ([[PersonalInfo sharedInstance] isLogined]) {
+            ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+            if ([model.grade_id intValue] == 2) {//高级商家
+                
+            }else if ([model.grade_id intValue] == 3){//vip商家
+                [self.childVCMutArr addObject:self.producingAreaVC];
+            }
+        }
     }return _childVCMutArr;
 }
 

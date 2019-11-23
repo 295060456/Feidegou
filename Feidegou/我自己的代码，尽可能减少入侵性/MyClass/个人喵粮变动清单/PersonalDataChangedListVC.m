@@ -288,7 +288,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             case 34://批发发布
             case 25://产地出售
             case 35:{//产地发布
-                self.numLabStr = [NSString stringWithFormat:@"+%@g",[NSString ensureNonnullString:personalDataChangedListModel.number ReplaceStr:@"无"]];
+                self.numLabStr = [NSString stringWithFormat:@"-%@g",[NSString ensureNonnullString:personalDataChangedListModel.number ReplaceStr:@"无"]];
         }break;
             case 21://赠送减少
             case 22://后台减少
@@ -298,7 +298,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             case 15://产地购买
             case 26://开启直通车减少
             case 27:{//喂食喵粮减少
-                self.numLabStr = [NSString stringWithFormat:@"-%@g",[NSString ensureNonnullString:personalDataChangedListModel.number ReplaceStr:@"无"]];
+                self.numLabStr = [NSString stringWithFormat:@"+%@g",[NSString ensureNonnullString:personalDataChangedListModel.number ReplaceStr:@"无"]];
             }break;
             default:{
                 self.numLabStr = @"数据异常";

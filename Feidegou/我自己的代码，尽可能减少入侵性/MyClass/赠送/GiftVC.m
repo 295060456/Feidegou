@@ -296,7 +296,8 @@ UITextFieldDelegate
 -(UILabel *)lab{
     if (!_lab) {
         _lab = UILabel.new;
-        _lab.text = @"可以赠送的喵粮数量：5000";
+        extern NSString *Foodstuff;
+        _lab.text = [NSString stringWithFormat:@"可以赠送的喵粮数量:%@",Foodstuff];
         [self.contentView addSubview:_lab];
         [_lab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView);

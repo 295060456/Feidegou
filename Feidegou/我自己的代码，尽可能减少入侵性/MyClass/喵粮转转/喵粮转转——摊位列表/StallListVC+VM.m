@@ -5,7 +5,6 @@
 //  Created by Kite on 2019/11/7.
 //  Copyright © 2019 朝花夕拾. All rights reserved.
 //
-
 #import "StallListVC+VM.h"
 
 @implementation StallListVC (VM)
@@ -58,10 +57,16 @@
         if ([response isKindOfClass:[NSString class]]) {
              NSString *str = (NSString *)response;
             if ([NSString isNullString:str]) {
+                //抢购成功
                 [OrderDetailVC ComingFromVC:self_weak_
                                   withStyle:ComingStyle_PUSH
                               requestParams:stallListModel
-                                    success:^(id data) {}
+                                    success:^(id data) {
+                    [self_weak_ showAlertViewTitle:@"收到款项请立即发货、如果没有及时发货，将可能面临账号被冻结的处理"
+                                           message:@""
+                                       btnTitleArr:@[@"好的"]
+                                    alertBtnAction:@[@"OK"]];
+                }
                                    animated:YES];                
             }
         }
@@ -139,6 +144,10 @@
 }
 
 - (void)SRWebSocketDidClose:(NSNotification *)note {//断开
+    
+}
+
+-(void)OK{
     
 }
 

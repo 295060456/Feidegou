@@ -196,7 +196,7 @@ UITableViewDataSource
              requestParams:nil
                    success:^(id data) {}
                   animated:YES];
-    }else if ([vcName isEqualToString:@"个人喵粮变动清单"]){
+    }else if ([vcName isEqualToString:@"喵粮记录"]){
         [PersonalDataChangedListVC ComingFromVC:self_weak_
                                        withStyle:ComingStyle_PUSH
                                    requestParams:nil

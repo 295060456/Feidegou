@@ -54,7 +54,6 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.gk_navTitle = @"喵粮转转";
-    Toast(@"收到款项请立即发货、如果没有及时发货，将可能面临账号被冻结的处理");
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
@@ -105,7 +104,7 @@ UITableViewDataSource
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-   [self pullToRefresh];
+//   [self pullToRefresh];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView

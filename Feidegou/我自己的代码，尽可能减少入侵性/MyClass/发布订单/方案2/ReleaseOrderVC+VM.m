@@ -96,7 +96,8 @@
             NSString *str = (NSString *)response;
             NSLog(@"--%@",response);
             Toast(str);
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popToViewController:self.navigationController.childViewControllers[self.navigationController.childViewControllers.count - 3]
+                                                  animated:YES];
         }else{
             NSLog(@"");
         }

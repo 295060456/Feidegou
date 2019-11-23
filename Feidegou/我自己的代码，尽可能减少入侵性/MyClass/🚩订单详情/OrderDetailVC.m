@@ -135,7 +135,7 @@ UITableViewDataSource
                         [self.sureBtn setTitle:@"发货"
                                       forState:UIControlStateNormal];
                         [self.sureBtn addTarget:self
-                                    action:@selector(CatfoodBooth_del_netWorking)
+                                    action:@selector(boothDeliver_networking)
                           forControlEvents:UIControlEventTouchUpInside];//#21
                     }else if ([self.orderListModel.del_state intValue] == 1){//在审核中/买家确认中
                         //3小时内，等待买家确认 倒计时
@@ -242,12 +242,16 @@ UITableViewDataSource
                 self.gk_navTitle = @"喵粮产地订单详情";
                 if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                     [self.dataMutArr addObject:@"订单已下单"];//333
-                    self.time = 50;
+                    self.time = 3;
                     self.titleEndStr = @"取消";
                     self.titleBeginStr = @"取消";
-                    [self.countDownCancelBtn addTarget:self
-                                                action:@selector(cancelOrder_producingArea_netWorking)
-                                      forControlEvents:UIControlEventTouchUpInside];//#9
+//                    [self.countDownCancelBtn addTarget:self
+//                                                action:@selector(cancelOrder_producingArea_netWorking)
+//                                      forControlEvents:UIControlEventTouchUpInside];//#9
+                    [self.normalCancel setTitle:@"取消" forState:UIControlStateNormal];
+                    [self.normalCancel addTarget:self
+                                          action:@selector(cancelOrder_producingArea_netWorking)
+                                forControlEvents:UIControlEventTouchUpInside];//#9
                     [self.sureBtn setTitle:@"上传支付凭证"
                                   forState:UIControlStateNormal];//上传支付凭证结束 改为 去支付
                     [self.sureBtn addTarget:self
@@ -557,7 +561,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
         if (self.orderListModel) {
-            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"]];//订单号
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.ordercode ReplaceStr:@"无"]];//订单号
             [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderListModel.price ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//单价
             [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@"无"] stringByAppendingString:@" g"]];//数量
             [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderListModel.rental ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//总额
@@ -588,10 +592,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             }else{
                 [_dataMutArr addObject:@"无支付账户"];
             }
-            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.refer ReplaceStr:@"无"]];//参考号
+//            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.refer ReplaceStr:@"无"]];//参考号
             [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.updateTime ReplaceStr:@"无"]];//时间
         }else if (self.catFoodProducingAreaModel){
-            [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.ID ReplaceStr:@"无"]];//订单号
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.ordercode ReplaceStr:@"无"]];//订单号
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.price ReplaceStr:@"无"]];//单价
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.quantity ReplaceStr:@"无"]];//数量
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.rental ReplaceStr:@"无"]];//总价
@@ -601,7 +605,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.bankaddress ReplaceStr:@"无"]];//支行信息
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.updateTime ReplaceStr:@"无"]];//下单时间
         }else if (self.stallListModel){
-            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.ID ReplaceStr:@"无"]];//订单号
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.ordercode ReplaceStr:@"无"]];//订单号
             [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.price ReplaceStr:@"无"]];//单价
             [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.quantity ReplaceStr:@"无"]];//数量
             [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.rental ReplaceStr:@"无"]];//总价
@@ -634,7 +638,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             }else{
                 [_titleMutArr addObject:@"异常:"];
             }
-            [_titleMutArr addObject:@"参考号:"];
+//            [_titleMutArr addObject:@"参考号:"];
             [_titleMutArr addObject:@"下单时间:"];
             [_titleMutArr addObject:@"订单状态"];
         }else if (self.catFoodProducingAreaModel){//只允许银行卡

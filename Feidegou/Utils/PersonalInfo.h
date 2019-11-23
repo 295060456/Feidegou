@@ -44,4 +44,5 @@
  *  是否登录
  */
 -(BOOL)isLogined;
+
 @end

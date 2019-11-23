@@ -18,50 +18,6 @@
 
 @end
 
-@implementation ReleaseOrder_viewForHeader
-
-- (instancetype)initWithRequestParams:(id)requestParams{
-    if (self = [super init]) {
-    }return self;
-}
-
--(void)drawRect:(CGRect)rect{
-    self.titleLab.alpha = 1;
-    [self layoutIfNeeded];
-    self.goodsLab.alpha = 1;
-}
-
--(UILabel *)titleLab{
-    if (!_titleLab) {
-        _titleLab = UILabel.new;
-        _titleLab.text = @"商品";
-        [_titleLab sizeToFit];
-        _titleLab.textAlignment = NSTextAlignmentCenter;
-        [self.contentView addSubview:_titleLab];
-        [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.equalTo(self.contentView);
-            make.left.equalTo(self.contentView).offset(SCALING_RATIO(20));
-        }];
-    }return _titleLab;
-}
-
--(UILabel *)goodsLab{
-    if (!_goodsLab) {
-        _goodsLab = UILabel.new;
-        _goodsLab.textAlignment = NSTextAlignmentCenter;
-        _goodsLab.text = @"喵粮";
-        [_goodsLab sizeToFit];
-        [self.contentView addSubview:_goodsLab];
-        [_goodsLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.equalTo(self.contentView);
-            make.right.equalTo(self.contentView);
-            make.left.equalTo(self.titleLab.mas_right);
-        }];
-    }return _goodsLab;
-}
-
-@end
-
 @interface ReleaseOrderTBVCell ()
 <
 UITextFieldDelegate
@@ -72,188 +28,6 @@ UITextFieldDelegate
 @property(nonatomic,copy)DataBlock block;
 @property(nonatomic,copy)DataBlock dataBlock;
 @property(nonatomic,copy)ThreeDataBlock block2;
-
-@end
-
-@implementation ReleaseOrderTBVCell
-
-+(instancetype)cellWith:(UITableView *)tableView{
-    ReleaseOrderTBVCell *cell = (ReleaseOrderTBVCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
-    if (!cell) {
-        cell = [[ReleaseOrderTBVCell alloc] initWithStyle:UITableViewCellStyleValue1
-                                          reuseIdentifier:ReuseIdentifier
-                                                   margin:SCALING_RATIO(5)];
-        cell.backgroundColor = kClearColor;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    }return cell;
-}
-
-+(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCALING_RATIO(50);
-}
-
-- (void)richElementsInCellWithModel:(id _Nullable)model
-            ReleaseOrderTBVCellType:(ReleaseOrderTBVCellType)type{
-    [self.textLabel sizeToFit];
-    switch (type) {
-        case ReleaseOrderTBVCellType_Textfield:{
-            self.detailTextLabel.text = @"g";
-            self.textfield.placeholder = model;
-            [self layoutIfNeeded];
-            if ([model isEqualToString:@"请输入数量"]) {
-                [_textfield mas_remakeConstraints:^(MASConstraintMaker *make) {
-                    make.top.bottom.equalTo(self.contentView);
-                    make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(40));
-                    make.right.equalTo(self.detailTextLabel.mas_left).offset(SCALING_RATIO(-10));
-                }];
-            }else{}
-        }break;
-        case ReleaseOrderTBVCellType_Lab:{
-            self.detailTextLabel.text = model;
-        }break;
-        case ReleaseOrderTBVCellType_Btn:{
-            [self.btn setTitle:model
-                      forState:normal];
-        }break;
-        case ReleaseOrderTBVCellType_TextfieldOnly:{
-            self.textfield.placeholder = model;
-            [self layoutIfNeeded];
-            [_textfield mas_remakeConstraints:^(MASConstraintMaker *make) {
-                make.top.bottom.equalTo(self.contentView);
-                make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(40));
-                make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-            }];
-        }break;
-        default:
-            break;
-    }
-}
-
--(void)actionBlock:(DataBlock)block{
-    self.block = block;
-}
-
--(void)btnClickEventBlock:(ThreeDataBlock)block{
-    self.block2 = block;
-}
-
--(void)dataBlock:(DataBlock)block{
-    _dataBlock = block;
-}
-//超出父控件点击事件响应链断裂解决方案
-//若A是父视图,B是子视图,（B加在A上）,B超出A的范围,把这个方法写在A上
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    UIView *view = [super hitTest:point withEvent:event];
-    if (!view) {
-        //将坐标由当前视图发送到 指定视图 fromView是无法响应的范围小父视图
-        CGPoint stationPoint = [self.historyDataListTBV convertPoint:point
-                                                                     fromView:self];
-        if (CGRectContainsPoint(self.historyDataListTBV.bounds, stationPoint)){
-            view = self.historyDataListTBV;
-        }
-    }return view;
-}
-#pragma mark —— 点击事件
--(void)btnClickEvent:(UIButton *)sender{
-    if (self.block2) {
-        self.block2(sender,
-                    self.listTitleDataMutArr,
-                    @(SCALING_RATIO(50)));
-    }
-    NSLog(@"收款方式");
-    if (!sender.selected) {
-        [self.contentView addSubview:self.historyDataListTBV];
-        //[self.view addSubview:self->_historyDataListTBV];
-        self.historyDataListTBV.frame = CGRectMake(self.btn.mj_x,
-                                                   self.btn.mj_y + self.btn.mj_h,
-                                                   self.btn.mj_w,
-                                                   self.listTitleDataMutArr.count * [HistoryDataListTBVCell cellHeightWithModel:Nil]);
-    }else{
-        [self.historyDataListTBV removeFromSuperview];
-    }
-    sender.selected = !sender.selected;
-}
-#pragma mark —— UITextFieldDelegate
-//询问委托人是否应该在指定的文本字段中开始编辑
-//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
-//告诉委托人在指定的文本字段中开始编辑
-- (void)textFieldDidBeginEditing:(UITextField *)textField{
-
-}
-//询问委托人是否应在指定的文本字段中停止编辑
-//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
-//告诉委托人对指定的文本字段停止编辑
-- (void)textFieldDidEndEditing:(UITextField *)textField{
-    if (self.dataBlock) {
-        self.dataBlock(textField);
-    }
-}
-//告诉委托人对指定的文本字段停止编辑
-//- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
-//询问委托人是否应该更改指定的文本
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
-//询问委托人是否应删除文本字段的当前内容
-//- (BOOL)textFieldShouldClear:(UITextField *)textField;
-//询问委托人文本字段是否应处理按下返回按钮
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    return YES;
-}
-#pragma mark —— lazyLoad
--(UITextField *)textfield{
-    if (!_textfield) {
-        _textfield = UITextField.new;
-        _textfield.backgroundColor = KLightGrayColor;
-        _textfield.delegate = self;
-        [self.contentView addSubview:_textfield];
-        [_textfield mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.bottom.equalTo(self.contentView);
-            make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(10));
-            make.right.equalTo(self.detailTextLabel.mas_left).offset(SCALING_RATIO(-10));
-        }];
-    }return _textfield;
-}
-
--(UIButton *)btn{
-    if (!_btn) {
-        _btn = UIButton.new;
-        _btn.backgroundColor = KLightGrayColor;
-        [_btn addTarget:self
-                 action:@selector(btnClickEvent:)
-       forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:_btn];
-        [_btn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(10));
-            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-            make.top.bottom.equalTo(self.contentView);
-        }];
-    }return _btn;
-}
-
--(HistoryDataListTBV *)historyDataListTBV{
-    if (!_historyDataListTBV) {
-        _historyDataListTBV = [HistoryDataListTBV initWithRequestParams:self.listTitleDataMutArr
-                                                              triggerBy:self];
-        _historyDataListTBV.tableFooterView = UIView.new;
-        @weakify(self)
-        [_historyDataListTBV showSelectedData:^(id data,
-                                                id data2) {
-            @strongify(self)
-            [self.btn setTitle:data
-                      forState:UIControlStateNormal];
-            [self.historyDataListTBV removeFromSuperview];
-            self.block(data);
-        }];
-    }return _historyDataListTBV;
-}
-
--(NSMutableArray<NSString *> *)listTitleDataMutArr{
-    if (!_listTitleDataMutArr) {
-        _listTitleDataMutArr = NSMutableArray.array;
-        [_listTitleDataMutArr addObject:@"支付宝"];
-        [_listTitleDataMutArr addObject:@"微信"];
-        [_listTitleDataMutArr addObject:@"银行卡"];
-    }return _listTitleDataMutArr;
-}
 
 @end
 
@@ -663,7 +437,8 @@ forHeaderFooterViewReuseIdentifier:@"KJHG"];
 -(NSMutableArray<NSString *> *)placeholderMutArr{
     if (!_placeholderMutArr) {
         _placeholderMutArr = NSMutableArray.array;
-        [_placeholderMutArr addObject:@"请输入数量"];
+        extern NSString *Foodstuff;
+        [_placeholderMutArr addObject:[NSString stringWithFormat:@"可用喵粮余额 %@",[NSString ensureNonnullString:Foodstuff ReplaceStr:@"无"]]];
         [_placeholderMutArr addObject:@"请输入最低限额"];
         [_placeholderMutArr addObject:@"请输入最高限额"];
         extern NSString *market_price_sale;//批发均价
@@ -680,5 +455,230 @@ forHeaderFooterViewReuseIdentifier:@"KJHG"];
 
 @end
 
+@implementation ReleaseOrder_viewForHeader
+
+- (instancetype)initWithRequestParams:(id)requestParams{
+    if (self = [super init]) {
+    }return self;
+}
+
+-(void)drawRect:(CGRect)rect{
+    self.titleLab.alpha = 1;
+    [self layoutIfNeeded];
+    self.goodsLab.alpha = 1;
+}
+
+-(UILabel *)titleLab{
+    if (!_titleLab) {
+        _titleLab = UILabel.new;
+        _titleLab.text = @"商品";
+        [_titleLab sizeToFit];
+        _titleLab.textAlignment = NSTextAlignmentCenter;
+        [self.contentView addSubview:_titleLab];
+        [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self.contentView);
+            make.left.equalTo(self.contentView).offset(SCALING_RATIO(20));
+        }];
+    }return _titleLab;
+}
+
+-(UILabel *)goodsLab{
+    if (!_goodsLab) {
+        _goodsLab = UILabel.new;
+        _goodsLab.textAlignment = NSTextAlignmentCenter;
+        _goodsLab.text = @"喵粮";
+        [_goodsLab sizeToFit];
+        [self.contentView addSubview:_goodsLab];
+        [_goodsLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self.contentView);
+            make.right.equalTo(self.contentView);
+            make.left.equalTo(self.titleLab.mas_right);
+        }];
+    }return _goodsLab;
+}
+
+@end
+
+@implementation ReleaseOrderTBVCell
+
++(instancetype)cellWith:(UITableView *)tableView{
+    ReleaseOrderTBVCell *cell = (ReleaseOrderTBVCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
+    if (!cell) {
+        cell = [[ReleaseOrderTBVCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                          reuseIdentifier:ReuseIdentifier
+                                                   margin:SCALING_RATIO(5)];
+        cell.backgroundColor = kClearColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }return cell;
+}
+
++(CGFloat)cellHeightWithModel:(id _Nullable)model{
+    return SCALING_RATIO(50);
+}
+
+- (void)richElementsInCellWithModel:(id _Nullable)model
+            ReleaseOrderTBVCellType:(ReleaseOrderTBVCellType)type{
+    [self.textLabel sizeToFit];
+    switch (type) {
+        case ReleaseOrderTBVCellType_Textfield:{
+            self.detailTextLabel.text = @"g";
+            self.textfield.placeholder = model;
+            [self layoutIfNeeded];
+            if ([model isEqualToString:@"请输入数量"]) {
+                [_textfield mas_remakeConstraints:^(MASConstraintMaker *make) {
+                    make.top.bottom.equalTo(self.contentView);
+                    make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(40));
+                    make.right.equalTo(self.detailTextLabel.mas_left).offset(SCALING_RATIO(-10));
+                }];
+            }else{}
+        }break;
+        case ReleaseOrderTBVCellType_Lab:{
+            self.detailTextLabel.text = model;
+        }break;
+        case ReleaseOrderTBVCellType_Btn:{
+            [self.btn setTitle:model
+                      forState:normal];
+        }break;
+        case ReleaseOrderTBVCellType_TextfieldOnly:{
+            self.textfield.placeholder = model;
+            [self layoutIfNeeded];
+            [_textfield mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.top.bottom.equalTo(self.contentView);
+                make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(40));
+                make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+            }];
+        }break;
+        default:
+            break;
+    }
+}
+
+-(void)actionBlock:(DataBlock)block{
+    self.block = block;
+}
+
+-(void)btnClickEventBlock:(ThreeDataBlock)block{
+    self.block2 = block;
+}
+
+-(void)dataBlock:(DataBlock)block{
+    _dataBlock = block;
+}
+//超出父控件点击事件响应链断裂解决方案
+//若A是父视图,B是子视图,（B加在A上）,B超出A的范围,把这个方法写在A上
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    UIView *view = [super hitTest:point withEvent:event];
+    if (!view) {
+        //将坐标由当前视图发送到 指定视图 fromView是无法响应的范围小父视图
+        CGPoint stationPoint = [self.historyDataListTBV convertPoint:point
+                                                                     fromView:self];
+        if (CGRectContainsPoint(self.historyDataListTBV.bounds, stationPoint)){
+            view = self.historyDataListTBV;
+        }
+    }return view;
+}
+#pragma mark —— 点击事件
+-(void)btnClickEvent:(UIButton *)sender{
+    if (self.block2) {
+        self.block2(sender,
+                    self.listTitleDataMutArr,
+                    @(SCALING_RATIO(50)));
+    }
+    NSLog(@"收款方式");
+    if (!sender.selected) {
+        [self.contentView addSubview:self.historyDataListTBV];
+        //[self.view addSubview:self->_historyDataListTBV];
+        self.historyDataListTBV.frame = CGRectMake(self.btn.mj_x,
+                                                   self.btn.mj_y + self.btn.mj_h,
+                                                   self.btn.mj_w,
+                                                   self.listTitleDataMutArr.count * [HistoryDataListTBVCell cellHeightWithModel:Nil]);
+    }else{
+        [self.historyDataListTBV removeFromSuperview];
+    }
+    sender.selected = !sender.selected;
+}
+#pragma mark —— UITextFieldDelegate
+//询问委托人是否应该在指定的文本字段中开始编辑
+//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
+//告诉委托人在指定的文本字段中开始编辑
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+
+}
+//询问委托人是否应在指定的文本字段中停止编辑
+//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
+//告诉委托人对指定的文本字段停止编辑
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    if (self.dataBlock) {
+        self.dataBlock(textField);
+    }
+}
+//告诉委托人对指定的文本字段停止编辑
+//- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
+//询问委托人是否应该更改指定的文本
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
+//询问委托人是否应删除文本字段的当前内容
+//- (BOOL)textFieldShouldClear:(UITextField *)textField;
+//询问委托人文本字段是否应处理按下返回按钮
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    return YES;
+}
+#pragma mark —— lazyLoad
+-(UITextField *)textfield{
+    if (!_textfield) {
+        _textfield = UITextField.new;
+        _textfield.backgroundColor = KLightGrayColor;
+        _textfield.delegate = self;
+        [self.contentView addSubview:_textfield];
+        [_textfield mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.bottom.equalTo(self.contentView);
+            make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(10));
+            make.right.equalTo(self.detailTextLabel.mas_left).offset(SCALING_RATIO(-10));
+        }];
+    }return _textfield;
+}
+
+-(UIButton *)btn{
+    if (!_btn) {
+        _btn = UIButton.new;
+        _btn.backgroundColor = KLightGrayColor;
+        [_btn addTarget:self
+                 action:@selector(btnClickEvent:)
+       forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:_btn];
+        [_btn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(10));
+            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+            make.top.bottom.equalTo(self.contentView);
+        }];
+    }return _btn;
+}
+
+-(HistoryDataListTBV *)historyDataListTBV{
+    if (!_historyDataListTBV) {
+        _historyDataListTBV = [HistoryDataListTBV initWithRequestParams:self.listTitleDataMutArr
+                                                              triggerBy:self];
+        _historyDataListTBV.tableFooterView = UIView.new;
+        @weakify(self)
+        [_historyDataListTBV showSelectedData:^(id data,
+                                                id data2) {
+            @strongify(self)
+            [self.btn setTitle:data
+                      forState:UIControlStateNormal];
+            [self.historyDataListTBV removeFromSuperview];
+            self.block(data);
+        }];
+    }return _historyDataListTBV;
+}
+
+-(NSMutableArray<NSString *> *)listTitleDataMutArr{
+    if (!_listTitleDataMutArr) {
+        _listTitleDataMutArr = NSMutableArray.array;
+        [_listTitleDataMutArr addObject:@"支付宝"];
+        [_listTitleDataMutArr addObject:@"微信"];
+        [_listTitleDataMutArr addObject:@"银行卡"];
+    }return _listTitleDataMutArr;
+}
+
+@end
 
 
