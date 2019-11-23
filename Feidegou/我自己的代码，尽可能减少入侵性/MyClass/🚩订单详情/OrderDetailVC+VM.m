@@ -397,6 +397,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //                @strongify(self)
                 NSLog(@"--%@",response);
                 Toast(@"取消成功");
+                [self.tableView.mj_header beginRefreshing];
             }
         }
     }];

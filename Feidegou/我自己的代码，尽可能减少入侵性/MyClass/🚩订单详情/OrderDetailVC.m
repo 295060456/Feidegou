@@ -11,6 +11,22 @@
 #import "UpLoadCancelReasonVC.h"
 #import "OrderDetailTBViewForHeader.h"
 
+//凭证
+@interface OrderDetailTBVIMGCell ()
+
+@property(nonatomic,strong)UIImageView *imgV;
+
+@end
+
+//订单、单价、总价、账号、支付方式、参考号、下单时间
+@interface OrderDetailTBVCell ()
+
++(instancetype)cellWith:(UITableView *)tableView;
++(CGFloat)cellHeightWithModel:(id _Nullable)model;
+- (void)richElementsInCellWithModel:(id _Nullable)model;
+
+@end
+
 #pragma mark —— OrderDetailVC
 @interface OrderDetailVC ()
 <
@@ -307,7 +323,9 @@ UITableViewDataSource
         NSTimeInterval time = [NSString timeIntervalstartDate:self.stallListModel.updateTime
                                                       endDate:nil
                                                 timeFormatter:nil];
-        self.time = 5 * 60 - time;
+        self.time = 3 * 60 - time;
+        
+//        self.time = 3 * 60;
         self.titleEndStr = @"取消";
         self.titleBeginStr = @"取消";
         [self.countDownCancelBtn addTarget:self
@@ -396,7 +414,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         if ([self.orderListModel.identity isEqualToString:@"卖家"]) {
             if ([self.orderListModel.order_status intValue] == 0) {
                 if (indexPath.row == 9) {
-                    return [OrderDetailTBVIMGCell cellHeightWithModel:nil];
+                    return [OrderDetailTBVIMGCell cellHeightWithModel:nil];//凭证图
                 }
             }
         }
@@ -667,15 +685,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 @end
 
-//订单、单价、总价、账号、支付方式、参考号、下单时间
-@interface OrderDetailTBVCell ()
-
-+(instancetype)cellWith:(UITableView *)tableView;
-+(CGFloat)cellHeightWithModel:(id _Nullable)model;
-- (void)richElementsInCellWithModel:(id _Nullable)model;
-
-@end
-
 @implementation OrderDetailTBVCell
 
 +(instancetype)cellWith:(UITableView *)tableView{
@@ -695,13 +704,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     self.detailTextLabel.text = model;
 }
-
-@end
-
-//凭证
-@interface OrderDetailTBVIMGCell ()
-
-@property(nonatomic,strong)UIImageView *imgV;
 
 @end
 
