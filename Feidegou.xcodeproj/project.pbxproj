@@ -163,6 +163,7 @@
 		8BB2D43E2367F9BB0047D0E2 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */; };
 		8BC386682374718100FE8C02 /* XDMultTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC386652374718100FE8C02 /* XDMultTableView.m */; };
 		8BC386692374718100FE8C02 /* down_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC386662374718100FE8C02 /* down_blue@2x.png */; };
+		8BCAB63F238A5360000B0360 /* AppDelegate+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAB63E238A5360000B0360 /* AppDelegate+VM.m */; };
 		8BCB98C2237154940063E01E /* UpLoadCancelReasonVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98C1237154940063E01E /* UpLoadCancelReasonVC+VM.m */; };
 		8BCB98C823715D380063E01E /* EncryptUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98C423715D370063E01E /* EncryptUtils.m */; };
 		8BCB98C923715D380063E01E /* RSAUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98C723715D380063E01E /* RSAUtil.m */; };
@@ -976,6 +977,8 @@
 		8BC386652374718100FE8C02 /* XDMultTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XDMultTableView.m; sourceTree = "<group>"; };
 		8BC386662374718100FE8C02 /* down_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down_blue@2x.png"; sourceTree = "<group>"; };
 		8BC386672374718100FE8C02 /* XDMultTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDMultTableView.h; sourceTree = "<group>"; };
+		8BCAB63D238A5360000B0360 /* AppDelegate+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+VM.h"; sourceTree = "<group>"; };
+		8BCAB63E238A5360000B0360 /* AppDelegate+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+VM.m"; sourceTree = "<group>"; };
 		8BCB98C0237154940063E01E /* UpLoadCancelReasonVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UpLoadCancelReasonVC+VM.h"; sourceTree = "<group>"; };
 		8BCB98C1237154940063E01E /* UpLoadCancelReasonVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UpLoadCancelReasonVC+VM.m"; sourceTree = "<group>"; };
 		8BCB98C423715D370063E01E /* EncryptUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncryptUtils.m; sourceTree = "<group>"; };
@@ -2932,6 +2935,8 @@
 				8B16F04F23869002003941B4 /* DefineStructure.h */,
 				C42CCCD9213CC04F0096675F /* AppDelegate.h */,
 				C42CCCDA213CC04F0096675F /* AppDelegate.m */,
+				8BCAB63D238A5360000B0360 /* AppDelegate+VM.h */,
+				8BCAB63E238A5360000B0360 /* AppDelegate+VM.m */,
 				8B86E02923853FEA004D4C0A /* AppDelegate+Alipay.h */,
 				8B86E02A23853FEA004D4C0A /* AppDelegate+Alipay.m */,
 				8B86E02623853DDE004D4C0A /* AppDelegate+JPUSH.h */,
@@ -4920,6 +4925,7 @@
 				C42CD103213CC2640096675F /* BrandRoneListController.m in Sources */,
 				8BEAE8822381138C006E40A4 /* WholesaleMarket_VipVC+VM.m in Sources */,
 				C42CD0F1213CC2640096675F /* RegisterCodeController.m in Sources */,
+				8BCAB63F238A5360000B0360 /* AppDelegate+VM.m in Sources */,
 				C42CD086213CC2640096675F /* NSDataEx.m in Sources */,
 				C46D6B562143A48D00428D7A /* UIButton+EnlargeTouchArea.m in Sources */,
 				C42CD152213CC2640096675F /* ViewForTypeSelectLeftSlide.m in Sources */,

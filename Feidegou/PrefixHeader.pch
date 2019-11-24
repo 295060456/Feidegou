@@ -155,6 +155,7 @@
 #import "UpLoadCancelReasonVC.h"//上传截图
 //#import "RegisterVC.h"//注册
 #import "PersonalInfo.h"
+#import "StallListVC.h"
 
 #import "ContentBaseViewController.h"
 #import "JXCategoryTitleImageView.h"

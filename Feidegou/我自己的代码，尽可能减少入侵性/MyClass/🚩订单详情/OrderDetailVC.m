@@ -34,8 +34,6 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
-@property(nonatomic,strong)UIButton *normalCancel;
-
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -187,12 +185,12 @@ UITableViewDataSource
                     self.gk_navTitle = @"批发市场（买家）订单详情";
                     if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单  —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                         [self.dataMutArr addObject:@"已下单"];//
-                        [self.normalCancel setTitle:@"取消"
+                        [self.normalCancelBtn setTitle:@"取消"
                                         forState:UIControlStateNormal];
                         [self.sureBtn setTitle:@"上传支付凭证"//
                                       forState:UIControlStateNormal];
-                        [self.normalCancel addTarget:self
-                                              action:@selector(cancelOrder_wholesaleMarket_netWorking)
+                        [self.normalCancelBtn addTarget:self
+                                              action:@selector(normalCancelBtnClickEvent:)
                                     forControlEvents:UIControlEventTouchUpInside];//#18
                         [self.sureBtn addTarget:self
                                          action:@selector(upLoadPic_wholesaleMarket_havePaid_netWorking:)
@@ -211,22 +209,11 @@ UITableViewDataSource
                     self.gk_navTitle = @"批发市场（卖家）订单详情";
                     if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                         [self.dataMutArr addObject:@"订单已下单"];//5s 取消 22 1
-                        [self.normalCancel setTitle:@"取消"
+                        [self.normalCancelBtn setTitle:@"取消"
                                            forState:UIControlStateNormal];
-                        
-                        if ([self.orderListModel.order_status intValue] == 0) {//订单状态|已支付 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                            [self.normalCancel addTarget:self
-                                                  action:@selector(CancelDelivery_NetWorking)
-                                        forControlEvents:UIControlEventTouchUpInside];//18
-                            [self.dataMutArr addObject:@"订单已支付"];
-                        }else if ([self.orderListModel.order_status intValue] == 2){//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                            [self.normalCancel addTarget:self
-                                                  action:@selector(cancelOrder_wholesaleMarket_netWorking)
-                                        forControlEvents:UIControlEventTouchUpInside];//18
-                            [self.dataMutArr addObject:@"订单已下单"];
-                        }else{
-                            [self.dataMutArr addObject:@"数据异常"];
-                        }
+                        [self.normalCancelBtn addTarget:self
+                                              action:@selector(normalCancelBtnClickEvent:)
+                                            forControlEvents:UIControlEventTouchUpInside];//18
                     }else if ([self.orderListModel.order_status intValue] == 0){//订单状态|已支付 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                         [self.dataMutArr addObject:@"订单已支付"];//21 23_1 1
                         //显示凭证
@@ -264,8 +251,8 @@ UITableViewDataSource
 //                    [self.countDownCancelBtn addTarget:self
 //                                                action:@selector(cancelOrder_producingArea_netWorking)
 //                                      forControlEvents:UIControlEventTouchUpInside];//#9
-                    [self.normalCancel setTitle:@"取消" forState:UIControlStateNormal];
-                    [self.normalCancel addTarget:self
+                    [self.normalCancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+                    [self.normalCancelBtn addTarget:self
                                           action:@selector(cancelOrder_producingArea_netWorking)
                                 forControlEvents:UIControlEventTouchUpInside];//#9
                     [self.sureBtn setTitle:@"上传支付凭证"
@@ -371,6 +358,9 @@ UITableViewDataSource
     [self buyer_CatfoodRecord_checkURL_NetWorking];
 }
 #pragma mark —— 点击事件
+-(void)normalCancelBtnClickEvent:(UIButton *)sender{
+    [self cancelOrder_wholesaleMarket_netWorking];
+}
 //上传支付凭证
 -(void)getPrintPic:(UIButton *)sender{
     if ([sender.titleLabel.text isEqualToString:@"上传支付凭证"] ||
@@ -532,21 +522,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _sureBtn;
 }
 
--(UIButton *)normalCancel{
-    if (!_normalCancel) {
-        _normalCancel = UIButton.new;
-        _normalCancel.uxy_acceptEventInterval = 5;
-        [UIView cornerCutToCircleWithView:_normalCancel
+-(UIButton *)normalCancelBtn{
+    if (!_normalCancelBtn) {
+        _normalCancelBtn = UIButton.new;
+        _normalCancelBtn.uxy_acceptEventInterval = 5;
+        [UIView cornerCutToCircleWithView:_normalCancelBtn
                           AndCornerRadius:3.f];
-        _normalCancel.backgroundColor = KLightGrayColor;
-        [self.tableView addSubview:_normalCancel];
-        [_normalCancel mas_makeConstraints:^(MASConstraintMaker *make) {
+        _normalCancelBtn.backgroundColor = KLightGrayColor;
+        [self.tableView addSubview:_normalCancelBtn];
+        [_normalCancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view);
             make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100),
                                              SCALING_RATIO(50)));
             make.bottom.equalTo(self.view).offset(SCALING_RATIO(-100));
         }];
-    }return _normalCancel;
+    }return _normalCancelBtn;
 }
 
 -(UITableView *)tableView{

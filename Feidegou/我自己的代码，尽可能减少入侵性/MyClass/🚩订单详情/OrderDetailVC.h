@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIButton *sureBtn;
+@property(nonatomic,strong)UIButton *normalCancelBtn;
 @property(nonatomic,strong)VerifyCodeButton *contactBuyer;
 @property(nonatomic,strong)VerifyCodeButton *countDownCancelBtn;
 

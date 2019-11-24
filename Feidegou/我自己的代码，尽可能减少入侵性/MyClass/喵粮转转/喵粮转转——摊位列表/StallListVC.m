@@ -9,6 +9,8 @@
 #import "StallListVC.h"
 #import "StallListVC+VM.h"
 
+StallListVC *stallListVC;
+
 @interface StallListVC ()
 <
 UITableViewDelegate,
@@ -34,6 +36,7 @@ UITableViewDataSource
                              success:(DataBlock _Nonnull )block
                             animated:(BOOL)animated{
     StallListVC *vc = StallListVC.new;
+    stallListVC = vc;
     vc.successBlock = block;
     vc.requestParams = requestParams;
     vc.isDelCell = NO;

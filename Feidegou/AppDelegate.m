@@ -12,6 +12,7 @@
 #import "AppDelegate+WeiXin.h"
 #import "AppDelegate+JPUSH.h"
 #import "AppDelegate+Alipay.h"
+#import "AppDelegate+VM.h"
 
 #import "JJHttpClient+FourZero.h"
 #import "JJHttpClient+Login.h"
@@ -47,18 +48,24 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
+- (void)applicationWillResignActive:(UIApplication *)application {//退出到后台 1 如果双击home呈现小图 只走1 小图杀死只走1
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
+    //在这里-1
+    extern StallListVC *stallListVC;
+    if (stallListVC) {
+        NSLog(@"退出到后台");
+        [self onlinePeople:@"Offline"];
+    }
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
+- (void)applicationDidEnterBackground:(UIApplication *)application {//退出到后台2 杀死也走
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {
+- (void)applicationWillEnterForeground:(UIApplication *)application {//唤醒1
     [application setApplicationIconBadgeNumber:0];
     [application cancelAllLocalNotifications];
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
@@ -73,7 +80,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 }
 
 - (void)application:(UIApplication *)application
-didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {//首次进1
     NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
 
@@ -90,11 +97,17 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [JPUSHService handleRemoteNotification:userInfo];
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
+- (void)applicationDidBecomeActive:(UIApplication *)application {//唤醒2 首次进2 点击小图进只走2
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    //在这里+1
+    extern StallListVC *stallListVC;
+    if (stallListVC) {
+        NSLog(@"起来");
+        [self onlinePeople:@"Online"];
+    }
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application {
+- (void)applicationWillTerminate:(UIApplication *)application { //杀死也走
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 #pragma mark --  支付
