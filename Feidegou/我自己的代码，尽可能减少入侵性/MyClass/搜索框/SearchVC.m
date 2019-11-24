@@ -168,6 +168,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(SearchBar *)searchBar{
     if (!_searchBar) {
         _searchBar = SearchBar.new;
+        _searchBar.dataMutArr = self.dataMutArr;//本地搜索
         _searchBar.textField.keyboardType = UIKeyboardTypeDecimalPad;
         [self.view addSubview:_searchBar];
         [_searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -177,6 +178,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }];
         [self.view bringSubviewToFront:_searchBar];
         @weakify(self)
+        [_searchBar clickBlock:^(id data) {//btn点击事件
+            @strongify(self)
+            if (self.navigationController) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }else{
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+        }];
         [_searchBar actionBlock:^(CJTextField *data,//textField 他的text是最终结果 ?
                                   SearchBar *data2,//searchBar
                                   NSString *data3,//即将输入的字符

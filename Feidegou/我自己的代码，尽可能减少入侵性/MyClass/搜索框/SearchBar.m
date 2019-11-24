@@ -15,7 +15,8 @@ CJTextFieldDeleteDelegate
 >
 
 @property(nonatomic,strong)UIButton *cancelBtn;
-@property(nonatomic,strong)FourDataBlock block;
+@property(nonatomic,copy)FourDataBlock block;
+@property(nonatomic,copy)DataBlock block2;
 
 @end
 
@@ -34,6 +35,16 @@ CJTextFieldDeleteDelegate
 
 -(void)actionBlock:(FourDataBlock)block{
     _block = block;
+}
+
+-(void)clickBlock:(DataBlock)block{
+    _block2 = block;
+}
+#pragma mark —— 点击事件
+-(void)cancelBtnClickEvent:(UIButton *)sender{
+    if (self.block2) {
+        self.block2(sender);
+    }
 }
 #pragma mark —— CJTextFieldDeleteDelegate
 - (void)cjTextFieldDeleteBackward:(CJTextField *)textField{
@@ -87,6 +98,9 @@ replacementString:(NSString *)string{//实现逐词搜索
         _cancelBtn = UIButton.new;
         [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
         [_cancelBtn setTitleColor:kBlueColor forState:UIControlStateNormal];
+        [_cancelBtn addTarget:self
+                       action:@selector(cancelBtnClickEvent:)
+             forControlEvents:UIControlEventTouchUpInside];
         _cancelBtn.backgroundColor = kWhiteColor;
         _cancelBtn.uxy_acceptEventInterval = 1;
         [UIView cornerCutToCircleWithView:_cancelBtn
@@ -131,5 +145,10 @@ replacementString:(NSString *)string{//实现逐词搜索
     }return _placeholderStr;
 }
 
+-(NSMutableArray *)dataMutArr{
+    if (!_dataMutArr) {
+        _dataMutArr = NSMutableArray.array;
+    }return _dataMutArr;
+}
 
 @end
