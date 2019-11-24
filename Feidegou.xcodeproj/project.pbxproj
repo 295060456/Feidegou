@@ -19,11 +19,6 @@
 		8B16F04123867E6E003941B4 /* OrderManager_producingAreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B16F04023867E6E003941B4 /* OrderManager_producingAreaModel.m */; };
 		8B16F04423867E88003941B4 /* OrderManager_panicBuyingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B16F04323867E88003941B4 /* OrderManager_panicBuyingModel.m */; };
 		8B16F04723867F03003941B4 /* OrderListTBVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B16F04623867F03003941B4 /* OrderListTBVCell.m */; };
-		8B16F0582386ADF8003941B4 /* Search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B16F0552386ADF8003941B4 /* Search@2x.png */; };
-		8B16F0592386ADF8003941B4 /* AbuSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B16F0572386ADF8003941B4 /* AbuSearchView.m */; };
-		8B16F0642386AE24003941B4 /* AbuStcokModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B16F05E2386AE24003941B4 /* AbuStcokModel.m */; };
-		8B16F0652386AE24003941B4 /* CDefaultNetworkingFile.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B16F0612386AE24003941B4 /* CDefaultNetworkingFile.json */; };
-		8B16F0662386AE24003941B4 /* AbuStcokList.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B16F0622386AE24003941B4 /* AbuStcokList.m */; };
 		8B16F0692386AEAC003941B4 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B16F0682386AEAC003941B4 /* SearchVC.m */; };
 		8B17DE372371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B17DE362371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.m */; };
 		8B225B99238900A6003682CC /* SearchVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B225B98238900A6003682CC /* SearchVC+VM.m */; };
@@ -145,6 +140,9 @@
 		8BC386692374718100FE8C02 /* down_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC386662374718100FE8C02 /* down_blue@2x.png */; };
 		8BCAB63F238A5360000B0360 /* AppDelegate+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAB63E238A5360000B0360 /* AppDelegate+VM.m */; };
 		8BCAB64C238A909D000B0360 /* OrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAB64A238A909D000B0360 /* OrderListModel.m */; };
+		8BCAB650238AA3D9000B0360 /* SearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAB64F238AA3D9000B0360 /* SearchModel.m */; };
+		8BCAB653238AA432000B0360 /* SearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAB652238AA432000B0360 /* SearchBar.m */; };
+		8BCAB656238AB969000B0360 /* CJTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAB655238AB969000B0360 /* CJTextField.m */; };
 		8BCB98C2237154940063E01E /* UpLoadCancelReasonVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98C1237154940063E01E /* UpLoadCancelReasonVC+VM.m */; };
 		8BCB98C823715D380063E01E /* EncryptUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98C423715D370063E01E /* EncryptUtils.m */; };
 		8BCB98C923715D380063E01E /* RSAUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98C723715D380063E01E /* RSAUtil.m */; };
@@ -673,14 +671,6 @@
 		8B16F04523867F03003941B4 /* OrderListTBVCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderListTBVCell.h; sourceTree = "<group>"; };
 		8B16F04623867F03003941B4 /* OrderListTBVCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderListTBVCell.m; sourceTree = "<group>"; };
 		8B16F04F23869002003941B4 /* DefineStructure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefineStructure.h; sourceTree = "<group>"; };
-		8B16F0552386ADF8003941B4 /* Search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Search@2x.png"; sourceTree = "<group>"; };
-		8B16F0562386ADF8003941B4 /* AbuSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbuSearchView.h; sourceTree = "<group>"; };
-		8B16F0572386ADF8003941B4 /* AbuSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbuSearchView.m; sourceTree = "<group>"; };
-		8B16F05E2386AE24003941B4 /* AbuStcokModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbuStcokModel.m; sourceTree = "<group>"; };
-		8B16F05F2386AE24003941B4 /* AbuStcokList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbuStcokList.h; sourceTree = "<group>"; };
-		8B16F0602386AE24003941B4 /* AbuStcokModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbuStcokModel.h; sourceTree = "<group>"; };
-		8B16F0612386AE24003941B4 /* CDefaultNetworkingFile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CDefaultNetworkingFile.json; sourceTree = "<group>"; };
-		8B16F0622386AE24003941B4 /* AbuStcokList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbuStcokList.m; sourceTree = "<group>"; };
 		8B16F0672386AEAC003941B4 /* SearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchVC.h; sourceTree = "<group>"; };
 		8B16F0682386AEAC003941B4 /* SearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchVC.m; sourceTree = "<group>"; };
 		8B17DE352371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WholesaleMarket_AdvanceVC+VM.h"; sourceTree = "<group>"; };
@@ -927,6 +917,12 @@
 		8BCAB63E238A5360000B0360 /* AppDelegate+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+VM.m"; sourceTree = "<group>"; };
 		8BCAB64A238A909D000B0360 /* OrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderListModel.m; path = "Feidegou/我自己的代码，尽可能减少入侵性/MyClass/喵粮订单管理/OrderListModel.m"; sourceTree = SOURCE_ROOT; };
 		8BCAB64B238A909D000B0360 /* OrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderListModel.h; path = "Feidegou/我自己的代码，尽可能减少入侵性/MyClass/喵粮订单管理/OrderListModel.h"; sourceTree = SOURCE_ROOT; };
+		8BCAB64E238AA3D9000B0360 /* SearchModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchModel.h; sourceTree = "<group>"; };
+		8BCAB64F238AA3D9000B0360 /* SearchModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchModel.m; sourceTree = "<group>"; };
+		8BCAB651238AA432000B0360 /* SearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchBar.h; sourceTree = "<group>"; };
+		8BCAB652238AA432000B0360 /* SearchBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchBar.m; sourceTree = "<group>"; };
+		8BCAB654238AB969000B0360 /* CJTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CJTextField.h; sourceTree = "<group>"; };
+		8BCAB655238AB969000B0360 /* CJTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CJTextField.m; sourceTree = "<group>"; };
 		8BCB98C0237154940063E01E /* UpLoadCancelReasonVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UpLoadCancelReasonVC+VM.h"; sourceTree = "<group>"; };
 		8BCB98C1237154940063E01E /* UpLoadCancelReasonVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UpLoadCancelReasonVC+VM.m"; sourceTree = "<group>"; };
 		8BCB98C423715D370063E01E /* EncryptUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncryptUtils.m; sourceTree = "<group>"; };
@@ -1905,36 +1901,18 @@
 		8B16F0532386ADDA003941B4 /* 搜索框 */ = {
 			isa = PBXGroup;
 			children = (
-				8B16F0542386ADF8003941B4 /* AbuSearchView */,
-				8B16F05D2386AE24003941B4 /* Model */,
 				8B16F0672386AEAC003941B4 /* SearchVC.h */,
 				8B16F0682386AEAC003941B4 /* SearchVC.m */,
+				8BCAB651238AA432000B0360 /* SearchBar.h */,
+				8BCAB652238AA432000B0360 /* SearchBar.m */,
+				8BCAB64E238AA3D9000B0360 /* SearchModel.h */,
+				8BCAB64F238AA3D9000B0360 /* SearchModel.m */,
 				8B225B97238900A6003682CC /* SearchVC+VM.h */,
 				8B225B98238900A6003682CC /* SearchVC+VM.m */,
+				8BCAB654238AB969000B0360 /* CJTextField.h */,
+				8BCAB655238AB969000B0360 /* CJTextField.m */,
 			);
 			path = "搜索框";
-			sourceTree = "<group>";
-		};
-		8B16F0542386ADF8003941B4 /* AbuSearchView */ = {
-			isa = PBXGroup;
-			children = (
-				8B16F0552386ADF8003941B4 /* Search@2x.png */,
-				8B16F0562386ADF8003941B4 /* AbuSearchView.h */,
-				8B16F0572386ADF8003941B4 /* AbuSearchView.m */,
-			);
-			path = AbuSearchView;
-			sourceTree = "<group>";
-		};
-		8B16F05D2386AE24003941B4 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				8B16F05F2386AE24003941B4 /* AbuStcokList.h */,
-				8B16F0622386AE24003941B4 /* AbuStcokList.m */,
-				8B16F0602386AE24003941B4 /* AbuStcokModel.h */,
-				8B16F05E2386AE24003941B4 /* AbuStcokModel.m */,
-				8B16F0612386AE24003941B4 /* CDefaultNetworkingFile.json */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		8B571AAB23874836009624D8 /* ContentBaseViewController */ = {
@@ -4377,7 +4355,6 @@
 				8BB2D2842366C6990047D0E2 /* vcTransition1.json in Resources */,
 				C42CD127213CC2640096675F /* CLCellGoodProperty.xib in Resources */,
 				C42CD0CE213CC2640096675F /* CellOnlyOneLbl.xib in Resources */,
-				8B16F0582386ADF8003941B4 /* Search@2x.png in Resources */,
 				C42CD0A4213CC2640096675F /* CellLogisticsFirst.xib in Resources */,
 				C42CD17B213CC2640096675F /* ShopMain.storyboard in Resources */,
 				8BB2D2852366C6990047D0E2 /* F.json in Resources */,
@@ -4487,7 +4464,6 @@
 				C42CD101213CC2640096675F /* CLCellRecommend.xib in Resources */,
 				C42CD17C213CC2640096675F /* Mine.storyboard in Resources */,
 				C42CD175213CC2640096675F /* VendorDetail.storyboard in Resources */,
-				8B16F0652386AE24003941B4 /* CDefaultNetworkingFile.json in Resources */,
 				8BB2D2832366C6990047D0E2 /* G.json in Resources */,
 				C46368E3213FBE6C006922D5 /* CLCellTipMsg.xib in Resources */,
 				C42CD0C9213CC2640096675F /* CellOneLabel.xib in Resources */,
@@ -4678,7 +4654,6 @@
 				C42CD0AE213CC2640096675F /* CellOrderGiftYes.m in Sources */,
 				C41628112171B0C100DC0D10 /* CellProtocol.m in Sources */,
 				8B8B0D0A236814960040EE53 /* TestVC.m in Sources */,
-				8B16F0642386AE24003941B4 /* AbuStcokModel.m in Sources */,
 				C42CD1BC213CC2640096675F /* WaterflowLayout.m in Sources */,
 				8B86E02523853D77004D4C0A /* AppDelegate+WeiXin.m in Sources */,
 				8BB2D3932366CC4A0047D0E2 /* HQTextField.m in Sources */,
@@ -4854,6 +4829,7 @@
 				C42CD0CD213CC2640096675F /* CellOrderDetailGiftNo.m in Sources */,
 				8BB2D3862366CC0E0047D0E2 /* GrowthValuePetsModel.m in Sources */,
 				8BB2D3472366CB9F0047D0E2 /* VideoHandleTool.m in Sources */,
+				8BCAB656238AB969000B0360 /* CJTextField.m in Sources */,
 				C42CD07D213CC2640096675F /* CellWithDraw.m in Sources */,
 				C42CD0E6213CC2640096675F /* NJKWebViewProgressView.m in Sources */,
 				C42CD1B0213CC2640096675F /* MineNavigationController.m in Sources */,
@@ -4895,7 +4871,6 @@
 				C42CD199213CC2640096675F /* UILabelDarkGaryMiddle.m in Sources */,
 				C42F5D33213F859B00114E0E /* CellIncomeDay.m in Sources */,
 				8B86A7FC237D120C0058173B /* ReleaseOrderModel.m in Sources */,
-				8B16F0662386AE24003941B4 /* AbuStcokList.m in Sources */,
 				C46368E7213FBE6C006922D5 /* CLCellTypeMiddle.m in Sources */,
 				8BB2D37A2366CBC70047D0E2 /* ShopReceiptQRcodeVC.m in Sources */,
 				C42CD0A3213CC2640096675F /* CellLogisticsMiddle.m in Sources */,
@@ -4917,7 +4892,6 @@
 				C42CD180213CC2640096675F /* JJAlertViewTwoButton.m in Sources */,
 				C42F5D29213F855E00114E0E /* CellIncomeHeader.m in Sources */,
 				C42CD1A4213CC2640096675F /* NSString+extension.m in Sources */,
-				8B16F0592386ADF8003941B4 /* AbuSearchView.m in Sources */,
 				C46368D6213FBE6C006922D5 /* CellSixType.m in Sources */,
 				C42CD181213CC2640096675F /* StarView.m in Sources */,
 				C46143F5214386B6000C0CDC /* CellTypeMore.m in Sources */,
@@ -4946,6 +4920,7 @@
 				8BB2D37D2366CBD80047D0E2 /* Q_Pet.m in Sources */,
 				C42CD145213CC2640096675F /* CellHistoryClear.m in Sources */,
 				8B86E02B23853FEA004D4C0A /* AppDelegate+Alipay.m in Sources */,
+				8BCAB650238AA3D9000B0360 /* SearchModel.m in Sources */,
 				C42CD150213CC2640096675F /* CLCellTypeSelected.m in Sources */,
 				8B3C0B5B237FCAD500BFFA86 /* OrderDetailModel.m in Sources */,
 				C42F5D2E213F858B00114E0E /* CellIncomeAll.m in Sources */,
@@ -5019,6 +4994,7 @@
 				C42CD18D213CC2640096675F /* LocationManager.m in Sources */,
 				C46143F0214386B6000C0CDC /* CellVendorGoodShopInfo.m in Sources */,
 				C4026DBD2148161D00D81974 /* AchievementController.m in Sources */,
+				8BCAB653238AA432000B0360 /* SearchBar.m in Sources */,
 				C42CD062213CC2640096675F /* CLCellCenterType.m in Sources */,
 				C42CD1CA213CC2640096675F /* ModelEreaExchangeDetail.m in Sources */,
 				C4614411214386B6000C0CDC /* VendorGoosListController.m in Sources */,

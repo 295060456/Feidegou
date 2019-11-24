@@ -7,32 +7,29 @@
 //
 
 #import "SearchVC.h"
-#import "AbuSearchView.h"
 #import "SearchVC+VM.h"
-#import "AbuStcokModel.h"
+#import "SearchBar.h"
+
+#define rectOfStatusbar [[UIApplication sharedApplication] statusBarFrame].size.height//获取状态栏的高
+#define rectOfNavigationbar self.navigationController.navigationBar.frame.size.height//获取导航栏的高
 
 @interface SearchTBVCell ()
-
 
 @end
 
 @interface SearchVC ()
 <
-AbuSearchViewDelegate
-,UITableViewDelegate
+UITableViewDelegate
 ,UITableViewDataSource
 >
 
-@property(nonatomic,strong)AbuSearchView *searchView;
-@property(nonatomic,strong)UITableView *tableView;
-@property(nonatomic,strong)NSMutableArray *dataMutArr;
+@property(nonatomic,strong)SearchBar *searchBar;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,assign)BOOL isFirstComing;
-//@property(nonatomic,assign)BOOL isDelCell;
 
 @end
 
@@ -85,92 +82,24 @@ AbuSearchViewDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.searchView.alpha = 1;
-    self.tableView.alpha = 1;
+
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    self.searchBar.alpha = 1;
+    self.tableView.alpha = 1;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
-#pragma mark —— AbuSearchViewDelegate
-- (void)searchView:(AbuSearchView *)searchView
-   resultStcokList:(NSMutableArray *)stcokList{//回调值本页进行刷新
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        if (self.dataMutArr.count) {
-            [self.dataMutArr removeAllObjects];
-        }
-        if (stcokList.count > 0) {
-            [self.dataMutArr addObjectsFromArray:stcokList];
-        }else{
-            [self.dataMutArr addObjectsFromArray:stcokList];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tableView reloadData];
-        });
-    });
-}
-
--(BOOL)searchBarShouldBeginEditing:(AbuSearchView *)searchBar{//开始编辑 1
-    NSLog(@"%s: Line-%d", __func__, __LINE__);
-    return YES;
-}
-
-- (void)searchBarTextDidBeginEditing:(AbuSearchView *)searchBar{//开始编辑 2
-    NSLog(@"%s: Line-%d", __func__, __LINE__);
-}
-
-- (BOOL)searchBarShouldEndEditing:(AbuSearchView *)searchBar{//结束编辑 1
-    NSLog(@"%s: Line-%d", __func__, __LINE__);
-    return YES;
-}
-
-- (void)searchBarTextDidEndEditing:(AbuSearchView *)searchBar{//结束编辑 2
-    NSLog(@"%s: Line-%d", __func__, __LINE__);
-}
-
-- (void)searchBar:(AbuSearchView *)searchBar
-    textDidChange:(NSString *)searchText{//搜索 2
-    NSLog(@"%s: Line-%d", __func__, __LINE__);
-    NSLog(@"%@",searchText);
-    //在这里进行逐词搜索
-//    [self networking_type:searchText];
-}
-
-- (BOOL)searchBar:(AbuSearchView *)searchBar
-shouldChangeTextInRange:(NSRange)range
-  replacementText:(NSString *)text{//搜索 1
-    NSLog(@"%s: Line-%d", __func__, __LINE__);
-    return YES;
-}
-
-- (void)searchBarSearchButtonClicked:(AbuSearchView *)searchBar{//按下搜索键
-    NSLog(@"%s: Line-%d", __func__, __LINE__);
-    
-}
-
-- (void)searchBarCancelButtonClicked:(AbuSearchView *)searchBar{//按下取消键
-    NSLog(@"%s: Line-%d", __func__, __LINE__);
-    if (self.dataMutArr.count > 0) {
-        [self.dataMutArr removeAllObjects];
-    }
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableView reloadData];
-    });
-}
 #pragma mark —— ,UITableViewDelegate & UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-    if (self.dataMutArr.count > 0) {
-        return self.dataMutArr.count > 50 ? 50 : self.dataMutArr.count;
-    }else{
-        return 0;
-    }
+    return self.dataMutArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
@@ -185,37 +114,57 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return [SearchTBVCell cellHeightWithModel:self.dataMutArr[indexPath.row]];
 }
 
-- (AbuSearchView *)searchView{
-    if (!_searchView) {
-        _searchView = [[AbuSearchView alloc]initWithFrame:CGRectMake(0,
-                                                                     SCALING_RATIO(3),
-                                                                     SCREEN_WIDTH,
-                                                                     SCALING_RATIO(40))];
-        _searchView.delegate = self;
-//        _searchView.backgroundColor = kRedColor;
-        _searchView.placeholder = @"股票名称/代码/全拼";
-        if (self.navigationController) {
-            [self.gk_navigationBar addSubview:_searchView];
-        }
-    }return _searchView;
-}
-
 - (UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectZero
                                                  style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.backgroundColor = kRedColor;
+        _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.view);
+            make.left.right.bottom.equalTo(self.view);
+            make.top.equalTo(self.searchBar.mas_bottom);
         }];
     }return _tableView;
 }
 
-- (NSMutableArray *)dataMutArr{
+-(SearchBar *)searchBar{
+    if (!_searchBar) {
+        _searchBar = SearchBar.new;
+        [self.view addSubview:_searchBar];
+        [_searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).offset(rectOfStatusbar);
+            make.left.right.equalTo(self.view);
+            make.height.mas_equalTo(SCALING_RATIO(50));
+        }];
+        [self.view bringSubviewToFront:_searchBar];
+        @weakify(self)
+        __block UITextField *textField;
+        [_searchBar actionBlock:^(id data,//textField 他的text是最终结果
+                                  id data2,//searchBar
+                                  id data3,//即将输入的字符
+                                  id data4) {//调的方法
+            @strongify(self)
+            if ([data4 isEqualToString:@"CJTextFieldDeleteDelegate_cjTextFieldDeleteBackward"]) {//删除
+                textField = (UITextField *)data;
+                if ([textField.text isEqualToString:@""]) {
+                    NSLog(@"没了");
+                    //没有内容则不请求数据
+                    [self.dataMutArr removeAllObjects];
+                    [self.tableView reloadData];
+                }else{
+                    [self networking_type:textField.text];
+                }
+            }else{
+                [self networking_type:textField.text];
+            }
+        }];
+    }return _searchBar;
+}
+
+-(NSMutableArray<OrderListModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
     }return _dataMutArr;
@@ -245,9 +194,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    if ([model isKindOfClass:[AbuStcokModel class]]) {
-        AbuStcokModel *abuStcokModel = (AbuStcokModel *)model;
-        self.textLabel.text = abuStcokModel.cnName;
+    if ([model isKindOfClass:[OrderListModel class]]) {
+        OrderListModel *orderListModel = (OrderListModel *)model;
+        self.textLabel.text = orderListModel.ordercode;
     }
 }
 

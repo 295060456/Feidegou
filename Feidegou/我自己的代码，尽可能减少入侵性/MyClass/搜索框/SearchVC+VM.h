@@ -7,6 +7,7 @@
 //
 
 #import "SearchVC.h"
+#import "SearchModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
