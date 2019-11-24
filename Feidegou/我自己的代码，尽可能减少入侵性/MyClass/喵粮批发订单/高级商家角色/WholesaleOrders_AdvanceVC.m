@@ -41,6 +41,7 @@ UITableViewDataSource
     WholesaleOrders_AdvanceVC *vc = WholesaleOrders_AdvanceVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;//购买的数量、付款的方式、订单ID
+    vc.d = 0;
     if (rootVC.navigationController) {
         vc.isPush = YES;
         vc.isPresent = NO;

@@ -134,13 +134,13 @@
           success:^(NSURLSessionDataTask * _Nonnull task,
                     id  _Nullable responseObject) {
         NSLog(@"%@---%@",[responseObject class],responseObject);
-        if ([responseObject[@"msg"] isEqualToString:@"成功"]) {
+        if ([responseObject[@"data"][@"msg"] isEqualToString:@"成功"]) {
             Toast(@"邀请码发送成功");
             //跳到登陆页
             [self.navigationController pushViewController:self.loginVC
                                                  animated:YES];
         }else{
-            Toast(responseObject[@"msg"]);
+            Toast(responseObject[@"data"][@"msg"]);
         }
     } failure:^(NSURLSessionDataTask * _Nullable task,
                 NSError * _Nonnull error) {

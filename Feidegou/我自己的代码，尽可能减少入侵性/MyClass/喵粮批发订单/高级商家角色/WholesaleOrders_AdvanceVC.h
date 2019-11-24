@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,strong)WholesaleOrders_AdvanceModel *model;
 @property(nonatomic,strong)NSMutableArray <NSString *>*dataArr;
+@property(nonatomic,assign)bool d;
 
 + (instancetype)pushFromVC:(UIViewController *)rootVC
              requestParams:(nullable id)requestParams
