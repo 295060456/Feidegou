@@ -13,7 +13,7 @@
 -(void)netWorking{
     extern NSString *randomStr;
     NSDictionary *dic = @{
-        @"currentPage":[NSString stringWithFormat:@"%ld",self.currentPage],
+        @"currentpage":[NSString stringWithFormat:@"%ld",self.currentpage],
         @"pagesize":@"32"
     };
        

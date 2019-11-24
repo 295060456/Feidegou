@@ -13,7 +13,7 @@
 -(void)netWorking{
     extern NSString *randomStr;
     NSDictionary *dataDic = @{
-        @"currentpage":[NSString stringWithFormat:@"%ld",self.currentPage],
+        @"currentpage":[NSString stringWithFormat:@"%ld",self.currentpage],
         @"pagesize":@"32"
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST

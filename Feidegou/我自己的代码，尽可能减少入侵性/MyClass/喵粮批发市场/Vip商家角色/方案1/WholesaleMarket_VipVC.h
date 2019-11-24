@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WholesaleMarket_VipVC : BaseVC
 
 @property(nonatomic,strong)UITableView *tableView;
-@property(nonatomic,assign)long currentPage;
+@property(nonatomic,assign)long currentpage;
 @property(nonatomic,strong)NSMutableArray <WholesaleMarket_VipModel *>*dataMutArr;
 @property(nonatomic,strong)WholesaleMarket_VipModel *wholesaleMarket_VipModel;
 

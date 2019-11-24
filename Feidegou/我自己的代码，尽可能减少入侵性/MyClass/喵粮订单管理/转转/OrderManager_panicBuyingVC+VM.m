@@ -14,7 +14,7 @@
     NSLog(@"%lu",(unsigned long)platformType);
     NSDictionary *dic = @{
         @"user_id":@"1",
-        @"currentPage":[NSString stringWithFormat:@"%d",self.page],//分页数
+        @"currentpage":[NSString stringWithFormat:@"%d",self.page],//分页数
         @"pagesize":@"10",
         @"order_status":@"",//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         @"type":@"",//买家1;卖家0
@@ -31,7 +31,7 @@
 -(void)networking_type:(BusinessType)businessType{//按交易状态
     NSDictionary *dic = @{
         @"user_id":@"1",
-        @"currentPage":[NSString stringWithFormat:@"%d",self.page],//分页数
+        @"currentpage":[NSString stringWithFormat:@"%d",self.page],//分页数
         @"pagesize":@"10",
         @"order_status":[NSString stringWithFormat:@"%lu",(unsigned long)businessType],//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         @"type":@"",//买家1;卖家0
