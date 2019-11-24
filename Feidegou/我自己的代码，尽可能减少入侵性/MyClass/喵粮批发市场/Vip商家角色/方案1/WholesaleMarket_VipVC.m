@@ -8,7 +8,7 @@
 
 #import "WholesaleMarket_VipVC.h"
 #import "WholesaleMarket_VipVC+VM.h"
-#import "WholesaleOrders_AdvanceVC.h"
+//#import "WholesaleOrders_AdvanceVC.h"
 #import "ReleaseOrderVC.h"
 
 @interface WholesaleMarket_VipVC ()

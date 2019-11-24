@@ -116,39 +116,41 @@ AbuSearchViewDelegate
     });
 }
 
--(BOOL)searchBarShouldBeginEditing:(AbuSearchView *)searchBar{
-//    NSLog(@"%s: Line-%d", __func__, __LINE__);
+-(BOOL)searchBarShouldBeginEditing:(AbuSearchView *)searchBar{//开始编辑 1
+    NSLog(@"%s: Line-%d", __func__, __LINE__);
     return YES;
     
 }
-- (void)searchBarTextDidBeginEditing:(AbuSearchView *)searchBar{
-//    NSLog(@"%s: Line-%d", __func__, __LINE__);
+- (void)searchBarTextDidBeginEditing:(AbuSearchView *)searchBar{//开始编辑 2
+    NSLog(@"%s: Line-%d", __func__, __LINE__);
     
 }
-- (BOOL)searchBarShouldEndEditing:(AbuSearchView *)searchBar{
-//    NSLog(@"%s: Line-%d", __func__, __LINE__);
+- (BOOL)searchBarShouldEndEditing:(AbuSearchView *)searchBar{//结束编辑 1
+    NSLog(@"%s: Line-%d", __func__, __LINE__);
     return YES;
 }
-- (void)searchBarTextDidEndEditing:(AbuSearchView *)searchBar{
-//    NSLog(@"%s: Line-%d", __func__, __LINE__);
+- (void)searchBarTextDidEndEditing:(AbuSearchView *)searchBar{//结束编辑 2
+    NSLog(@"%s: Line-%d", __func__, __LINE__);
     
 }
-- (void)searchBar:(AbuSearchView *)searchBar textDidChange:(NSString *)searchText{
-//    NSLog(@"%s: Line-%d", __func__, __LINE__);
+- (void)searchBar:(AbuSearchView *)searchBar
+    textDidChange:(NSString *)searchText{//搜索 2
+    NSLog(@"%s: Line-%d", __func__, __LINE__);
     NSLog(@"%@",searchText);
     
 }
-- (BOOL)searchBar:(AbuSearchView *)searchBar shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-//    NSLog(@"%s: Line-%d", __func__, __LINE__);
+- (BOOL)searchBar:(AbuSearchView *)searchBar
+shouldChangeTextInRange:(NSRange)range
+  replacementText:(NSString *)text{//搜索 1
+    NSLog(@"%s: Line-%d", __func__, __LINE__);
     return YES;
+}
+- (void)searchBarSearchButtonClicked:(AbuSearchView *)searchBar{//按下搜索键
+    NSLog(@"%s: Line-%d", __func__, __LINE__);
     
 }
-- (void)searchBarSearchButtonClicked:(AbuSearchView *)searchBar{
-//    NSLog(@"%s: Line-%d", __func__, __LINE__);
-    
-}
-- (void)searchBarCancelButtonClicked:(AbuSearchView *)searchBar{
-//    NSLog(@"%s: Line-%d", __func__, __LINE__);
+- (void)searchBarCancelButtonClicked:(AbuSearchView *)searchBar{//按下取消键
+    NSLog(@"%s: Line-%d", __func__, __LINE__);
     if (self.dataMutArr.count > 0) {
         [self.dataMutArr removeAllObjects];
     }
@@ -199,6 +201,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                                                  style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.backgroundColor = kRedColor;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -228,6 +231,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         [UIView colourToLayerOfView:cell.contentView
                          WithColour:KGreenColor
                      AndBorderWidth:.1f];
+        cell.backgroundColor = RandomColor;
     }return cell;
 }
 

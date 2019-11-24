@@ -8,7 +8,7 @@
 
 #import "WholesaleMarket_AdvanceVC.h"
 #import "ReleaseOrderVC.h"
-#import "WholesaleOrders_AdvanceVC.h"
+//#import "WholesaleOrders_AdvanceVC.h"
 #import "WholesaleMarket_AdvanceVC+VM.h"
 
 @interface WholesaleMarket_AdvancePopView ()
@@ -219,6 +219,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)refreshBtn{
     if (!_refreshBtn) {
         _refreshBtn = UIButton.new;
+        _refreshBtn.uxy_acceptEventInterval = 3;
         [_refreshBtn setImage:kIMG(@"刷新")
                      forState:UIControlStateNormal];
         [_refreshBtn addTarget:self
@@ -260,16 +261,20 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         }];
         
         [_popView clickBlock:^(id data, id data2) {//点击购买 发送 (self.textfield,self.tagger)
-//            @strongify(self)
-            WholesaleMarket_AdvanceModel *model = (WholesaleMarket_AdvanceModel *)self.dataMutArr[self.indexPathRow];
+            @strongify(self)
+            WholesaleMarket_Advance_ListModel *model = (WholesaleMarket_Advance_ListModel *)self.dataMutArr[self.indexPathRow];
             if ([data isKindOfClass:[UITextField class]] &&
                 [data2 isKindOfClass:[NSNumber class]]) {
                 UITextField *textfield = (UITextField *)data;
                 if (![NSString isNullString:textfield.text]) {
-                    [WholesaleOrders_AdvanceVC pushFromVC:self_weak_
-                                            requestParams:@[textfield.text,data2,model.ID]//购买的数量、付款的方式、订单ID
-                                                  success:^(id data) {}
-                                                 animated:YES];
+                    
+                    model.buyNum = textfield.text;
+                    model.paymentWay = (NSNumber *)data2;
+                    model.order_Id = model.ID;
+                    //此时购买 
+                    [self purchase:@[model.order_Id,
+                                     model.buyNum,
+                                     model.paymentWay]];
                 }else{
                     Toast(@"请输入金额");
                 }
@@ -278,7 +283,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _popView;
 }
 
--(NSMutableArray<WholesaleMarket_AdvanceModel *> *)dataMutArr{
+-(NSMutableArray<WholesaleMarket_Advance_ListModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
     }return _dataMutArr;
@@ -309,8 +314,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 -(void)drawRect:(CGRect)rect{
-    if ([self.requestParams isKindOfClass:[WholesaleMarket_AdvanceModel class]]) {
-        WholesaleMarket_AdvanceModel *wholesaleMarket_AdvanceModel = self.requestParams;
+    if ([self.requestParams isKindOfClass:[WholesaleMarket_Advance_ListModel class]]) {
+        WholesaleMarket_Advance_ListModel *wholesaleMarket_AdvanceModel = self.requestParams;
         self.numLab.alpha = 1;
         self.userNameLab.text = [NSString stringWithFormat:@"用户名:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.seller_name ReplaceStr:@"暂无信息"]];
         self.purchaseBtn.alpha = 1;
@@ -365,7 +370,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 #pragma mark —— BEMCheckBoxDelegate
 - (void)didTapCheckBox:(BEMCheckBox*)checkBox{
-    self.tagger = [NSNumber numberWithInteger:checkBox.tag];
+    self.tagger = [NSNumber numberWithInteger:checkBox.tag + 1];
 }
 #pragma mark —— 私有方法
 - (void)setupBEMCheckBoxGroup {//单选
@@ -572,6 +577,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)purchaseBtn{
     if (!_purchaseBtn) {
         _purchaseBtn = UIButton.new;
+        _purchaseBtn.uxy_acceptEventInterval = 3;
         _purchaseBtn.backgroundColor = kRedColor;
         [_purchaseBtn setTitle:@"购买"
                       forState:UIControlStateNormal];
@@ -635,8 +641,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    if ([model isKindOfClass:[WholesaleMarket_AdvanceModel class]]) {
-        WholesaleMarket_AdvanceModel *wholesaleMarket_AdvanceModel = (WholesaleMarket_AdvanceModel *)model;
+    if ([model isKindOfClass:[WholesaleMarket_Advance_ListModel class]]) {
+        WholesaleMarket_Advance_ListModel *wholesaleMarket_AdvanceModel = (WholesaleMarket_Advance_ListModel *)model;
         //payment_type 0、都没有;2、支付宝;3、微信;4、银行卡;5、支付宝 + 微信;6、支付宝 + 银行卡;7、微信 + 银行卡;9、支付宝 + 微信 + 银行卡
         self.userNameLab.text = [NSString stringWithFormat:@"用户名:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.seller_name ReplaceStr:@"暂无信息"]];
         self.numLab.text = [NSString stringWithFormat:@"数量:%@",[NSString ensureNonnullString:wholesaleMarket_AdvanceModel.quantity ReplaceStr:@"无"]];

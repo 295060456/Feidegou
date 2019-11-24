@@ -19,12 +19,14 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)cancelOrder_producingArea_netWorking;//喵粮产地购买取消 #9
 #pragma mark —— 喵粮批发
 -(void)deliver_wholesaleMarket_PNetworking;//喵粮批发订单发货 #14
--(void)upLoadPic_wholesaleMarket_havePaid_netWorking:(UIImage *)pic;//喵粮批发已支付 #17
 -(void)cancelOrder_wholesaleMarket_netWorking;//喵粮批发取消 #18
+-(void)upLoadPic_wholesaleMarket_havePaid_netWorking:(UIImage *)pic;//喵粮批发已支付 #17
+
 #pragma mark —— 喵粮抢摊位
 -(void)boothDeliver_networking;//喵粮抢摊位发货 #21
 -(void)CatfoodBooth_del_netWorking;//喵粮抢摊位取消 #22_1
 -(void)CatfoodBooth_del_time_netWorking;//喵粮抢摊位取消剩余时间 #22_2
+
 
 //-(void)抢摊位:(StallListModel *)stallListModel
 // indexPath:(NSIndexPath *)indexPath;

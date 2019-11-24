@@ -130,21 +130,21 @@
 #import "WholesaleMarket_VipModel.h"
 #import "ReleaseOrderModel.h"
 #import "CatFoodProducingAreaModel.h"
-#import "WholesaleMarket_AdvanceModel.h"
-#import "WholesaleOrders_AdvanceModel.h"
 #import "StallListModel.h"
 #import "JJBaseModel.h"
 #import "SettingPaymentWayModel.h"
-#import "WholesaleOrders_VipModel.h"
 #import "WholesaleMarket_VipModel.h"
 #import "PersonalDataChangedListModel.h"
-//#import "OrderDetail_SellerModel.h"
-//#import "OrderDetail_BuyerModel.h"
 #import "OrderManager_panicBuyingModel.h"
 #import "OrderManager_producingAreaModel.h"
 #import "OrderManager_wholesaleModel.h"
-
 #import "DefineStructure.h"
+#import "WholesaleMarket_Advance_ListModel.h"
+//废弃的
+//#import "OrderDetail_SellerModel.h"
+//#import "OrderDetail_BuyerModel.h"
+//#import "WholesaleOrders_AdvanceModel.h"
+//#import "WholesaleOrders_VipModel.h"
 
 //Test
 #import "TestVC.h"

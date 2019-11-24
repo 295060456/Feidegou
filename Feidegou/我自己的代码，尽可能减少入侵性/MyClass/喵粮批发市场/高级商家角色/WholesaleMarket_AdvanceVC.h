@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,assign)long currentpage;
-@property(nonatomic,strong)NSMutableArray <WholesaleMarket_AdvanceModel *>*dataMutArr;
+@property(nonatomic,strong)NSMutableArray <WholesaleMarket_Advance_ListModel *>*dataMutArr;
 
 
 + (instancetype)pushFromVC:(UIViewController *)rootVC

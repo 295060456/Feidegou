@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WholesaleMarket_AdvanceVC (VM)
 
 -(void)netWorking;
+-(void)purchase:(NSArray *)arr;//order_id quantity payment_status
+
 
 @end
 

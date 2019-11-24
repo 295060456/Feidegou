@@ -180,7 +180,7 @@ UITableViewDataSource
 
 -(void)CategoryViewActionNotification:(NSNotification *)notification{
     NSNumber *b = notification.object;
-    if ([b intValue] == 2) {
+    if ([b intValue] == 1) {
         NSLog(@"2");
         if (self.dataMutArr.count) {
             [self showOrHiddenSearchView];

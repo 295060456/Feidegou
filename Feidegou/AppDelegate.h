@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property(nonatomic,strong)RACSignal *reqSignal;
 @property (nonatomic,strong) RACDisposable *disposableLogin;
 @property (nonatomic,strong) RACDisposable *disposablePaySucceed;
 @property (nonatomic,strong) RACDisposable *disposableShareSucceed;

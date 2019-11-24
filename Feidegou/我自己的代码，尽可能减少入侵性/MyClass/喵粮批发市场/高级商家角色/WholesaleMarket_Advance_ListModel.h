@@ -10,7 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WholesaleMarket_AdvanceModel : BaseModel
+//列表的model
+@interface WholesaleMarket_Advance_ListModel : BaseModel
 
 @property(nonatomic,strong)NSNumber *seller;
 @property(nonatomic,strong)NSNumber *deleteStatus;
@@ -26,36 +27,31 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *payment_alipay_img_name;
 @property(nonatomic,copy)NSString *finishTime;
 
+//我自己加的字段
+@property(nonatomic,copy)NSString *buyNum;//购买的数量
+@property(nonatomic,strong)NSNumber *paymentWay;//付款的方式
+@property(nonatomic,strong)NSNumber *order_Id;//订单ID
+
+@end
+
+@interface WholesaleMarket_Advance_purchaseModel : BaseModel
+
+@property(nonatomic,strong)NSNumber *seller;
+@property(nonatomic,strong)NSNumber *buyer;
+@property(nonatomic,strong)NSNumber *bankCard;//??
+@property(nonatomic,strong)NSNumber *order_status;
+@property(nonatomic,strong)NSNumber *catfoodsale_id;
+@property(nonatomic,strong)NSNumber *deleteStatus;
+@property(nonatomic,copy)NSString *payTime;
+@property(nonatomic,copy)NSString *payment_weixin;
+@property(nonatomic,copy)NSString *updateTime;
+@property(nonatomic,copy)NSString *delTime;
+@property(nonatomic,copy)NSString *payment_alipay;
+@property(nonatomic,copy)NSString *bankUser;
+@property(nonatomic,copy)NSString *finishTime;
+
 @end
 
 NS_ASSUME_NONNULL_END
 
-//{
-//    bankaddress = <null>,
-//    seller = 1,
-//    seller_name = "嘻",
-//    payment_weixin_id = "123456789",
-//    payment_status = <null>,
-//    deleteStatus = 0,
-//    bankCard = <null>,
-//    order_status = 1,
-//    payment_alipay_id = <null>,
-//    quantity_max = 20,
-//    payment_weixin_img_path = <null>,
-//    quantity = 20,
-//    id = 7,
-//    payment_type = <null>,
-//    quantity_min = 0,
-//    payment_weixin_img_name = <null>,
-//    bankUser = <null>,
-//    payment_alipay_img = <null>,
-//    payment_weixin_img = -1,
-//    payment_alipay_img_path = <null>,
-//    bankName = <null>,
-//    addTime = "2019-11-05 15:58:38",
-//    payment_alipay_img_name = <null>,
-//    price = 20,
-//    rental = <null>,
-//    finishTime = <null>,
-//    order_type = 0,
-//}
+
