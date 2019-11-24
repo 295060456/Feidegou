@@ -13,34 +13,24 @@
 -(void)networking_platformType:(PlatformType)platformType{//1、摊位;2、批发;3、产地
     NSLog(@"%lu",(unsigned long)platformType);
     NSDictionary *dic = @{
-        @"user_id":@"1",
-        @"currentpage":[NSString stringWithFormat:@"%d",self.page],//分页数
-        @"pagesize":@"10",
-        @"order_status":@"",//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-        @"type":@"",//买家1;卖家0
-        @"user_id":@"",//搜索用户
-        @"beginTime":@"",//时间从*
-        @"endTime":@"",//到*
-        @"order_type":[NSString stringWithFormat:@"%lu",(unsigned long)platformType],//订单类型 —— 1、摊位;2、批发;3、产地
-        @"Order_code":@"",//搜索订单号
-        @"time_order":@""//1升2降
+        @"currentpage":[NSString stringWithFormat:@"%d",self.page],//分页数 默认1
+        @"pagesize":@"",//分页大小 默认12
+        @"order_status":@"",//状态：0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成;默认查全部
+        @"type":@"",//买家1;卖家2;默认查全部
+        @"order_code":@"",//搜索订单号
+        @"order_type":[NSString stringWithFormat:@"%lu",(unsigned long)platformType]//1、转转;2、批发;3、厂家;默认查全部
     };
     [self networkingWithArgument:dic];
 }
 
 -(void)networking_type:(BusinessType)businessType{//按交易状态
     NSDictionary *dic = @{
-        @"user_id":@"1",
-        @"currentpage":[NSString stringWithFormat:@"%d",self.page],//分页数
-        @"pagesize":@"10",
-        @"order_status":[NSString stringWithFormat:@"%lu",(unsigned long)businessType],//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-        @"type":@"",//买家1;卖家0
-        @"user_id":@"",//搜索用户
-        @"beginTime":@"",//时间从*
-        @"endTime":@"",//到*
-        @"order_type":@"",//订单类型 —— 1、摊位;2、批发;3、产地
-        @"Order_code":@"",//搜索订单号
-        @"time_order":@""//1升2降
+        @"currentpage":[NSString stringWithFormat:@"%d",self.page],//分页数 默认1
+        @"pagesize":@"",//分页大小 默认12
+        @"order_status":[NSString stringWithFormat:@"%lu",(unsigned long)businessType],//状态：0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成;默认查全部
+        @"type":@"",//买家1;卖家2;默认查全部
+        @"order_code":@"",//搜索订单号
+        @"order_type":@""//1、转转;2、批发;3、厂家;默认查全部
     };
     [self networkingWithArgument:dic];
 }
