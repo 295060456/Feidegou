@@ -56,14 +56,20 @@ UITableViewDataSource
     UpLoadCancelReasonVC *vc = UpLoadCancelReasonVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-    if ([requestParams isKindOfClass:[OrderListModel class]]) {
-        vc.orderListModel = (OrderListModel *)requestParams;
-        vc.Order_id = vc.orderListModel.ID;
-        vc.Order_type = vc.orderListModel.order_type;
-    }else if ([requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){
+//    if ([requestParams isKindOfClass:[OrderListModel class]]) {
+//        vc.orderListModel = (OrderListModel *)requestParams;
+//        vc.Order_id = vc.orderListModel.ID;
+//        vc.Order_type = vc.orderListModel.order_type;
+//    }else
+        
+    if ([requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){
         vc.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)requestParams;
         vc.Order_id = vc.catFoodProducingAreaModel.ID;
         vc.Order_type = vc.catFoodProducingAreaModel.order_type;
+    }else if ([requestParams isKindOfClass:[WholesaleMarket_Advance_purchaseModel class]]){
+        vc.wholesaleMarket_Advance_purchaseModel = (WholesaleMarket_Advance_purchaseModel *)requestParams;
+        vc.Order_id = vc.wholesaleMarket_Advance_purchaseModel.ID;
+        vc.Order_type = vc.wholesaleMarket_Advance_purchaseModel.order_type;
     }else{}
     if (rootVC.navigationController) {
         vc.isPush = YES;
@@ -131,25 +137,30 @@ UITableViewDataSource
         if (self.catFoodProducingAreaModel) {
             if ([self.catFoodProducingAreaModel.order_type intValue] == 3) {
                 if ([self.catFoodProducingAreaModel.order_status intValue] == 1) {
+                    //#8
                     [self uploadPic_producingArea_havePaid_netWorking:self.pic];
                 }
             }
         }
-        else if (self.orderListModel){
-            if ([self.orderListModel.order_type intValue] == 3) {
-            if ([self.orderListModel.order_status intValue] == 2 ||
-                [self.orderListModel.order_status intValue] == 0) {
-                //#8
-                [self uploadPic_producingArea_havePaid_netWorking:self.pic];
-            }
-            }else if ([self.orderListModel.order_type intValue] == 2){
-            if ([self.orderListModel.identity isEqualToString:@"买家"]) {
-                if ([self.orderListModel.order_status intValue] == 0) {
-                    //#17
-                    [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.pic];
-                }
-            }
-            }
+//        else if (self.orderListModel){
+//            if ([self.orderListModel.order_type intValue] == 3) {
+//            if ([self.orderListModel.order_status intValue] == 2 ||
+//                [self.orderListModel.order_status intValue] == 0) {
+//                //#8
+//                [self uploadPic_producingArea_havePaid_netWorking:self.pic];
+//            }
+//            }else if ([self.orderListModel.order_type intValue] == 2){
+//            if ([self.orderListModel.identity isEqualToString:@"买家"]) {
+//                if ([self.orderListModel.order_status intValue] == 0) {
+//                    //#17
+//                    [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.pic];
+//                }
+//            }
+//            }
+//        }
+        else if (self.wholesaleMarket_Advance_purchaseModel){
+            //#17
+            [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.pic];
         }
         else{}
     }

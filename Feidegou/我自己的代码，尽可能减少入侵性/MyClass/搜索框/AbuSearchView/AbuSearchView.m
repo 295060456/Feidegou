@@ -108,7 +108,7 @@ UITextFieldDelegate
                          animations:^{
             @strongify(self)
             self.textField.textAlignment = NSTextAlignmentLeft;
-            _iconView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Search"]];
+            self->_iconView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Search"]];
             self->_iconView.contentMode = UIViewContentModeScaleAspectFit;
             self.textField.leftView = self->_iconView;
             self.textField.leftViewMode =  UITextFieldViewModeAlways;
@@ -293,6 +293,11 @@ UITextFieldDelegate
     if (self.delegate && [self.delegate respondsToSelector:@selector(searchBar:textDidChange:)]){
         [self.delegate searchBar:self textDidChange:textField.text];
     }
+    if (self.delegate &&
+        [self.delegate respondsToSelector:@selector(searchView:resultStcokList:)]) {
+        [self.delegate searchView:self resultStcokList:self.resultArr];
+    }
+
     NSString * stringValue = textField.text;
     if (stringValue.length > 0) {
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -318,7 +323,7 @@ UITextFieldDelegate
                 }else{
                     NSString * searchString = [NSString stringWithFormat:@"%@,%@,%@,%@,%@,%@,%@",model.cnName,model.cnSpellAbbr,model.cnSpell,model.code,model.dataType,model.ftName,model.enName];
                     if ([searchString rangeOfString:stringValue].location != NSNotFound) {
-                        
+
                         [self.resultArr addObject:model];
                     }
                 }

@@ -65,6 +65,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         }];
     }];
 }
+//喵粮订单撤销 post 5 Y PIC 不加catfoodapp
 -(void)CancelDelivery_NetWorking1{
     extern NSString *randomStr;
     NSDictionary *dic;
@@ -157,14 +158,14 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }];
 }
 //CatfoodSale_payURL 喵粮批发已支付 #17
--(void)upLoadPic_wholesaleMarket_havePaid_netWorking:(UIImage *)pic{//真正开始购买
+-(void)upLoadPic_wholesaleMarket_havePaid_netWorking:(UIImage *)pic{
     extern NSString *randomStr;
     ModelLogin *modelLogin;
     if ([[PersonalInfo sharedInstance] isLogined]) {
         modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
     }
     NSDictionary *dataDic = @{
-        @"order_id":self.orderListModel.ID,
+        @"order_id":self.Order_id,
         @"user_id":modelLogin.userId,
         @"identity":[YDDevice getUQID]
     };
@@ -197,21 +198,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         NSDictionary *dataDic = [NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             Toast(dataDic[@"message"]);
+            [self.navigationController popViewControllerAnimated:YES];
         }];
-//        switch ([dataDic[@"code"] longValue]) {
-//            case 200:{//已完成付款.请等待审核后发货！
-////                [self.sureBtn setTitle:@"已付款"
-////                              forState:UIControlStateNormal];
-//            }break;
-//            case 300:{//订单状态异常，请检查！
-//                
-//            }break;
-//            case 500:{//订单有误，请检查订单！
-//                
-//            }break;
-//            default:
-//                break;
-//        }
     }
       failure:^(NSURLSessionDataTask * _Nullable task,
                 NSError * _Nonnull error) {

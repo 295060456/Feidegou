@@ -454,7 +454,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }];
 }
 //buyer_CatfoodRecord_checkURL 喵粮订单查看 3小时 del_wait_left_time
--(void)buyer_CatfoodRecord_checkURL_NetWorking{
+-(void)buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:(NSString *)order_type{//订单类型 —— 1、摊位;2、批发;3、产地
     extern NSString *randomStr;
         NSDictionary *dic = @{
             @"order_id":[NSString ensureNonnullString:self.Order_id ReplaceStr:@"无"],//订单id

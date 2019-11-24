@@ -23,8 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,strong)__block UIImage *pic;
 @property(nonatomic,strong)UpLoadCancelReasonTBVCell *cell;
-@property(nonatomic,strong)OrderListModel *orderListModel;
+//@property(nonatomic,strong)OrderListModel *orderListModel;
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
+@property(nonatomic,strong)WholesaleMarket_Advance_purchaseModel *wholesaleMarket_Advance_purchaseModel;
 @property(nonatomic,strong)NSNumber *Order_id;
 @property(nonatomic,strong)NSNumber *Order_type;
 

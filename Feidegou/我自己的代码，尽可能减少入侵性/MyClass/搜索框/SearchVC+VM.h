@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SearchVC (VM)
 
+-(void)networking_type:(NSString *)inputStr;//按输入的订单号搜索
+
 @end
 
 NS_ASSUME_NONNULL_END

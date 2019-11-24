@@ -126,7 +126,6 @@
 #import "GrowthValuePetsModel.h"
 #import "GiftFoodsModel.h"
 #import "OrderDetailModel.h"
-#import "OrderListModel.h"
 #import "WholesaleMarket_VipModel.h"
 #import "ReleaseOrderModel.h"
 #import "CatFoodProducingAreaModel.h"
@@ -140,6 +139,7 @@
 #import "OrderManager_wholesaleModel.h"
 #import "DefineStructure.h"
 #import "WholesaleMarket_Advance_ListModel.h"
+#import "OrderListModel.h"
 //废弃的
 //#import "OrderDetail_SellerModel.h"
 //#import "OrderDetail_BuyerModel.h"

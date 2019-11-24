@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderDetailVC (VM)
 
--(void)buyer_CatfoodRecord_checkURL_NetWorking;//buyer_CatfoodRecord_checkURL 喵粮订单查看 3小时 del_wait_left_time #3
+-(void)buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:(NSString *)order_type;
 -(void)CancelDelivery_NetWorking;//喵粮订单撤销 #5
 #pragma mark —— 喵粮产地
 -(void)netWorking;//喵粮产地购买 #7
@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)deliver_wholesaleMarket_PNetworking;//喵粮批发订单发货 #14
 -(void)cancelOrder_wholesaleMarket_netWorking;//喵粮批发取消 #18
 -(void)upLoadPic_wholesaleMarket_havePaid_netWorking:(UIImage *)pic;//喵粮批发已支付 #17
-
 #pragma mark —— 喵粮抢摊位
 -(void)boothDeliver_networking;//喵粮抢摊位发货 #21
 -(void)CatfoodBooth_del_netWorking;//喵粮抢摊位取消 #22_1

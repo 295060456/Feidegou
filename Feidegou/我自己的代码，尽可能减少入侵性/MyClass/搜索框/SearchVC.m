@@ -100,7 +100,7 @@ AbuSearchViewDelegate
 }
 #pragma mark —— AbuSearchViewDelegate
 - (void)searchView:(AbuSearchView *)searchView
-   resultStcokList:(NSMutableArray *)stcokList{
+   resultStcokList:(NSMutableArray *)stcokList{//回调值本页进行刷新
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         if (self.dataMutArr.count) {
             [self.dataMutArr removeAllObjects];
@@ -119,36 +119,41 @@ AbuSearchViewDelegate
 -(BOOL)searchBarShouldBeginEditing:(AbuSearchView *)searchBar{//开始编辑 1
     NSLog(@"%s: Line-%d", __func__, __LINE__);
     return YES;
-    
 }
+
 - (void)searchBarTextDidBeginEditing:(AbuSearchView *)searchBar{//开始编辑 2
     NSLog(@"%s: Line-%d", __func__, __LINE__);
-    
 }
+
 - (BOOL)searchBarShouldEndEditing:(AbuSearchView *)searchBar{//结束编辑 1
     NSLog(@"%s: Line-%d", __func__, __LINE__);
     return YES;
 }
+
 - (void)searchBarTextDidEndEditing:(AbuSearchView *)searchBar{//结束编辑 2
     NSLog(@"%s: Line-%d", __func__, __LINE__);
-    
 }
+
 - (void)searchBar:(AbuSearchView *)searchBar
     textDidChange:(NSString *)searchText{//搜索 2
     NSLog(@"%s: Line-%d", __func__, __LINE__);
     NSLog(@"%@",searchText);
-    
+    //在这里进行逐词搜索
+//    [self networking_type:searchText];
 }
+
 - (BOOL)searchBar:(AbuSearchView *)searchBar
 shouldChangeTextInRange:(NSRange)range
   replacementText:(NSString *)text{//搜索 1
     NSLog(@"%s: Line-%d", __func__, __LINE__);
     return YES;
 }
+
 - (void)searchBarSearchButtonClicked:(AbuSearchView *)searchBar{//按下搜索键
     NSLog(@"%s: Line-%d", __func__, __LINE__);
     
 }
+
 - (void)searchBarCancelButtonClicked:(AbuSearchView *)searchBar{//按下取消键
     NSLog(@"%s: Line-%d", __func__, __LINE__);
     if (self.dataMutArr.count > 0) {
