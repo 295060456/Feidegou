@@ -30,7 +30,7 @@
         @"order_status":[NSString stringWithFormat:@"%lu",(unsigned long)businessType],//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成;默认查全部
         @"type":@"",//买家1;卖家0;默认查全部
         @"order_code":@"",//搜索订单号
-        @"order_type":@"",//订单类型 —— 1、摊位;2、批发;3、产地
+        @"order_type":@"",//订单类型 1、转转;2、批发;3、平台
     };
     [self networkingWithArgument:dic];
 }

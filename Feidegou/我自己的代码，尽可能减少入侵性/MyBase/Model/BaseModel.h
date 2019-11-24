@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSNumber *rental;//成交价格
 @property(nonatomic,copy)NSString *paytime;//支付时间
 @property(nonatomic,copy)NSString *finshtime;//完成时间
-@property(nonatomic,strong)NSNumber *order_type;//订单类型 1、普通;2、批发;3、平台
+@property(nonatomic,strong)NSNumber *order_type;//订单类型 1、转转;2、批发;3、平台
 @property(nonatomic,copy)NSString *reason;//撤销理由
 @property(nonatomic,copy)NSString *del_check;//审核理由
 @property(nonatomic,copy)NSNumber *del_state;//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
@@ -43,7 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *bankaddress;//支行
 @property(nonatomic,copy)NSString *bankuser;//持卡人
 @property(nonatomic,strong)NSNumber *deal;//1、买家 2、卖家 卖家才有 发货&撤销
-@property(nonatomic,strong)NSNumber *ID;
+@property(nonatomic,strong)NSNumber *ID;//订单ID
+@property(nonatomic,strong)NSNumber *order_status;//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
 
 @end
 

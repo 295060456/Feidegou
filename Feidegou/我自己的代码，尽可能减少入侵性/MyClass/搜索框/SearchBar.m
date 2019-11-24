@@ -23,7 +23,7 @@ CJTextFieldDeleteDelegate
 
 - (instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = KYellowColor;
+//        self.backgroundColor = KYellowColor;
     }return self;
 }
 
@@ -85,8 +85,9 @@ replacementString:(NSString *)string{//实现逐词搜索
 -(UIButton *)cancelBtn{
     if (!_cancelBtn) {
         _cancelBtn = UIButton.new;
-        [_cancelBtn setTitle:@"搜索" forState:UIControlStateNormal];
-        _cancelBtn.backgroundColor = KGreenColor;
+        [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+        [_cancelBtn setTitleColor:kBlueColor forState:UIControlStateNormal];
+        _cancelBtn.backgroundColor = kWhiteColor;
         _cancelBtn.uxy_acceptEventInterval = 1;
         [UIView cornerCutToCircleWithView:_cancelBtn
                           AndCornerRadius:3.f];

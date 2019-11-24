@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *bankCard;//大写
 @property(nonatomic,copy)NSString *payTime;//大写
 @property(nonatomic,strong)NSNumber *deleteStatus;//
-@property(nonatomic,strong)NSNumber *order_status;//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
 @property(nonatomic,copy)NSString *updateTime;//
 @property(nonatomic,strong)NSNumber *seller;//
 @property(nonatomic,copy)NSString *buyer;//
@@ -31,3 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+
+

@@ -416,6 +416,34 @@ UITableViewDataSource
 -(void)backBtnClickEvent:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+-(void)getOrderStatus:(BaseModel *)model{
+    //            0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+    switch ([model.order_status intValue]) {//订单状态
+        case 0:
+            [_dataMutArr addObject:@"已支付"];
+        break;
+        case 1:
+            [_dataMutArr addObject:@"已发单"];
+        break;
+        case 2:
+            [_dataMutArr addObject:@"已下单"];
+        break;
+        case 3:
+            [_dataMutArr addObject:@"已作废"];
+        break;
+        case 4:
+            [_dataMutArr addObject:@"已发货"];
+        break;
+        case 5:
+            [_dataMutArr addObject:@"已完成"];
+        break;
+        default:
+            [_dataMutArr addObject:@"状态异常"];
+            break;
+    }
+}
+
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section {
@@ -644,8 +672,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             }else{
                 [_dataMutArr addObject:@"无支付账户"];
             }
-//            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.refer ReplaceStr:@"无"]];//参考号
             [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.updateTime ReplaceStr:@"无"]];//时间
+            [self getOrderStatus:self.orderListModel];//订单状态:0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if (self.catFoodProducingAreaModel){
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.ordercode ReplaceStr:@"无"]];//订单号
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.price ReplaceStr:@"无"]];//单价
@@ -656,6 +684,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.bankName ReplaceStr:@"无"]];//银行类型
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.bankaddress ReplaceStr:@"无"]];//支行信息
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.updateTime ReplaceStr:@"无"]];//下单时间
+            [self getOrderStatus:self.catFoodProducingAreaModel];//订单状态:0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if (self.stallListModel){
             [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.ordercode ReplaceStr:@"无"]];//订单号
             [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.price ReplaceStr:@"无"]];//单价
@@ -664,6 +693,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [_dataMutArr addObject:@"微信"];//支付方式
             [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.payment_weixin ReplaceStr:@"无"]];//微信账号
             [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.updateTime ReplaceStr:@"无"]];//下单时间
+            [self getOrderStatus:self.stallListModel];//订单状态:0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if (self.wholesaleMarket_Advance_purchaseModel){
             [_dataMutArr addObject:[NSString ensureNonnullString:self.wholesaleMarket_Advance_purchaseModel.ordercode ReplaceStr:@"无"]];//订单状态
             [_dataMutArr addObject:@"喵粮"];//商品写死 喵粮
@@ -689,6 +719,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                     [self.dataMutArr addObject:@"异常数据"];
                     break;
             }
+            [self getOrderStatus:self.wholesaleMarket_Advance_purchaseModel];//订单状态:0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else{}
     }return _dataMutArr;
 }
