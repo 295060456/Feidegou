@@ -48,29 +48,38 @@
         if (response) {
             NSLog(@"--%@",response);
             if ([response isKindOfClass:[NSArray class]]) {
-                NSArray *array = [OrderListModel mj_objectArrayWithKeyValuesArray:response];
-                if (array) {
-                    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
-                                                        NSUInteger idx,
-                                                        BOOL * _Nonnull stop) {
-                        @strongify(self)
-                        OrderListModel *model = array[idx];
-                        ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-                        if ([modelLogin.userId intValue] == [model.seller intValue]) {
-                            model.identity = @"卖家";
-                        }else{
-                            model.identity = @"买家";
+                NSArray *arr = (NSArray *)response;
+                if (arr.count) {
+                    if ([response isKindOfClass:[NSArray class]]) {
+                        NSArray *array = [OrderListModel mj_objectArrayWithKeyValuesArray:response];
+                        if (array) {
+                            [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
+                                                                NSUInteger idx,
+                                                                BOOL * _Nonnull stop) {
+                                @strongify(self)
+                                OrderListModel *model = array[idx];
+                                ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+                                if ([modelLogin.userId intValue] == [model.seller intValue]) {
+                                    model.identity = @"卖家";
+                                }else{
+                                    model.identity = @"买家";
+                                }
+                                [self.dataMutArr addObject:model];
+                            }];
+                            if (self.dataMutArr.count) {
+                                self.tableView.mj_footer.hidden = NO;
+                            }else{
+                                self.tableView.mj_footer.hidden = YES;
+                            }
+                            [self.tableView.mj_header endRefreshing];
+                            [self.tableView.mj_footer endRefreshing];
+                            [self.tableView reloadData];
                         }
-                        [self.dataMutArr addObject:model];
-                    }];
-                    if (self.dataMutArr.count) {
-                        self.tableView.mj_footer.hidden = NO;
-                    }else{
-                        self.tableView.mj_footer.hidden = YES;
                     }
-                    [self.tableView.mj_header endRefreshing];
-                    [self.tableView.mj_footer endRefreshing];
-                    [self.tableView reloadData];
+                }else{
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        Toast(@"没数据了");
+                    }];
                 }
             }
         }

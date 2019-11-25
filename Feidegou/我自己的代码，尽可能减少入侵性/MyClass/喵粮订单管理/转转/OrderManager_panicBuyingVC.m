@@ -130,7 +130,7 @@ UITableViewDataSource
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
     self.page++;
-    [self pullToRefresh];
+    [self networking_platformType:PlatformType_Stall];
 }
 
 -(void)showOrHiddenSearchView{
