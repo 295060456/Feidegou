@@ -19,7 +19,10 @@
         @"order_code":inputStr,//搜索订单号
         @"order_type":@""//1、转转;2、批发;3、厂家;默认查全部
     };
-    [self networkingWithArgument:dic];
+    
+    if (![NSString isNullString:inputStr]) {
+        [self networkingWithArgument:dic];
+    }
 }
 //正式请求
 -(void)networkingWithArgument:(NSDictionary *)dic{

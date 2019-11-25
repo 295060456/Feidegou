@@ -41,6 +41,7 @@ UITableViewDataSource
 @property(nonatomic,copy)NSString *titleEndStr;
 @property(nonatomic,copy)NSString *titleBeginStr;
 @property(nonatomic,assign)BOOL isFirstComing;
+@property(nonatomic,strong)UIViewController *rootVC;
 
 @end
 
@@ -62,6 +63,7 @@ UITableViewDataSource
     vc.successBlock = block;
     vc.requestParams = requestParams;
     vc.isFirstComing = YES;
+    vc.rootVC = rootVC;
     if ([vc.requestParams isKindOfClass:[OrderListModel class]]) {//订单管理 子页面共用一个model 进
         vc.orderListModel = (OrderListModel *)vc.requestParams;
         vc.Order_id = vc.orderListModel.ID;
@@ -114,7 +116,6 @@ UITableViewDataSource
     self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_sureBtn];
     self.tableView.alpha = 1;
-//    [self.tableView.mj_header beginRefreshing];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -125,25 +126,6 @@ UITableViewDataSource
     }else{
         [self.tableView.mj_header beginRefreshing];
     }
-    
-    
-//    if (self.orderListModel) {
-//        if ([self.orderListModel.order_type intValue] == 1) {
-//            if ([self.orderListModel.order_status intValue] == 2) {
-//                if ([self.orderListModel.del_state intValue] == 0) {//0、不影响;1、待审核;2、已通过 3、驳回
-//                    [self.tableView.mj_header beginRefreshing];
-//                }
-//            }
-//        }
-//    }else if (self.catFoodProducingAreaModel){
-////        [self.tableView.mj_header beginRefreshing];
-//        NSLog(@"");
-//    }else if (self.stallListModel){
-////        [self.tableView.mj_header beginRefreshing];
-//        NSLog(@"");
-//    }else if (self.wholesaleMarket_Advance_purchaseModel){
-//        [self.tableView.mj_header beginRefreshing];
-//    }else{}
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -377,6 +359,9 @@ UITableViewDataSource
                           forControlEvents:UIControlEventTouchUpInside];//#21_1。取消购买 喵粮批发取消
     }else{
         [self.dataMutArr addObject:@"数据异常"];
+    }
+    if ([self.rootVC isKindOfClass:[SearchVC class]]) {
+        self.gk_navTitle = @"搜索订单";
     }
 }
 // 手动下拉刷新
