@@ -96,7 +96,11 @@ UITextFieldDelegate
 }
 
 -(void)backBtnClickEvent:(UIButton *)sender{
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 #pragma mark —— lazyLoad
 -(UIButton *)sendBtn{

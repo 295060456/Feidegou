@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIButton *sureBtn;
 @property(nonatomic,strong)UIButton *normalCancelBtn;
-@property(nonatomic,strong)VerifyCodeButton *contactBuyer;
+@property(nonatomic,strong)VerifyCodeButton *contactBuyer;//???
 @property(nonatomic,strong)VerifyCodeButton *countDownCancelBtn;
 
 @property(nonatomic,strong)__block UIImage *pic;
@@ -39,13 +39,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)__block NSString *str;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
+@property(nonatomic,assign)__block int time;
+@property(nonatomic,strong)NSNumber *Order_id;
+
 @property(nonatomic,strong)OrderListModel *orderListModel;
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
 @property(nonatomic,strong)StallListModel *stallListModel;
-//@property(nonatomic,strong)WholesaleMarket_Advance_ListModel *wholesaleMarket_AdvanceModel;
 @property(nonatomic,strong)WholesaleMarket_Advance_purchaseModel *wholesaleMarket_Advance_purchaseModel;
-@property(nonatomic,assign)__block int time;
-@property(nonatomic,strong)NSNumber *Order_id;
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
                    withStyle:(ComingStyle)comingStyle

@@ -106,9 +106,12 @@ UITableViewDataSource
 }
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
-
 -(void)DemoPicBtnClickEvent:(UIButton *)sender{
     NSLog(@"显示示例图");
     @weakify(self)

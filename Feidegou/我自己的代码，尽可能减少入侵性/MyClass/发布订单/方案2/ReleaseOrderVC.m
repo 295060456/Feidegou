@@ -80,8 +80,11 @@ UITableViewDataSource
 }
 #pragma mark —— 私有方法
 -(void)backBtnClickEvent:(UIButton *)sender{
-    NSLog(@"返回");
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 //清空
 -(void)EmptyInputData{//未完工

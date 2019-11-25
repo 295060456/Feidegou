@@ -91,7 +91,11 @@ UITableViewDataSource
 }
 #pragma mark —— 私有方法
 -(void)backBtnClickEvent:(UIButton *)sender{
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 // 下拉刷新
 -(void)pullToRefresh{

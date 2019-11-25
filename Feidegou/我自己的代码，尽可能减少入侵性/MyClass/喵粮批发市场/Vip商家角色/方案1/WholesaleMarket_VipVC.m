@@ -104,8 +104,11 @@ UITableViewDataSource
 }
 
 -(void)backBtnClickEvent:(UIButton *)sender{
-    NSLog(@"返回");
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 // 下拉刷新
 -(void)pullToRefresh{

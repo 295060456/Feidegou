@@ -8,101 +8,11 @@
 
 #import "UpLoadCancelReasonVC+VM.h"
 
+NSString *A;//喵粮产地购买已支付 #18
+NSString *B;//喵粮批发已支付 #17
+NSString *C;//喵粮订单撤销 #5
+
 @implementation UpLoadCancelReasonVC (VM)
-//CatfoodRecord_delURL 喵粮订单撤销 #5
--(void)CancelDelivery_NetWorking{
-    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
-    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
-    extern NSString *randomStr;
-    NSDictionary *dic;
-    if ([self.requestParams isKindOfClass:[NSDictionary class]]) {
-        dic = (NSDictionary *)self.requestParams;
-    }
-    ModelLogin *modelLogin;
-    if ([[PersonalInfo sharedInstance] isLogined]) {
-        modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-    }
-    
-    NSDictionary *dataDic = @{
-         @"order_id":[NSString ensureNonnullString:self.Order_id ReplaceStr:@"无"],//订单id
-         @"reason":dic[@"Result"],//撤销理由
-         @"order_type":[NSString ensureNonnullString:self.Order_type ReplaceStr:@"无"],//订单类型 —— 1、摊位;2、批发;3、产地
-         @"user_id":modelLogin.userId,
-         @"identity":[YDDevice getUQID]
-    };
-    __block NSData *picData = [UIImage imageZipToData:self.pic];
-    [mgr POST:API(BaseUrl, CatfoodRecord_delURL)
-   parameters:@{
-       @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
-       @"key":[RSAUtil encryptString:randomStr
-                           publicKey:RSA_Public_key]
-   }
-constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        [formData appendPartWithFileData:picData
-                                    name:@"del_print"
-                                fileName:@"test.png"
-                                mimeType:@"image/png"];
-    }
-     progress:^(NSProgress * _Nonnull uploadProgress) {
-        NSLog(@"uploadProgress = %@",uploadProgress);
-        CGFloat _percent = uploadProgress.fractionCompleted * 100;
-        NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
-        NSLog(@"%@",str);
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(str);
-        }];
-    }
-      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"responseObject = %@",responseObject);
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(@"上传图片成功");
-        }];
-    }
-      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error = %@",error);
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(@"上传图片失败");
-        }];
-    }];
-}
-//喵粮订单撤销 post 5 Y PIC 不加catfoodapp
--(void)CancelDelivery_NetWorking1{
-    extern NSString *randomStr;
-    NSDictionary *dic;
-    OrderListModel *model;
-    if ([self.requestParams isKindOfClass:[NSDictionary class]]) {
-        dic = (NSDictionary *)self.requestParams;
-        model = dic[@"OrderListModel"][@"OrderListModel"];
-    }
-    NSDictionary *dataDic = @{
-         @"order_id":[NSString ensureNonnullString:model.ID ReplaceStr:@"无"],//订单id
-         @"reason":dic[@"Result"],//撤销理由
-         @"order_type":[NSString ensureNonnullString:model.order_type ReplaceStr:@"无"]//订单类型 —— 1、摊位;2、批发;3、产地
-    };
-
-    NSData *picData = [UIImage imageZipToData:self.pic];
-    
-//    NSDictionary *picDic = @{
-//        @"del_print":self.pic,//上传凭证图片,图片放request,不加密
-//    };
-//    NSData *picData = [NSJSONSerialization dataWithJSONObject:picDic
-//                                                   options:NSJSONWritingPrettyPrinted
-//                                                     error:nil];
-
-    self.reqSignal = [[FMARCNetwork sharedInstance] uploadNetworkPath:CatfoodRecord_delURL
-                                                               params:dataDic
-                                                            fileDatas:@[picData]//(NSArray<NSData *> *)
-                                                                 name:@"撤销凭证"
-                                                             mimeType:@""];
-    
-//    @weakify(self)
-    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-        if (response) {
-//            @strongify(self)
-            NSLog(@"--%@",response);
-        }
-    }];
-}
 //CatfoodCO_payURL 喵粮产地购买已支付  #8
 -(void)uploadPic_producingArea_havePaid_netWorking:(UIImage *)image{
     extern NSString *randomStr;
@@ -141,6 +51,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }
       success:^(NSURLSessionDataTask * _Nonnull task,
                 id  _Nullable responseObject) {
+        A = @"上传凭证成功";
         NSLog(@"responseObject = %@",responseObject);
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             Toast(@"上传凭证成功");
@@ -198,6 +109,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         NSDictionary *dataDic = [NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             Toast(dataDic[@"message"]);
+            B = @"上传凭证成功";
             [self.navigationController popViewControllerAnimated:YES];
         }];
     }
@@ -205,6 +117,101 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                 NSError * _Nonnull error) {
         NSLog(@"error = %@",error);
 
+    }];
+}
+//CatfoodRecord_delURL 喵粮订单撤销 #5
+-(void)CancelDelivery_NetWorking{
+    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+    extern NSString *randomStr;
+    NSDictionary *dic;
+    if ([self.requestParams isKindOfClass:[NSDictionary class]]) {
+        dic = (NSDictionary *)self.requestParams;
+    }
+    ModelLogin *modelLogin;
+    if ([[PersonalInfo sharedInstance] isLogined]) {
+        modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+    }
+    
+    NSDictionary *dataDic = @{
+         @"order_id":[NSString ensureNonnullString:self.Order_id ReplaceStr:@"无"],//订单id
+         @"reason":dic[@"Result"],//撤销理由
+         @"order_type":[NSString ensureNonnullString:self.Order_type ReplaceStr:@"无"],//订单类型 —— 1、摊位;2、批发;3、产地
+         @"user_id":modelLogin.userId,
+         @"identity":[YDDevice getUQID]
+    };
+    __block NSData *picData = [UIImage imageZipToData:self.pic];
+    [mgr POST:API(BaseUrl, CatfoodRecord_delURL)
+   parameters:@{
+       @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
+       @"key":[RSAUtil encryptString:randomStr
+                           publicKey:RSA_Public_key]
+   }
+constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [formData appendPartWithFileData:picData
+                                    name:@"del_print"
+                                fileName:@"test.png"
+                                mimeType:@"image/png"];
+    }
+     progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"uploadProgress = %@",uploadProgress);
+        CGFloat _percent = uploadProgress.fractionCompleted * 100;
+        NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
+        NSLog(@"%@",str);
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            Toast(str);
+        }];
+    }
+      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"responseObject = %@",responseObject);
+        C = @"上传凭证成功";
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            Toast(@"上传图片成功");
+        }];
+    }
+      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error = %@",error);
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            Toast(@"上传图片失败");
+        }];
+    }];
+}
+//喵粮订单撤销 post 5 Y PIC 不加catfoodapp
+-(void)CancelDelivery_NetWorking1{//废弃
+    extern NSString *randomStr;
+    NSDictionary *dic;
+    OrderListModel *model;
+    if ([self.requestParams isKindOfClass:[NSDictionary class]]) {
+        dic = (NSDictionary *)self.requestParams;
+        model = dic[@"OrderListModel"][@"OrderListModel"];
+    }
+    NSDictionary *dataDic = @{
+         @"order_id":[NSString ensureNonnullString:model.ID ReplaceStr:@"无"],//订单id
+         @"reason":dic[@"Result"],//撤销理由
+         @"order_type":[NSString ensureNonnullString:model.order_type ReplaceStr:@"无"]//订单类型 —— 1、摊位;2、批发;3、产地
+    };
+
+    NSData *picData = [UIImage imageZipToData:self.pic];
+    
+//    NSDictionary *picDic = @{
+//        @"del_print":self.pic,//上传凭证图片,图片放request,不加密
+//    };
+//    NSData *picData = [NSJSONSerialization dataWithJSONObject:picDic
+//                                                   options:NSJSONWritingPrettyPrinted
+//                                                     error:nil];
+
+    self.reqSignal = [[FMARCNetwork sharedInstance] uploadNetworkPath:CatfoodRecord_delURL
+                                                               params:dataDic
+                                                            fileDatas:@[picData]//(NSArray<NSData *> *)
+                                                                 name:@"撤销凭证"
+                                                             mimeType:@""];
+    
+//    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        if (response) {
+//            @strongify(self)
+            NSLog(@"--%@",response);
+        }
     }];
 }
 
