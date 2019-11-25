@@ -178,7 +178,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     cell.textLabel.text = self.titleMutArr[indexPath.row + 2];
     if (indexPath.row == 0 ||//数量
         indexPath.row == 1 ||//最低限额
-        indexPath.row == 2) {//最高限额
+        indexPath.row == 2 ||//最高限额
+        indexPath.row == 3) {//手动设定单价
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Textfield];
         cell.textfield.keyboardType = UIKeyboardTypeDecimalPad;
@@ -194,13 +195,17 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     self.str_2 = textfield.text;
                 }else if([textfield.placeholder isEqualToString:self.placeholderMutArr[2]]){//请输入最高限额
                     self.str_3 = textfield.text;
+                }else if([textfield.placeholder isEqualToString:self.placeholderMutArr[3]]){//请输入最高限额
+                    self.str_11 = textfield.text;
                 }else{}
             }     
         }];
-    }else if(indexPath.row == 3){//单价
-        [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
-                  ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Lab];
-    }else if (indexPath.row == 4){//收款方式
+    }
+//    else if(indexPath.row == 3){//单价
+//        [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
+//                  ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Lab];
+//    }
+    else if (indexPath.row == 4){//收款方式
         [cell richElementsInCellWithModel:self.placeholderMutArr[indexPath.row]
                   ReleaseOrderTBVCellType:ReleaseOrderTBVCellType_Btn];
         self.historyDataListTBV = cell.historyDataListTBV;
@@ -444,8 +449,9 @@ forHeaderFooterViewReuseIdentifier:@"KJHG"];
         [_placeholderMutArr addObject:[NSString stringWithFormat:@"可用喵粮余额 %@",[NSString ensureNonnullString:Foodstuff ReplaceStr:@"无"]]];
         [_placeholderMutArr addObject:@"请输入最低限额"];
         [_placeholderMutArr addObject:@"请输入最高限额"];
-        extern NSString *market_price_sale;//批发均价
-        [_placeholderMutArr addObject:[NSString stringWithFormat:@"%@ g / CNY",[NSString ensureNonnullString:market_price_sale ReplaceStr:@"无"]]];
+//        extern NSString *market_price_sale;//批发均价
+//        [_placeholderMutArr addObject:[NSString stringWithFormat:@"%@ g / CNY",[NSString ensureNonnullString:market_price_sale ReplaceStr:@"无"]]];
+        [_placeholderMutArr addObject:@"请设定单价"];
         [_placeholderMutArr addObject:@"请选择收款方式"];
     }return _placeholderMutArr;
 }
@@ -524,10 +530,14 @@ forHeaderFooterViewReuseIdentifier:@"KJHG"];
     [self.textLabel sizeToFit];
     switch (type) {
         case ReleaseOrderTBVCellType_Textfield:{
-            self.detailTextLabel.text = @"g";
+            if ([model isEqualToString:@"请设定单价"]) {
+                self.detailTextLabel.text = @"CNY";
+            }else{
+                self.detailTextLabel.text = @"g";
+            }
             self.textfield.placeholder = model;
             [self layoutIfNeeded];
-            if ([model isEqualToString:@"请输入数量"]) {
+            if ([model containsString:@"可用喵粮余额"]) {
                 [_textfield mas_remakeConstraints:^(MASConstraintMaker *make) {
                     make.top.bottom.equalTo(self.contentView);
                     make.left.equalTo(self.textLabel.mas_right).offset(SCALING_RATIO(40));

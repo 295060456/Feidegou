@@ -30,6 +30,11 @@
         return;
     }
     
+    if ([NSString isNullString:self.str_11]) {
+        Toast(@"请设定单价");
+        return;
+    }
+    
     if ([self.str_3 intValue] > [self.str_1 intValue]) {
         Toast(@"最高限额大于发布数量，错误");return;
     }
@@ -63,7 +68,8 @@
         [NSString isIncludeChinese:self.str_3] ||
         [NSString isIncludeChinese:self.str_5] ||
         [NSString isIncludeChinese:self.str_6] ||
-        [NSString isIncludeChinese:self.str_7]) {
+        [NSString isIncludeChinese:self.str_7] ||
+        [NSString isIncludeChinese:self.str_11]) {
         Toast(@"数据格式不正确"); return;
     }
     
@@ -71,7 +77,7 @@
         @"quantity":self.str_1,//数量
         @"quantity_min":self.str_2,//最小
         @"quantity_max":self.str_3,//最大可购数量
-        @"price":market_price_sale,//单价
+        @"price":self.str_11,//单价
         @"payment_type":[NSString stringWithFormat:@"%d",[self.str_4 intValue] + 1],
         @"payment_status":self.str_4,//支付类型 1、支付宝；2、微信；3、银行卡
         @"Weixin_id":[NSString isNullString:self.str_5] ? @"" : self.str_5,//微信账户

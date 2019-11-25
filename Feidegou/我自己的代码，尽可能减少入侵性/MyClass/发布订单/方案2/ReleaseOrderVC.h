@@ -49,6 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)__block NSString *str_8;//姓名
 @property(nonatomic,copy)__block NSString *str_9;//银行类型
 @property(nonatomic,copy)__block NSString *str_10;//支行信息
+@property(nonatomic,copy)__block NSString *str_11;//单价
 @property(nonatomic,strong)id requestParams;
 
 + (instancetype)pushFromVC:(UIViewController *)rootVC
