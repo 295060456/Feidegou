@@ -498,15 +498,9 @@ heightForHeaderInSection:(NSInteger)section{
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if ([self.orderListModel.order_type intValue] == 2) {
-        if ([self.orderListModel.identity isEqualToString:@"卖家"]) {
-            if ([self.orderListModel.order_status intValue] == 0) {
-                if (indexPath.row == 9) {
-                    return [OrderDetailTBVIMGCell cellHeightWithModel:nil];//凭证图
-                }
-            }
-        }
-    }return [OrderDetailTBVCell cellHeightWithModel:nil];
+    if (indexPath.row == self.titleMutArr.count - 1) {//最后一行
+        return [OrderDetailTBVIMGCell cellHeightWithModel:nil];//凭证图
+    }else return [OrderDetailTBVCell cellHeightWithModel:nil];
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -523,32 +517,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"KKK = %lu",(unsigned long)self.titleMutArr.count);
-    if (indexPath.row == 9) {
-        if ([self.orderListModel.order_status intValue] == 2 ||
-            [self.catFoodProducingAreaModel.order_status intValue] == 2 ||
-            [self.stallListModel.order_status intValue] == 2 ||
-            [self.wholesaleMarket_Advance_purchaseModel.order_status intValue] == 2) {
-            //没凭证图
-            return UITableViewCell.new;
-        }else{
-            //有凭证图
+    if (indexPath.row == self.titleMutArr.count - 1) {//最后一行
+        if (![NSString isNullString:self.orderListModel.payment_print] ||
+            ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
+            ![NSString isNullString:self.stallListModel.payment_print] ||
+            ![NSString isNullString:self.wholesaleMarket_Advance_purchaseModel.payment_print]) {//有凭证数据
             OrderDetailTBVIMGCell *cell = [OrderDetailTBVIMGCell cellWith:tableView];//
             cell.textLabel.text = self.titleMutArr[indexPath.row];
-            if (self.dataMutArr.count) {//最新数据
-                [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
-            }else{//原始数据
-                if ([self.requestParams isKindOfClass:[OrderListModel class]]) {
-                    
-                }else if ([self.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){
-                    
-                }else if ([self.requestParams isKindOfClass:[StallListModel class]]){
-                    
-                }else if ([self.requestParams isKindOfClass:[WholesaleMarket_Advance_ListModel class]]){
-                    
-                }else{}//
-            }return cell;
+            [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+            return cell;
+        }else{//没有凭证数据，则显示正常的行
+            OrderDetailTBVCell *cell = [OrderDetailTBVCell cellWith:tableView];//
+            cell.textLabel.text = self.titleMutArr[indexPath.row];
+            [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+            return cell;
         }
-    }else{
+    }else{//其他正常的行
         OrderDetailTBVCell *cell = [OrderDetailTBVCell cellWith:tableView];//
         cell.textLabel.text = self.titleMutArr[indexPath.row];
         if (self.dataMutArr.count) {//最新数据
@@ -885,7 +869,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIImageView *)imgV{
     if (!_imgV) {
         _imgV = UIImageView.new;
-        _imgV.backgroundColor = KYellowColor;
+        _imgV.backgroundColor = kRedColor;
         [self.contentView addSubview:_imgV];
         [_imgV mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.contentView);
