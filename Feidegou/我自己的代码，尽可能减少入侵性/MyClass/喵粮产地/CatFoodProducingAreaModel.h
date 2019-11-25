@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *finishTime;
 @property(nonatomic,copy)NSString *payment_print_id;
 @property(nonatomic,strong)NSNumber *deleteStatus;
-@property(nonatomic,strong)NSNumber *order_status;
 @property(nonatomic,strong)NSNumber *trade_no;
 @property(nonatomic,strong)NSNumber *card_img;
 

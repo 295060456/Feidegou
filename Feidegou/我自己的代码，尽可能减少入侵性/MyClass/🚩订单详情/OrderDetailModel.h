@@ -15,7 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSNumber *seller;
 @property(nonatomic,strong)NSNumber *buyer;
 @property(nonatomic,strong)NSNumber *deleteStatus;
-@property(nonatomic,strong)NSNumber *order_status;//0、已支付;1、已发单;2、已接单;3、已作废;4、已发货;5、已完成
 @property(nonatomic,copy)NSString *group_img;
 @property(nonatomic,copy)NSString *notifyurl;
 @property(nonatomic,copy)NSString *updateTime;

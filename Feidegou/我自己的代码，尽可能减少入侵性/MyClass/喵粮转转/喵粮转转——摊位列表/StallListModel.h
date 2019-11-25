@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface StallListModel : BaseModel
 
 @property(nonatomic,strong)NSNumber *seller;
-@property(nonatomic,strong)NSNumber *order_status;
 @property(nonatomic,strong)NSNumber *deleteStatus;
 @property(nonatomic,copy)NSString *ip;
 @property(nonatomic,copy)NSString *payment_weixin_img;

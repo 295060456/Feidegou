@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)__block int time;
 @property(nonatomic,strong)NSNumber *Order_id;
 @property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
+@property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,strong)OrderListModel *orderListModel;

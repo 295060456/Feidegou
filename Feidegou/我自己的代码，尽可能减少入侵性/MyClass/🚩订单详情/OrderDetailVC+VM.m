@@ -9,6 +9,70 @@
 #import "OrderDetailVC+VM.h"
 
 @implementation OrderDetailVC (VM)
+//CatfoodSale_payURL 喵粮批发已支付 #17
+-(void)upLoadPic_wholesaleMarket_havePaid_netWorking:(UIImage *)pic{//真正开始购买
+    extern NSString *randomStr;
+    ModelLogin *modelLogin;
+    if ([[PersonalInfo sharedInstance] isLogined]) {
+        modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+    }
+    NSDictionary *dataDic = @{
+        @"order_id":self.Order_id,
+        @"user_id":modelLogin.userId,
+        @"identity":[YDDevice getUQID]
+    };
+    __block NSData *picData = [UIImage imageZipToData:pic];
+    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [mgr POST:API(BaseUrl, CatfoodSale_payURL)
+   parameters:@{
+       @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
+       @"key":[RSAUtil encryptString:randomStr
+                           publicKey:RSA_Public_key]
+   }
+constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [formData appendPartWithFileData:picData
+                                    name:@"payment_print"
+                                fileName:@"test.png"
+                                mimeType:@"image/png"];
+    }
+     progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"uploadProgress = %@",uploadProgress);
+        CGFloat _percent = uploadProgress.fractionCompleted * 100;
+        NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
+        NSLog(@"%@",str);
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            Toast(str);
+        }];
+    }
+      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dataDic = [NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)];
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            Toast(dataDic[@"message"]);
+        }];
+        switch ([dataDic[@"code"] longValue]) {
+            case 200:{//已完成付款.请等待审核后发货！
+                [self.sureBtn setTitle:@"已付款"
+                              forState:UIControlStateNormal];
+            }break;
+            case 300:{//订单状态异常，请检查！
+                
+            }break;
+            case 500:{//订单有误，请检查订单！
+                
+            }break;
+            default:
+                break;
+        }
+    }
+      failure:^(NSURLSessionDataTask * _Nullable task,
+                NSError * _Nonnull error) {
+        NSLog(@"error = %@",error);
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            Toast(@"上传图片失败");
+        }];
+    }];
+}
 //CatfoodRecord_delURL 喵粮订单撤销 #5
 -(void)CancelDelivery_NetWorking{
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
@@ -59,6 +123,62 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             Toast(@"上传图片失败");
         }];
     }];
+}
+//CatfoodCO_payURL 喵粮产地购买已支付  #8
+-(void)uploadPic_producingArea_havePaid_netWorking:(UIImage *)image{
+    extern NSString *randomStr;
+    ModelLogin *modelLogin;
+    if ([[PersonalInfo sharedInstance] isLogined]) {
+        modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+    }
+    if (self.orderListModel) {
+        AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+        mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+        __block NSData *picData = [UIImage imageZipToData:image];
+        NSDictionary *dataDic = @{
+            @"order_id":[self.Order_id stringValue],//order_id
+            @"user_id":modelLogin.userId,
+            @"identity":[YDDevice getUQID]
+        };
+        [mgr POST:API(BaseUrl, CatfoodCO_payURL)
+       parameters:@{
+           @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
+           @"key":[RSAUtil encryptString:randomStr
+                               publicKey:RSA_Public_key]
+       }
+    constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+            [formData appendPartWithFileData:picData
+                                        name:@"payment_print"
+                                    fileName:@"test.png"
+                                    mimeType:@"image/png"];
+        }
+         progress:^(NSProgress * _Nonnull uploadProgress) {
+            NSLog(@"uploadProgress = %@",uploadProgress);
+            CGFloat _percent = uploadProgress.fractionCompleted * 100;
+            NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
+            NSLog(@"%@",str);
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                Toast(str);
+            }];
+        }
+          success:^(NSURLSessionDataTask * _Nonnull task,
+                    id  _Nullable responseObject) {
+            NSLog(@"responseObject = %@",responseObject);
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                Toast(@"上传凭证成功");
+            }];
+            NSArray *vcArr = self.navigationController.viewControllers;
+            UIViewController *vc = vcArr[2];
+            [self.navigationController popToViewController:vc animated:YES];
+            }
+          failure:^(NSURLSessionDataTask * _Nullable task,
+                    NSError * _Nonnull error) {
+            NSLog(@"error = %@",error);
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                Toast(@"上传图片失败");
+            }];
+        }];
+    }
 }
 //CatfoodCO_BuyerURL 喵粮产地购买 #7
 -(void)netWorking{
@@ -148,62 +268,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         }
     }];
 }
-//CatfoodCO_payURL 喵粮产地购买已支付  #8
--(void)uploadPic_producingArea_havePaid_netWorking:(UIImage *)image{
-    extern NSString *randomStr;
-    ModelLogin *modelLogin;
-    if ([[PersonalInfo sharedInstance] isLogined]) {
-        modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-    }
-    if (self.orderListModel) {
-        AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
-        mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
-        __block NSData *picData = [UIImage imageZipToData:image];
-        NSDictionary *dataDic = @{
-            @"order_id":[self.Order_id stringValue],//order_id
-            @"user_id":modelLogin.userId,
-            @"identity":[YDDevice getUQID]
-        };
-        [mgr POST:API(BaseUrl, CatfoodCO_payURL)
-       parameters:@{
-           @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
-           @"key":[RSAUtil encryptString:randomStr
-                               publicKey:RSA_Public_key]
-       }
-    constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-            [formData appendPartWithFileData:picData
-                                        name:@"payment_print"
-                                    fileName:@"test.png"
-                                    mimeType:@"image/png"];
-        }
-         progress:^(NSProgress * _Nonnull uploadProgress) {
-            NSLog(@"uploadProgress = %@",uploadProgress);
-            CGFloat _percent = uploadProgress.fractionCompleted * 100;
-            NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
-            NSLog(@"%@",str);
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                Toast(str);
-            }];
-        }
-          success:^(NSURLSessionDataTask * _Nonnull task,
-                    id  _Nullable responseObject) {
-            NSLog(@"responseObject = %@",responseObject);
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                Toast(@"上传凭证成功");
-            }];
-            NSArray *vcArr = self.navigationController.viewControllers;
-            UIViewController *vc = vcArr[2];
-            [self.navigationController popToViewController:vc animated:YES];
-            }
-          failure:^(NSURLSessionDataTask * _Nullable task,
-                    NSError * _Nonnull error) {
-            NSLog(@"error = %@",error);
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                Toast(@"上传图片失败");
-            }];
-        }];
-    }
-}
 //CatfoodCO_pay_delURL 喵粮产地购买取消 #9
 -(void)cancelOrder_producingArea_netWorking{
     extern NSString *randomStr;
@@ -257,70 +321,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //        }
     }];
 }
-//CatfoodSale_payURL 喵粮批发已支付 #17
--(void)upLoadPic_wholesaleMarket_havePaid_netWorking:(UIImage *)pic{//真正开始购买
-    extern NSString *randomStr;
-    ModelLogin *modelLogin;
-    if ([[PersonalInfo sharedInstance] isLogined]) {
-        modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-    }
-    NSDictionary *dataDic = @{
-        @"order_id":self.Order_id,
-        @"user_id":modelLogin.userId,
-        @"identity":[YDDevice getUQID]
-    };
-    __block NSData *picData = [UIImage imageZipToData:pic];
-    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
-    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
-    [mgr POST:API(BaseUrl, CatfoodSale_payURL)
-   parameters:@{
-       @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
-       @"key":[RSAUtil encryptString:randomStr
-                           publicKey:RSA_Public_key]
-   }
-constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        [formData appendPartWithFileData:picData
-                                    name:@"payment_print"
-                                fileName:@"test.png"
-                                mimeType:@"image/png"];
-    }
-     progress:^(NSProgress * _Nonnull uploadProgress) {
-        NSLog(@"uploadProgress = %@",uploadProgress);
-        CGFloat _percent = uploadProgress.fractionCompleted * 100;
-        NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
-        NSLog(@"%@",str);
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(str);
-        }];
-    }
-      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *dataDic = [NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)];
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(dataDic[@"message"]);
-        }];
-        switch ([dataDic[@"code"] longValue]) {
-            case 200:{//已完成付款.请等待审核后发货！
-                [self.sureBtn setTitle:@"已付款"
-                              forState:UIControlStateNormal];
-            }break;
-            case 300:{//订单状态异常，请检查！
-                
-            }break;
-            case 500:{//订单有误，请检查订单！
-                
-            }break;
-            default:
-                break;
-        }
-    }
-      failure:^(NSURLSessionDataTask * _Nullable task,
-                NSError * _Nonnull error) {
-        NSLog(@"error = %@",error);
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(@"上传图片失败");
-        }];
-    }];
-}
+
 //CatfoodSale_pay_delURL 喵粮批发取消 18
 -(void)cancelOrder_wholesaleMarket_netWorking{//展示数据
     extern NSString *randomStr;
@@ -455,7 +456,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 }
 //buyer_CatfoodRecord_checkURL 喵粮订单查看 3小时 del_wait_left_time
 -(void)buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:(NSString *)order_type{//订单类型 —— 1、摊位;2、批发;3、产地
-    
     NSNumber *b;
     if ([order_type isEqualToString:@"摊位"]) {
         b = [NSNumber numberWithInt:1];
@@ -486,18 +486,78 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             if (response) {
                 @strongify(self)
                 NSLog(@"--%@",response);
-                
-                
-                
-//                self.tableView.mj_footer.hidden = NO;
+                //1、支付宝;2、微信;3、银行卡
+                if ([response isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *dataDic = (NSDictionary *)response;
+                    OrderDetailModel *model = [OrderDetailModel mj_objectWithKeyValues:dataDic[@"catFoodOrder"]];
+                    [self.titleMutArr addObject:@"订单号:"];
+                    [self.titleMutArr addObject:@"单价:"];
+                    [self.titleMutArr addObject:@"数量:"];
+                    [self.titleMutArr addObject:@"总价:"];
+                    [self.titleMutArr addObject:@"支付方式:"];
+                    
+                    [self.dataMutArr addObject:[NSString ensureNonnullString:model.ordercode ReplaceStr:@"暂无"]];//订单号
+                    [self.dataMutArr addObject:[[NSString ensureNonnullString:model.price ReplaceStr:@"暂无"] stringByAppendingString:@"CNY"]];//单价
+                    [self.dataMutArr addObject:[[NSString ensureNonnullString:model.quantity ReplaceStr:@"暂无"] stringByAppendingString:@" g"]];//数量
+                    [self.dataMutArr addObject:[[NSString ensureNonnullString:model.rental ReplaceStr:@"暂无"] stringByAppendingString:@" g"]];//总价
+
+                    if ([model.payment_status intValue] == 3) {//3、银行卡
+                        [self.titleMutArr addObject:@"银行卡号:"];
+                        [self.titleMutArr addObject:@"姓名:"];
+                        [self.titleMutArr addObject:@"银行类型:"];
+                        [self.titleMutArr addObject:@"支行信息:"];
+                        
+                        [self.dataMutArr addObject:@"银行卡"];//支付方式
+                        [self.dataMutArr addObject:model.bankCard];//银行卡号
+                        [self.dataMutArr addObject:model.bankUser];//姓名
+                        [self.dataMutArr addObject:model.bankName];//银行类型
+                        [self.dataMutArr addObject:model.bankaddress];//支行信息
+                        
+                    }else if ([model.payment_status intValue] == 2){//2、微信
+                        [self.titleMutArr addObject:@"账号:"];
+                        [self.dataMutArr addObject:@"微信"];//支付方式
+                        [self.dataMutArr addObject:model.payment_weixin];//账号
+                    }else if ([model.payment_status intValue] == 1){//1、支付宝
+                        [self.titleMutArr addObject:@"账号:"];
+                        [self.dataMutArr addObject:@"支付宝"];//支付方式
+                        [self.dataMutArr addObject:model.payment_alipay];//账号
+                    }else{
+                        [self.titleMutArr addObject:@"异常:"];
+                        [self.dataMutArr addObject:@"支付方式数据异常"];//支付方式
+                        [self.dataMutArr addObject:@"支付账号数据异常"];//账号
+                    }
+                    [self.titleMutArr addObject:@"下单时间:"];
+                    [self.titleMutArr addObject:@"订单状态:"];
+                    
+                    [self.dataMutArr addObject:[NSString ensureNonnullString:model.updateTime ReplaceStr:@"暂无"]];//下单时间
+                    //状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                    if ([model.order_status intValue] == 0) {//已支付
+                         [self.dataMutArr addObject:@"订单已支付"];
+                    }else if ([model.order_status intValue] == 1){//已发单
+                         [self.dataMutArr addObject:@"订单已发单"];
+                    }else if ([model.order_status intValue] == 2){//已下单
+                         [self.dataMutArr addObject:@"订单已下单"];
+                    }else if ([model.order_status intValue] == 3){//已作废
+                         [self.dataMutArr addObject:@"订单已作废"];
+                    }else if ([model.order_status intValue] == 4){//已发货
+                         [self.dataMutArr addObject:@"订单已发货"];
+                    }else if ([model.order_status intValue] == 5){//已完成
+                         [self.dataMutArr addObject:@"订单已完成"];
+                    }else{
+                        [self.dataMutArr addObject:@"订单状态异常"];
+                    }
+                    
+                    if (![NSString isNullString:model.payment_print]) {
+                        [self.titleMutArr addObject:@"凭证:"];
+                        [self.dataMutArr addObject:model.payment_print];
+                    }
+                }
+                self.tableView.mj_footer.hidden = NO;
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView.mj_footer endRefreshing];
                 [self.tableView reloadData];
             }
         }];
-    
-//    self.time = 8;
-//    self.contactBuyer.alpha = 1;
 }
 
 -(void)联系买家{
