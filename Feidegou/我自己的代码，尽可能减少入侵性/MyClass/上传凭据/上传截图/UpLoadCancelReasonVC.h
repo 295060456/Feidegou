@@ -20,14 +20,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UpLoadCancelReasonVC : BaseVC
 
-@property(nonatomic,strong)id requestParams;
 @property(nonatomic,strong)__block UIImage *pic;
 @property(nonatomic,strong)UpLoadCancelReasonTBVCell *cell;
-//@property(nonatomic,strong)OrderListModel *orderListModel;
-@property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
-@property(nonatomic,strong)WholesaleMarket_Advance_purchaseModel *wholesaleMarket_Advance_purchaseModel;
 @property(nonatomic,strong)NSNumber *Order_id;
 @property(nonatomic,strong)NSNumber *Order_type;
+
+@property(nonatomic,strong)id requestParams;
+@property(nonatomic,strong)OrderListModel *orderListModel;
+@property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
+@property(nonatomic,strong)WholesaleMarket_Advance_purchaseModel *wholesaleMarket_Advance_purchaseModel;
 
 + (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
                        requestParams:(nullable id)requestParams
@@ -35,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
                             animated:(BOOL)animated;
 
 -(void)upLoadbtnClickEvent:(UIButton *)sender;
+-(void)backBtnClickEvent:(UIButton *)sender;
 -(void)sorry;
 
 @end

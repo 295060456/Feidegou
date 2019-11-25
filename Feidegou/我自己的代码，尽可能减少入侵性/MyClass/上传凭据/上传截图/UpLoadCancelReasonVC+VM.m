@@ -8,10 +8,6 @@
 
 #import "UpLoadCancelReasonVC+VM.h"
 
-NSString *A;//喵粮产地购买已支付 #18
-NSString *B;//喵粮批发已支付 #17
-NSString *C;//喵粮订单撤销 #5
-
 @implementation UpLoadCancelReasonVC (VM)
 //CatfoodCO_payURL 喵粮产地购买已支付  #8
 -(void)uploadPic_producingArea_havePaid_netWorking:(UIImage *)image{
@@ -28,6 +24,7 @@ NSString *C;//喵粮订单撤销 #5
         @"user_id":modelLogin.userId,
         @"identity":[YDDevice getUQID]
     };
+    @weakify(self)
     [mgr POST:API(BaseUrl, CatfoodCO_payURL)
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
@@ -51,7 +48,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }
       success:^(NSURLSessionDataTask * _Nonnull task,
                 id  _Nullable responseObject) {
-        A = @"上传凭证成功";
+        @strongify(self)
         NSLog(@"responseObject = %@",responseObject);
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             Toast(@"上传凭证成功");
@@ -83,7 +80,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     __block NSData *picData = [UIImage imageZipToData:pic];
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
+    @weakify(self)
     [mgr POST:API(BaseUrl, CatfoodSale_payURL)
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
@@ -106,17 +103,18 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         }];
     }
       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        @strongify(self)
         NSDictionary *dataDic = [NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             Toast(dataDic[@"message"]);
-            B = @"上传凭证成功";
-            [self.navigationController popViewControllerAnimated:YES];
         }];
+        NSArray *vcArr = self.navigationController.viewControllers;
+        UIViewController *vc = vcArr[2];
+        [self.navigationController popToViewController:vc animated:YES];
     }
       failure:^(NSURLSessionDataTask * _Nullable task,
                 NSError * _Nonnull error) {
         NSLog(@"error = %@",error);
-
     }];
 }
 //CatfoodRecord_delURL 喵粮订单撤销 #5
@@ -141,6 +139,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
          @"identity":[YDDevice getUQID]
     };
     __block NSData *picData = [UIImage imageZipToData:self.pic];
+    @weakify(self)
     [mgr POST:API(BaseUrl, CatfoodRecord_delURL)
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
@@ -163,11 +162,14 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         }];
     }
       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        @strongify(self)
         NSLog(@"responseObject = %@",responseObject);
-        C = @"上传凭证成功";
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             Toast(@"上传图片成功");
         }];
+        NSArray *vcArr = self.navigationController.viewControllers;
+        UIViewController *vc = vcArr[2];
+        [self.navigationController popToViewController:vc animated:YES];
     }
       failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error = %@",error);

@@ -37,11 +37,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)__block UIImage *pic;
 @property(nonatomic,copy)__block NSString *resultStr;
 @property(nonatomic,copy)__block NSString *str;
-@property(nonatomic,strong)id requestParams;
-@property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
 @property(nonatomic,assign)__block int time;
 @property(nonatomic,strong)NSNumber *Order_id;
+@property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
 
+@property(nonatomic,strong)id requestParams;
 @property(nonatomic,strong)OrderListModel *orderListModel;
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
 @property(nonatomic,strong)StallListModel *stallListModel;

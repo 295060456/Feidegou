@@ -210,7 +210,7 @@ UITableViewDataSource
                             }
                         }
                         [self.sureBtn addTarget:self
-                                         action:@selector(getPrintPic:)///KKKKKK upLoadPic_wholesaleMarket_havePaid_netWorking
+                                         action:@selector(getPrintPic:)//CatfoodSale_payURL 喵粮批发已支付 #17
                                forControlEvents:UIControlEventTouchUpInside];//#17
                     }else if([self.orderListModel.order_status intValue] == 0){//订单状态|已支付  —— 显示凭证 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                         [self.sureBtn setTitle:@"重新上传支付凭证"//🏳️
@@ -273,10 +273,6 @@ UITableViewDataSource
                     [self.normalCancelBtn addTarget:self
                                           action:@selector(cancelOrder_producingArea_netWorking)// 喵粮产地购买取消
                                 forControlEvents:UIControlEventTouchUpInside];//#9
-                    //NSString *A;//喵粮产地购买已支付 #18
-                    //NSString *B;//喵粮批发已支付 #17
-                    //NSString *C;//喵粮订单撤销 #5
-                    
                     //订单详情上传凭证的订单状态：del_state = 0，order_status = 2;重新上传凭证，del_state = 0,order_status = 0
                     if ([self.orderListModel.del_state intValue] == 0) {
                         [self.sureBtn setTitle:@"上传支付凭证"//
@@ -285,15 +281,6 @@ UITableViewDataSource
                     [self.sureBtn addTarget:self
                                      action:@selector(getPrintPic:)
                            forControlEvents:UIControlEventTouchUpInside];//CatfoodCO_payURL 喵粮产地购买已支付  #8
-                    
-//                    extern NSString *A;
-//                    if ([NSString isNullString:A]) {
-//                        [self.sureBtn setTitle:@"上传支付凭证"//
-//                                      forState:UIControlStateNormal];
-//                    }else{
-//                        [self.sureBtn setTitle:@"重新上传支付凭证"//
-//                                      forState:UIControlStateNormal];
-//                    }
                 }else if ([self.orderListModel.order_status intValue] == 0){//订单状态|已支付 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成 显示凭证
                     [self.dataMutArr addObject:@"订单已支付"];//🏳️
                     //订单详情上传凭证的订单状态：del_state = 0，order_status = 2;重新上传凭证，del_state = 0,order_status = 0
@@ -341,18 +328,6 @@ UITableViewDataSource
         [self.sureBtn addTarget:self
                          action:@selector(getPrintPic:)
                forControlEvents:UIControlEventTouchUpInside];//#7
-        
-//        //NSString *A;//喵粮产地购买已支付 #18
-//        //NSString *B;//喵粮批发已支付 #17
-//        //NSString *C;//喵粮订单撤销 #5
-//        extern NSString *A;
-//        if ([NSString isNullString:A]) {
-//            [self.sureBtn setTitle:@"上传支付凭证"//
-//                          forState:UIControlStateNormal];
-//        }else{
-//            [self.sureBtn setTitle:@"重新上传支付凭证"//
-//                          forState:UIControlStateNormal];
-//        }
     }
     else if (self.stallListModel){//喵粮转转 倒计时
         NSString *str1 = [NSString ensureNonnullString:self.stallListModel.ID ReplaceStr:@"无"];
@@ -400,17 +375,6 @@ UITableViewDataSource
         [self.countDownCancelBtn addTarget:self
                                     action:@selector(cancelOrder_wholesaleMarket_netWorking)
                           forControlEvents:UIControlEventTouchUpInside];//#21_1。取消购买 喵粮批发取消
-        //NSString *A;//喵粮产地购买已支付 #18
-        //NSString *B;//喵粮批发已支付 #17
-        //NSString *C;//喵粮订单撤销 #5
-//        extern NSString *B;
-//        if ([NSString isNullString:B]) {
-//            [self.sureBtn setTitle:@"上传支付凭证"//
-//                          forState:UIControlStateNormal];
-//        }else{
-//            [self.sureBtn setTitle:@"重新上传支付凭证"//
-//                          forState:UIControlStateNormal];
-//        }
     }else{
         [self.dataMutArr addObject:@"数据异常"];
     }

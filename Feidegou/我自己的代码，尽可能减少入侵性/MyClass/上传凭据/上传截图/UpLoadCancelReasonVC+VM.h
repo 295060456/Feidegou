@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 ////喵粮订单撤销 post 5 Y PIC 不加catfoodapp
 //-(void)CancelDelivery_NetWorking1;
 
-//CatfoodCO_payURL 喵粮产地购买已支付  #8
+//CatfoodCO_payURL 喵粮产地购买已支付 #8
 -(void)uploadPic_producingArea_havePaid_netWorking:(UIImage *)image;
 //CatfoodSale_payURL 喵粮批发已支付 #17
 -(void)upLoadPic_wholesaleMarket_havePaid_netWorking:(UIImage *)pic;
