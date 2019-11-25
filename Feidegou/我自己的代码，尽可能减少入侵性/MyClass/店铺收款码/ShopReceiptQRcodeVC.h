@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
                   animated:(BOOL)animated;
 
 -(void)QRcode;
+-(void)backBtnClickEvent:(UIButton *)sender;
+
 
 @end
 

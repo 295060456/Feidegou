@@ -90,9 +90,19 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }
       success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"responseObject = %@",responseObject);
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(@"上传图片成功");
-        }];
+        NSDictionary *dic = [NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)];
+        NSNumber *b = dic[@"code"];
+        if ([b intValue] == 500) {
+            NSString *str = dic[@"message"];
+            Toast(str);
+        }else if ([b intValue] == 200){
+            NSString *str = dic[@"message"];
+            Toast(str);
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                Toast(@"上传图片成功");
+            }];
+            [self backBtnClickEvent:nil];
+        }else{}
     }
       failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"error = %@",error);
