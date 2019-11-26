@@ -16,16 +16,29 @@
 
 #pragma mark —— 线下环境
 //狗哥给我的
-#define BaseUrl @"http://10.1.41.158:8080"
+//#define BaseUrl @"http://10.1.41.158:8080"
+//#define BaseUrl2 API(BaseUrl,@"/catfoodapp")
+////Daniel
+//#define DanielUrL @"http://10.1.41.174:8888"
+////#define AK API(API(DanielUrL,@"/SHOPAPP3.0/appShop7"),@"/query.do")//登录
+//#define AK API(API(DanielUrL,@"/SHOPAPP2.0/appShop7"),@"/query.do")//登录
+//#define YQM API(API(DanielUrL,@"/SHOPAPP2.0/appShop7"),@"/write.do")//邀请码
+//
+////#define WebSocketLocalhost @"10.1.41.174:8888/MFW1.0"
+//#define WebSocketLocalhost @"10.1.41.174:8888"
+//#define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@/websocket",WebSocketLocalhost]
+#pragma mark —— 临时环境
+//狗哥给我的
+#define BaseUrl @"http://10.10.37.34:8080"
 #define BaseUrl2 API(BaseUrl,@"/catfoodapp")
 //Daniel
-#define DanielUrL @"http://10.1.41.174:8888"
+#define DanielUrL @"http://10.10.37.35:8888"
 //#define AK API(API(DanielUrL,@"/SHOPAPP3.0/appShop7"),@"/query.do")//登录
 #define AK API(API(DanielUrL,@"/SHOPAPP2.0/appShop7"),@"/query.do")//登录
 #define YQM API(API(DanielUrL,@"/SHOPAPP2.0/appShop7"),@"/write.do")//邀请码
 
 //#define WebSocketLocalhost @"10.1.41.174:8888/MFW1.0"
-#define WebSocketLocalhost @"10.1.41.174:8888"
+#define WebSocketLocalhost @"10.10.37.35:8888"
 #define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@/websocket",WebSocketLocalhost]
 
 #pragma mark —— 预上线环境

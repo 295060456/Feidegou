@@ -498,8 +498,14 @@ heightForHeaderInSection:(NSInteger)section{
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == self.titleMutArr.count - 1) {//最后一行
-        return [OrderDetailTBVIMGCell cellHeightWithModel:nil];//凭证图
+    
+    if (![NSString isNullString:self.orderListModel.payment_print] ||
+    ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
+    ![NSString isNullString:self.stallListModel.payment_print] ||
+    ![NSString isNullString:self.wholesaleMarket_Advance_purchaseModel.payment_print]) {
+        if (indexPath.row == self.titleMutArr.count - 1) {
+            return [OrderDetailTBVIMGCell cellHeightWithModel:nil];//凭证图
+        }else return [OrderDetailTBVCell cellHeightWithModel:nil];
     }else return [OrderDetailTBVCell cellHeightWithModel:nil];
 }
 
@@ -857,7 +863,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                                                             NSError * _Nullable error,
                                                                             BOOL finished) {
                 @strongify(self)
-                self.imgV.image = image;
+                if (image) {
+                    self.imgV.image = image;
+                }else{
+                    self.imgV.image = kIMG(@"picLoadErr");
+                }
             }];
         }
     }
@@ -870,7 +880,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIImageView *)imgV{
     if (!_imgV) {
         _imgV = UIImageView.new;
-        _imgV.backgroundColor = kRedColor;
+//        _imgV.backgroundColor = kRedColor;
         [self.contentView addSubview:_imgV];
         [_imgV mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.contentView);
