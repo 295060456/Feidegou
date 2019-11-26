@@ -123,10 +123,6 @@ UITableViewDataSource
 -(void)launch:(NSString *)vcName{
     @weakify(self)
     if ([vcName isEqualToString:@"喵粮订单管理"]) {
-//        [OrderListVC pushFromVC:self_weak_
-//                  requestParams:Nil
-//                        success:^(id data) {}
-//                       animated:YES];
         [OrderListVC ComingFromVC:self_weak_
                          withStyle:ComingStyle_PUSH
                      requestParams:Nil
@@ -159,33 +155,7 @@ UITableViewDataSource
                           alertBtnAction:@[@"OK"]];
             }
         }
-    }
-//    else if ([vcName isEqualToString:@"喵粮转转"]){
-////        if ([self.dataMutArr[0] isKindOfClass:[NSString class]]) {
-////            NSString *str = self.dataMutArr[0];
-////            if ([str isEqualToString:@"0"]) {
-////                Toast(@"余额为0无法开启转转");
-////            }else{
-////                //被取消了
-////                [ThroughTrainToPromoteVC pushFromVC:self_weak_
-////                requestParams:nil
-////                      success:^(id data) {}
-////                     animated:YES];
-////            }
-////        }
-//        if (self.dataMutArr.count) {
-//            NSString *str = (NSString *)self.dataMutArr[1];
-//            if (![str isEqualToString:@"无"]) {
-//                [self check];
-//            }else{
-//                [self showAlertViewTitle:@"未上传店铺收款二维码"
-//                                 message:@"现在去上传？"
-//                             btnTitleArr:@[@"好的"]
-//                          alertBtnAction:@[@"OK"]];
-//            }
-//        }
-//    }
-    else if ([vcName isEqualToString:@"喵粮批发市场"]){//self.loginModel.grade_id
+    }else if ([vcName isEqualToString:@"喵粮批发市场"]){
         [LookUpContactWayVC ComingFromVC:self_weak_
                                withStyle:ComingStyle_PUSH
                            requestParams:nil
@@ -247,7 +217,26 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }else{
             cell.detailTextLabel.text = @"";
         }
-    }return cell;
+    }else if (indexPath.section == 1){
+        if ([cell.textLabel.text isEqualToString:@"喵粮订单管理"]) {
+//            cell.detailTextLabel.text = @"3";//未完成订单数
+//            [cell.detailTextLabel sizeToFit];
+//            cell.detailTextLabel.backgroundColor = kRedColor;
+//            [UIView cornerCutToCircleWithView:cell.detailTextLabel AndCornerRadius:cell.detailTextLabel.mj_h / 2];
+            UILabel *lab = UILabel.new;
+            lab.text = @"3";
+            lab.textAlignment = NSTextAlignmentCenter;
+            lab.backgroundColor = kRedColor;
+            [cell addSubview:lab];
+            lab.frame = CGRectMake(SCREEN_WIDTH - SCALING_RATIO(60),
+                                   SCALING_RATIO(15),
+                                   SCALING_RATIO(20),
+                                   SCALING_RATIO(20));
+            [UIView cornerCutToCircleWithView:lab
+                              AndCornerRadius:10];
+        }
+    }else{}
+    return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -311,9 +300,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [tempMutArr addObject:@"直通车"];
         [tempMutArr addObject:@"喵粮批发市场"];
         [tempMutArr addObject:@"喵粮会话"];
-        if ([self.loginModel.grade_id intValue] == 3) {
-//            [tempMutArr addObject:@"设置收款方式"];
-        }
         [_titleMutArr addObject:tempMutArr];
     }return _titleMutArr;
 }
@@ -352,5 +338,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _dataMutArr = NSMutableArray.array;
     }return _dataMutArr;
 }
+
+
 
 @end

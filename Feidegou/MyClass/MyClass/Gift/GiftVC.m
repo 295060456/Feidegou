@@ -155,8 +155,8 @@ UITextFieldDelegate
 -(NSMutableArray<NSString *> *)mutArr{
     if (!_mutArr) {
         _mutArr = NSMutableArray.array;
-        [_mutArr addObject:@"手机号码"];
         [_mutArr addObject:@"用户id"];
+        [_mutArr addObject:@"手机号码"];
     }return _mutArr;
 }
 
