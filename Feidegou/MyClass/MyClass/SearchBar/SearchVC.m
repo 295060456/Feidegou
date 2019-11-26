@@ -131,13 +131,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                           requestParams:model
                                 success:^(id data) {}
                                animated:YES];
-        }else if ([orderListModel.order_type intValue] == 2){//2、批发 WholesaleMarket_Advance_purchaseModel
-            WholesaleMarket_Advance_purchaseModel *model = (WholesaleMarket_Advance_purchaseModel *)orderListModel;
-            [OrderDetailVC ComingFromVC:self_weak_
-                              withStyle:ComingStyle_PUSH
-                          requestParams:model
-                                success:^(id data) {}
-                               animated:YES];
         }else if ([orderListModel.order_type intValue] == 3){//3、平台 CatFoodProducingAreaModel
             CatFoodProducingAreaModel *model = (CatFoodProducingAreaModel *)orderListModel;
             [OrderDetailVC ComingFromVC:self_weak_

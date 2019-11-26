@@ -64,10 +64,6 @@ UITableViewDataSource
         vc.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)requestParams;
         vc.Order_id = vc.catFoodProducingAreaModel.ID;
         vc.Order_type = vc.catFoodProducingAreaModel.order_type;
-    }else if ([requestParams isKindOfClass:[WholesaleMarket_Advance_purchaseModel class]]){
-        vc.wholesaleMarket_Advance_purchaseModel = (WholesaleMarket_Advance_purchaseModel *)requestParams;
-        vc.Order_id = vc.wholesaleMarket_Advance_purchaseModel.ID;
-        vc.Order_type = vc.wholesaleMarket_Advance_purchaseModel.order_type;
     }else{}
     if (rootVC.navigationController) {
         vc.isPush = YES;
@@ -161,9 +157,6 @@ UITableViewDataSource
         }else if (self.catFoodProducingAreaModel){
             //#8
             [self uploadPic_producingArea_havePaid_netWorking:self.pic];
-        }else if (self.wholesaleMarket_Advance_purchaseModel){
-            //#17
-            [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.pic];
         }else{
             
         }

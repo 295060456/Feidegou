@@ -11,8 +11,6 @@
 #import "ShopReceiptQRcodeVC.h"//店铺收款码
 #import "GiftVC.h"//赠送
 #import "CatFoodProducingAreaVC.h"//喵粮产地
-#import "WholesaleMarket_AdvanceVC.h"//喵粮批发市场_仅高级商家可见
-#import "WholesaleMarket_VipVC.h"//喵粮批发市场_仅Vip可见
 #import "SettingPaymentWayVC.h"//设置支付方式
 #import "ChatListVC.h"//喵粮会话
 #import "PersonalDataChangedListVC.h"//个人喵粮变动清单
@@ -186,23 +184,8 @@ UITableViewDataSource
 //            }
 //        }
 //    }
-    else if ([vcName isEqualToString:@"喵粮批发市场"]){
-        switch ([self.loginModel.grade_id intValue]) {
-            case 2:{
-                [WholesaleMarket_AdvanceVC pushFromVC:self_weak_
-                                        requestParams:nil
-                                              success:^(id data) {}
-                                             animated:YES];//喵粮批发市场_仅高级商家可见 2
-            } break;
-            case 3:{
-                [WholesaleMarket_VipVC pushFromVC:self_weak_
-                                    requestParams:self.dataMutArr
-                                          success:^(id data) {}
-                                         animated:YES];//喵粮批发市场_仅Vip可见 3
-            } break;
-            default:
-                break;
-        }
+    else if ([vcName isEqualToString:@"喵粮批发市场"]){//self.loginModel.grade_id
+
     }else if ([vcName isEqualToString:@"设置收款方式"]){
         [SettingPaymentWayVC pushFromVC:self_weak_
                           requestParams:nil

@@ -20,14 +20,12 @@
 		8B16F04423867E88003941B4 /* OrderManager_panicBuyingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B16F04323867E88003941B4 /* OrderManager_panicBuyingModel.m */; };
 		8B16F04723867F03003941B4 /* OrderListTBVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B16F04623867F03003941B4 /* OrderListTBVCell.m */; };
 		8B16F0692386AEAC003941B4 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B16F0682386AEAC003941B4 /* SearchVC.m */; };
-		8B17DE372371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B17DE362371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.m */; };
 		8B225B99238900A6003682CC /* SearchVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B225B98238900A6003682CC /* SearchVC+VM.m */; };
 		8B3C0B58237FCAB800BFFA86 /* OrderDetailVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3C0B57237FCAB800BFFA86 /* OrderDetailVC+VM.m */; };
 		8B3C0B5B237FCAD500BFFA86 /* OrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3C0B5A237FCAD500BFFA86 /* OrderDetailModel.m */; };
 		8B40A2C32372F84200ED42DB /* CatFoodProducingAreaVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C22372F84200ED42DB /* CatFoodProducingAreaVC+VM.m */; };
 		8B40A2C62372FA2E00ED42DB /* CatFoodProducingAreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C52372FA2E00ED42DB /* CatFoodProducingAreaModel.m */; };
 		8B40A2C92373016300ED42DB /* ShopReceiptQRcodeVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C82373016300ED42DB /* ShopReceiptQRcodeVC+VM.m */; };
-		8B40A2CC23730F7100ED42DB /* WholesaleMarket_Advance_ListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2CB23730F7100ED42DB /* WholesaleMarket_Advance_ListModel.m */; };
 		8B464BA7238537490005E3B3 /* AppDelegate+RCIM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B464BA6238537490005E3B3 /* AppDelegate+RCIM.m */; };
 		8B464BAA238539640005E3B3 /* AppDelegate+BMKMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B464BA9238539640005E3B3 /* AppDelegate+BMKMap.m */; };
 		8B571ABA23875686009624D8 /* ContentBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B571AB923875686009624D8 /* ContentBaseViewController.m */; };
@@ -63,7 +61,6 @@
 		8B8A1DC3238D0010006AE2CB /* ThroughTrainToPromoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DC0238D0010006AE2CB /* ThroughTrainToPromoteVC.m */; };
 		8B8B0D0A236814960040EE53 /* TestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2912366C7290047D0E2 /* TestVC.m */; };
 		8B8B0D0D236815140040EE53 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D0C236815140040EE53 /* TestView.m */; };
-		8B8B0D922368395D0040EE53 /* WholesaleMarket_AdvanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D912368395D0040EE53 /* WholesaleMarket_AdvanceVC.m */; };
 		8B90B39B237921EB0023E394 /* InvitationCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90B39A237921EB0023E394 /* InvitationCodeVC.m */; };
 		8B90B39E237923570023E394 /* InvitationCodeVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90B39D237923570023E394 /* InvitationCodeVC+VM.m */; };
 		8B90B3A12379BBD40023E394 /* SettingPaymentWayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90B3A02379BBD40023E394 /* SettingPaymentWayModel.m */; };
@@ -140,9 +137,6 @@
 		8BCB993423719DEA0063E01E /* GiftVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB993323719DEA0063E01E /* GiftVC+VM.m */; };
 		8BEAAFC323884DB2008D7F1D /* readME in Resources */ = {isa = PBXBuildFile; fileRef = 8BEAAFC123884DB2008D7F1D /* readME */; };
 		8BEAAFC423884DB2008D7F1D /* UIControl+XY.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAAFC223884DB2008D7F1D /* UIControl+XY.m */; };
-		8BEAE8812381138C006E40A4 /* WholesaleMarket_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87C2381138C006E40A4 /* WholesaleMarket_VipVC.m */; };
-		8BEAE8822381138C006E40A4 /* WholesaleMarket_VipVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87D2381138C006E40A4 /* WholesaleMarket_VipVC+VM.m */; };
-		8BEAE8832381138C006E40A4 /* WholesaleMarket_VipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87F2381138C006E40A4 /* WholesaleMarket_VipModel.m */; };
 		8BF2EC21238C220A0058C771 /* OrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2EC20238C220A0058C771 /* OrderListModel.m */; };
 		C4026DBD2148161D00D81974 /* AchievementController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBB2148161D00D81974 /* AchievementController.m */; };
 		C4026DC02148164E00D81974 /* ButtonShare.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBE2148164E00D81974 /* ButtonShare.m */; };
@@ -659,8 +653,6 @@
 		8B16F04F23869002003941B4 /* DefineStructure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DefineStructure.h; sourceTree = "<group>"; };
 		8B16F0672386AEAC003941B4 /* SearchVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchVC.h; sourceTree = "<group>"; };
 		8B16F0682386AEAC003941B4 /* SearchVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchVC.m; sourceTree = "<group>"; };
-		8B17DE352371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WholesaleMarket_AdvanceVC+VM.h"; sourceTree = "<group>"; };
-		8B17DE362371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "WholesaleMarket_AdvanceVC+VM.m"; sourceTree = "<group>"; };
 		8B225B97238900A6003682CC /* SearchVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SearchVC+VM.h"; sourceTree = "<group>"; };
 		8B225B98238900A6003682CC /* SearchVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SearchVC+VM.m"; sourceTree = "<group>"; };
 		8B3C0B56237FCAB800BFFA86 /* OrderDetailVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OrderDetailVC+VM.h"; sourceTree = "<group>"; };
@@ -673,8 +665,6 @@
 		8B40A2C52372FA2E00ED42DB /* CatFoodProducingAreaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CatFoodProducingAreaModel.m; sourceTree = "<group>"; };
 		8B40A2C72373016300ED42DB /* ShopReceiptQRcodeVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ShopReceiptQRcodeVC+VM.h"; sourceTree = "<group>"; };
 		8B40A2C82373016300ED42DB /* ShopReceiptQRcodeVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ShopReceiptQRcodeVC+VM.m"; sourceTree = "<group>"; };
-		8B40A2CA23730F7100ED42DB /* WholesaleMarket_Advance_ListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_Advance_ListModel.h; sourceTree = "<group>"; };
-		8B40A2CB23730F7100ED42DB /* WholesaleMarket_Advance_ListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_Advance_ListModel.m; sourceTree = "<group>"; };
 		8B464BA5238537490005E3B3 /* AppDelegate+RCIM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+RCIM.h"; sourceTree = "<group>"; };
 		8B464BA6238537490005E3B3 /* AppDelegate+RCIM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+RCIM.m"; sourceTree = "<group>"; };
 		8B464BA8238539640005E3B3 /* AppDelegate+BMKMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+BMKMap.h"; sourceTree = "<group>"; };
@@ -743,8 +733,6 @@
 		8B8A1DC1238D0010006AE2CB /* ThroughTrainToPromoteVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThroughTrainToPromoteVC.h; sourceTree = "<group>"; };
 		8B8B0D0B236815140040EE53 /* TestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
 		8B8B0D0C236815140040EE53 /* TestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
-		8B8B0D902368395D0040EE53 /* WholesaleMarket_AdvanceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_AdvanceVC.h; sourceTree = "<group>"; };
-		8B8B0D912368395D0040EE53 /* WholesaleMarket_AdvanceVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_AdvanceVC.m; sourceTree = "<group>"; };
 		8B8B0DA02369635E0040EE53 /* HistoryDataListTBVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDataListTBVCell.h; sourceTree = "<group>"; };
 		8B8B0DA12369635E0040EE53 /* HistoryDataListTBV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDataListTBV.h; sourceTree = "<group>"; };
 		8B8B0DA22369635E0040EE53 /* HistoryDataListTBVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDataListTBVCell.m; sourceTree = "<group>"; };
@@ -755,9 +743,7 @@
 		8B90B39D237923570023E394 /* InvitationCodeVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "InvitationCodeVC+VM.m"; sourceTree = "<group>"; };
 		8B90B39F2379BBD40023E394 /* SettingPaymentWayModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingPaymentWayModel.h; sourceTree = "<group>"; };
 		8B90B3A02379BBD40023E394 /* SettingPaymentWayModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingPaymentWayModel.m; sourceTree = "<group>"; };
-		8B9AEDA723812BBD00A75CF0 /* plan1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plan1.png; sourceTree = "<group>"; };
 		8B9AEDA923812CC700A75CF0 /* 🚩OrderDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "🚩OrderDetail.png"; sourceTree = "<group>"; };
-		8B9AEDAB23812EA500A75CF0 /* Advance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Advance.png; sourceTree = "<group>"; };
 		8B9EAF85237417390012884C /* SettingPaymentWayVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingPaymentWayVC.h; sourceTree = "<group>"; };
 		8B9EAF86237417390012884C /* SettingPaymentWayVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingPaymentWayVC.m; sourceTree = "<group>"; };
 		8B9EAF882374175D0012884C /* SettingPaymentWayVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SettingPaymentWayVC+VM.h"; sourceTree = "<group>"; };
@@ -902,13 +888,6 @@
 		8BEAAFC023884DB2008D7F1D /* UIControl+XY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+XY.h"; sourceTree = "<group>"; };
 		8BEAAFC123884DB2008D7F1D /* readME */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readME; sourceTree = "<group>"; };
 		8BEAAFC223884DB2008D7F1D /* UIControl+XY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+XY.m"; sourceTree = "<group>"; };
-		8BEAE87B2381138C006E40A4 /* WholesaleMarket_VipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_VipModel.h; sourceTree = "<group>"; };
-		8BEAE87C2381138C006E40A4 /* WholesaleMarket_VipVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_VipVC.m; sourceTree = "<group>"; };
-		8BEAE87D2381138C006E40A4 /* WholesaleMarket_VipVC+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WholesaleMarket_VipVC+VM.m"; sourceTree = "<group>"; };
-		8BEAE87E2381138C006E40A4 /* WholesaleMarket_VipVC+VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WholesaleMarket_VipVC+VM.h"; sourceTree = "<group>"; };
-		8BEAE87F2381138C006E40A4 /* WholesaleMarket_VipModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_VipModel.m; sourceTree = "<group>"; };
-		8BEAE8802381138C006E40A4 /* WholesaleMarket_VipVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_VipVC.h; sourceTree = "<group>"; };
-		8BEAE884238113D5006E40A4 /* plan2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plan2.png; sourceTree = "<group>"; };
 		8BF2EC1F238C220A0058C771 /* OrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderListModel.h; path = Feidegou/MyClass/MyClass/OrderManager/OrderListModel.h; sourceTree = SOURCE_ROOT; };
 		8BF2EC20238C220A0058C771 /* OrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderListModel.m; path = Feidegou/MyClass/MyClass/OrderManager/OrderListModel.m; sourceTree = SOURCE_ROOT; };
 		947AD75F86191C8F32BD1901 /* Pods-Feidegou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2010,36 +1989,11 @@
 			path = PopMenuView;
 			sourceTree = "<group>";
 		};
-		8B8B0D8F2368392D0040EE53 /* WholesaleMarket_Advance */ = {
+		8B8B0D8F2368392D0040EE53 /* WholesaleMarket */ = {
 			isa = PBXGroup;
 			children = (
-				8B8B0D94236839E80040EE53 /* Vip */,
-				8B8B0D93236839D80040EE53 /* Advance */,
 			);
-			path = WholesaleMarket_Advance;
-			sourceTree = "<group>";
-		};
-		8B8B0D93236839D80040EE53 /* Advance */ = {
-			isa = PBXGroup;
-			children = (
-				8B9AEDAB23812EA500A75CF0 /* Advance.png */,
-				8B8B0D902368395D0040EE53 /* WholesaleMarket_AdvanceVC.h */,
-				8B8B0D912368395D0040EE53 /* WholesaleMarket_AdvanceVC.m */,
-				8B40A2CA23730F7100ED42DB /* WholesaleMarket_Advance_ListModel.h */,
-				8B40A2CB23730F7100ED42DB /* WholesaleMarket_Advance_ListModel.m */,
-				8B17DE352371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.h */,
-				8B17DE362371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.m */,
-			);
-			path = Advance;
-			sourceTree = "<group>";
-		};
-		8B8B0D94236839E80040EE53 /* Vip */ = {
-			isa = PBXGroup;
-			children = (
-				8BFB45AC237CF33600EDE418 /* plan2 */,
-				8BFB45AB237CF32100EDE418 /* plan1 */,
-			);
-			path = Vip;
+			path = WholesaleMarket;
 			sourceTree = "<group>";
 		};
 		8B8B0D9B2369606A0040EE53 /* RealeaseOrder */ = {
@@ -2311,7 +2265,7 @@
 				8BB2D2F72366C7310047D0E2 /* OrderManager */,
 				8BB2D2E72366C7310047D0E2 /* 🚩OrderDetail */,
 				8BB2D3002366C7310047D0E2 /* UploadPrint */,
-				8B8B0D8F2368392D0040EE53 /* WholesaleMarket_Advance */,
+				8B8B0D8F2368392D0040EE53 /* WholesaleMarket */,
 				8B8B0D9B2369606A0040EE53 /* RealeaseOrder */,
 				8BB2D2DD2366C7310047D0E2 /* CatFoodProducingArea */,
 				8BB2D2E02366C7310047D0E2 /* demoPic */,
@@ -2666,28 +2620,6 @@
 				8BEAAFC223884DB2008D7F1D /* UIControl+XY.m */,
 			);
 			path = "UIControl+XY";
-			sourceTree = "<group>";
-		};
-		8BFB45AB237CF32100EDE418 /* plan1 */ = {
-			isa = PBXGroup;
-			children = (
-				8B9AEDA723812BBD00A75CF0 /* plan1.png */,
-				8BEAE8802381138C006E40A4 /* WholesaleMarket_VipVC.h */,
-				8BEAE87C2381138C006E40A4 /* WholesaleMarket_VipVC.m */,
-				8BEAE87B2381138C006E40A4 /* WholesaleMarket_VipModel.h */,
-				8BEAE87F2381138C006E40A4 /* WholesaleMarket_VipModel.m */,
-				8BEAE87E2381138C006E40A4 /* WholesaleMarket_VipVC+VM.h */,
-				8BEAE87D2381138C006E40A4 /* WholesaleMarket_VipVC+VM.m */,
-			);
-			path = plan1;
-			sourceTree = "<group>";
-		};
-		8BFB45AC237CF33600EDE418 /* plan2 */ = {
-			isa = PBXGroup;
-			children = (
-				8BEAE884238113D5006E40A4 /* plan2.png */,
-			);
-			path = plan2;
 			sourceTree = "<group>";
 		};
 		C42CCCCD213CC04F0096675F = {
@@ -4586,7 +4518,6 @@
 				C42CD0F6213CC2640096675F /* GoodDiscussListController.m in Sources */,
 				C42CD0B0213CC2640096675F /* CellOneButton.m in Sources */,
 				C42CD196213CC2640096675F /* UILabel+helper.m in Sources */,
-				8B8B0D922368395D0040EE53 /* WholesaleMarket_AdvanceVC.m in Sources */,
 				C42CD057213CC2640096675F /* ApplyForVenderController.m in Sources */,
 				C46F8C4A214CF1E600F0C7D1 /* AreaOrderComfilmController.m in Sources */,
 				C42CD1C7213CC2640096675F /* ModelIncome.m in Sources */,
@@ -4630,7 +4561,6 @@
 				C42CD0FD213CC2640096675F /* CLCellRecommend.m in Sources */,
 				C42CD081213CC2640096675F /* Order.m in Sources */,
 				8B464BAA238539640005E3B3 /* AppDelegate+BMKMap.m in Sources */,
-				8B40A2CC23730F7100ED42DB /* WholesaleMarket_Advance_ListModel.m in Sources */,
 				8B05F84B236AA99900DCE40C /* HistoryDataListTBVCell.m in Sources */,
 				C42CD140213CC2640096675F /* CellPicture.m in Sources */,
 				C42CD1BB213CC2640096675F /* JJTableViewCell.m in Sources */,
@@ -4680,7 +4610,6 @@
 				8B9EAF8D237429950012884C /* SettingPaymentWayTBViewForHeader.m in Sources */,
 				C42CD1A1213CC2640096675F /* UITextFieldPassWord.m in Sources */,
 				C42CD103213CC2640096675F /* BrandRoneListController.m in Sources */,
-				8BEAE8822381138C006E40A4 /* WholesaleMarket_VipVC+VM.m in Sources */,
 				C42CD0F1213CC2640096675F /* RegisterCodeController.m in Sources */,
 				8BCAB63F238A5360000B0360 /* AppDelegate+VM.m in Sources */,
 				C42CD086213CC2640096675F /* NSDataEx.m in Sources */,
@@ -4754,7 +4683,6 @@
 				8B16F0692386AEAC003941B4 /* SearchVC.m in Sources */,
 				C42CD1D1213CC2650096675F /* ModelRankList.m in Sources */,
 				C42CD1AD213CC2640096675F /* PersonalInfo.m in Sources */,
-				8BEAE8832381138C006E40A4 /* WholesaleMarket_VipModel.m in Sources */,
 				8B7A54EB236D6DD1006B12F8 /* WBPopMenuSingleton.m in Sources */,
 				C42CD0C4213CC2640096675F /* CellAddress.m in Sources */,
 				C42CD12D213CC2640096675F /* CellDiscuss.m in Sources */,
@@ -4800,7 +4728,6 @@
 				C42CD131213CC2640096675F /* CLCellRegionTwo.m in Sources */,
 				C42CD0B8213CC2640096675F /* CellDistributionInfo.m in Sources */,
 				8B7A54EA236D6DD1006B12F8 /* WBTableViewDelegate.m in Sources */,
-				8B17DE372371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.m in Sources */,
 				8B16F04723867F03003941B4 /* OrderListTBVCell.m in Sources */,
 				8BB2D2902366C6E00047D0E2 /* YBNotificationManager.m in Sources */,
 				C42CD180213CC2640096675F /* JJAlertViewTwoButton.m in Sources */,
@@ -4837,7 +4764,6 @@
 				C42CD150213CC2640096675F /* CLCellTypeSelected.m in Sources */,
 				8B3C0B5B237FCAD500BFFA86 /* OrderDetailModel.m in Sources */,
 				C42F5D2E213F858B00114E0E /* CellIncomeAll.m in Sources */,
-				8BEAE8812381138C006E40A4 /* WholesaleMarket_VipVC.m in Sources */,
 				C46D6B5E2143A5FF00428D7A /* ModelOrderGoodList.m in Sources */,
 				C46368D8213FBE6C006922D5 /* CellAdver.m in Sources */,
 				C42CCCE9213CC0520096675F /* main.m in Sources */,

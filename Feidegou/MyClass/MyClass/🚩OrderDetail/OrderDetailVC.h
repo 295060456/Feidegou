@@ -46,7 +46,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)OrderListModel *orderListModel;
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
 @property(nonatomic,strong)StallListModel *stallListModel;
-@property(nonatomic,strong)WholesaleMarket_Advance_purchaseModel *wholesaleMarket_Advance_purchaseModel;
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
                    withStyle:(ComingStyle)comingStyle

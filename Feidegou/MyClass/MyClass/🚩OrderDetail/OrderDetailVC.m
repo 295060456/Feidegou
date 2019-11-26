@@ -72,9 +72,6 @@ UITableViewDataSource
     }else if ([vc.requestParams isKindOfClass:[StallListModel class]]){//摊位 喵粮转转页面进
         vc.stallListModel = (StallListModel *)vc.requestParams;
         vc.Order_id = vc.stallListModel.ID;
-    }else if ([vc.requestParams isKindOfClass:[WholesaleMarket_Advance_purchaseModel class]]){//批发市场购买页面进 只有买家
-        vc.wholesaleMarket_Advance_purchaseModel = (WholesaleMarket_Advance_purchaseModel *)vc.requestParams;
-        vc.Order_id = vc.wholesaleMarket_Advance_purchaseModel.ID;
     }else{}
     switch (comingStyle) {
         case ComingStyle_PUSH:{
@@ -343,35 +340,6 @@ UITableViewDataSource
             [self.titleMutArr addObject:@"凭证"];
             [self.dataMutArr addObject:self.stallListModel.payment_print];
         }
-    }
-    else if (self.wholesaleMarket_Advance_purchaseModel){//批发市场 只有买家进
-        NSString *str1 = [NSString ensureNonnullString:self.wholesaleMarket_Advance_purchaseModel.ID ReplaceStr:@"无"];
-        NSString *str2 = [NSString ensureNonnullString:self.wholesaleMarket_Advance_purchaseModel.quantity ReplaceStr:@""];
-        self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
-        self.titleEndStr = @"取消";
-        self.titleBeginStr = @"取消";
-        self.gk_navTitle = @"批发（买家）订单详情";
-        //订单详情上传凭证的订单状态：del_state = 0，order_status = 2;重新上传凭证，del_state = 0,order_status = 0
-        if ([self.wholesaleMarket_Advance_purchaseModel.del_state intValue] == 0) {
-            if ([self.wholesaleMarket_Advance_purchaseModel.order_status intValue] == 2) {
-                [self.sureBtn setTitle:@"上传支付凭证"//
-                              forState:UIControlStateNormal];
-            }else if ([self.wholesaleMarket_Advance_purchaseModel.order_status intValue] == 0){
-                [self.sureBtn setTitle:@"重新上传支付凭证"//
-                              forState:UIControlStateNormal];
-            }
-        }
-        [self.sureBtn addTarget:self
-                         action:@selector(getPrintPic:)//上传凭证 有问题
-               forControlEvents:UIControlEventTouchUpInside];//#21
-        self.time = 5;
-        [self.countDownCancelBtn addTarget:self
-                                    action:@selector(cancelOrder_wholesaleMarket_netWorking)
-                          forControlEvents:UIControlEventTouchUpInside];//#21_1。取消购买 喵粮批发取消
-        if (![NSString isNullString:self.wholesaleMarket_Advance_purchaseModel.payment_print]) {
-            [self.titleMutArr addObject:@"凭证"];
-            [self.dataMutArr addObject:self.wholesaleMarket_Advance_purchaseModel.payment_print];
-        }
     }else{
         [self.dataMutArr addObject:@"数据异常"];
     }
@@ -416,8 +384,6 @@ UITableViewDataSource
         [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"产地"];//喵粮订单查看 3小时
     }else if (self.stallListModel){
         [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"摊位"];//喵粮订单查看 3小时
-    }else if (self.wholesaleMarket_Advance_purchaseModel){
-        [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"批发"];//喵粮订单查看 3小时
     }else{
 //        [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@""];//喵粮订单查看 3小时
     }
@@ -500,8 +466,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (![NSString isNullString:self.orderListModel.payment_print] ||
     ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-    ![NSString isNullString:self.stallListModel.payment_print] ||
-    ![NSString isNullString:self.wholesaleMarket_Advance_purchaseModel.payment_print]) {
+    ![NSString isNullString:self.stallListModel.payment_print]) {
         if (indexPath.row == self.titleMutArr.count - 1) {
             return [OrderDetailTBVIMGCell cellHeightWithModel:nil];//凭证图
         }else return [OrderDetailTBVCell cellHeightWithModel:nil];
@@ -525,8 +490,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == self.titleMutArr.count - 1) {//最后一行
         if (![NSString isNullString:self.orderListModel.payment_print] ||
             ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-            ![NSString isNullString:self.stallListModel.payment_print] ||
-            ![NSString isNullString:self.wholesaleMarket_Advance_purchaseModel.payment_print]) {//有凭证数据
+            ![NSString isNullString:self.stallListModel.payment_print]) {//有凭证数据
             OrderDetailTBVIMGCell *cell = [OrderDetailTBVIMGCell cellWith:tableView];//
             cell.textLabel.text = self.titleMutArr[indexPath.row];
             [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
@@ -548,8 +512,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             }else if ([self.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){
                 
             }else if ([self.requestParams isKindOfClass:[StallListModel class]]){
-                
-            }else if ([self.requestParams isKindOfClass:[WholesaleMarket_Advance_ListModel class]]){
                 
             }else{}
         }return cell;
@@ -720,32 +682,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.payment_weixin ReplaceStr:@"无"]];//微信账号
             [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.updateTime ReplaceStr:@"无"]];//下单时间
 //            [self getOrderStatus:self.stallListModel];//订单状态:0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-        }else if (self.wholesaleMarket_Advance_purchaseModel){
-            [_dataMutArr addObject:[NSString ensureNonnullString:self.wholesaleMarket_Advance_purchaseModel.ordercode ReplaceStr:@"无"]];//订单状态
-            [_dataMutArr addObject:@"喵粮"];//商品写死 喵粮
-            extern NSString *Foodstuff;
-            [_dataMutArr addObject:[NSString ensureNonnullString:Foodstuff ReplaceStr:@"无"]];//单价
-            [_dataMutArr addObject:[NSString ensureNonnullString:self.wholesaleMarket_Advance_purchaseModel.rental ReplaceStr:@"无"]];//总价
-            
-            switch ([self.wholesaleMarket_Advance_purchaseModel.payment_status intValue]) {//支付方式 账户
-                case 3:{//银行卡
-                    [_dataMutArr addObject:@"银行卡"];
-                    [_dataMutArr addObject:[NSString ensureNonnullString:self.wholesaleMarket_Advance_purchaseModel.bankcard ReplaceStr:@"银行卡号待添加"]];
-                }break;
-                case 2:{//微信
-                    [_dataMutArr addObject:@"微信"];
-                    [_dataMutArr addObject:[NSString ensureNonnullString:self.wholesaleMarket_Advance_purchaseModel.payment_weixin ReplaceStr:@"微信待添加"]];
-                }break;
-                case 1:{//支付宝
-                    [_dataMutArr addObject:@"支付宝"];
-                    [_dataMutArr addObject:[NSString ensureNonnullString:self.wholesaleMarket_Advance_purchaseModel.payment_alipay ReplaceStr:@"支付宝待添加"]];
-                }break;
-                default:
-                    [self.dataMutArr addObject:@"异常数据"];
-                    [self.dataMutArr addObject:@"异常数据"];
-                    break;
-            }
-//            [self getOrderStatus:self.wholesaleMarket_Advance_purchaseModel];//订单状态:0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else{}
     }return _dataMutArr;
 }
@@ -794,13 +730,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [_titleMutArr addObject:@"微信账号:"];
             [_titleMutArr addObject:@"下单时间:"];
             [_titleMutArr addObject:@"订单状态"];
-        }else if (self.wholesaleMarket_Advance_purchaseModel){
-            [_titleMutArr addObject:@"订单状态:"];
-            [_titleMutArr addObject:@"商品:"];
-            [_titleMutArr addObject:@"单价:"];
-            [_titleMutArr addObject:@"总价:"];
-            [_titleMutArr addObject:@"支付方式:"];
-            [_titleMutArr addObject:@"账号:"];
         }else{}
     }return _titleMutArr;
 }
