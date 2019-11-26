@@ -24,8 +24,8 @@
         @"user_id":modelLogin.userId,
         @"identity":[YDDevice getUQID]
     };
-    @weakify(self)
-    [mgr POST:API(BaseUrl, CatfoodCO_payURL)
+    @weakify(self)//[NSString jointMakeURL:@[HTTP,IP_Gouge,Port_Gouge,nil]]
+    [mgr POST:[NSString jointMakeURL:@[BaseUrl,@"/catfoodapp",@"/CatfoodCO_payURL"]]
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
        @"key":[RSAUtil encryptString:randomStr

@@ -70,6 +70,8 @@
 //#warning grade_id = 2 高级商家
 //    strUserNum = @"shopping";
 //    strPsw = @"123456";
+    strUserNum = @"135662";
+    strPsw = @"123456";
 
 //#warning grade_id = 1 普通商家
 //    strUserNum = @"135661";
@@ -144,7 +146,7 @@
         error:错误信息
      响应头:task.response
      */
-    NSString *str = AK;//http://10.1.41.174:8888/SHOPAPP2.0/appShop7/query.do
+    NSString *str = AK;//http://10.10.37.35:8080/SHOPAPP2.0/appShop7/query.do
     [manager POST:AK
        parameters:dataMutDic
          progress:nil

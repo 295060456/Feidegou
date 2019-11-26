@@ -85,6 +85,9 @@ NSString *tokenStr;
     NSDictionary *dic = @{
         @"order_type":[NSNumber numberWithInt:1]
     };
+    
+
+    
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:Catfoodbooth_rob_agoUrl
                                                      parameters:@{
@@ -99,10 +102,14 @@ NSString *tokenStr;
         if ([response isKindOfClass:[NSString class]]) {
             NSString *str = (NSString *)response;
             if ([NSString isNullString:str]) {
-                [StallListVC pushFromVC:self_weak_
-                          requestParams:Nil
-                                success:^(id data) {}
-                               animated:YES];
+//                [StallListVC pushFromVC:self_weak_
+//                          requestParams:Nil
+//                                success:^(id data) {}
+//                               animated:YES];
+                [ThroughTrainToPromoteVC pushFromVC:self
+                                      requestParams:Nil
+                                            success:^(id data) {}
+                                           animated:YES];
             }
         }
     }];

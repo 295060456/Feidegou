@@ -9,17 +9,29 @@
 #import "InvitationCodeVC.h"
 #import "InvitationCodeVC+VM.h"
 
-@interface InvitationCodeVC ()
+@interface InvitationCodeTBVCell ()
 <
 UITextFieldDelegate
 >
-
-@property(nonatomic,strong)UIButton *sendBtn;
 @property(nonatomic,strong)ZYTextField *textField;
+@property(nonatomic,copy)DataBlock block;
+
+@end
+
+@interface InvitationCodeVC ()
+<
+UITableViewDelegate,
+UITableViewDataSource
+>
+
+@property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,strong)UIButton *sendBtn;
+
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
+@property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 
 @end
 
@@ -29,72 +41,71 @@ UITextFieldDelegate
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
 
-+ (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
-                       requestParams:(nullable id)requestParams
-                             success:(DataBlock _Nonnull )block
-                            animated:(BOOL)animated{
-    
++ (instancetype)ComingFromVC:(UIViewController *)rootVC
+                    withStyle:(ComingStyle)comingStyle
+                requestParams:(nullable id)requestParams
+                      success:(DataBlock)block
+                     animated:(BOOL)animated{
     InvitationCodeVC *vc = InvitationCodeVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-
-    if (rootVC.navigationController) {
-        vc.isPush = YES;
-        vc.isPresent = NO;
-        [rootVC.navigationController pushViewController:vc
-                                               animated:animated];
-    }else{
-        vc.isPush = NO;
-        vc.isPresent = YES;
-        [rootVC presentViewController:vc
-                             animated:animated
-                           completion:^{}];
+    switch (comingStyle) {
+        case ComingStyle_PUSH:{
+            if (rootVC.navigationController) {
+                vc.isPush = YES;
+                vc.isPresent = NO;
+                [rootVC.navigationController pushViewController:vc
+                                                       animated:animated];
+            }else{
+                vc.isPush = NO;
+                vc.isPresent = YES;
+                [rootVC presentViewController:vc
+                                     animated:animated
+                                   completion:^{}];
+            }
+        }break;
+        case ComingStyle_PRESENT:{
+            vc.isPush = NO;
+            vc.isPresent = YES;
+            [rootVC presentViewController:vc
+                                 animated:animated
+                               completion:^{}];
+        }break;
+        default:
+            NSLog(@"错误的推进方式");
+            break;
     }return vc;
 }
 
--(void)viewDidLoad{
+- (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navTitle = @"邀请码";
-    [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
-                                                    NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
-                                                                                        size:17]}];
-    self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.sendBtn];
     self.gk_navItemRightSpace = SCALING_RATIO(30);
-    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.textField.alpha = 1;
+   
+    [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
+                                                    NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
+                                                                                        size:17]}];
+     self.tableView.alpha = 1;
+    
 }
-#pragma mark —— UITextFieldDelegate
-//询问委托人是否应该在指定的文本字段中开始编辑
-//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
-//告诉委托人在指定的文本字段中开始编辑
-- (void)textFieldDidBeginEditing:(UITextField *)textField{
 
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+//     [self.tableView.mj_header beginRefreshing];
 }
-//询问委托人是否应在指定的文本字段中停止编辑
-//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
-//告诉委托人对指定的文本字段停止编辑
-- (void)textFieldDidEndEditing:(UITextField *)textField{
-    [self netWorking:textField.text];
-}
-//告诉委托人对指定的文本字段停止编辑
-//- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
-//询问委托人是否应该更改指定的文本
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
-//询问委托人是否应删除文本字段的当前内容
-//- (BOOL)textFieldShouldClear:(UITextField *)textField;
-//询问委托人文本字段是否应处理按下返回按钮
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    return YES;
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
 }
 #pragma mark —— 点击事件
 -(void)sendBtnClickEvent:(UIButton *)sender{
     NSLog(@"发送");
     [self.view endEditing:YES];
 }
-
 -(void)backBtnClickEvent:(UIButton *)sender{
     if (self.navigationController) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -102,6 +113,37 @@ UITextFieldDelegate
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
+#pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return [InvitationCodeTBVCell cellHeightWithModel:Nil];
+}
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath
+                             animated:NO];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
+    return self.titleMutArr.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    InvitationCodeTBVCell *cell = [InvitationCodeTBVCell cellWith:tableView];
+    @weakify(self);
+    [cell actionBlock:^(ZYTextField *textField) {
+        @strongify(self)
+         [self netWorking:textField.text];
+    }];return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
 #pragma mark —— lazyLoad
 -(UIButton *)sendBtn{
     if (!_sendBtn) {
@@ -116,25 +158,24 @@ UITextFieldDelegate
     }return _sendBtn;
 }
 
--(ZYTextField *)textField{
-    if (!_textField) {
-        _textField = ZYTextField.new;
-        _textField.placeholder = @"在此输入邀请码";
-        _textField.delegate = self;
-        [self.view addSubview:_textField];
-        [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.view).offset(SCALING_RATIO(10));
-            make.right.equalTo(self.view).offset(SCALING_RATIO(-10));
-            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(SCALING_RATIO(10));
-            make.height.mas_equalTo(SCALING_RATIO(50));
+-(UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:CGRectZero
+                                                 style:UITableViewStylePlain];
+        _tableView.tableFooterView = UIView.new;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.mj_header = self.tableViewHeader;
+        _tableView.mj_footer = self.tableViewFooter;
+        _tableView.mj_footer.hidden = YES;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+        [self.view addSubview:_tableView];
+        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.gk_navigationBar.mas_bottom);
+            make.left.right.bottom.equalTo(self.view);
         }];
-        [self.view layoutSubviews];
-        [self.view setBorderWithView:_textField
-                          borderColor:kBlackColor
-                          borderWidth:0.5f
-                           borderType:UIBorderSideTypeBottom];
-        
-    }return _textField;
+    }return _tableView;
 }
 
 -(LoginViewController *)loginVC{
@@ -144,4 +185,85 @@ UITextFieldDelegate
     }return _loginVC;
 }
 
+-(NSMutableArray<NSString *> *)titleMutArr{
+    if (!_titleMutArr) {
+        _titleMutArr = NSMutableArray.array;
+        [_titleMutArr addObject:@"请输入手机号"];
+        [_titleMutArr addObject:@"请输入QQ账号"];
+        [_titleMutArr addObject:@"请输入微信账号"];
+    }return _titleMutArr;
+}
+
 @end
+
+@implementation InvitationCodeTBVCell
+
++(instancetype)cellWith:(UITableView *)tableView{
+    InvitationCodeTBVCell *cell = (InvitationCodeTBVCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
+    if (!cell) {
+        cell = [[InvitationCodeTBVCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                            reuseIdentifier:ReuseIdentifier
+                                                     margin:SCALING_RATIO(5)];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//        cell.backgroundColor = kRedColor;
+    }return cell;
+}
+
++(CGFloat)cellHeightWithModel:(id _Nullable)model{
+    return SCALING_RATIO(200);
+}
+
+- (void)richElementsInCellWithModel:(id _Nullable)model{
+    self.textField.placeholder = model;
+}
+
+-(void)actionBlock:(DataBlock)block{
+    _block = block;
+}
+
+#pragma mark —— UITextFieldDelegate
+//询问委托人是否应该在指定的文本字段中开始编辑
+//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
+//告诉委托人在指定的文本字段中开始编辑
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+
+}
+//询问委托人是否应在指定的文本字段中停止编辑
+//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
+//告诉委托人对指定的文本字段停止编辑
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    if (self.block) {
+        self.block(textField);
+    }
+}
+//告诉委托人对指定的文本字段停止编辑
+//- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
+//询问委托人是否应该更改指定的文本
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
+//询问委托人是否应删除文本字段的当前内容
+//- (BOOL)textFieldShouldClear:(UITextField *)textField;
+//询问委托人文本字段是否应处理按下返回按钮
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    return YES;
+}
+
+-(ZYTextField *)textField{
+    if (!_textField) {
+        _textField = ZYTextField.new;
+        _textField.delegate = self;
+        [self.contentView addSubview:_textField];
+        [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.contentView);
+        }];
+//        [self.view layoutSubviews];
+//        [self.view setBorderWithView:_textField
+//                          borderColor:kBlackColor
+//                          borderWidth:0.5f
+//                           borderType:UIBorderSideTypeBottom];
+
+    }return _textField;
+}
+
+@end
+
+

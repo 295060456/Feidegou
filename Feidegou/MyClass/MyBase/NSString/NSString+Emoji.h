@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)emojiEncode;
 - (NSString *)emojiDecode;
++(NSString *)jointMakeURL:(NSArray *)urlArr;
+
 
 @end
 

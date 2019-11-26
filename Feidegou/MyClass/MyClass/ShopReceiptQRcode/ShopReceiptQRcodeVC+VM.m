@@ -49,67 +49,67 @@
 }
 
 -(void)uploadQRcodePic:(UIImage *)image{
-    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
-    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
-    extern NSString *randomStr;
-    
-    NSMutableDictionary *dataMutDic = NSMutableDictionary.dictionary;
-    //每个接口都加 user_id 和 identity
-    if ([[PersonalInfo sharedInstance] isLogined]) {
-        ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-        [dataMutDic setObject:model.userId
-                       forKey:@"user_id"];
-    }
-    [dataMutDic setObject:[YDDevice getUQID]
-                   forKey:@"identity"];
-    
-    __block NSData *picData = [UIImage imageZipToData:image];
-    
-    NSString *str = API(BaseUrl, Catfood_qr_addURL);
-    
-    [mgr POST:API(BaseUrl, Catfood_qr_addURL)
-   parameters:@{
-       @"data":aesEncryptString([NSString convertToJsonData:dataMutDic], randomStr),
-       @"key":[RSAUtil encryptString:randomStr
-                           publicKey:RSA_Public_key]
-   }
-constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        [formData appendPartWithFileData:picData
-                                    name:@"weixin_qr"//Key
-                                fileName:@"test.png"
-                                mimeType:@"image/png"];
-    }
-     progress:^(NSProgress * _Nonnull uploadProgress) {
-        NSLog(@"uploadProgress = %@",uploadProgress);
-        CGFloat _percent = uploadProgress.fractionCompleted * 100;
-        NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
-        NSLog(@"%@",str);
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(str);
-        }];
-    }
-      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"responseObject = %@",responseObject);
-        NSDictionary *dic = [NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)];
-        NSNumber *b = dic[@"code"];
-        if ([b intValue] == 500) {
-            NSString *str = dic[@"message"];
-            Toast(str);
-        }else if ([b intValue] == 200){
-            NSString *str = dic[@"message"];
-            Toast(str);
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                Toast(@"上传图片成功");
-            }];
-            [self backBtnClickEvent:nil];
-        }else{}
-    }
-      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error = %@",error);
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(@"上传图片失败");
-        }];
-    }];
+//    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+//    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    extern NSString *randomStr;
+//    
+//    NSMutableDictionary *dataMutDic = NSMutableDictionary.dictionary;
+//    //每个接口都加 user_id 和 identity
+//    if ([[PersonalInfo sharedInstance] isLogined]) {
+//        ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+//        [dataMutDic setObject:model.userId
+//                       forKey:@"user_id"];
+//    }
+//    [dataMutDic setObject:[YDDevice getUQID]
+//                   forKey:@"identity"];
+//    
+//    __block NSData *picData = [UIImage imageZipToData:image];
+//    
+//    NSString *str = API(BaseUrl, Catfood_qr_addURL);
+//    
+//    [mgr POST:API(BaseUrl, Catfood_qr_addURL)
+//   parameters:@{
+//       @"data":aesEncryptString([NSString convertToJsonData:dataMutDic], randomStr),
+//       @"key":[RSAUtil encryptString:randomStr
+//                           publicKey:RSA_Public_key]
+//   }
+//constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+//        [formData appendPartWithFileData:picData
+//                                    name:@"weixin_qr"//Key
+//                                fileName:@"test.png"
+//                                mimeType:@"image/png"];
+//    }
+//     progress:^(NSProgress * _Nonnull uploadProgress) {
+//        NSLog(@"uploadProgress = %@",uploadProgress);
+//        CGFloat _percent = uploadProgress.fractionCompleted * 100;
+//        NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
+//        NSLog(@"%@",str);
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//            Toast(str);
+//        }];
+//    }
+//      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        NSLog(@"responseObject = %@",responseObject);
+//        NSDictionary *dic = [NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)];
+//        NSNumber *b = dic[@"code"];
+//        if ([b intValue] == 500) {
+//            NSString *str = dic[@"message"];
+//            Toast(str);
+//        }else if ([b intValue] == 200){
+//            NSString *str = dic[@"message"];
+//            Toast(str);
+//            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//                Toast(@"上传图片成功");
+//            }];
+//            [self backBtnClickEvent:nil];
+//        }else{}
+//    }
+//      failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        NSLog(@"error = %@",error);
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//            Toast(@"上传图片失败");
+//        }];
+//    }];
 }
 
 @end

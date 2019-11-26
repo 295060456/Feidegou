@@ -28,4 +28,12 @@
     return emojiText;
 }
 
++(NSString *)jointMakeURL:(NSArray *)urlArr{
+    NSString *resultStr = @"";
+    for (int i = 0; i < urlArr.count; i++) {
+        resultStr = [resultStr stringByAppendingString:urlArr[i]];
+        
+    }return resultStr;
+}
+
 @end

@@ -97,6 +97,9 @@
         [params setObject:model.userId forKey:@"user_id"];//[NSNumber numberWithInt:[model.userId intValue]]
     }
     
+//    http://10.10.37.35:8888/SHOPAPP2.0/appShop7/query.do,
+    //http://localhost:8080/SHOPAPP2.0/admin/login.do
+    
     NSString *strJson = [self DataTOjsonString:params];// 字典转为json
     strJson = [NSString encodeToPercentEscapeString:strJson];// encodeing  json
     NSString *strKey =  [self encryptionTheParameter:strJson];// 根据json生成Key

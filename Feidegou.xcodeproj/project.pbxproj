@@ -59,6 +59,8 @@
 		8B86E06E23865499004D4C0A /* OrderManager_producingAreaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86E06D23865499004D4C0A /* OrderManager_producingAreaVC.m */; };
 		8B86E071238654CE004D4C0A /* OrderManager_wholesaleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86E070238654CE004D4C0A /* OrderManager_wholesaleVC.m */; };
 		8B86E07423865514004D4C0A /* OrderManager_panicBuyingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86E07323865514004D4C0A /* OrderManager_panicBuyingVC.m */; };
+		8B8A1DC2238D0010006AE2CB /* ThroughTrainToPromoteVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DBE238D000F006AE2CB /* ThroughTrainToPromoteVC+VM.m */; };
+		8B8A1DC3238D0010006AE2CB /* ThroughTrainToPromoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DC0238D0010006AE2CB /* ThroughTrainToPromoteVC.m */; };
 		8B8B0D0A236814960040EE53 /* TestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2912366C7290047D0E2 /* TestVC.m */; };
 		8B8B0D0D236815140040EE53 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D0C236815140040EE53 /* TestView.m */; };
 		8B8B0D922368395D0040EE53 /* WholesaleMarket_AdvanceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D912368395D0040EE53 /* WholesaleMarket_AdvanceVC.m */; };
@@ -735,6 +737,10 @@
 		8B86E070238654CE004D4C0A /* OrderManager_wholesaleVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderManager_wholesaleVC.m; sourceTree = "<group>"; };
 		8B86E07223865514004D4C0A /* OrderManager_panicBuyingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderManager_panicBuyingVC.h; sourceTree = "<group>"; };
 		8B86E07323865514004D4C0A /* OrderManager_panicBuyingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderManager_panicBuyingVC.m; sourceTree = "<group>"; };
+		8B8A1DBE238D000F006AE2CB /* ThroughTrainToPromoteVC+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ThroughTrainToPromoteVC+VM.m"; sourceTree = "<group>"; };
+		8B8A1DBF238D0010006AE2CB /* ThroughTrainToPromoteVC+VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ThroughTrainToPromoteVC+VM.h"; sourceTree = "<group>"; };
+		8B8A1DC0238D0010006AE2CB /* ThroughTrainToPromoteVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThroughTrainToPromoteVC.m; sourceTree = "<group>"; };
+		8B8A1DC1238D0010006AE2CB /* ThroughTrainToPromoteVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThroughTrainToPromoteVC.h; sourceTree = "<group>"; };
 		8B8B0D0B236815140040EE53 /* TestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
 		8B8B0D0C236815140040EE53 /* TestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
 		8B8B0D902368395D0040EE53 /* WholesaleMarket_AdvanceVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_AdvanceVC.h; sourceTree = "<group>"; };
@@ -2381,6 +2387,10 @@
 		8BB2D2F12366C7310047D0E2 /* StallList */ = {
 			isa = PBXGroup;
 			children = (
+				8B8A1DC1238D0010006AE2CB /* ThroughTrainToPromoteVC.h */,
+				8B8A1DC0238D0010006AE2CB /* ThroughTrainToPromoteVC.m */,
+				8B8A1DBF238D0010006AE2CB /* ThroughTrainToPromoteVC+VM.h */,
+				8B8A1DBE238D000F006AE2CB /* ThroughTrainToPromoteVC+VM.m */,
 				8BB2D2F22366C7310047D0E2 /* List */,
 			);
 			path = StallList;
@@ -4486,6 +4496,7 @@
 				8B90B39E237923570023E394 /* InvitationCodeVC+VM.m in Sources */,
 				C42CD093213CC2640096675F /* AreaSelectController.m in Sources */,
 				8BB2D3802366CBF10047D0E2 /* UpLoadCancelReasonVC.m in Sources */,
+				8B8A1DC3238D0010006AE2CB /* ThroughTrainToPromoteVC.m in Sources */,
 				C42CD064213CC2640096675F /* CellTwoLblArrow.m in Sources */,
 				C42CD04A213CC2640096675F /* JJHttpClient+FourZero.m in Sources */,
 				C42CD087213CC2640096675F /* DataSigner.m in Sources */,
@@ -4683,6 +4694,7 @@
 				C42CD19D213CC2640096675F /* ButtonUpDown.m in Sources */,
 				C42CD0E5213CC2640096675F /* NJKWebViewProgress.m in Sources */,
 				C42CD1C4213CC2640096675F /* ModelCenter.m in Sources */,
+				8B8A1DC2238D0010006AE2CB /* ThroughTrainToPromoteVC+VM.m in Sources */,
 				C42CD066213CC2640096675F /* CLCellUpImgDownLbl.m in Sources */,
 				8BB2D3792366CBBF0047D0E2 /* SamplePicVC.m in Sources */,
 				C42CD096213CC2640096675F /* BillSelectedController.m in Sources */,

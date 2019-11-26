@@ -484,10 +484,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         if ([[PersonalInfo sharedInstance] isLogined]) {//登录成功方可见喵粮管理（邀请码）
             switch ([model.grade_id intValue]) {
                 case 0:{//普通用户，只显示“邀请码”
-                    [InvitationCodeVC pushFromVC:self_weak_
-                                   requestParams:nil
-                                         success:^(id data) {}
-                                        animated:YES];
+                    [InvitationCodeVC ComingFromVC:self_weak_
+                                         withStyle:ComingStyle_PUSH
+                                     requestParams:nil
+                                           success:^(id data) {}
+                                          animated:YES];
                 }break;
                 case 2:{//高级商家，只显示“喵粮管理”
                     [CatFoodsManagementVC pushFromVC:self_weak_
