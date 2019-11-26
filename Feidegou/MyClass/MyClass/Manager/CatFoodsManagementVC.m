@@ -13,6 +13,7 @@
 #import "CatFoodProducingAreaVC.h"//喵粮产地
 #import "SettingPaymentWayVC.h"//设置支付方式
 #import "ChatListVC.h"//喵粮会话
+#import "LookUpContactWayVC.h"//喵粮批发市场
 #import "PersonalDataChangedListVC.h"//个人喵粮变动清单
 #import "CatFoodsManagementVC+VM.h"
 
@@ -185,7 +186,11 @@ UITableViewDataSource
 //        }
 //    }
     else if ([vcName isEqualToString:@"喵粮批发市场"]){//self.loginModel.grade_id
-
+        [LookUpContactWayVC ComingFromVC:self_weak_
+                               withStyle:ComingStyle_PUSH
+                           requestParams:nil
+                                 success:^(id data) {}
+                                animated:YES];
     }else if ([vcName isEqualToString:@"设置收款方式"]){
         [SettingPaymentWayVC pushFromVC:self_weak_
                           requestParams:nil

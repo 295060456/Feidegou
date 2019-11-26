@@ -1,0 +1,29 @@
+//
+//  LookUpContactWayVC+VM.m
+//  Feidegou
+//
+//  Created by Kite on 2019/11/26.
+//  Copyright © 2019 朝花夕拾. All rights reserved.
+//
+
+#import "LookUpContactWayVC+VM.h"
+
+@implementation LookUpContactWayVC (VM)
+
+-(void)netWorking{
+    if ([PersonalInfo sharedInstance].isLogined) {
+        ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+        //0、普通用户;1、普通商家;2、高级商家;3、vip商家
+        if ([model.grade_id intValue] == 0) {//普通用户
+            
+        }else if ([model.grade_id intValue] == 1){//普通商家
+            
+        }else if ([model.grade_id intValue] == 2){//高级商家  买家
+            
+        }else if ([model.grade_id intValue] == 3){//vip商家 卖家
+            
+        }else{}
+    }
+}
+
+@end

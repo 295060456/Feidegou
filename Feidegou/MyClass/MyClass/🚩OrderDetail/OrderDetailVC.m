@@ -10,7 +10,6 @@
 #import "OrderDetailVC+VM.h"
 #import "UpLoadCancelReasonVC.h"
 #import "OrderDetailTBViewForHeader.h"
-
 //凭证
 @interface OrderDetailTBVIMGCell ()
 
@@ -412,33 +411,6 @@ UITableViewDataSource
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
-
-//-(void)getOrderStatus:(BaseModel *)model{
-//    //            0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-//    switch ([model.order_status intValue]) {//订单状态
-//        case 0:
-//            [_dataMutArr addObject:@"已支付"];
-//        break;
-//        case 1:
-//            [_dataMutArr addObject:@"已发单"];
-//        break;
-//        case 2:
-//            [_dataMutArr addObject:@"已下单"];
-//        break;
-//        case 3:
-//            [_dataMutArr addObject:@"已作废"];
-//        break;
-//        case 4:
-//            [_dataMutArr addObject:@"已发货"];
-//        break;
-//        case 5:
-//            [_dataMutArr addObject:@"已完成"];
-//        break;
-//        default:
-//            [_dataMutArr addObject:@"状态异常"];
-//            break;
-//    }
-//}
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section {

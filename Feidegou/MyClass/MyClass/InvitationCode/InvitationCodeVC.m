@@ -104,6 +104,14 @@ UITableViewDataSource
     self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— 点击事件
+-(void)backBtnClickEvent:(UIButton *)sender{
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 -(void)sendBtnClickEvent:(UIButton *)sender{
     NSLog(@"发送");
     [self.view endEditing:YES];
@@ -112,14 +120,6 @@ UITableViewDataSource
         Toast(@"请填写微信号码");
     }else{
         [self netWorking];
-    }
-}
-
--(void)backBtnClickEvent:(UIButton *)sender{
-    if (self.navigationController) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }else{
-        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource

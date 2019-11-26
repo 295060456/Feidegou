@@ -59,6 +59,8 @@
 		8B86E07423865514004D4C0A /* OrderManager_panicBuyingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86E07323865514004D4C0A /* OrderManager_panicBuyingVC.m */; };
 		8B8A1DC2238D0010006AE2CB /* ThroughTrainToPromoteVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DBE238D000F006AE2CB /* ThroughTrainToPromoteVC+VM.m */; };
 		8B8A1DC3238D0010006AE2CB /* ThroughTrainToPromoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DC0238D0010006AE2CB /* ThroughTrainToPromoteVC.m */; };
+		8B8A1DC6238D6C41006AE2CB /* LookUpContactWayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DC5238D6C41006AE2CB /* LookUpContactWayVC.m */; };
+		8B8A1DC9238D6F1A006AE2CB /* LookUpContactWayVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DC8238D6F1A006AE2CB /* LookUpContactWayVC+VM.m */; };
 		8B8B0D0A236814960040EE53 /* TestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2912366C7290047D0E2 /* TestVC.m */; };
 		8B8B0D0D236815140040EE53 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D0C236815140040EE53 /* TestView.m */; };
 		8B90B39B237921EB0023E394 /* InvitationCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90B39A237921EB0023E394 /* InvitationCodeVC.m */; };
@@ -731,6 +733,10 @@
 		8B8A1DBF238D0010006AE2CB /* ThroughTrainToPromoteVC+VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ThroughTrainToPromoteVC+VM.h"; sourceTree = "<group>"; };
 		8B8A1DC0238D0010006AE2CB /* ThroughTrainToPromoteVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThroughTrainToPromoteVC.m; sourceTree = "<group>"; };
 		8B8A1DC1238D0010006AE2CB /* ThroughTrainToPromoteVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThroughTrainToPromoteVC.h; sourceTree = "<group>"; };
+		8B8A1DC4238D6C41006AE2CB /* LookUpContactWayVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LookUpContactWayVC.h; sourceTree = "<group>"; };
+		8B8A1DC5238D6C41006AE2CB /* LookUpContactWayVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LookUpContactWayVC.m; sourceTree = "<group>"; };
+		8B8A1DC7238D6F1A006AE2CB /* LookUpContactWayVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LookUpContactWayVC+VM.h"; sourceTree = "<group>"; };
+		8B8A1DC8238D6F1A006AE2CB /* LookUpContactWayVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "LookUpContactWayVC+VM.m"; sourceTree = "<group>"; };
 		8B8B0D0B236815140040EE53 /* TestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
 		8B8B0D0C236815140040EE53 /* TestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
 		8B8B0DA02369635E0040EE53 /* HistoryDataListTBVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDataListTBVCell.h; sourceTree = "<group>"; };
@@ -1992,6 +1998,10 @@
 		8B8B0D8F2368392D0040EE53 /* WholesaleMarket */ = {
 			isa = PBXGroup;
 			children = (
+				8B8A1DC4238D6C41006AE2CB /* LookUpContactWayVC.h */,
+				8B8A1DC5238D6C41006AE2CB /* LookUpContactWayVC.m */,
+				8B8A1DC7238D6F1A006AE2CB /* LookUpContactWayVC+VM.h */,
+				8B8A1DC8238D6F1A006AE2CB /* LookUpContactWayVC+VM.m */,
 			);
 			path = WholesaleMarket;
 			sourceTree = "<group>";
@@ -2016,7 +2026,7 @@
 			path = HistoryDataList;
 			sourceTree = "<group>";
 		};
-		8B90B398237921B00023E394 /* Code */ = {
+		8B90B398237921B00023E394 /* InvitationCode */ = {
 			isa = PBXGroup;
 			children = (
 				8B90B399237921EB0023E394 /* InvitationCodeVC.h */,
@@ -2024,7 +2034,7 @@
 				8B90B39C237923570023E394 /* InvitationCodeVC+VM.h */,
 				8B90B39D237923570023E394 /* InvitationCodeVC+VM.m */,
 			);
-			path = Code;
+			path = InvitationCode;
 			sourceTree = "<group>";
 		};
 		8BAC1F1823826F950084B6B4 /* Chat */ = {
@@ -2261,7 +2271,7 @@
 				8BB2D2FA2366C7310047D0E2 /* Manager */,
 				8B86E04B238570A1004D4C0A /* ChangeLIst */,
 				8BAC1F1823826F950084B6B4 /* Chat */,
-				8B90B398237921B00023E394 /* Code */,
+				8B90B398237921B00023E394 /* InvitationCode */,
 				8BB2D2F72366C7310047D0E2 /* OrderManager */,
 				8BB2D2E72366C7310047D0E2 /* 🚩OrderDetail */,
 				8BB2D3002366C7310047D0E2 /* UploadPrint */,
@@ -4430,10 +4440,12 @@
 				8BB2D3802366CBF10047D0E2 /* UpLoadCancelReasonVC.m in Sources */,
 				8B8A1DC3238D0010006AE2CB /* ThroughTrainToPromoteVC.m in Sources */,
 				C42CD064213CC2640096675F /* CellTwoLblArrow.m in Sources */,
+				8B8A1DC6238D6C41006AE2CB /* LookUpContactWayVC.m in Sources */,
 				C42CD04A213CC2640096675F /* JJHttpClient+FourZero.m in Sources */,
 				C42CD087213CC2640096675F /* DataSigner.m in Sources */,
 				8B7A54ED236D6DD1006B12F8 /* WBTableViewDataSource.m in Sources */,
 				8B7A54E8236D6DD1006B12F8 /* WBTableViewCell.m in Sources */,
+				8B8A1DC9238D6F1A006AE2CB /* LookUpContactWayVC+VM.m in Sources */,
 				C42CD185213CC2640096675F /* DefaultLoadMoreView.m in Sources */,
 				C42CD1B2213CC2640096675F /* JJBaseNavigationController.m in Sources */,
 				C4614416214386B6000C0CDC /* BillHistoryController.m in Sources */,
