@@ -344,8 +344,7 @@
         
         
         //        二维码
-
-        UIImage *imgCode = [UIImage createNonInterpolatedUIImageFormString:StringFormat(@"%@/inviter.htm?user_id=%@",BASE_URL,[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId) withSize:128];
+        UIImage *imgCode = [UIImage createNonInterpolatedUIImageFormString:StringFormat(@"%@/inviter.htm?user_id=%@",BaseUrl,[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId) withSize:128];
         UIImageView *imgVi = [[UIImageView alloc] initWithFrame:CGRectMake(392, 856, 128, 128)];
         [imgVi setBackgroundColor:[UIColor whiteColor]];
         [imgVi setImage:imgCode];

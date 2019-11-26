@@ -62,7 +62,7 @@
 - (RACSignal *)requestPOSTWithRelativePath:(NSString *)relativePath
                                 parameters:(NSDictionary *)parameters{
     NSDictionary *newparameters = [self newParameters:parameters];
-    AFHTTPSessionManager *manager = [self __httpSessionManagerWithBaseUrl:BASE_URL];
+    AFHTTPSessionManager *manager = [self __httpSessionManagerWithBaseUrl:BaseURL];
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         NSURLSessionDataTask *dataTask = [manager POST:relativePath
                                             parameters:newparameters

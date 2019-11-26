@@ -106,7 +106,7 @@
 //WebSocketURL
 -(void)webSocket:(NSString *)quantity{
     if (![NSString isNullString:quantity]) {//
-        NSString *urlStr = [BaseWebSocketURL stringByAppendingString:[NSString stringWithFormat:@"/%@",quantity]];
+        NSString *urlStr = [WebSocketLocalhost stringByAppendingString:[NSString stringWithFormat:@"/%@",quantity]];
         [[SocketRocketUtility instance] SRWebSocketOpenWithURLString:urlStr];
     }else{
         Toast(@"请输入参与抢摊位的数量");

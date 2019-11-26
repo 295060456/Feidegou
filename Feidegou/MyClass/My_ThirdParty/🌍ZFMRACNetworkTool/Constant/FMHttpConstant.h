@@ -11,53 +11,39 @@
 #ifndef FMHttpConstant_h
 #define FMHttpConstant_h
 
-#pragma mark - api拼接 stringByAppendingString
-#define API(DomainName,api) [DomainName stringByAppendingString:api]
-
-#pragma mark —— 线下环境
-//狗哥给我的
-#define BaseUrl @"http://10.1.41.158:8080"
-#define BaseUrl2 API(BaseUrl,@"/catfoodapp")
-//Daniel
-#define DanielUrL @"http://10.1.41.174:8888"
-//#define AK API(API(DanielUrL,@"/SHOPAPP3.0/appShop7"),@"/query.do")//登录
-#define AK API(API(DanielUrL,@"/SHOPAPP2.0/appShop7"),@"/query.do")//登录
-#define YQM API(API(DanielUrL,@"/SHOPAPP2.0/appShop7"),@"/write.do")//邀请码
-
-//#define WebSocketLocalhost @"10.1.41.174:8888/MFW1.0"
-#define WebSocketLocalhost @"10.1.41.174:8888"
-#define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@/websocket",WebSocketLocalhost]
-
-#pragma mark —— 预上线环境
-//#define IP @"10.1.41.174:8888"
-//#define BaseUrl [NSString stringWithFormat:@"http://%@",IP]//喵粮管理地址
-//#define BaseUrl2 API(BaseUrl,@"/SHOPAPP2.0/appShop7")//原项目地址
-//#define AK API(BaseUrl2,@"/query.do")//登录 http://10.1.41.174:8888/SHOPAPP2.0/appShop7/query.do
-//#define YQM API(BaseUrl2,@"/write.do")//邀请码
-//#define BaseWebSocketURL [NSString stringWithFormat:@"ws://%@/websocket/",IP]//喵粮转转
-
-#define BASE_URL @"http://10.1.41.174:8888"
-#define RELATIVE_PATH_QUERY @"SHOPAPP2.0/appShop7/query.do?"
-#define RELATIVE_PATH_WRITE @"SHOPAPP2.0/appShop7/write.do?"
-
-#pragma mark —— 线上环境
-//#define BaseUrl @"http://www.miaoxiaodian.shop"//喵粮管理地址
-//#define BaseUrl2 API(BaseUrl,@"/SHOPAPP2.0/appShop7")//原项目地址
-//#define AK API(BaseUrl2,@"/query.do")//登录
-//#define YQM API(BaseUrl2,@"/write.do")//邀请码
-//#define BaseWebSocketURL @"ws://www.miaoxiaodian.shop/websocket/"//喵粮转转
-//商城服务器正式地址
-//#define BASE_URL @"http://10.1.41.174:8080"
-//#define RELATIVE_PATH_QUERY @"SHOPAPP2.0/appShop7/query.do?"
-//#define RELATIVE_PATH_WRITE @"SHOPAPP2.0/appShop7/write.do?"
-
-//正式
-#define Alipay_url_add_money [NSString stringWithFormat:@"%@/alipay/pay_notify.do", BASE_URL]
-#define Alipay_url_add_time [NSString stringWithFormat:@"%@/alipay/adServiceMoney.do", BASE_URL]
-#define Alipay_url_invite_code [NSString stringWithFormat:@"%@/alipay/inviteCode.do", BASE_URL]
-
 /********ImgBaseURL*****/
 #define ImgBaseURL @""
+#define HTTP @"http://"
+#define WS @"ws://"
+#define IP_Gouge @"10.1.41.158"
+#define IP_Daniel @"10.1.41.174"
+#define Port_Gouge @":8080"
+#define Port_Daniel @":8080"
+#define RELATIVE_PATH_QUERY @"SHOPAPP2.0/appShop7/query.do?"
+#define RELATIVE_PATH_WRITE @"SHOPAPP2.0/appShop7/write.do?"
+#define BaseUrl_Gouge [NSString stringWithFormat:@"%@%@%@",HTTP,IP_Gouge,Port_Gouge]//http:xxx.xx.xx:8080 ###根 进行拼接
+#define BaseUrl_Daniel [NSString stringWithFormat:@"%@%@%@",HTTP,IP_Daniel,Port_Daniel]
+//#define BASE_URL [NSString stringWithFormat:@"%@%@%@",HTTP,IP_Gouge,Port_Gouge]//http:xxx.xx.xx:8080
+
+//这个只有正式
+#define Alipay_url_add_money [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Gouge,Port_Gouge,@"/alipay/pay_notify.do"]
+#define Alipay_url_add_time [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Gouge,Port_Gouge,@"/alipay/adServiceMoney.do"]
+#define Alipay_url_invite_code [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Gouge,Port_Gouge,@"/alipay/inviteCode.do"]
+
+#pragma mark —— 测试环境
+//狗哥
+#define BaseUrl BaseUrl_Gouge
+#define BaseURL BaseUrl_Daniel
+#define BaseUrl2 [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Gouge,Port_Gouge,@"/catfoodapp"]
+//Daniel
+#define DanielUrL [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Daniel,Port_Gouge,@"/MFW/"]
+#define AK [NSString stringWithFormat:@"%@%@%@/%@",HTTP,IP_Daniel,Port_Gouge,RELATIVE_PATH_QUERY]//登录
+#define YQM [NSString stringWithFormat:@"%@%@%@%@%@",HTTP,IP_Daniel,Port_Gouge,@"/MFW/",RELATIVE_PATH_QUERY]//邀请码
+//webSocket
+#define WebSocketLocalhost [NSString stringWithFormat:@"%@%@%@%@",WS,IP_Daniel,Port_Daniel,@"/MFW/websocket"]
+
+#pragma mark —— 预上线环境
+#pragma mark —— 线上环境
 
 #define CatfoodManageURL @"/catfoodapp/user/seller/Catfoodmanage.htm"//喵粮管理 post 1 Y
 #define buyer_CatfoodRecord_listURL @"/catfoodapp/user/seller/CatfoodRecord_list.htm"//喵粮订单列表 post 2 Y

@@ -106,7 +106,7 @@ UITableViewDataSource
 //    [[SocketRocketUtility instance] SRWebSocketOpenWithURLString:BaseWebSocketURL];
     //传user_id
     ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-    [[SocketRocketUtility instance] SRWebSocketOpenWithURLString:[BaseWebSocketURL stringByAppendingString:[NSString stringWithFormat:@"/%@",model.userId]]];
+    [[SocketRocketUtility instance] SRWebSocketOpenWithURLString:[WebSocketLocalhost stringByAppendingString:[NSString stringWithFormat:@"/%@",model.userId]]];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{

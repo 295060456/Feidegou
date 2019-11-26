@@ -81,7 +81,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
     @weakify(self)
-    [mgr POST:API(BaseUrl, CatfoodSale_payURL)
+    [mgr POST:[NSString stringWithFormat:@"%@%@",BaseUrl,CatfoodSale_payURL]
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
        @"key":[RSAUtil encryptString:randomStr
@@ -140,7 +140,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     };
     __block NSData *picData = [UIImage imageZipToData:self.pic];
     @weakify(self)
-    [mgr POST:API(BaseUrl, CatfoodRecord_delURL)
+    [mgr POST:[NSString stringWithFormat:@"%@%@",BaseUrl,CatfoodRecord_delURL]
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
        @"key":[RSAUtil encryptString:randomStr

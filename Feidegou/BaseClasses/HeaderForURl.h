@@ -28,7 +28,7 @@
 //服务电话
 #define ServicePhone @"10086"
 //官方网址
-#define OfficialWebsite BASE_URL
+#define OfficialWebsite BaseUrl
 //通知的名字
 
 #define NotificationNameSelectCourse @"NotificationNameSelectCourse"
