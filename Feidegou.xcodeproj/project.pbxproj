@@ -61,6 +61,7 @@
 		8B8A1DC3238D0010006AE2CB /* ThroughTrainToPromoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DC0238D0010006AE2CB /* ThroughTrainToPromoteVC.m */; };
 		8B8A1DC6238D6C41006AE2CB /* LookUpContactWayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DC5238D6C41006AE2CB /* LookUpContactWayVC.m */; };
 		8B8A1DC9238D6F1A006AE2CB /* LookUpContactWayVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DC8238D6F1A006AE2CB /* LookUpContactWayVC+VM.m */; };
+		8B8A1DCC238D730D006AE2CB /* LookUpContactWayTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DCB238D730D006AE2CB /* LookUpContactWayTBViewForHeader.m */; };
 		8B8B0D0A236814960040EE53 /* TestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2912366C7290047D0E2 /* TestVC.m */; };
 		8B8B0D0D236815140040EE53 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D0C236815140040EE53 /* TestView.m */; };
 		8B90B39B237921EB0023E394 /* InvitationCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90B39A237921EB0023E394 /* InvitationCodeVC.m */; };
@@ -737,6 +738,8 @@
 		8B8A1DC5238D6C41006AE2CB /* LookUpContactWayVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LookUpContactWayVC.m; sourceTree = "<group>"; };
 		8B8A1DC7238D6F1A006AE2CB /* LookUpContactWayVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LookUpContactWayVC+VM.h"; sourceTree = "<group>"; };
 		8B8A1DC8238D6F1A006AE2CB /* LookUpContactWayVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "LookUpContactWayVC+VM.m"; sourceTree = "<group>"; };
+		8B8A1DCA238D730D006AE2CB /* LookUpContactWayTBViewForHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LookUpContactWayTBViewForHeader.h; sourceTree = "<group>"; };
+		8B8A1DCB238D730D006AE2CB /* LookUpContactWayTBViewForHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LookUpContactWayTBViewForHeader.m; sourceTree = "<group>"; };
 		8B8B0D0B236815140040EE53 /* TestView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestView.h; sourceTree = "<group>"; };
 		8B8B0D0C236815140040EE53 /* TestView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestView.m; sourceTree = "<group>"; };
 		8B8B0DA02369635E0040EE53 /* HistoryDataListTBVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDataListTBVCell.h; sourceTree = "<group>"; };
@@ -2000,6 +2003,8 @@
 			children = (
 				8B8A1DC4238D6C41006AE2CB /* LookUpContactWayVC.h */,
 				8B8A1DC5238D6C41006AE2CB /* LookUpContactWayVC.m */,
+				8B8A1DCA238D730D006AE2CB /* LookUpContactWayTBViewForHeader.h */,
+				8B8A1DCB238D730D006AE2CB /* LookUpContactWayTBViewForHeader.m */,
 				8B8A1DC7238D6F1A006AE2CB /* LookUpContactWayVC+VM.h */,
 				8B8A1DC8238D6F1A006AE2CB /* LookUpContactWayVC+VM.m */,
 			);
@@ -4423,6 +4428,7 @@
 				C46D6B5321438F6400428D7A /* PayMoneySuccedController.m in Sources */,
 				C42CD09D213CC2640096675F /* CellLogisticsEnd.m in Sources */,
 				C42CD0F0213CC2640096675F /* RegisterInviterController.m in Sources */,
+				8B8A1DCC238D730D006AE2CB /* LookUpContactWayTBViewForHeader.m in Sources */,
 				C46143F2214386B6000C0CDC /* CellVendorAddress.m in Sources */,
 				C42CD138213CC2640096675F /* CLCellGoods.m in Sources */,
 				C461440D214386B6000C0CDC /* CellVendorGoodList.m in Sources */,

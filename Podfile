@@ -36,6 +36,7 @@ pod 'mob_sharesdk/ShareSDKPlatforms/WeChatFull'
 pod 'lottie-ios'
 pod 'TXScrollLabelView'         #“走马灯”效果
 pod 'PGBanner'                  #轮播图
+pod 'TXScrollLabelView'
 pod 'FLEX'#调试界面相关插件
 pod 'SocketRocket'
 pod 'Masonry' #布局

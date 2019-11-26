@@ -7,6 +7,7 @@
 //
 
 #import "LookUpContactWayVC.h"
+#import "LookUpContactWayTBViewForHeader.h"
 #import "LookUpContactWayVC+VM.h"
 
 @interface LookUpContactWayTBVCell ()
@@ -116,6 +117,27 @@ UITableViewDataSource
     }
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (UIView *)tableView:(UITableView *)tableView
+viewForHeaderInSection:(NSInteger)section {
+    LookUpContactWayTBViewForHeader *viewForHeader = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:ReuseIdentifier];
+    if (!viewForHeader) {
+        viewForHeader = [[LookUpContactWayTBViewForHeader alloc]initWithReuseIdentifier:ReuseIdentifier
+                                                                          withData:@"请联系上级进货"];
+        [viewForHeader headerViewWithModel:nil];
+        @weakify(self)
+        [viewForHeader actionBlock:^(id data) {
+            @strongify(self)
+            NSLog(@"联系");
+            Toast(@"功能开发中,敬请期待...");
+        }];
+    }return viewForHeader;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForHeaderInSection:(NSInteger)section{
+    return [LookUpContactWayTBViewForHeader headerViewHeightWithModel:nil];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return [LookUpContactWayTBVCell cellHeightWithModel:Nil];
