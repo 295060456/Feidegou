@@ -78,12 +78,14 @@
 //    }];
 //}
 
--(void)netWorking:(NSString *)inviter{
+-(void)netWorking{
 #warning tempData
 //    inviter = @"1111";
     NSMutableDictionary *dataMutDic = NSMutableDictionary.dictionary;
     NSMutableDictionary *params = NSMutableDictionary.dictionary;
-    [params setObject:inviter forKey:@"inviter"];
+    [params setObject:self.telePhoneStr forKey:@"inviter"];//手机号
+    [params setObject:self.QQStr forKey:@"inviter"];//QQ号
+    [params setObject:self.wechatStr forKey:@"inviter"];//微信
     // 设置为中国时区
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     NSTimeZone *timeZone = [NSTimeZone timeZoneForSecondsFromGMT:8 * 3600];

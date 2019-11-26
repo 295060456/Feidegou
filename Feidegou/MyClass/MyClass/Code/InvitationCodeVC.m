@@ -96,16 +96,25 @@ UITableViewDataSource
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 //     [self.tableView.mj_header beginRefreshing];
+    self.tabBarController.tabBar.hidden = YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— 点击事件
 -(void)sendBtnClickEvent:(UIButton *)sender{
     NSLog(@"发送");
     [self.view endEditing:YES];
+    //三种联系方式微信是必填的，手机号和qq号选填
+    if ([NSString isNullString:self.wechatStr]) {
+        Toast(@"请填写微信号码");
+    }else{
+        [self netWorking];
+    }
 }
+
 -(void)backBtnClickEvent:(UIButton *)sender{
     if (self.navigationController) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -133,10 +142,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     InvitationCodeTBVCell *cell = [InvitationCodeTBVCell cellWith:tableView];
+    [cell richElementsInCellWithModel:self.titleMutArr[indexPath.row]];
     @weakify(self);
     [cell actionBlock:^(ZYTextField *textField) {
         @strongify(self)
-         [self netWorking:textField.text];
+        if ([textField.placeholder isEqualToString:self.titleMutArr[0]]) {//请输入手机号
+            self.telePhoneStr = textField.text;
+        }else if ([textField.placeholder isEqualToString:self.titleMutArr[1]]){//请输入QQ账号
+            self.QQStr = textField.text;
+        }else if ([textField.placeholder isEqualToString:self.titleMutArr[2]]){//请输入微信账号"
+            self.wechatStr = textField.text;
+        }else{}
     }];return cell;
 }
 
@@ -188,9 +204,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSMutableArray<NSString *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
-        [_titleMutArr addObject:@"请输入手机号"];
-        [_titleMutArr addObject:@"请输入QQ账号"];
-        [_titleMutArr addObject:@"请输入微信账号"];
+        [_titleMutArr addObject:@"请输入手机号(选填)"];
+        [_titleMutArr addObject:@"请输入QQ账号(选填)"];
+        [_titleMutArr addObject:@"请输入微信账号(必填)"];
     }return _titleMutArr;
 }
 
@@ -210,10 +226,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCALING_RATIO(200);
+    return SCALING_RATIO(50);
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
+    if ([model isKindOfClass:[NSString class]]) {
+        NSString *str = model;
+        if ([str isEqualToString:@"请输入手机号(选填)"]) {
+            self.textField.keyboardType = UIKeyboardTypePhonePad;
+        }
+    }
     self.textField.placeholder = model;
 }
 

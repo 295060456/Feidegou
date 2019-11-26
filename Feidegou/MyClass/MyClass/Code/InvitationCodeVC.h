@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface InvitationCodeVC : BaseVC
 
 @property(nonatomic,weak)LoginViewController *loginVC;
+@property(nonatomic,copy)__block NSString *telePhoneStr;
+@property(nonatomic,copy)__block NSString *QQStr;
+@property(nonatomic,copy)__block NSString *wechatStr;
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
                    withStyle:(ComingStyle)comingStyle
