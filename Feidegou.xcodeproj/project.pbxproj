@@ -96,22 +96,6 @@
 		8BB2D3452366CB480047D0E2 /* ECAuthorizationTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2B12366C7310047D0E2 /* ECAuthorizationTools.m */; };
 		8BB2D3462366CB960047D0E2 /* CountdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2D82366C7310047D0E2 /* CountdownView.m */; };
 		8BB2D3472366CB9F0047D0E2 /* VideoHandleTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2DA2366C7310047D0E2 /* VideoHandleTool.m */; };
-		8BB2D3682366CBA70047D0E2 /* TZImageCropManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D34B2366CBA60047D0E2 /* TZImageCropManager.m */; };
-		8BB2D3692366CBA70047D0E2 /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D34D2366CBA60047D0E2 /* TZAssetCell.m */; };
-		8BB2D36A2366CBA70047D0E2 /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D34E2366CBA60047D0E2 /* TZVideoPlayerController.m */; };
-		8BB2D36B2366CBA70047D0E2 /* TZAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D34F2366CBA60047D0E2 /* TZAssetModel.m */; };
-		8BB2D36C2366CBA70047D0E2 /* NSBundle+TZImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3502366CBA60047D0E2 /* NSBundle+TZImagePicker.m */; };
-		8BB2D36D2366CBA70047D0E2 /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3532366CBA60047D0E2 /* UIView+Layout.m */; };
-		8BB2D36E2366CBA70047D0E2 /* TZPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3542366CBA60047D0E2 /* TZPhotoPreviewController.m */; };
-		8BB2D36F2366CBA70047D0E2 /* TZImagePickerController.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D3552366CBA60047D0E2 /* TZImagePickerController.bundle */; };
-		8BB2D3702366CBA70047D0E2 /* TZProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3562366CBA60047D0E2 /* TZProgressView.m */; };
-		8BB2D3712366CBA70047D0E2 /* TZImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D35A2366CBA60047D0E2 /* TZImageManager.m */; };
-		8BB2D3722366CBA70047D0E2 /* TZPhotoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D35C2366CBA60047D0E2 /* TZPhotoPickerController.m */; };
-		8BB2D3732366CBA70047D0E2 /* TZPhotoPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D35D2366CBA60047D0E2 /* TZPhotoPreviewCell.m */; };
-		8BB2D3742366CBA70047D0E2 /* TZImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3632366CBA60047D0E2 /* TZImagePickerController.m */; };
-		8BB2D3752366CBA70047D0E2 /* TZLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3642366CBA60047D0E2 /* TZLocationManager.m */; };
-		8BB2D3762366CBA70047D0E2 /* TZGifPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3652366CBA60047D0E2 /* TZGifPhotoPreviewController.m */; };
-		8BB2D3772366CBA70047D0E2 /* TZImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3662366CBA60047D0E2 /* TZImageRequestOperation.m */; };
 		8BB2D3782366CBB80047D0E2 /* CatFoodProducingAreaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2DF2366C7310047D0E2 /* CatFoodProducingAreaVC.m */; };
 		8BB2D3792366CBBF0047D0E2 /* SamplePicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2E12366C7310047D0E2 /* SamplePicVC.m */; };
 		8BB2D37A2366CBC70047D0E2 /* ShopReceiptQRcodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2E52366C7310047D0E2 /* ShopReceiptQRcodeVC.m */; };
@@ -139,7 +123,6 @@
 		8BC386682374718100FE8C02 /* XDMultTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC386652374718100FE8C02 /* XDMultTableView.m */; };
 		8BC386692374718100FE8C02 /* down_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC386662374718100FE8C02 /* down_blue@2x.png */; };
 		8BCAB63F238A5360000B0360 /* AppDelegate+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAB63E238A5360000B0360 /* AppDelegate+VM.m */; };
-		8BCAB64C238A909D000B0360 /* OrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAB64A238A909D000B0360 /* OrderListModel.m */; };
 		8BCAB650238AA3D9000B0360 /* SearchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAB64F238AA3D9000B0360 /* SearchModel.m */; };
 		8BCAB653238AA432000B0360 /* SearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAB652238AA432000B0360 /* SearchBar.m */; };
 		8BCAB656238AB969000B0360 /* CJTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAB655238AB969000B0360 /* CJTextField.m */; };
@@ -153,11 +136,12 @@
 		8BCB98DB23715D660063E01E /* File in Resources */ = {isa = PBXBuildFile; fileRef = 8BCB98D823715D650063E01E /* File */; };
 		8BCB98DC23715D660063E01E /* AESCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB98D923715D660063E01E /* AESCipher.m */; };
 		8BCB993423719DEA0063E01E /* GiftVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB993323719DEA0063E01E /* GiftVC+VM.m */; };
-		8BEAAFC323884DB2008D7F1D /* iOS小技巧：用runtime 解决UIButton 重复点击问题 in Resources */ = {isa = PBXBuildFile; fileRef = 8BEAAFC123884DB2008D7F1D /* iOS小技巧：用runtime 解决UIButton 重复点击问题 */; };
+		8BEAAFC323884DB2008D7F1D /* readME in Resources */ = {isa = PBXBuildFile; fileRef = 8BEAAFC123884DB2008D7F1D /* readME */; };
 		8BEAAFC423884DB2008D7F1D /* UIControl+XY.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAAFC223884DB2008D7F1D /* UIControl+XY.m */; };
 		8BEAE8812381138C006E40A4 /* WholesaleMarket_VipVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87C2381138C006E40A4 /* WholesaleMarket_VipVC.m */; };
 		8BEAE8822381138C006E40A4 /* WholesaleMarket_VipVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87D2381138C006E40A4 /* WholesaleMarket_VipVC+VM.m */; };
 		8BEAE8832381138C006E40A4 /* WholesaleMarket_VipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAE87F2381138C006E40A4 /* WholesaleMarket_VipModel.m */; };
+		8BF2EC21238C220A0058C771 /* OrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2EC20238C220A0058C771 /* OrderListModel.m */; };
 		C4026DBD2148161D00D81974 /* AchievementController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBB2148161D00D81974 /* AchievementController.m */; };
 		C4026DC02148164E00D81974 /* ButtonShare.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBE2148164E00D81974 /* ButtonShare.m */; };
 		C405FEFB218C2A0900C02CDC /* CLCellInterger.m in Sources */ = {isa = PBXBuildFile; fileRef = C405FEF9218C2A0900C02CDC /* CLCellInterger.m */; };
@@ -653,7 +637,7 @@
 		6C32034C23408BE5001794DE /* UIImage+helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+helper.h"; sourceTree = "<group>"; };
 		8B05F852236AF15500DCE40C /* BaseTableViewer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseTableViewer.h; sourceTree = "<group>"; };
 		8B05F853236AF15500DCE40C /* BaseTableViewer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewer.m; sourceTree = "<group>"; };
-		8B05F855236AF33D00DCE40C /* 专治UITableView相应链断裂 */ = {isa = PBXFileReference; lastKnownFileType = text; path = "专治UITableView相应链断裂"; sourceTree = "<group>"; };
+		8B05F855236AF33D00DCE40C /* BaseTableViewer */ = {isa = PBXFileReference; lastKnownFileType = text; path = BaseTableViewer; sourceTree = "<group>"; };
 		8B16F030238679AC003941B4 /* SearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchView.h; sourceTree = "<group>"; };
 		8B16F031238679AC003941B4 /* SearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchView.m; sourceTree = "<group>"; };
 		8B16F03323867DD3003941B4 /* OrderManager_wholesaleVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OrderManager_wholesaleVC+VM.h"; sourceTree = "<group>"; };
@@ -765,9 +749,9 @@
 		8B90B39D237923570023E394 /* InvitationCodeVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "InvitationCodeVC+VM.m"; sourceTree = "<group>"; };
 		8B90B39F2379BBD40023E394 /* SettingPaymentWayModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingPaymentWayModel.h; sourceTree = "<group>"; };
 		8B90B3A02379BBD40023E394 /* SettingPaymentWayModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingPaymentWayModel.m; sourceTree = "<group>"; };
-		8B9AEDA723812BBD00A75CF0 /* 方案1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "方案1.png"; sourceTree = "<group>"; };
-		8B9AEDA923812CC700A75CF0 /* 订单详情.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "订单详情.png"; sourceTree = "<group>"; };
-		8B9AEDAB23812EA500A75CF0 /* 高级商家角色.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "高级商家角色.png"; sourceTree = "<group>"; };
+		8B9AEDA723812BBD00A75CF0 /* plan1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plan1.png; sourceTree = "<group>"; };
+		8B9AEDA923812CC700A75CF0 /* 🚩OrderDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "🚩OrderDetail.png"; sourceTree = "<group>"; };
+		8B9AEDAB23812EA500A75CF0 /* Advance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Advance.png; sourceTree = "<group>"; };
 		8B9EAF85237417390012884C /* SettingPaymentWayVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingPaymentWayVC.h; sourceTree = "<group>"; };
 		8B9EAF86237417390012884C /* SettingPaymentWayVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingPaymentWayVC.m; sourceTree = "<group>"; };
 		8B9EAF882374175D0012884C /* SettingPaymentWayVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SettingPaymentWayVC+VM.h"; sourceTree = "<group>"; };
@@ -805,7 +789,7 @@
 		8BB2D2922366C7290047D0E2 /* TestVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestVC.h; sourceTree = "<group>"; };
 		8BB2D2962366C7310047D0E2 /* MMButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MMButton.h; sourceTree = "<group>"; };
 		8BB2D2972366C7310047D0E2 /* MMButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MMButton.m; sourceTree = "<group>"; };
-		8BB2D2982366C7310047D0E2 /* MMButton（自定义图文位置 \ 距离） */ = {isa = PBXFileReference; lastKnownFileType = text; path = "MMButton（自定义图文位置 \\ 距离）"; sourceTree = "<group>"; };
+		8BB2D2982366C7310047D0E2 /* MMButton */ = {isa = PBXFileReference; lastKnownFileType = text; path = MMButton; sourceTree = "<group>"; };
 		8BB2D29A2366C7310047D0E2 /* YKToastView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YKToastView.h; sourceTree = "<group>"; };
 		8BB2D29B2366C7310047D0E2 /* YKToastView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YKToastView.m; sourceTree = "<group>"; };
 		8BB2D2A12366C7310047D0E2 /* FMHttpResonse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMHttpResonse.h; sourceTree = "<group>"; };
@@ -816,7 +800,7 @@
 		8BB2D2A82366C7310047D0E2 /* FMHttpRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMHttpRequest.h; sourceTree = "<group>"; };
 		8BB2D2A92366C7310047D0E2 /* FMARCNetwork.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FMARCNetwork.h; sourceTree = "<group>"; };
 		8BB2D2AA2366C7310047D0E2 /* FMHttpRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FMHttpRequest.m; sourceTree = "<group>"; };
-		8BB2D2AC2366C7310047D0E2 /* 验证码按钮单例封装 */ = {isa = PBXFileReference; lastKnownFileType = text; path = "验证码按钮单例封装"; sourceTree = "<group>"; };
+		8BB2D2AC2366C7310047D0E2 /* readMe */ = {isa = PBXFileReference; lastKnownFileType = text; path = readMe; sourceTree = "<group>"; };
 		8BB2D2AD2366C7310047D0E2 /* VerifyCodeButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerifyCodeButton.h; sourceTree = "<group>"; };
 		8BB2D2AE2366C7310047D0E2 /* VerifyCodeButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerifyCodeButton.m; sourceTree = "<group>"; };
 		8BB2D2B02366C7310047D0E2 /* ECAuthorizationTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ECAuthorizationTools.h; sourceTree = "<group>"; };
@@ -878,45 +862,12 @@
 		8BB2D3372366C7310047D0E2 /* ZYTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYTextField.m; sourceTree = "<group>"; };
 		8BB2D3382366C7310047D0E2 /* ZYTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYTextField.h; sourceTree = "<group>"; };
 		8BB2D33A2366C7310047D0E2 /* ToolMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolMacro.h; sourceTree = "<group>"; };
-		8BB2D3492366CBA60047D0E2 /* TZPhotoPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPreviewCell.h; sourceTree = "<group>"; };
-		8BB2D34A2366CBA60047D0E2 /* TZPhotoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPickerController.h; sourceTree = "<group>"; };
-		8BB2D34B2366CBA60047D0E2 /* TZImageCropManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageCropManager.m; sourceTree = "<group>"; };
-		8BB2D34C2366CBA60047D0E2 /* TZImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZImageManager.h; sourceTree = "<group>"; };
-		8BB2D34D2366CBA60047D0E2 /* TZAssetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZAssetCell.m; sourceTree = "<group>"; };
-		8BB2D34E2366CBA60047D0E2 /* TZVideoPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZVideoPlayerController.m; sourceTree = "<group>"; };
-		8BB2D34F2366CBA60047D0E2 /* TZAssetModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZAssetModel.m; sourceTree = "<group>"; };
-		8BB2D3502366CBA60047D0E2 /* NSBundle+TZImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+TZImagePicker.m"; sourceTree = "<group>"; };
-		8BB2D3512366CBA60047D0E2 /* TZLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZLocationManager.h; sourceTree = "<group>"; };
-		8BB2D3522366CBA60047D0E2 /* TZImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZImagePickerController.h; sourceTree = "<group>"; };
-		8BB2D3532366CBA60047D0E2 /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
-		8BB2D3542366CBA60047D0E2 /* TZPhotoPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZPhotoPreviewController.m; sourceTree = "<group>"; };
-		8BB2D3552366CBA60047D0E2 /* TZImagePickerController.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TZImagePickerController.bundle; sourceTree = "<group>"; };
-		8BB2D3562366CBA60047D0E2 /* TZProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZProgressView.m; sourceTree = "<group>"; };
-		8BB2D3572366CBA60047D0E2 /* TZGifPhotoPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZGifPhotoPreviewController.h; sourceTree = "<group>"; };
-		8BB2D3582366CBA60047D0E2 /* TZImageRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZImageRequestOperation.h; sourceTree = "<group>"; };
-		8BB2D3592366CBA60047D0E2 /* TZAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZAssetCell.h; sourceTree = "<group>"; };
-		8BB2D35A2366CBA60047D0E2 /* TZImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageManager.m; sourceTree = "<group>"; };
-		8BB2D35B2366CBA60047D0E2 /* TZImageCropManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZImageCropManager.h; sourceTree = "<group>"; };
-		8BB2D35C2366CBA60047D0E2 /* TZPhotoPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZPhotoPickerController.m; sourceTree = "<group>"; };
-		8BB2D35D2366CBA60047D0E2 /* TZPhotoPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZPhotoPreviewCell.m; sourceTree = "<group>"; };
-		8BB2D35E2366CBA60047D0E2 /* NSBundle+TZImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+TZImagePicker.h"; sourceTree = "<group>"; };
-		8BB2D35F2366CBA60047D0E2 /* TZAssetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZAssetModel.h; sourceTree = "<group>"; };
-		8BB2D3602366CBA60047D0E2 /* TZVideoPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZVideoPlayerController.h; sourceTree = "<group>"; };
-		8BB2D3612366CBA60047D0E2 /* TZPhotoPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZPhotoPreviewController.h; sourceTree = "<group>"; };
-		8BB2D3622366CBA60047D0E2 /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
-		8BB2D3632366CBA60047D0E2 /* TZImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImagePickerController.m; sourceTree = "<group>"; };
-		8BB2D3642366CBA60047D0E2 /* TZLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZLocationManager.m; sourceTree = "<group>"; };
-		8BB2D3652366CBA60047D0E2 /* TZGifPhotoPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZGifPhotoPreviewController.m; sourceTree = "<group>"; };
-		8BB2D3662366CBA60047D0E2 /* TZImageRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZImageRequestOperation.m; sourceTree = "<group>"; };
-		8BB2D3672366CBA60047D0E2 /* TZProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZProgressView.h; sourceTree = "<group>"; };
 		8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		8BC386652374718100FE8C02 /* XDMultTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XDMultTableView.m; sourceTree = "<group>"; };
 		8BC386662374718100FE8C02 /* down_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down_blue@2x.png"; sourceTree = "<group>"; };
 		8BC386672374718100FE8C02 /* XDMultTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDMultTableView.h; sourceTree = "<group>"; };
 		8BCAB63D238A5360000B0360 /* AppDelegate+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+VM.h"; sourceTree = "<group>"; };
 		8BCAB63E238A5360000B0360 /* AppDelegate+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+VM.m"; sourceTree = "<group>"; };
-		8BCAB64A238A909D000B0360 /* OrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderListModel.m; path = "Feidegou/我自己的代码，尽可能减少入侵性/MyClass/喵粮订单管理/OrderListModel.m"; sourceTree = SOURCE_ROOT; };
-		8BCAB64B238A909D000B0360 /* OrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderListModel.h; path = "Feidegou/我自己的代码，尽可能减少入侵性/MyClass/喵粮订单管理/OrderListModel.h"; sourceTree = SOURCE_ROOT; };
 		8BCAB64E238AA3D9000B0360 /* SearchModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchModel.h; sourceTree = "<group>"; };
 		8BCAB64F238AA3D9000B0360 /* SearchModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchModel.m; sourceTree = "<group>"; };
 		8BCAB651238AA432000B0360 /* SearchBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchBar.h; sourceTree = "<group>"; };
@@ -943,7 +894,7 @@
 		8BCB993223719DEA0063E01E /* GiftVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GiftVC+VM.h"; sourceTree = "<group>"; };
 		8BCB993323719DEA0063E01E /* GiftVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GiftVC+VM.m"; sourceTree = "<group>"; };
 		8BEAAFC023884DB2008D7F1D /* UIControl+XY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+XY.h"; sourceTree = "<group>"; };
-		8BEAAFC123884DB2008D7F1D /* iOS小技巧：用runtime 解决UIButton 重复点击问题 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "iOS小技巧：用runtime 解决UIButton 重复点击问题"; sourceTree = "<group>"; };
+		8BEAAFC123884DB2008D7F1D /* readME */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readME; sourceTree = "<group>"; };
 		8BEAAFC223884DB2008D7F1D /* UIControl+XY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+XY.m"; sourceTree = "<group>"; };
 		8BEAE87B2381138C006E40A4 /* WholesaleMarket_VipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_VipModel.h; sourceTree = "<group>"; };
 		8BEAE87C2381138C006E40A4 /* WholesaleMarket_VipVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_VipVC.m; sourceTree = "<group>"; };
@@ -951,7 +902,9 @@
 		8BEAE87E2381138C006E40A4 /* WholesaleMarket_VipVC+VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WholesaleMarket_VipVC+VM.h"; sourceTree = "<group>"; };
 		8BEAE87F2381138C006E40A4 /* WholesaleMarket_VipModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WholesaleMarket_VipModel.m; sourceTree = "<group>"; };
 		8BEAE8802381138C006E40A4 /* WholesaleMarket_VipVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WholesaleMarket_VipVC.h; sourceTree = "<group>"; };
-		8BEAE884238113D5006E40A4 /* 方案2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "方案2.png"; sourceTree = "<group>"; };
+		8BEAE884238113D5006E40A4 /* plan2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plan2.png; sourceTree = "<group>"; };
+		8BF2EC1F238C220A0058C771 /* OrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderListModel.h; path = Feidegou/MyClass/MyClass/OrderManager/OrderListModel.h; sourceTree = SOURCE_ROOT; };
+		8BF2EC20238C220A0058C771 /* OrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderListModel.m; path = Feidegou/MyClass/MyClass/OrderManager/OrderListModel.m; sourceTree = SOURCE_ROOT; };
 		947AD75F86191C8F32BD1901 /* Pods-Feidegou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.debug.xcconfig"; sourceTree = "<group>"; };
 		B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Feidegou.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4026DBB2148161D00D81974 /* AchievementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementController.m; sourceTree = "<group>"; };
@@ -1891,14 +1844,14 @@
 		8B05F84C236AEF1200DCE40C /* UITableView */ = {
 			isa = PBXGroup;
 			children = (
-				8B05F855236AF33D00DCE40C /* 专治UITableView相应链断裂 */,
+				8B05F855236AF33D00DCE40C /* BaseTableViewer */,
 				8B05F852236AF15500DCE40C /* BaseTableViewer.h */,
 				8B05F853236AF15500DCE40C /* BaseTableViewer.m */,
 			);
 			path = UITableView;
 			sourceTree = "<group>";
 		};
-		8B16F0532386ADDA003941B4 /* 搜索框 */ = {
+		8B16F0532386ADDA003941B4 /* SearchBar */ = {
 			isa = PBXGroup;
 			children = (
 				8B16F0672386AEAC003941B4 /* SearchVC.h */,
@@ -1912,7 +1865,7 @@
 				8BCAB654238AB969000B0360 /* CJTextField.h */,
 				8BCAB655238AB969000B0360 /* CJTextField.m */,
 			);
-			path = "搜索框";
+			path = SearchBar;
 			sourceTree = "<group>";
 		};
 		8B571AAB23874836009624D8 /* ContentBaseViewController */ = {
@@ -1942,7 +1895,7 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		8B7E6DE0237416CA0023314C /* 设置支付方式 */ = {
+		8B7E6DE0237416CA0023314C /* SettingPayway */ = {
 			isa = PBXGroup;
 			children = (
 				8BC386642374718100FE8C02 /* XDMultTableView */,
@@ -1955,17 +1908,17 @@
 				8B9EAF882374175D0012884C /* SettingPaymentWayVC+VM.h */,
 				8B9EAF892374175D0012884C /* SettingPaymentWayVC+VM.m */,
 			);
-			path = "设置支付方式";
+			path = SettingPayway;
 			sourceTree = "<group>";
 		};
-		8B86A7F2237D0F8C0058173B /* 方案1 */ = {
+		8B86A7F2237D0F8C0058173B /* plan1 */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = "方案1";
+			path = plan1;
 			sourceTree = "<group>";
 		};
-		8B86A7F3237D0F970058173B /* 方案2 */ = {
+		8B86A7F3237D0F970058173B /* plan2 */ = {
 			isa = PBXGroup;
 			children = (
 				8B86A7F6237D0FE50058173B /* ReleaseOrderVC.h */,
@@ -1975,10 +1928,10 @@
 				8B86A7F7237D0FE50058173B /* ReleaseOrderVC+VM.h */,
 				8B86A7F4237D0FE40058173B /* ReleaseOrderVC+VM.m */,
 			);
-			path = "方案2";
+			path = plan2;
 			sourceTree = "<group>";
 		};
-		8B86E04B238570A1004D4C0A /* 个人喵粮变动清单 */ = {
+		8B86E04B238570A1004D4C0A /* ChangeLIst */ = {
 			isa = PBXGroup;
 			children = (
 				8B86E04C23857107004D4C0A /* PersonalDataChangedListVC.h */,
@@ -1990,10 +1943,10 @@
 				8B86E04F23857280004D4C0A /* PersonalDataChangedListVC+VM.h */,
 				8B86E05023857280004D4C0A /* PersonalDataChangedListVC+VM.m */,
 			);
-			path = "个人喵粮变动清单";
+			path = ChangeLIst;
 			sourceTree = "<group>";
 		};
-		8B86E06923865400004D4C0A /* 转转 */ = {
+		8B86E06923865400004D4C0A /* OrderManager_panicBuying */ = {
 			isa = PBXGroup;
 			children = (
 				8B86E07223865514004D4C0A /* OrderManager_panicBuyingVC.h */,
@@ -2003,10 +1956,10 @@
 				8B16F03923867E23003941B4 /* OrderManager_panicBuyingVC+VM.h */,
 				8B16F03A23867E23003941B4 /* OrderManager_panicBuyingVC+VM.m */,
 			);
-			path = "转转";
+			path = OrderManager_panicBuying;
 			sourceTree = "<group>";
 		};
-		8B86E06A23865408004D4C0A /* 厂家（产地） */ = {
+		8B86E06A23865408004D4C0A /* OrderManager_producingArea */ = {
 			isa = PBXGroup;
 			children = (
 				8B86E06C23865499004D4C0A /* OrderManager_producingAreaVC.h */,
@@ -2016,10 +1969,10 @@
 				8B16F03623867E07003941B4 /* OrderManager_producingAreaVC+VM.h */,
 				8B16F03723867E07003941B4 /* OrderManager_producingAreaVC+VM.m */,
 			);
-			path = "厂家（产地）";
+			path = OrderManager_producingArea;
 			sourceTree = "<group>";
 		};
-		8B86E06B23865419004D4C0A /* 批发 */ = {
+		8B86E06B23865419004D4C0A /* OrderManager_wholesale */ = {
 			isa = PBXGroup;
 			children = (
 				8B86E06F238654CE004D4C0A /* OrderManager_wholesaleVC.h */,
@@ -2029,7 +1982,7 @@
 				8B16F03323867DD3003941B4 /* OrderManager_wholesaleVC+VM.h */,
 				8B16F03423867DD3003941B4 /* OrderManager_wholesaleVC+VM.m */,
 			);
-			path = "批发";
+			path = OrderManager_wholesale;
 			sourceTree = "<group>";
 		};
 		8B8B0D702368278E0040EE53 /* PopMenuView */ = {
@@ -2051,19 +2004,19 @@
 			path = PopMenuView;
 			sourceTree = "<group>";
 		};
-		8B8B0D8F2368392D0040EE53 /* 喵粮批发市场 */ = {
+		8B8B0D8F2368392D0040EE53 /* WholesaleMarket_Advance */ = {
 			isa = PBXGroup;
 			children = (
-				8B8B0D94236839E80040EE53 /* Vip商家角色 */,
-				8B8B0D93236839D80040EE53 /* 高级商家角色 */,
+				8B8B0D94236839E80040EE53 /* Vip */,
+				8B8B0D93236839D80040EE53 /* Advance */,
 			);
-			path = "喵粮批发市场";
+			path = WholesaleMarket_Advance;
 			sourceTree = "<group>";
 		};
-		8B8B0D93236839D80040EE53 /* 高级商家角色 */ = {
+		8B8B0D93236839D80040EE53 /* Advance */ = {
 			isa = PBXGroup;
 			children = (
-				8B9AEDAB23812EA500A75CF0 /* 高级商家角色.png */,
+				8B9AEDAB23812EA500A75CF0 /* Advance.png */,
 				8B8B0D902368395D0040EE53 /* WholesaleMarket_AdvanceVC.h */,
 				8B8B0D912368395D0040EE53 /* WholesaleMarket_AdvanceVC.m */,
 				8B40A2CA23730F7100ED42DB /* WholesaleMarket_Advance_ListModel.h */,
@@ -2071,25 +2024,25 @@
 				8B17DE352371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.h */,
 				8B17DE362371B4C6001161BB /* WholesaleMarket_AdvanceVC+VM.m */,
 			);
-			path = "高级商家角色";
+			path = Advance;
 			sourceTree = "<group>";
 		};
-		8B8B0D94236839E80040EE53 /* Vip商家角色 */ = {
+		8B8B0D94236839E80040EE53 /* Vip */ = {
 			isa = PBXGroup;
 			children = (
-				8BFB45AC237CF33600EDE418 /* 方案2 */,
-				8BFB45AB237CF32100EDE418 /* 方案1 */,
+				8BFB45AC237CF33600EDE418 /* plan2 */,
+				8BFB45AB237CF32100EDE418 /* plan1 */,
 			);
-			path = "Vip商家角色";
+			path = Vip;
 			sourceTree = "<group>";
 		};
-		8B8B0D9B2369606A0040EE53 /* 发布订单 */ = {
+		8B8B0D9B2369606A0040EE53 /* RealeaseOrder */ = {
 			isa = PBXGroup;
 			children = (
-				8B86A7F2237D0F8C0058173B /* 方案1 */,
-				8B86A7F3237D0F970058173B /* 方案2 */,
+				8B86A7F2237D0F8C0058173B /* plan1 */,
+				8B86A7F3237D0F970058173B /* plan2 */,
 			);
-			path = "发布订单";
+			path = RealeaseOrder;
 			sourceTree = "<group>";
 		};
 		8B8B0D9F2369635E0040EE53 /* HistoryDataList */ = {
@@ -2103,7 +2056,7 @@
 			path = HistoryDataList;
 			sourceTree = "<group>";
 		};
-		8B90B398237921B00023E394 /* 邀请码 */ = {
+		8B90B398237921B00023E394 /* Code */ = {
 			isa = PBXGroup;
 			children = (
 				8B90B399237921EB0023E394 /* InvitationCodeVC.h */,
@@ -2111,10 +2064,10 @@
 				8B90B39C237923570023E394 /* InvitationCodeVC+VM.h */,
 				8B90B39D237923570023E394 /* InvitationCodeVC+VM.m */,
 			);
-			path = "邀请码";
+			path = Code;
 			sourceTree = "<group>";
 		};
-		8BAC1F1823826F950084B6B4 /* 喵粮会话 */ = {
+		8BAC1F1823826F950084B6B4 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
 				8B86E02D23854607004D4C0A /* ChatListVC.h */,
@@ -2124,7 +2077,7 @@
 				8B86E030238556FA004D4C0A /* OTCConversationListCellTableViewCell.h */,
 				8B86E031238556FA004D4C0A /* OTCConversationListCellTableViewCell.m */,
 			);
-			path = "喵粮会话";
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		8BB1E8112375B56000871ECA /* WebSocket */ = {
@@ -2212,7 +2165,7 @@
 			path = Notification;
 			sourceTree = "<group>";
 		};
-		8BB2D2932366C7310047D0E2 /* 我自己的代码，尽可能减少入侵性 */ = {
+		8BB2D2932366C7310047D0E2 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
 				8BB2D2942366C7310047D0E2 /* My_ThirdParty */,
@@ -2221,7 +2174,7 @@
 				8BB2D3142366C7310047D0E2 /* MyBase */,
 				8BB2D33A2366C7310047D0E2 /* ToolMacro.h */,
 			);
-			path = "我自己的代码，尽可能减少入侵性";
+			path = MyClass;
 			sourceTree = "<group>";
 		};
 		8BB2D2942366C7310047D0E2 /* My_ThirdParty */ = {
@@ -2232,16 +2185,15 @@
 				8BB2D29F2366C7310047D0E2 /* 🌍ZFMRACNetworkTool */,
 				8BB1E8252376A2F300871ECA /* UQID */,
 				8BB1E8112375B56000871ECA /* WebSocket */,
-				8BCB98C323715D2A0063E01E /* 加密体系 */,
+				8BCB98C323715D2A0063E01E /* encrypt */,
 				8B8B0D9F2369635E0040EE53 /* HistoryDataList */,
 				8B8B0D702368278E0040EE53 /* PopMenuView */,
-				8BB2D3482366CBA60047D0E2 /* TZImagePickerController */,
 				8BB2D2952366C7310047D0E2 /* MMButton */,
 				8BB2D2992366C7310047D0E2 /* ToastView */,
 				8BB2D2AB2366C7310047D0E2 /* VerifyCodeButton */,
-				8BB2D2AF2366C7310047D0E2 /* 权限相关 */,
-				8BB2D2D62366C7310047D0E2 /* 圆形倒计时进度条（中间有字，可点击回调） */,
-				8BB2D2D92366C7310047D0E2 /* 视频_图片 处理 */,
+				8BB2D2AF2366C7310047D0E2 /* Right */,
+				8BB2D2D62366C7310047D0E2 /* ProgressBar */,
+				8BB2D2D92366C7310047D0E2 /* HandleVedioAndPic */,
 			);
 			path = My_ThirdParty;
 			sourceTree = "<group>";
@@ -2249,7 +2201,7 @@
 		8BB2D2952366C7310047D0E2 /* MMButton */ = {
 			isa = PBXGroup;
 			children = (
-				8BB2D2982366C7310047D0E2 /* MMButton（自定义图文位置 \ 距离） */,
+				8BB2D2982366C7310047D0E2 /* MMButton */,
 				8BB2D2962366C7310047D0E2 /* MMButton.h */,
 				8BB2D2972366C7310047D0E2 /* MMButton.m */,
 			);
@@ -2307,66 +2259,66 @@
 		8BB2D2AB2366C7310047D0E2 /* VerifyCodeButton */ = {
 			isa = PBXGroup;
 			children = (
-				8BB2D2AC2366C7310047D0E2 /* 验证码按钮单例封装 */,
+				8BB2D2AC2366C7310047D0E2 /* readMe */,
 				8BB2D2AD2366C7310047D0E2 /* VerifyCodeButton.h */,
 				8BB2D2AE2366C7310047D0E2 /* VerifyCodeButton.m */,
 			);
 			path = VerifyCodeButton;
 			sourceTree = "<group>";
 		};
-		8BB2D2AF2366C7310047D0E2 /* 权限相关 */ = {
+		8BB2D2AF2366C7310047D0E2 /* Right */ = {
 			isa = PBXGroup;
 			children = (
 				8BB2D2B02366C7310047D0E2 /* ECAuthorizationTools.h */,
 				8BB2D2B12366C7310047D0E2 /* ECAuthorizationTools.m */,
 			);
-			path = "权限相关";
+			path = Right;
 			sourceTree = "<group>";
 		};
-		8BB2D2D62366C7310047D0E2 /* 圆形倒计时进度条（中间有字，可点击回调） */ = {
+		8BB2D2D62366C7310047D0E2 /* ProgressBar */ = {
 			isa = PBXGroup;
 			children = (
 				8BB2D2D72366C7310047D0E2 /* CountdownView.h */,
 				8BB2D2D82366C7310047D0E2 /* CountdownView.m */,
 			);
-			path = "圆形倒计时进度条（中间有字，可点击回调）";
+			path = ProgressBar;
 			sourceTree = "<group>";
 		};
-		8BB2D2D92366C7310047D0E2 /* 视频_图片 处理 */ = {
+		8BB2D2D92366C7310047D0E2 /* HandleVedioAndPic */ = {
 			isa = PBXGroup;
 			children = (
 				8BB2D2DB2366C7310047D0E2 /* VideoHandleTool.h */,
 				8BB2D2DA2366C7310047D0E2 /* VideoHandleTool.m */,
 			);
-			path = "视频_图片 处理";
+			path = HandleVedioAndPic;
 			sourceTree = "<group>";
 		};
 		8BB2D2DC2366C7310047D0E2 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
-				8B16F0532386ADDA003941B4 /* 搜索框 */,
-				8BEAAFB82387F222008D7F1D /* 注册 */,
-				8BB2D2FA2366C7310047D0E2 /* 喵粮管理 */,
-				8B86E04B238570A1004D4C0A /* 个人喵粮变动清单 */,
-				8BAC1F1823826F950084B6B4 /* 喵粮会话 */,
-				8B90B398237921B00023E394 /* 邀请码 */,
-				8BB2D2F72366C7310047D0E2 /* 喵粮订单管理 */,
-				8BB2D2E72366C7310047D0E2 /* 🚩订单详情 */,
-				8BB2D3002366C7310047D0E2 /* 上传凭据 */,
-				8B8B0D8F2368392D0040EE53 /* 喵粮批发市场 */,
-				8B8B0D9B2369606A0040EE53 /* 发布订单 */,
-				8BB2D2DD2366C7310047D0E2 /* 喵粮产地 */,
-				8BB2D2E02366C7310047D0E2 /* 示例图 */,
-				8BB2D2E42366C7310047D0E2 /* 店铺收款码 */,
-				8BB2D2EE2366C7310047D0E2 /* Q宠 */,
-				8BB2D2F12366C7310047D0E2 /* 喵粮转转 */,
-				8BB2D2FD2366C7310047D0E2 /* 赠送 */,
-				8B7E6DE0237416CA0023314C /* 设置支付方式 */,
+				8B16F0532386ADDA003941B4 /* SearchBar */,
+				8BEAAFB82387F222008D7F1D /* Register */,
+				8BB2D2FA2366C7310047D0E2 /* Manager */,
+				8B86E04B238570A1004D4C0A /* ChangeLIst */,
+				8BAC1F1823826F950084B6B4 /* Chat */,
+				8B90B398237921B00023E394 /* Code */,
+				8BB2D2F72366C7310047D0E2 /* OrderManager */,
+				8BB2D2E72366C7310047D0E2 /* 🚩OrderDetail */,
+				8BB2D3002366C7310047D0E2 /* UploadPrint */,
+				8B8B0D8F2368392D0040EE53 /* WholesaleMarket_Advance */,
+				8B8B0D9B2369606A0040EE53 /* RealeaseOrder */,
+				8BB2D2DD2366C7310047D0E2 /* CatFoodProducingArea */,
+				8BB2D2E02366C7310047D0E2 /* demoPic */,
+				8BB2D2E42366C7310047D0E2 /* ShopReceiptQRcode */,
+				8BB2D2EE2366C7310047D0E2 /* Q_Pet */,
+				8BB2D2F12366C7310047D0E2 /* StallList */,
+				8BB2D2FD2366C7310047D0E2 /* Gift */,
+				8B7E6DE0237416CA0023314C /* SettingPayway */,
 			);
 			path = MyClass;
 			sourceTree = "<group>";
 		};
-		8BB2D2DD2366C7310047D0E2 /* 喵粮产地 */ = {
+		8BB2D2DD2366C7310047D0E2 /* CatFoodProducingArea */ = {
 			isa = PBXGroup;
 			children = (
 				8BB2D2DE2366C7310047D0E2 /* CatFoodProducingAreaVC.h */,
@@ -2376,19 +2328,19 @@
 				8B40A2C12372F84200ED42DB /* CatFoodProducingAreaVC+VM.h */,
 				8B40A2C22372F84200ED42DB /* CatFoodProducingAreaVC+VM.m */,
 			);
-			path = "喵粮产地";
+			path = CatFoodProducingArea;
 			sourceTree = "<group>";
 		};
-		8BB2D2E02366C7310047D0E2 /* 示例图 */ = {
+		8BB2D2E02366C7310047D0E2 /* demoPic */ = {
 			isa = PBXGroup;
 			children = (
 				8BB2D2E22366C7310047D0E2 /* SamplePicVC.h */,
 				8BB2D2E12366C7310047D0E2 /* SamplePicVC.m */,
 			);
-			path = "示例图";
+			path = demoPic;
 			sourceTree = "<group>";
 		};
-		8BB2D2E42366C7310047D0E2 /* 店铺收款码 */ = {
+		8BB2D2E42366C7310047D0E2 /* ShopReceiptQRcode */ = {
 			isa = PBXGroup;
 			children = (
 				8BB2D2E62366C7310047D0E2 /* ShopReceiptQRcodeVC.h */,
@@ -2396,13 +2348,13 @@
 				8B40A2C72373016300ED42DB /* ShopReceiptQRcodeVC+VM.h */,
 				8B40A2C82373016300ED42DB /* ShopReceiptQRcodeVC+VM.m */,
 			);
-			path = "店铺收款码";
+			path = ShopReceiptQRcode;
 			sourceTree = "<group>";
 		};
-		8BB2D2E72366C7310047D0E2 /* 🚩订单详情 */ = {
+		8BB2D2E72366C7310047D0E2 /* 🚩OrderDetail */ = {
 			isa = PBXGroup;
 			children = (
-				8B9AEDA923812CC700A75CF0 /* 订单详情.png */,
+				8B9AEDA923812CC700A75CF0 /* 🚩OrderDetail.png */,
 				8BAC1F0F2382374A0084B6B4 /* OrderDetailTBViewForHeader.h */,
 				8BAC1F102382374A0084B6B4 /* OrderDetailTBViewForHeader.m */,
 				8BAC1F0C2381A3B90084B6B4 /* OrderDetailVC.h */,
@@ -2412,10 +2364,10 @@
 				8B3C0B56237FCAB800BFFA86 /* OrderDetailVC+VM.h */,
 				8B3C0B57237FCAB800BFFA86 /* OrderDetailVC+VM.m */,
 			);
-			path = "🚩订单详情";
+			path = "🚩OrderDetail";
 			sourceTree = "<group>";
 		};
-		8BB2D2EE2366C7310047D0E2 /* Q宠 */ = {
+		8BB2D2EE2366C7310047D0E2 /* Q_Pet */ = {
 			isa = PBXGroup;
 			children = (
 				8BB2D2F02366C7310047D0E2 /* Q_Pet.h */,
@@ -2423,18 +2375,18 @@
 				8B7DED992382C0D200DEBA38 /* Q_Pet+VM.h */,
 				8B7DED982382C0D200DEBA38 /* Q_Pet+VM.m */,
 			);
-			path = "Q宠";
+			path = Q_Pet;
 			sourceTree = "<group>";
 		};
-		8BB2D2F12366C7310047D0E2 /* 喵粮转转 */ = {
+		8BB2D2F12366C7310047D0E2 /* StallList */ = {
 			isa = PBXGroup;
 			children = (
-				8BB2D2F22366C7310047D0E2 /* 喵粮转转——摊位列表 */,
+				8BB2D2F22366C7310047D0E2 /* List */,
 			);
-			path = "喵粮转转";
+			path = StallList;
 			sourceTree = "<group>";
 		};
-		8BB2D2F22366C7310047D0E2 /* 喵粮转转——摊位列表 */ = {
+		8BB2D2F22366C7310047D0E2 /* List */ = {
 			isa = PBXGroup;
 			children = (
 				8BB2D2F42366C7310047D0E2 /* StallListVC.h */,
@@ -2444,24 +2396,24 @@
 				8B7E6DDA2374073B0023314C /* StallListVC+VM.h */,
 				8B7E6DDB2374073B0023314C /* StallListVC+VM.m */,
 			);
-			path = "喵粮转转——摊位列表";
+			path = List;
 			sourceTree = "<group>";
 		};
-		8BB2D2F72366C7310047D0E2 /* 喵粮订单管理 */ = {
+		8BB2D2F72366C7310047D0E2 /* OrderManager */ = {
 			isa = PBXGroup;
 			children = (
-				8BCAB642238A8E5D000B0360 /* 公用的 */,
-				8BCAB641238A8E16000B0360 /* 搜索功能 */,
-				8B86E06923865400004D4C0A /* 转转 */,
-				8B86E06B23865419004D4C0A /* 批发 */,
-				8B86E06A23865408004D4C0A /* 厂家（产地） */,
+				8BCAB642238A8E5D000B0360 /* Common */,
+				8BCAB641238A8E16000B0360 /* SearchView */,
+				8B86E06923865400004D4C0A /* OrderManager_panicBuying */,
+				8B86E06B23865419004D4C0A /* OrderManager_wholesale */,
+				8B86E06A23865408004D4C0A /* OrderManager_producingArea */,
 				8B86E06023864F1A004D4C0A /* OrderListVC.h */,
 				8B86E06123864F1A004D4C0A /* OrderListVC.m */,
 			);
-			path = "喵粮订单管理";
+			path = OrderManager;
 			sourceTree = "<group>";
 		};
-		8BB2D2FA2366C7310047D0E2 /* 喵粮管理 */ = {
+		8BB2D2FA2366C7310047D0E2 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
 				8BB2D2FB2366C7310047D0E2 /* CatFoodsManagementVC.h */,
@@ -2469,10 +2421,10 @@
 				8B7A552A236EC3FF006B12F8 /* CatFoodsManagementVC+VM.h */,
 				8B7A552B236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m */,
 			);
-			path = "喵粮管理";
+			path = Manager;
 			sourceTree = "<group>";
 		};
-		8BB2D2FD2366C7310047D0E2 /* 赠送 */ = {
+		8BB2D2FD2366C7310047D0E2 /* Gift */ = {
 			isa = PBXGroup;
 			children = (
 				8BB2D2FE2366C7310047D0E2 /* GiftVC.h */,
@@ -2480,18 +2432,18 @@
 				8BCB993223719DEA0063E01E /* GiftVC+VM.h */,
 				8BCB993323719DEA0063E01E /* GiftVC+VM.m */,
 			);
-			path = "赠送";
+			path = Gift;
 			sourceTree = "<group>";
 		};
-		8BB2D3002366C7310047D0E2 /* 上传凭据 */ = {
+		8BB2D3002366C7310047D0E2 /* UploadPrint */ = {
 			isa = PBXGroup;
 			children = (
-				8BB2D3012366C7310047D0E2 /* 上传截图 */,
+				8BB2D3012366C7310047D0E2 /* UploadPrint */,
 			);
-			path = "上传凭据";
+			path = UploadPrint;
 			sourceTree = "<group>";
 		};
-		8BB2D3012366C7310047D0E2 /* 上传截图 */ = {
+		8BB2D3012366C7310047D0E2 /* UploadPrint */ = {
 			isa = PBXGroup;
 			children = (
 				8BB2D3032366C7310047D0E2 /* UpLoadCancelReasonVC.h */,
@@ -2499,7 +2451,7 @@
 				8BCB98C0237154940063E01E /* UpLoadCancelReasonVC+VM.h */,
 				8BCB98C1237154940063E01E /* UpLoadCancelReasonVC+VM.m */,
 			);
-			path = "上传截图";
+			path = UploadPrint;
 			sourceTree = "<group>";
 		};
 		8BB2D3072366C7310047D0E2 /* MyModel */ = {
@@ -2621,45 +2573,6 @@
 			path = ZYTextField;
 			sourceTree = "<group>";
 		};
-		8BB2D3482366CBA60047D0E2 /* TZImagePickerController */ = {
-			isa = PBXGroup;
-			children = (
-				8BB2D3552366CBA60047D0E2 /* TZImagePickerController.bundle */,
-				8BB2D35E2366CBA60047D0E2 /* NSBundle+TZImagePicker.h */,
-				8BB2D3502366CBA60047D0E2 /* NSBundle+TZImagePicker.m */,
-				8BB2D3592366CBA60047D0E2 /* TZAssetCell.h */,
-				8BB2D34D2366CBA60047D0E2 /* TZAssetCell.m */,
-				8BB2D35F2366CBA60047D0E2 /* TZAssetModel.h */,
-				8BB2D34F2366CBA60047D0E2 /* TZAssetModel.m */,
-				8BB2D3572366CBA60047D0E2 /* TZGifPhotoPreviewController.h */,
-				8BB2D3652366CBA60047D0E2 /* TZGifPhotoPreviewController.m */,
-				8BB2D35B2366CBA60047D0E2 /* TZImageCropManager.h */,
-				8BB2D34B2366CBA60047D0E2 /* TZImageCropManager.m */,
-				8BB2D34C2366CBA60047D0E2 /* TZImageManager.h */,
-				8BB2D35A2366CBA60047D0E2 /* TZImageManager.m */,
-				8BB2D3522366CBA60047D0E2 /* TZImagePickerController.h */,
-				8BB2D3632366CBA60047D0E2 /* TZImagePickerController.m */,
-				8BB2D3582366CBA60047D0E2 /* TZImageRequestOperation.h */,
-				8BB2D3662366CBA60047D0E2 /* TZImageRequestOperation.m */,
-				8BB2D3512366CBA60047D0E2 /* TZLocationManager.h */,
-				8BB2D3642366CBA60047D0E2 /* TZLocationManager.m */,
-				8BB2D34A2366CBA60047D0E2 /* TZPhotoPickerController.h */,
-				8BB2D35C2366CBA60047D0E2 /* TZPhotoPickerController.m */,
-				8BB2D3492366CBA60047D0E2 /* TZPhotoPreviewCell.h */,
-				8BB2D35D2366CBA60047D0E2 /* TZPhotoPreviewCell.m */,
-				8BB2D3612366CBA60047D0E2 /* TZPhotoPreviewController.h */,
-				8BB2D3542366CBA60047D0E2 /* TZPhotoPreviewController.m */,
-				8BB2D3672366CBA60047D0E2 /* TZProgressView.h */,
-				8BB2D3562366CBA60047D0E2 /* TZProgressView.m */,
-				8BB2D3602366CBA60047D0E2 /* TZVideoPlayerController.h */,
-				8BB2D34E2366CBA60047D0E2 /* TZVideoPlayerController.m */,
-				8BB2D3622366CBA60047D0E2 /* UIView+Layout.h */,
-				8BB2D3532366CBA60047D0E2 /* UIView+Layout.m */,
-			);
-			name = TZImagePickerController;
-			path = "TZImagePickerController（ 3.2.3）/TZImagePickerController";
-			sourceTree = "<group>";
-		};
 		8BC386642374718100FE8C02 /* XDMultTableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2670,27 +2583,27 @@
 			path = XDMultTableView;
 			sourceTree = "<group>";
 		};
-		8BCAB641238A8E16000B0360 /* 搜索功能 */ = {
+		8BCAB641238A8E16000B0360 /* SearchView */ = {
 			isa = PBXGroup;
 			children = (
 				8B16F030238679AC003941B4 /* SearchView.h */,
 				8B16F031238679AC003941B4 /* SearchView.m */,
 			);
-			path = "搜索功能";
+			path = SearchView;
 			sourceTree = "<group>";
 		};
-		8BCAB642238A8E5D000B0360 /* 公用的 */ = {
+		8BCAB642238A8E5D000B0360 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				8BCAB64B238A909D000B0360 /* OrderListModel.h */,
-				8BCAB64A238A909D000B0360 /* OrderListModel.m */,
+				8BF2EC1F238C220A0058C771 /* OrderListModel.h */,
+				8BF2EC20238C220A0058C771 /* OrderListModel.m */,
 				8B16F04523867F03003941B4 /* OrderListTBVCell.h */,
 				8B16F04623867F03003941B4 /* OrderListTBVCell.m */,
 			);
-			path = "公用的";
+			path = Common;
 			sourceTree = "<group>";
 		};
-		8BCB98C323715D2A0063E01E /* 加密体系 */ = {
+		8BCB98C323715D2A0063E01E /* encrypt */ = {
 			isa = PBXGroup;
 			children = (
 				8BCB98CA23715D450063E01E /* AES */,
@@ -2699,7 +2612,7 @@
 				8BCB98C523715D380063E01E /* EncryptUtils.h */,
 				8BCB98C423715D370063E01E /* EncryptUtils.m */,
 			);
-			path = "加密体系";
+			path = encrypt;
 			sourceTree = "<group>";
 		};
 		8BCB98CA23715D450063E01E /* AES */ = {
@@ -2728,27 +2641,27 @@
 			path = AESCipher;
 			sourceTree = "<group>";
 		};
-		8BEAAFB82387F222008D7F1D /* 注册 */ = {
+		8BEAAFB82387F222008D7F1D /* Register */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = "注册";
+			path = Register;
 			sourceTree = "<group>";
 		};
 		8BEAAFBF23884DB2008D7F1D /* UIControl+XY */ = {
 			isa = PBXGroup;
 			children = (
-				8BEAAFC123884DB2008D7F1D /* iOS小技巧：用runtime 解决UIButton 重复点击问题 */,
+				8BEAAFC123884DB2008D7F1D /* readME */,
 				8BEAAFC023884DB2008D7F1D /* UIControl+XY.h */,
 				8BEAAFC223884DB2008D7F1D /* UIControl+XY.m */,
 			);
 			path = "UIControl+XY";
 			sourceTree = "<group>";
 		};
-		8BFB45AB237CF32100EDE418 /* 方案1 */ = {
+		8BFB45AB237CF32100EDE418 /* plan1 */ = {
 			isa = PBXGroup;
 			children = (
-				8B9AEDA723812BBD00A75CF0 /* 方案1.png */,
+				8B9AEDA723812BBD00A75CF0 /* plan1.png */,
 				8BEAE8802381138C006E40A4 /* WholesaleMarket_VipVC.h */,
 				8BEAE87C2381138C006E40A4 /* WholesaleMarket_VipVC.m */,
 				8BEAE87B2381138C006E40A4 /* WholesaleMarket_VipModel.h */,
@@ -2756,15 +2669,15 @@
 				8BEAE87E2381138C006E40A4 /* WholesaleMarket_VipVC+VM.h */,
 				8BEAE87D2381138C006E40A4 /* WholesaleMarket_VipVC+VM.m */,
 			);
-			path = "方案1";
+			path = plan1;
 			sourceTree = "<group>";
 		};
-		8BFB45AC237CF33600EDE418 /* 方案2 */ = {
+		8BFB45AC237CF33600EDE418 /* plan2 */ = {
 			isa = PBXGroup;
 			children = (
-				8BEAE884238113D5006E40A4 /* 方案2.png */,
+				8BEAE884238113D5006E40A4 /* plan2.png */,
 			);
-			path = "方案2";
+			path = plan2;
 			sourceTree = "<group>";
 		};
 		C42CCCCD213CC04F0096675F = {
@@ -2812,7 +2725,7 @@
 				8BB2D2912366C7290047D0E2 /* TestVC.m */,
 				8B8B0D0B236815140040EE53 /* TestView.h */,
 				8B8B0D0C236815140040EE53 /* TestView.m */,
-				8BB2D2932366C7310047D0E2 /* 我自己的代码，尽可能减少入侵性 */,
+				8BB2D2932366C7310047D0E2 /* MyClass */,
 				8BB2D28B2366C6BB0047D0E2 /* Other */,
 				8BB2D2732366C6410047D0E2 /* 🤮Resource */,
 				C42CCD29213CC2610096675F /* API */,
@@ -4379,7 +4292,7 @@
 				C41628122171B0C100DC0D10 /* CellProtocol.xib in Resources */,
 				8BB2D28A2366C6990047D0E2 /* W.json in Resources */,
 				C4614401214386B6000C0CDC /* CellHeader.xib in Resources */,
-				8BEAAFC323884DB2008D7F1D /* iOS小技巧：用runtime 解决UIButton 重复点击问题 in Resources */,
+				8BEAAFC323884DB2008D7F1D /* readME in Resources */,
 				C46143FA214386B6000C0CDC /* CellVendorGoodBuy.xib in Resources */,
 				C42CD155213CC2640096675F /* CellOneImage.xib in Resources */,
 				C461440F214386B6000C0CDC /* CellVendorGoodList.xib in Resources */,
@@ -4448,7 +4361,6 @@
 				C46143FD214386B6000C0CDC /* CellVendorBill.xib in Resources */,
 				C42CD0E9213CC2640096675F /* CellCartHead.xib in Resources */,
 				C4614402214386B6000C0CDC /* CellVendorGoodType.xib in Resources */,
-				8BB2D36F2366CBA70047D0E2 /* TZImagePickerController.bundle in Resources */,
 				C42CD0EC213CC2640096675F /* CellCartGood.xib in Resources */,
 				C42CD0D2213CC2640096675F /* CellMsgForVendor.xib in Resources */,
 				C42CD139213CC2640096675F /* CLCellTwoLbl.xib in Resources */,
@@ -4570,8 +4482,6 @@
 				C42CD1AE213CC2640096675F /* JJDBHelper.m in Sources */,
 				C42CD0E3213CC2640096675F /* AddressAddController.m in Sources */,
 				C4614413214386B6000C0CDC /* VendorDetailShopController.m in Sources */,
-				8BB2D36B2366CBA70047D0E2 /* TZAssetModel.m in Sources */,
-				8BB2D36C2366CBA70047D0E2 /* NSBundle+TZImagePicker.m in Sources */,
 				8BB2D3442366CB450047D0E2 /* VerifyCodeButton.m in Sources */,
 				8B90B39E237923570023E394 /* InvitationCodeVC+VM.m in Sources */,
 				C42CD093213CC2640096675F /* AreaSelectController.m in Sources */,
@@ -4626,7 +4536,6 @@
 				C42CD0B5213CC2640096675F /* CellImageMore.m in Sources */,
 				8B7E6DDF2374076A0023314C /* StallListModel.m in Sources */,
 				C42CD195213CC2640096675F /* UILabelDarkSmall.m in Sources */,
-				8BB2D3682366CBA70047D0E2 /* TZImageCropManager.m in Sources */,
 				C42CD0BA213CC2640096675F /* CellOrderDetailLogistics.m in Sources */,
 				C4FC07C5215B35F400C6ECF3 /* UAProgressView.m in Sources */,
 				C42CD193213CC2640096675F /* UILabelDarkGarySmall.m in Sources */,
@@ -4671,7 +4580,6 @@
 				C46F8C4A214CF1E600F0C7D1 /* AreaOrderComfilmController.m in Sources */,
 				C42CD1C7213CC2640096675F /* ModelIncome.m in Sources */,
 				C45541C5217374F8007C03C1 /* GoodShareController.m in Sources */,
-				8BB2D3762366CBA70047D0E2 /* TZGifPhotoPreviewController.m in Sources */,
 				C46143ED214386B6000C0CDC /* VendorMainShopController.m in Sources */,
 				8B86E05723857C1B004D4C0A /* PersonalDataChangedListTBViewForHeader.m in Sources */,
 				C46143FC214386B6000C0CDC /* CellVendorGoodType.m in Sources */,
@@ -4690,7 +4598,6 @@
 				C42CD04D213CC2640096675F /* JJHttpClient+TwoZero.m in Sources */,
 				C42CD06A213CC2640096675F /* ButtonImgLbl.m in Sources */,
 				C42CD1BF213CC2640096675F /* JJDBHelper+Center.m in Sources */,
-				8BB2D36E2366CBA70047D0E2 /* TZPhotoPreviewController.m in Sources */,
 				8BB2D3902366CC3D0047D0E2 /* NSString+Password.m in Sources */,
 				C42CD0BD213CC2640096675F /* CellOrderDetialNumber.m in Sources */,
 				C42CD04B213CC2640096675F /* JJHttpClient+ShopGood.m in Sources */,
@@ -4713,14 +4620,12 @@
 				C42CD081213CC2640096675F /* Order.m in Sources */,
 				8B464BAA238539640005E3B3 /* AppDelegate+BMKMap.m in Sources */,
 				8B40A2CC23730F7100ED42DB /* WholesaleMarket_Advance_ListModel.m in Sources */,
-				8BB2D36D2366CBA70047D0E2 /* UIView+Layout.m in Sources */,
 				8B05F84B236AA99900DCE40C /* HistoryDataListTBVCell.m in Sources */,
 				C42CD140213CC2640096675F /* CellPicture.m in Sources */,
 				C42CD1BB213CC2640096675F /* JJTableViewCell.m in Sources */,
 				8BAC1F162382392C0084B6B4 /* ViewForFooter.m in Sources */,
 				8B86E035238557ED004D4C0A /* ChatVC.m in Sources */,
 				C42CD074213CC2640096675F /* CellPHBTopThree.m in Sources */,
-				8BB2D3692366CBA70047D0E2 /* TZAssetCell.m in Sources */,
 				C42CD12E213CC2640096675F /* CellGoodEnterIn.m in Sources */,
 				C4614404214386B6000C0CDC /* CellVendorTitle.m in Sources */,
 				8B7A54EC236D6DD1006B12F8 /* WBPopMenuModel.m in Sources */,
@@ -4754,7 +4659,6 @@
 				C42CD100213CC2640096675F /* CellBrandRone.m in Sources */,
 				C42CD19A213CC2640096675F /* UILabelBlackMiddle.m in Sources */,
 				8B40A2C62372FA2E00ED42DB /* CatFoodProducingAreaModel.m in Sources */,
-				8BB2D3752366CBA70047D0E2 /* TZLocationManager.m in Sources */,
 				C4A0DA75213E6B9B00B45B65 /* CellSignIn.m in Sources */,
 				8BB2D38D2366CC350047D0E2 /* NSString+Emoji.m in Sources */,
 				C42CD0ED213CC2640096675F /* RegisterInputPswController.m in Sources */,
@@ -4793,7 +4697,6 @@
 				8B86A7F8237D0FE50058173B /* ReleaseOrderVC+VM.m in Sources */,
 				C42CD0CA213CC2640096675F /* CellOrderDetailGiftYes.m in Sources */,
 				C42CD143213CC2640096675F /* SearchGoodController.m in Sources */,
-				8BB2D3712366CBA70047D0E2 /* TZImageManager.m in Sources */,
 				8BCB98C823715D380063E01E /* EncryptUtils.m in Sources */,
 				C42CD14A213CC2640096675F /* ViewForTypeSelect.m in Sources */,
 				C42CD07B213CC2640096675F /* CellIncome.m in Sources */,
@@ -4833,7 +4736,6 @@
 				C42CD07D213CC2640096675F /* CellWithDraw.m in Sources */,
 				C42CD0E6213CC2640096675F /* NJKWebViewProgressView.m in Sources */,
 				C42CD1B0213CC2640096675F /* MineNavigationController.m in Sources */,
-				8BB2D36A2366CBA70047D0E2 /* TZVideoPlayerController.m in Sources */,
 				8BB2D3912366CC3F0047D0E2 /* NSString+Url_Chinese.m in Sources */,
 				8B9EAF87237417390012884C /* SettingPaymentWayVC.m in Sources */,
 				C41628162171C14300DC0D10 /* CellTuihuoInfo.m in Sources */,
@@ -4906,9 +4808,9 @@
 				C42CD191213CC2640096675F /* PublicFunction.m in Sources */,
 				C42CD128213CC2640096675F /* CLCellGoodType.m in Sources */,
 				C42CD156213CC2640096675F /* CellOneImage.m in Sources */,
-				8BCAB64C238A909D000B0360 /* OrderListModel.m in Sources */,
 				8B86A7F9237D0FE50058173B /* ReleaseOrderVC.m in Sources */,
 				C46368D4213FBE6C006922D5 /* LayoutSixType.m in Sources */,
+				8BF2EC21238C220A0058C771 /* OrderListModel.m in Sources */,
 				C42CD065213CC2640096675F /* CellCollectionType.m in Sources */,
 				8BB2D3412366CB3B0047D0E2 /* FMARCNetwork.m in Sources */,
 				C46143F1214386B6000C0CDC /* collectionLandScape.m in Sources */,
@@ -4916,7 +4818,6 @@
 				8B3C0B58237FCAB800BFFA86 /* OrderDetailVC+VM.m in Sources */,
 				C46F8C46214CF1E600F0C7D1 /* CellImageOnly.m in Sources */,
 				8BB1E8212375B6A200871ECA /* SocketRocketUtility.m in Sources */,
-				8BB2D3722366CBA70047D0E2 /* TZPhotoPickerController.m in Sources */,
 				8BB2D37D2366CBD80047D0E2 /* Q_Pet.m in Sources */,
 				C42CD145213CC2640096675F /* CellHistoryClear.m in Sources */,
 				8B86E02B23853FEA004D4C0A /* AppDelegate+Alipay.m in Sources */,
@@ -4937,18 +4838,15 @@
 				8B7E6DDC2374073B0023314C /* StallListVC+VM.m in Sources */,
 				C42CD197213CC2640096675F /* UILabelDarkMiddel.m in Sources */,
 				8BCB98C923715D380063E01E /* RSAUtil.m in Sources */,
-				8BB2D3732366CBA70047D0E2 /* TZPhotoPreviewCell.m in Sources */,
 				C42CD051213CC2640096675F /* CellTwoImg.m in Sources */,
 				C42CD099213CC2640096675F /* MyOrderListController.m in Sources */,
 				C42CD1D0213CC2650096675F /* ModelPayWay.m in Sources */,
 				C46368DC213FBE6C006922D5 /* CellFiveType.m in Sources */,
-				8BB2D3702366CBA70047D0E2 /* TZProgressView.m in Sources */,
 				C4614407214386B6000C0CDC /* CellVendorGood.m in Sources */,
 				C42CD1AC213CC2640096675F /* JJAlertViewOneButton.m in Sources */,
 				C42CD18B213CC2640096675F /* NSDictionary+HYBUnicodeReadable.m in Sources */,
 				C42CD050213CC2640096675F /* CellTextField.m in Sources */,
 				C42CD19B213CC2640096675F /* UILabelDarkGaryBig.m in Sources */,
-				8BB2D3742366CBA70047D0E2 /* TZImagePickerController.m in Sources */,
 				C42CD1B3213CC2640096675F /* ShopCartNavigationController.m in Sources */,
 				C42CD0FB213CC2640096675F /* GoodDetailDiscussController.m in Sources */,
 				C42CD059213CC2640096675F /* ChangeHeadImgController.m in Sources */,
@@ -4983,7 +4881,6 @@
 				C42CD148213CC2640096675F /* GoodDetailController.m in Sources */,
 				C42CD129213CC2640096675F /* ReusableViewProperty.m in Sources */,
 				C42CD14B213CC2640096675F /* TypeSelectFunction.m in Sources */,
-				8BB2D3772366CBA70047D0E2 /* TZImageRequestOperation.m in Sources */,
 				C4A0DA7A213E953F00B45B65 /* FDAlertView.m in Sources */,
 				C42CD1C8213CC2640096675F /* ModelPerformance.m in Sources */,
 				C42CD0D3213CC2640096675F /* CellOrderThreeLbl.m in Sources */,

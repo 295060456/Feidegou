@@ -53,7 +53,7 @@
     controller_ShopStore.tabBarItem.image = [kIMG(@"img_tabbar_vendor_n") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     controller_ShopStore.tabBarItem.selectedImage = [kIMG(@"img_tabbar_vendor_s") imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UIImageView *imgv = UIImageView.new;
-    imgv.image = kIMG(@"敬请期待");
+    imgv.image = kIMG(@"StayTuned");
     [controller_ShopStore.view addSubview:imgv];
     [imgv mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 2, SCREEN_WIDTH / 2));

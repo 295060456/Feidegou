@@ -90,6 +90,7 @@ PODS:
   - TTTAttributedLabel (2.0.0)
   - TWPageViewController (0.0.2)
   - TXScrollLabelView (1.3.2)
+  - TZImagePickerController (3.2.7)
   - UICountingLabel (1.4.1)
   - YYText (1.0.7)
   - ZXingObjC/Core (3.6.5)
@@ -142,6 +143,7 @@ DEPENDENCIES:
   - TTTAttributedLabel
   - TWPageViewController
   - TXScrollLabelView
+  - TZImagePickerController
   - UICountingLabel
   - YYText
   - ZXingObjC/QRCode
@@ -190,6 +192,7 @@ SPEC REPOS:
     - TTTAttributedLabel
     - TWPageViewController
     - TXScrollLabelView
+    - TZImagePickerController
     - UICountingLabel
     - YYText
     - ZXingObjC
@@ -237,10 +240,11 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   TWPageViewController: 9a301b0b9774fb6b1d97e947620580e894d01274
   TXScrollLabelView: 0e1650caf61198bf5dc0938ea6493254aeb80f90
+  TZImagePickerController: 821b81f83594a736e831a018f2a2ce31822ddf0b
   UICountingLabel: faf890b505d96312e324a86718f031fafffb0ccb
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: d3b05bd4f1a5956335615eb68a6a20c5a06afdb1
+PODFILE CHECKSUM: 54a2a5d5551c3a69bf9494891f67bb8e58c5f495
 
 COCOAPODS: 1.8.4

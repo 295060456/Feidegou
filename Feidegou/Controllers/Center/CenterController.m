@@ -348,7 +348,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
         switch ([model.grade_id intValue]) {
             case 0:{//普通用户，只显示“邀请码”
-                [cell.imgHead setImage:ImageNamed(@"邀请码")];
+                [cell.imgHead setImage:ImageNamed(@"InvitationCode")];
                 [cell.lblName setText:@"加入团队"];
                 [cell.lblNum setText:@""];
             }break;
@@ -356,12 +356,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 
             }break;
             case 2:{//高级商家，只显示“喵粮管理”
-                [cell.imgHead setImage:ImageNamed(@"猫")];
+                [cell.imgHead setImage:ImageNamed(@"cat")];
                 [cell.lblName setText:@"喵粮管理"];
                 [cell.lblNum setText:@""];
             }break;
             case 3:{//Vip商家，只显示“喵粮管理”
-                [cell.imgHead setImage:ImageNamed(@"猫")];
+                [cell.imgHead setImage:ImageNamed(@"cat")];
                 [cell.lblName setText:@"喵粮管理"];
                 [cell.lblNum setText:@""];
             }break;
