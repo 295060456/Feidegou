@@ -37,7 +37,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [SVProgressHUD setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.8]];
     [SVProgressHUD setForegroundColor:[UIColor whiteColor]];
     
-    [self registPushapplication:application didFinishLaunchingWithOptions:launchOptions];// 注册推送
+    [self registPushapplication:application
+  didFinishLaunchingWithOptions:launchOptions];// 注册推送
     [self shareWeixin];//微信分享
     [self BMKMap];//百度地图
     [self RCIM];//融云
@@ -70,17 +71,17 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [application cancelAllLocalNotifications];
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
 }
-
 //推送的信息
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
-    [JPUSHService registerDeviceToken:deviceToken];
-    [self getAlias];
+    [self registerDeviceToken:deviceToken];//注册 APNs 成功并上报 DeviceToken
+    [self getAlias];//??
 }
 
 - (void)application:(UIApplication *)application
 didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {//首次进1
+    //实现注册 APNs 失败接口（可选）
     NSLog(@"did Fail To Register For Remote Notifications With Error: %@", error);
 }
 
@@ -88,13 +89,14 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {//首次进1
 didReceiveRemoteNotification:(NSDictionary *)userInfo
 fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     // Required, iOS 7 Support
-    [JPUSHService handleRemoteNotification:userInfo];
+    [self handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+- (void)application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo {
     // Required,For systems with less than or equal to iOS6
-    [JPUSHService handleRemoteNotification:userInfo];
+    [self handleRemoteNotification:userInfo];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {//唤醒2 首次进2 点击小图进只走2

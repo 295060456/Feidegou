@@ -429,8 +429,6 @@
 		C42CD18C213CC2640096675F /* NSSet+HYBUnicodeReadable.m in Sources */ = {isa = PBXBuildFile; fileRef = C42CCFAE213CC2630096675F /* NSSet+HYBUnicodeReadable.m */; };
 		C42CD18D213CC2640096675F /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C42CCFB3213CC2630096675F /* LocationManager.m */; };
 		C42CD18E213CC2640096675F /* TypeSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C42CCFB6213CC2630096675F /* TypeSegmentControl.m */; };
-		C42CD18F213CC2640096675F /* jpush-ios-3.0.6.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C42CCFB8213CC2630096675F /* jpush-ios-3.0.6.a */; };
-		C42CD190213CC2640096675F /* jcore-ios-1.1.5.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C42CCFBA213CC2630096675F /* jcore-ios-1.1.5.a */; };
 		C42CD191213CC2640096675F /* PublicFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = C42CCFBB213CC2630096675F /* PublicFunction.m */; };
 		C42CD192213CC2640096675F /* UIImage+helper.m in Sources */ = {isa = PBXBuildFile; fileRef = C42CCFBE213CC2630096675F /* UIImage+helper.m */; };
 		C42CD193213CC2640096675F /* UILabelDarkGarySmall.m in Sources */ = {isa = PBXBuildFile; fileRef = C42CCFC1213CC2630096675F /* UILabelDarkGarySmall.m */; };
@@ -662,6 +660,7 @@
 		8B3C0B57237FCAB800BFFA86 /* OrderDetailVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OrderDetailVC+VM.m"; sourceTree = "<group>"; };
 		8B3C0B59237FCAD500BFFA86 /* OrderDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailModel.h; sourceTree = "<group>"; };
 		8B3C0B5A237FCAD500BFFA86 /* OrderDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailModel.m; sourceTree = "<group>"; };
+		8B408743238E35DF0030ABBF /* 喵粮商城.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "喵粮商城.entitlements"; sourceTree = "<group>"; };
 		8B40A2C12372F84200ED42DB /* CatFoodProducingAreaVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CatFoodProducingAreaVC+VM.h"; sourceTree = "<group>"; };
 		8B40A2C22372F84200ED42DB /* CatFoodProducingAreaVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CatFoodProducingAreaVC+VM.m"; sourceTree = "<group>"; };
 		8B40A2C42372FA2E00ED42DB /* CatFoodProducingAreaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatFoodProducingAreaModel.h; sourceTree = "<group>"; };
@@ -1457,9 +1456,6 @@
 		C42CCFB4213CC2630096675F /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		C42CCFB5213CC2630096675F /* JJAlertViewTwoButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJAlertViewTwoButton.h; sourceTree = "<group>"; };
 		C42CCFB6213CC2630096675F /* TypeSegmentControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypeSegmentControl.m; sourceTree = "<group>"; };
-		C42CCFB8213CC2630096675F /* jpush-ios-3.0.6.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-3.0.6.a"; sourceTree = "<group>"; };
-		C42CCFB9213CC2630096675F /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
-		C42CCFBA213CC2630096675F /* jcore-ios-1.1.5.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jcore-ios-1.1.5.a"; sourceTree = "<group>"; };
 		C42CCFBB213CC2630096675F /* PublicFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicFunction.m; sourceTree = "<group>"; };
 		C42CCFBE213CC2630096675F /* UIImage+helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+helper.m"; sourceTree = "<group>"; };
 		C42CCFC1213CC2630096675F /* UILabelDarkGarySmall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UILabelDarkGarySmall.m; sourceTree = "<group>"; };
@@ -1783,10 +1779,8 @@
 				C4D95F20213CC5E700462531 /* libz.tbd in Frameworks */,
 				C4D95F1E213CC5E000462531 /* UserNotifications.framework in Frameworks */,
 				C4D95F1C213CC5D700462531 /* libresolv.tbd in Frameworks */,
-				C42CD18F213CC2640096675F /* jpush-ios-3.0.6.a in Frameworks */,
 				C42CD189213CC2640096675F /* WebP.framework in Frameworks */,
 				C42CD08B213CC2640096675F /* libssl.a in Frameworks */,
-				C42CD190213CC2640096675F /* jcore-ios-1.1.5.a in Frameworks */,
 				C42CD082213CC2640096675F /* libcrypto.a in Frameworks */,
 				71BE65A43CAAA15ED813BE7F /* libPods-Feidegou.a in Frameworks */,
 				8BB2D43E2367F9BB0047D0E2 /* CoreMotion.framework in Frameworks */,
@@ -2662,16 +2656,17 @@
 		C42CCCD8213CC04F0096675F /* Feidegou */ = {
 			isa = PBXGroup;
 			children = (
+				8B408743238E35DF0030ABBF /* 喵粮商城.entitlements */,
 				C42CCF81213CC2620096675F /* PrefixHeader.pch */,
 				8B16F04F23869002003941B4 /* DefineStructure.h */,
 				C42CCCD9213CC04F0096675F /* AppDelegate.h */,
 				C42CCCDA213CC04F0096675F /* AppDelegate.m */,
+				8B86E02623853DDE004D4C0A /* AppDelegate+JPUSH.h */,
+				8B86E02723853DDE004D4C0A /* AppDelegate+JPUSH.m */,
 				8BCAB63D238A5360000B0360 /* AppDelegate+VM.h */,
 				8BCAB63E238A5360000B0360 /* AppDelegate+VM.m */,
 				8B86E02923853FEA004D4C0A /* AppDelegate+Alipay.h */,
 				8B86E02A23853FEA004D4C0A /* AppDelegate+Alipay.m */,
-				8B86E02623853DDE004D4C0A /* AppDelegate+JPUSH.h */,
-				8B86E02723853DDE004D4C0A /* AppDelegate+JPUSH.m */,
 				8B86E02323853D77004D4C0A /* AppDelegate+WeiXin.h */,
 				8B86E02423853D77004D4C0A /* AppDelegate+WeiXin.m */,
 				8B464BA8238539640005E3B3 /* AppDelegate+BMKMap.h */,
@@ -3575,7 +3570,6 @@
 				C42CCFB6213CC2630096675F /* TypeSegmentControl.m */,
 				C42CCFAB213CC2630096675F /* HYBUnicodeReadable */,
 				C42CCFA6213CC2630096675F /* iOS-WebP */,
-				C42CCFB7213CC2630096675F /* Lib */,
 				C42CCFB2213CC2630096675F /* LocationHelper */,
 				C42CCF97213CC2630096675F /* Refresh */,
 				C42CCFBC213CC2630096675F /* SpecialControl */,
@@ -3656,16 +3650,6 @@
 				C42CCFB4213CC2630096675F /* LocationManager.h */,
 			);
 			path = LocationHelper;
-			sourceTree = "<group>";
-		};
-		C42CCFB7213CC2630096675F /* Lib */ = {
-			isa = PBXGroup;
-			children = (
-				C42CCFB8213CC2630096675F /* jpush-ios-3.0.6.a */,
-				C42CCFB9213CC2630096675F /* JPUSHService.h */,
-				C42CCFBA213CC2630096675F /* jcore-ios-1.1.5.a */,
-			);
-			path = Lib;
 			sourceTree = "<group>";
 		};
 		C42CCFBC213CC2630096675F /* SpecialControl */ = {
@@ -5024,6 +5008,7 @@
 			baseConfigurationReference = 947AD75F86191C8F32BD1901 /* Pods-Feidegou.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Feidegou/喵粮商城.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.3;
 				DEVELOPMENT_TEAM = LFJTRVCABB;
@@ -5074,6 +5059,7 @@
 			baseConfigurationReference = 24EEB4BC842F9E07DEEF3F0B /* Pods-Feidegou.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Feidegou/喵粮商城.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.3;
 				DEVELOPMENT_TEAM = LFJTRVCABB;

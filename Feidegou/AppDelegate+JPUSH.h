@@ -18,6 +18,9 @@ JPUSHRegisterDelegate
 - (void)registPushapplication:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 
+-(void)registerDeviceToken:(NSData *)deviceToken;
+-(void)handleRemoteNotification:(NSDictionary *)userInfo;
+
 @end
 
 NS_ASSUME_NONNULL_END

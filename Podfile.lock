@@ -39,8 +39,11 @@ PODS:
     - iOS-AlipaySDK/Core (= 3.0.2)
   - iOS-AlipaySDK/Core (3.0.2)
   - IQKeyboardManager (6.5.0)
+  - JCore (2.1.4)
   - JDStatusBarNotification (1.6.0)
   - JJStockView (0.0.7)
+  - JPush (3.2.6):
+    - JCore (< 3.0.0, >= 2.0.0)
   - JXCategoryView (1.5.2)
   - LJWKeyboardHandler (1.0.3)
   - lottie-ios (2.5.3)
@@ -111,6 +114,7 @@ DEPENDENCIES:
   - IQKeyboardManager
   - JDStatusBarNotification
   - JJStockView
+  - JPush
   - JXCategoryView
   - LJWKeyboardHandler (~> 1.0.3)
   - lottie-ios
@@ -161,8 +165,10 @@ SPEC REPOS:
     - HCSStarRatingView
     - iOS-AlipaySDK
     - IQKeyboardManager
+    - JCore
     - JDStatusBarNotification
     - JJStockView
+    - JPush
     - JXCategoryView
     - LJWKeyboardHandler
     - lottie-ios
@@ -209,8 +215,10 @@ SPEC CHECKSUMS:
   HCSStarRatingView: 1d18f79654735514cd6f00e6d90e38cb6320dc31
   iOS-AlipaySDK: 97d1c1fe06083e5bf2d9b56981cf469eeb508b78
   IQKeyboardManager: 700e5155d6a292383b54e8678aec769e14fc78fc
+  JCore: d345c049141877eb61c33011455fdb5fcab1673f
   JDStatusBarNotification: 21b616e7432284fea6eb0ce9eadc37c8038a5544
   JJStockView: 7921a6e05e06b217f10c7c36114bdb098f785cf7
+  JPush: 41dd48a69bd8c08abc692dc7f2b23c0fb281471f
   JXCategoryView: b284d35a7a8772eada05dd78642233e1eb763ea8
   LJWKeyboardHandler: d427b31876587d002f0d2de7a5f3b33158460434
   lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
@@ -245,6 +253,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: f40bbce90e2ec0a009886c5eb134174a4f1e8c23
+PODFILE CHECKSUM: 6b5c7fd19d68e6b561442cee9c6cb145046463df
 
 COCOAPODS: 1.8.4

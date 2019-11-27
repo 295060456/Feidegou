@@ -32,6 +32,8 @@ pod 'mob_sharesdk/ShareSDKPlatforms/WeChatFull'
 #
 #pod 'WechatOpenSDK'
 
+pod 'JPush'
+
 ###以下是我引入的
 pod 'lottie-ios'
 pod 'TXScrollLabelView'         #“走马灯”效果

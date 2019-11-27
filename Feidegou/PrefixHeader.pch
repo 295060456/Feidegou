@@ -26,11 +26,13 @@
 #import "SDWebImageManager.h"
 #import "SDImageCache.h"
 #import "UIImageView+WebCache.h"
+#import "LocationManager.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "WXApi.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
 #import "SDWebImageManager.h"
+
 // 引入JPush功能所需头文件
 #import "JPUSHService.h"
 // iOS10注册APNs所需头文件
@@ -39,7 +41,6 @@
 #endif
 // 如果需要使用idfa功能所需要引入的头文件（可选）
 #import <AdSupport/AdSupport.h>
-#import "LocationManager.h"
 
 //我自己引入的Pods
 #import <lottie-ios/Lottie/Lottie.h>
@@ -160,6 +161,7 @@
 #import "JXCategoryTitleImageView.h"
 
 #define RongCloud_Key @"pwe86ga5p4po6"
+#define JPush_Key @"f82ecf419eb0ebc52989dbf7"
 #define RSA_Public_key         @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCetmJK/hpaoKgzjAqjcVE/XvWNpKhZt/m3B/tzGpn5ck+ZV5jBxp8oGuhreeHCMEqE6VQX+FIovGNL0I/5rLQpWgD1dg3PRuI324g7/wJ488i3UOTc4xpE6esy8+wR4dUEsWfvbrB6znLeduikhCqaHbElZtVFfAmC2eWcob5QzQIDAQAB"//Agou
 
 #endif /* PrefixHeader_pch */
