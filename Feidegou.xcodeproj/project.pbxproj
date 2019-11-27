@@ -29,6 +29,10 @@
 		8B408754238E62510030ABBF /* GoodsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B408753238E62510030ABBF /* GoodsVC.m */; };
 		8B408757238E62B00030ABBF /* DetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B408756238E62B00030ABBF /* DetailsVC.m */; };
 		8B40883C238EA26D0030ABBF /* RongSight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B40883B238EA26D0030ABBF /* RongSight.framework */; };
+		8B408841238EB3820030ABBF /* JoinInTeamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40883D238EB3810030ABBF /* JoinInTeamVC.m */; };
+		8B408842238EB3820030ABBF /* JoinInTeamVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40883F238EB3810030ABBF /* JoinInTeamVC+VM.m */; };
+		8B408848238EB5270030ABBF /* CreateTeamVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B408845238EB5260030ABBF /* CreateTeamVC.m */; };
+		8B408849238EB5270030ABBF /* CreateTeamVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B408847238EB5270030ABBF /* CreateTeamVC+VM.m */; };
 		8B40A2C32372F84200ED42DB /* CatFoodProducingAreaVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C22372F84200ED42DB /* CatFoodProducingAreaVC+VM.m */; };
 		8B40A2C62372FA2E00ED42DB /* CatFoodProducingAreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C52372FA2E00ED42DB /* CatFoodProducingAreaModel.m */; };
 		8B40A2C92373016300ED42DB /* ShopReceiptQRcodeVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C82373016300ED42DB /* ShopReceiptQRcodeVC+VM.m */; };
@@ -70,8 +74,6 @@
 		8B8A1DCC238D730D006AE2CB /* LookUpContactWayTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DCB238D730D006AE2CB /* LookUpContactWayTBViewForHeader.m */; };
 		8B8B0D0A236814960040EE53 /* TestVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2912366C7290047D0E2 /* TestVC.m */; };
 		8B8B0D0D236815140040EE53 /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8B0D0C236815140040EE53 /* TestView.m */; };
-		8B90B39B237921EB0023E394 /* InvitationCodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90B39A237921EB0023E394 /* InvitationCodeVC.m */; };
-		8B90B39E237923570023E394 /* InvitationCodeVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90B39D237923570023E394 /* InvitationCodeVC+VM.m */; };
 		8B90B3A12379BBD40023E394 /* SettingPaymentWayModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B90B3A02379BBD40023E394 /* SettingPaymentWayModel.m */; };
 		8B9EAF87237417390012884C /* SettingPaymentWayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF86237417390012884C /* SettingPaymentWayVC.m */; };
 		8B9EAF8A2374175D0012884C /* SettingPaymentWayVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF892374175D0012884C /* SettingPaymentWayVC+VM.m */; };
@@ -678,6 +680,14 @@
 		8B408755238E62B00030ABBF /* DetailsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsVC.h; sourceTree = "<group>"; };
 		8B408756238E62B00030ABBF /* DetailsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsVC.m; sourceTree = "<group>"; };
 		8B40883B238EA26D0030ABBF /* RongSight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RongSight.framework; sourceTree = "<group>"; };
+		8B40883D238EB3810030ABBF /* JoinInTeamVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JoinInTeamVC.m; sourceTree = "<group>"; };
+		8B40883E238EB3810030ABBF /* JoinInTeamVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoinInTeamVC.h; sourceTree = "<group>"; };
+		8B40883F238EB3810030ABBF /* JoinInTeamVC+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "JoinInTeamVC+VM.m"; sourceTree = "<group>"; };
+		8B408840238EB3810030ABBF /* JoinInTeamVC+VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JoinInTeamVC+VM.h"; sourceTree = "<group>"; };
+		8B408844238EB5260030ABBF /* CreateTeamVC+VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CreateTeamVC+VM.h"; sourceTree = "<group>"; };
+		8B408845238EB5260030ABBF /* CreateTeamVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateTeamVC.m; sourceTree = "<group>"; };
+		8B408846238EB5270030ABBF /* CreateTeamVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateTeamVC.h; sourceTree = "<group>"; };
+		8B408847238EB5270030ABBF /* CreateTeamVC+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CreateTeamVC+VM.m"; sourceTree = "<group>"; };
 		8B40A2C12372F84200ED42DB /* CatFoodProducingAreaVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CatFoodProducingAreaVC+VM.h"; sourceTree = "<group>"; };
 		8B40A2C22372F84200ED42DB /* CatFoodProducingAreaVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CatFoodProducingAreaVC+VM.m"; sourceTree = "<group>"; };
 		8B40A2C42372FA2E00ED42DB /* CatFoodProducingAreaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatFoodProducingAreaModel.h; sourceTree = "<group>"; };
@@ -762,10 +772,6 @@
 		8B8B0DA12369635E0040EE53 /* HistoryDataListTBV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryDataListTBV.h; sourceTree = "<group>"; };
 		8B8B0DA22369635E0040EE53 /* HistoryDataListTBVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDataListTBVCell.m; sourceTree = "<group>"; };
 		8B8B0DA32369635E0040EE53 /* HistoryDataListTBV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryDataListTBV.m; sourceTree = "<group>"; };
-		8B90B399237921EB0023E394 /* InvitationCodeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InvitationCodeVC.h; sourceTree = "<group>"; };
-		8B90B39A237921EB0023E394 /* InvitationCodeVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InvitationCodeVC.m; sourceTree = "<group>"; };
-		8B90B39C237923570023E394 /* InvitationCodeVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "InvitationCodeVC+VM.h"; sourceTree = "<group>"; };
-		8B90B39D237923570023E394 /* InvitationCodeVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "InvitationCodeVC+VM.m"; sourceTree = "<group>"; };
 		8B90B39F2379BBD40023E394 /* SettingPaymentWayModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingPaymentWayModel.h; sourceTree = "<group>"; };
 		8B90B3A02379BBD40023E394 /* SettingPaymentWayModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingPaymentWayModel.m; sourceTree = "<group>"; };
 		8B9AEDA923812CC700A75CF0 /* 🚩OrderDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "🚩OrderDetail.png"; sourceTree = "<group>"; };
@@ -1921,6 +1927,17 @@
 			path = RongCloudSight;
 			sourceTree = "<group>";
 		};
+		8B408843238EB4FD0030ABBF /* CreateTeam */ = {
+			isa = PBXGroup;
+			children = (
+				8B408846238EB5270030ABBF /* CreateTeamVC.h */,
+				8B408845238EB5260030ABBF /* CreateTeamVC.m */,
+				8B408844238EB5260030ABBF /* CreateTeamVC+VM.h */,
+				8B408847238EB5270030ABBF /* CreateTeamVC+VM.m */,
+			);
+			path = CreateTeam;
+			sourceTree = "<group>";
+		};
 		8B571AAB23874836009624D8 /* ContentBaseViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2090,15 +2107,15 @@
 			path = HistoryDataList;
 			sourceTree = "<group>";
 		};
-		8B90B398237921B00023E394 /* InvitationCode */ = {
+		8B90B398237921B00023E394 /* JoinInTeam */ = {
 			isa = PBXGroup;
 			children = (
-				8B90B399237921EB0023E394 /* InvitationCodeVC.h */,
-				8B90B39A237921EB0023E394 /* InvitationCodeVC.m */,
-				8B90B39C237923570023E394 /* InvitationCodeVC+VM.h */,
-				8B90B39D237923570023E394 /* InvitationCodeVC+VM.m */,
+				8B40883E238EB3810030ABBF /* JoinInTeamVC.h */,
+				8B40883D238EB3810030ABBF /* JoinInTeamVC.m */,
+				8B408840238EB3810030ABBF /* JoinInTeamVC+VM.h */,
+				8B40883F238EB3810030ABBF /* JoinInTeamVC+VM.m */,
 			);
-			path = InvitationCode;
+			path = JoinInTeam;
 			sourceTree = "<group>";
 		};
 		8BAC1F1823826F950084B6B4 /* Chat */ = {
@@ -2331,12 +2348,13 @@
 		8BB2D2DC2366C7310047D0E2 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8B408843238EB4FD0030ABBF /* CreateTeam */,
 				8B16F0532386ADDA003941B4 /* SearchBar */,
 				8BEAAFB82387F222008D7F1D /* Register */,
 				8BB2D2FA2366C7310047D0E2 /* Manager */,
 				8B86E04B238570A1004D4C0A /* ChangeLIst */,
 				8BAC1F1823826F950084B6B4 /* Chat */,
-				8B90B398237921B00023E394 /* InvitationCode */,
+				8B90B398237921B00023E394 /* JoinInTeam */,
 				8BB2D2F72366C7310047D0E2 /* OrderManager */,
 				8BB2D2E72366C7310047D0E2 /* 🚩OrderDetail */,
 				8BB2D3002366C7310047D0E2 /* UploadPrint */,
@@ -4488,7 +4506,6 @@
 				C461440D214386B6000C0CDC /* CellVendorGoodList.m in Sources */,
 				8B86E05423857985004D4C0A /* PersonalDataChangedListModel.m in Sources */,
 				8B408757238E62B00030ABBF /* DetailsVC.m in Sources */,
-				8B90B39B237921EB0023E394 /* InvitationCodeVC.m in Sources */,
 				C42CD11D213CC2640096675F /* CBAutoScrollLabel.m in Sources */,
 				C42CD078213CC2640096675F /* CellBlance.m in Sources */,
 				8B86E05123857280004D4C0A /* PersonalDataChangedListVC+VM.m in Sources */,
@@ -4496,7 +4513,6 @@
 				C42CD0E3213CC2640096675F /* AddressAddController.m in Sources */,
 				C4614413214386B6000C0CDC /* VendorDetailShopController.m in Sources */,
 				8BB2D3442366CB450047D0E2 /* VerifyCodeButton.m in Sources */,
-				8B90B39E237923570023E394 /* InvitationCodeVC+VM.m in Sources */,
 				C42CD093213CC2640096675F /* AreaSelectController.m in Sources */,
 				8BB2D3802366CBF10047D0E2 /* UpLoadCancelReasonVC.m in Sources */,
 				8B8A1DC3238D0010006AE2CB /* ThroughTrainToPromoteVC.m in Sources */,
@@ -4568,6 +4584,7 @@
 				8BB2D33E2366CB170047D0E2 /* MMButton.m in Sources */,
 				C42CD0EB213CC2640096675F /* CellCartHead.m in Sources */,
 				C4614412214386B6000C0CDC /* VendorDetailGoodController.m in Sources */,
+				8B408841238EB3820030ABBF /* JoinInTeamVC.m in Sources */,
 				C42CD076213CC2640096675F /* RedPacketTransportController.m in Sources */,
 				C42CD1B7213CC2640096675F /* JJCollectionViewCell.m in Sources */,
 				8BB2D3422366CB3E0047D0E2 /* FMHttpRequest.m in Sources */,
@@ -4586,6 +4603,7 @@
 				8BB2D3932366CC4A0047D0E2 /* HQTextField.m in Sources */,
 				C42CD1C9213CC2640096675F /* ModelOrderDtail.m in Sources */,
 				C42CD0AA213CC2640096675F /* CellOrderAddressNo.m in Sources */,
+				8B408842238EB3820030ABBF /* JoinInTeamVC+VM.m in Sources */,
 				8B90B3A12379BBD40023E394 /* SettingPaymentWayModel.m in Sources */,
 				C42CD09E213CC2640096675F /* CellLogisticsFirst.m in Sources */,
 				C461440B214386B6000C0CDC /* CellVendorGoodBuy.m in Sources */,
@@ -4727,6 +4745,7 @@
 				8B9EAF8A2374175D0012884C /* SettingPaymentWayVC+VM.m in Sources */,
 				8BB2D3432366CB410047D0E2 /* FMHttpResonse.m in Sources */,
 				C42CD1C3213CC2640096675F /* ModelAreaList.m in Sources */,
+				8B408848238EB5270030ABBF /* CreateTeamVC.m in Sources */,
 				8BCB993423719DEA0063E01E /* GiftVC+VM.m in Sources */,
 				C42CD14E213CC2640096675F /* CLCellGoodTypeHead.m in Sources */,
 				8BB2D33B2366CAF90047D0E2 /* CatFoodsManagementVC.m in Sources */,
@@ -4740,6 +4759,7 @@
 				8BB2D3822366CBFD0047D0E2 /* AdoptingPetsModel.m in Sources */,
 				C46368E5213FBE6C006922D5 /* CLCellTypeSmall.m in Sources */,
 				C42CD0F3213CC2640096675F /* MoreDown.m in Sources */,
+				8B408849238EB5270030ABBF /* CreateTeamVC+VM.m in Sources */,
 				C42CD1B9213CC2640096675F /* JJBaseModel.m in Sources */,
 				C416281A2171CBC800DC0D10 /* OrderTuihuoController.m in Sources */,
 				C42CD0CB213CC2640096675F /* CLCellOneImage.m in Sources */,

@@ -1,14 +1,14 @@
 //
-//  InvitationCodeVC+VM.m
+//  JoinInTeamVC+VM.m
 //  Feidegou
 //
 //  Created by Kite on 2019/11/11.
 //  Copyright © 2019 朝花夕拾. All rights reserved.
 //
 
-#import "InvitationCodeVC+VM.h"
+#import "JoinInTeamVC+VM.h"
 
-@implementation InvitationCodeVC (VM)
+@implementation JoinInTeamVC (VM)
 
 //-(void)netWorking:(NSString *)inviter{
 //
@@ -78,14 +78,12 @@
 //    }];
 //}
 
--(void)netWorking{
+-(void)netWorking:(NSString *)inviter{
 #warning tempData
 //    inviter = @"1111";
     NSMutableDictionary *dataMutDic = NSMutableDictionary.dictionary;
     NSMutableDictionary *params = NSMutableDictionary.dictionary;
-    [params setObject:self.telePhoneStr forKey:@"inviter"];//手机号
-    [params setObject:self.QQStr forKey:@"inviter"];//QQ号
-    [params setObject:self.wechatStr forKey:@"inviter"];//微信
+    [params setObject:inviter forKey:@"inviter"];
     // 设置为中国时区
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     NSTimeZone *timeZone = [NSTimeZone timeZoneForSecondsFromGMT:8 * 3600];
@@ -98,9 +96,6 @@
     if ([[PersonalInfo sharedInstance] isLogined]) {
         [params setObject:model.userId forKey:@"user_id"];//[NSNumber numberWithInt:[model.userId intValue]]
     }
-    
-//    http://10.10.37.35:8888/SHOPAPP2.0/appShop7/query.do,
-    //http://localhost:8080/SHOPAPP2.0/admin/login.do
     
     NSString *strJson = [self DataTOjsonString:params];// 字典转为json
     strJson = [NSString encodeToPercentEscapeString:strJson];// encodeing  json

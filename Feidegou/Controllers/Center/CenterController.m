@@ -30,7 +30,7 @@
 #import "ChangeNameController.h"
 #import "CellTwoLblArrow.h"
 #import "CatFoodsManagementVC.h"
-#import "InvitationCodeVC.h"
+#import "JoinInTeamVC.h"
 
 @interface CenterController ()
 <
@@ -484,7 +484,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         if ([[PersonalInfo sharedInstance] isLogined]) {//登录成功方可见喵粮管理（邀请码）
             switch ([model.grade_id intValue]) {
                 case 0:{//普通用户，只显示“邀请码”
-                    [InvitationCodeVC ComingFromVC:self_weak_
+                    [JoinInTeamVC ComingFromVC:self_weak_
                                          withStyle:ComingStyle_PUSH
                                      requestParams:nil
                                            success:^(id data) {}

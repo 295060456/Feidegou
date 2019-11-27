@@ -1,5 +1,5 @@
 //
-//  InvitationCodeVC.h
+//  CreateTeamVC.h
 //  Feidegou
 //
 //  Created by Kite on 2019/11/11.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-//InvitationCodeVC
+//CreateTeamVC
 @interface InvitationCodeTBVCell : TBVCell_style_01
 
 +(instancetype)cellWith:(UITableView *)tableView;
@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-@interface InvitationCodeVC : BaseVC
+@interface CreateTeamVC : BaseVC
 
 @property(nonatomic,weak)LoginViewController *loginVC;
 @property(nonatomic,copy)__block NSString *telePhoneStr;

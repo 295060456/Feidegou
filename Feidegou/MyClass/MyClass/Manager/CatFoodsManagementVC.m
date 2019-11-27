@@ -16,6 +16,7 @@
 #import "LookUpContactWayVC.h"//喵粮批发市场
 #import "PersonalDataChangedListVC.h"//个人喵粮变动清单
 #import "CatFoodsManagementVC+VM.h"
+#import "CreateTeamVC.h"//创建团队
 
 #import "DetailsVC.h"//临时
 
@@ -185,6 +186,12 @@ UITableViewDataSource
                                    requestParams:nil
                                          success:^(id data) {}
                                         animated:YES];
+    }else if ([vcName isEqualToString:@"创建团队"]){
+        [CreateTeamVC ComingFromVC:self_weak_
+                         withStyle:ComingStyle_PUSH
+                     requestParams:nil
+                           success:^(id data) {}
+                          animated:YES];
     }else{}
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
@@ -296,8 +303,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
         [_titleMutArr addObject:@[@"可用的喵粮数量",
-                                  @"出售中的数量",
-                                  @"喵粮记录"]];
+                                  @"出售中的数量"]];
         NSMutableArray *tempMutArr = NSMutableArray.array;
         [tempMutArr addObject:@"喵粮订单管理"];
         [tempMutArr addObject:@"店铺收款码"];
@@ -308,6 +314,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [tempMutArr addObject:@"直通车"];
         [tempMutArr addObject:@"喵粮批发市场"];
         [tempMutArr addObject:@"喵粮会话"];
+        [tempMutArr addObject:@"喵粮记录"];
+        [tempMutArr addObject:@"创建团队"];
         [_titleMutArr addObject:tempMutArr];
     }return _titleMutArr;
 }
@@ -316,8 +324,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_imgMutArr) {
         _imgMutArr = NSMutableArray.array;
         [_imgMutArr addObject:@[@"balance",
-                                @"selling",
-                                @"PersonalListOfChanges"]];
+                                @"selling"]];
         NSMutableArray *tempMutArr = NSMutableArray.array;
         [tempMutArr addObject:@"listManager"];
         [tempMutArr addObject:@"StoreReceiptCode"];
@@ -328,9 +335,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [tempMutArr addObject:@"panicPurchase"];
         [tempMutArr addObject:@"wholesaleMarket"];
         [tempMutArr addObject:@"telephone"];
-        if ([self.loginModel.grade_id intValue] == 3) {
-            [tempMutArr addObject:@"pay"];
-        }
+        [tempMutArr addObject:@"recordTable"];
+        [tempMutArr addObject:@"CreateTeam"];
         [_imgMutArr addObject:tempMutArr];
     }return _imgMutArr;
 }

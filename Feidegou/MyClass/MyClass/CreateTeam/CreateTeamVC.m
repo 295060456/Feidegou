@@ -1,13 +1,13 @@
 //
-//  InvitationCodeVC.m
+//  CreateTeamVC.m
 //  Feidegou
 //
 //  Created by Kite on 2019/11/11.
 //  Copyright © 2019 朝花夕拾. All rights reserved.
 //
 
-#import "InvitationCodeVC.h"
-#import "InvitationCodeVC+VM.h"
+#import "CreateTeamVC.h"
+#import "CreateTeamVC+VM.h"
 
 @interface InvitationCodeTBVCell ()
 <
@@ -18,7 +18,7 @@ UITextFieldDelegate
 
 @end
 
-@interface InvitationCodeVC ()
+@interface CreateTeamVC ()
 <
 UITableViewDelegate,
 UITableViewDataSource
@@ -35,7 +35,7 @@ UITableViewDataSource
 
 @end
 
-@implementation InvitationCodeVC
+@implementation CreateTeamVC
 
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
@@ -46,7 +46,7 @@ UITableViewDataSource
                 requestParams:(nullable id)requestParams
                       success:(DataBlock)block
                      animated:(BOOL)animated{
-    InvitationCodeVC *vc = InvitationCodeVC.new;
+    CreateTeamVC *vc = CreateTeamVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
     switch (comingStyle) {
@@ -80,7 +80,7 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.gk_navTitle = @"邀请码";
+    self.gk_navTitle = @"创建团队";
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.sendBtn];

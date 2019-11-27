@@ -64,8 +64,8 @@
 //    strPsw = @"123456";
     
 #warning grade_id = 3 Vip商家
-//    strUserNum = @"admin";
-//    strPsw = @"123456";
+    strUserNum = @"admin";
+    strPsw = @"123456";
 
 //#warning grade_id = 2 高级商家
 //    strUserNum = @"shopping";
@@ -97,13 +97,20 @@
 //        [SVProgressHUD showErrorWithStatus:@"请输入正确的密码"];
 //        return;
 //    }
-    Toast(strUserNum);
+    
     [self.view endEditing:YES];
-    [SVProgressHUD showWithStatus:@"正在登录..."];
-    [self my_NetworkingWithArgumentUsername:strUserNum
-                                   password:strPsw];
-//    [self old_NetworkingWithArgumentUsername:strUserNum
-//                                    password:strPsw];
+    
+    if (![NSString isNullString:strUserNum] ||
+        ![NSString isNullString:strPsw]) {
+        [SVProgressHUD showWithStatus:@"正在登录..."];
+        Toast(strUserNum);
+        [self my_NetworkingWithArgumentUsername:strUserNum
+                                           password:strPsw];
+        //    [self old_NetworkingWithArgumentUsername:strUserNum
+        //                                    password:strPsw];
+    }else{
+        Toast(@"请输入账号和密码");
+    }
 }
 
 -(void)my_NetworkingWithArgumentUsername:(NSString *)username
