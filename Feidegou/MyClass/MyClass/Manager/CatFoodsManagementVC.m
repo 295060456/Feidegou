@@ -17,6 +17,8 @@
 #import "PersonalDataChangedListVC.h"//个人喵粮变动清单
 #import "CatFoodsManagementVC+VM.h"
 
+#import "DetailsVC.h"//临时
+
 @interface CatFoodsManagementVC ()
 <
 UITableViewDelegate,
@@ -144,6 +146,12 @@ UITableViewDataSource
                                    success:^(id data) {}
                                   animated:YES];
     }else if ([vcName isEqualToString:@"直通车"]){
+        [DetailsVC ComingFromVC:self_weak_
+                      withStyle:ComingStyle_PUSH
+                  requestParams:nil
+                        success:^(id data) {}
+                       animated:YES];
+        return;
         if (self.dataMutArr.count) {
             NSString *str = (NSString *)self.dataMutArr[1];
             if (![str isEqualToString:@"无"]) {
