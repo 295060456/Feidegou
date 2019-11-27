@@ -28,10 +28,7 @@
 		8B408751238E62320030ABBF /* GoodsDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B408750238E62320030ABBF /* GoodsDetailsVC.m */; };
 		8B408754238E62510030ABBF /* GoodsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B408753238E62510030ABBF /* GoodsVC.m */; };
 		8B408757238E62B00030ABBF /* DetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B408756238E62B00030ABBF /* DetailsVC.m */; };
-		8B40875C238E79650030ABBF /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B408758238E79640030ABBF /* 3.png */; };
-		8B40875D238E79650030ABBF /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B408759238E79650030ABBF /* 1.png */; };
-		8B40875E238E79650030ABBF /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B40875A238E79650030ABBF /* 2.png */; };
-		8B40875F238E79650030ABBF /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 8B40875B238E79650030ABBF /* 4.png */; };
+		8B40883C238EA26D0030ABBF /* RongSight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B40883B238EA26D0030ABBF /* RongSight.framework */; };
 		8B40A2C32372F84200ED42DB /* CatFoodProducingAreaVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C22372F84200ED42DB /* CatFoodProducingAreaVC+VM.m */; };
 		8B40A2C62372FA2E00ED42DB /* CatFoodProducingAreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C52372FA2E00ED42DB /* CatFoodProducingAreaModel.m */; };
 		8B40A2C92373016300ED42DB /* ShopReceiptQRcodeVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C82373016300ED42DB /* ShopReceiptQRcodeVC+VM.m */; };
@@ -680,10 +677,7 @@
 		8B408753238E62510030ABBF /* GoodsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodsVC.m; sourceTree = "<group>"; };
 		8B408755238E62B00030ABBF /* DetailsVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsVC.h; sourceTree = "<group>"; };
 		8B408756238E62B00030ABBF /* DetailsVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsVC.m; sourceTree = "<group>"; };
-		8B408758238E79640030ABBF /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
-		8B408759238E79650030ABBF /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
-		8B40875A238E79650030ABBF /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
-		8B40875B238E79650030ABBF /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 4.png; sourceTree = "<group>"; };
+		8B40883B238EA26D0030ABBF /* RongSight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RongSight.framework; sourceTree = "<group>"; };
 		8B40A2C12372F84200ED42DB /* CatFoodProducingAreaVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CatFoodProducingAreaVC+VM.h"; sourceTree = "<group>"; };
 		8B40A2C22372F84200ED42DB /* CatFoodProducingAreaVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CatFoodProducingAreaVC+VM.m"; sourceTree = "<group>"; };
 		8B40A2C42372FA2E00ED42DB /* CatFoodProducingAreaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatFoodProducingAreaModel.h; sourceTree = "<group>"; };
@@ -1796,6 +1790,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4D95F28213CC60100462531 /* CFNetwork.framework in Frameworks */,
+				8B40883C238EA26D0030ABBF /* RongSight.framework in Frameworks */,
 				C4D95F26213CC5FB00462531 /* CoreFoundation.framework in Frameworks */,
 				C4D95F24213CC5F400462531 /* CoreTelephony.framework in Frameworks */,
 				C4D95F22213CC5EC00462531 /* UIKit.framework in Frameworks */,
@@ -1894,10 +1889,6 @@
 		8B408748238E61B50030ABBF /* GoodsVC */ = {
 			isa = PBXGroup;
 			children = (
-				8B408759238E79650030ABBF /* 1.png */,
-				8B40875A238E79650030ABBF /* 2.png */,
-				8B408758238E79640030ABBF /* 3.png */,
-				8B40875B238E79650030ABBF /* 4.png */,
 				8B408752238E62510030ABBF /* GoodsVC.h */,
 				8B408753238E62510030ABBF /* GoodsVC.m */,
 			);
@@ -1920,6 +1911,14 @@
 				8B40874C238E62120030ABBF /* EvaluateVC.m */,
 			);
 			path = EvaluateVC;
+			sourceTree = "<group>";
+		};
+		8B408760238E96580030ABBF /* RongCloudSight */ = {
+			isa = PBXGroup;
+			children = (
+				8B40883B238EA26D0030ABBF /* RongSight.framework */,
+			);
+			path = RongCloudSight;
 			sourceTree = "<group>";
 		};
 		8B571AAB23874836009624D8 /* ContentBaseViewController */ = {
@@ -2203,6 +2202,7 @@
 		8BB2D2932366C7310047D0E2 /* MyClass */ = {
 			isa = PBXGroup;
 			children = (
+				8B408760238E96580030ABBF /* RongCloudSight */,
 				8BB2D2942366C7310047D0E2 /* My_ThirdParty */,
 				8BB2D2DC2366C7310047D0E2 /* MyClass */,
 				8BB2D3072366C7310047D0E2 /* MyModel */,
@@ -4222,6 +4222,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = C42CCCCD213CC04F0096675F;
 			productRefGroup = C42CCCD7213CC04F0096675F /* Products */;
@@ -4246,7 +4247,6 @@
 				C42CD09C213CC2640096675F /* CellLogisticsGood.xib in Resources */,
 				C42CD0AF213CC2640096675F /* CellOrderDetialNumber.xib in Resources */,
 				C42CD179213CC2640096675F /* Navigation.storyboard in Resources */,
-				8B40875E238E79650030ABBF /* 2.png in Resources */,
 				C46143FB214386B6000C0CDC /* CellVendorDiscount.xib in Resources */,
 				C4A0DA7F213E958D00B45B65 /* SignInTip.xib in Resources */,
 				C42CD0A9213CC2640096675F /* CellOrderGiftNo.xib in Resources */,
@@ -4316,8 +4316,6 @@
 				C46368EB213FBE6C006922D5 /* CLCellTypeSmall.xib in Resources */,
 				C47D09852148DB720098ED3A /* 苏新诗卵石体.ttf in Resources */,
 				C4824262214F99FA00A9D432 /* CellHeaderMore.xib in Resources */,
-				8B40875D238E79650030ABBF /* 1.png in Resources */,
-				8B40875C238E79650030ABBF /* 3.png in Resources */,
 				C42CD07A213CC2640096675F /* CellBlance.xib in Resources */,
 				C42CD137213CC2640096675F /* ReusableViewProperty.xib in Resources */,
 				C4614405214386B6000C0CDC /* CellVendorWebOlny.xib in Resources */,
@@ -4400,7 +4398,6 @@
 				C42F5D34213F859B00114E0E /* CellIncomeDay.xib in Resources */,
 				C42CD0AD213CC2640096675F /* CellOrderAddressNo.xib in Resources */,
 				C42CD09A213CC2640096675F /* CellDistributionInfo.xib in Resources */,
-				8B40875F238E79650030ABBF /* 4.png in Resources */,
 				C47D09842148DB720098ED3A /* 汉仪细等线简.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5094,6 +5091,18 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Feidegou/Utils/iOS-WebP",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMLib_CallLib_RTCLib_SDK_v2_10_1_Dev/CallLib",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMLib_CallLib_RTCLib_SDK_v2_10_1_Dev/IMLib",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/CallLib",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/Sight",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/IMLib",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/IMKit",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/RCMCenter",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/RedPacket/JrmfIMLib",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/RedPacket/AlipaySDK",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/CallKit",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/RongSticker",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Feidegou/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
@@ -5124,6 +5133,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Feidegou/Controllers/Alipay",
 					"$(PROJECT_DIR)/Feidegou/Utils/Lib",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMLib_CallLib_RTCLib_SDK_v2_10_1_Dev/IMLib",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/IMLib",
 				);
 				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miaoLiangStores.app;
@@ -5145,6 +5156,18 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Feidegou/Utils/iOS-WebP",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMLib_CallLib_RTCLib_SDK_v2_10_1_Dev/CallLib",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMLib_CallLib_RTCLib_SDK_v2_10_1_Dev/IMLib",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/CallLib",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/Sight",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/IMLib",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/IMKit",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/RCMCenter",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/RedPacket/JrmfIMLib",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/RedPacket/AlipaySDK",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/CallKit",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/RongSticker",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/Feidegou/PrefixHeader.pch";
 				HEADER_SEARCH_PATHS = (
@@ -5175,6 +5198,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Feidegou/Controllers/Alipay",
 					"$(PROJECT_DIR)/Feidegou/Utils/Lib",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMLib_CallLib_RTCLib_SDK_v2_10_1_Dev/IMLib",
+					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/IMLib",
 				);
 				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miaoLiangStores.app;

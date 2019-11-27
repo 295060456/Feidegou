@@ -1,5 +1,5 @@
 //
-//  ChatVC.m
+//  ChatListVC.m
 //  Feidegou
 //
 //  Created by Kite on 2019/11/20.
@@ -7,7 +7,6 @@
 //
 
 #import "ChatListVC.h"
-#import "ChatVC.h"
 #import "OTCConversationListCellTableViewCell.h"
 
 @interface ChatListVC ()

@@ -64,7 +64,7 @@
 #define CatfoodSale_BuyeroneURL @"/catfoodapp/user/buyer/CatfoodSale_Buyerone.htm"//喵粮批发购买 post 16 Y
 #define CatfoodSale_payURL @"/user/buyer/CatfoodSale_pay.htm"//喵粮批发已支付 post 17 Y 不加catfoodapp
 #define CatfoodSale_pay_delURL @"/catfoodapp/user/buyer/CatfoodSale_pay_del.htm"//喵粮批发取消 post 18 Y
-#define CatfoodTrainURL @"/catfoodapp/user/buyer/CatfoodTrain.htm"//喵粮转转 post 19 说是废弃了
+#define CatfoodTrainURL @"/catfoodapp/user/buyer/CatfoodTrain.htm"//喵粮直通车 post 19 说是废弃了
 //#define //喵粮抢摊位 20
 #define Catfoodbooth_robURL @"/catfoodapp/user/buyer/Catfoodbooth_rob.htm"
 //http://10.1.41.174:8888/catfoodapp/user/buyer/Catfoodbooth_rob.htm
@@ -79,11 +79,11 @@
 #define CatfoodWeixin_quarURL @"/catfoodapp/user/seller/CatfoodWeixin_quary.htm"//展示二维码 post 27 Y
 #define CatfoodPayment_quaryURL @"/catfoodapp/user/seller/CatfoodPayment_quary.htm"//发布批发市场展示可选支付方式 post 28 Y
 #define CatfoodPayment_setURL @"/catfoodapp/user/seller/CatfoodPayment_set.htm"//设置支付方式 Y
-#define CatfoodTrain_checkURL @"/catfoodapp/user/buyer/CatfoodTrain_check.htm"//查看转转
-#define CatfoodTrain_delURL @"/catfoodapp/user/buyer/CatfoodTrain_del.htm"//关闭转转
+#define CatfoodTrain_checkURL @"/catfoodapp/user/buyer/CatfoodTrain_check.htm"//查看直通车
+#define CatfoodTrain_delURL @"/catfoodapp/user/buyer/CatfoodTrain_del.htm"//关闭直通车
 #define PestFeedUrl @"/catfoodapp/user/PestFeed.htm"
 #define PestCatFood_changelistUrl @"/catfoodapp/user/seller/PestCatFood_changelist.htm"//个人喵粮变动记录 36
-#define Catfood_statisticsUrl @"/catfoodapp/user/seller/Catfood_statistics.htm" //统计转转在线人数 35
+#define Catfood_statisticsUrl @"/catfoodapp/user/seller/Catfood_statistics.htm" //统计直通车在线人数 35
 #define Catfoodbooth_rob_agoUrl @"/catfoodapp/user/buyer/Catfoodbooth_rob_ago.htm"//喵粮抢摊位机会查询 37
 
 /********如果需要存储，相应的的 key 宏定义********/

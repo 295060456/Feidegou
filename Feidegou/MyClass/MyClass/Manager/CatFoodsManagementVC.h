@@ -8,7 +8,7 @@
 
 #import "BaseVC.h"
 #import "ThroughTrainToPromoteVC.h"
-#import "StallListVC.h"//喵粮转转
+#import "StallListVC.h"//喵粮直通车
 
 NS_ASSUME_NONNULL_BEGIN
 

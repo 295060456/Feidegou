@@ -100,7 +100,7 @@ UITableViewDataSource
 }
 
 -(void)openBtnClickEvent:(UIButton *)sender{
-    NSLog(@"开启转转抢摊位")
+    NSLog(@"开启直通车抢摊位")
     [self.view endEditing:YES];
     @weakify(self)
     if (![NSString isNullString:self.quantity]) {
@@ -177,7 +177,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [_openBtn addTarget:self
                  action:@selector(openBtnClickEvent:)
        forControlEvents:UIControlEventTouchUpInside];
-        [_openBtn setTitle:@"开启转转抢摊位"
+        [_openBtn setTitle:@"开启直通车抢摊位"
               forState:UIControlStateNormal];
         _openBtn.backgroundColor = kOrangeColor;
         [self.view addSubview:_openBtn];
@@ -270,7 +270,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
         [_titleMutArr addObject:@"商品"];
-        [_titleMutArr addObject:@"参与转转的数量"];
+        [_titleMutArr addObject:@"参与直通车的数量"];
         [_titleMutArr addObject:@"市场价"];
     }return _titleMutArr;
 }

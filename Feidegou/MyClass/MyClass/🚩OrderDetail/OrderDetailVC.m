@@ -68,7 +68,7 @@ UITableViewDataSource
     }else if ([vc.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){//喵粮产地页面进
         vc.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)vc.requestParams;
         vc.Order_id = vc.catFoodProducingAreaModel.ID;
-    }else if ([vc.requestParams isKindOfClass:[StallListModel class]]){//摊位 喵粮转转页面进
+    }else if ([vc.requestParams isKindOfClass:[StallListModel class]]){//摊位 喵粮直通车页面进
         vc.stallListModel = (StallListModel *)vc.requestParams;
         vc.Order_id = vc.stallListModel.ID;
     }else{}
@@ -131,9 +131,9 @@ UITableViewDataSource
     if (self.orderListModel) {
         NSString *str1 = [NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"];
         NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
-        self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
-            if ([self.orderListModel.order_type intValue] == 1) {//转转 只有卖家 订单类型 1、转转;2、批发;3、平台
-                self.gk_navTitle = @"转转订单详情";
+        self.str = [NSString stringWithFormat:@"stallListModel厂家%@购买%@g喵粮",str1,str2];
+            if ([self.orderListModel.order_type intValue] == 1) {//直通车 只有卖家 订单类型 1、直通车;2、批发;3、平台
+                self.gk_navTitle = @"直通车订单详情";
                 if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                     if ([self.orderListModel.del_state intValue] == 0) {//0状态 0、不影响;1、待审核;2、已通过 3、驳回
                         [self.dataMutArr addObject:@"已下单"];
@@ -165,7 +165,7 @@ UITableViewDataSource
                     [self.dataMutArr addObject:@"数据异常"];
                 }
             }
-            else if ([self.orderListModel.order_type intValue] == 2){//批发 订单类型 1、转转;2、批发;3、平台 允许重新上传图片
+            else if ([self.orderListModel.order_type intValue] == 2){//批发 订单类型 1、直通车;2、批发;3、平台 允许重新上传图片
                 //先判断是买家还是卖家 deal :1、买；2、卖
                 if ([self.orderListModel.identity isEqualToString:@"买家"]) {
                     self.gk_navTitle = @"批发（买家）订单详情";
@@ -235,7 +235,7 @@ UITableViewDataSource
                     }
                 }
             }
-            else if ([self.orderListModel.order_type intValue] == 3){//产地 只有买家 订单类型 1、转转;2、批发;3、平台 允许重新上传图片
+            else if ([self.orderListModel.order_type intValue] == 3){//产地 只有买家 订单类型 1、直通车;2、批发;3、平台 允许重新上传图片
                 self.gk_navTitle = @"产地订单详情";
                 if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                     [self.dataMutArr addObject:@"订单已下单"];//333
@@ -314,11 +314,11 @@ UITableViewDataSource
             [self.dataMutArr addObject:self.catFoodProducingAreaModel.payment_print];
         }
     }
-    else if (self.stallListModel){//喵粮转转 倒计时
+    else if (self.stallListModel){//喵粮直通车 倒计时
         NSString *str1 = [NSString ensureNonnullString:self.stallListModel.ID ReplaceStr:@"无"];
         NSString *str2 = [NSString ensureNonnullString:self.stallListModel.quantity ReplaceStr:@""];
         self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
-        self.gk_navTitle = @"转转订单详情";
+        self.gk_navTitle = @"直通车订单详情";
         //只有3小时取消、发货、状态为已下单
         [self.dataMutArr addObject:@"订单已下单"];//333
         NSTimeInterval time = [NSString timeIntervalstartDate:self.stallListModel.updateTime
@@ -423,7 +423,35 @@ viewForHeaderInSection:(NSInteger)section {
         [viewForHeader actionBlock:^(id data) {
             @strongify(self)
             NSLog(@"联系");
-            Toast(@"功能开发中,敬请期待...");
+//            Toast(@"功能开发中,敬请期待...");
+            
+//            if ([requestParams isKindOfClass:[RCConversationModel class]]) {
+//                RCConversationModel *model = (RCConversationModel *)requestParams;
+//                vc.conversationType = model.conversationType;
+//                vc.targetId = model.targetId;
+//                vc.chatSessionInputBarControl.hidden = NO;
+//                vc.title = @"想显示的会话标题";
+//            }
+            
+            RCConversationModel *model = RCConversationModel.new;
+            model.conversationType = ConversationType_PRIVATE;
+            model.targetId = [NSString stringWithFormat:@"%@",self.orderListModel.seller];
+            
+            if (self.orderListModel) {
+//                ChatListVC;
+//                ChatVC;
+                [ChatVC ComingFromVC:self_weak_
+                           withStyle:ComingStyle_PUSH
+                       requestParams:model
+                             success:^(id data) {}
+                            animated:YES];
+            }
+//            if (self.catFoodProducingAreaModel) {
+//                self.catFoodProducingAreaModel.seller;
+//            }
+//            if (self.stallListModel) {
+//                self.stallListModel.seller;
+//            }
         }];
     }return viewForHeader;
 }
@@ -633,7 +661,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 [_dataMutArr addObject:@"无支付账户"];
             }
             [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.updateTime ReplaceStr:@"无"]];//时间
-//            [self getOrderStatus:self.orderListModel];//订单状态:0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if (self.catFoodProducingAreaModel){
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.ordercode ReplaceStr:@"无"]];//订单号
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.price ReplaceStr:@"无"]];//单价
@@ -644,7 +671,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.bankName ReplaceStr:@"无"]];//银行类型
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.bankaddress ReplaceStr:@"无"]];//支行信息
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.updateTime ReplaceStr:@"无"]];//下单时间
-//            [self getOrderStatus:self.catFoodProducingAreaModel];//订单状态:0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if (self.stallListModel){
             [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.ordercode ReplaceStr:@"无"]];//订单号
             [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.price ReplaceStr:@"无"]];//单价
@@ -653,7 +679,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [_dataMutArr addObject:@"微信"];//支付方式
             [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.payment_weixin ReplaceStr:@"无"]];//微信账号
             [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.updateTime ReplaceStr:@"无"]];//下单时间
-//            [self getOrderStatus:self.stallListModel];//订单状态:0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else{}
     }return _dataMutArr;
 }

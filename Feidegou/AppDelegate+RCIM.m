@@ -13,6 +13,7 @@
 -(void)RCIM{
     [[RCIM sharedRCIM] initWithAppKey:RongCloud_Key];
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
+    [RCIM sharedRCIM].isMediaSelectorContainVideo = YES;
 }
 #pragma mark —— RCIMConnectionStatusDelegate
 /*!

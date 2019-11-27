@@ -139,7 +139,6 @@ UITableViewDataSource
 -(void)showOrHiddenSearchView{
     @weakify(self)
     UIEdgeInsets inset = [self.tableView contentInset];
-    
     if (!self.selected) {//开
         inset.top = SCALING_RATIO(50);
         [UIView animateWithDuration:1.f

@@ -1,5 +1,5 @@
 //
-//  ChatVC.h
+//  ChatListVC.h
 //  Feidegou
 //
 //  Created by Kite on 2019/11/20.
@@ -7,6 +7,7 @@
 //
 
 #import <RongIMKit/RongIMKit.h>
+#import "ChatVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

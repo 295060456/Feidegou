@@ -20,7 +20,7 @@ typedef enum : NSUInteger {
 
 typedef enum : NSUInteger {//1、摊位;2、批发;3、厂家
     PlatformType_NUll = 0,
-    PlatformType_Stall,//摊位 转转
+    PlatformType_Stall,//摊位 直通车
     PlatformType_Wholesale,//批发
     PlatformType_ProducingArea//产地 厂家
 } PlatformType;

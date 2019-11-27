@@ -9,7 +9,7 @@
 
 @implementation StallListVC (VM)
 
-//Catfood_statisticsUrl 统计转转在线人数 35
+//Catfood_statisticsUrl 统计直通车在线人数 35
 -(void)onlinePeople:(NSString *)onlinePeople{
     extern NSString *randomStr;
     NSNumber *num;

@@ -12,7 +12,7 @@
 
 #import "OrderManager_producingAreaVC.h"//厂家（产地）
 #import "OrderManager_wholesaleVC.h"//批发
-#import "OrderManager_panicBuyingVC.h"//转转
+#import "OrderManager_panicBuyingVC.h"//直通车
 
 OrderListVC *orderListVC;
 
@@ -153,7 +153,8 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
     if (self.navigationController) {
         [self.navigationController popViewControllerAnimated:YES];
     }else{
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES
+                                 completion:nil];
     }
 }
 
@@ -206,7 +207,7 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
 -(NSMutableArray<NSString *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
-        [_titleMutArr addObject:@"转转"];
+        [_titleMutArr addObject:@"直通车"];
         [_titleMutArr addObject:@"批发"];
         if ([[PersonalInfo sharedInstance] isLogined]) {
             ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
@@ -222,7 +223,7 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
 -(NSMutableArray<NSString *> *)imageNamesMutArr{
     if (!_imageNamesMutArr) {
         _imageNamesMutArr = NSMutableArray.array;
-        [_imageNamesMutArr addObject:@"转转_unselected"];
+        [_imageNamesMutArr addObject:@"直通车_unselected"];
         [_imageNamesMutArr addObject:@"批发_unselected"];
         if ([[PersonalInfo sharedInstance] isLogined]) {
             ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
