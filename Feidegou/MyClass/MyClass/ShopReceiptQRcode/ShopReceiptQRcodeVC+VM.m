@@ -11,41 +11,47 @@
 @implementation ShopReceiptQRcodeVC (VM)
 
 -(void)netWorking{
-    extern NSString *randomStr;
-    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
-                                                           path:CatfoodWeixin_quarURL
-                                                     parameters:@{
-                                                         @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key]
-                                                     }];
-    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
-    @weakify(self)
-    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-        if (response) {
-            @strongify(self)
-            NSLog(@"--%@",response);
-            if ([response isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *dic = (NSDictionary *)response;
-                if ([dic[@"weixin_qr_img"] isKindOfClass:[NSString class]]) {
-                    if (![NSString isNullString:dic[@"weixin_qr_img"]]) {
-                        self.QRcodeStr = dic[@"weixin_qr_img"];
-                        @weakify(self)
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                           @strongify(self)
-                           [self QRcode];
-                        });
-                    }
-                }
-                if ([NSString isNullString:self.QRcodeStr]) {
-                    @weakify(self)
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                       @strongify(self)
-                       self.QRcodeIMGV.image = kIMG(@"uploadQRCode");
-                    });
-                }
-            }
-        }
-    }];
+    
+#warning tempData
+    self.QRcodeStr_wechatPay = @"1234";
+    self.QRcodeStr_alipay = @"2345";
+
+    
+//    extern NSString *randomStr;
+//    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+//                                                           path:CatfoodWeixin_quarURL
+//                                                     parameters:@{
+//                                                         @"key":[RSAUtil encryptString:randomStr
+//                                                                             publicKey:RSA_Public_key]
+//                                                     }];
+//    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+//    @weakify(self)
+//    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+//        if (response) {
+//            @strongify(self)
+//            NSLog(@"--%@",response);
+//            if ([response isKindOfClass:[NSDictionary class]]) {
+//                NSDictionary *dic = (NSDictionary *)response;
+//                if ([dic[@"weixin_qr_img"] isKindOfClass:[NSString class]]) {
+//                    if (![NSString isNullString:dic[@"weixin_qr_img"]]) {
+//                        self.QRcodeStr_wechatPay = dic[@"weixin_qr_img"];
+//                        @weakify(self)
+//                        dispatch_async(dispatch_get_main_queue(), ^{
+//                           @strongify(self)
+//                           [self.qrCodeIMGV_wechatPay QRcode];
+//                        });
+//                    }
+//                }
+//                if ([NSString isNullString:self.QRcodeStr_wechatPay]) {
+//                    @weakify(self)
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                       @strongify(self)
+//                       self.qrCodeIMGV_wechatPay.image = kIMG(@"uploadQRCode");
+//                    });
+//                }
+//            }
+//        }
+//    }];
 }
 
 -(void)uploadQRcodePic:(UIImage *)image{

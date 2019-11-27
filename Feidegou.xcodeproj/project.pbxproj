@@ -23,6 +23,7 @@
 		8B225B99238900A6003682CC /* SearchVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B225B98238900A6003682CC /* SearchVC+VM.m */; };
 		8B3C0B58237FCAB800BFFA86 /* OrderDetailVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3C0B57237FCAB800BFFA86 /* OrderDetailVC+VM.m */; };
 		8B3C0B5B237FCAD500BFFA86 /* OrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3C0B5A237FCAD500BFFA86 /* OrderDetailModel.m */; };
+		8B408746238E45550030ABBF /* QRcodeIMGV.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B408745238E45550030ABBF /* QRcodeIMGV.m */; };
 		8B40A2C32372F84200ED42DB /* CatFoodProducingAreaVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C22372F84200ED42DB /* CatFoodProducingAreaVC+VM.m */; };
 		8B40A2C62372FA2E00ED42DB /* CatFoodProducingAreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C52372FA2E00ED42DB /* CatFoodProducingAreaModel.m */; };
 		8B40A2C92373016300ED42DB /* ShopReceiptQRcodeVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C82373016300ED42DB /* ShopReceiptQRcodeVC+VM.m */; };
@@ -661,6 +662,8 @@
 		8B3C0B59237FCAD500BFFA86 /* OrderDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailModel.h; sourceTree = "<group>"; };
 		8B3C0B5A237FCAD500BFFA86 /* OrderDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailModel.m; sourceTree = "<group>"; };
 		8B408743238E35DF0030ABBF /* 喵粮商城.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "喵粮商城.entitlements"; sourceTree = "<group>"; };
+		8B408744238E45550030ABBF /* QRcodeIMGV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRcodeIMGV.h; sourceTree = "<group>"; };
+		8B408745238E45550030ABBF /* QRcodeIMGV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRcodeIMGV.m; sourceTree = "<group>"; };
 		8B40A2C12372F84200ED42DB /* CatFoodProducingAreaVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CatFoodProducingAreaVC+VM.h"; sourceTree = "<group>"; };
 		8B40A2C22372F84200ED42DB /* CatFoodProducingAreaVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CatFoodProducingAreaVC+VM.m"; sourceTree = "<group>"; };
 		8B40A2C42372FA2E00ED42DB /* CatFoodProducingAreaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatFoodProducingAreaModel.h; sourceTree = "<group>"; };
@@ -2314,6 +2317,8 @@
 			children = (
 				8BB2D2E62366C7310047D0E2 /* ShopReceiptQRcodeVC.h */,
 				8BB2D2E52366C7310047D0E2 /* ShopReceiptQRcodeVC.m */,
+				8B408744238E45550030ABBF /* QRcodeIMGV.h */,
+				8B408745238E45550030ABBF /* QRcodeIMGV.m */,
 				8B40A2C72373016300ED42DB /* ShopReceiptQRcodeVC+VM.h */,
 				8B40A2C82373016300ED42DB /* ShopReceiptQRcodeVC+VM.m */,
 			);
@@ -4448,6 +4453,7 @@
 				C42CD063213CC2640096675F /* CellCollection.m in Sources */,
 				C42CD06F213CC2640096675F /* SettingController.m in Sources */,
 				C46143EF214386B6000C0CDC /* CellHeader.m in Sources */,
+				8B408746238E45550030ABBF /* QRcodeIMGV.m in Sources */,
 				C42CD198213CC2640096675F /* UILabelDarkBig.m in Sources */,
 				C42CD0EA213CC2640096675F /* CellCartGood.m in Sources */,
 				C42CD0DB213CC2640096675F /* CellOnlyOneLbl.m in Sources */,

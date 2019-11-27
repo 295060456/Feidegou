@@ -64,12 +64,12 @@
 //    strPsw = @"123456";
     
 #warning grade_id = 3 Vip商家
-//    strUserNum = @"admin";
-//    strPsw = @"123456";
+    strUserNum = @"admin";
+    strPsw = @"123456";
 
 //#warning grade_id = 2 高级商家
-    strUserNum = @"shopping";
-    strPsw = @"123456";
+//    strUserNum = @"shopping";
+//    strPsw = @"123456";
 //    strUserNum = @"135662";
 //    strPsw = @"123456";
 
