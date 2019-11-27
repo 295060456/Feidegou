@@ -348,7 +348,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
         switch ([model.grade_id intValue]) {
             case 0:{//普通用户，只显示“邀请码”
-                [cell.imgHead setImage:ImageNamed(@"InvitationCode")];
+                [cell.imgHead setImage:ImageNamed(@"JoinInTeam")];
                 [cell.lblName setText:@"加入团队"];
                 [cell.lblNum setText:@""];
             }break;
@@ -491,16 +491,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                           animated:YES];
                 }break;
                 case 2:{//高级商家，只显示“喵粮管理”
-                    [CatFoodsManagementVC pushFromVC:self_weak_
-                                       requestParams:nil
-                                             success:^(id data) {}
-                                            animated:YES];
+                    [CatFoodsManagementVC ComingFromVC:self_weak_
+                                             withStyle:ComingStyle_PUSH
+                                         requestParams:Nil
+                                               success:^(id data) {}
+                                              animated:YES];
                 }break;
                 case 3:{//Vip商家，只显示“喵粮管理”
-                    [CatFoodsManagementVC pushFromVC:self_weak_
-                                       requestParams:nil
-                                             success:^(id data) {}
-                                            animated:YES];
+                    [CatFoodsManagementVC ComingFromVC:self_weak_
+                                             withStyle:ComingStyle_PUSH
+                                         requestParams:Nil
+                                               success:^(id data) {}
+                                              animated:YES];
                 }break;
                 default:
                     break;

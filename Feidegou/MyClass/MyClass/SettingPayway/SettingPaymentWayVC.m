@@ -21,124 +21,6 @@ UITextFieldDelegate
 
 @end
 
-@implementation SettingPaymentWayTBVCell
-
-+(instancetype)cellWith:(XDMultTableView *)tableView{
-    SettingPaymentWayTBVCell *cell = (SettingPaymentWayTBVCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
-    if (!cell) {
-        cell = [[SettingPaymentWayTBVCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                               reuseIdentifier:ReuseIdentifier
-                                                        margin:SCALING_RATIO(5)];
-        [UIView cornerCutToCircleWithView:cell.contentView
-                          AndCornerRadius:5.f];
-        [UIView colourToLayerOfView:cell.contentView
-                         WithColour:KGreenColor
-                     AndBorderWidth:.1f];
-    }return cell;
-}
-
-+(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCALING_RATIO(50);
-}
-
-- (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.textLabel.numberOfLines = 0;
-    self.textLabel.adjustsFontSizeToFitWidth = YES;
-    [self.textLabel sizeToFit];
-    if ([model isKindOfClass:[NSArray class]]) {
-        self.textLabel.text = model[0];
-        self.textField.placeholder = model[1];
-        SettingPaymentWayModel *settingPaymentWayModel = model[2];
-        self.indexPath = model[3];
-        if (self.indexPath.section == 0) {//微信
-            if (![NSString isNullString:settingPaymentWayModel.weixin_name]) {
-                self.textField.text = settingPaymentWayModel.weixin_name;
-            }
-        }else if (self.indexPath.section == 1){//支付宝
-            if (self.indexPath.row == 0) {
-                if (![NSString isNullString:settingPaymentWayModel.alipay_name]) {
-                    self.textField.text = settingPaymentWayModel.alipay_name;
-                }
-            }
-        }else if (self.indexPath.section == 2){//银行卡
-            switch (self.indexPath.row) {
-                case 0:{//银行卡姓名
-                    if (![NSString isNullString:settingPaymentWayModel.bankuser]) {
-                        self.textField.text = settingPaymentWayModel.bankuser;
-                    }
-                }break;
-                case 1:{//银行卡账号
-                    if (![NSString isNullString:settingPaymentWayModel.bankcard]) {
-                        self.textField.text = settingPaymentWayModel.bankcard;
-                    }
-                }break;
-                case 2:{//银行卡类型
-                    if (![NSString isNullString:[settingPaymentWayModel.bank stringValue]]) {
-                        self.textField.text = [settingPaymentWayModel.bank stringValue];
-                    }
-                }break;
-                case 3:{//支行信息
-                    if (![NSString isNullString:settingPaymentWayModel.bankname]) {
-                        self.textField.text = settingPaymentWayModel.bankname;
-                    }
-                }break;
-                default:
-                    break;
-            }
-        }else{}
-
-    }
-}
-
--(void)actionBlock:(TwoDataBlock)block{
-    _block = block;
-}
-
-#pragma mark —— UITextFieldDelegate
-//询问委托人是否应该在指定的文本字段中开始编辑
-//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
-//告诉委托人在指定的文本字段中开始编辑
-- (void)textFieldDidBeginEditing:(UITextField *)textField{
-
-}
-//询问委托人是否应在指定的文本字段中停止编辑
-//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
-//告诉委托人对指定的文本字段停止编辑
-- (void)textFieldDidEndEditing:(UITextField *)textField{
-    if (self.block) {
-        self.block(textField, self.indexPath);
-    }
-}
-//告诉委托人对指定的文本字段停止编辑
-//- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
-//询问委托人是否应该更改指定的文本
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
-//询问委托人是否应删除文本字段的当前内容
-//- (BOOL)textFieldShouldClear:(UITextField *)textField;
-//询问委托人文本字段是否应处理按下返回按钮
-- (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    return YES;
-}
-#pragma mark —— lazyLoad
--(UITextField *)textField{
-    if (!_textField) {
-        _textField = UITextField.new;
-//        _textField.backgroundColor = RandomColor;
-        _textField.delegate = self;
-        [self.contentView addSubview:_textField];
-        [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.mas_equalTo(self.textLabel.mj_x +
-                                  self.textLabel.mj_w +
-                                  SCALING_RATIO(100));
-            make.top.equalTo(self.contentView).offset(SCALING_RATIO(5));
-            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-5));
-            make.right.equalTo(self.contentView);
-        }];
-    }return _textField;
-}
-
-@end
-
 @interface SettingPaymentWayVC ()
 <
 XDMultTableViewDatasource,
@@ -162,28 +44,42 @@ XDMultTableViewDelegate
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
 
-+ (instancetype)pushFromVC:(UIViewController *)rootVC
-             requestParams:(nullable id)requestParams
-                   success:(DataBlock)block
-                  animated:(BOOL)animated{
-
++ (instancetype)ComingFromVC:(UIViewController *)rootVC
+                    withStyle:(ComingStyle)comingStyle
+                requestParams:(nullable id)requestParams
+                      success:(DataBlock)block
+                     animated:(BOOL)animated{
     SettingPaymentWayVC *vc = SettingPaymentWayVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-
-    if (rootVC.navigationController) {
-        vc.isPush = YES;
-        vc.isPresent = NO;
-        [rootVC.navigationController pushViewController:vc
-                                               animated:animated];
-    }else{
-        vc.isPush = NO;
-        vc.isPresent = YES;
-        [rootVC presentViewController:vc
-                             animated:animated
-                           completion:^{}];
+    switch (comingStyle) {
+        case ComingStyle_PUSH:{
+            if (rootVC.navigationController) {
+                vc.isPush = YES;
+                vc.isPresent = NO;
+                [rootVC.navigationController pushViewController:vc
+                                                       animated:animated];
+            }else{
+                vc.isPush = NO;
+                vc.isPresent = YES;
+                [rootVC presentViewController:vc
+                                     animated:animated
+                                   completion:^{}];
+            }
+        }break;
+        case ComingStyle_PRESENT:{
+            vc.isPush = NO;
+            vc.isPresent = YES;
+            [rootVC presentViewController:vc
+                                 animated:animated
+                               completion:^{}];
+        }break;
+        default:
+            NSLog(@"错误的推进方式");
+            break;
     }return vc;
 }
+
 #pragma mark - Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
@@ -216,7 +112,8 @@ XDMultTableViewDelegate
     if (self.navigationController) {
         [self.navigationController popViewControllerAnimated:YES];
     }else{
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES
+                                 completion:nil];
     }
 }
 
@@ -353,6 +250,124 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [_headViewTitleMutArr addObject:@"支付宝"];
         [_headViewTitleMutArr addObject:@"银行卡"];
     }return _headViewTitleMutArr;
+}
+
+@end
+
+@implementation SettingPaymentWayTBVCell
+
++(instancetype)cellWith:(XDMultTableView *)tableView{
+    SettingPaymentWayTBVCell *cell = (SettingPaymentWayTBVCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
+    if (!cell) {
+        cell = [[SettingPaymentWayTBVCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                               reuseIdentifier:ReuseIdentifier
+                                                        margin:SCALING_RATIO(5)];
+        [UIView cornerCutToCircleWithView:cell.contentView
+                          AndCornerRadius:5.f];
+        [UIView colourToLayerOfView:cell.contentView
+                         WithColour:KGreenColor
+                     AndBorderWidth:.1f];
+    }return cell;
+}
+
++(CGFloat)cellHeightWithModel:(id _Nullable)model{
+    return SCALING_RATIO(50);
+}
+
+- (void)richElementsInCellWithModel:(id _Nullable)model{
+    self.textLabel.numberOfLines = 0;
+    self.textLabel.adjustsFontSizeToFitWidth = YES;
+    [self.textLabel sizeToFit];
+    if ([model isKindOfClass:[NSArray class]]) {
+        self.textLabel.text = model[0];
+        self.textField.placeholder = model[1];
+        SettingPaymentWayModel *settingPaymentWayModel = model[2];
+        self.indexPath = model[3];
+        if (self.indexPath.section == 0) {//微信
+            if (![NSString isNullString:settingPaymentWayModel.weixin_name]) {
+                self.textField.text = settingPaymentWayModel.weixin_name;
+            }
+        }else if (self.indexPath.section == 1){//支付宝
+            if (self.indexPath.row == 0) {
+                if (![NSString isNullString:settingPaymentWayModel.alipay_name]) {
+                    self.textField.text = settingPaymentWayModel.alipay_name;
+                }
+            }
+        }else if (self.indexPath.section == 2){//银行卡
+            switch (self.indexPath.row) {
+                case 0:{//银行卡姓名
+                    if (![NSString isNullString:settingPaymentWayModel.bankuser]) {
+                        self.textField.text = settingPaymentWayModel.bankuser;
+                    }
+                }break;
+                case 1:{//银行卡账号
+                    if (![NSString isNullString:settingPaymentWayModel.bankcard]) {
+                        self.textField.text = settingPaymentWayModel.bankcard;
+                    }
+                }break;
+                case 2:{//银行卡类型
+                    if (![NSString isNullString:[settingPaymentWayModel.bank stringValue]]) {
+                        self.textField.text = [settingPaymentWayModel.bank stringValue];
+                    }
+                }break;
+                case 3:{//支行信息
+                    if (![NSString isNullString:settingPaymentWayModel.bankname]) {
+                        self.textField.text = settingPaymentWayModel.bankname;
+                    }
+                }break;
+                default:
+                    break;
+            }
+        }else{}
+
+    }
+}
+
+-(void)actionBlock:(TwoDataBlock)block{
+    _block = block;
+}
+
+#pragma mark —— UITextFieldDelegate
+//询问委托人是否应该在指定的文本字段中开始编辑
+//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
+//告诉委托人在指定的文本字段中开始编辑
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+
+}
+//询问委托人是否应在指定的文本字段中停止编辑
+//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
+//告诉委托人对指定的文本字段停止编辑
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    if (self.block) {
+        self.block(textField, self.indexPath);
+    }
+}
+//告诉委托人对指定的文本字段停止编辑
+//- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
+//询问委托人是否应该更改指定的文本
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
+//询问委托人是否应删除文本字段的当前内容
+//- (BOOL)textFieldShouldClear:(UITextField *)textField;
+//询问委托人文本字段是否应处理按下返回按钮
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    return YES;
+}
+#pragma mark —— lazyLoad
+-(UITextField *)textField{
+    if (!_textField) {
+        _textField = UITextField.new;
+//        _textField.backgroundColor = RandomColor;
+        _textField.delegate = self;
+        [self.contentView addSubview:_textField];
+        [_textField mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.textLabel.mj_x +
+                                  self.textLabel.mj_w +
+                                  SCALING_RATIO(100));
+            make.top.equalTo(self.contentView).offset(SCALING_RATIO(5));
+            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-5));
+            make.right.equalTo(self.contentView);
+        }];
+    }return _textField;
 }
 
 @end

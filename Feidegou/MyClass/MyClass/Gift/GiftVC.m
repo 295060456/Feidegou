@@ -24,6 +24,231 @@ UITextFieldDelegate
 
 @end
 
+@interface GiftTBVCell_02 ()
+<
+UITextFieldDelegate
+>
+
+@property(nonatomic,strong)ZYTextField *textField;
+@property(nonatomic,copy)DataBlock block;
+
+@end
+
+@interface GiftTBVCell_03 ()
+
+@property(nonatomic,strong)UILabel *lab;
+
+@end
+
+@interface GiftTBVCell_04 ()
+
+@property(nonatomic,strong)UIButton *cancelBtn;
+@property(nonatomic,strong)UIButton *giftBtn;
+@property(nonatomic,copy)DataBlock block;
+
+@end
+
+#pragma mark —— GiftVC
+@interface GiftVC ()
+<
+UITableViewDelegate,
+UITableViewDataSource
+>
+
+@property(nonatomic,strong)UITableView *tableView;
+
+@property(nonatomic,copy)DataBlock successBlock;
+@property(nonatomic,assign)BOOL isPush;
+@property(nonatomic,assign)BOOL isPresent;
+
+@end
+
+@implementation GiftVC
+
+- (void)dealloc {
+    NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
+}
+
++ (instancetype)ComingFromVC:(UIViewController *)rootVC
+                    withStyle:(ComingStyle)comingStyle
+                requestParams:(nullable id)requestParams
+                      success:(DataBlock)block
+                     animated:(BOOL)animated{
+    GiftVC *vc = GiftVC.new;
+    vc.successBlock = block;
+    vc.requestParams = requestParams;
+    switch (comingStyle) {
+        case ComingStyle_PUSH:{
+            if (rootVC.navigationController) {
+                vc.isPush = YES;
+                vc.isPresent = NO;
+                [rootVC.navigationController pushViewController:vc
+                                                       animated:animated];
+            }else{
+                vc.isPush = NO;
+                vc.isPresent = YES;
+                [rootVC presentViewController:vc
+                                     animated:animated
+                                   completion:^{}];
+            }
+        }break;
+        case ComingStyle_PRESENT:{
+            vc.isPush = NO;
+            vc.isPresent = YES;
+            [rootVC presentViewController:vc
+                                 animated:animated
+                               completion:^{}];
+        }break;
+        default:
+            NSLog(@"错误的推进方式");
+            break;
+    }return vc;
+}
+
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    self.gk_navTitle = @"赠送给他人";
+    [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
+                                                    NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
+                                                                                        size:17]}];
+    self.gk_navItemRightSpace = SCALING_RATIO(30);
+    self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
+    self.gk_navItemLeftSpace = SCALING_RATIO(15);
+    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+}
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tableView.alpha = 1;
+    self.tabBarController.tabBar.hidden = YES;
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+}
+#pragma mark —— 点击事件
+-(void)backBtnClickEvent:(UIButton *)sender{
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+#pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (CGFloat)tableView:(UITableView *)tableView
+heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    switch (indexPath.row) {
+        case 0:{
+            return [GiftTBVCell_01 cellHeightWithModel:Nil];
+        } break;
+        case 1:{
+            return [GiftTBVCell_02 cellHeightWithModel:Nil];
+        } break;
+        case 2:{
+            return [GiftTBVCell_03 cellHeightWithModel:Nil];
+        } break;
+        case 3:{
+            return [GiftTBVCell_04 cellHeightWithModel:Nil];
+        } break;
+        default:
+            return 0.0f;
+            break;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath
+                             animated:NO];
+    return;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section{
+    return 4;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    switch (indexPath.row) {
+        case 0:{
+            GiftTBVCell_01 *cell = [GiftTBVCell_01 cellWith:tableView];
+            [cell richElementsInCellWithModel:nil];
+            @weakify(self)
+            [cell actionBlock:^(id data) {
+                @strongify(self)
+                if ([data isKindOfClass:[NSString class]]) {
+                    self.User_phone = data;
+                }
+            }];
+            return cell;
+        }break;
+        case 1:{
+            GiftTBVCell_02 *cell = [GiftTBVCell_02 cellWith:tableView];
+            [cell richElementsInCellWithModel:nil];
+            @weakify(self)
+            [cell actionBlock:^(id data) {
+                 @strongify(self)
+                if ([data isKindOfClass:[NSString class]]) {
+                    self.value = data;
+                }
+            }];
+            return cell;
+        }break;
+        case 2:{
+            GiftTBVCell_03 *cell = [GiftTBVCell_03 cellWith:tableView];
+            [cell richElementsInCellWithModel:nil];
+            return cell;
+        }break;
+        case 3:{
+            GiftTBVCell_04 *cell = [GiftTBVCell_04 cellWith:tableView];
+            [cell richElementsInCellWithModel:nil];
+            @weakify(self)
+            [cell actionBlock:^(id data) {
+                @strongify(self)
+                if ([data isKindOfClass:[UIButton class]]) {
+                    UIButton *btn = (UIButton *)data;
+                    if ([btn.titleLabel.text isEqualToString:@"取消"]) {
+                        [self.navigationController popViewControllerAnimated:YES];
+                    }else if ([btn.titleLabel.text isEqualToString:@"赠送"]){
+                        [self netWorking];//
+                    }
+                }
+            }];
+            return cell;
+        }break;
+        default:
+            return UITableViewCell.new;
+            break;
+    }
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 1;
+}
+
+#pragma mark —— lazyLoad
+-(UITableView *)tableView{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:CGRectZero
+                                                 style:UITableViewStylePlain];
+        _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.tableFooterView = UIView.new;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//推荐该方法
+        [self.view addSubview:_tableView];
+        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.gk_navigationBar.mas_bottom);
+            make.left.right.bottom.equalTo(self.view);
+        }];
+    }return _tableView;
+}
+
+
+@end
+
 @implementation GiftTBVCell_01
 
 +(instancetype)cellWith:(UITableView *)tableView{
@@ -162,16 +387,6 @@ UITextFieldDelegate
 
 @end
 
-@interface GiftTBVCell_02 ()
-<
-UITextFieldDelegate
->
-
-@property(nonatomic,strong)ZYTextField *textField;
-@property(nonatomic,copy)DataBlock block;
-
-@end
-
 @implementation GiftTBVCell_02
 
 +(instancetype)cellWith:(UITableView *)tableView{
@@ -257,12 +472,6 @@ UITextFieldDelegate
 
 @end
 
-@interface GiftTBVCell_03 ()
-
-@property(nonatomic,strong)UILabel *lab;
-
-@end
-
 @implementation GiftTBVCell_03
 
 +(instancetype)cellWith:(UITableView *)tableView{
@@ -304,14 +513,6 @@ UITextFieldDelegate
         }];
     }return _lab;
 }
-
-@end
-
-@interface GiftTBVCell_04 ()
-
-@property(nonatomic,strong)UIButton *cancelBtn;
-@property(nonatomic,strong)UIButton *giftBtn;
-@property(nonatomic,copy)DataBlock block;
 
 @end
 
@@ -416,188 +617,5 @@ UITextFieldDelegate
         }];
     }return _giftBtn;
 }
-
-@end
-
-#pragma mark —— GiftVC
-@interface GiftVC ()
-<
-UITableViewDelegate,
-UITableViewDataSource
->
-
-@property(nonatomic,strong)UITableView *tableView;
-
-@property(nonatomic,copy)DataBlock successBlock;
-@property(nonatomic,assign)BOOL isPush;
-@property(nonatomic,assign)BOOL isPresent;
-
-@end
-
-@implementation GiftVC
-
-- (void)dealloc {
-    NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
-}
-
-+ (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
-                       requestParams:(nullable id)requestParams
-                             success:(DataBlock _Nonnull )block
-                            animated:(BOOL)animated{
-    
-    GiftVC *vc = GiftVC.new;
-    vc.successBlock = block;
-    vc.requestParams = requestParams;
-
-    if (rootVC.navigationController) {
-        vc.isPush = YES;
-        vc.isPresent = NO;
-        [rootVC.navigationController pushViewController:vc
-                                               animated:animated];
-    }else{
-        vc.isPush = NO;
-        vc.isPresent = YES;
-        [rootVC presentViewController:vc
-                             animated:animated
-                           completion:^{}];
-    }return vc;
-}
-
--(void)viewDidLoad{
-    [super viewDidLoad];
-    self.gk_navTitle = @"赠送给他人";
-    [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
-                                                    NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
-                                                                                        size:17]}];
-    self.gk_navItemRightSpace = SCALING_RATIO(30);
-    self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
-    self.gk_navItemLeftSpace = SCALING_RATIO(15);
-    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-}
-
--(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.tableView.alpha = 1;
-}
-
-#pragma mark —— 点击事件
--(void)backBtnClickEvent:(UIButton *)sender{
-    if (self.navigationController) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }else{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-}
-#pragma mark —— UITableViewDelegate,UITableViewDataSource
-- (CGFloat)tableView:(UITableView *)tableView
-heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    switch (indexPath.row) {
-        case 0:{
-            return [GiftTBVCell_01 cellHeightWithModel:Nil];
-        } break;
-        case 1:{
-            return [GiftTBVCell_02 cellHeightWithModel:Nil];
-        } break;
-        case 2:{
-            return [GiftTBVCell_03 cellHeightWithModel:Nil];
-        } break;
-        case 3:{
-            return [GiftTBVCell_04 cellHeightWithModel:Nil];
-        } break;
-        default:
-            return 0.0f;
-            break;
-    }
-}
-
-- (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [tableView deselectRowAtIndexPath:indexPath
-                             animated:NO];
-    return;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView
- numberOfRowsInSection:(NSInteger)section{
-    return 4;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView
-         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    switch (indexPath.row) {
-        case 0:{
-            GiftTBVCell_01 *cell = [GiftTBVCell_01 cellWith:tableView];
-            [cell richElementsInCellWithModel:nil];
-            @weakify(self)
-            [cell actionBlock:^(id data) {
-                @strongify(self)
-                if ([data isKindOfClass:[NSString class]]) {
-                    self.User_phone = data;
-                }
-            }];
-            return cell;
-        }break;
-        case 1:{
-            GiftTBVCell_02 *cell = [GiftTBVCell_02 cellWith:tableView];
-            [cell richElementsInCellWithModel:nil];
-            @weakify(self)
-            [cell actionBlock:^(id data) {
-                 @strongify(self)
-                if ([data isKindOfClass:[NSString class]]) {
-                    self.value = data;
-                }
-            }];
-            return cell;
-        }break;
-        case 2:{
-            GiftTBVCell_03 *cell = [GiftTBVCell_03 cellWith:tableView];
-            [cell richElementsInCellWithModel:nil];
-            return cell;
-        }break;
-        case 3:{
-            GiftTBVCell_04 *cell = [GiftTBVCell_04 cellWith:tableView];
-            [cell richElementsInCellWithModel:nil];
-            @weakify(self)
-            [cell actionBlock:^(id data) {
-                @strongify(self)
-                if ([data isKindOfClass:[UIButton class]]) {
-                    UIButton *btn = (UIButton *)data;
-                    if ([btn.titleLabel.text isEqualToString:@"取消"]) {
-                        [self.navigationController popViewControllerAnimated:YES];
-                    }else if ([btn.titleLabel.text isEqualToString:@"赠送"]){
-                        [self netWorking];//
-                    }
-                }
-            }];
-            return cell;
-        }break;
-        default:
-            return UITableViewCell.new;
-            break;
-    }
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-
-#pragma mark —— lazyLoad
--(UITableView *)tableView{
-    if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectZero
-                                                 style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.tableFooterView = UIView.new;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;//推荐该方法
-        [self.view addSubview:_tableView];
-        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.gk_navigationBar.mas_bottom);
-            make.left.right.bottom.equalTo(self.view);
-        }];
-    }return _tableView;
-}
-
 
 @end

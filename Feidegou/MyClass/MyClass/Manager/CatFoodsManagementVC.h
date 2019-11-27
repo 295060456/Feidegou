@@ -20,10 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)OK;//跳转二维码页面
 -(void)Later;//稍后去上传
 
-+ (instancetype)pushFromVC:(UIViewController *)rootVC
-             requestParams:(nullable id)requestParams
-                   success:(DataBlock)block
-                  animated:(BOOL)animated;
++ (instancetype)ComingFromVC:(UIViewController *)rootVC
+                   withStyle:(ComingStyle)comingStyle
+               requestParams:(nullable id)requestParams
+                     success:(DataBlock)block
+                    animated:(BOOL)animated;
 
 @end
 

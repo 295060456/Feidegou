@@ -31,10 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *branchInfoStr;//支行信息
 @property(nonatomic,strong)__block SettingPaymentWayModel *settingPaymentWayModel;
 
-+ (instancetype)pushFromVC:(UIViewController *)rootVC
-             requestParams:(nullable id)requestParams
-                   success:(DataBlock)block
-                  animated:(BOOL)animated;
++ (instancetype)ComingFromVC:(UIViewController *)rootVC
+                   withStyle:(ComingStyle)comingStyle
+               requestParams:(nullable id)requestParams
+                     success:(DataBlock)block
+                    animated:(BOOL)animated;
 
 @end
 

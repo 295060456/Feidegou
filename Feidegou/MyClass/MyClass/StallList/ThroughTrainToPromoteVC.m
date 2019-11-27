@@ -40,24 +40,39 @@ UITableViewDataSource
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
 
-+ (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
-                       requestParams:(nullable id)requestParams
-                             success:(DataBlock _Nonnull )block
-                            animated:(BOOL)animated{
++ (instancetype)ComingFromVC:(UIViewController *)rootVC
+                    withStyle:(ComingStyle)comingStyle
+                requestParams:(nullable id)requestParams
+                      success:(DataBlock)block
+                     animated:(BOOL)animated{
     ThroughTrainToPromoteVC *vc = ThroughTrainToPromoteVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-    if (rootVC.navigationController) {
-        vc.isPush = YES;
-        vc.isPresent = NO;
-        [rootVC.navigationController pushViewController:vc
-                                               animated:animated];
-    }else{
-        vc.isPush = NO;
-        vc.isPresent = YES;
-        [rootVC presentViewController:vc
-                             animated:animated
-                           completion:^{}];
+    switch (comingStyle) {
+        case ComingStyle_PUSH:{
+            if (rootVC.navigationController) {
+                vc.isPush = YES;
+                vc.isPresent = NO;
+                [rootVC.navigationController pushViewController:vc
+                                                       animated:animated];
+            }else{
+                vc.isPush = NO;
+                vc.isPresent = YES;
+                [rootVC presentViewController:vc
+                                     animated:animated
+                                   completion:^{}];
+            }
+        }break;
+        case ComingStyle_PRESENT:{
+            vc.isPush = NO;
+            vc.isPresent = YES;
+            [rootVC presentViewController:vc
+                                 animated:animated
+                               completion:^{}];
+        }break;
+        default:
+            NSLog(@"错误的推进方式");
+            break;
     }return vc;
 }
 
@@ -77,11 +92,13 @@ UITableViewDataSource
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.tableView.mj_header beginRefreshing];
+    self.tabBarController.tabBar.hidden = YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.openBtn removeFromSuperview];
+    self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— 私有方法
 // 下拉刷新
@@ -104,10 +121,11 @@ UITableViewDataSource
     [self.view endEditing:YES];
     @weakify(self)
     if (![NSString isNullString:self.quantity]) {
-        [StallListVC pushFromVC:self_weak_
-                  requestParams:self.quantity
-                        success:^(id data) {}
-                        animated:YES];
+        [StallListVC ComingFromVC:self_weak_
+                        withStyle:ComingStyle_PUSH
+                    requestParams:self.quantity
+                          success:^(id data) {}
+                         animated:YES];
     }else{
         Toast(@"请输入您要抢摊位的数量");
     }

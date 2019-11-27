@@ -19,10 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *QRcodeStr_wechatPay;
 @property(nonatomic,copy)NSString *QRcodeStr_alipay;
 
-+ (instancetype)pushFromVC:(UIViewController *)rootVC
-             requestParams:(nullable id)requestParams
-                   success:(DataBlock)block
-                  animated:(BOOL)animated;
++ (instancetype)ComingFromVC:(UIViewController *)rootVC
+                   withStyle:(ComingStyle)comingStyle
+               requestParams:(nullable id)requestParams
+                     success:(DataBlock)block
+                    animated:(BOOL)animated;
 
 //-(void)QRcode;
 -(void)backBtnClickEvent:(UIButton *)sender;

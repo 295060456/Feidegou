@@ -398,10 +398,11 @@ UITableViewDataSource
 //上传支付凭证
 -(void)getPrintPic:(UIButton *)sender{
     @weakify(self)
-    [UpLoadCancelReasonVC pushFromVC:self_weak_
-                       requestParams:self.requestParams
-                             success:^(id data) {}
-                            animated:YES];
+    [UpLoadCancelReasonVC ComingFromVC:self_weak_
+                             withStyle:ComingStyle_PUSH
+                         requestParams:self.requestParams
+                               success:^(id data) {}
+                              animated:YES];
 }
 
 -(void)backBtnClickEvent:(UIButton *)sender{

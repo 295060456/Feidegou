@@ -75,7 +75,14 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.gk_navTitle = @"邀请码";
+    ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+    if ([model.grade_id intValue] == 3) {
+        self.gk_navTitle = @"我的联系方式";
+    }else if ([model.grade_id intValue] == 2){
+        self.gk_navTitle = @"我上级的联系方式";
+    }else{
+        
+    }
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.gk_navItemRightSpace = SCALING_RATIO(30);
@@ -89,7 +96,6 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//     [self.tableView.mj_header beginRefreshing];
     self.tabBarController.tabBar.hidden = YES;
     [self.tableView.mj_header beginRefreshing];
 }

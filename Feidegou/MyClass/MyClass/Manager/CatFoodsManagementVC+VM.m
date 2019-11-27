@@ -87,8 +87,6 @@ NSString *tokenStr;
         @"order_type":[NSNumber numberWithInt:1]
     };
     
-
-    
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:Catfoodbooth_rob_agoUrl
                                                      parameters:@{
@@ -107,10 +105,12 @@ NSString *tokenStr;
 //                          requestParams:Nil
 //                                success:^(id data) {}
 //                               animated:YES];
-                [ThroughTrainToPromoteVC pushFromVC:self
-                                      requestParams:Nil
-                                            success:^(id data) {}
-                                           animated:YES];
+                
+                [ThroughTrainToPromoteVC ComingFromVC:self_weak_
+                                            withStyle:ComingStyle_PUSH
+                                        requestParams:nil
+                                              success:^(id data) {}
+                                             animated:YES];
             }
         }
     }];

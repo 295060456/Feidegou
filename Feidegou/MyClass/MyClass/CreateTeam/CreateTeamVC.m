@@ -25,7 +25,6 @@ UITableViewDataSource
 >
 
 @property(nonatomic,strong)UITableView *tableView;
-@property(nonatomic,strong)UIButton *sendBtn;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
@@ -95,13 +94,23 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//     [self.tableView.mj_header beginRefreshing];
+    [self.tableView.mj_header beginRefreshing];
     self.tabBarController.tabBar.hidden = YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
+}
+// 下拉刷新
+-(void)pullToRefresh{
+    NSLog(@"下拉刷新");
+    [self lookUserInfo];
+}
+//上拉加载更多
+- (void)loadMoreRefresh{
+    NSLog(@"上拉加载更多");
+
 }
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
@@ -119,7 +128,7 @@ UITableViewDataSource
     if ([NSString isNullString:self.wechatStr]) {
         Toast(@"请填写微信号码");
     }else{
-        [self netWorking];
+        [self ChangeMyInfo];
     }
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource

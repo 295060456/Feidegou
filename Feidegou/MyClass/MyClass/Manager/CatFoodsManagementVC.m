@@ -45,27 +45,40 @@ UITableViewDataSource
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
 
-+ (instancetype)pushFromVC:(UIViewController *)rootVC
-             requestParams:(nullable id)requestParams
-                   success:(DataBlock)block
-                  animated:(BOOL)animated{
-
++ (instancetype)ComingFromVC:(UIViewController *)rootVC
+                    withStyle:(ComingStyle)comingStyle
+                requestParams:(nullable id)requestParams
+                      success:(DataBlock)block
+                     animated:(BOOL)animated{
     CatFoodsManagementVC *vc = CatFoodsManagementVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-    vc.loginModel = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-    if (rootVC.navigationController) {
-        vc.isPush = YES;
-        vc.isPresent = NO;
-        vc.isFirstComing = YES;
-        [rootVC.navigationController pushViewController:vc
-                                               animated:animated];
-    }else{
-        vc.isPush = NO;
-        vc.isPresent = YES;
-        [rootVC presentViewController:vc
-                             animated:animated
-                           completion:^{}];
+    switch (comingStyle) {
+        case ComingStyle_PUSH:{
+            if (rootVC.navigationController) {
+                vc.isPush = YES;
+                vc.isPresent = NO;
+                vc.isFirstComing = YES;
+                [rootVC.navigationController pushViewController:vc
+                                                       animated:animated];
+            }else{
+                vc.isPush = NO;
+                vc.isPresent = YES;
+                [rootVC presentViewController:vc
+                                     animated:animated
+                                   completion:^{}];
+            }
+        }break;
+        case ComingStyle_PRESENT:{
+            vc.isPush = NO;
+            vc.isPresent = YES;
+            [rootVC presentViewController:vc
+                                 animated:animated
+                               completion:^{}];
+        }break;
+        default:
+            NSLog(@"错误的推进方式");
+            break;
     }return vc;
 }
 
@@ -117,10 +130,11 @@ UITableViewDataSource
 
 -(void)OK{
     @weakify(self)
-    [ShopReceiptQRcodeVC pushFromVC:self_weak_
-                      requestParams:Nil
-                            success:^(id data) {}
-                           animated:YES];
+    [ShopReceiptQRcodeVC ComingFromVC:self_weak_
+                            withStyle:ComingStyle_PUSH
+                        requestParams:nil
+                              success:^(id data) {}
+                             animated:YES];
 }
 
 -(void)launch:(NSString *)vcName{
@@ -132,20 +146,23 @@ UITableViewDataSource
                            success:^(id data) {}
                           animated:YES];
     }else if ([vcName isEqualToString:@"店铺收款码"]){
-        [ShopReceiptQRcodeVC pushFromVC:self_weak_
-                          requestParams:Nil
-                                success:^(id data) {}
-                               animated:YES];
+        [ShopReceiptQRcodeVC ComingFromVC:self_weak_
+                                withStyle:ComingStyle_PUSH
+                            requestParams:nil
+                                  success:^(id data) {}
+                                 animated:YES];
     }else if ([vcName isEqualToString:@"赠送"]){
-        [GiftVC pushFromVC:self_weak_
-             requestParams:nil
-                   success:^(id data) {}
-                  animated:YES];
+        [GiftVC ComingFromVC:self_weak_
+                   withStyle:ComingStyle_PUSH
+               requestParams:nil
+                     success:^(id data) {}
+                    animated:YES];
     }else if ([vcName isEqualToString:@"喵粮产地"]){
-        [CatFoodProducingAreaVC pushFromVC:self_weak_
-                             requestParams:nil
-                                   success:^(id data) {}
-                                  animated:YES];
+        [CatFoodProducingAreaVC ComingFromVC:self_weak_
+                                   withStyle:ComingStyle_PUSH
+                               requestParams:nil
+                                     success:^(id data) {}
+                                    animated:YES];
     }else if ([vcName isEqualToString:@"直通车"]){
         [DetailsVC ComingFromVC:self_weak_
                       withStyle:ComingStyle_PUSH
@@ -171,15 +188,17 @@ UITableViewDataSource
                                  success:^(id data) {}
                                 animated:YES];
     }else if ([vcName isEqualToString:@"设置收款方式"]){
-        [SettingPaymentWayVC pushFromVC:self_weak_
-                          requestParams:nil
-                                success:^(id data) {}
-                               animated:YES];
-    }else if ([vcName isEqualToString:@"喵粮会话"]){        
-        [ChatListVC pushFromVC:self_weak_
-             requestParams:nil
-                   success:^(id data) {}
-                  animated:YES];
+        [SettingPaymentWayVC ComingFromVC:self_weak_
+                                withStyle:ComingStyle_PUSH
+                            requestParams:nil
+                                  success:^(id data) {}
+                                 animated:YES];
+    }else if ([vcName isEqualToString:@"喵粮会话"]){
+        [ChatListVC ComingFromVC:self_weak_
+                       withStyle:ComingStyle_PUSH
+                   requestParams:nil
+                         success:^(id data) {}
+                        animated:YES];
     }else if ([vcName isEqualToString:@"喵粮记录"]){
         [PersonalDataChangedListVC ComingFromVC:self_weak_
                                        withStyle:ComingStyle_PUSH

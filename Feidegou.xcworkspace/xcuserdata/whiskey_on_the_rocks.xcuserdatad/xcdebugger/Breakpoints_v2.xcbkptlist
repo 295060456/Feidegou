@@ -7,32 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2F11E4E9-45C2-471B-91B3-A98CE5A96C44"
+            uuid = "C23A4226-AC3E-4DAC-8C15-0BCFB1C09C24"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/MyClass/MyClass/&#x26bd;&#xfe0f;OrderManager/OrderManager_wholesale/OrderManager_wholesaleVC+VM.m"
+            filePath = "Feidegou/MyClass/MyClass/CreateTeam/CreateTeamVC+VM.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "-networkingWithArgument:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "59F4D82A-16E4-4C06-AB0F-6CD4B65CC03F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feidegou/Controllers/LoginAndReg/LoginViewController.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
-            landmarkName = "-my_NetworkingWithArgumentUsername:password:"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "-lookUserInfo"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

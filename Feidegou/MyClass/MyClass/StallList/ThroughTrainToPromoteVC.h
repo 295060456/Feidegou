@@ -27,10 +27,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UIButton *cancelBtn;
 @property(nonatomic,strong)UIButton *goOnBtn;
 
-+ (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
-                       requestParams:(nullable id)requestParams
-                             success:(DataBlock _Nonnull )block
-                            animated:(BOOL)animated;
++ (instancetype)ComingFromVC:(UIViewController *)rootVC
+                   withStyle:(ComingStyle)comingStyle
+               requestParams:(nullable id)requestParams
+                     success:(DataBlock)block
+                    animated:(BOOL)animated;
 
 
 @end

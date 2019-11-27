@@ -11,7 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CreateTeamVC (VM)
 
--(void)netWorking;
+-(void)ChangeMyInfo;//我的团队修改信息
+-(void)lookUserInfo;//查看用戶信息
 
 @end
 

@@ -29,10 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)OrderListModel *orderListModel;
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
 
-+ (instancetype _Nonnull )pushFromVC:(UIViewController *_Nonnull)rootVC
-                       requestParams:(nullable id)requestParams
-                             success:(DataBlock _Nonnull )block
-                            animated:(BOOL)animated;
++ (instancetype)ComingFromVC:(UIViewController *)rootVC
+                   withStyle:(ComingStyle)comingStyle
+               requestParams:(nullable id)requestParams
+                     success:(DataBlock)block
+                    animated:(BOOL)animated;
 
 -(void)upLoadbtnClickEvent:(UIButton *)sender;
 -(void)backBtnClickEvent:(UIButton *)sender;

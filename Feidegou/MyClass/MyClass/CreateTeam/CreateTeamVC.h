@@ -20,10 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-
 @interface CreateTeamVC : BaseVC
 
 @property(nonatomic,weak)LoginViewController *loginVC;
+@property(nonatomic,strong)UIButton *sendBtn;
+
 @property(nonatomic,copy)__block NSString *telePhoneStr;
 @property(nonatomic,copy)__block NSString *QQStr;
 @property(nonatomic,copy)__block NSString *wechatStr;

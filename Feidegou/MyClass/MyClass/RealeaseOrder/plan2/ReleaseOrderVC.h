@@ -52,10 +52,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)__block NSString *str_11;//单价
 @property(nonatomic,strong)id requestParams;
 
-+ (instancetype)pushFromVC:(UIViewController *)rootVC
-             requestParams:(nullable id)requestParams
-                   success:(DataBlock)block
-                  animated:(BOOL)animated;
++ (instancetype)ComingFromVC:(UIViewController *)rootVC
+                   withStyle:(ComingStyle)comingStyle
+               requestParams:(nullable id)requestParams
+                     success:(DataBlock)block
+                    animated:(BOOL)animated;
 
 @end
 
