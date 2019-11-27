@@ -252,7 +252,7 @@ UIScrollViewDelegate
         [self.scrollView addSubview:_wechatPayTipsLab];
         [_wechatPayTipsLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.scrollView).offset(SCALING_RATIO(-10));
-            make.left.equalTo(self.wechatPayLab.mas_right).offset(SCALING_RATIO(10));
+            make.left.equalTo(self.qrCodeIMGV_wechatPay.mas_right).offset(SCALING_RATIO(10));
             make.top.bottom.equalTo(self.qrCodeIMGV_wechatPay);
         }];
     }return _wechatPayTipsLab;
@@ -264,7 +264,7 @@ UIScrollViewDelegate
         [_alipayTipsLab setNumberOfLines:0];
         _alipayTipsLab.textColor = kRedColor;
         if (@available(iOS 8.2, *)) {
-            _alipayTipsLab.font = [UIFont systemFontOfSize:8
+            _alipayTipsLab.font = [UIFont systemFontOfSize:7
                                                     weight:1];
         } else {
             // Fallback on earlier versions
@@ -272,9 +272,9 @@ UIScrollViewDelegate
         _alipayTipsLab.text = @"此\n支\n付\n宝\n收\n款\n码\n已\n经\n失\n效\n，\n请\n重\n新\n上\n传\n";
         [self.scrollView addSubview:_alipayTipsLab];
         [_alipayTipsLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.scrollView).offset(SCALING_RATIO(10));
-            make.left.equalTo(self.alipayTipsLab.mas_right).offset(SCALING_RATIO(10));
-            make.top.bottom.equalTo(self.alipayTipsLab);
+            make.right.equalTo(self.scrollView).offset(SCALING_RATIO(-10));
+            make.left.equalTo(self.qrCodeIMGV_alipay.mas_right).offset(SCALING_RATIO(10));
+            make.top.bottom.equalTo(self.qrCodeIMGV_alipay);
         }];
     }return _alipayTipsLab;
 }
