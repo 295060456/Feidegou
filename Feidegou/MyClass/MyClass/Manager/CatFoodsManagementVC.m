@@ -171,11 +171,16 @@ UITableViewDataSource
                                     animated:YES];
     }else if ([vcName isEqualToString:@"直通车"]){
 #warning KKK
-        [DetailsVC ComingFromVC:self_weak_
-                      withStyle:ComingStyle_PUSH
-                  requestParams:nil
-                        success:^(id data) {}
-                       animated:YES];
+//        [DetailsVC ComingFromVC:self_weak_
+//                      withStyle:ComingStyle_PUSH
+//                  requestParams:nil
+//                        success:^(id data) {}
+//                       animated:YES];
+        [ThroughTrainToPromoteVC ComingFromVC:self_weak_
+                                    withStyle:ComingStyle_PUSH
+                                requestParams:nil
+                                      success:^(id data) {}
+                                     animated:YES];
         return;
         if (self.dataMutArr.count) {
             NSString *str = (NSString *)self.dataMutArr[1];

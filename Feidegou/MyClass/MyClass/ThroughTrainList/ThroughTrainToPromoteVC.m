@@ -104,7 +104,8 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
-    [self checkThroughTrainToPromoteStyle_netWorking];
+#warning KKK
+//    [self checkThroughTrainToPromoteStyle_netWorking];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
@@ -129,13 +130,15 @@ UITableViewDataSource
 
 -(void)cancelBtnClickEvent:(UIButton *)sender{
     NSLog(@"%@",sender.titleLabel.text);
-    [self deleteThroughTrainToPromote_netWorking];
+#warning KKK
+//    [self deleteThroughTrainToPromote_netWorking];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)goOnBtnClickEvent:(UIButton *)sender{
     NSLog(@"%@",sender.titleLabel.text);
-    [self openBtnClickEvent:sender];
+#warning KKK
+//    [self openBtnClickEvent:sender];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView

@@ -65,6 +65,8 @@
 		8B8A0DFD238FEFDE000D7579 /* ThroughTrainListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A0DFC238FEFDE000D7579 /* ThroughTrainListVC.m */; };
 		8B8A0E00238FEFFA000D7579 /* ThroughTrainListVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A0DFF238FEFFA000D7579 /* ThroughTrainListVC+VM.m */; };
 		8B8A0E03238FF012000D7579 /* ThroughTrainListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A0E02238FF012000D7579 /* ThroughTrainListModel.m */; };
+		8B8A0E08238FF2C7000D7579 /* HQCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A0E04238FF2C6000D7579 /* HQCollectionViewFlowLayout.m */; };
+		8B8A0E09238FF2C7000D7579 /* HQTopStopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A0E05238FF2C6000D7579 /* HQTopStopView.m */; };
 		8B8A1DC2238D0010006AE2CB /* ThroughTrainToPromoteVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DBE238D000F006AE2CB /* ThroughTrainToPromoteVC+VM.m */; };
 		8B8A1DC3238D0010006AE2CB /* ThroughTrainToPromoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DC0238D0010006AE2CB /* ThroughTrainToPromoteVC.m */; };
 		8B8A1DC6238D6C41006AE2CB /* LookUpContactWayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DC5238D6C41006AE2CB /* LookUpContactWayVC.m */; };
@@ -749,6 +751,10 @@
 		8B8A0DFF238FEFFA000D7579 /* ThroughTrainListVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ThroughTrainListVC+VM.m"; sourceTree = "<group>"; };
 		8B8A0E01238FF012000D7579 /* ThroughTrainListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThroughTrainListModel.h; sourceTree = "<group>"; };
 		8B8A0E02238FF012000D7579 /* ThroughTrainListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThroughTrainListModel.m; sourceTree = "<group>"; };
+		8B8A0E04238FF2C6000D7579 /* HQCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HQCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		8B8A0E05238FF2C6000D7579 /* HQTopStopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HQTopStopView.m; sourceTree = "<group>"; };
+		8B8A0E06238FF2C7000D7579 /* HQTopStopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HQTopStopView.h; sourceTree = "<group>"; };
+		8B8A0E07238FF2C7000D7579 /* HQCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HQCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		8B8A1DBE238D000F006AE2CB /* ThroughTrainToPromoteVC+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ThroughTrainToPromoteVC+VM.m"; sourceTree = "<group>"; };
 		8B8A1DBF238D0010006AE2CB /* ThroughTrainToPromoteVC+VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ThroughTrainToPromoteVC+VM.h"; sourceTree = "<group>"; };
 		8B8A1DC0238D0010006AE2CB /* ThroughTrainToPromoteVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThroughTrainToPromoteVC.m; sourceTree = "<group>"; };
@@ -2033,6 +2039,17 @@
 			path = OrderManager_producingArea;
 			sourceTree = "<group>";
 		};
+		8B8A0E0A238FF2CD000D7579 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				8B8A0E07238FF2C7000D7579 /* HQCollectionViewFlowLayout.h */,
+				8B8A0E04238FF2C6000D7579 /* HQCollectionViewFlowLayout.m */,
+				8B8A0E06238FF2C7000D7579 /* HQTopStopView.h */,
+				8B8A0E05238FF2C6000D7579 /* HQTopStopView.m */,
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		8B8B0D702368278E0040EE53 /* PopMenuView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2426,6 +2443,7 @@
 		8BB2D2F22366C7310047D0E2 /* List */ = {
 			isa = PBXGroup;
 			children = (
+				8B8A0E0A238FF2CD000D7579 /* New Group */,
 				8B8A0DFB238FEFDE000D7579 /* ThroughTrainListVC.h */,
 				8B8A0DFC238FEFDE000D7579 /* ThroughTrainListVC.m */,
 				8B8A0E01238FF012000D7579 /* ThroughTrainListModel.h */,
@@ -4554,6 +4572,7 @@
 				C4614412214386B6000C0CDC /* VendorDetailGoodController.m in Sources */,
 				8B408841238EB3820030ABBF /* JoinInTeamVC.m in Sources */,
 				C42CD076213CC2640096675F /* RedPacketTransportController.m in Sources */,
+				8B8A0E09238FF2C7000D7579 /* HQTopStopView.m in Sources */,
 				C42CD1B7213CC2640096675F /* JJCollectionViewCell.m in Sources */,
 				8BB2D3422366CB3E0047D0E2 /* FMHttpRequest.m in Sources */,
 				C42CD124213CC2640096675F /* CLCellRegion.m in Sources */,
@@ -4678,6 +4697,7 @@
 				C46D6B562143A48D00428D7A /* UIButton+EnlargeTouchArea.m in Sources */,
 				C42CD152213CC2640096675F /* ViewForTypeSelectLeftSlide.m in Sources */,
 				C42CD0A5213CC2640096675F /* CellBilInfo.m in Sources */,
+				8B8A0E08238FF2C7000D7579 /* HQCollectionViewFlowLayout.m in Sources */,
 				C42CD19C213CC2640096675F /* UILabelBlackSmall.m in Sources */,
 				C42CD1B1213CC2640096675F /* ShopTypeNavigationController.m in Sources */,
 				C4A22208215A330500AC08C4 /* DrawbackMoney.m in Sources */,
