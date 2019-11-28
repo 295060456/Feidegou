@@ -89,11 +89,15 @@ UIScrollViewDelegate
     self.qrCodeIMGV_wechatPay.alpha = 1;
     self.alipayLab.alpha = 1;
     self.qrCodeIMGV_alipay.alpha = 1;
-    [self netWorking];
     
-    //temp
-    self.wechatPayTipsLab.alpha = 1;
-    self.alipayTipsLab.alpha = 1;
+    extern NSString *alipay_qr_img;//支付宝收款二维码
+    extern NSString *weixin_qr_img;//微信收款二维码
+    if ([alipay_qr_img isEqualToString:@"-1"]) {
+        self.alipayTipsLab.alpha = 1;
+    }else if ([weixin_qr_img isEqualToString:@"-1"]){
+        self.wechatPayTipsLab.alpha = 1;
+    }
+    [self netWorking];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

@@ -253,21 +253,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
     }else if (indexPath.section == 1){
         if ([cell.textLabel.text isEqualToString:@"喵粮订单管理"]) {
-//            cell.detailTextLabel.text = @"3";//未完成订单数
-//            [cell.detailTextLabel sizeToFit];
-//            cell.detailTextLabel.backgroundColor = kRedColor;
-//            [UIView cornerCutToCircleWithView:cell.detailTextLabel AndCornerRadius:cell.detailTextLabel.mj_h / 2];
-
-            UIButton *btn = UIButton.new;
-            [btn setTitle:@"3" forState:UIControlStateNormal];
-            [btn setBackgroundImage:kIMG(@"RedDot") forState:UIControlStateNormal];
-            [cell addSubview:btn];
-            btn.frame = CGRectMake(SCREEN_WIDTH - SCALING_RATIO(60),
-                                   SCALING_RATIO(15),
-                                   SCALING_RATIO(20),
-                                   SCALING_RATIO(20));
-            [UIView cornerCutToCircleWithView:btn
-                              AndCornerRadius:10];
+            extern NSString *wait_goods;//待处理订单的数量
+            if (![NSString isNullString:wait_goods] ) {
+                            UIButton *btn = UIButton.new;
+                [btn setTitle:wait_goods
+                     forState:UIControlStateNormal];
+                [btn setBackgroundImage:kIMG(@"RedDot")
+                               forState:UIControlStateNormal];
+                [cell addSubview:btn];
+                btn.frame = CGRectMake(SCREEN_WIDTH - SCALING_RATIO(60),
+                                       SCALING_RATIO(15),
+                                       SCALING_RATIO(20),
+                                       SCALING_RATIO(20));
+                [UIView cornerCutToCircleWithView:btn
+                                  AndCornerRadius:10];
+            }
         }
     }else{}
     return cell;
