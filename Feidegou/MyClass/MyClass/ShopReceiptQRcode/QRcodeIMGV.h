@@ -12,8 +12,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface QRcodeIMGV : UIImageView
 
-@property(nonatomic,strong)NSString *QRcodeStr;
--(void)QRcode;
+@property(nonatomic,copy)NSString *QRcodeStr;
+
+-(void)QRcode;//二维码信息调用
+-(void)imgCode:(NSString *)QRcodeStr;//图片信息调用
 
 @end
 

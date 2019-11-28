@@ -11,7 +11,6 @@
 @implementation ShopReceiptQRcodeVC (VM)
 
 -(void)netWorking{
-
     extern NSString *randomStr;
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodWeixin_quarURL
@@ -32,8 +31,8 @@
                         self.QRcodeStr_wechatPay = dic[@"weixin_qr_img"];
                         @weakify(self)
                         dispatch_async(dispatch_get_main_queue(), ^{
-                           @strongify(self)
-                           [self.qrCodeIMGV_wechatPay QRcode];
+                            @strongify(self)
+                            [self.qrCodeIMGV_wechatPay imgCode:dic[@"weixin_qr_img"]];
                         });
                     }
                 }
@@ -42,8 +41,8 @@
                         self.QRcodeStr_alipay = dic[@"alipay_qr_img"];
                         @weakify(self)
                         dispatch_async(dispatch_get_main_queue(), ^{
-                           @strongify(self)
-                           [self.qrCodeIMGV_alipay QRcode];
+                            @strongify(self)
+                            [self.qrCodeIMGV_alipay imgCode:dic[@"alipay_qr_img"]];
                         });
                     }
                 }
