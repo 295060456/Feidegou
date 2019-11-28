@@ -105,7 +105,7 @@
         [SVProgressHUD showWithStatus:@"正在登录..."];
         Toast(strUserNum);
         [self my_NetworkingWithArgumentUsername:strUserNum
-                                           password:strPsw];
+                                       password:strPsw];
         //    [self old_NetworkingWithArgumentUsername:strUserNum
         //                                    password:strPsw];
     }else{

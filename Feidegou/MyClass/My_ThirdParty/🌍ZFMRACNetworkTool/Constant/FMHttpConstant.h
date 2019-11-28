@@ -36,9 +36,9 @@
 #define BaseURL BaseUrl_Daniel
 #define BaseUrl2 [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Gouge,Port_Gouge,@"/catfoodapp"]
 //Daniel
-#define DanielUrL [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Daniel,Port_Gouge,@"/MFW"]
-#define AK [NSString stringWithFormat:@"%@%@%@/%@",HTTP,IP_Daniel,Port_Gouge,RELATIVE_PATH_QUERY]//登录
-#define YQM [NSString stringWithFormat:@"%@%@%@%@%@",HTTP,IP_Daniel,Port_Gouge,@"/MFW/",RELATIVE_PATH_QUERY]//邀请码
+#define DanielUrL [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Daniel,Port_Daniel,@"/MFW"]
+#define AK [NSString stringWithFormat:@"%@%@%@/%@",HTTP,IP_Daniel,Port_Daniel,RELATIVE_PATH_QUERY]//登录
+#define YQM [NSString stringWithFormat:@"%@%@%@/%@",HTTP,IP_Daniel,Port_Daniel,RELATIVE_PATH_WRITE]//邀请码
 //webSocket
 #define WebSocketLocalhost [NSString stringWithFormat:@"%@%@%@%@",WS,IP_Daniel,Port_Daniel,@"/MFW/websocket"]
 

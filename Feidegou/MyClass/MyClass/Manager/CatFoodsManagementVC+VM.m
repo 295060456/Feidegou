@@ -35,7 +35,22 @@ NSString *market_price_co;//产地均价
                                                                              publicKey:RSA_Public_key]
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
-    [self.reqSignal subscribeNext:^(FMHttpResonse *response) { 
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+#warning KKK temp
+//        {"nick":"小家伙","portrait":"http:\/\/img.937753.com\/mlhead\/photh\/buy\/6.jpg","order_code":"123456"}
+        
+                        @weakify(self)
+                        RCConversationModel *model = RCConversationModel.new;
+                        model.conversationType = ConversationType_PRIVATE;
+        //                model.targetId = [NSString stringWithFormat:@"%@",self.orderListModel.seller];
+                        model.targetId = @"admin";
+        //                if (self.orderListModel) {
+                            [ChatVC ComingFromVC:self_weak_
+                                       withStyle:ComingStyle_PUSH
+                                   requestParams:model
+                                         success:^(id data) {}
+                                        animated:YES];
+        return ;
         if (response) {
             NSLog(@"--%@",response);
             if ([response isKindOfClass:[NSDictionary class]]) {
@@ -80,12 +95,25 @@ NSString *market_price_co;//产地均价
                 [self.tableView.mj_footer endRefreshing];
                 [self.tableView reloadData];
             }else{
-                if (response.code == 300) {//被挤下线逻辑
-//#warning KKK
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
-                    LoginViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-                    [self.navigationController pushViewController:controller animated:YES];
-                }
+#warning KKK 临时数据
+                @weakify(self)
+                RCConversationModel *model = RCConversationModel.new;
+                model.conversationType = ConversationType_PRIVATE;
+//                model.targetId = [NSString stringWithFormat:@"%@",self.orderListModel.seller];
+                model.targetId = @"admin";
+//                if (self.orderListModel) {
+                    [ChatVC ComingFromVC:self_weak_
+                               withStyle:ComingStyle_PUSH
+                           requestParams:model
+                                 success:^(id data) {}
+                                animated:YES];
+//                }
+#warning KKK 正式环境启用
+//                if (response.code == 300) {//被挤下线逻辑
+//                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
+//                    LoginViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+//                    [self.navigationController pushViewController:controller animated:YES];
+//                }
             }
         }
     }];

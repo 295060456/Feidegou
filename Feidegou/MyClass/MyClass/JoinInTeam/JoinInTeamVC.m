@@ -20,7 +20,7 @@ UITextFieldDelegate
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
-
+@property(nonatomic,copy)NSString *str;
 @end
 
 @implementation JoinInTeamVC
@@ -79,6 +79,16 @@ UITextFieldDelegate
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.textField.alpha = 1;
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+}
 #pragma mark —— UITextFieldDelegate
 //询问委托人是否应该在指定的文本字段中开始编辑
 //- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
@@ -90,7 +100,7 @@ UITextFieldDelegate
 //- (BOOL)textFieldShouldEndEditing:(UITextField *)textField;
 //告诉委托人对指定的文本字段停止编辑
 - (void)textFieldDidEndEditing:(UITextField *)textField{
-    [self netWorking:textField.text];
+    self.str = textField.text;
 }
 //告诉委托人对指定的文本字段停止编辑
 //- (void)textFieldDidEndEditing:(UITextField *)textField reason:(UITextFieldDidEndEditingReason)reason;
@@ -106,6 +116,7 @@ UITextFieldDelegate
 -(void)sendBtnClickEvent:(UIButton *)sender{
     NSLog(@"发送");
     [self.view endEditing:YES];
+    [self netWorking:self.str];
 }
 
 -(void)backBtnClickEvent:(UIButton *)sender{

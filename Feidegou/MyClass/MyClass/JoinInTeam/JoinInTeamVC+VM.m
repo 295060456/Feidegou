@@ -79,8 +79,6 @@
 //}
 
 -(void)netWorking:(NSString *)inviter{
-#warning tempData
-//    inviter = @"1111";
     NSMutableDictionary *dataMutDic = NSMutableDictionary.dictionary;
     NSMutableDictionary *params = NSMutableDictionary.dictionary;
     [params setObject:inviter forKey:@"inviter"];
@@ -126,9 +124,9 @@
         error:错误信息
      响应头:task.response
      */
-    NSString *str = YQM;//http://10.1.41.174:8888/SHOPAPP2.0/appShop7/write.do
-                        //http://10.1.41.174:8888/SHOPAPP2.0/appShop7/query.do
-    [manager POST:YQM //@"http://10.1.41.174:8080/SHOPAPP3.0/appShop7/write.do"
+    NSString *str = YQM;
+                        
+    [manager POST:YQM 
        parameters:dataMutDic
          progress:nil
           success:^(NSURLSessionDataTask * _Nonnull task,
@@ -168,8 +166,7 @@
         NSLog(@"Got an error: %@", error);
     } else {
         jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    }
-    return jsonString;
+    }return jsonString;
 }
 
 @end
