@@ -86,6 +86,8 @@ UITableViewDataSource
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.tableView.alpha = 1;
+    self.cancelBtn.alpha = 1;
+    self.goOnBtn.alpha = 1;
     NSString *str = @"开启直通车，您的宝贝将大大增加曝光度";
 }
 
@@ -122,7 +124,7 @@ UITableViewDataSource
     [self.view endEditing:YES];
     @weakify(self)
     if (![NSString isNullString:self.quantity]) {
-
+        [self CatfoodTrainURL_networking];
     }else{
         Toast(@"请输入您要抢摊位的数量");
     }
@@ -138,7 +140,7 @@ UITableViewDataSource
 -(void)goOnBtnClickEvent:(UIButton *)sender{
     NSLog(@"%@",sender.titleLabel.text);
 #warning KKK
-//    [self openBtnClickEvent:sender];
+    [self openBtnClickEvent:sender];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView

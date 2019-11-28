@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HQTopStopView : UICollectionReusableView
 
+@property(nonatomic,strong)SearchView *searchView;
+
 @end
 
 NS_ASSUME_NONNULL_END

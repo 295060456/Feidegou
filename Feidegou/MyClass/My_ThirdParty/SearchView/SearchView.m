@@ -16,7 +16,6 @@
 UIScrollViewDelegate
 >
 
-@property(nonatomic,strong)UIScrollView *scrollView;
 @property(nonatomic,strong)NSMutableArray <MMButton *>*btnMutArr;
 @property(nonatomic,copy)DataBlock block;
 @property(nonatomic,assign)CGFloat BtnWidth;
@@ -30,7 +29,10 @@ UIScrollViewDelegate
         self.btnTitleArr = btnTitleMutArr;
         self.scrollView.alpha = 1;
         self.backgroundColor = kWhiteColor;
-        if (btnTitleMutArr.count * BtnDefaultWidth < SCREEN_WIDTH) {
+        
+        float offset = SCALING_RATIO(65);//误差值修正
+        
+        if (btnTitleMutArr.count * BtnDefaultWidth + SCALING_RATIO(10) * (btnTitleMutArr.count - 1) + SCALING_RATIO(5) * 2  - offset < SCREEN_WIDTH) {
             self.BtnWidth = (SCREEN_WIDTH - SCALING_RATIO(5) * 2 - SCALING_RATIO(10) * (btnTitleMutArr.count - 1))/ btnTitleMutArr.count;
         }else{
             self.BtnWidth = BtnDefaultWidth;
@@ -86,7 +88,8 @@ UIScrollViewDelegate
 -(UIScrollView *)scrollView{
     if (!_scrollView) {
         _scrollView = UIScrollView.new;
-//        _scrollView.alwaysBounceHorizontal = YES;
+//        _scrollView.alwaysBounceHorizontal = YES;//禁止左右滚动
+//        _scrollView.alwaysBounceVertical = NO;//禁止上下滚动
         _scrollView.pagingEnabled = YES;
         _scrollView.contentSize = CGSizeMake((SCALING_RATIO(100) + SCALING_RATIO(10)) * (self.btnTitleArr.count) + SCALING_RATIO(5),
                                              55);

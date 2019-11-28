@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SearchView : UIView
 
+@property(nonatomic,strong)UIScrollView *scrollView;
+
 @property(nonatomic,strong)NSArray <NSString *>*btnTitleArr;
 -(void)actionBlock:(DataBlock)block;
 -(instancetype)initWithBtnTitleMutArr:(NSArray <NSString *>*)btnTitleMutArr;

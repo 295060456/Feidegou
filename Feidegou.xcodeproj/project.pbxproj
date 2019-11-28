@@ -2227,6 +2227,7 @@
 		8BB2D2942366C7310047D0E2 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				8BCAB641238A8E16000B0360 /* SearchView */,
 				8BEAAFBF23884DB2008D7F1D /* UIControl+XY */,
 				8B571AAB23874836009624D8 /* ContentBaseViewController */,
 				8BB2D29F2366C7310047D0E2 /* 🌍ZFMRACNetworkTool */,
@@ -2458,7 +2459,6 @@
 			isa = PBXGroup;
 			children = (
 				8BCAB642238A8E5D000B0360 /* Common */,
-				8BCAB641238A8E16000B0360 /* SearchView */,
 				8B86E06923865400004D4C0A /* OrderManager_panicBuying */,
 				8B86E06A23865408004D4C0A /* OrderManager_producingArea */,
 				8B86E06023864F1A004D4C0A /* OrderListVC.h */,

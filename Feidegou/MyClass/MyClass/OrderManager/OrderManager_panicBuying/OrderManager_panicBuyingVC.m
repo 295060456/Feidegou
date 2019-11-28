@@ -247,8 +247,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     OrderListTBVCell *cell = [OrderListTBVCell cellWith:tableView];
     if (self.dataMutArr.count) {
         [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
-    }
-    return cell;
+    }return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

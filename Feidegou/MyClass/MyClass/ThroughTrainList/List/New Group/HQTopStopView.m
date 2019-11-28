@@ -10,6 +10,38 @@
 
 #import "HQTopStopView.h"
 
+@interface HQTopStopView ()
+
+@property(nonatomic,strong)NSMutableArray <NSString *>*btnTitleMutArr;
+
+@end
+
 @implementation HQTopStopView
+
+-(instancetype)initWithFrame:(CGRect)frame{
+    if (self = [super initWithFrame:frame]) {
+        self.searchView.alpha = 1;
+    }return self;
+}
+
+-(SearchView *)searchView{
+    if (!_searchView) {
+         _searchView = [[SearchView alloc] initWithBtnTitleMutArr:self.btnTitleMutArr];
+        [self addSubview:_searchView];
+        [_searchView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
+    }return _searchView;
+}
+
+-(NSMutableArray<NSString *> *)btnTitleMutArr{
+    if (!_btnTitleMutArr) {
+        _btnTitleMutArr = NSMutableArray.array;
+        [_btnTitleMutArr addObject:@"综合"];
+        [_btnTitleMutArr addObject:@"销量"];
+        [_btnTitleMutArr addObject:@"价格"];
+        [_btnTitleMutArr addObject:@"筛选"];
+    }return _btnTitleMutArr;
+}
 
 @end

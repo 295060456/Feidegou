@@ -46,24 +46,33 @@
 }
 //关闭直通车
 -(void)deleteThroughTrainToPromote_netWorking{
-        extern NSString *randomStr;
-        NSDictionary *dataDic = @{
-        };
-        FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
-                                                               path:CatfoodTrain_delURL
-                                                         parameters:@{
-                                                             @"data":dataDic,//内部加密
-                                                             @"key":[RSAUtil encryptString:randomStr
-                                                                                 publicKey:RSA_Public_key]
-                                                         }];
-        self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
-        [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-            if (!response) {
-                NSLog(@"--%@",response);
-                Toast(@"取消成功");
-            }
-        }];
+    extern NSString *randomStr;
+    NSDictionary *dataDic = @{
+    };
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodTrain_delURL
+                                                     parameters:@{
+                                                         @"data":dataDic,//内部加密
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key]
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        if (!response) {
+            NSLog(@"--%@",response);
+            Toast(@"取消成功");
+        }
+    }];
 }
-
+//开启直通车 CatfoodTrainURL
+-(void)CatfoodTrainURL_networking{
+//    self.quantity
+    @weakify(self)
+    [ThroughTrainListVC ComingFromVC:self_weak_
+                           withStyle:ComingStyle_PUSH
+                       requestParams:nil
+                             success:^(id data) {}
+                            animated:YES];
+}
 
 @end

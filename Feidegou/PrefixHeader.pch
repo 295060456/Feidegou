@@ -149,6 +149,8 @@
 #import "ContentBaseViewController.h"
 #import "JXCategoryTitleImageView.h"
 
+#import "SearchView.h"
+
 //Test
 #import "TestVC.h"
 #import "TestView.h"
