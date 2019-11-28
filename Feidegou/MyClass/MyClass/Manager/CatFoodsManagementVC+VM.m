@@ -125,12 +125,7 @@ NSString *market_price_co;//产地均价
         @strongify(self)
         if ([response isKindOfClass:[NSString class]]) {
             NSString *str = (NSString *)response;
-            if ([NSString isNullString:str]) {
-//                [StallListVC pushFromVC:self_weak_
-//                          requestParams:Nil
-//                                success:^(id data) {}
-//                               animated:YES];
-                
+            if ([NSString isNullString:str]) {                
                 [ThroughTrainToPromoteVC ComingFromVC:self_weak_
                                             withStyle:ComingStyle_PUSH
                                         requestParams:nil

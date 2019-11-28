@@ -81,7 +81,6 @@
 //我自己手动引入的第三方
 #import "AABlock.h"
 #import "YBNotificationManager.h"
-//#import "MISCustomButton.h"
 #import "BaseVC.h"
 #import "BaseTableViewer.h"
 #import "ViewForHeader.h"
@@ -111,6 +110,7 @@
 #import "SocketRocketUtility.h"
 #import "YDDevice.h"
 #import "UIControl+XY.h"
+//#import "MISCustomButton.h"
 //加密体系
 #import "RSAUtil.h"
 #import "EncryptUtils.h"
@@ -130,7 +130,6 @@
 #import "OrderDetailModel.h"
 #import "ReleaseOrderModel.h"
 #import "CatFoodProducingAreaModel.h"
-#import "StallListModel.h"
 #import "JJBaseModel.h"
 #import "SettingPaymentWayModel.h"
 #import "PersonalDataChangedListModel.h"
@@ -138,25 +137,21 @@
 #import "OrderManager_producingAreaModel.h"
 #import "DefineStructure.h"
 #import "OrderListModel.h"
-//废弃的
-//#import "OrderDetail_SellerModel.h"
-//#import "OrderDetail_BuyerModel.h"
-//#import "WholesaleOrders_AdvanceModel.h"
-//#import "WholesaleOrders_VipModel.h"
-
-//Test
-#import "TestVC.h"
-#import "TestView.h"
+#import "ThroughTrainListModel.h"
 
 #import "LoginViewController.h"
 #import "OrderDetailVC.h"//订单详情
 #import "UpLoadCancelReasonVC.h"//上传截图
-//#import "RegisterVC.h"//注册
 #import "PersonalInfo.h"
-#import "StallListVC.h"
 #import "SearchVC.h"
-
 #import "ChatListVC.h"
+
+#import "ContentBaseViewController.h"
+#import "JXCategoryTitleImageView.h"
+
+//Test
+#import "TestVC.h"
+#import "TestView.h"
 
 //#import <RongCallKit/RongCallKit.h>
 //#import <RongCallLib/RongCallLib.h>
@@ -165,9 +160,6 @@
 //#import <RongIMLib/RongIMLib.h>
 //#import <RongSticker/RongSticker.h>//表情库
 #import <RongSight/RongSight.h>//视频
-
-#import "ContentBaseViewController.h"
-#import "JXCategoryTitleImageView.h"
 
 #define RongCloud_Key @"pwe86ga5p4po6"
 #define JPush_Key @"f82ecf419eb0ebc52989dbf7"

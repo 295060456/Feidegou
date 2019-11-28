@@ -125,12 +125,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //        订单类型 1、直通车;2、批发;3、平台
         OrderListModel *orderListModel = self.dataMutArr[indexPath.row];
         if ([orderListModel.order_type intValue] == 1) {//1、直通车 StallListModel
-            StallListModel *model = (StallListModel *)orderListModel;
-            [OrderDetailVC ComingFromVC:self_weak_
-                              withStyle:ComingStyle_PUSH
-                          requestParams:model
-                                success:^(id data) {}
-                               animated:YES];
+//            StallListModel *model = (StallListModel *)orderListModel;
+//            [OrderDetailVC ComingFromVC:self_weak_
+//                              withStyle:ComingStyle_PUSH
+//                          requestParams:model
+//                                success:^(id data) {}
+//                               animated:YES];
         }else if ([orderListModel.order_type intValue] == 3){//3、平台 CatFoodProducingAreaModel
             CatFoodProducingAreaModel *model = (CatFoodProducingAreaModel *)orderListModel;
             [OrderDetailVC ComingFromVC:self_weak_

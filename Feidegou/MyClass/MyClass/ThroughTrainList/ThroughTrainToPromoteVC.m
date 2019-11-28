@@ -121,11 +121,7 @@ UITableViewDataSource
     [self.view endEditing:YES];
     @weakify(self)
     if (![NSString isNullString:self.quantity]) {
-        [StallListVC ComingFromVC:self_weak_
-                        withStyle:ComingStyle_PUSH
-                    requestParams:self.quantity
-                          success:^(id data) {}
-                         animated:YES];
+
     }else{
         Toast(@"请输入您要抢摊位的数量");
     }

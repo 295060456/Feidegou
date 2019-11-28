@@ -46,8 +46,6 @@
 		8B7A54ED236D6DD1006B12F8 /* WBTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A54E3236D6DD0006B12F8 /* WBTableViewDataSource.m */; };
 		8B7A552C236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A552B236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m */; };
 		8B7DED9A2382C0D200DEBA38 /* Q_Pet+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7DED982382C0D200DEBA38 /* Q_Pet+VM.m */; };
-		8B7E6DDC2374073B0023314C /* StallListVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7E6DDB2374073B0023314C /* StallListVC+VM.m */; };
-		8B7E6DDF2374076A0023314C /* StallListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7E6DDE2374076A0023314C /* StallListModel.m */; };
 		8B86A7F8237D0FE50058173B /* ReleaseOrderVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86A7F4237D0FE40058173B /* ReleaseOrderVC+VM.m */; };
 		8B86A7F9237D0FE50058173B /* ReleaseOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86A7F5237D0FE40058173B /* ReleaseOrderVC.m */; };
 		8B86A7FC237D120C0058173B /* ReleaseOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86A7FA237D120C0058173B /* ReleaseOrderModel.m */; };
@@ -64,6 +62,9 @@
 		8B86E06223864F1A004D4C0A /* OrderListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86E06123864F1A004D4C0A /* OrderListVC.m */; };
 		8B86E06E23865499004D4C0A /* OrderManager_producingAreaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86E06D23865499004D4C0A /* OrderManager_producingAreaVC.m */; };
 		8B86E07423865514004D4C0A /* OrderManager_panicBuyingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86E07323865514004D4C0A /* OrderManager_panicBuyingVC.m */; };
+		8B8A0DFD238FEFDE000D7579 /* ThroughTrainListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A0DFC238FEFDE000D7579 /* ThroughTrainListVC.m */; };
+		8B8A0E00238FEFFA000D7579 /* ThroughTrainListVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A0DFF238FEFFA000D7579 /* ThroughTrainListVC+VM.m */; };
+		8B8A0E03238FF012000D7579 /* ThroughTrainListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A0E02238FF012000D7579 /* ThroughTrainListModel.m */; };
 		8B8A1DC2238D0010006AE2CB /* ThroughTrainToPromoteVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DBE238D000F006AE2CB /* ThroughTrainToPromoteVC+VM.m */; };
 		8B8A1DC3238D0010006AE2CB /* ThroughTrainToPromoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DC0238D0010006AE2CB /* ThroughTrainToPromoteVC.m */; };
 		8B8A1DC6238D6C41006AE2CB /* LookUpContactWayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DC5238D6C41006AE2CB /* LookUpContactWayVC.m */; };
@@ -107,7 +108,6 @@
 		8BB2D3792366CBBF0047D0E2 /* SamplePicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2E12366C7310047D0E2 /* SamplePicVC.m */; };
 		8BB2D37A2366CBC70047D0E2 /* ShopReceiptQRcodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2E52366C7310047D0E2 /* ShopReceiptQRcodeVC.m */; };
 		8BB2D37D2366CBD80047D0E2 /* Q_Pet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2EF2366C7310047D0E2 /* Q_Pet.m */; };
-		8BB2D37E2366CBE10047D0E2 /* StallListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2F32366C7310047D0E2 /* StallListVC.m */; };
 		8BB2D37F2366CBE80047D0E2 /* GiftVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2FF2366C7310047D0E2 /* GiftVC.m */; };
 		8BB2D3802366CBF10047D0E2 /* UpLoadCancelReasonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3022366C7310047D0E2 /* UpLoadCancelReasonVC.m */; };
 		8BB2D3822366CBFD0047D0E2 /* AdoptingPetsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D30C2366C7310047D0E2 /* AdoptingPetsModel.m */; };
@@ -711,10 +711,6 @@
 		8B7A552B236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CatFoodsManagementVC+VM.m"; sourceTree = "<group>"; };
 		8B7DED982382C0D200DEBA38 /* Q_Pet+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Q_Pet+VM.m"; sourceTree = "<group>"; };
 		8B7DED992382C0D200DEBA38 /* Q_Pet+VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Q_Pet+VM.h"; sourceTree = "<group>"; };
-		8B7E6DDA2374073B0023314C /* StallListVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StallListVC+VM.h"; sourceTree = "<group>"; };
-		8B7E6DDB2374073B0023314C /* StallListVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "StallListVC+VM.m"; sourceTree = "<group>"; };
-		8B7E6DDD2374076A0023314C /* StallListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StallListModel.h; sourceTree = "<group>"; };
-		8B7E6DDE2374076A0023314C /* StallListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StallListModel.m; sourceTree = "<group>"; };
 		8B86A7F4237D0FE40058173B /* ReleaseOrderVC+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ReleaseOrderVC+VM.m"; sourceTree = "<group>"; };
 		8B86A7F5237D0FE40058173B /* ReleaseOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReleaseOrderVC.m; sourceTree = "<group>"; };
 		8B86A7F6237D0FE50058173B /* ReleaseOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReleaseOrderVC.h; sourceTree = "<group>"; };
@@ -747,6 +743,12 @@
 		8B86E06D23865499004D4C0A /* OrderManager_producingAreaVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderManager_producingAreaVC.m; sourceTree = "<group>"; };
 		8B86E07223865514004D4C0A /* OrderManager_panicBuyingVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderManager_panicBuyingVC.h; sourceTree = "<group>"; };
 		8B86E07323865514004D4C0A /* OrderManager_panicBuyingVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderManager_panicBuyingVC.m; sourceTree = "<group>"; };
+		8B8A0DFB238FEFDE000D7579 /* ThroughTrainListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThroughTrainListVC.h; sourceTree = "<group>"; };
+		8B8A0DFC238FEFDE000D7579 /* ThroughTrainListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThroughTrainListVC.m; sourceTree = "<group>"; };
+		8B8A0DFE238FEFFA000D7579 /* ThroughTrainListVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ThroughTrainListVC+VM.h"; sourceTree = "<group>"; };
+		8B8A0DFF238FEFFA000D7579 /* ThroughTrainListVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ThroughTrainListVC+VM.m"; sourceTree = "<group>"; };
+		8B8A0E01238FF012000D7579 /* ThroughTrainListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThroughTrainListModel.h; sourceTree = "<group>"; };
+		8B8A0E02238FF012000D7579 /* ThroughTrainListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThroughTrainListModel.m; sourceTree = "<group>"; };
 		8B8A1DBE238D000F006AE2CB /* ThroughTrainToPromoteVC+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ThroughTrainToPromoteVC+VM.m"; sourceTree = "<group>"; };
 		8B8A1DBF238D0010006AE2CB /* ThroughTrainToPromoteVC+VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ThroughTrainToPromoteVC+VM.h"; sourceTree = "<group>"; };
 		8B8A1DC0238D0010006AE2CB /* ThroughTrainToPromoteVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThroughTrainToPromoteVC.m; sourceTree = "<group>"; };
@@ -831,8 +833,6 @@
 		8BB2D2E62366C7310047D0E2 /* ShopReceiptQRcodeVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShopReceiptQRcodeVC.h; sourceTree = "<group>"; };
 		8BB2D2EF2366C7310047D0E2 /* Q_Pet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Q_Pet.m; sourceTree = "<group>"; };
 		8BB2D2F02366C7310047D0E2 /* Q_Pet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Q_Pet.h; sourceTree = "<group>"; };
-		8BB2D2F32366C7310047D0E2 /* StallListVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StallListVC.m; sourceTree = "<group>"; };
-		8BB2D2F42366C7310047D0E2 /* StallListVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StallListVC.h; sourceTree = "<group>"; };
 		8BB2D2FB2366C7310047D0E2 /* CatFoodsManagementVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatFoodsManagementVC.h; sourceTree = "<group>"; };
 		8BB2D2FC2366C7310047D0E2 /* CatFoodsManagementVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CatFoodsManagementVC.m; sourceTree = "<group>"; };
 		8BB2D2FE2366C7310047D0E2 /* GiftVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftVC.h; sourceTree = "<group>"; };
@@ -2341,7 +2341,7 @@
 				8BB2D2E02366C7310047D0E2 /* demoPic */,
 				8BB2D2E42366C7310047D0E2 /* ShopReceiptQRcode */,
 				8BB2D2EE2366C7310047D0E2 /* Q_Pet */,
-				8BB2D2F12366C7310047D0E2 /* StallList */,
+				8BB2D2F12366C7310047D0E2 /* ThroughTrainList */,
 				8BB2D2FD2366C7310047D0E2 /* Gift */,
 				8B7E6DE0237416CA0023314C /* SettingPayway */,
 			);
@@ -2410,28 +2410,28 @@
 			path = Q_Pet;
 			sourceTree = "<group>";
 		};
-		8BB2D2F12366C7310047D0E2 /* StallList */ = {
+		8BB2D2F12366C7310047D0E2 /* ThroughTrainList */ = {
 			isa = PBXGroup;
 			children = (
-				8B408747238E610A0030ABBF /* DetailsVC */,
 				8B8A1DC1238D0010006AE2CB /* ThroughTrainToPromoteVC.h */,
 				8B8A1DC0238D0010006AE2CB /* ThroughTrainToPromoteVC.m */,
 				8B8A1DBF238D0010006AE2CB /* ThroughTrainToPromoteVC+VM.h */,
 				8B8A1DBE238D000F006AE2CB /* ThroughTrainToPromoteVC+VM.m */,
+				8B408747238E610A0030ABBF /* DetailsVC */,
 				8BB2D2F22366C7310047D0E2 /* List */,
 			);
-			path = StallList;
+			path = ThroughTrainList;
 			sourceTree = "<group>";
 		};
 		8BB2D2F22366C7310047D0E2 /* List */ = {
 			isa = PBXGroup;
 			children = (
-				8BB2D2F42366C7310047D0E2 /* StallListVC.h */,
-				8BB2D2F32366C7310047D0E2 /* StallListVC.m */,
-				8B7E6DDD2374076A0023314C /* StallListModel.h */,
-				8B7E6DDE2374076A0023314C /* StallListModel.m */,
-				8B7E6DDA2374073B0023314C /* StallListVC+VM.h */,
-				8B7E6DDB2374073B0023314C /* StallListVC+VM.m */,
+				8B8A0DFB238FEFDE000D7579 /* ThroughTrainListVC.h */,
+				8B8A0DFC238FEFDE000D7579 /* ThroughTrainListVC.m */,
+				8B8A0E01238FF012000D7579 /* ThroughTrainListModel.h */,
+				8B8A0E02238FF012000D7579 /* ThroughTrainListModel.m */,
+				8B8A0DFE238FEFFA000D7579 /* ThroughTrainListVC+VM.h */,
+				8B8A0DFF238FEFFA000D7579 /* ThroughTrainListVC+VM.m */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -4537,7 +4537,6 @@
 				C42CD141213CC2640096675F /* CellGoodList.m in Sources */,
 				C42CD142213CC2640096675F /* GoodDetailPicController.m in Sources */,
 				C42CD0B5213CC2640096675F /* CellImageMore.m in Sources */,
-				8B7E6DDF2374076A0023314C /* StallListModel.m in Sources */,
 				C42CD195213CC2640096675F /* UILabelDarkSmall.m in Sources */,
 				C42CD0BA213CC2640096675F /* CellOrderDetailLogistics.m in Sources */,
 				C4FC07C5215B35F400C6ECF3 /* UAProgressView.m in Sources */,
@@ -4802,7 +4801,6 @@
 				C46143F5214386B6000C0CDC /* CellTypeMore.m in Sources */,
 				C42CD0BE213CC2640096675F /* CellDiscussOrder.m in Sources */,
 				C4026DC02148164E00D81974 /* ButtonShare.m in Sources */,
-				8BB2D37E2366CBE10047D0E2 /* StallListVC.m in Sources */,
 				C4614403214386B6000C0CDC /* CellDiscussVendor.m in Sources */,
 				C42CD1AF213CC2640096675F /* JJWaterflowLayout.m in Sources */,
 				C4FC07BB215B2A5C00C6ECF3 /* JJDBHelper+Advertise.m in Sources */,
@@ -4819,6 +4817,7 @@
 				C46143F1214386B6000C0CDC /* collectionLandScape.m in Sources */,
 				C42CD0EE213CC2640096675F /* LoginViewController.m in Sources */,
 				8B3C0B58237FCAB800BFFA86 /* OrderDetailVC+VM.m in Sources */,
+				8B8A0E00238FEFFA000D7579 /* ThroughTrainListVC+VM.m in Sources */,
 				C46F8C46214CF1E600F0C7D1 /* CellImageOnly.m in Sources */,
 				8BB1E8212375B6A200871ECA /* SocketRocketUtility.m in Sources */,
 				8BB2D37D2366CBD80047D0E2 /* Q_Pet.m in Sources */,
@@ -4829,15 +4828,16 @@
 				8B3C0B5B237FCAD500BFFA86 /* OrderDetailModel.m in Sources */,
 				C42F5D2E213F858B00114E0E /* CellIncomeAll.m in Sources */,
 				C46D6B5E2143A5FF00428D7A /* ModelOrderGoodList.m in Sources */,
+				8B8A0DFD238FEFDE000D7579 /* ThroughTrainListVC.m in Sources */,
 				C46368D8213FBE6C006922D5 /* CellAdver.m in Sources */,
 				C42CCCE9213CC0520096675F /* main.m in Sources */,
+				8B8A0E03238FF012000D7579 /* ThroughTrainListModel.m in Sources */,
 				C4A0DA7D213E957B00B45B65 /* SignInTip.m in Sources */,
 				C42CD0E1213CC2640096675F /* OrderReturnBackController.m in Sources */,
 				8BB2D37F2366CBE80047D0E2 /* GiftVC.m in Sources */,
 				C42CD0E2213CC2640096675F /* OrderNotGetController.m in Sources */,
 				C42CD09F213CC2640096675F /* CellLogisticsGood.m in Sources */,
 				C46368D5213FBE6C006922D5 /* LayoutMainType.m in Sources */,
-				8B7E6DDC2374073B0023314C /* StallListVC+VM.m in Sources */,
 				C42CD197213CC2640096675F /* UILabelDarkMiddel.m in Sources */,
 				8BCB98C923715D380063E01E /* RSAUtil.m in Sources */,
 				C42CD051213CC2640096675F /* CellTwoImg.m in Sources */,

@@ -53,11 +53,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     //在这里-1
-    extern StallListVC *stallListVC;
-    if (stallListVC) {
-        NSLog(@"退出到后台");
-        [self onlinePeople:@"Offline"];
-    }
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {//退出到后台2 杀死也走
@@ -102,11 +97,6 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
 - (void)applicationDidBecomeActive:(UIApplication *)application {//唤醒2 首次进2 点击小图进只走2
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     //在这里+1
-    extern StallListVC *stallListVC;
-    if (stallListVC) {
-        NSLog(@"起来");
-        [self onlinePeople:@"Online"];
-    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application { //杀死也走

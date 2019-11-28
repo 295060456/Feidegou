@@ -68,10 +68,12 @@ UITableViewDataSource
     }else if ([vc.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){//喵粮产地页面进
         vc.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)vc.requestParams;
         vc.Order_id = vc.catFoodProducingAreaModel.ID;
-    }else if ([vc.requestParams isKindOfClass:[StallListModel class]]){//摊位 喵粮直通车页面进
-        vc.stallListModel = (StallListModel *)vc.requestParams;
-        vc.Order_id = vc.stallListModel.ID;
-    }else{}
+    }
+//    else if ([vc.requestParams isKindOfClass:[StallListModel class]]){//摊位 喵粮直通车页面进
+//        vc.stallListModel = (StallListModel *)vc.requestParams;
+//        vc.Order_id = vc.stallListModel.ID;
+//    }
+    else{}
     switch (comingStyle) {
         case ComingStyle_PUSH:{
             if (rootVC.navigationController) {
@@ -213,10 +215,10 @@ UITableViewDataSource
                         //显示凭证
                         [self.titleMutArr addObject:@"凭证"];
                         [self.dataMutArr addObject:self.orderListModel.payment_print];//凭证图像地址
-                        NSTimeInterval time = [NSString timeIntervalstartDate:self.stallListModel.updateTime
-                                                                      endDate:nil
-                                                                timeFormatter:nil];
-                        self.time = 5 * 60 - time;
+//                        NSTimeInterval time = [NSString timeIntervalstartDate:self.stallListModel.updateTime
+//                                                                      endDate:nil
+//                                                                timeFormatter:nil];
+//                        self.time = 5 * 60 - time;
                         self.titleEndStr = @"撤销";
                         self.titleBeginStr = @"撤销";
                         self.countDownCancelBtn.titleEndStr = @"撤销";//显示凭证
@@ -314,32 +316,33 @@ UITableViewDataSource
             [self.dataMutArr addObject:self.catFoodProducingAreaModel.payment_print];
         }
     }
-    else if (self.stallListModel){//喵粮直通车 倒计时
-        NSString *str1 = [NSString ensureNonnullString:self.stallListModel.ID ReplaceStr:@"无"];
-        NSString *str2 = [NSString ensureNonnullString:self.stallListModel.quantity ReplaceStr:@""];
-        self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
-        self.gk_navTitle = @"直通车订单详情";
-        //只有3小时取消、发货、状态为已下单
-        [self.dataMutArr addObject:@"订单已下单"];//333
-        NSTimeInterval time = [NSString timeIntervalstartDate:self.stallListModel.updateTime
-                                                      endDate:nil
-                                                timeFormatter:nil];
-        self.time = 3 * 60 - time;
-        self.titleEndStr = @"取消";
-        self.titleBeginStr = @"取消";
-        [self.countDownCancelBtn addTarget:self
-                                    action:@selector(CatfoodBooth_del_netWorking)//喵粮抢摊位取消
-                          forControlEvents:UIControlEventTouchUpInside];//#21_1
-        [self.sureBtn setTitle:@"发货"
-                      forState:UIControlStateNormal];
-        [self.sureBtn addTarget:self
-                         action:@selector(boothDeliver_networking)//喵粮抢摊位发货
-               forControlEvents:UIControlEventTouchUpInside];//#21
-        if (![NSString isNullString:self.stallListModel.payment_print]) {
-            [self.titleMutArr addObject:@"凭证"];
-            [self.dataMutArr addObject:self.stallListModel.payment_print];
-        }
-    }else{
+//    else if (self.stallListModel){//喵粮直通车 倒计时
+//        NSString *str1 = [NSString ensureNonnullString:self.stallListModel.ID ReplaceStr:@"无"];
+//        NSString *str2 = [NSString ensureNonnullString:self.stallListModel.quantity ReplaceStr:@""];
+//        self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
+//        self.gk_navTitle = @"直通车订单详情";
+//        //只有3小时取消、发货、状态为已下单
+//        [self.dataMutArr addObject:@"订单已下单"];//333
+//        NSTimeInterval time = [NSString timeIntervalstartDate:self.stallListModel.updateTime
+//                                                      endDate:nil
+//                                                timeFormatter:nil];
+//        self.time = 3 * 60 - time;
+//        self.titleEndStr = @"取消";
+//        self.titleBeginStr = @"取消";
+//        [self.countDownCancelBtn addTarget:self
+//                                    action:@selector(CatfoodBooth_del_netWorking)//喵粮抢摊位取消
+//                          forControlEvents:UIControlEventTouchUpInside];//#21_1
+//        [self.sureBtn setTitle:@"发货"
+//                      forState:UIControlStateNormal];
+//        [self.sureBtn addTarget:self
+//                         action:@selector(boothDeliver_networking)//喵粮抢摊位发货
+//               forControlEvents:UIControlEventTouchUpInside];//#21
+//        if (![NSString isNullString:self.stallListModel.payment_print]) {
+//            [self.titleMutArr addObject:@"凭证"];
+//            [self.dataMutArr addObject:self.stallListModel.payment_print];
+//        }
+//    }
+    else{
         [self.dataMutArr addObject:@"数据异常"];
     }
     if ([self.rootVC isKindOfClass:[SearchVC class]]) {
@@ -381,9 +384,11 @@ UITableViewDataSource
         }
     }else if (self.catFoodProducingAreaModel){
         [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"产地"];//喵粮订单查看 3小时
-    }else if (self.stallListModel){
-        [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"摊位"];//喵粮订单查看 3小时
-    }else{
+    }
+//    else if (self.stallListModel){
+//        [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"摊位"];//喵粮订单查看 3小时
+//    }
+    else{
 //        [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@""];//喵粮订单查看 3小时
     }
 }
@@ -455,8 +460,8 @@ heightForHeaderInSection:(NSInteger)section{
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (![NSString isNullString:self.orderListModel.payment_print] ||
-    ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-    ![NSString isNullString:self.stallListModel.payment_print]) {
+    ![NSString isNullString:self.catFoodProducingAreaModel.payment_print]
+    ) {//![NSString isNullString:self.stallListModel.payment_print]
         if (indexPath.row == self.titleMutArr.count - 1) {
             return [OrderDetailTBVIMGCell cellHeightWithModel:nil];//凭证图
         }else return [OrderDetailTBVCell cellHeightWithModel:nil];
@@ -479,8 +484,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"KKK = %lu",(unsigned long)self.titleMutArr.count);
     if (indexPath.row == self.titleMutArr.count - 1) {//最后一行
         if (![NSString isNullString:self.orderListModel.payment_print] ||
-            ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-            ![NSString isNullString:self.stallListModel.payment_print]) {//有凭证数据
+            ![NSString isNullString:self.catFoodProducingAreaModel.payment_print]
+            ) {//有凭证数据  ![NSString isNullString:self.stallListModel.payment_print]
             OrderDetailTBVIMGCell *cell = [OrderDetailTBVIMGCell cellWith:tableView];//
             cell.textLabel.text = self.titleMutArr[indexPath.row];
             [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
@@ -501,9 +506,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 
             }else if ([self.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){
                 
-            }else if ([self.requestParams isKindOfClass:[StallListModel class]]){
-                
-            }else{}
+            }
+//            else if ([self.requestParams isKindOfClass:[StallListModel class]]){
+//
+//            }
+            else{}
         }return cell;
     }
 }
@@ -661,15 +668,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.bankName ReplaceStr:@"无"]];//银行类型
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.bankaddress ReplaceStr:@"无"]];//支行信息
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.updateTime ReplaceStr:@"无"]];//下单时间
-        }else if (self.stallListModel){
-            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.ordercode ReplaceStr:@"无"]];//订单号
-            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.price ReplaceStr:@"无"]];//单价
-            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.quantity ReplaceStr:@"无"]];//数量
-            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.rental ReplaceStr:@"无"]];//总价
-            [_dataMutArr addObject:@"微信"];//支付方式
-            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.payment_weixin ReplaceStr:@"无"]];//微信账号
-            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.updateTime ReplaceStr:@"无"]];//下单时间
-        }else{}
+        }
+//        else if (self.stallListModel){
+//            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.ordercode ReplaceStr:@"无"]];//订单号
+//            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.price ReplaceStr:@"无"]];//单价
+//            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.quantity ReplaceStr:@"无"]];//数量
+//            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.rental ReplaceStr:@"无"]];//总价
+//            [_dataMutArr addObject:@"微信"];//支付方式
+//            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.payment_weixin ReplaceStr:@"无"]];//微信账号
+//            [_dataMutArr addObject:[NSString ensureNonnullString:self.stallListModel.updateTime ReplaceStr:@"无"]];//下单时间
+//        }
+        else{}
     }return _dataMutArr;
 }
 
@@ -708,16 +717,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [_titleMutArr addObject:@"支行信息:"];
             [_titleMutArr addObject:@"下单时间:"];
             [_titleMutArr addObject:@"订单状态"];
-        }else if (self.stallListModel){//只允许微信
-            [_titleMutArr addObject:@"订单号:"];
-            [_titleMutArr addObject:@"单价:"];
-            [_titleMutArr addObject:@"数量:"];
-            [_titleMutArr addObject:@"总价:"];
-            [_titleMutArr addObject:@"支付方式:"];
-            [_titleMutArr addObject:@"微信账号:"];
-            [_titleMutArr addObject:@"下单时间:"];
-            [_titleMutArr addObject:@"订单状态"];
-        }else{}
+        }
+//        else if (self.stallListModel){//只允许微信
+//            [_titleMutArr addObject:@"订单号:"];
+//            [_titleMutArr addObject:@"单价:"];
+//            [_titleMutArr addObject:@"数量:"];
+//            [_titleMutArr addObject:@"总价:"];
+//            [_titleMutArr addObject:@"支付方式:"];
+//            [_titleMutArr addObject:@"微信账号:"];
+//            [_titleMutArr addObject:@"下单时间:"];
+//            [_titleMutArr addObject:@"订单状态"];
+//        }
+        else{}
     }return _titleMutArr;
 }
 

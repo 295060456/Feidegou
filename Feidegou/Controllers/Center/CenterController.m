@@ -50,8 +50,6 @@ DidClickCollectionViewDelegete
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.pet.alpha = 1;
-    [self.pet becomeFirstResponder];
 }
 
 - (void)locationControls{
@@ -114,6 +112,18 @@ DidClickCollectionViewDelegete
                                              animated:animated];
     [self refreshTab];
     [self requestCenterInfo];
+    if ([[PersonalInfo sharedInstance]isLogined]) {
+        ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+        if ([model.grade_id intValue] == 2 ||
+            [model.grade_id intValue] == 3) {
+            self.pet.alpha = 1;
+            [self.pet becomeFirstResponder];
+            self.pet.frame = CGRectMake(SCALING_RATIO(0),
+                                        SCREEN_HEIGHT - SCALING_RATIO(250),
+                                        SCALING_RATIO(50),
+                                        SCALING_RATIO(50));
+        }
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -644,7 +654,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(Q_Pet *)pet{
     if (!_pet) {
-        _pet = [[Q_Pet alloc]initWithFrame:CGRectMake(SCALING_RATIO(100),
+        _pet = [[Q_Pet alloc]initWithFrame:CGRectMake(SCALING_RATIO(0),
                                                       SCREEN_HEIGHT - SCALING_RATIO(250),
                                                       SCALING_RATIO(50),
                                                       SCALING_RATIO(50))];

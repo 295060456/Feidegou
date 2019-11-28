@@ -271,7 +271,7 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
 -(JXCategoryIndicatorLineView *)lineView{
     if (!_lineView) {
         _lineView = JXCategoryIndicatorLineView.new;
-        _lineView.indicatorWidth = SCALING_RATIO(80);
+        _lineView.indicatorWidth = SCREEN_WIDTH / self.titleMutArr.count;
     }return _lineView;
 }
 
