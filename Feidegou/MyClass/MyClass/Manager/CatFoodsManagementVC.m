@@ -257,16 +257,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //            [cell.detailTextLabel sizeToFit];
 //            cell.detailTextLabel.backgroundColor = kRedColor;
 //            [UIView cornerCutToCircleWithView:cell.detailTextLabel AndCornerRadius:cell.detailTextLabel.mj_h / 2];
-            UILabel *lab = UILabel.new;
-            lab.text = @"3";
-            lab.textAlignment = NSTextAlignmentCenter;
-            lab.backgroundColor = kRedColor;
-            [cell addSubview:lab];
-            lab.frame = CGRectMake(SCREEN_WIDTH - SCALING_RATIO(60),
+
+            UIButton *btn = UIButton.new;
+            [btn setTitle:@"3" forState:UIControlStateNormal];
+            [btn setBackgroundImage:kIMG(@"RedDot") forState:UIControlStateNormal];
+            [cell addSubview:btn];
+            btn.frame = CGRectMake(SCREEN_WIDTH - SCALING_RATIO(60),
                                    SCALING_RATIO(15),
                                    SCALING_RATIO(20),
                                    SCALING_RATIO(20));
-            [UIView cornerCutToCircleWithView:lab
+            [UIView cornerCutToCircleWithView:btn
                               AndCornerRadius:10];
         }
     }else{}

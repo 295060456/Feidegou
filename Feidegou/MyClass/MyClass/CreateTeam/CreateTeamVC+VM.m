@@ -28,10 +28,25 @@
         @weakify(self)
         [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
             @strongify(self)
-            NSLog(@"");
+            if ([response isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *dic = (NSDictionary *)response;
+                if (dic[@"weixin_account"]) {
+                    self.wechatPlaceholderStr = dic[@"weixin_account"];
+                    [self.sendBtn setTitle:@"点我修改"
+                                  forState:UIControlStateNormal];
+                }else{
+                    [self.sendBtn setTitle:@"点我发送"
+                                  forState:UIControlStateNormal];
+                }
+            }
         }];
     }
 }
+
+//@property(nonatomic,copy)__block NSString *telePhonePlaceholderStr;
+//@property(nonatomic,copy)__block NSString *QQPlaceholderStr;
+//@property(nonatomic,copy)__block NSString *wechatPlaceholderStr;
+
 //#define Updatewx @"/catfoodapp/user/updatewx.htm"//我的团队修改信息 需要传给我的值   微信必填其余可不填：weixin_account QQ user_id  contactmobile手机号
 -(void)ChangeMyInfo{
     extern NSString *randomStr;

@@ -11,67 +11,68 @@
 @implementation OrderDetailVC (VM)
 //CatfoodSale_payURL 喵粮批发已支付 #17
 -(void)upLoadPic_wholesaleMarket_havePaid_netWorking:(UIImage *)pic{//真正开始购买
-//    extern NSString *randomStr;
-//    ModelLogin *modelLogin;
-//    if ([[PersonalInfo sharedInstance] isLogined]) {
-//        modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-//    }
-//    NSDictionary *dataDic = @{
-//        @"order_id":self.Order_id,
-//        @"user_id":modelLogin.userId,
-//        @"identity":[YDDevice getUQID]
-//    };
-//    __block NSData *picData = [UIImage imageZipToData:pic];
-//    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
-//    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
-//    [mgr POST:API(BaseUrl, CatfoodSale_payURL)
-//   parameters:@{
-//       @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
-//       @"key":[RSAUtil encryptString:randomStr
-//                           publicKey:RSA_Public_key]
-//   }
-//constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-//        [formData appendPartWithFileData:picData
-//                                    name:@"payment_print"
-//                                fileName:@"test.png"
-//                                mimeType:@"image/png"];
-//    }
-//     progress:^(NSProgress * _Nonnull uploadProgress) {
-//        NSLog(@"uploadProgress = %@",uploadProgress);
-//        CGFloat _percent = uploadProgress.fractionCompleted * 100;
-//        NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
-//        NSLog(@"%@",str);
-//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//            Toast(str);
-//        }];
-//    }
-//      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        NSDictionary *dataDic = [NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)];
-//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//            Toast(dataDic[@"message"]);
-//        }];
-//        switch ([dataDic[@"code"] longValue]) {
-//            case 200:{//已完成付款.请等待审核后发货！
-//                [self.sureBtn setTitle:@"已付款"
-//                              forState:UIControlStateNormal];
-//            }break;
-//            case 300:{//订单状态异常，请检查！
-//
-//            }break;
-//            case 500:{//订单有误，请检查订单！
-//
-//            }break;
-//            default:
-//                break;
-//        }
-//    }
-//      failure:^(NSURLSessionDataTask * _Nullable task,
-//                NSError * _Nonnull error) {
-//        NSLog(@"error = %@",error);
-//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//            Toast(@"上传图片失败");
-//        }];
-//    }];
+    extern NSString *randomStr;
+    ModelLogin *modelLogin;
+    if ([[PersonalInfo sharedInstance] isLogined]) {
+        modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+    }
+    NSDictionary *dataDic = @{
+        @"order_id":self.Order_id,
+        @"user_id":modelLogin.userId,
+        @"identity":[YDDevice getUQID]
+    };
+    __block NSData *picData = [UIImage imageZipToData:pic];
+    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+    NSString *str = [NSString stringWithFormat:@"%@%@",BaseUrl,CatfoodSale_payURL];
+    [mgr POST:str
+   parameters:@{
+       @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
+       @"key":[RSAUtil encryptString:randomStr
+                           publicKey:RSA_Public_key]
+   }
+constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        [formData appendPartWithFileData:picData
+                                    name:@"payment_print"
+                                fileName:@"test.png"
+                                mimeType:@"image/png"];
+    }
+     progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"uploadProgress = %@",uploadProgress);
+        CGFloat _percent = uploadProgress.fractionCompleted * 100;
+        NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
+        NSLog(@"%@",str);
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            Toast(str);
+        }];
+    }
+      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dataDic = [NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)];
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            Toast(dataDic[@"message"]);
+        }];
+        switch ([dataDic[@"code"] longValue]) {
+            case 200:{//已完成付款.请等待审核后发货！
+                [self.sureBtn setTitle:@"已付款"
+                              forState:UIControlStateNormal];
+            }break;
+            case 300:{//订单状态异常，请检查！
+
+            }break;
+            case 500:{//订单有误，请检查订单！
+
+            }break;
+            default:
+                break;
+        }
+    }
+      failure:^(NSURLSessionDataTask * _Nullable task,
+                NSError * _Nonnull error) {
+        NSLog(@"error = %@",error);
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            Toast(@"上传图片失败");
+        }];
+    }];
 }
 //CatfoodRecord_delURL 喵粮订单撤销 #5
 -(void)CancelDelivery_NetWorking{

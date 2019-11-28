@@ -29,6 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)__block NSString *QQStr;
 @property(nonatomic,copy)__block NSString *wechatStr;
 
+@property(nonatomic,copy)__block NSString *telePhonePlaceholderStr;
+@property(nonatomic,copy)__block NSString *QQPlaceholderStr;
+@property(nonatomic,copy)__block NSString *wechatPlaceholderStr;
+
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
                    withStyle:(ComingStyle)comingStyle
                requestParams:(nullable id)requestParams

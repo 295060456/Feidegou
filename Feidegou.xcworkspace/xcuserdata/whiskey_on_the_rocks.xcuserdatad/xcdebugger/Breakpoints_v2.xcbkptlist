@@ -7,16 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C23A4226-AC3E-4DAC-8C15-0BCFB1C09C24"
+            uuid = "E1B44D09-315E-40D3-A311-813675A5721C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/MyClass/MyClass/CreateTeam/CreateTeamVC+VM.m"
+            filePath = "Feidegou/MyClass/MyClass/ShopReceiptQRcode/ShopReceiptQRcodeVC+VM.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "-lookUserInfo"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "-netWorking"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4AEE5887-ACA5-40C4-94E8-598F2EB32118"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Feidegou/MyClass/MyClass/ShopReceiptQRcode/ShopReceiptQRcodeVC+VM.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "-netWorking"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

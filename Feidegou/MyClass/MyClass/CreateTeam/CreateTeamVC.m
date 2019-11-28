@@ -168,13 +168,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-
 #pragma mark —— lazyLoad
 -(UIButton *)sendBtn{
     if (!_sendBtn) {
         _sendBtn = UIButton.new;
-        [_sendBtn setTitle:@"点我发送"
-                  forState:UIControlStateNormal];
         [_sendBtn setTitleColor:kBlackColor
                        forState:UIControlStateNormal];
         [_sendBtn addTarget:self
@@ -210,12 +207,30 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _loginVC;
 }
 
+-(NSString *)telePhonePlaceholderStr{
+    if (!_telePhonePlaceholderStr) {
+        _telePhonePlaceholderStr = @"请输入手机号(选填)";
+    }return _telePhonePlaceholderStr;
+}
+
+-(NSString *)QQPlaceholderStr{
+    if (!_QQPlaceholderStr) {
+        _QQPlaceholderStr = @"请输入QQ账号(选填)";
+    }return _QQPlaceholderStr;
+}
+
+-(NSString *)wechatPlaceholderStr{
+    if (!_wechatPlaceholderStr) {
+        _wechatPlaceholderStr = @"请输入微信账号(必填)";
+    }return _wechatPlaceholderStr;
+}
+
 -(NSMutableArray<NSString *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
-        [_titleMutArr addObject:@"请输入手机号(选填)"];
-        [_titleMutArr addObject:@"请输入QQ账号(选填)"];
-        [_titleMutArr addObject:@"请输入微信账号(必填)"];
+        [_titleMutArr addObject:self.telePhonePlaceholderStr];
+        [_titleMutArr addObject:self.QQPlaceholderStr];
+        [_titleMutArr addObject:self.wechatPlaceholderStr];
     }return _titleMutArr;
 }
 
