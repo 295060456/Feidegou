@@ -136,7 +136,6 @@
 #import "PersonalDataChangedListModel.h"
 #import "OrderManager_panicBuyingModel.h"
 #import "OrderManager_producingAreaModel.h"
-#import "OrderManager_wholesaleModel.h"
 #import "DefineStructure.h"
 #import "OrderListModel.h"
 //废弃的

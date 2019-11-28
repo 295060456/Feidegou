@@ -37,20 +37,6 @@ NSString *market_price_co;//产地均价
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
 #warning KKK temp
-//        {"nick":"小家伙","portrait":"http:\/\/img.937753.com\/mlhead\/photh\/buy\/6.jpg","order_code":"123456"}
-        
-                        @weakify(self)
-                        RCConversationModel *model = RCConversationModel.new;
-                        model.conversationType = ConversationType_PRIVATE;
-        //                model.targetId = [NSString stringWithFormat:@"%@",self.orderListModel.seller];
-                        model.targetId = @"admin";
-        //                if (self.orderListModel) {
-                            [ChatVC ComingFromVC:self_weak_
-                                       withStyle:ComingStyle_PUSH
-                                   requestParams:model
-                                         success:^(id data) {}
-                                        animated:YES];
-        return ;
         if (response) {
             NSLog(@"--%@",response);
             if ([response isKindOfClass:[NSDictionary class]]) {

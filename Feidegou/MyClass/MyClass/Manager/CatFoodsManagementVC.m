@@ -99,7 +99,13 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+     self.tabBarController.tabBar.hidden = YES;
     [self.tableView.mj_header beginRefreshing];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
@@ -164,6 +170,7 @@ UITableViewDataSource
                                      success:^(id data) {}
                                     animated:YES];
     }else if ([vcName isEqualToString:@"直通车"]){
+#warning KKK
         [DetailsVC ComingFromVC:self_weak_
                       withStyle:ComingStyle_PUSH
                   requestParams:nil

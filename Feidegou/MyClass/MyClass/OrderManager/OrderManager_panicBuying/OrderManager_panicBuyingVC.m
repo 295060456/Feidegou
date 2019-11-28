@@ -99,8 +99,14 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
     [self.tableView.mj_header beginRefreshing];
 }
+
+//-(void)viewWillDisappear:(BOOL)animated{
+//    [super viewWillDisappear:animated];
+////    self.tabBarController.tabBar.hidden = NO;
+//}
 #pragma mark —— JXCategoryListContentViewDelegate
 /**
  可选实现，列表显示的时候调用

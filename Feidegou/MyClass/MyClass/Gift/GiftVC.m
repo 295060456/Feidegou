@@ -123,10 +123,10 @@ UITableViewDataSource
     self.tabBarController.tabBar.hidden = YES;
 }
 
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
-}
+//-(void)viewWillDisappear:(BOOL)animated{
+//    [super viewWillDisappear:animated];
+//    self.tabBarController.tabBar.hidden = NO;
+//}
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
     if (self.navigationController) {

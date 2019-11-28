@@ -424,25 +424,12 @@ viewForHeaderInSection:(NSInteger)section {
         [viewForHeader actionBlock:^(id data) {
             @strongify(self)
             NSLog(@"联系");
-            
 #warning KKK
-//            Toast(@"功能开发中,敬请期待...");
-            
-//            if ([requestParams isKindOfClass:[RCConversationModel class]]) {
-//                RCConversationModel *model = (RCConversationModel *)requestParams;
-//                vc.conversationType = model.conversationType;
-//                vc.targetId = model.targetId;
-//                vc.chatSessionInputBarControl.hidden = NO;
-//                vc.title = @"想显示的会话标题";
-//            }
-            
             RCConversationModel *model = RCConversationModel.new;
             model.conversationType = ConversationType_PRIVATE;
-            model.targetId = [NSString stringWithFormat:@"%@",self.orderListModel.seller];
+            model.targetId = @"admin";//[NSString stringWithFormat:@"%@",self.orderListModel.seller];
             
             if (self.orderListModel) {
-//                ChatListVC;
-//                ChatVC;
                 [ChatVC ComingFromVC:self_weak_
                            withStyle:ComingStyle_PUSH
                        requestParams:model

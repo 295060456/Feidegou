@@ -11,7 +11,6 @@
 #import "SearchVC.h"
 
 #import "OrderManager_producingAreaVC.h"//厂家（产地）
-#import "OrderManager_wholesaleVC.h"//批发
 #import "OrderManager_panicBuyingVC.h"//直通车
 
 OrderListVC *orderListVC;
@@ -19,7 +18,6 @@ OrderListVC *orderListVC;
 @interface OrderListVC ()<JXCategoryViewDelegate>
 
 @property(nonatomic,strong)OrderManager_producingAreaVC *producingAreaVC;
-@property(nonatomic,strong)OrderManager_wholesaleVC *wholesaleVC;
 @property(nonatomic,strong)OrderManager_panicBuyingVC *panicBuyingVC;
 @property(nonatomic,strong)JXCategoryTitleImageView *myCategoryView;
 @property(nonatomic,strong)JXCategoryIndicatorLineView *lineView;
@@ -111,6 +109,16 @@ OrderListVC *orderListVC;
     self.myCategoryView.indicators = @[self.lineView];
     
 }
+
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+     self.tabBarController.tabBar.hidden = YES;
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+}
  
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
@@ -188,14 +196,6 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
     }return _producingAreaVC;
 }
 
--(OrderManager_wholesaleVC *)wholesaleVC{
-    if (!_wholesaleVC) {
-        _wholesaleVC = [OrderManager_wholesaleVC initWithrequestParams:nil
-                                                               success:^(id data) {
-        }];
-    }return _wholesaleVC;
-}
-
 -(OrderManager_panicBuyingVC *)panicBuyingVC{
     if (!_panicBuyingVC) {
         _panicBuyingVC = [OrderManager_panicBuyingVC initWithrequestParams:nil
@@ -208,7 +208,6 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
         [_titleMutArr addObject:@"直通车"];
-        [_titleMutArr addObject:@"批发"];
         if ([[PersonalInfo sharedInstance] isLogined]) {
             ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
             if ([model.grade_id intValue] == 2) {//高级商家
@@ -224,7 +223,6 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
     if (!_imageNamesMutArr) {
         _imageNamesMutArr = NSMutableArray.array;
         [_imageNamesMutArr addObject:@"直通车_unselected"];
-        [_imageNamesMutArr addObject:@"批发_unselected"];
         if ([[PersonalInfo sharedInstance] isLogined]) {
             ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
             if ([model.grade_id intValue] == 2) {//高级商家
@@ -240,7 +238,6 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
     if (!_selectedImageNamesMutArr) {
         _selectedImageNamesMutArr = NSMutableArray.array;
         [_selectedImageNamesMutArr addObject:@"panicPurchase_selected"];
-        [_selectedImageNamesMutArr addObject:@"wholesaleMarket_selected"];
         if ([[PersonalInfo sharedInstance] isLogined]) {
             ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
             if ([model.grade_id intValue] == 2) {//高级商家
@@ -256,7 +253,6 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
     if (!_childVCMutArr) {
         _childVCMutArr = NSMutableArray.array;
         [self.childVCMutArr addObject:self.panicBuyingVC];
-        [self.childVCMutArr addObject:self.wholesaleVC];
         if ([[PersonalInfo sharedInstance] isLogined]) {
             ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
             if ([model.grade_id intValue] == 2) {//高级商家
