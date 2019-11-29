@@ -1,14 +1,14 @@
 //
-//  GoodsDetailsVC.m
+//  EvaluateVC.m
 //  Feidegou
 //
 //  Created by Kite on 2019/11/27.
 //  Copyright © 2019 朝花夕拾. All rights reserved.
 //
 
-#import "GoodsDetailsVC.h"
+#import "EvaluateVC.h"
 
-@interface GoodsDetailsVC ()
+@interface EvaluateVC ()
 
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation GoodsDetailsVC
+@implementation EvaluateVC
 
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
@@ -32,7 +32,7 @@
                 requestParams:(nullable id)requestParams
                       success:(DataBlock)block
                      animated:(BOOL)animated{
-    GoodsDetailsVC *vc = GoodsDetailsVC.new;
+    EvaluateVC *vc = EvaluateVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
 //    vc.page = 1;
@@ -71,17 +71,17 @@
 
 +(instancetype)initWithrequestParams:(nullable id)requestParams
                              success:(DataBlock)block{
-    GoodsDetailsVC *vc = GoodsDetailsVC.new;
+    EvaluateVC *vc = EvaluateVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
     return vc;
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = RandomColor;
+    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
 }
+
 
 
 @end

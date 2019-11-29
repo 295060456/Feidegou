@@ -11,6 +11,7 @@
 #import "HQCollectionViewFlowLayout.h"
 #import "HQTopStopView.h"
 #import "ThroughTrainListCollectionViewCell.h"
+#import "DetailsVC.h"
 
 @interface ThroughTrainListVC ()
 <
@@ -21,7 +22,6 @@ PGBannerDelegate
 >
 
 @property(nonatomic,strong)PGBanner *banner;
-@property(nonatomic,strong)UICollectionView *collectionView;
 @property(nonatomic,strong)HQCollectionViewFlowLayout *flowlayout;
 
 @property(nonatomic,strong)id requestParams;
@@ -45,6 +45,7 @@ PGBannerDelegate
     ThroughTrainListVC *vc = ThroughTrainListVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
+    vc.page = 1;
     switch (comingStyle) {
         case ComingStyle_PUSH:{
             if (rootVC.navigationController) {
@@ -75,6 +76,7 @@ PGBannerDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navTitle = @"";
     self.collectionView.alpha = 1;
 }
@@ -82,11 +84,26 @@ PGBannerDelegate
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    [self.collectionView.mj_header beginRefreshing];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
+}
+//下拉刷新
+-(void)pullToRefresh{
+    NSLog(@"下拉刷新");
+    if (self.dataMutArr.count) {
+        [self.dataMutArr removeAllObjects];
+    }
+    [self netWorking];
+}
+//上拉加载更多
+- (void)loadMoreRefresh{
+    self.page ++;
+    [self netWorking];
+    NSLog(@"上拉加载更多");
 }
 #pragma mark ---------  UICollectionViewDataSource 配置单元格   --------------
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
@@ -99,8 +116,7 @@ PGBannerDelegate
     }else{
         ThroughTrainListCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ThroughTrainListCollectionViewCell"
                                                                                              forIndexPath:indexPath];
-        [cell richElementsInCellWithModel:nil];
-        cell.backgroundColor = RandomColor;
+        [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
         return cell;
     }return UICollectionViewCell.new;
 }
@@ -109,7 +125,7 @@ PGBannerDelegate
     numberOfItemsInSection:(NSInteger)section{
     if (section == 0) {
         return 1;
-    }return 100;
+    }return self.dataMutArr.count;
 }
 #pragma mark —— PGBannerDelegate
 - (void)selectAction:(NSInteger)didSelectAtIndex didSelectView:(id)view {
@@ -121,6 +137,12 @@ PGBannerDelegate
 didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     [collectionView deselectItemAtIndexPath:indexPath
                                    animated:YES];
+    @weakify(self)
+    [DetailsVC ComingFromVC:self_weak_
+                  withStyle:ComingStyle_PUSH
+              requestParams:nil
+                    success:^(id data) {}
+                   animated:YES];
 }
 //配置区头
 -(UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
@@ -156,9 +178,10 @@ referenceSizeForFooterInSection:(NSInteger)section{
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    CGFloat d = (SCREEN_WIDTH -1-2-2) / 2;
     if (indexPath.section == 0) {//轮播
         return CGSizeMake(SCREEN_WIDTH,SCALING_RATIO(150));
-    }return CGSizeMake((SCREEN_WIDTH -1-2-2) / 2 ,580 / 2);
+    }return CGSizeMake(d,d * 640 * 2 / 467 / 3);
 }
 #pragma mark —— lazyLoad
 -(HQCollectionViewFlowLayout *)flowlayout{
@@ -215,14 +238,17 @@ referenceSizeForFooterInSection:(NSInteger)section{
                                                                      )
                                                 imageList:@[@"1.png",
                                                             @"2.png",
-                                                            @"3.png",
-                                                            @"4.png"]
+                                                            @"3.png"]
                                              timeInterval:3.0];
         _banner.delegate = self;
     }return _banner;
 }
 
-
+-(NSMutableArray<ThroughTrainListModel *> *)dataMutArr{
+    if (!_dataMutArr) {
+        _dataMutArr = NSMutableArray.array;
+    }return _dataMutArr;
+}
 
 
 

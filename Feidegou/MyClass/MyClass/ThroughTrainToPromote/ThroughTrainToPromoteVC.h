@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)actionBlock:(DataBlock)block;
 
 @end
-
+//
 @interface ThroughTrainToPromoteVC : BaseVC
 
 @property(nonatomic,strong)UITableView *tableView;

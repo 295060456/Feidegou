@@ -105,10 +105,10 @@ UIScrollViewDelegate
     self.tabBarController.tabBar.hidden = YES;
 }
 
-//-(void)viewWillDisappear:(BOOL)animated{
-//    [super viewWillDisappear:animated];
-//    self.tabBarController.tabBar.hidden = NO;
-//}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+}
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
     if (self.navigationController) {
@@ -154,7 +154,6 @@ UIScrollViewDelegate
 
 #pragma mark —— UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    NSLog(@"1234567890");
 }
 //- (void)scrollViewDidZoom:(UIScrollView *)scrollView API_AVAILABLE(ios(3.2)); // any zoom scale changes
 //
@@ -265,7 +264,7 @@ UIScrollViewDelegate
             _wechatPayTipsLab.font = [UIFont systemFontOfSize:8
                                                        weight:1];
         } else {
-            // Fallback on earlier versions
+            _wechatPayTipsLab.font = [UIFont systemFontOfSize:8];
         }
         _wechatPayTipsLab.text = @"此\n微\n信\n收\n款\n码\n已\n经\n失\n效\n，\n请\n重\n新\n上\n传\n";
         [self.scrollView addSubview:_wechatPayTipsLab];
@@ -286,7 +285,7 @@ UIScrollViewDelegate
             _alipayTipsLab.font = [UIFont systemFontOfSize:7
                                                     weight:1];
         } else {
-            // Fallback on earlier versions
+            _alipayTipsLab.font = [UIFont systemFontOfSize:7];
         }
         _alipayTipsLab.text = @"此\n支\n付\n宝\n收\n款\n码\n已\n经\n失\n效\n，\n请\n重\n新\n上\n传\n";
         [self.scrollView addSubview:_alipayTipsLab];

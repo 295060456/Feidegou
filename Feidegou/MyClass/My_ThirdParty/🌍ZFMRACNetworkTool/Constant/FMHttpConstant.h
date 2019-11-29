@@ -74,7 +74,8 @@
 #define CatfoodBooth_del_time @"/catfoodapp/user/buyer/CatfoodBooth_del_time.htm"//喵粮抢摊位取消剩余时间 post 22_2 5min
 #define CatfoodRecord_goodsURL @"/catfoodapp/user/buyer/CatfoodMeowFood.htm"//喵粮赠送 post 23 Y
 #define CatfoodOrdernumberUpdateURL @"/catfoodapp/user/seller/CatfoodOrdernumberUpdate.htm"//喵粮订单数量修改 post 24 ?
-#define CatfoodBooth_listURL @"/catfoodapp/user/seller/CatfoodBooth_list.htm"//抢摊位列表 post 25
+//#define CatfoodBooth_listURL @"/catfoodapp/user/seller/CatfoodBooth_list.htm"//抢摊位列表 post 25
+#define CatfoodBooth_listURL @"/catfoodapp/user/seller/CatfoodBooth_list.htm"//直通车列表 25.1
 #define Catfood_qr_addURL @"/user/seller/Catfood_qr_add.htm"//上传二维码 post 26 Y 不加catfoodapp
 #define CatfoodWeixin_quarURL @"/catfoodapp/user/seller/CatfoodWeixin_quary.htm"//展示二维码 post 27 Y
 #define CatfoodPayment_quaryURL @"/catfoodapp/user/seller/CatfoodPayment_quary.htm"//发布批发市场展示可选支付方式 post 28 Y

@@ -86,6 +86,7 @@ JXCategoryViewDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.myCategoryView.titles = (NSArray *)self.titleMutArr;
     self.myCategoryView.backgroundColor = kWhiteColor;
     self.myCategoryView.imageNames = (NSArray *)self.imageNamesMutArr;

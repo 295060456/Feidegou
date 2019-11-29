@@ -12,6 +12,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ThroughTrainListVC : BaseVC
 
+@property(nonatomic,strong)UICollectionView *collectionView;
+
+@property(nonatomic,assign)int page;
+@property(nonatomic,strong)NSMutableArray <ThroughTrainListModel *>*dataMutArr;
+
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
                    withStyle:(ComingStyle)comingStyle
                requestParams:(nullable id)requestParams

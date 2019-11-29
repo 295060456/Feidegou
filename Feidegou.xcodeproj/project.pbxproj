@@ -1883,7 +1883,7 @@
 			path = SearchBar;
 			sourceTree = "<group>";
 		};
-		8B408747238E610A0030ABBF /* DetailsVC */ = {
+		8B408747238E610A0030ABBF /* ThroughTrainListDetails */ = {
 			isa = PBXGroup;
 			children = (
 				8B40874A238E61DF0030ABBF /* EvaluateVC */,
@@ -1892,7 +1892,7 @@
 				8B408755238E62B00030ABBF /* DetailsVC.h */,
 				8B408756238E62B00030ABBF /* DetailsVC.m */,
 			);
-			path = DetailsVC;
+			path = ThroughTrainListDetails;
 			sourceTree = "<group>";
 		};
 		8B408748238E61B50030ABBF /* GoodsVC */ = {
@@ -2045,7 +2045,7 @@
 			path = OrderManager_producingArea;
 			sourceTree = "<group>";
 		};
-		8B8A0E0A238FF2CD000D7579 /* New Group */ = {
+		8B8A0E0A238FF2CD000D7579 /* collectionView */ = {
 			isa = PBXGroup;
 			children = (
 				8B8A0E07238FF2C7000D7579 /* HQCollectionViewFlowLayout.h */,
@@ -2053,7 +2053,7 @@
 				8B8A0E06238FF2C7000D7579 /* HQTopStopView.h */,
 				8B8A0E05238FF2C6000D7579 /* HQTopStopView.m */,
 			);
-			path = "New Group";
+			path = collectionView;
 			sourceTree = "<group>";
 		};
 		8B8A0E112390D54E000D7579 /* XXTools */ = {
@@ -2375,7 +2375,9 @@
 				8BB2D2E02366C7310047D0E2 /* demoPic */,
 				8BB2D2E42366C7310047D0E2 /* ShopReceiptQRcode */,
 				8BB2D2EE2366C7310047D0E2 /* Q_Pet */,
-				8BB2D2F12366C7310047D0E2 /* ThroughTrainList */,
+				8BB2D2F12366C7310047D0E2 /* ThroughTrainToPromote */,
+				8BB2D2F22366C7310047D0E2 /* ThroughTrainList */,
+				8B408747238E610A0030ABBF /* ThroughTrainListDetails */,
 				8BB2D2FD2366C7310047D0E2 /* Gift */,
 				8B7E6DE0237416CA0023314C /* SettingPayway */,
 			);
@@ -2444,23 +2446,21 @@
 			path = Q_Pet;
 			sourceTree = "<group>";
 		};
-		8BB2D2F12366C7310047D0E2 /* ThroughTrainList */ = {
+		8BB2D2F12366C7310047D0E2 /* ThroughTrainToPromote */ = {
 			isa = PBXGroup;
 			children = (
 				8B8A1DC1238D0010006AE2CB /* ThroughTrainToPromoteVC.h */,
 				8B8A1DC0238D0010006AE2CB /* ThroughTrainToPromoteVC.m */,
 				8B8A1DBF238D0010006AE2CB /* ThroughTrainToPromoteVC+VM.h */,
 				8B8A1DBE238D000F006AE2CB /* ThroughTrainToPromoteVC+VM.m */,
-				8B408747238E610A0030ABBF /* DetailsVC */,
-				8BB2D2F22366C7310047D0E2 /* List */,
 			);
-			path = ThroughTrainList;
+			path = ThroughTrainToPromote;
 			sourceTree = "<group>";
 		};
-		8BB2D2F22366C7310047D0E2 /* List */ = {
+		8BB2D2F22366C7310047D0E2 /* ThroughTrainList */ = {
 			isa = PBXGroup;
 			children = (
-				8B8A0E0A238FF2CD000D7579 /* New Group */,
+				8B8A0E0A238FF2CD000D7579 /* collectionView */,
 				8B8A0DFB238FEFDE000D7579 /* ThroughTrainListVC.h */,
 				8B8A0DFC238FEFDE000D7579 /* ThroughTrainListVC.m */,
 				8B8A0E0B23902372000D7579 /* ThroughTrainListCollectionViewCell.h */,
@@ -2470,7 +2470,7 @@
 				8B8A0DFE238FEFFA000D7579 /* ThroughTrainListVC+VM.h */,
 				8B8A0DFF238FEFFA000D7579 /* ThroughTrainListVC+VM.m */,
 			);
-			path = List;
+			path = ThroughTrainList;
 			sourceTree = "<group>";
 		};
 		8BB2D2F72366C7310047D0E2 /* OrderManager */ = {
