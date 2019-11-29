@@ -51,7 +51,8 @@
     }];
 }
 
--(void)uploadQRcodePic:(UIImage *)image{
+-(void)uploadQRcodePic:(UIImage *)image
+             withStyle:(PaywayType)paywayType{
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
     extern NSString *randomStr;
@@ -65,6 +66,16 @@
     [dataMutDic setObject:[YDDevice getUQID]
                    forKey:@"identity"];
     
+    if (paywayType == PaywayTypeWX) {
+        [dataMutDic setObject:@"weixin_qr"
+                       forKey:@"qr_type"];
+    }else if (paywayType == PaywayTypeZFB){
+        [dataMutDic setObject:@"alipay_qr"
+                       forKey:@"qr_type"];
+    }else{
+        NSLog(@"错误");
+        return;
+    }
     __block NSData *picData = [UIImage imageZipToData:image];
     
     NSString *str = [NSString stringWithFormat:@"%@%@",BaseUrl,Catfood_qr_addURL];
@@ -75,10 +86,20 @@
                            publicKey:RSA_Public_key]
    }
 constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        [formData appendPartWithFileData:picData
-                                    name:@"weixin_qr"//Key
-                                fileName:@"test.png"
-                                mimeType:@"image/png"];
+        if (paywayType == PaywayTypeWX) {
+            [formData appendPartWithFileData:picData
+                                        name:@"qr_type"//Key
+                                    fileName:@"weixin_qr"//图片名
+                                    mimeType:@"image/jpeg"];
+        }else if (paywayType == PaywayTypeZFB){
+            [formData appendPartWithFileData:picData
+                                        name:@"qr_type"//Key
+                                    fileName:@"alipay_qr"//图片名
+                                    mimeType:@"image/jpeg"];
+        }else{
+            NSLog(@"错误");
+            return;
+        }
     }
      progress:^(NSProgress * _Nonnull uploadProgress) {
         NSLog(@"uploadProgress = %@",uploadProgress);

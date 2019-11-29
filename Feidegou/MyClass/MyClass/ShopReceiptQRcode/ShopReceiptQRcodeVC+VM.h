@@ -12,7 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ShopReceiptQRcodeVC (VM)
 
 -(void)netWorking;
--(void)uploadQRcodePic:(UIImage *)image;
+-(void)uploadQRcodePic:(UIImage *)image
+             withStyle:(PaywayType)paywayType;
 
 @end
 

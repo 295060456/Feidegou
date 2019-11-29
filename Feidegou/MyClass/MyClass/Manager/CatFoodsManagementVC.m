@@ -170,27 +170,24 @@ UITableViewDataSource
                                      success:^(id data) {}
                                     animated:YES];
     }else if ([vcName isEqualToString:@"直通车"]){
-#warning KKK
-//        [DetailsVC ComingFromVC:self_weak_
-//                      withStyle:ComingStyle_PUSH
-//                  requestParams:nil
-//                        success:^(id data) {}
-//                       animated:YES];
-        [ThroughTrainToPromoteVC ComingFromVC:self_weak_
-                                    withStyle:ComingStyle_PUSH
-                                requestParams:nil
-                                      success:^(id data) {}
-                                     animated:YES];
-        return;
         if (self.dataMutArr.count) {
             NSString *str = (NSString *)self.dataMutArr[1];
-            if (![str isEqualToString:@"无"]) {
-                [self check];
-            }else{
+            if ([str isEqualToString:@"无"]) {
                 [self showAlertViewTitle:@"未上传店铺收款二维码"
                                  message:@"现在去上传？"
                              btnTitleArr:@[@"好的"]
                           alertBtnAction:@[@"OK"]];
+            }else if ([str isEqualToString:@"-1"]){
+                [self showAlertViewTitle:@"店铺收款二维码被禁"
+                                 message:@"现在去上传？"
+                             btnTitleArr:@[@"好的"]
+                          alertBtnAction:@[@"OK"]];
+            }else{
+                [ThroughTrainToPromoteVC ComingFromVC:self_weak_
+                                            withStyle:ComingStyle_PUSH
+                                        requestParams:nil
+                                              success:^(id data) {}
+                                             animated:YES];
             }
         }
     }else if ([vcName isEqualToString:@"喵粮批发市场"]){

@@ -13,14 +13,17 @@
 }
 
 @property(nonatomic,assign)int tap;
+@property(nonatomic,copy)DataBlock block;
+@property(nonatomic,assign)PaywayType paywayType;
 
 @end
 
 @implementation QRcodeIMGV
 
--(instancetype)init{
+-(instancetype)initWithStyle:(PaywayType)paywayType{
     if (self = [super init]) {
         self.tap = 0;
+        self.paywayType = paywayType;
         self.userInteractionEnabled = YES;
     }return self;
 }
@@ -30,7 +33,15 @@
     if (![NSString isNullString:self.QRcodeStr]) {
         self.tap++;
         [self QRcode];
+    }else{
+        if (self.block) {
+            self.block([NSNumber numberWithInteger:self.paywayType]);
+        }
     }
+}
+
+-(void)actionBlock:(DataBlock)block{
+    self.block = block;
 }
 
 -(void)QRcode{

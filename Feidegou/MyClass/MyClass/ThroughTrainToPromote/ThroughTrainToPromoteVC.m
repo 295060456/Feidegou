@@ -86,9 +86,10 @@ UITableViewDataSource
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.tableView.alpha = 1;
-    self.cancelBtn.alpha = 1;
-    self.goOnBtn.alpha = 1;
-    NSString *str = @"开启直通车，您的宝贝将大大增加曝光度";
+    [self showAlertViewTitle:@"开启直通车，您的宝贝将大大增加曝光度"
+                     message:@""
+                 btnTitleArr:@[@"好的"]
+              alertBtnAction:@[@"OK"]];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -106,34 +107,26 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
-#warning KKK
-//    [self checkThroughTrainToPromoteStyle_netWorking];
+    [self checkThroughTrainToPromoteStyle_netWorking];//查看直通车状态 按钮布局
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
    [self pullToRefresh];
 }
+
+-(void)OK{
+    
+}
 #pragma mark —— 点击事件
--(void)backBtnClickEvent:(UIButton *)sender{
+-(void)cancelBtnClickEvent:(UIButton *)sender{
+    NSLog(@"%@",sender.titleLabel.text);
+    [self deleteThroughTrainToPromote_netWorking];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)openBtnClickEvent:(UIButton *)sender{
-    NSLog(@"开启直通车抢摊位")
-    [self.view endEditing:YES];
-    @weakify(self)
-    if (![NSString isNullString:self.quantity]) {
-        [self CatfoodTrainURL_networking];
-    }else{
-        Toast(@"请输入您要抢摊位的数量");
-    }
-}
-
--(void)cancelBtnClickEvent:(UIButton *)sender{
-    NSLog(@"%@",sender.titleLabel.text);
-#warning KKK
-//    [self deleteThroughTrainToPromote_netWorking];
+-(void)backBtnClickEvent:(UIButton *)sender{
+    [self deleteThroughTrainToPromote_netWorking];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -141,6 +134,16 @@ UITableViewDataSource
     NSLog(@"%@",sender.titleLabel.text);
 #warning KKK
     [self openBtnClickEvent:sender];
+}
+
+-(void)openBtnClickEvent:(UIButton *)sender{
+    NSLog(@"开启直通车抢摊位")
+    [self.view endEditing:YES];
+    if (![NSString isNullString:self.quantity]) {
+        [self check];//先查看机会、再开通直通车
+    }else{
+        Toast(@"请输入您的数量");
+    }
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
@@ -220,6 +223,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _cancelBtn = UIButton.new;
         [_cancelBtn setTitle:@"取消上一次直通车"
                     forState:UIControlStateNormal];
+        if (@available(iOS 8.2, *)) {
+            _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:13 weight:1];
+        } else {
+            _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        }
         [_cancelBtn addTarget:self
                        action:@selector(cancelBtnClickEvent:)
              forControlEvents:UIControlEventTouchUpInside];
@@ -245,6 +253,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _goOnBtn = UIButton.new;
         [_goOnBtn setTitle:@"继续上一次直通车"
                   forState:UIControlStateNormal];
+        if (@available(iOS 8.2, *)) {
+            _goOnBtn.titleLabel.font = [UIFont systemFontOfSize:13 weight:1];
+        } else {
+            _goOnBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        }
         _goOnBtn.backgroundColor = kRedColor;
         [_goOnBtn addTarget:self
                      action:@selector(goOnBtnClickEvent:)

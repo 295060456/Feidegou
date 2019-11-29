@@ -79,8 +79,6 @@ UIScrollViewDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.gk_navTitle = @"店铺收款码";
-    self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.upLoadBtn];
-    self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
@@ -109,17 +107,8 @@ UIScrollViewDelegate
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
-#pragma mark —— 点击事件
--(void)backBtnClickEvent:(UIButton *)sender{
-    if (self.navigationController) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }else{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-}
-
--(void)upLoadBtnClickEvent:(UIButton *)sender{
-    NSLog(@"上传二维码");
+#pragma mark —— 内部方法
+-(void)wechatPay{
     @weakify(self)
     [self choosePic];
     [self GettingPicBlock:^(id data) {
@@ -128,30 +117,62 @@ UIScrollViewDelegate
             NSArray *arrData = (NSArray *)data;
             if (arrData.count == 1) {
                 self.img = arrData.lastObject;
-                [self upLoadbtnClickEvent];
+                [self showAlertViewTitle:@"是否确定上传此张微信二维码图片？"
+                                 message:@"请再三核对不要选错啦"
+                             btnTitleArr:@[@"继续上传",
+                                           @"我选错啦"]
+                          alertBtnAction:@[@"GoUploadPic_wechatPay",
+                                           @"sorry_wechatPay"]];
             }
         }
     }];
 }
 
--(void)upLoadbtnClickEvent{
-    NSLog(@"立即上传");//KKK 没有判断？？
-    [self showAlertViewTitle:@"是否确定上传此张图片？"
-                     message:@"请再三核对不要选错啦"
-                 btnTitleArr:@[@"继续上传",
-                               @"我选错啦"]
-              alertBtnAction:@[@"GoUploadPic",
-                               @"sorry"]];
+-(void)aliPay{
+    @weakify(self)
+    [self choosePic];
+    [self GettingPicBlock:^(id data) {
+        @strongify(self)
+        if ([data isKindOfClass:[NSArray class]]) {
+            NSArray *arrData = (NSArray *)data;
+            if (arrData.count == 1) {
+                self.img = arrData.lastObject;
+                [self showAlertViewTitle:@"是否确定上传此张支付宝二维码图片？"
+                                 message:@"请再三核对不要选错啦"
+                             btnTitleArr:@[@"继续上传",
+                                           @"我选错啦"]
+                          alertBtnAction:@[@"GoUploadPic_alipay",
+                                           @"sorry_alipay"]];
+            }
+        }
+    }];
 }
 
--(void)GoUploadPic{
-    [self uploadQRcodePic:self.img];
+-(void)GoUploadPic_wechatPay{
+    [self uploadQRcodePic:self.img
+                withStyle:PaywayTypeWX];//微信
 }
 
--(void)sorry{
-    [self upLoadBtnClickEvent:self.upLoadBtn];
+-(void)GoUploadPic_alipay{
+    [self uploadQRcodePic:self.img
+                withStyle:PaywayTypeZFB];//微信
 }
 
+-(void)sorry_wechatPay{
+    [self wechatPay];
+}
+
+-(void)sorry_alipay{
+    [self aliPay];
+}
+#pragma mark —— 点击事件
+-(void)backBtnClickEvent:(UIButton *)sender{
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
 #pragma mark —— UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
 }
@@ -184,7 +205,6 @@ UIScrollViewDelegate
 -(UIScrollView *)scrollView{
     if (!_scrollView) {
         _scrollView = UIScrollView.new;
-//        _scrollView.backgroundColor = KYellowColor;
         _scrollView.delegate = self;
         _scrollView.mj_header = self.tableViewHeader;
         _scrollView.mj_footer = self.tableViewFooter;
@@ -214,8 +234,13 @@ UIScrollViewDelegate
 
 -(QRcodeIMGV *)qrCodeIMGV_wechatPay{
     if (!_qrCodeIMGV_wechatPay) {
-        _qrCodeIMGV_wechatPay = QRcodeIMGV.new;
-        _qrCodeIMGV_wechatPay.image = kIMG(@"uploadQRCode");
+        _qrCodeIMGV_wechatPay = [[QRcodeIMGV alloc]initWithStyle:PaywayTypeWX];
+        @weakify(self)
+        [_qrCodeIMGV_wechatPay actionBlock:^(id data) {
+            @strongify(self)
+            [self wechatPay];
+        }];
+        _qrCodeIMGV_wechatPay.image = kIMG(@"uploadQRCode");//原始占位图
         [self.scrollView addSubview:_qrCodeIMGV_wechatPay];
         [_qrCodeIMGV_wechatPay mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.wechatPayLab.mas_bottom).offset(SCALING_RATIO(5));
@@ -226,10 +251,28 @@ UIScrollViewDelegate
     }return _qrCodeIMGV_wechatPay;
 }
 
+-(QRcodeIMGV *)qrCodeIMGV_alipay{
+    if (!_qrCodeIMGV_alipay) {
+        _qrCodeIMGV_alipay = [[QRcodeIMGV alloc]initWithStyle:PaywayTypeZFB];
+        @weakify(self)
+        [_qrCodeIMGV_alipay actionBlock:^(id data) {
+            @strongify(self)
+            [self aliPay];
+        }];
+        _qrCodeIMGV_alipay.image = kIMG(@"uploadQRCode");
+        [self.scrollView addSubview:_qrCodeIMGV_alipay];
+        [_qrCodeIMGV_alipay mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.alipayLab.mas_bottom).offset(SCALING_RATIO(5));
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 2,
+                                             SCREEN_WIDTH / 2));
+            make.centerX.equalTo(self.view);
+        }];
+    }return _qrCodeIMGV_alipay;
+}
+
 -(UILabel *)alipayLab{
     if (!_alipayLab) {
         _alipayLab = UILabel.new;
-//        _alipayLab.backgroundColor = kRedColor;
         _alipayLab.text = @"支付宝收款二维码";
         _alipayLab.textAlignment = NSTextAlignmentCenter;
         [self.scrollView addSubview:_alipayLab];
@@ -241,19 +284,7 @@ UIScrollViewDelegate
     }return _alipayLab;
 }
 
--(QRcodeIMGV *)qrCodeIMGV_alipay{
-    if (!_qrCodeIMGV_alipay) {
-        _qrCodeIMGV_alipay = QRcodeIMGV.new;
-        _qrCodeIMGV_alipay.image = kIMG(@"uploadQRCode");
-        [self.scrollView addSubview:_qrCodeIMGV_alipay];
-        [_qrCodeIMGV_alipay mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.alipayLab.mas_bottom).offset(SCALING_RATIO(5));
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 2,
-                                             SCREEN_WIDTH / 2));
-            make.centerX.equalTo(self.view);
-        }];
-    }return _qrCodeIMGV_alipay;
-}
+
 
 -(UILabel *)wechatPayTipsLab{
     if (!_wechatPayTipsLab) {
@@ -297,15 +328,6 @@ UIScrollViewDelegate
     }return _alipayTipsLab;
 }
 
--(UIButton *)upLoadBtn{
-    if (!_upLoadBtn) {
-        _upLoadBtn = UIButton.new;
-        [_upLoadBtn setImage:kIMG(@"upload")
-                    forState:UIControlStateNormal];
-        [_upLoadBtn addTarget:self
-                       action:@selector(upLoadBtnClickEvent:)
-             forControlEvents:UIControlEventTouchUpInside];
-    }return _upLoadBtn;
-}
+
 
 @end

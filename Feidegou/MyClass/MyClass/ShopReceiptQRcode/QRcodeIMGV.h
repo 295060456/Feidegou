@@ -14,8 +14,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,copy)NSString *QRcodeStr;
 
+-(instancetype)initWithStyle:(PaywayType)paywayType;
 -(void)QRcode;//二维码信息调用
 -(void)imgCode:(NSString *)QRcodeStr;//图片信息调用
+-(void)actionBlock:(DataBlock)block;
+
 
 @end
 

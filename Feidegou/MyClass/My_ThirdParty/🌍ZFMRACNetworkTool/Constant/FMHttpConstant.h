@@ -85,7 +85,7 @@
 #define PestFeedUrl @"/catfoodapp/user/PestFeed.htm"
 #define PestCatFood_changelistUrl @"/catfoodapp/user/seller/PestCatFood_changelist.htm"//个人喵粮变动记录 36
 #define Catfood_statisticsUrl @"/catfoodapp/user/seller/Catfood_statistics.htm" //统计直通车在线人数 35
-#define Catfoodbooth_rob_agoUrl @"/catfoodapp/user/buyer/Catfoodbooth_rob_ago.htm"//喵粮抢摊位机会查询 37
+#define Catfoodbooth_rob_agoUrl @"/catfoodapp/user/buyer/Catfoodbooth_rob_ago.htm"//喵粮直通车机会查询 37
 #define Updatewx @"/catfoodapp/user/updatewx.htm"//我的团队修改信息
 #define GetTeam @"/catfoodapp/user/getTeam.htm"//查看用戶信息
 #define GetSuperior @"/catfoodapp/user/getSuperior.htm"//查看上级用户信息
