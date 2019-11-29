@@ -67,6 +67,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 // iOS 12 Support
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center
     openSettingsForNotification:(UNNotification *)notification API_AVAILABLE(ios(10.0)){
+    Toast(@"1");
     if (@available(iOS 10.0, *)) {
         if (notification && [notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
             //从通知界面直接进入应用
@@ -81,6 +82,14 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center
         willPresentNotification:(UNNotification *)notification
           withCompletionHandler:(void (^)(NSInteger))completionHandler  API_AVAILABLE(ios(10.0)){
+//在这里处理回调信息 app active的时候
+    Toast(@"2");
+    @weakify(self)
+    [OrderDetailVC ComingFromVC:self_weak_.window.rootViewController
+                      withStyle:ComingStyle_PUSH
+                  requestParams:nil
+                        success:^(id data) {}
+                       animated:YES];
   // Required
   NSDictionary * userInfo = notification.request.content.userInfo;
   if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
@@ -92,6 +101,14 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center
  didReceiveNotificationResponse:(UNNotificationResponse *)response
           withCompletionHandler:(void (^)(void))completionHandler  API_AVAILABLE(ios(10.0)){
+    Toast(@"3");
+    //后台唤醒
+    @weakify(self)
+    [OrderDetailVC ComingFromVC:self_weak_.window.rootViewController
+                      withStyle:ComingStyle_PUSH
+                  requestParams:nil
+                        success:^(id data) {}
+                       animated:YES];
   // Required
   NSDictionary * userInfo = response.notification.request.content.userInfo;
     if (@available(iOS 10.0, *)) {

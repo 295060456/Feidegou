@@ -114,7 +114,6 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-    
     if ([url.host isEqualToString:@"safepay"]) {
         //跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
@@ -206,7 +205,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
 
 - (void)requestAdverMain{
     NSArray *arrImage = [[JJDBHelper sharedInstance] fetchCacheForAdvertisementStart];
-    if (arrImage.count>0) {
+    if (arrImage.count > 0) {
         NSString *strPath = arrImage[0][@"photo_url"];
         UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:strPath];
         if (image == nil) {
@@ -233,7 +232,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
         [self setEntryByIsLogined];
     }
     self.disposableAdver = [[[JJHttpClient new] requestAdverStart] subscribeNext:^(NSArray* array) {
-        if (array.count>0) {
+        if (array.count > 0) {
             [self downloadImage:array[0][@"photo_url"]];
         }
     }error:^(NSError *error) {

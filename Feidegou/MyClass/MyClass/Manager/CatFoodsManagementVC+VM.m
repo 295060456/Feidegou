@@ -81,25 +81,11 @@ NSString *market_price_co;//产地均价
                 [self.tableView.mj_footer endRefreshing];
                 [self.tableView reloadData];
             }else{
-//#warning KKK 临时数据
-//                @weakify(self)
-//                RCConversationModel *model = RCConversationModel.new;
-//                model.conversationType = ConversationType_PRIVATE;
-////                model.targetId = [NSString stringWithFormat:@"%@",self.orderListModel.seller];
-//                model.targetId = @"admin";
-////                if (self.orderListModel) {
-//                    [ChatVC ComingFromVC:self_weak_
-//                               withStyle:ComingStyle_PUSH
-//                           requestParams:model
-//                                 success:^(id data) {}
-//                                animated:YES];
-//                }
-#warning KKK 正式环境启用
-//                if (response.code == 300) {//被挤下线逻辑
-//                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
-//                    LoginViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-//                    [self.navigationController pushViewController:controller animated:YES];
-//                }
+                if (response.code == 300) {//被挤下线逻辑
+                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
+                    LoginViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+                    [self.navigationController pushViewController:controller animated:YES];
+                }
             }
         }
     }];

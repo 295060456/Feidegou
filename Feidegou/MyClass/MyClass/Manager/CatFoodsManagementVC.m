@@ -26,6 +26,7 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
+@property(nonatomic,strong)UIButton *contactCustomerServiceBtn;
 @property(nonatomic,strong)ModelLogin *loginModel;
 @property(nonatomic,strong)NSMutableArray <NSArray *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSArray *>*imgMutArr;
@@ -93,6 +94,8 @@ UITableViewDataSource
     self.gk_navTitle = @"喵粮管理";
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
+    self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.contactCustomerServiceBtn];
+    self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.tableView.alpha = 1;
 }
@@ -114,6 +117,20 @@ UITableViewDataSource
     }else{
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+-(void)contactCustomerServiceBtnClickEvent:(UIButton *)sender{
+    NSLog(@"联系客服");
+#warning KKK
+    @weakify(self)
+    RCConversationModel *model = RCConversationModel.new;
+    model.conversationType = ConversationType_PRIVATE;
+    model.targetId = @"admin";//[NSString stringWithFormat:@"%@",self.orderListModel.seller];
+    [ChatVC ComingFromVC:self_weak_
+               withStyle:ComingStyle_PUSH
+           requestParams:model
+                 success:^(id data) {}
+                animated:YES];
 }
 #pragma mark —— 私有方法
 // 下拉刷新
@@ -304,8 +321,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         }];
     }self.isFirstComing = NO;
 }
-
 #pragma mark —— lazyLoad
+-(UIButton *)contactCustomerServiceBtn{
+    if (!_contactCustomerServiceBtn) {
+        _contactCustomerServiceBtn = UIButton.new;
+        [_contactCustomerServiceBtn setBackgroundImage:kIMG(@"contactCustomerService")
+                                              forState:UIControlStateNormal];
+        [_contactCustomerServiceBtn addTarget:self
+                                       action:@selector(contactCustomerServiceBtnClickEvent:)
+                             forControlEvents:UIControlEventTouchUpInside];
+    }return _contactCustomerServiceBtn;
+}
+
 -(UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectZero
