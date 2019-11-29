@@ -30,9 +30,7 @@ UIScrollViewDelegate
         self.scrollView.alpha = 1;
         self.backgroundColor = kWhiteColor;
         
-        float offset = SCALING_RATIO(65);//误差值修正
-        
-        if (btnTitleMutArr.count * BtnDefaultWidth + SCALING_RATIO(10) * (btnTitleMutArr.count - 1) + SCALING_RATIO(5) * 2  - offset < SCREEN_WIDTH) {
+        if (btnTitleMutArr.count < 5) {
             self.BtnWidth = (SCREEN_WIDTH - SCALING_RATIO(5) * 2 - SCALING_RATIO(10) * (btnTitleMutArr.count - 1))/ btnTitleMutArr.count;
         }else{
             self.BtnWidth = BtnDefaultWidth;

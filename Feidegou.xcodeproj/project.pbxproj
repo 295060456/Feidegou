@@ -67,6 +67,8 @@
 		8B8A0E03238FF012000D7579 /* ThroughTrainListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A0E02238FF012000D7579 /* ThroughTrainListModel.m */; };
 		8B8A0E08238FF2C7000D7579 /* HQCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A0E04238FF2C6000D7579 /* HQCollectionViewFlowLayout.m */; };
 		8B8A0E09238FF2C7000D7579 /* HQTopStopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A0E05238FF2C6000D7579 /* HQTopStopView.m */; };
+		8B8A0E0D23902372000D7579 /* ThroughTrainListCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A0E0C23902372000D7579 /* ThroughTrainListCollectionViewCell.m */; };
+		8B8A0E142390D555000D7579 /* XXTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A0E132390D555000D7579 /* XXTools.m */; };
 		8B8A1DC2238D0010006AE2CB /* ThroughTrainToPromoteVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DBE238D000F006AE2CB /* ThroughTrainToPromoteVC+VM.m */; };
 		8B8A1DC3238D0010006AE2CB /* ThroughTrainToPromoteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DC0238D0010006AE2CB /* ThroughTrainToPromoteVC.m */; };
 		8B8A1DC6238D6C41006AE2CB /* LookUpContactWayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8A1DC5238D6C41006AE2CB /* LookUpContactWayVC.m */; };
@@ -755,6 +757,10 @@
 		8B8A0E05238FF2C6000D7579 /* HQTopStopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HQTopStopView.m; sourceTree = "<group>"; };
 		8B8A0E06238FF2C7000D7579 /* HQTopStopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HQTopStopView.h; sourceTree = "<group>"; };
 		8B8A0E07238FF2C7000D7579 /* HQCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HQCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		8B8A0E0B23902372000D7579 /* ThroughTrainListCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThroughTrainListCollectionViewCell.h; sourceTree = "<group>"; };
+		8B8A0E0C23902372000D7579 /* ThroughTrainListCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThroughTrainListCollectionViewCell.m; sourceTree = "<group>"; };
+		8B8A0E122390D555000D7579 /* XXTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXTools.h; sourceTree = "<group>"; };
+		8B8A0E132390D555000D7579 /* XXTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXTools.m; sourceTree = "<group>"; };
 		8B8A1DBE238D000F006AE2CB /* ThroughTrainToPromoteVC+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ThroughTrainToPromoteVC+VM.m"; sourceTree = "<group>"; };
 		8B8A1DBF238D0010006AE2CB /* ThroughTrainToPromoteVC+VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ThroughTrainToPromoteVC+VM.h"; sourceTree = "<group>"; };
 		8B8A1DC0238D0010006AE2CB /* ThroughTrainToPromoteVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThroughTrainToPromoteVC.m; sourceTree = "<group>"; };
@@ -2050,6 +2056,15 @@
 			path = "New Group";
 			sourceTree = "<group>";
 		};
+		8B8A0E112390D54E000D7579 /* XXTools */ = {
+			isa = PBXGroup;
+			children = (
+				8B8A0E122390D555000D7579 /* XXTools.h */,
+				8B8A0E132390D555000D7579 /* XXTools.m */,
+			);
+			path = XXTools;
+			sourceTree = "<group>";
+		};
 		8B8B0D702368278E0040EE53 /* PopMenuView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2227,6 +2242,7 @@
 		8BB2D2942366C7310047D0E2 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				8B8A0E112390D54E000D7579 /* XXTools */,
 				8BCAB641238A8E16000B0360 /* SearchView */,
 				8BEAAFBF23884DB2008D7F1D /* UIControl+XY */,
 				8B571AAB23874836009624D8 /* ContentBaseViewController */,
@@ -2447,6 +2463,8 @@
 				8B8A0E0A238FF2CD000D7579 /* New Group */,
 				8B8A0DFB238FEFDE000D7579 /* ThroughTrainListVC.h */,
 				8B8A0DFC238FEFDE000D7579 /* ThroughTrainListVC.m */,
+				8B8A0E0B23902372000D7579 /* ThroughTrainListCollectionViewCell.h */,
+				8B8A0E0C23902372000D7579 /* ThroughTrainListCollectionViewCell.m */,
 				8B8A0E01238FF012000D7579 /* ThroughTrainListModel.h */,
 				8B8A0E02238FF012000D7579 /* ThroughTrainListModel.m */,
 				8B8A0DFE238FEFFA000D7579 /* ThroughTrainListVC+VM.h */,
@@ -4691,6 +4709,7 @@
 				8B9EAF8D237429950012884C /* SettingPaymentWayTBViewForHeader.m in Sources */,
 				C42CD1A1213CC2640096675F /* UITextFieldPassWord.m in Sources */,
 				C42CD103213CC2640096675F /* BrandRoneListController.m in Sources */,
+				8B8A0E142390D555000D7579 /* XXTools.m in Sources */,
 				C42CD0F1213CC2640096675F /* RegisterCodeController.m in Sources */,
 				8BCAB63F238A5360000B0360 /* AppDelegate+VM.m in Sources */,
 				C42CD086213CC2640096675F /* NSDataEx.m in Sources */,
@@ -4882,6 +4901,7 @@
 				C46F8C4B214CF1E600F0C7D1 /* AreaDoneAllController.m in Sources */,
 				C42CD0C6213CC2640096675F /* CellOrderAddress.m in Sources */,
 				8BCB98C2237154940063E01E /* UpLoadCancelReasonVC+VM.m in Sources */,
+				8B8A0E0D23902372000D7579 /* ThroughTrainListCollectionViewCell.m in Sources */,
 				C42CD072213CC2640096675F /* RankListController.m in Sources */,
 				8BB2D3952366CC550047D0E2 /* UIView+Extras.m in Sources */,
 				C42CD060213CC2640096675F /* CellLogined.m in Sources */,

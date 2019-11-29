@@ -10,6 +10,7 @@
 
 #import "HQCollectionViewFlowLayout.h"
 #import "HQTopStopView.h"
+#import "ThroughTrainListCollectionViewCell.h"
 
 @interface ThroughTrainListVC ()
 <
@@ -90,16 +91,18 @@ PGBannerDelegate
 #pragma mark ---------  UICollectionViewDataSource 配置单元格   --------------
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    UICollectionViewCell *cell;
     if (indexPath.section == 0) {
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"section0"
-                                                         forIndexPath:indexPath];
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UICollectionViewCell"
+                                                                               forIndexPath:indexPath];
         [cell addSubview:self.banner];
+        return cell;
     }else{
-        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"section1"
-                                                         forIndexPath:indexPath];
+        ThroughTrainListCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ThroughTrainListCollectionViewCell"
+                                                                                             forIndexPath:indexPath];
+        [cell richElementsInCellWithModel:nil];
         cell.backgroundColor = RandomColor;
-    }return cell;
+        return cell;
+    }return UICollectionViewCell.new;
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView
@@ -161,8 +164,8 @@ referenceSizeForFooterInSection:(NSInteger)section{
 -(HQCollectionViewFlowLayout *)flowlayout{
     if (!_flowlayout) {
         _flowlayout = HQCollectionViewFlowLayout.new;
-        //设置悬停高度，默认64
-        _flowlayout.naviHeight = isiPhoneX_series() ? 88 : 0;
+        //设置悬停高度
+        _flowlayout.naviHeight = 0;
         //设置滚动方向
         [_flowlayout setScrollDirection:UICollectionViewScrollDirectionVertical];
         //左右间距
@@ -192,9 +195,9 @@ referenceSizeForFooterInSection:(NSInteger)section{
     _collectionView.showsVerticalScrollIndicator = NO;
     //注册单元格
     [_collectionView registerClass:[UICollectionViewCell class]
-        forCellWithReuseIdentifier:@"section0"];
-    [_collectionView registerClass:[UICollectionViewCell class]
-        forCellWithReuseIdentifier:@"section1"];
+        forCellWithReuseIdentifier:@"UICollectionViewCell"];
+    [_collectionView registerClass:[ThroughTrainListCollectionViewCell class]
+        forCellWithReuseIdentifier:@"ThroughTrainListCollectionViewCell"];
     //注册区头
     [_collectionView registerClass:[HQTopStopView class]
         forSupplementaryViewOfKind:UICollectionElementKindSectionHeader
