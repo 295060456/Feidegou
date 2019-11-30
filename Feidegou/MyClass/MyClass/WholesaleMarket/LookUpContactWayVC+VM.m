@@ -25,7 +25,7 @@
 //        }else{}
 //    }
     
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     if ([[PersonalInfo sharedInstance]isLogined]) {
         ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
         NSDictionary *dic = @{

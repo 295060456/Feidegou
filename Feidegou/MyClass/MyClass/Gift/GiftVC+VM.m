@@ -11,7 +11,7 @@
 @implementation GiftVC (VM)
 
 -(void)netWorking{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     [self.view endEditing:YES];
     if (![NSString isNullString:self.User_phone] &&
         ![NSString isNullString:self.value]) {

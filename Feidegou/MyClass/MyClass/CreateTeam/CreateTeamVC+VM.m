@@ -10,7 +10,7 @@
 @implementation CreateTeamVC (VM)
 //#define GetTeam @"/catfoodapp/user/getTeam.htm"//查看用戶信息
 -(void)lookUserInfo{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     if ([[PersonalInfo sharedInstance]isLogined]) {
         ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
         NSDictionary *dic = @{
@@ -57,7 +57,7 @@
 }
 //#define Updatewx @"/catfoodapp/user/updatewx.htm"//我的团队修改信息 需要传给我的值   微信必填其余可不填：weixin_account QQ user_id  contactmobile手机号
 -(void)ChangeMyInfo{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     if ([NSString isNullString:self.wechatStr]) {
         Toast(@"请填写微信账号");
         return;

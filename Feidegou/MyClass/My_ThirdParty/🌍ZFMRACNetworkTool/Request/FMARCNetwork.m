@@ -139,6 +139,7 @@ static FMARCNetwork *_instance = nil;
                                                                                URLString:url
                                                                               parameters:req.parameters
                                                                                    error:&serializationError];
+        NSString *randomStr = req.parameters[@"randomStr"];
         if (serializationError) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wgnu"
@@ -174,9 +175,8 @@ static FMARCNetwork *_instance = nil;
                 //错误可以在此处处理---比如加入自己弹窗，主要是服务器错误、和请求超时、网络开小差
                 [self showMsgtext:msgStr];
             } else {
-                extern NSString *randomStr;
                 FMHttpResonse *httpResponse = [[FMHttpResonse alloc] initWithResponseSuccess:[NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)]
-                                                                                          code:1];
+                                                                                        code:1];
                 NSInteger statusCode = [httpResponse.reqResult[HTTPServiceResponseCodeKey] integerValue];
                 
 //                HTTPResponseCodeSuccess = 200,// 请求成功
@@ -211,7 +211,7 @@ static FMARCNetwork *_instance = nil;
                     [subscriber sendNext:response];
                     [subscriber sendCompleted];
                     [self showMsgtext:@"请登录!"];
-                }else if (statusCode == HTTPResponseCodeAnomalous){//300 数据异常
+                }else if (statusCode == HTTPResponseCodeAnomalous){//300 数据异常  被踢 ！！！
                     if (httpResponse.isSuccess) {
                         Toast(httpResponse.reqResult[HTTPServiceResponseMsgKey]);
                         [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseMsgKey]];//

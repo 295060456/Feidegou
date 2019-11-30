@@ -11,7 +11,7 @@
 @implementation SettingPaymentWayVC (VM)
 
 -(void)netWorking{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodPayment_quaryURL
                                                      parameters:@{
@@ -33,7 +33,7 @@
 }
 
 -(void)save_netWorking{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dataDic = @{
         @"alipay":[NSString ensureNonnullString:self.aliPayAccStr ReplaceStr:@"暂无信息"],//支付宝账户
         @"weixin":[NSString ensureNonnullString:self.wechatAccStr ReplaceStr:@"暂无信息"],//微信账户

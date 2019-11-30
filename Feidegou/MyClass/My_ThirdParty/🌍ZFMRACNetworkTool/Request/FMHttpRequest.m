@@ -54,7 +54,7 @@
 +(instancetype)urlParametersWithMethod:(NSString *)method
                                   path:(NSString *)path
                             parameters:(NSDictionary *)parameters{
-    extern NSString *randomStr;
+    //取出
     NSDictionary *dataDic = parameters[@"data"];
     NSMutableDictionary *dataMutDic = [NSMutableDictionary dictionaryWithDictionary:dataDic];
     for (int i = 0; i < dataDic.count; i++) {
@@ -69,12 +69,11 @@
     }
     [dataMutDic setObject:[YDDevice getUQID]
                    forKey:@"identity"];
+    //封装
     NSMutableDictionary *returnMutDic = NSMutableDictionary.dictionary;
     for (int f = 0; f < parameters.count; f ++) {
-        [returnMutDic setValue:parameters[@"key"]
-                        forKey:@"key"];
-        [returnMutDic setValue:aesEncryptString([NSString convertToJsonData:dataMutDic], randomStr)
-                        forKey:@"data"];
+        [returnMutDic setValue:parameters.allValues[f]
+                        forKey:parameters.allKeys[f]];
     }return [[self alloc]initUrlParametersWithMethod:method
                                                 path:path
                                           parameters:returnMutDic];

@@ -11,7 +11,7 @@
 @implementation CatFoodProducingAreaVC (VM)
 
 -(void)netWorking{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dic = @{
         @"currentpage":[NSString stringWithFormat:@"%ld",self.currentpage],
         @"pagesize":@"32"
@@ -51,7 +51,7 @@
 }
 //CatfoodCO_BuyerURL 喵粮产地购买 #7
 -(void)purchase_netWorking:(CatFoodProducingAreaModel *)model{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dataDic = @{
         @"order_id":model.ID
     };

@@ -11,7 +11,7 @@
 @implementation PersonalDataChangedListVC (VM)
 
 -(void)PestCatFood_changelist_netWorking{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dic = @{
         @"user_id":[[PersonalInfo sharedInstance] fetchLoginUserInfo].userId,
         @"currentpage":[NSString stringWithFormat:@"%d",self.page],

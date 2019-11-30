@@ -11,7 +11,7 @@
 @implementation ShopReceiptQRcodeVC (VM)
 
 -(void)netWorking{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodWeixin_quarURL
                                                      parameters:@{
@@ -55,7 +55,7 @@
              withStyle:(PaywayType)paywayType{
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSMutableDictionary *dataMutDic = NSMutableDictionary.dictionary;
     //每个接口都加 user_id 和 identity
     if ([[PersonalInfo sharedInstance] isLogined]) {

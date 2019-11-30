@@ -11,7 +11,7 @@
 @implementation OrderDetailVC (VM)
 //CatfoodSale_payURL 喵粮批发已支付 #17
 -(void)upLoadPic_wholesaleMarket_havePaid_netWorking:(UIImage *)pic{//真正开始购买
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     ModelLogin *modelLogin;
     if ([[PersonalInfo sharedInstance] isLogined]) {
         modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
@@ -78,7 +78,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 -(void)CancelDelivery_NetWorking{
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     ModelLogin *modelLogin;
     if ([[PersonalInfo sharedInstance] isLogined]) {
         modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
@@ -127,7 +127,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 }
 //CatfoodCO_payURL 喵粮产地购买已支付  #8
 -(void)uploadPic_producingArea_havePaid_netWorking:(UIImage *)image{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     ModelLogin *modelLogin;
     if ([[PersonalInfo sharedInstance] isLogined]) {
         modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
@@ -183,7 +183,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 }
 //CatfoodCO_BuyerURL 喵粮产地购买 #7
 -(void)netWorking{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dataDic = @{
         @"order_id":self.Order_id//order_id
     };
@@ -271,7 +271,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 }
 //CatfoodCO_pay_delURL 喵粮产地购买取消 #9
 -(void)cancelOrder_producingArea_netWorking{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dataDic = @{
         @"order_id":[self.Order_id stringValue]//order_id
     };
@@ -297,7 +297,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 }
 //CatfoodSale_goodsURL 喵粮批发订单发货 #14
 -(void)deliver_wholesaleMarket_PNetworking{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dataDic = @{
         @"order_id":self.Order_id,//订单id
     };
@@ -325,7 +325,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 
 //CatfoodSale_pay_delURL 喵粮批发取消 18
 -(void)cancelOrder_wholesaleMarket_netWorking{//展示数据
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dataDic = @{
         @"order_id":self.Order_id,//订单id
         @"reason":@""
@@ -356,7 +356,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 }
 //CatfoodBooth_goodsURL 喵粮抢摊位发货 #21
 -(void)boothDeliver_networking{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dataDic = @{
         @"order_id":self.Order_id,//订单id
     };
@@ -383,7 +383,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 }
 //CatfoodBooth_del 喵粮抢摊位取消 22_1
 -(void)CatfoodBooth_del_netWorking{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dataDic = @{
         @"order_id":self.Order_id
     };
@@ -410,7 +410,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 }
 //CatfoodBooth_del_time 喵粮抢摊位取消剩余时间 #22_2
 -(void)CatfoodBooth_del_time_netWorking{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dataDic = @{
         @"order_id":self.Order_id,//订单id
     };
@@ -455,7 +455,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         }
     }];
 }
-//buyer_CatfoodRecord_checkURL 喵粮订单查看 3小时 del_wait_left_time
+//buyer_CatfoodRecord_checkURL 喵粮订单查看
 -(void)buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:(NSString *)order_type{//订单类型 —— 1、摊位;2、批发;3、产地
     NSNumber *b;
     if ([order_type isEqualToString:@"摊位"]) {
@@ -468,7 +468,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         b = [NSNumber numberWithInt:0];
     }
     
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
         NSDictionary *dic = @{
             @"order_id":[NSString ensureNonnullString:self.Order_id ReplaceStr:@"无"],//订单id
             @"order_type":[NSString ensureNonnullString:b ReplaceStr:@"无"]//订单类型 —— 1、摊位;2、批发;3、产地

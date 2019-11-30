@@ -11,7 +11,7 @@
 @implementation ThroughTrainListVC (VM)
 
 -(void)netWorking{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dataDic = @{
         @"currentpage":[NSNumber numberWithInt:self.page],
         @"pagesize":@""

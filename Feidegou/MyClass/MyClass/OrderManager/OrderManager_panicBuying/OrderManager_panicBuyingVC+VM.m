@@ -36,7 +36,7 @@
 }
 //正式请求
 -(void)networkingWithArgument:(NSDictionary *)dic{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:buyer_CatfoodRecord_listURL
                                                      parameters:@{

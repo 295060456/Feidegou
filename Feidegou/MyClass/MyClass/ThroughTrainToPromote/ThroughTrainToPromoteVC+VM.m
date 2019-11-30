@@ -11,7 +11,7 @@
 @implementation ThroughTrainToPromoteVC (VM)
 //查看直通车状态
 -(void)checkThroughTrainToPromoteStyle_netWorking{//进来查看直通车看开启与否 开启。。。 继续关闭。
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dataDic = @{
 
     };
@@ -46,7 +46,7 @@
 }
 //Catfoodbooth_rob_agoUrl 喵粮直通车机会查询 微信3 支付宝3 别人购买的机会 用完今天就不能开启直通车
 -(void)check{//
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dic = @{
         @"order_type":[NSNumber numberWithInt:1]
     };
@@ -73,7 +73,7 @@
 }
 //关闭直通车
 -(void)deleteThroughTrainToPromote_netWorking{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dataDic = @{
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
@@ -93,7 +93,7 @@
 }
 //开启直通车 CatfoodTrainURL
 -(void)CatfoodTrainURL_networking{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     @weakify(self)
     NSDictionary *dataDic = @{
         @"quantity":self.quantity

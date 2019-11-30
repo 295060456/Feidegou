@@ -22,7 +22,6 @@
                                                     @"userName":USERNAME,
                                                     @"password":PASSWORD,
                                                 }];
-    
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
                                    parameters:param]
             map:^id(NSDictionary* dictionary) {

@@ -11,7 +11,7 @@
 @implementation ReleaseOrderVC (VM)
 //发布订单
 -(void)releaseOrder_netWorking{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     extern NSString *market_price_sale;
     if ([NSString isNullString:self.str_1]) {
         Toast(@"请输入发布数量");

@@ -8,7 +8,6 @@
 
 #import "CatFoodsManagementVC+VM.h"
 
-NSString *randomStr;
 NSString *tokenStr;//??没有了
 NSString *alipay_qr_img;//支付宝收款二维码
 NSString *market_price_booth;//摊位均价
@@ -26,13 +25,14 @@ NSString *market_price_co;//产地均价
     tokenStr = modelLogin.token;
     NSDictionary *dataDic = @{
     };
-    randomStr = [EncryptUtils shuffledAlphabet:16];
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodManageURL
                                                      parameters:@{
                                                          @"data":dataDic,//内部加密
                                                          @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key]
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {

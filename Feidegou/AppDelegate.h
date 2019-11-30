@@ -13,10 +13,12 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property(nonatomic,strong)RACSignal *reqSignal;
-@property (nonatomic,strong) RACDisposable *disposableLogin;
-@property (nonatomic,strong) RACDisposable *disposablePaySucceed;
-@property (nonatomic,strong) RACDisposable *disposableShareSucceed;
-@property (nonatomic,strong) RACDisposable *disposableAdver;
+@property(nonatomic,strong)RACDisposable *disposableLogin;
+@property(nonatomic,strong)RACDisposable *disposablePaySucceed;
+@property(nonatomic,strong)RACDisposable *disposableShareSucceed;
+@property(nonatomic,strong)RACDisposable *disposableAdver;
+@property(nonatomic,weak)OrderDetailVC *orderDetailVC;
+
 - (void)ChangeStateForPay:(NSString *)strOrderId;
 
 //微信支付请求结果出来后调用此方法

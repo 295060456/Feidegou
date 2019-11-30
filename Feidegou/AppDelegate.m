@@ -45,7 +45,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self loginAgin];
     [self requestAdverMain];
-
+    
     return YES;
 }
 
@@ -71,7 +71,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
     [self registerDeviceToken:deviceToken];//注册 APNs 成功并上报 DeviceToken
-    [self getAlias];//??
+    [self getAlias];//
 }
 
 - (void)application:(UIApplication *)application
@@ -90,7 +90,6 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    // Required,For systems with less than or equal to iOS6
     [self handleRemoteNotification:userInfo];
 }
 
@@ -278,16 +277,10 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
         }
     }
 }
-
+//获取别名
 - (void)getAlias{
-    //    获取别名，如果别名和当前登录的id不一样，则重新设置别名
     if ([[PersonalInfo sharedInstance] isLogined]){
         [JPUSHService getAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
-//            NSString *strUerId = TransformString([[PersonalInfo sharedInstance] fetchLoginUserInfo].userId);
-//            D_NSLog(@"setAlias code:%ld iAlias:%@ seq:%ld", iResCode, iAlias, seq);
-//            if (![TransformString(iAlias) isEqualToString:strUerId]) {
-//                [self setAlias];
-//            }
             NSLog(@"已经登录");
             [self setAlias];
         } seq:[self seq]];

@@ -11,7 +11,7 @@
 @implementation UpLoadCancelReasonVC (VM)
 //CatfoodCO_payURL 喵粮产地购买已支付  #8
 -(void)uploadPic_producingArea_havePaid_netWorking:(UIImage *)image{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     ModelLogin *modelLogin;
     if ([[PersonalInfo sharedInstance] isLogined]) {
         modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
@@ -67,7 +67,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 }
 //CatfoodSale_payURL 喵粮批发已支付 #17
 -(void)upLoadPic_wholesaleMarket_havePaid_netWorking:(UIImage *)pic{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     ModelLogin *modelLogin;
     if ([[PersonalInfo sharedInstance] isLogined]) {
         modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
@@ -121,7 +121,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 -(void)CancelDelivery_NetWorking{
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dic;
     if ([self.requestParams isKindOfClass:[NSDictionary class]]) {
         dic = (NSDictionary *)self.requestParams;
@@ -180,7 +180,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 }
 //喵粮订单撤销 post 5 Y PIC 不加catfoodapp
 -(void)CancelDelivery_NetWorking1{//废弃
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dic;
     OrderListModel *model;
     if ([self.requestParams isKindOfClass:[NSDictionary class]]) {

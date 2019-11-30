@@ -11,7 +11,7 @@
 @implementation Q_Pet (VM)
 
 -(void)feed{
-    extern NSString *randomStr;
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dic = @{
         @"lifeValue":[NSNumber numberWithInt:1]
     };
