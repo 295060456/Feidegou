@@ -283,19 +283,27 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
     //    获取别名，如果别名和当前登录的id不一样，则重新设置别名
     if ([[PersonalInfo sharedInstance] isLogined]){
         [JPUSHService getAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
-            NSString *strUerId = TransformString([[PersonalInfo sharedInstance] fetchLoginUserInfo].userId);
-            D_NSLog(@"setAlias code:%ld iAlias:%@ seq:%ld", iResCode, iAlias, seq);
-            if (![TransformString(iAlias) isEqualToString:strUerId]) {
-                [self setAlias];
-            }
+//            NSString *strUerId = TransformString([[PersonalInfo sharedInstance] fetchLoginUserInfo].userId);
+//            D_NSLog(@"setAlias code:%ld iAlias:%@ seq:%ld", iResCode, iAlias, seq);
+//            if (![TransformString(iAlias) isEqualToString:strUerId]) {
+//                [self setAlias];
+//            }
+            NSLog(@"已经登录");
+            [self setAlias];
         } seq:[self seq]];
+    }else{
+        NSLog(@"还未登录");
+        [self setAlias];
     }
 }
 
 - (void)setAlias{
     if ([[PersonalInfo sharedInstance] isLogined]) {
         NSString *strUerId = TransformString([[PersonalInfo sharedInstance] fetchLoginUserInfo].userId);
-        [JPUSHService setAlias:strUerId completion:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+        strUerId = [strUerId stringByAppendingString:@"AA"];
+        [JPUSHService setAlias:strUerId completion:^(NSInteger iResCode,
+                                                     NSString *iAlias,
+                                                     NSInteger seq) {
             D_NSLog(@"setAlias code:%ld iAlias:%@ seq:%ld", iResCode, iAlias, seq);
         } seq:[self seq]];
     }

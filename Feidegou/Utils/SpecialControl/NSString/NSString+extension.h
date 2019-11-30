@@ -14,7 +14,7 @@
 /*
  *是否为邮箱
  */
-+ (BOOL)isEmail:(NSString *)email;
++ (BOOL)isEmail:(NSString *_Nonnull)email;
 /*
  *是否为钱，正整数，一位和两位小数点
  */
@@ -99,6 +99,9 @@
 +(NSString *)ensureNonnullString:(id)nullableStr
                       ReplaceStr:(NSString *)replaceStr;
 +(BOOL)isIncludeChinese:(NSString *) str;
+
+//判断是不是纯数字
++ (BOOL)isNumber:(NSString *)string;
 
 //开始时间给定 结束时间不给定就启用现在的时间戳
 +(NSTimeInterval)timeIntervalstartDate:(NSString *_Nonnull)startTime

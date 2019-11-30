@@ -8,7 +8,6 @@
 #import "CreateTeamVC+VM.h"
 
 @implementation CreateTeamVC (VM)
-
 //#define GetTeam @"/catfoodapp/user/getTeam.htm"//查看用戶信息
 -(void)lookUserInfo{
     extern NSString *randomStr;
@@ -34,23 +33,32 @@
                     self.wechatPlaceholderStr = dic[@"weixin_account"];
                     [self.sendBtn setTitle:@"点我修改"
                                   forState:UIControlStateNormal];
+                    [self.titleMutArr addObject:[self.invitationCodeStr stringByAppendingString:[NSString ensureNonnullString:dic[@"code"] ReplaceStr:@"暂无信息"]]];
                 }else{
                     [self.sendBtn setTitle:@"点我发送"
                                   forState:UIControlStateNormal];
                 }
+                for (ZYTextField *tf in self.dataMutSet) {
+                    if ([tf.placeholder isEqualToString:self.titleMutArr[0]]) {//手机
+                        tf.text = dic[@"contactmobile"];
+                    }else if ([tf.placeholder isEqualToString:self.titleMutArr[1]]){//QQ
+                        tf.text = dic[@"QQ"];
+                    }else if ([tf.placeholder isEqualToString:self.titleMutArr[2]]){//微信
+                        tf.text = dic[@"weixin_account"];
+                    }else{}
+                }
+                self.tableView.mj_footer.hidden = NO;
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView.mj_footer endRefreshing];
+                [self.tableView reloadData];
             }
         }];
     }
 }
-
-//@property(nonatomic,copy)__block NSString *telePhonePlaceholderStr;
-//@property(nonatomic,copy)__block NSString *QQPlaceholderStr;
-//@property(nonatomic,copy)__block NSString *wechatPlaceholderStr;
-
 //#define Updatewx @"/catfoodapp/user/updatewx.htm"//我的团队修改信息 需要传给我的值   微信必填其余可不填：weixin_account QQ user_id  contactmobile手机号
 -(void)ChangeMyInfo{
     extern NSString *randomStr;
-    if ([NSString isNullString:self.telePhoneStr]) {
+    if ([NSString isNullString:self.wechatStr]) {
         Toast(@"请填写微信账号");
         return;
     }
@@ -74,6 +82,7 @@
         @weakify(self)
         [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
             @strongify(self)
+            NSLog(@"");//OK
         }];
     }
 }

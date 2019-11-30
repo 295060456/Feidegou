@@ -41,7 +41,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // 获取 IDFA
     // 如需使用 IDFA 功能请添加此代码并在初始化方法的 advertisingIdentifier 参数中填写对应值
     NSString *advertisingId = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-
     // Required
     // init Push
     // notice: 2.1.5 版本的 SDK 新增的注册方法，改成可上报 IDFA，如果没有使用 IDFA 直接传 nil
@@ -74,7 +73,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         }else{
             //从通知设置界面进入应用
         }
-    } else {
+    } else {//
         // Fallback on earlier versions
     }
 }

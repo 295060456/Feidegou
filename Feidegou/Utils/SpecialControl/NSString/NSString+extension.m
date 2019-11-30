@@ -65,6 +65,7 @@
     BOOL isPassword = [pred evaluateWithObject:strPsw];
     return isPassword;
 }
+
 + (BOOL)isNullString:(NSString*)string{
     
     if (string == nil || string == NULL || [string isKindOfClass:[NSNull class]]) {
@@ -338,7 +339,6 @@
     NSTimeInterval time = [endDate timeIntervalSinceDate:startDate];
     return time;
 }
-
 //我自己写的
 +(NSString *)ensureNonnullString:(id)nullableStr
                       ReplaceStr:(NSString *)replaceStr{
@@ -384,6 +384,19 @@
         }else return replaceStr;
     }else return replaceStr;
 }
+//判断是不是纯数字
++ (BOOL)isNumber:(NSString *)string{
+    [NSCharacterSet decimalDigitCharacterSet];
+    if ([[string stringByTrimmingCharactersInSet: [NSCharacterSet decimalDigitCharacterSet]] trimming].length > 0){
+        return NO;
+    }else{
+        NSLog(@"纯数字！");
+        return YES;
+    }
+}
 
+- (NSString *)trimming{
+    return [self stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceCharacterSet]];
+}
 
 @end

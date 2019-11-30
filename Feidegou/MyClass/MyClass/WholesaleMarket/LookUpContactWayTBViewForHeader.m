@@ -26,7 +26,6 @@ TXScrollLabelViewDelegate
     if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
         if ([data isKindOfClass:[NSString class]]) {
             self.str = (NSString *)data;
-            
         }
     }return self;
 }

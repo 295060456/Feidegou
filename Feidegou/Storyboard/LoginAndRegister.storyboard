@@ -662,7 +662,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pI8-el-oJO">
                                 <rect key="frame" x="16" y="215" width="343" height="40"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入邀请码(选填)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="29C-rb-psK">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入昵称(必填)" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="29C-rb-psK">
                                         <rect key="frame" x="10" y="0.0" width="333" height="40"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
@@ -796,6 +796,6 @@
     <resources>
         <image name="img_login_registered" width="12" height="12"/>
         <image name="img_order_select_n" width="15" height="15"/>
-        <image name="img_order_select_y" width="15" height="15"/>
+        <image name="img_order_select_y" width="18" height="18"/>
     </resources>
 </document>

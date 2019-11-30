@@ -91,14 +91,16 @@
         return dictionary;
     }];
 }
--(RACSignal*)requestRegisterPHONE:(NSString *)PHONE andPASSWORD:(NSString *)PASSWORD andinviter_id:(NSString *)inviter_id{
+-(RACSignal*)requestRegisterPHONE:(NSString *)PHONE
+                      andPASSWORD:(NSString *)PASSWORD
+                    andinviter_id:(NSString *)inviter_id{
     
     PASSWORD = [self md5HexDigestSmall:PASSWORD];
     NSDictionary *param = [self paramStringWithStype:@"4008"
                                                 data:@{
                                                        @"userName":PHONE,
                                                        @"password":PASSWORD,
-                                                       @"inviter":inviter_id}];
+                                                       @"NICKNAME":inviter_id}];
     
     return [[self requestPOSTWithRelativePath:RELATIVE_PATH_WRITE
                                    parameters:param] map:^id(NSDictionary* dictionary) {

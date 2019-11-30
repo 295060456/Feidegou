@@ -56,13 +56,16 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)clickButtonCommit:(UIButton *)sender {
-    
+    @weakify(self)
+    [self.view endEditing:YES];
     NSString *strPswOld = self.txtPswOld.text;
     NSString *strPsw = self.txtPsw.text;
-    if ([NSString isNullString:strPsw]||[NSString isNullString:strPswOld]) {
+    if ([NSString isNullString:strPsw] ||
+        [NSString isNullString:strPswOld]) {
         [SVProgressHUD showErrorWithStatus:@"请输入密码"];
         return;
     }
+    
     if (![NSString isPassword:strPsw]) {
         [SVProgressHUD showErrorWithStatus:@"请输入正确的格式"];
         return;
@@ -72,15 +75,14 @@
         [SVProgressHUD showErrorWithStatus:@"请输入相同的密码"];
         return;
     }
-    [self.view endEditing:YES];
-    
-    
-    if (self.isForgetPsw) {
+    if (self.isForgetPsw) {//忘记密码走这里
         [SVProgressHUD showWithStatus:@"正在修改密码,请稍后..."];
-        __weak RegisterInputPswController *myself = self;
-        self.disposable = [[[JJHttpClient new] requestPswGetBackPHONE:self.strPhone andpassword_new:strPsw] subscribeNext:^(NSDictionary*dictionary) {
+        self.disposable = [[JJHttpClient.new requestPswGetBackPHONE:self.strPhone
+                                                    andpassword_new:strPsw]
+                           subscribeNext:^(NSDictionary *dictionary) {
             D_NSLog(@"msg is %@",dictionary[@"msg"]);
-            if ([dictionary[@"code"] intValue]==1) {
+            @strongify(self)
+            if ([dictionary[@"code"] intValue] == 1) {
                 [SVProgressHUD dismiss];
                 RegisterSucceedController *controller = [[self storyboard] instantiateViewControllerWithIdentifier:@"RegisterSucceedController"];
                 controller.isForgetPsw = self.isForgetPsw;
@@ -90,45 +92,50 @@
                 [SVProgressHUD showErrorWithStatus:[NSString stringStandard:dictionary[@"msg"]]];
             }
         }error:^(NSError *error) {
-            myself.disposable = nil;
+            @strongify(self)
+            self.disposable = nil;
             [SVProgressHUD showErrorWithStatus:error.localizedDescription];
         }completed:^{
-            myself.disposable = nil;
-        }];
-        
-        return;
-    }
-    
-    
-    [SVProgressHUD showWithStatus:@"正在注册,请稍后..."];
-    __weak RegisterInputPswController *myself = self;
-    self.disposable = [[[JJHttpClient new] requestRegisterPHONE:self.strPhone andPASSWORD:strPsw andinviter_id:[NSString stringStandard:self.txtCode.text]] subscribeNext:^(NSDictionary*dictionary) {
-        D_NSLog(@"msg is %@",dictionary[@"msg"]);
-        if ([dictionary[@"code"] intValue]==1) {
-            [SVProgressHUD dismiss];
-            RegisterSucceedController *controller = [[self storyboard] instantiateViewControllerWithIdentifier:@"RegisterSucceedController"];
-            controller.isForgetPsw = self.isForgetPsw;
-            controller.strPhone = self.strPhone;
-            [self.navigationController pushViewController:controller animated:YES];
+            @strongify(self)
+            self.disposable = nil;
+        }];return;
+    }else{//注册走这里
+        if (![NSString isNumber:self.txtCode.text]){
+            if (self.txtCode.text.length >= 6 &&
+                self.txtCode.text.length <= 15) {
+                self.disposable = [[[JJHttpClient new] requestRegisterPHONE:self.strPhone
+                                                                andPASSWORD:strPsw
+                                                              andinviter_id:[NSString stringStandard:self.txtCode.text]]
+                                   subscribeNext:^(NSDictionary*dictionary) {
+                    D_NSLog(@"msg is %@",dictionary[@"msg"]);
+                    @strongify(self)
+                    if ([dictionary[@"code"] intValue] == 1) {
+                        [SVProgressHUD dismiss];
+                        RegisterSucceedController *controller = [[self storyboard] instantiateViewControllerWithIdentifier:@"RegisterSucceedController"];
+                        controller.isForgetPsw = self.isForgetPsw;
+                        controller.strPhone = self.strPhone;
+                        [self.navigationController pushViewController:controller animated:YES];
+                    }else{
+                        [SVProgressHUD showErrorWithStatus:[NSString stringStandard:dictionary[@"msg"]]];
+                    }
+                }error:^(NSError *error) {
+                    @strongify(self)
+                    self.disposable = nil;
+                    [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                }completed:^{
+                    @strongify(self)
+                    self.disposable = nil;
+                }];
+
+            }else{
+                Toast(@"昵称请设置6～15位");
+            }
         }else{
-            [SVProgressHUD showErrorWithStatus:[NSString stringStandard:dictionary[@"msg"]]];
+            Toast(@"昵称不能为纯数字");
+            return;
         }
-    }error:^(NSError *error) {
-        myself.disposable = nil;
-        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
-    }completed:^{
-        myself.disposable = nil;
-    }];
+    }
+    [SVProgressHUD showWithStatus:@"正在注册,请稍后..."];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

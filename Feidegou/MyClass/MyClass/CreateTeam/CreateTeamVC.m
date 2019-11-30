@@ -13,7 +13,7 @@
 <
 UITextFieldDelegate
 >
-@property(nonatomic,strong)ZYTextField *textField;
+
 @property(nonatomic,copy)DataBlock block;
 
 @end
@@ -24,13 +24,10 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
-@property(nonatomic,strong)UITableView *tableView;
-
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
-@property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 
 @end
 
@@ -105,6 +102,9 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
+    if (_titleMutArr.count > 3) {
+        [_titleMutArr removeLastObject];
+    }
     [self lookUserInfo];
 }
 //上拉加载更多
@@ -150,19 +150,34 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    InvitationCodeTBVCell *cell = [InvitationCodeTBVCell cellWith:tableView];
-    [cell richElementsInCellWithModel:self.titleMutArr[indexPath.row]];
-    @weakify(self);
-    [cell actionBlock:^(ZYTextField *textField) {
-        @strongify(self)
-        if ([textField.placeholder isEqualToString:self.titleMutArr[0]]) {//请输入手机号
-            self.telePhoneStr = textField.text;
-        }else if ([textField.placeholder isEqualToString:self.titleMutArr[1]]){//请输入QQ账号
-            self.QQStr = textField.text;
-        }else if ([textField.placeholder isEqualToString:self.titleMutArr[2]]){//请输入微信账号"
-            self.wechatStr = textField.text;
-        }else{}
-    }];return cell;
+    if (indexPath.row == 3 &&
+        self.titleMutArr[3]) {
+        TBVCell_style_01 *cell = (TBVCell_style_01 *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
+        if (!cell) {
+            cell = [[TBVCell_style_01 alloc] initWithStyle:UITableViewCellStyleValue1
+                                           reuseIdentifier:ReuseIdentifier
+                                                    margin:SCALING_RATIO(5)];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = kClearColor;
+        }
+        cell.textLabel.text = self.titleMutArr[3];
+        return cell;
+    }else{
+        InvitationCodeTBVCell *cell = [InvitationCodeTBVCell cellWith:tableView];
+        [self.dataMutSet addObject:cell.textField];
+        [cell richElementsInCellWithModel:self.titleMutArr[indexPath.row]];
+        @weakify(self);
+        [cell actionBlock:^(ZYTextField *textField) {
+            @strongify(self)
+            if ([textField.placeholder isEqualToString:self.titleMutArr[0]]) {//请输入手机号
+                self.telePhoneStr = textField.text;
+            }else if ([textField.placeholder isEqualToString:self.titleMutArr[1]]){//请输入QQ账号
+                self.QQStr = textField.text;
+            }else if ([textField.placeholder isEqualToString:self.titleMutArr[2]]){//请输入微信账号"
+                self.wechatStr = textField.text;
+            }else{}
+        }];return cell;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -172,6 +187,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)sendBtn{
     if (!_sendBtn) {
         _sendBtn = UIButton.new;
+        [_sendBtn setTitle:@"点我发送"
+                  forState:UIControlStateNormal];
+        [_sendBtn.titleLabel sizeToFit];
+        _sendBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
         [_sendBtn setTitleColor:kBlackColor
                        forState:UIControlStateNormal];
         [_sendBtn addTarget:self
@@ -225,6 +244,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _wechatPlaceholderStr;
 }
 
+-(NSString *)invitationCodeStr{
+    if (!_invitationCodeStr) {
+        _invitationCodeStr = @"您的邀请码是:";
+    }return _invitationCodeStr;
+}
+
 -(NSMutableArray<NSString *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
@@ -232,6 +257,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [_titleMutArr addObject:self.QQPlaceholderStr];
         [_titleMutArr addObject:self.wechatPlaceholderStr];
     }return _titleMutArr;
+}
+
+-(NSMutableSet<ZYTextField *> *)dataMutSet{
+    if (!_dataMutSet) {
+        _dataMutSet = NSMutableSet.set;
+    }return _dataMutSet;
 }
 
 @end

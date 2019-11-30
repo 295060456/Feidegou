@@ -49,10 +49,7 @@
         [self.btnLogin setBackgroundColor:ColorGaryButtom];
     }
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
 - (IBAction)clickButtonLogin:(UIButton *)sender {
     NSString *strUserNum = self.txtUserName.text;
     NSString *strPsw = self.txtPsw.text;
@@ -224,19 +221,13 @@
     }];
 }
 
-- (IBAction)clickButtonReg:(UIButton *)sender {
+- (IBAction)clickButtonReg:(UIButton *)sender {//快速注册
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
     RegisterViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
     [self.navigationController pushViewController:controller animated:YES];
-//    @weakify(self)
-//    [RegisterVC ComingFromVC:self_weak_
-//                   withStyle:ComingStyle_PUSH
-//               requestParams:nil
-//                     success:^(id data) {}
-//                    animated:YES];
-    
 }
-- (IBAction)clickButtonForgetPsw:(UIButton *)sender {
+
+- (IBAction)clickButtonForgetPsw:(UIButton *)sender {//忘记密码
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
     RegisterViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
     controller.isForgetPsw = YES;

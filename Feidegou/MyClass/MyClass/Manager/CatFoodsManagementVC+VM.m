@@ -81,11 +81,12 @@ NSString *market_price_co;//产地均价
                 [self.tableView.mj_footer endRefreshing];
                 [self.tableView reloadData];
             }else{
-                if (response.code == 300) {//被挤下线逻辑
-                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
-                    LoginViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
-                    [self.navigationController pushViewController:controller animated:YES];
-                }
+#warning KKK
+//                if (response.code == 300) {//被挤下线逻辑
+//                    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardLoginAndRegister bundle:nil];
+//                    LoginViewController *controller = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+//                    [self.navigationController pushViewController:controller animated:YES];
+//                }
             }
         }
     }];
