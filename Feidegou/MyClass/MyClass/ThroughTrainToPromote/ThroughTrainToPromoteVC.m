@@ -100,7 +100,9 @@ UITableViewDataSource
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.openBtn removeFromSuperview];
+    if (_openBtn) {
+        [self.openBtn removeFromSuperview];
+    }
     self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— 私有方法
@@ -168,7 +170,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         ThroughTrainToPromoteTBVCell *cell = [ThroughTrainToPromoteTBVCell cellWith:tableView];
         cell.textLabel.text = self.titleMutArr[indexPath.row];
         cell.detailTextLabel.text = self.detailTitleMutArr[indexPath.row];
-        [cell richElementsInCellWithModel:nil];
+        [cell richElementsInCellWithModel:self.quantity];
         @weakify(self)
         [cell actionBlock:^(id data) {
             @strongify(self)
@@ -196,6 +198,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)openBtn{
     if (!_openBtn) {
         _openBtn = UIButton.new;
+        _openBtn.uxy_acceptEventInterval = btnActionTime;
         [_openBtn addTarget:self
                  action:@selector(openBtnClickEvent:)
        forControlEvents:UIControlEventTouchUpInside];
@@ -205,7 +208,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [self.view addSubview:_openBtn];
         [_openBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100),
-                                             SCALING_RATIO(100)));
+                                             SCALING_RATIO(50)));
             make.centerX.equalTo(self.view);
             make.top.equalTo(self.tableView).offset((self.titleMutArr.count + 1) * [ThroughTrainToPromoteTBVCell cellHeightWithModel:nil]);
         }];
@@ -221,6 +224,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)cancelBtn{
     if (!_cancelBtn) {
         _cancelBtn = UIButton.new;
+        _cancelBtn.uxy_acceptEventInterval = btnActionTime;
         [_cancelBtn setTitle:@"取消上一次直通车"
                     forState:UIControlStateNormal];
         if (@available(iOS 8.2, *)) {
@@ -251,6 +255,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)goOnBtn{
     if (!_goOnBtn) {
         _goOnBtn = UIButton.new;
+        _goOnBtn.uxy_acceptEventInterval = btnActionTime;
         [_goOnBtn setTitle:@"继续上一次直通车"
                   forState:UIControlStateNormal];
         if (@available(iOS 8.2, *)) {
@@ -337,7 +342,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     [self layoutIfNeeded];//在cell里面，用[self layoutIfNeeded]刷新立即得到textLabel等的frame值
-    self.textField.alpha = 1;
+    self.dataStr = model;
+    self.textField.text = self.dataStr;
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -352,7 +358,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 #pragma mark —— UITextFieldDelegate
 //询问委托人是否应该在指定的文本字段中开始编辑
-//- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField;
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    return [NSString isNullString:self.dataStr];
+}
 //告诉委托人在指定的文本字段中开始编辑
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
 

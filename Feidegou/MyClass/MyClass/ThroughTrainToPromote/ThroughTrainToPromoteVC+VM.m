@@ -36,9 +36,10 @@
                 }else{//已经开通直通车
                     self.cancelBtn.alpha = 1;
                     self.goOnBtn.alpha = 1;
+                    //回显
+                    self.quantity = [d stringValue];
                 }
             }
-            self.tableView.mj_footer.hidden = NO;
             [self.tableView.mj_header endRefreshing];
             [self.tableView.mj_footer endRefreshing];
             [self.tableView reloadData];
@@ -68,6 +69,7 @@
             NSLog(@"");
             NSString *str = (NSString *)response;
             if ([NSString isNullString:str]) {
+                Toast(@"符合开通资格");
                 [self CatfoodTrainURL_networking];//查看机会成功，正式开启直通车
             }
         }
@@ -111,9 +113,20 @@
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-        if (!response) {
-            NSLog(@"--%@",response);
-            Toast(@"开通直通车成功");
+        if ([response isKindOfClass:[NSString class]]) {
+            NSString *str = (NSString *)response;
+            if ([str isEqualToString:@"数量最少500g！"]) {
+                
+            }else{
+                NSLog(@"--%@",response);
+                Toast(@"开通直通车成功");
+                [ThroughTrainListVC ComingFromVC:self_weak_
+                                       withStyle:ComingStyle_PUSH
+                                   requestParams:nil
+                                         success:^(id data) {}
+                                        animated:YES];
+            }
+        }else{
             [ThroughTrainListVC ComingFromVC:self_weak_
                                    withStyle:ComingStyle_PUSH
                                requestParams:nil

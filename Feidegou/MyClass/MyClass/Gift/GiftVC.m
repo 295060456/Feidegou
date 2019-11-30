@@ -569,7 +569,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)cancelBtn{
     if (!_cancelBtn) {
         _cancelBtn = UIButton.new;
-        _cancelBtn.uxy_acceptEventInterval = 0.5f;
+        _cancelBtn.uxy_acceptEventInterval = btnActionTime;
         [_cancelBtn setTitle:@"取消"
                     forState:UIControlStateNormal];
         _cancelBtn.backgroundColor = KLightGrayColor;
@@ -595,7 +595,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)giftBtn{
     if (!_giftBtn) {
         _giftBtn = UIButton.new;
-        _giftBtn.uxy_acceptEventInterval = 0.5f;
+        _giftBtn.uxy_acceptEventInterval = btnActionTime;
         [_giftBtn setTitle:@"赠送"
                   forState:UIControlStateNormal];
         [_giftBtn addTarget:self

@@ -102,7 +102,7 @@ replacementString:(NSString *)string{//实现逐词搜索
                        action:@selector(cancelBtnClickEvent:)
              forControlEvents:UIControlEventTouchUpInside];
         _cancelBtn.backgroundColor = kWhiteColor;
-        _cancelBtn.uxy_acceptEventInterval = 1;
+        _cancelBtn.uxy_acceptEventInterval = btnActionTime;
         [UIView cornerCutToCircleWithView:_cancelBtn
                           AndCornerRadius:3.f];
         [UIView colourToLayerOfView:_cancelBtn

@@ -286,3 +286,5 @@ view.layer.shadowRadius = radius; \
 view.layer.shadowOpacity = 0.4; \
 view.layer.shadowColor = [UIColor lightGrayColor].CGColor; \
 
+#define btnActionTime 5//防止按钮重复点击
+

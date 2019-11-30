@@ -12,6 +12,8 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface ThroughTrainToPromoteTBVCell : TBVCell_style_01
 
+@property(nonatomic,copy)NSString *dataStr;
+
 +(instancetype)cellWith:(UITableView *)tableView;
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;
 - (void)richElementsInCellWithModel:(id _Nullable)model;
