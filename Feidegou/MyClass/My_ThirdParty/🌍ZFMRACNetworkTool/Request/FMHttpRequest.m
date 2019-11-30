@@ -70,10 +70,14 @@
     [dataMutDic setObject:[YDDevice getUQID]
                    forKey:@"identity"];
     //封装
+    NSString *randomStr = parameters[@"randomStr"];
     NSMutableDictionary *returnMutDic = NSMutableDictionary.dictionary;
     for (int f = 0; f < parameters.count; f ++) {
-        [returnMutDic setValue:parameters.allValues[f]
-                        forKey:parameters.allKeys[f]];
+        [returnMutDic setValue:parameters[@"key"]
+                        forKey:@"key"];
+        [returnMutDic setValue:aesEncryptString([NSString convertToJsonData:dataMutDic], randomStr)
+                        forKey:@"data"];
+        [returnMutDic setValue:randomStr forKey:@"randomStr"];
     }return [[self alloc]initUrlParametersWithMethod:method
                                                 path:path
                                           parameters:returnMutDic];

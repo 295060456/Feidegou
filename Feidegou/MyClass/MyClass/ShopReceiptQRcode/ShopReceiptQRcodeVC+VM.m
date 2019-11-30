@@ -16,7 +16,8 @@
                                                            path:CatfoodWeixin_quarURL
                                                      parameters:@{
                                                          @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key]
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     @weakify(self)
@@ -83,7 +84,8 @@
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataMutDic], randomStr),
        @"key":[RSAUtil encryptString:randomStr
-                           publicKey:RSA_Public_key]
+                           publicKey:RSA_Public_key],
+       @"randomStr":randomStr
    }
 constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         if (paywayType == PaywayTypeWX) {

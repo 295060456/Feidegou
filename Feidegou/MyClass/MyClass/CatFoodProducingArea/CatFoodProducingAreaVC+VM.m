@@ -22,7 +22,8 @@
                                                      parameters:@{
                                                          @"data":dic,
                                                          @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key]
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     @weakify(self)
@@ -60,7 +61,8 @@
                                                      parameters:@{
                                                          @"data":dataDic,
                                                          @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key]
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     @weakify(self)

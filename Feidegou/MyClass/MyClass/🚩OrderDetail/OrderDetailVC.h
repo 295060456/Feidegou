@@ -45,6 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,strong)OrderListModel *orderListModel;
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
+@property(nonatomic,strong)OrderDetailModel *orderDetailModel;
 //@property(nonatomic,strong)StallListModel *stallListModel;
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC

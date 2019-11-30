@@ -28,7 +28,8 @@
                                                      parameters:@{
                                                          @"data":dic,
                                                          @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key]
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     @weakify(self)
@@ -48,13 +49,13 @@
                                              ReplaceStr:@"无"],//订单类型 —— 1、摊位;2、批发;3、产地
             @"randomStr":randomStr
         };
-           
         FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                                path:buyer_CatfoodRecord_checkURL
                                                          parameters:@{
                                                              @"data":dataDic,
                                                              @"key":[RSAUtil encryptString:randomStr
-                                                                                 publicKey:RSA_Public_key]
+                                                                                 publicKey:RSA_Public_key],
+                                                             @"randomStr":randomStr
                                                          }];
         self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
         @weakify(self)
@@ -62,16 +63,20 @@
             if (response) {
                 @strongify(self)
                 NSLog(@"--%@",response);
+                if ([response isKindOfClass:[NSDictionary class]]) {
+                    NSDictionary *dataDic = (NSDictionary *)response;
+                    OrderDetailModel *model = [OrderDetailModel mj_objectWithKeyValues:dataDic[@"catFoodOrder"]];
+                    if (!self.orderDetailVC) {
+                        @weakify(self)
+                        self.orderDetailVC = [OrderDetailVC ComingFromVC:self_weak_.window.rootViewController
+                                                               withStyle:ComingStyle_PUSH
+                                                           requestParams:model
+                                                                 success:^(id data) {}
+                                                                animated:YES];
+                    }
+                }
                 
-                //    if (!self.orderDetailVC) {
-                //        @weakify(self)
-                //        self.orderDetailVC = [OrderDetailVC ComingFromVC:self_weak_.window.rootViewController
-                //                                               withStyle:ComingStyle_PUSH
-                //                                           requestParams:nil
-                //                                                 success:^(id data) {}
-                //                                                animated:YES];
-                //    }
-                
+
                 //1、支付宝;2、微信;3、银行卡
 //                if ([response isKindOfClass:[NSDictionary class]]) {
 //                    NSDictionary *dataDic = (NSDictionary *)response;

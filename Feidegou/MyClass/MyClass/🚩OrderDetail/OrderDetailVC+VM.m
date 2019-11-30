@@ -29,7 +29,8 @@
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
        @"key":[RSAUtil encryptString:randomStr
-                           publicKey:RSA_Public_key]
+                           publicKey:RSA_Public_key],
+       @"randomStr":randomStr
    }
 constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         [formData appendPartWithFileData:picData
@@ -95,7 +96,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
        @"key":[RSAUtil encryptString:randomStr
-                           publicKey:RSA_Public_key]
+                           publicKey:RSA_Public_key],
+       @"randomStr":randomStr
    }
 constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         [formData appendPartWithFileData:picData
@@ -145,7 +147,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
        parameters:@{
            @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
            @"key":[RSAUtil encryptString:randomStr
-                               publicKey:RSA_Public_key]
+                               publicKey:RSA_Public_key],
+           @"randomStr":randomStr
        }
     constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             [formData appendPartWithFileData:picData
@@ -192,7 +195,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                                                      parameters:@{
                                                          @"data":dataDic,
                                                          @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key]
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     @weakify(self)
@@ -280,7 +284,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                                                      parameters:@{
                                                          @"data":dataDic,
                                                          @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key]
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     @weakify(self)
@@ -306,7 +311,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                                                      parameters:@{
                                                          @"data":dataDic,
                                                          @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key]
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
 //    @weakify(self)
@@ -335,7 +341,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                                                      parameters:@{
                                                          @"data":dataDic,
                                                          @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key]
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     @weakify(self)
@@ -365,7 +372,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                                                      parameters:@{
                                                          @"data":dataDic,
                                                          @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key]
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
 //    @weakify(self)
@@ -392,7 +400,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                                                      parameters:@{
                                                          @"data":dataDic,
                                                          @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key]
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
 //    @weakify(self)
@@ -419,7 +428,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                                                      parameters:@{
                                                          @"data":dataDic,
                                                          @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key]
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     @weakify(self)
@@ -479,7 +489,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                                                          parameters:@{
                                                              @"data":dic,
                                                              @"key":[RSAUtil encryptString:randomStr
-                                                                                 publicKey:RSA_Public_key]
+                                                                                 publicKey:RSA_Public_key],
+                                                             @"randomStr":randomStr
                                                          }];
         self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
         @weakify(self)

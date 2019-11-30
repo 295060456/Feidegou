@@ -126,11 +126,12 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
             NSLog(@"content =[%@], badge=[%ld], sound=[%@], customize field  =[%@]",content,(long)badge,sound,customizeField1);
             NSLog(@"order_id = %@",userInfo[@"order_id"]);//2
             NSLog(@"order_type = %@",userInfo[@"order_type"]);//1
-            [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:userInfo[@"order_id"]
-                                                               Order_id:userInfo[@"order_type"]];
+            [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:userInfo[@"order_id"]//1
+                                                               Order_id:userInfo[@"order_type"]];//20190000
         }
     } else {
         // Fallback on earlier versions
+        NSLog(@"KKKKKK");
     }
   completionHandler();  // 系统要求执行这个方法
 }
