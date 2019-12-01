@@ -10,12 +10,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface TestVC : BaseVC
+@interface TestVC : GKNavigationBarViewController//BaseVC
 
-+ (instancetype)pushFromVC:(UIViewController *)rootVC
-             requestParams:(nullable id)requestParams
-                   success:(DataBlock)block
-                  animated:(BOOL)animated;
+//+ (instancetype)pushFromVC:(UIViewController *)rootVC
+//             requestParams:(nullable id)requestParams
+//                   success:(DataBlock)block
+//                  animated:(BOOL)animated;
 
 @end
 

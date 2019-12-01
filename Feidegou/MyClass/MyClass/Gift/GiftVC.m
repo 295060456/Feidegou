@@ -108,6 +108,7 @@ UITableViewDataSource
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.gk_navTitle = @"赠送给他人";
+    
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
@@ -119,14 +120,14 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.tableView.alpha = 1;
+//    self.tableView.alpha = 1;
     self.tabBarController.tabBar.hidden = YES;
 }
 
-//-(void)viewWillDisappear:(BOOL)animated{
-//    [super viewWillDisappear:animated];
-//    self.tabBarController.tabBar.hidden = NO;
-//}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+}
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{
     if (self.navigationController) {

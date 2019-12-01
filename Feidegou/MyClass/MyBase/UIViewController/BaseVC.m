@@ -27,8 +27,26 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+-(instancetype)init{
+    if (self = [super init]) {
+        // 统一设置导航栏样式
+        GKNavigationBarConfigure *configure = [GKNavigationBarConfigure sharedInstance];
+        [configure setupDefaultConfigure];
+        // 设置自定义样式
+        configure.backgroundColor = [UIColor colorWithRed:(212 / 255.0)
+                                                    green:(25 /255.0)
+                                                     blue:(37 / 255.0)
+                                                    alpha:1.0];
+        configure.titleColor = kWhiteColor;
+        configure.titleFont  = [UIFont systemFontOfSize:18];
+    }return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.gk_navBackgroundColor = HEXCOLOR(0xf22a2a);
+    self.gk_navTitleFont    = [UIFont systemFontOfSize:18];
+    self.gk_navTitleColor   = [UIColor whiteColor];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

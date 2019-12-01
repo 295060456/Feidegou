@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "listManager-1.png",
+      "filename" : "listManager.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "listManager.png",
+      "filename" : "listManager@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "listManager-2.png",
+      "filename" : "listManager@3x.png",
       "scale" : "3x"
     }
   ],

@@ -10,7 +10,6 @@
 
 @interface TestVC ()
 
-@property(nonatomic,strong)Q_Pet *pet;
 @property(nonatomic,strong)TestView *testView;
 
 @property(nonatomic,strong)id requestParams;
@@ -50,10 +49,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = kOrangeColor;
-    self.testView.alpha = 1;
-//    self.pet.alpha = 1;
-//    [self.pet becomeFirstResponder];
+    self.gk_navTitle = @"控制器001";
     
+    self.view.backgroundColor    = [UIColor whiteColor];
+    self.gk_navBackgroundColor   = [UIColor orangeColor];
+    self.gk_statusBarStyle       = UIStatusBarStyleLightContent;
+    self.gk_backStyle            = GKNavigationBarBackStyleWhite;
+    self.gk_navLineHidden        = YES;
+    
+    self.gk_navItemRightSpace       = 12.0f;
+    self.gk_navItemLeftSpace        = 16.0f;
+    
+    self.gk_navTitleFont    = [UIFont systemFontOfSize:18];
+    self.gk_navTitleColor   = [UIColor whiteColor];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -72,17 +80,6 @@
 //}
 
 #pragma mark —— lazyLoad
--(Q_Pet *)pet{
-    if (!_pet) {
-        _pet = [[Q_Pet alloc]initWithFrame:CGRectMake(100,
-                                                      100,
-                                                      100,
-                                                      100)];
-//        _pet.autoCloseEdge = YES;
-//        [_pet show];
-        [_pet becomeFirstResponder];
-    }return _pet;
-}
 
 -(TestView *)testView{
     if (!_testView) {

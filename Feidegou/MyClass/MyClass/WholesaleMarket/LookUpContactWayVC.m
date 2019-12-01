@@ -74,23 +74,15 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-    if ([model.grade_id intValue] == 3) {
-        self.gk_navTitle = @"我的联系方式";
-    }else if ([model.grade_id intValue] == 2){
-        self.gk_navTitle = @"我上级的联系方式";
-    }else{
-        
-    }
+    
+    self.gk_navTitle = @"我上级的联系方式";
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.gk_navItemRightSpace = SCALING_RATIO(30);
-   
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
      self.tableView.alpha = 1;
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{

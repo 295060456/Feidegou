@@ -13,7 +13,7 @@
 #import "CatFoodProducingAreaVC.h"//喵粮产地
 #import "SettingPaymentWayVC.h"//设置支付方式
 #import "ChatListVC.h"//喵粮会话
-#import "LookUpContactWayVC.h"//喵粮批发市场
+#import "LookUpContactWayVC.h"//进货市场
 #import "PersonalDataChangedListVC.h"//个人喵粮变动清单
 #import "CatFoodsManagementVC+VM.h"
 #import "CreateTeamVC.h"//创建团队
@@ -219,7 +219,7 @@ UITableViewDataSource
                                              animated:YES];
             }
         }
-    }else if ([vcName isEqualToString:@"喵粮批发市场"]){
+    }else if ([vcName isEqualToString:@"进货市场"]){//Vip不显示
         [LookUpContactWayVC ComingFromVC:self_weak_
                                withStyle:ComingStyle_PUSH
                            requestParams:nil
@@ -379,7 +379,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             [tempMutArr addObject:@"喵粮产地"];//喵粮产地
         }
         [tempMutArr addObject:@"直通车"];
-        [tempMutArr addObject:@"喵粮批发市场"];
+        if ([[PersonalInfo sharedInstance] isLogined]) {
+            ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+            if ([model.grade_id intValue] == 2) {
+                [tempMutArr addObject:@"进货市场"];
+            }
+        }
         [tempMutArr addObject:@"喵粮会话"];
         [tempMutArr addObject:@"喵粮记录"];
         [tempMutArr addObject:@"创建团队"];
@@ -400,7 +405,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             [tempMutArr addObject:@"producingArea"];//喵粮产地
         }
         [tempMutArr addObject:@"panicPurchase"];
-        [tempMutArr addObject:@"wholesaleMarket"];
+        if ([[PersonalInfo sharedInstance] isLogined]) {
+            ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+            if ([model.grade_id intValue] == 2) {
+                [tempMutArr addObject:@"wholesaleMarket"];
+            }
+        }
         [tempMutArr addObject:@"telephone"];
         [tempMutArr addObject:@"recordTable"];
         [tempMutArr addObject:@"CreateTeam"];
