@@ -91,6 +91,7 @@
 #define Updatewx @"/catfoodapp/user/updatewx.htm"//我的团队修改信息
 #define GetTeam @"/catfoodapp/user/getTeam.htm"//查看用戶信息
 #define GetSuperior @"/catfoodapp/user/getSuperior.htm"//查看上级用户信息
+#define CatfoodboothType @"/catfoodapp/user/buyer/CatfoodboothType.htm"//Daniel
 
 /********如果需要存储，相应的的 key 宏定义********/
 /// 服务器相关

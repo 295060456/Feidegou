@@ -126,7 +126,8 @@ static FMARCNetwork *_instance = nil;
         if ([req.path isEqualToString:Updatewx] ||
             [req.path isEqualToString:GetTeam]) {
             url = [DanielUrL stringByAppendingString:req.path];//KKK
-        }else if ([req.path isEqualToString:GetSuperior]){
+        }else if ([req.path isEqualToString:GetSuperior] ||
+                  [req.path isEqualToString:CatfoodboothType]){
             url = [DanielUrL_1 stringByAppendingString:req.path];//KKK
         }
         else{

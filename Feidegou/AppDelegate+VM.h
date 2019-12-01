@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:(NSString *)order_type
                                                     Order_id:(NSString *)order_id;
 
+-(void)catfoodboothType;
+
 @end
 
 NS_ASSUME_NONNULL_END
