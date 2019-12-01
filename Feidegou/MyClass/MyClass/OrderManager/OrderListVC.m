@@ -97,7 +97,6 @@ OrderListVC *orderListVC;
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.filterBtn];
     self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.gk_navTitle = @"订单管理";
-    self.gk_navigationBar.backgroundColor = KYellowColor;
     
     self.myCategoryView.titles = (NSArray *)self.titleMutArr;
     self.myCategoryView.backgroundColor = kWhiteColor;

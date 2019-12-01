@@ -110,9 +110,6 @@ UITableViewDataSource
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.gk_navTitle = @"上传凭证";
-    [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
-                                                    NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
-                                                                                        size:17]}];
 }
 #pragma mark —— 点击事件
 -(void)backBtnClickEvent:(UIButton *)sender{

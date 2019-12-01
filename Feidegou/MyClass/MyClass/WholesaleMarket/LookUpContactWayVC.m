@@ -79,9 +79,6 @@ UITableViewDataSource
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.gk_navItemRightSpace = SCALING_RATIO(30);
-    [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
-                                                    NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
-                                                                                        size:17]}];
      self.tableView.alpha = 1;
 }
 

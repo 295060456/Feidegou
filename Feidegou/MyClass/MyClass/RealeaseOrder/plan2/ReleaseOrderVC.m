@@ -140,6 +140,7 @@ UITableViewDataSource
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.isFirstComing = YES;
     self.gk_navTitle = @"发布订单";
     self.gk_navItemRightSpace = SCALING_RATIO(30);
@@ -147,7 +148,6 @@ UITableViewDataSource
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.releaseBtn];
     self.gk_navItemRightSpace = SCALING_RATIO(30);
-    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.tableView.alpha = 1;
 }
 

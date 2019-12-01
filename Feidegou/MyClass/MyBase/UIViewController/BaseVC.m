@@ -47,6 +47,8 @@
     self.gk_navBackgroundColor = HEXCOLOR(0xf22a2a);
     self.gk_navTitleFont    = [UIFont systemFontOfSize:18];
     self.gk_navTitleColor   = [UIColor whiteColor];
+    self.gk_navTitleFont    = [UIFont systemFontOfSize:18];
+    self.gk_navTitleColor   = [UIColor whiteColor];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

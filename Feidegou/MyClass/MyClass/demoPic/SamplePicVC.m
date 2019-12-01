@@ -64,9 +64,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.gk_navTitle = @"上传取消凭证";
-    [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
-                                                    NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
-                                                                                        size:17]}];
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.gk_navItemLeftSpace = SCALING_RATIO(15);
