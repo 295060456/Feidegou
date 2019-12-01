@@ -284,6 +284,7 @@
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
 }
+
 -(void)OK{
     
 }
@@ -348,6 +349,13 @@
         _tableViewFooter.stateLabel.textColor = KLightGrayColor;
         _tableViewFooter.hidden = YES;
     }return _tableViewFooter;
+}
+
+-(MJRefreshBackNormalFooter *)refreshBackNormalFooter{
+    if (!_refreshBackNormalFooter) {
+        _refreshBackNormalFooter = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self
+                                                                        refreshingAction:@selector(loadMoreRefresh)];
+    }return _refreshBackNormalFooter;
 }
 
 -(UIButton *)backBtn{

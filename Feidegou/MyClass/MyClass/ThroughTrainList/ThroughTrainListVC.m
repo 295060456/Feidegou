@@ -116,8 +116,9 @@ PGBannerDelegate
     }else{
         ThroughTrainListCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ThroughTrainListCollectionViewCell"
                                                                                              forIndexPath:indexPath];
-        [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
-        return cell;
+        if (self.dataMutArr.count) {
+            [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+        }return cell;
     }return UICollectionViewCell.new;
 }
 

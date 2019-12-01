@@ -177,6 +177,18 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
 #pragma mark —— 私有方法
 
 #pragma mark —— lazyLoad
+- (CGFloat)preferredCategoryViewHeight {
+    return 50;
+}
+
+- (JXCategoryTitleImageView *)myCategoryView {
+    return (JXCategoryTitleImageView *)self.categoryView;
+}
+
+- (JXCategoryBaseView *)preferredCategoryView {
+    return JXCategoryTitleImageView.new;
+}
+
 -(UIButton *)filterBtn{
     if (!_filterBtn) {
         _filterBtn = UIButton.new;
@@ -264,24 +276,11 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
     }return _childVCMutArr;
 }
 
-- (CGFloat)preferredCategoryViewHeight {
-    return 50;
-}
-
 -(JXCategoryIndicatorLineView *)lineView{
     if (!_lineView) {
         _lineView = JXCategoryIndicatorLineView.new;
         _lineView.indicatorWidth = SCREEN_WIDTH / self.titleMutArr.count;
     }return _lineView;
 }
-
-- (JXCategoryTitleImageView *)myCategoryView {
-    return (JXCategoryTitleImageView *)self.categoryView;
-}
-
-- (JXCategoryBaseView *)preferredCategoryView {
-    return JXCategoryTitleImageView.new;
-}
-
 
 @end

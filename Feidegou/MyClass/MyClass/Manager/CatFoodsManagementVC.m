@@ -19,6 +19,7 @@
 #import "CreateTeamVC.h"//创建团队
 
 #import "DetailsVC.h"//临时
+#import "GoodsVC.h"//临时
 
 @interface CatFoodsManagementVC ()
 <
@@ -187,6 +188,13 @@ UITableViewDataSource
                                      success:^(id data) {}
                                     animated:YES];
     }else if ([vcName isEqualToString:@"直通车"]){
+#warning KKK
+        [GoodsVC ComingFromVC:self_weak_
+                    withStyle:ComingStyle_PUSH
+                requestParams:nil
+                      success:^(id data) {}
+                     animated:YES];
+        return;
         if (self.dataMutArr.count) {
             NSString *str = (NSString *)self.dataMutArr[1];
             if ([str isEqualToString:@"无"]) {

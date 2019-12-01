@@ -87,6 +87,8 @@ JXCategoryViewDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    self.gk_navBackgroundColor = kClearColor;
+    
     self.myCategoryView.titles = (NSArray *)self.titleMutArr;
     self.myCategoryView.backgroundColor = kWhiteColor;
     self.myCategoryView.imageNames = (NSArray *)self.imageNamesMutArr;
@@ -110,7 +112,6 @@ JXCategoryViewDelegate
  
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
-    kRedColor;
     self.categoryView.frame = CGRectMake(0,
                                          rectOfStatusbar,
                                          self.view.bounds.size.width,
@@ -120,6 +121,7 @@ JXCategoryViewDelegate
                                               self.view.bounds.size.width,
                                               self.view.bounds.size.height);
 }
+
 #pragma mark - JXCategoryViewDelegate
 - (void)categoryView:(JXCategoryBaseView *)categoryView
 didSelectedItemAtIndex:(NSInteger)index {
@@ -143,6 +145,18 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
 
 - (NSInteger)numberOfListsInlistContainerView:(JXCategoryListContainerView *)listContainerView {
     return self.titles.count;
+}
+#pragma mark —— lazyLoad
+- (CGFloat)preferredCategoryViewHeight {
+    return SCALING_RATIO(50);
+}
+
+- (JXCategoryTitleImageView *)myCategoryView {
+    return (JXCategoryTitleImageView *)self.categoryView;
+}
+
+- (JXCategoryBaseView *)preferredCategoryView {
+    return JXCategoryTitleImageView.new;
 }
 
 -(EvaluateVC *)evaluateVC{
@@ -202,22 +216,11 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
     }return _childVCMutArr;
 }
 
-- (CGFloat)preferredCategoryViewHeight {
-    return 50;
-}
 -(JXCategoryIndicatorLineView *)lineView{
     if (!_lineView) {
         _lineView = JXCategoryIndicatorLineView.new;
         _lineView.indicatorWidth = SCALING_RATIO(80);
     }return _lineView;
-}
-
-- (JXCategoryTitleImageView *)myCategoryView {
-    return (JXCategoryTitleImageView *)self.categoryView;
-}
-
-- (JXCategoryBaseView *)preferredCategoryView {
-    return JXCategoryTitleImageView.new;
 }
 
 
