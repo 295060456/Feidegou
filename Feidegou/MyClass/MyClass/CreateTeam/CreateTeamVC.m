@@ -78,11 +78,8 @@ UITableViewDataSource
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navTitle = @"创建团队";
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
-    self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.sendBtn];
-    self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.tableView.alpha = 1;
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -185,10 +182,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _sendBtn = UIButton.new;
         [_sendBtn setTitle:@"点我发送"
                   forState:UIControlStateNormal];
+        [_sendBtn setTitleColor:kWhiteColor
+                       forState:UIControlStateNormal];
         [_sendBtn.titleLabel sizeToFit];
         _sendBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
-        [_sendBtn setTitleColor:kBlackColor
-                       forState:UIControlStateNormal];
         [_sendBtn addTarget:self
                      action:@selector(sendBtnClickEvent:)
            forControlEvents:UIControlEventTouchUpInside];

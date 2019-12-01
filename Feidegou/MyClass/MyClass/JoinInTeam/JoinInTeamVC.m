@@ -71,9 +71,7 @@ UITextFieldDelegate
     self.gk_navTitle = @"加入团队";
     self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
-    self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.sendBtn];
-    self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.textField.alpha = 1;
 }
 
@@ -129,7 +127,7 @@ UITextFieldDelegate
         _sendBtn = UIButton.new;
         [_sendBtn setTitle:@"点我发送"
                   forState:UIControlStateNormal];
-        [_sendBtn setTitleColor:kBlackColor
+        [_sendBtn setTitleColor:kWhiteColor
                        forState:UIControlStateNormal];
         [_sendBtn addTarget:self
                      action:@selector(sendBtnClickEvent:)

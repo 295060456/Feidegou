@@ -143,11 +143,8 @@ UITableViewDataSource
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.isFirstComing = YES;
     self.gk_navTitle = @"发布订单";
-    self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
-    self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.releaseBtn];
-    self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.tableView.alpha = 1;
 }
 
@@ -426,6 +423,8 @@ forHeaderFooterViewReuseIdentifier:@"KJHG"];
     if (!_releaseBtn) {
         _releaseBtn = UIButton.new;
         _releaseBtn.backgroundColor = kOrangeColor;
+        [_releaseBtn setTitleColor:kWhiteColor
+                          forState:UIControlStateNormal];
         [UIView cornerCutToCircleWithView:_releaseBtn
                           AndCornerRadius:5.f];
         [UIView colourToLayerOfView:_releaseBtn

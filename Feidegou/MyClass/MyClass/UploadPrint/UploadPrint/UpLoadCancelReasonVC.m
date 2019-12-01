@@ -99,7 +99,6 @@ UITableViewDataSource
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
-    self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.imageView.alpha = 1;
     self.tableView.alpha = 1;
     self.demoPicBtn.alpha = 1;

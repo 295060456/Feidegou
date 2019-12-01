@@ -49,6 +49,9 @@
     self.gk_navTitleColor   = [UIColor whiteColor];
     self.gk_navTitleFont    = [UIFont systemFontOfSize:18];
     self.gk_navTitleColor   = [UIColor whiteColor];
+    
+    self.gk_navItemLeftSpace = SCALING_RATIO(15);
+    self.gk_navItemRightSpace = SCALING_RATIO(30);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -378,10 +381,12 @@
     }return _refreshBackNormalFooter;
 }
 
--(UIButton *)backBtn{
+-(MMButton *)backBtn{
     if (!_backBtn) {
-        _backBtn = UIButton.new;
-        [_backBtn setTitleColor:kBlackColor
+        _backBtn = MMButton.new;
+        _backBtn.imageAlignment = MMImageAlignmentLeft;
+        _backBtn.spaceBetweenTitleAndImage = SCALING_RATIO(5);
+        [_backBtn setTitleColor:kWhiteColor
                        forState:UIControlStateNormal];
         [_backBtn setTitle:@"返回"
                   forState:UIControlStateNormal];

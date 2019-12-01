@@ -109,9 +109,7 @@ UITableViewDataSource
                                                                                         size:17]}];
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
-    self.gk_navItemLeftSpace = SCALING_RATIO(15);
-    self.gk_navItemRightSpace = SCALING_RATIO(30);
-    self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:_sureBtn];
+    self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.sureBtn];
     self.tableView.alpha = 1;
 }
 
@@ -687,6 +685,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _sureBtn = UIButton.new;
         _sureBtn.uxy_acceptEventInterval = btnActionTime;
         _sureBtn.backgroundColor = kOrangeColor;
+        [_sureBtn setTitleColor:kWhiteColor
+                       forState:UIControlStateNormal];
         [UIView cornerCutToCircleWithView:_sureBtn
                           AndCornerRadius:3.f];
     }return _sureBtn;

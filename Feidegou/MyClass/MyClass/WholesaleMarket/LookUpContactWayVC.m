@@ -77,9 +77,7 @@ UITableViewDataSource
     
     self.gk_navTitle = @"我上级的联系方式";
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
-    self.gk_navItemLeftSpace = SCALING_RATIO(15);
-    self.gk_navItemRightSpace = SCALING_RATIO(30);
-     self.tableView.alpha = 1;
+    self.tableView.alpha = 1;
 }
 
 -(void)viewWillAppear:(BOOL)animated{

@@ -75,7 +75,7 @@ NSString *market_price_co;//产地均价
                                   alertBtnAction:@[@"Later"]];
                     }
                 }
-                self.tableView.mj_footer.hidden = NO;
+//                self.tableView.mj_footer.hidden = NO;
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView.mj_footer endRefreshing];
                 [self.tableView reloadData];

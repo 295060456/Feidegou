@@ -91,9 +91,7 @@ XDMultTableViewDelegate
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navTitle = @"收款方式设置";
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
-    self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.saveBtn];
-    self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.tableView.alpha = 1;
 }
 
@@ -215,13 +213,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)saveBtn{
     if (!_saveBtn) {
         _saveBtn = UIButton.new;
+        [_saveBtn setTitleColor:kWhiteColor
+                       forState:UIControlStateNormal];
         [_saveBtn addTarget:self
                      action:@selector(saveBtnClickEvent:)
            forControlEvents:UIControlEventTouchUpInside];
         [_saveBtn setTitle:@"保存"
                   forState:UIControlStateNormal];
-        [_saveBtn setTitleColor:kBlackColor
-                       forState:UIControlStateNormal];
     }return _saveBtn;
 }
 

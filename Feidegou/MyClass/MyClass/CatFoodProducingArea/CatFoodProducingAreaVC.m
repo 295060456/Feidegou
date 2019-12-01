@@ -84,9 +84,7 @@ UITableViewDataSource
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navTitle = @"喵粮产地";
     self.gk_navRightBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:self.fleshBtn];
-    self.gk_navItemRightSpace = SCALING_RATIO(30);
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
-    self.gk_navItemLeftSpace = SCALING_RATIO(15);
     self.currentpage = 1;
     self.tableView.alpha = 1;
 }
@@ -216,6 +214,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)fleshBtn{
     if (!_fleshBtn) {
         _fleshBtn = UIButton.new;
+        [_fleshBtn setTitleColor:kWhiteColor
+                        forState:UIControlStateNormal];
         [_fleshBtn addTarget:self
                       action:@selector(fleshBtnClickEvent:)
             forControlEvents:UIControlEventTouchUpInside];
