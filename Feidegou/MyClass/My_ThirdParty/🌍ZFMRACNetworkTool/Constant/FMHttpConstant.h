@@ -18,6 +18,7 @@
 #define IP_Gouge @"10.1.41.158"
 #define IP_Daniel @"10.1.41.174"
 #define Port_Gouge @":8080"
+#define Port_Daniel_1 @":8888"//查看上下级
 #define Port_Daniel @":8080"
 #define RELATIVE_PATH_QUERY @"SHOPAPP2.0/appShop7/query.do?"
 #define RELATIVE_PATH_WRITE @"SHOPAPP2.0/appShop7/write.do?"
@@ -37,6 +38,7 @@
 #define BaseUrl2 [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Gouge,Port_Gouge,@"/catfoodapp"]
 //Daniel
 #define DanielUrL [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Daniel,Port_Daniel,@"/MFW"]
+#define DanielUrL_1 [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Daniel,Port_Daniel_1,@"/MFW"]//查看上下级
 #define AK [NSString stringWithFormat:@"%@%@%@/%@",HTTP,IP_Daniel,Port_Daniel,RELATIVE_PATH_QUERY]//登录
 #define YQM [NSString stringWithFormat:@"%@%@%@/%@",HTTP,IP_Daniel,Port_Daniel,RELATIVE_PATH_WRITE]//邀请码
 //webSocket

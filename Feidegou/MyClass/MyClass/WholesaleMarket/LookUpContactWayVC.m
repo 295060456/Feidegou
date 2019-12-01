@@ -21,7 +21,6 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
-@property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -163,8 +162,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     LookUpContactWayTBVCell *cell = [LookUpContactWayTBVCell cellWith:tableView];
-    [cell richElementsInCellWithModel:self.titleMutArr[indexPath.row]];
-    return cell;
+    if (self.contentTextMutArr.count) {
+        [cell richElementsInCellWithModel:@{self.titleMutArr[indexPath.row]:[NSString ensureNonnullString:self.contentTextMutArr[indexPath.row] ReplaceStr:@"暂无"]}];
+    }else{
+        [cell richElementsInCellWithModel:@{self.titleMutArr[indexPath.row]:@"暂无"}];
+    }return cell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -200,6 +202,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _titleMutArr;
 }
 
+-(NSMutableArray<NSString *> *)contentTextMutArr{
+    if (!_contentTextMutArr) {
+        _contentTextMutArr = NSMutableArray.array;
+    }return _contentTextMutArr;
+}
+
 @end
 
 @implementation LookUpContactWayTBVCell
@@ -220,9 +228,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.textLabel.text = model;
-    self.detailTextLabel.text = model;
-    
+    if ([model isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dic = (NSDictionary *)model;
+        self.textLabel.text = dic.allKeys[0];
+        self.detailTextLabel.text = dic.allValues[0];
+    }
 }
 
 

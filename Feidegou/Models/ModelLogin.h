@@ -17,6 +17,7 @@
 @property(nonatomic,copy)NSString *head;
 @property(nonatomic,copy)NSString *token;
 @property(nonatomic,strong)NSNumber *grade_id;//0、普通用户;1、普通商家;2、高级商家;3、vip商家
+@property(nonatomic,strong)NSNumber *platform_id;//客服ID
 
 
 @end

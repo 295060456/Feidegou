@@ -44,10 +44,17 @@
         [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
             @strongify(self)
             NSLog(@"");
+            if ([response isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *dataDic = (NSDictionary *)response;
+                [self.contentTextMutArr addObject:dataDic[@"weixin_account"]];
+                [self.contentTextMutArr addObject:dataDic[@"contactmobile"]];
+                [self.contentTextMutArr addObject:dataDic[@"QQ"]];
+            }
+            [self.tableView reloadData];
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
         }];
     }
-    
-    
 }
 
 @end

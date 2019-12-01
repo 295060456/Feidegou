@@ -122,13 +122,14 @@ static FMARCNetwork *_instance = nil;
         /// 获取request KKK
         NSError *serializationError = nil;
 #warning KKK 正式环境，下面代码不要
-
         NSString *url;
         if ([req.path isEqualToString:Updatewx] ||
-            [req.path isEqualToString:GetTeam] ||
-            [req.path isEqualToString:GetSuperior]) {
+            [req.path isEqualToString:GetTeam]) {
             url = [DanielUrL stringByAppendingString:req.path];//KKK
-        }else{
+        }else if ([req.path isEqualToString:GetSuperior]){
+            url = [DanielUrL_1 stringByAppendingString:req.path];//KKK
+        }
+        else{
             url = [BaseUrl_Gouge stringByAppendingString:req.path];//KKK
         }
 #warning KKK 正式环境，上面代码不要

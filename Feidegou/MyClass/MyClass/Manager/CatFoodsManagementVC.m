@@ -122,16 +122,20 @@ UITableViewDataSource
 
 -(void)contactCustomerServiceBtnClickEvent:(UIButton *)sender{
     NSLog(@"联系客服");
-#warning KKK
     @weakify(self)
-    RCConversationModel *model = RCConversationModel.new;
-    model.conversationType = ConversationType_PRIVATE;
-    model.targetId = @"admin";//[NSString stringWithFormat:@"%@",self.orderListModel.seller];
-    [ChatVC ComingFromVC:self_weak_
-               withStyle:ComingStyle_PUSH
-           requestParams:model
-                 success:^(id data) {}
-                animated:YES];
+    if ([[PersonalInfo sharedInstance] isLogined]) {
+        ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+        RCConversationModel *conversationModel = RCConversationModel.new;
+        conversationModel.conversationType = ConversationType_PRIVATE;
+        conversationModel.targetId = [model.platform_id stringValue];
+        [ChatVC ComingFromVC:self_weak_
+                   withStyle:ComingStyle_PUSH
+               requestParams:conversationModel
+                     success:^(id data) {}
+                    animated:YES];
+    }else{
+        
+    }
 }
 #pragma mark —— 私有方法
 // 下拉刷新
@@ -189,12 +193,12 @@ UITableViewDataSource
                                     animated:YES];
     }else if ([vcName isEqualToString:@"直通车"]){
 #warning KKK
-        [GoodsVC ComingFromVC:self_weak_
-                    withStyle:ComingStyle_PUSH
-                requestParams:nil
-                      success:^(id data) {}
-                     animated:YES];
-        return;
+//        [GoodsVC ComingFromVC:self_weak_
+//                    withStyle:ComingStyle_PUSH
+//                requestParams:nil
+//                      success:^(id data) {}
+//                     animated:YES];
+//        return;
         if (self.dataMutArr.count) {
             NSString *str = (NSString *)self.dataMutArr[1];
             if ([str isEqualToString:@"无"]) {

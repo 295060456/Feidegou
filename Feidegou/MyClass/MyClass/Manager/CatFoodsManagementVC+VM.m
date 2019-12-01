@@ -36,7 +36,6 @@ NSString *market_price_co;//产地均价
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-#warning KKK temp
         if (response) {
             NSLog(@"--%@",response);
             if ([response isKindOfClass:[NSDictionary class]]) {
