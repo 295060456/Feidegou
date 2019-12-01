@@ -250,6 +250,20 @@ UITableViewDataSource
     }else{}
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (UIView *)tableView:(UITableView *)tableView
+viewForHeaderInSection:(NSInteger)section {
+    ViewForHeader *viewForHeader = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:@"KJHG"];
+    viewForHeader.backgroundColor = kClearColor;
+    return viewForHeader;
+}
+//头视图高度
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return SCALING_RATIO(10);
+    }
+    return SCALING_RATIO(30);
+}
+
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return SCALING_RATIO(50);
@@ -348,10 +362,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectZero
-                                                 style:UITableViewStyleGrouped];
+                                                 style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
         _tableView.dataSource = self;
         _tableView.delegate = self;
+        _tableView.tableFooterView = UIView.new;
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
         _tableView.ly_emptyView = [LYEmptyView emptyViewWithImageStr:@"noData"
