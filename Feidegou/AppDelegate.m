@@ -46,8 +46,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self loginAgin];
     [self requestAdverMain];
     
-    [self catfoodboothType];//
-    
     return YES;
 }
 

@@ -90,8 +90,46 @@ NSString *market_price_co;//产地均价
         }
     }];
 }
-
-
+//#define CatfoodboothType @"/catfoodapp/user/buyer/CatfoodboothType.htm"//Daniel
+-(void)catfoodboothType{
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
+    NSString *userID;
+    if ([PersonalInfo sharedInstance].isLogined) {
+        ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+        userID = model.userId;
+    }
+    NSDictionary *dataDic = @{
+        @"user_id":[NSString ensureNonnullString:userID
+                                       ReplaceStr:@"无"],//user_id
+        @"randomStr":randomStr
+    };
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodboothType
+                                                     parameters:@{
+                                                         @"data":dataDic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        if (response) {
+            @strongify(self)
+            NSLog(@"--%@",response);//
+            if ([response isKindOfClass:[NSArray class]]) {
+                NSArray *arr = (NSArray *)response;
+                if (arr.count) {
+                    if ([[RCIMClient sharedRCIMClient] deleteMessages:arr]) {
+                        NSLog(@"删除成功");
+                    }else{
+                        NSLog(@"删除失败");
+                    }
+                }
+            }
+        }
+    }];
+}
 
 
 @end

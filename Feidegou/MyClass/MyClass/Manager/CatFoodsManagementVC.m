@@ -87,6 +87,7 @@ UITableViewDataSource
 #pragma mark - Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
+        [self catfoodboothType];//
     }return self;
 }
 
