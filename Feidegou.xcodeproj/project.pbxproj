@@ -134,6 +134,7 @@
 		8BC3116F2394E1CB0050E1C1 /* GiftTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC3116E2394E1CB0050E1C1 /* GiftTBViewForHeader.m */; };
 		8BC311732394F92D0050E1C1 /* Sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8BC311722394F92D0050E1C1 /* Sound.wav */; };
 		8BC3117C2394FDA60050E1C1 /* NSObject+Sound.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC3117B2394FDA60050E1C1 /* NSObject+Sound.m */; };
+		8BC3118B239536890050E1C1 /* TimeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC3118A239536890050E1C1 /* TimeManager.m */; };
 		8BC386682374718100FE8C02 /* XDMultTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC386652374718100FE8C02 /* XDMultTableView.m */; };
 		8BC386692374718100FE8C02 /* down_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC386662374718100FE8C02 /* down_blue@2x.png */; };
 		8BCAB63F238A5360000B0360 /* AppDelegate+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAB63E238A5360000B0360 /* AppDelegate+VM.m */; };
@@ -897,6 +898,8 @@
 		8BC311722394F92D0050E1C1 /* Sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Sound.wav; sourceTree = "<group>"; };
 		8BC3117A2394FDA60050E1C1 /* NSObject+Sound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Sound.h"; sourceTree = "<group>"; };
 		8BC3117B2394FDA60050E1C1 /* NSObject+Sound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Sound.m"; sourceTree = "<group>"; };
+		8BC31189239536890050E1C1 /* TimeManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeManager.h; sourceTree = "<group>"; };
+		8BC3118A239536890050E1C1 /* TimeManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeManager.m; sourceTree = "<group>"; };
 		8BC386652374718100FE8C02 /* XDMultTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XDMultTableView.m; sourceTree = "<group>"; };
 		8BC386662374718100FE8C02 /* down_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down_blue@2x.png"; sourceTree = "<group>"; };
 		8BC386672374718100FE8C02 /* XDMultTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDMultTableView.h; sourceTree = "<group>"; };
@@ -2500,6 +2503,8 @@
 				8BB2D2FC2366C7310047D0E2 /* CatFoodsManagementVC.m */,
 				8B7A552A236EC3FF006B12F8 /* CatFoodsManagementVC+VM.h */,
 				8B7A552B236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m */,
+				8BC31189239536890050E1C1 /* TimeManager.h */,
+				8BC3118A239536890050E1C1 /* TimeManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -4691,6 +4696,7 @@
 				C42CD074213CC2640096675F /* CellPHBTopThree.m in Sources */,
 				C42CD12E213CC2640096675F /* CellGoodEnterIn.m in Sources */,
 				C4614404214386B6000C0CDC /* CellVendorTitle.m in Sources */,
+				8BC3118B239536890050E1C1 /* TimeManager.m in Sources */,
 				8B7A54EC236D6DD1006B12F8 /* WBPopMenuModel.m in Sources */,
 				C46D6B50214388CD00428D7A /* ModelGood.m in Sources */,
 				C42CD05A213CC2640096675F /* AboutUsController.m in Sources */,

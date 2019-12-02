@@ -88,7 +88,15 @@ UITableViewDataSource
 -(instancetype)init{
     if (self = [super init]) {
         [self catfoodboothType];//
+        TimeManager *timeManager = [TimeManager sharedInstance];
+        [timeManager GCDTimer:@selector(GCDtimer)
+                       caller:self
+                     interval:2];
     }return self;
+}
+
+-(void)timer{
+    NSLog(@"GCDTimer");
 }
 
 -(void)viewDidLoad{
@@ -103,7 +111,7 @@ UITableViewDataSource
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
      self.tabBarController.tabBar.hidden = YES;
-    [self.tableView.mj_header beginRefreshing];
+    [self.tableView.mj_header beginRefreshing];//
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -138,7 +146,7 @@ UITableViewDataSource
 }
 #pragma mark —— 私有方法
 // 下拉刷新
--(void)pullToRefresh{
+-(void)pullToRefresh{//轮询
     NSLog(@"下拉刷新");
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];

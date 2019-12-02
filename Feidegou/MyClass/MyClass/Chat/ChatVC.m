@@ -121,7 +121,8 @@ RCIMConnectionStatusDelegate
     NSData * data = [NSJSONSerialization dataWithJSONObject:dataDic
                                                     options:NSJSONWritingPrettyPrinted
                                                       error:Nil];
-    txtMessage.extra = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    txtMessage.extra = [[NSString alloc] initWithData:data
+                                             encoding:NSUTF8StringEncoding];
       [[RCIMClient sharedRCIMClient]
                   sendMessage:ConversationType_PRIVATE
                   targetId:@"admin"
