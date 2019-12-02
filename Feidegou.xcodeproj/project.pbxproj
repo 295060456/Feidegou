@@ -112,7 +112,6 @@
 		8BB2D3792366CBBF0047D0E2 /* SamplePicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2E12366C7310047D0E2 /* SamplePicVC.m */; };
 		8BB2D37A2366CBC70047D0E2 /* ShopReceiptQRcodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2E52366C7310047D0E2 /* ShopReceiptQRcodeVC.m */; };
 		8BB2D37D2366CBD80047D0E2 /* Q_Pet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2EF2366C7310047D0E2 /* Q_Pet.m */; };
-		8BB2D37F2366CBE80047D0E2 /* GiftVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D2FF2366C7310047D0E2 /* GiftVC.m */; };
 		8BB2D3802366CBF10047D0E2 /* UpLoadCancelReasonVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3022366C7310047D0E2 /* UpLoadCancelReasonVC.m */; };
 		8BB2D3822366CBFD0047D0E2 /* AdoptingPetsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D30C2366C7310047D0E2 /* AdoptingPetsModel.m */; };
 		8BB2D3832366CBFF0047D0E2 /* CleanPetsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D30A2366C7310047D0E2 /* CleanPetsModel.m */; };
@@ -131,6 +130,8 @@
 		8BB2D3942366CC500047D0E2 /* ZYTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3372366C7310047D0E2 /* ZYTextField.m */; };
 		8BB2D3952366CC550047D0E2 /* UIView+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D31A2366C7310047D0E2 /* UIView+Extras.m */; };
 		8BB2D43E2367F9BB0047D0E2 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */; };
+		8BC311692394D9D30050E1C1 /* GiftVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC311682394D9D30050E1C1 /* GiftVC.m */; };
+		8BC3116F2394E1CB0050E1C1 /* GiftTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC3116E2394E1CB0050E1C1 /* GiftTBViewForHeader.m */; };
 		8BC386682374718100FE8C02 /* XDMultTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC386652374718100FE8C02 /* XDMultTableView.m */; };
 		8BC386692374718100FE8C02 /* down_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC386662374718100FE8C02 /* down_blue@2x.png */; };
 		8BCAB63F238A5360000B0360 /* AppDelegate+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAB63E238A5360000B0360 /* AppDelegate+VM.m */; };
@@ -847,8 +848,6 @@
 		8BB2D2F02366C7310047D0E2 /* Q_Pet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Q_Pet.h; sourceTree = "<group>"; };
 		8BB2D2FB2366C7310047D0E2 /* CatFoodsManagementVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CatFoodsManagementVC.h; sourceTree = "<group>"; };
 		8BB2D2FC2366C7310047D0E2 /* CatFoodsManagementVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CatFoodsManagementVC.m; sourceTree = "<group>"; };
-		8BB2D2FE2366C7310047D0E2 /* GiftVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftVC.h; sourceTree = "<group>"; };
-		8BB2D2FF2366C7310047D0E2 /* GiftVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GiftVC.m; sourceTree = "<group>"; };
 		8BB2D3022366C7310047D0E2 /* UpLoadCancelReasonVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UpLoadCancelReasonVC.m; sourceTree = "<group>"; };
 		8BB2D3032366C7310047D0E2 /* UpLoadCancelReasonVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UpLoadCancelReasonVC.h; sourceTree = "<group>"; };
 		8BB2D3082366C7310047D0E2 /* PetsInfoListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PetsInfoListModel.m; sourceTree = "<group>"; };
@@ -889,6 +888,10 @@
 		8BB2D3382366C7310047D0E2 /* ZYTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYTextField.h; sourceTree = "<group>"; };
 		8BB2D33A2366C7310047D0E2 /* ToolMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolMacro.h; sourceTree = "<group>"; };
 		8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		8BC311672394D9D30050E1C1 /* GiftVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftVC.h; sourceTree = "<group>"; };
+		8BC311682394D9D30050E1C1 /* GiftVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GiftVC.m; sourceTree = "<group>"; };
+		8BC3116D2394E1CB0050E1C1 /* GiftTBViewForHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftTBViewForHeader.h; sourceTree = "<group>"; };
+		8BC3116E2394E1CB0050E1C1 /* GiftTBViewForHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GiftTBViewForHeader.m; sourceTree = "<group>"; };
 		8BC386652374718100FE8C02 /* XDMultTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XDMultTableView.m; sourceTree = "<group>"; };
 		8BC386662374718100FE8C02 /* down_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down_blue@2x.png"; sourceTree = "<group>"; };
 		8BC386672374718100FE8C02 /* XDMultTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDMultTableView.h; sourceTree = "<group>"; };
@@ -2499,10 +2502,12 @@
 		8BB2D2FD2366C7310047D0E2 /* Gift */ = {
 			isa = PBXGroup;
 			children = (
-				8BB2D2FE2366C7310047D0E2 /* GiftVC.h */,
-				8BB2D2FF2366C7310047D0E2 /* GiftVC.m */,
 				8BCB993223719DEA0063E01E /* GiftVC+VM.h */,
 				8BCB993323719DEA0063E01E /* GiftVC+VM.m */,
+				8BC311672394D9D30050E1C1 /* GiftVC.h */,
+				8BC311682394D9D30050E1C1 /* GiftVC.m */,
+				8BC3116D2394E1CB0050E1C1 /* GiftTBViewForHeader.h */,
+				8BC3116E2394E1CB0050E1C1 /* GiftTBViewForHeader.m */,
 			);
 			path = Gift;
 			sourceTree = "<group>";
@@ -4722,6 +4727,7 @@
 				C4A22208215A330500AC08C4 /* DrawbackMoney.m in Sources */,
 				C42CD192213CC2640096675F /* UIImage+helper.m in Sources */,
 				C42CD19D213CC2640096675F /* ButtonUpDown.m in Sources */,
+				8BC311692394D9D30050E1C1 /* GiftVC.m in Sources */,
 				C42CD0E5213CC2640096675F /* NJKWebViewProgress.m in Sources */,
 				C42CD1C4213CC2640096675F /* ModelCenter.m in Sources */,
 				8B8A1DC2238D0010006AE2CB /* ThroughTrainToPromoteVC+VM.m in Sources */,
@@ -4751,6 +4757,7 @@
 				8B9EAF8A2374175D0012884C /* SettingPaymentWayVC+VM.m in Sources */,
 				8BB2D3432366CB410047D0E2 /* FMHttpResonse.m in Sources */,
 				C42CD1C3213CC2640096675F /* ModelAreaList.m in Sources */,
+				8BC3116F2394E1CB0050E1C1 /* GiftTBViewForHeader.m in Sources */,
 				8B408848238EB5270030ABBF /* CreateTeamVC.m in Sources */,
 				8BCB993423719DEA0063E01E /* GiftVC+VM.m in Sources */,
 				C42CD14E213CC2640096675F /* CLCellGoodTypeHead.m in Sources */,
@@ -4873,7 +4880,6 @@
 				8B8A0E03238FF012000D7579 /* ThroughTrainListModel.m in Sources */,
 				C4A0DA7D213E957B00B45B65 /* SignInTip.m in Sources */,
 				C42CD0E1213CC2640096675F /* OrderReturnBackController.m in Sources */,
-				8BB2D37F2366CBE80047D0E2 /* GiftVC.m in Sources */,
 				C42CD0E2213CC2640096675F /* OrderNotGetController.m in Sources */,
 				C42CD09F213CC2640096675F /* CellLogisticsGood.m in Sources */,
 				C46368D5213FBE6C006922D5 /* LayoutMainType.m in Sources */,
