@@ -46,6 +46,7 @@
             NSLog(@"");
             if ([response isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *dataDic = (NSDictionary *)response;
+                [self.contentTextMutArr addObject:dataDic[@"id"]];
                 [self.contentTextMutArr addObject:dataDic[@"weixin_account"]];
                 [self.contentTextMutArr addObject:dataDic[@"contactmobile"]];
                 [self.contentTextMutArr addObject:dataDic[@"QQ"]];

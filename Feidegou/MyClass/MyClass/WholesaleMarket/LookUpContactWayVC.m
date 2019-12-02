@@ -12,7 +12,6 @@
 
 @interface LookUpContactWayTBVCell ()
 
-
 @end
 
 @interface LookUpContactWayVC ()
@@ -114,11 +113,11 @@ viewForHeaderInSection:(NSInteger)section {
     LookUpContactWayTBViewForHeader *viewForHeader = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:ReuseIdentifier];
     if (!viewForHeader) {
         viewForHeader = [[LookUpContactWayTBViewForHeader alloc]initWithReuseIdentifier:ReuseIdentifier
-                                                                          withData:@"请联系上级进货"];
+                                                                               withData:@"友情提醒:         联系上级邀请人方可进货"];
         [viewForHeader headerViewWithModel:nil];
-        @weakify(self)
+//        @weakify(self)
         [viewForHeader actionBlock:^(id data) {
-            @strongify(self)
+//            @strongify(self)
             NSLog(@"联系");
             Toast(@"功能开发中,敬请期待...");
         }];
@@ -183,6 +182,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSMutableArray<NSString *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
+        [_titleMutArr addObject:@"邀请人ID:"];
         [_titleMutArr addObject:@"手机号:"];
         [_titleMutArr addObject:@"QQ账号:"];
         [_titleMutArr addObject:@"微信账号:"];
@@ -203,8 +203,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     LookUpContactWayTBVCell *cell = (LookUpContactWayTBVCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
     if (!cell) {
         cell = [[LookUpContactWayTBVCell alloc] initWithStyle:UITableViewCellStyleValue1
-                                            reuseIdentifier:ReuseIdentifier
-                                                     margin:SCALING_RATIO(5)];
+                                              reuseIdentifier:ReuseIdentifier
+                                                       margin:SCALING_RATIO(5)];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
 //        cell.backgroundColor = kRedColor;
     }return cell;

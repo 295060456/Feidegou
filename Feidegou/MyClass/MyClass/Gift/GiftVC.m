@@ -115,7 +115,7 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    self.tableView.alpha = 1;
+    self.tableView.alpha = 1;
     self.tabBarController.tabBar.hidden = YES;
 }
 

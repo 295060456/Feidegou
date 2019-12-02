@@ -46,7 +46,6 @@ TXScrollLabelViewDelegate
 - (void)scrollLabelView:(TXScrollLabelView *)scrollLabelView
        didClickWithText:(NSString *)text
                 atIndex:(NSInteger)index{
-    
 }
 #pragma mark —— lazyLoad
 -(UIImageView *)tipsIMGV{
@@ -69,8 +68,14 @@ TXScrollLabelViewDelegate
                                                      velocity:.5f
                                                       options:UIViewAnimationOptionCurveEaseInOut];
         _scrollLabelView.scrollLabelViewDelegate = self;
-        _scrollLabelView.scrollTitleColor = kBlackColor;
+        _scrollLabelView.scrollTitleColor = kRedColor;
         _scrollLabelView.backgroundColor = kWhiteColor;
+        if (@available(iOS 8.2, *)) {
+            _scrollLabelView.font = [UIFont systemFontOfSize:20
+                                                      weight:1];
+        } else {
+            _scrollLabelView.font = [UIFont systemFontOfSize:20];
+        }
         _scrollLabelView.frame = CGRectMake(0,
                                             0,
                                             self.mj_w,
