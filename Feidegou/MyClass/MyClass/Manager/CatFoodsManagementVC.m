@@ -91,12 +91,8 @@ UITableViewDataSource
         TimeManager *timeManager = [TimeManager sharedInstance];
         [timeManager GCDTimer:@selector(GCDtimer)
                        caller:self
-                     interval:2];
+                     interval:3];
     }return self;
-}
-
--(void)timer{
-    NSLog(@"GCDTimer");
 }
 
 -(void)viewDidLoad{
@@ -111,7 +107,7 @@ UITableViewDataSource
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
      self.tabBarController.tabBar.hidden = YES;
-    [self.tableView.mj_header beginRefreshing];//
+    [self.tableView.mj_header beginRefreshing];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -123,7 +119,8 @@ UITableViewDataSource
     if (self.navigationController) {
         [self.navigationController popViewControllerAnimated:YES];
     }else{
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES
+                                 completion:nil];
     }
 }
 
@@ -145,18 +142,22 @@ UITableViewDataSource
     }
 }
 #pragma mark —— 私有方法
-// 下拉刷新
--(void)pullToRefresh{//轮询
-    NSLog(@"下拉刷新");
+-(void)GCDtimer{
+    //轮询
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
     }
     [self networking];
 }
+// 下拉刷新
+-(void)pullToRefresh{//轮询
+    NSLog(@"下拉刷新");
+    [self.tableView.mj_header endRefreshing];
+}
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-//    [self networking];
+    [self.tableView.mj_footer endRefreshing];
 }
 
 -(void)Later{//稍后去上传

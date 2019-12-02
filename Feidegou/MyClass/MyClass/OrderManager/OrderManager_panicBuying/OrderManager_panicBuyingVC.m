@@ -86,6 +86,15 @@ UITableViewDataSource
     return vc;
 }
 
+-(instancetype)init{
+    if (self = [super init]) {
+        TimeManager *timeManager = [TimeManager sharedInstance];
+        [timeManager GCDTimer:@selector(GCDtimer)
+                       caller:self
+                     interval:3];
+    }return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
@@ -103,10 +112,10 @@ UITableViewDataSource
     [self.tableView.mj_header beginRefreshing];
 }
 
-//-(void)viewWillDisappear:(BOOL)animated{
-//    [super viewWillDisappear:animated];
-////    self.tabBarController.tabBar.hidden = NO;
-//}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+}
 #pragma mark —— JXCategoryListContentViewDelegate
 /**
  可选实现，列表显示的时候调用
@@ -124,19 +133,23 @@ UITableViewDataSource
     }
 }
 #pragma mark —— 私有方法
-// 下拉刷新
--(void)pullToRefresh{
-    NSLog(@"下拉刷新");
+-(void)GCDtimer{
+    //轮询
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
     }
     [self networking_platformType:PlatformType_Stall];
 }
+// 下拉刷新
+-(void)pullToRefresh{
+    NSLog(@"下拉刷新");
+    [self.tableView.mj_header endRefreshing];
+}
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-    self.page++;
-    [self networking_platformType:PlatformType_Stall];
+    self.page++;//无用
+    [self.tableView.mj_footer endRefreshing];
 }
 
 -(void)showOrHiddenSearchView{

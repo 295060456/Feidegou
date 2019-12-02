@@ -2253,6 +2253,7 @@
 		8BB2D2942366C7310047D0E2 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				8BC31198239555490050E1C1 /* Timer */,
 				8B8A0E112390D54E000D7579 /* XXTools */,
 				8BCAB641238A8E16000B0360 /* SearchView */,
 				8BEAAFBF23884DB2008D7F1D /* UIControl+XY */,
@@ -2503,8 +2504,6 @@
 				8BB2D2FC2366C7310047D0E2 /* CatFoodsManagementVC.m */,
 				8B7A552A236EC3FF006B12F8 /* CatFoodsManagementVC+VM.h */,
 				8B7A552B236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m */,
-				8BC31189239536890050E1C1 /* TimeManager.h */,
-				8BC3118A239536890050E1C1 /* TimeManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -2667,6 +2666,15 @@
 				8BC3117B2394FDA60050E1C1 /* NSObject+Sound.m */,
 			);
 			path = NSObject;
+			sourceTree = "<group>";
+		};
+		8BC31198239555490050E1C1 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				8BC31189239536890050E1C1 /* TimeManager.h */,
+				8BC3118A239536890050E1C1 /* TimeManager.m */,
+			);
+			path = Timer;
 			sourceTree = "<group>";
 		};
 		8BC386642374718100FE8C02 /* XDMultTableView */ = {

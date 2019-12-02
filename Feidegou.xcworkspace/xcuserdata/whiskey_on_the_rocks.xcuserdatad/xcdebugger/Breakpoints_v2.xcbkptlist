@@ -7,16 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1B145AC1-0A75-4C20-8CA1-110BE88A1312"
+            uuid = "6E2D78B6-BCE7-4CB0-9229-DFBCF0F687D2"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/MyClass/MyClass/Manager/CatFoodsManagementVC.m"
+            filePath = "Feidegou/MyClass/MyClass/Chat/ChatVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
-            landmarkName = "-timer"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
+            landmarkName = "-sendUserInfoExtras"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4F3822A6-CD94-4DD0-90C4-4D9596E771F4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Feidegou/MyClass/MyClass/Chat/ChatVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "-onRCIMConnectionStatusChanged:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

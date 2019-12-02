@@ -95,7 +95,6 @@ RCIMConnectionStatusDelegate
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
-
 #pragma mark —— RCIMConnectionStatusDelegate
 /*!
  IMKit连接状态的的监听器
