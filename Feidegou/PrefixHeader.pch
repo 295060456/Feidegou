@@ -92,6 +92,7 @@
 #import "NSString+File.h"
 #import "NSString+Password.h"
 #import "NSString+Url_Chinese.h"
+#import "NSObject+Sound.h"
 #import "TBVCell_style_01.h"
 #import "UIView+Extras.h"
 #import "MMButton.h"

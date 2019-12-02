@@ -72,6 +72,11 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
     [self registerDeviceToken:deviceToken];//注册 APNs 成功并上报 DeviceToken
     [self getAlias];//
+    
+//    [[UIApplication sharedApplication] registerForRemoteNotifications];
+//    registerForRemoteNotifications
+//
+//    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert];
 }
 
 - (void)application:(UIApplication *)application

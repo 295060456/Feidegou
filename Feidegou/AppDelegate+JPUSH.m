@@ -34,7 +34,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
       // NSSet<UNNotificationCategory *> *categories for iOS10 or later
       // NSSet<UIUserNotificationCategory *> *categories for iOS8 and iOS9
     }
-    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+    [JPUSHService registerForRemoteNotificationConfig:entity
+                                             delegate:self];
 }
 //初始化 JPush
 -(void)initJPush:(NSDictionary *)launchOptions{
@@ -74,8 +75,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         }else{
             //从通知设置界面进入应用
         }
-    } else {//
-        // Fallback on earlier versions
+    } else {
+        
     }
 }
 // iOS 10 Support
@@ -85,6 +86,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //在这里处理回调信息 app active的时候
     Toast(@"2");
     NSLog(@"KKK = %@",notification);
+    [NSObject playSoundWithFileName:@"Sound.wav"];
     if (!self.orderDetailVC) {
         @weakify(self)
         self.orderDetailVC = [OrderDetailVC ComingFromVC:self_weak_.window.rootViewController
@@ -93,8 +95,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
                                                  success:^(id data) {}
                                                 animated:YES];
     }
-  // Required
-  NSDictionary * userInfo = notification.request.content.userInfo;
+//   Required
+  NSDictionary *userInfo = notification.request.content.userInfo;
   if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
     [JPUSHService handleRemoteNotification:userInfo];
   }
@@ -105,11 +107,12 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
  didReceiveNotificationResponse:(UNNotificationResponse *)response
           withCompletionHandler:(void (^)(void))completionHandler  API_AVAILABLE(ios(10.0)){
     Toast(@"3");
+//    [NSObject playSoundWithFileName:@"Sound.wav"];
 //后台唤醒
-#warning KKK 以下代码做测试
-    [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"1"
-                                                       Order_id:@"1"];
-    return;
+//#warning KKK 以下代码做测试
+//    [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"1"
+//                                                       Order_id:@"1"];
+//    return;
     
   // Required
     NSDictionary * userInfo = response.notification.request.content.userInfo;
@@ -120,7 +123,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
             NSDictionary *aps = [userInfo valueForKey:@"aps"];
             NSString *content = [aps valueForKey:@"alert"]; //推送显示的内容
             NSInteger badge = [[aps valueForKey:@"badge"] integerValue]; //badge 数量
-            NSString *sound = [aps valueForKey:@"sound"]; //播放的声音
+            NSString *sound = [aps valueForKey:@"Sound.wav"]; //播放的声音
             // 取得 Extras 字段内容
             NSString *customizeField1 = [userInfo valueForKey:@"customizeExtras"]; //服务端中 Extras 字段，key 是自己定义的
             NSLog(@"content =[%@], badge=[%ld], sound=[%@], customize field  =[%@]",content,(long)badge,sound,customizeField1);
@@ -139,3 +142,20 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 @end
 
 
+//    UILocalNotification *noti = [[UILocalNotification alloc] init];
+//    noti.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
+//    //设置时区
+//    noti.timeZone = [NSTimeZone defaultTimeZone];
+//    // 设置重复间隔
+////    noti.repeatInterval = NSCalendarUnitWeekOfMonth;
+//    // 推送声音
+//    noti.soundName = @"Sound.wav";//UILocalNotificationDefaultSoundName;
+//    // 内容
+//    noti.alertBody = @"推送内容";
+//    // 显示在icon 上的红色圈中的数字
+//    noti.applicationIconBadgeNumber = 10;
+//    // 设置info方便在之后 需要撤销的时候使用
+//    NSDictionary *infoDic = [NSDictionary dictionaryWithObject:@"name" forKey:@"key"];
+//    noti.userInfo = infoDic;
+//    // 添加推送到UIApplication
+//    [[UIApplication sharedApplication] scheduleLocalNotification:noti];

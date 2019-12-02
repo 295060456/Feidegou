@@ -25,6 +25,6 @@ typedef enum : NSUInteger {//1、摊位;2、批发;3、厂家
     PlatformType_ProducingArea//产地 厂家
 } PlatformType;
 
-
+//    [NSObject playSoundWithFileName:@"Sound.wav"];
 
 #endif /* DefineStructure_h */

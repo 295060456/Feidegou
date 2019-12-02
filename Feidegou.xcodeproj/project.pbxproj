@@ -132,6 +132,8 @@
 		8BB2D43E2367F9BB0047D0E2 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */; };
 		8BC311692394D9D30050E1C1 /* GiftVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC311682394D9D30050E1C1 /* GiftVC.m */; };
 		8BC3116F2394E1CB0050E1C1 /* GiftTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC3116E2394E1CB0050E1C1 /* GiftTBViewForHeader.m */; };
+		8BC311732394F92D0050E1C1 /* Sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8BC311722394F92D0050E1C1 /* Sound.wav */; };
+		8BC3117C2394FDA60050E1C1 /* NSObject+Sound.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC3117B2394FDA60050E1C1 /* NSObject+Sound.m */; };
 		8BC386682374718100FE8C02 /* XDMultTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC386652374718100FE8C02 /* XDMultTableView.m */; };
 		8BC386692374718100FE8C02 /* down_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BC386662374718100FE8C02 /* down_blue@2x.png */; };
 		8BCAB63F238A5360000B0360 /* AppDelegate+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCAB63E238A5360000B0360 /* AppDelegate+VM.m */; };
@@ -892,6 +894,9 @@
 		8BC311682394D9D30050E1C1 /* GiftVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GiftVC.m; sourceTree = "<group>"; };
 		8BC3116D2394E1CB0050E1C1 /* GiftTBViewForHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftTBViewForHeader.h; sourceTree = "<group>"; };
 		8BC3116E2394E1CB0050E1C1 /* GiftTBViewForHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GiftTBViewForHeader.m; sourceTree = "<group>"; };
+		8BC311722394F92D0050E1C1 /* Sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Sound.wav; sourceTree = "<group>"; };
+		8BC3117A2394FDA60050E1C1 /* NSObject+Sound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Sound.h"; sourceTree = "<group>"; };
+		8BC3117B2394FDA60050E1C1 /* NSObject+Sound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Sound.m"; sourceTree = "<group>"; };
 		8BC386652374718100FE8C02 /* XDMultTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XDMultTableView.m; sourceTree = "<group>"; };
 		8BC386662374718100FE8C02 /* down_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down_blue@2x.png"; sourceTree = "<group>"; };
 		8BC386672374718100FE8C02 /* XDMultTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XDMultTableView.h; sourceTree = "<group>"; };
@@ -2650,6 +2655,15 @@
 			path = ZYTextField;
 			sourceTree = "<group>";
 		};
+		8BC311762394FCF00050E1C1 /* NSObject */ = {
+			isa = PBXGroup;
+			children = (
+				8BC3117A2394FDA60050E1C1 /* NSObject+Sound.h */,
+				8BC3117B2394FDA60050E1C1 /* NSObject+Sound.m */,
+			);
+			path = NSObject;
+			sourceTree = "<group>";
+		};
 		8BC386642374718100FE8C02 /* XDMultTableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2753,6 +2767,7 @@
 		C42CCCD8213CC04F0096675F /* Feidegou */ = {
 			isa = PBXGroup;
 			children = (
+				8BC311722394F92D0050E1C1 /* Sound.wav */,
 				8B408743238E35DF0030ABBF /* 喵粮商城.entitlements */,
 				C42CCCE7213CC0520096675F /* Info.plist */,
 				C42CCF81213CC2620096675F /* PrefixHeader.pch */,
@@ -3752,6 +3767,7 @@
 		C42CCFBC213CC2630096675F /* SpecialControl */ = {
 			isa = PBXGroup;
 			children = (
+				8BC311762394FCF00050E1C1 /* NSObject */,
 				C42CCFBD213CC2630096675F /* UIImage */,
 				C42CCFC0213CC2630096675F /* UILabel */,
 				C42CCFD5213CC2630096675F /* UIButton */,
@@ -4388,6 +4404,7 @@
 				C42CD0A1213CC2640096675F /* CellAddress.xib in Resources */,
 				C4A2220A215A331100AC08C4 /* DrawbackMoney.xib in Resources */,
 				C42CD17E213CC2640096675F /* WebService.storyboard in Resources */,
+				8BC311732394F92D0050E1C1 /* Sound.wav in Resources */,
 				C42CD135213CC2640096675F /* CellPicture.xib in Resources */,
 				C42CD0D1213CC2640096675F /* CellOrderDetailGiftYes.xib in Resources */,
 				C42CD12A213CC2640096675F /* CLCellGoodType.xib in Resources */,
@@ -4593,6 +4610,7 @@
 				8BB2D33E2366CB170047D0E2 /* MMButton.m in Sources */,
 				C42CD0EB213CC2640096675F /* CellCartHead.m in Sources */,
 				C4614412214386B6000C0CDC /* VendorDetailGoodController.m in Sources */,
+				8BC3117C2394FDA60050E1C1 /* NSObject+Sound.m in Sources */,
 				8B408841238EB3820030ABBF /* JoinInTeamVC.m in Sources */,
 				C42CD076213CC2640096675F /* RedPacketTransportController.m in Sources */,
 				8B8A0E09238FF2C7000D7579 /* HQTopStopView.m in Sources */,
