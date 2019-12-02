@@ -114,7 +114,8 @@
                           AndCornerRadius:SCALING_RATIO(5) / 2];
         [self.contentView addSubview:_imgV];
         [_imgV mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.top.equalTo(self.contentView).offset(SCALING_RATIO(10));
+            make.top.equalTo(self.contentView).offset(SCALING_RATIO(20));
+            make.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
             make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(5), SCALING_RATIO(5)));
         }];
     }return _imgV;
@@ -125,13 +126,13 @@
         _titleLab = UILabel.new;
         _titleLab.text = self.titleStr;
         if (@available(iOS 8.2, *)) {
-            _titleLab.font = [UIFont systemFontOfSize:30 weight:1];
+            _titleLab.font = [UIFont systemFontOfSize:30
+                                               weight:1];
         } else {
-            // Fallback on earlier versions
+            _titleLab.font = [UIFont systemFontOfSize:30];
         }
         _titleLab.numberOfLines = 0;
         [_titleLab sizeToFit];
-        _titleLab.backgroundColor = KYellowColor;
         [self.contentView addSubview:_titleLab];
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.imgV);
@@ -161,7 +162,7 @@
         [_typeImgV mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView).offset(SCALING_RATIO(-30));
             make.top.equalTo(self.contentView);
-            make.width.mas_equalTo(SCALING_RATIO(30));
+            make.width.mas_equalTo(SCALING_RATIO(40));
             make.height.mas_equalTo(SCALING_RATIO(50));
         }];
     }return _typeImgV;
@@ -174,7 +175,7 @@
         [self.contentView addSubview:_sellerLab];
         [_sellerLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.imgV);
-            make.top.equalTo(self.titleLab.mas_bottom);
+            make.top.equalTo(self.titleLab.mas_bottom).offset(SCALING_RATIO(5));
         }];
     }return _sellerLab;
 }
@@ -186,7 +187,7 @@
         [self.contentView addSubview:_paymentWayLab];
         [_paymentWayLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.imgV);
-            make.top.equalTo(self.sellerLab.mas_bottom);
+            make.top.equalTo(self.sellerLab.mas_bottom).offset(SCALING_RATIO(5));
         }];
     }return _paymentWayLab;
 }
@@ -194,12 +195,11 @@
 -(UILabel *)orderTypeLab{
     if (!_orderTypeLab) {
         _orderTypeLab = UILabel.new;
-        _orderTypeLab.backgroundColor = KBrownColor;
         _orderTypeLab.text = self.orderTypeStr;
         [self.contentView addSubview:_orderTypeLab];
         [_orderTypeLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.imgV);
-            make.top.equalTo(self.paymentWayLab.mas_bottom);
+            make.top.equalTo(self.paymentWayLab.mas_bottom).offset(SCALING_RATIO(5));
         }];
     }return _orderTypeLab;
 }
@@ -211,15 +211,10 @@
         [self.contentView addSubview:_orderStatusLab];
         [_orderStatusLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.imgV);
-            make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));
-            make.top.equalTo(self.orderTypeLab.mas_bottom);
+            make.top.equalTo(self.orderTypeLab.mas_bottom).offset(SCALING_RATIO(5));
         }];
     }return _orderStatusLab;
 }
 
-
 @end
 
-// *titleStr;
-//@property(nonatomic,copy)NSString *timeStr;
-//@property(nonatomic,copy)NSString *sellerStr;

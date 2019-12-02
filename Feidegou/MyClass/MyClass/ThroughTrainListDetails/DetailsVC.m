@@ -192,9 +192,9 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
 -(NSMutableArray<NSString *> *)imageNamesMutArr{
     if (!_imageNamesMutArr) {
         _imageNamesMutArr = NSMutableArray.array;
-        [_imageNamesMutArr addObject:@"直通车_unselected"];
-        [_imageNamesMutArr addObject:@"批发_unselected"];
-        [_imageNamesMutArr addObject:@"厂家_unselected"];
+        [_imageNamesMutArr addObject:@"panicPurchase_unselected"];
+        [_imageNamesMutArr addObject:@"wholesaleMarket_unselected"];
+        [_imageNamesMutArr addObject:@"producingArea_unselected"];
     }return _imageNamesMutArr;
 }
 

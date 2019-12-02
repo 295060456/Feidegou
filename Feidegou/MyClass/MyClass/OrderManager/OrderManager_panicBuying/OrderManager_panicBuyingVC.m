@@ -280,7 +280,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                  style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.ly_emptyView = [LYEmptyView emptyViewWithImageStr:@"noData"
+        _tableView.ly_emptyView = [LYEmptyView emptyViewWithImageStr:@"picLoadErr"
                                                             titleStr:@"暂无数据"
                                                            detailStr:@""];
         _tableView.mj_header = self.tableViewHeader;

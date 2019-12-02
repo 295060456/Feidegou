@@ -105,10 +105,10 @@ UITableViewDataSource
     [self.tableView.mj_header beginRefreshing];
 }
 
-//-(void)viewWillDisappear:(BOOL)animated{
-//    [super viewWillDisappear:animated];
-////    self.tabBarController.tabBar.hidden = NO;
-//}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
+}
 #pragma mark —— JXCategoryListContentViewDelegate
 /**
  可选实现，列表显示的时候调用
@@ -144,7 +144,6 @@ UITableViewDataSource
 -(void)showOrHiddenSearchView{
     @weakify(self)
     UIEdgeInsets inset = [self.tableView contentInset];
-    
     if (!self.selected) {//开
         inset.top = SCALING_RATIO(50);
         [UIView animateWithDuration:1.f
@@ -283,7 +282,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                  style:UITableViewStyleGrouped];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.ly_emptyView = [LYEmptyView emptyViewWithImageStr:@"noData"
+        _tableView.ly_emptyView = [LYEmptyView emptyViewWithImageStr:@"picLoadErr"
                                                             titleStr:@"暂无数据"
                                                            detailStr:@""];
         _tableView.mj_header = self.tableViewHeader;

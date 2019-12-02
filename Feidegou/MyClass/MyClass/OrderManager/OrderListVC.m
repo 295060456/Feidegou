@@ -231,13 +231,13 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
 -(NSMutableArray<NSString *> *)imageNamesMutArr{
     if (!_imageNamesMutArr) {
         _imageNamesMutArr = NSMutableArray.array;
-        [_imageNamesMutArr addObject:@"直通车_unselected"];
+        [_imageNamesMutArr addObject:@"panicPurchase_unselected"];
         if ([[PersonalInfo sharedInstance] isLogined]) {
             ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
             if ([model.grade_id intValue] == 2) {//高级商家
                 
             }else if ([model.grade_id intValue] == 3){//vip商家
-                [_imageNamesMutArr addObject:@"厂家_unselected"];
+                [_imageNamesMutArr addObject:@"producingArea_unselected"];
             }
         }
     }return _imageNamesMutArr;

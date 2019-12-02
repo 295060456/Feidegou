@@ -215,7 +215,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.delegate = self;
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
-        _tableView.ly_emptyView = [LYEmptyView emptyViewWithImageStr:@"noData"
+        _tableView.ly_emptyView = [LYEmptyView emptyViewWithImageStr:@"picLoadErr"
                                                             titleStr:@"暂无数据"
                                                            detailStr:@""];
         _tableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
