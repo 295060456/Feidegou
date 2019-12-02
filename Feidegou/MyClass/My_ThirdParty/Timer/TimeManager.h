@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TimeManager : NSObject
 
-+ (instancetype)sharedInstance;
+//+ (instancetype)sharedInstance;
 #pragma mark —— GCD
 -(void)GCDTimer:(SEL)wantToDo
          caller:(id)caller

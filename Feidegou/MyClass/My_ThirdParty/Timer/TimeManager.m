@@ -18,13 +18,13 @@
 
 @implementation TimeManager
 
-static TimeManager *instance = nil;
-+ (instancetype)sharedInstance {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        instance = TimeManager.new;
-    });return instance;
-}
+//static TimeManager *instance = nil;
+//+ (instancetype)sharedInstance {
+//    static dispatch_once_t onceToken;
+//    dispatch_once(&onceToken, ^{
+//        instance = TimeManager.new;
+//    });return instance;
+//}
 
 #pragma mark —— GCD
 -(void)GCDTimer:(SEL)wantToDo
@@ -60,8 +60,6 @@ static TimeManager *instance = nil;
                          withObject:Nil];
         }
     });
-    //开始执行定时器
-    dispatch_resume(self.GCDtimer);
 }
 
 //开启定时器

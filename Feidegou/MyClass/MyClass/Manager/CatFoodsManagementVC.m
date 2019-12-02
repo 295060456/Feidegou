@@ -33,6 +33,7 @@ UITableViewDataSource
 @property(nonatomic,strong)NSMutableArray <NSArray *>*imgMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*VCMutArr;
 
+@property(nonatomic,strong)TimeManager *timeManager;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -88,10 +89,10 @@ UITableViewDataSource
 -(instancetype)init{
     if (self = [super init]) {
         [self catfoodboothType];//
-        TimeManager *timeManager = [TimeManager sharedInstance];
-        [timeManager GCDTimer:@selector(GCDtimer)
-                       caller:self
-                     interval:3];
+        self.timeManager = TimeManager.new;
+        [self.timeManager GCDTimer:@selector(GCDtimer)
+                            caller:self
+                          interval:3];
     }return self;
 }
 
@@ -107,11 +108,13 @@ UITableViewDataSource
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
      self.tabBarController.tabBar.hidden = YES;
+    [self.timeManager startGCDTimer];
     [self.tableView.mj_header beginRefreshing];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [self.timeManager endGCDTimer];
     self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— 点击事件

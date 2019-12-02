@@ -20,6 +20,7 @@ UITableViewDataSource
 
 @property(nonatomic,strong)SearchView *searchView;
 
+@property(nonatomic,strong)TimeManager *timeManager;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -36,6 +37,7 @@ UITableViewDataSource
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.timeManager endGCDTimer];
 }
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
@@ -90,10 +92,10 @@ UITableViewDataSource
 
 -(instancetype)init{
     if (self = [super init]) {
-        TimeManager *timeManager = [TimeManager sharedInstance];
-        [timeManager GCDTimer:@selector(GCDtimer)
-                       caller:self
-                     interval:3];
+        self.timeManager = TimeManager.new;
+        [self.timeManager GCDTimer:@selector(GCDtimer)
+                            caller:self
+                          interval:3];
     }return self;
 }
 
@@ -111,11 +113,13 @@ UITableViewDataSource
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    [self.timeManager startGCDTimer];
     [self.tableView.mj_header beginRefreshing];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [self.timeManager suspendGCDTimer];
     self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— JXCategoryListContentViewDelegate
