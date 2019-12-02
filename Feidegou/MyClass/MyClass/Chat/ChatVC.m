@@ -40,7 +40,7 @@ RCIMConnectionStatusDelegate
         vc.conversationType = model.conversationType;
         vc.targetId = model.targetId;
         vc.chatSessionInputBarControl.hidden = NO;
-        vc.title = @"想显示的会话标题";
+        vc.title = model.conversationTitle;
     }
     extern NSString *tokenStr;
     RCIM *rcim = [RCIM sharedRCIM];
@@ -87,6 +87,7 @@ RCIMConnectionStatusDelegate
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO];//和GK冲突，还原设置
     self.tabBarController.tabBar.hidden = YES;
 }
 

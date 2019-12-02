@@ -56,8 +56,10 @@
     imgv.image = kIMG(@"StayTuned");
     [controller_ShopStore.view addSubview:imgv];
     [imgv mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 2, SCREEN_WIDTH / 2));
-        make.center.equalTo(controller_ShopStore.view);
+//        make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH / 2, SCREEN_WIDTH / 2));
+//        make.center.equalTo(controller_ShopStore.view);
+        make.top.left.right.equalTo(controller_ShopStore.view);
+        make.bottom.equalTo(controller_ShopStore.view).offset(-SCALING_RATIO(50));
     }];
     //购物车
     UIViewController *controller_ShopCart = [self controllerWithStoryboardName:StoryboardShopCart

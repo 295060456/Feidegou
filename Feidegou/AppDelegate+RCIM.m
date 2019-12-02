@@ -14,6 +14,20 @@
     [[RCIM sharedRCIM] initWithAppKey:RongCloud_Key];
     [[RCIM sharedRCIM] setUserInfoDataSource:self];
     [RCIM sharedRCIM].isMediaSelectorContainVideo = YES;
+    
+    // 以下根据自己项目需求.进行配置
+//    [RCIM sharedRCIM].enablePersistentUserInfoCache = YES;    //  开启用户信息和群组信息的持久化
+////    [RCIM sharedRCIM].userInfoDataSource = [RCDRCIMDataSource shareInstance];     //  设置RongCloud用户信息数据源
+////    [RCIM sharedRCIM].groupInfoDataSource = [RCDRCIMDataSource shareInstance];    //  设置RongCloud群组信息数据源
+//    [RCIM sharedRCIM].enableMessageAttachUserInfo = YES;      //  是否在发送的所有消息中携带当前登录的用户信息
+////    [RCIM sharedRCIM].receiveMessageDelegate = self;          //  设置接收消息代理
+//    [RCIM sharedRCIM].enableTypingStatus =YES;                //  开启输入状态监听
+//    [RCIM sharedRCIM].showUnkownMessage = YES;                //  设置显示未注册的消息
+//    [RCIM sharedRCIM].showUnkownMessageNotificaiton = YES;    //  未注册的消息类型是否显示本地通知
+//    [RCIM sharedRCIM].disableMessageAlertSound = YES;         //  声音提示
+//    [[RCIM sharedRCIM] setConnectionStatusDelegate:self];     //  设置会话列表头像和会话界面头像
+////    [[RCIM sharedRCIM] registerMessageType:[RRTCustomFriendMessage class]];   //  注册自定义消息类型
+//    [RCIM sharedRCIM].globalConversationPortraitSize = CGSizeMake(50, 50);    //  会话列表界面中显示的头像大
 }
 #pragma mark —— RCIMConnectionStatusDelegate
 /*!
