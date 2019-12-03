@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,assign)int page;
 @property(nonatomic,strong)NSMutableArray <ThroughTrainListModel *>*dataMutArr;
+@property(nonatomic,copy)__block NSString *quantity;
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
                    withStyle:(ComingStyle)comingStyle

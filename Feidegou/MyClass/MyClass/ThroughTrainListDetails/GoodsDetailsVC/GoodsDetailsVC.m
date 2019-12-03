@@ -146,12 +146,8 @@ UIScrollViewDelegate
         _scrollView.alpha = 0;
 //        _scrollView.mj_header = self.tableViewHeader;
         _scrollView.mj_footer = self.refreshBackNormalFooter;
-//        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH,
-//                                             3000);//SCREEN_HEIGHT + kIMG(@"LongPic").size.height * SCREEN_WIDTH / kIMG(@"LongPic").size.width
-//        _scrollView.contentInset = UIEdgeInsetsMake(0,
-//                                                    0,
-//                                                    0,
-//                                                    0);
+        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH,
+                                             kIMG(@"LongPic").size.height * SCREEN_WIDTH / kIMG(@"LongPic").size.width);
         [self.view addSubview:_scrollView];
         [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);

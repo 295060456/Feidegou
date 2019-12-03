@@ -69,11 +69,11 @@
         if ([orderListModel.identity isEqualToString:@"卖家"]) {
             self.typeImgV.image = kIMG(@"Mf_flag_Red");
             self.imgV.backgroundColor = kRedColor;
-            self.sellerStr = [@"卖家:" stringByAppendingString:[NSString ensureNonnullString:orderListModel.seller ReplaceStr:@"无"]];
+            self.sellerStr = [@"卖家:" stringByAppendingString:[NSString ensureNonnullString:orderListModel.byname ReplaceStr:@"无"]];
         }else if ([orderListModel.identity isEqualToString:@"买家"]){
             self.typeImgV.image = kIMG(@"Mf_flag_Green");
             self.imgV.backgroundColor = KGreenColor;
-            self.sellerStr = [@"买家:" stringByAppendingString:[NSString ensureNonnullString:orderListModel.buyer ReplaceStr:@"无"]];
+            self.sellerStr = [@"买家:" stringByAppendingString:[NSString ensureNonnullString:orderListModel.buyer_name ReplaceStr:@"无"]];
         }
         if ([orderListModel.payment_status intValue] == 1) {//支付宝
             self.paymentWayStr = [@"支付方式:" stringByAppendingString:@"支付宝"];//支付类型:1、支付宝;2、微信;3、银行卡

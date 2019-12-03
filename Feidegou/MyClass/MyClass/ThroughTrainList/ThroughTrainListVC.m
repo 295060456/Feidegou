@@ -45,6 +45,7 @@ PGBannerDelegate
     vc.successBlock = block;
     vc.requestParams = requestParams;
     vc.page = 1;
+    vc.quantity = requestParams;
     switch (comingStyle) {
         case ComingStyle_PUSH:{
             if (rootVC.navigationController) {

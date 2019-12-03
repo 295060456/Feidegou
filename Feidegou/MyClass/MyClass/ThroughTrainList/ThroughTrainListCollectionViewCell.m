@@ -18,6 +18,7 @@
 @property(nonatomic,strong)UILabel *repertoryLab;//库存数
 @property(nonatomic,strong)UILabel *rankLab;//排名
 @property(nonatomic,strong)UILabel *salesLab;//当前剩余
+@property(nonatomic,strong)UILabel *quantityLab;
 @property(nonatomic,strong)NSArray *arr;
 
 @end
@@ -41,6 +42,7 @@
     self.salesLab.alpha = 1;//当前剩余
     self.repertoryLab.alpha = 1;
     self.rankLab.alpha = 1;
+    self.quantityLab.alpha = 1;
     [UIView cornerCutToCircleWithView:self.contentView
                       AndCornerRadius:5];
     [UIView colourToLayerOfView:self.contentView
@@ -60,6 +62,7 @@
         self.salesLab.text = [@"剩余" stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.quantity ReplaceStr:@"0"]];//当前剩余
         self.repertoryLab.text = [@"已售:"stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.sales ReplaceStr:@"0"]];//已销售
         self.rankLab.text = [@"当前排名:"stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.ranking ReplaceStr:@"0"]];
+        self.quantityLab.text = [@"参与数量:"stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.quantity ReplaceStr:@"0"]];
     }
 }
 
@@ -143,5 +146,16 @@
     }return _salesLab;
 }
 
+-(UILabel *)quantityLab{
+    if (!_quantityLab) {
+        _quantityLab = UILabel.new;
+        [self.contentView addSubview:_quantityLab];
+        [_quantityLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.titleLab);
+            make.right.equalTo(self);
+            make.height.mas_equalTo(self.contentView.mj_h * 1 / 6);
+        }];
+    }return _quantityLab;
+}
 
 @end

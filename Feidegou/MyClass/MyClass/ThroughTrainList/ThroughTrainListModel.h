@@ -22,6 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSNumber *train_status;//直通车状态 销售中1 2已关闭
 @property(nonatomic,strong)NSNumber *sales;//销售量
 
+//我自己加的
+@property(nonatomic,copy)NSString *quantity;
+
 
 @end
 

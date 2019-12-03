@@ -122,14 +122,14 @@
                 Toast(@"开通直通车成功");
                 [ThroughTrainListVC ComingFromVC:self_weak_
                                        withStyle:ComingStyle_PUSH
-                                   requestParams:nil
+                                   requestParams:self.quantity
                                          success:^(id data) {}
                                         animated:YES];
             }
         }else{
             [ThroughTrainListVC ComingFromVC:self_weak_
                                    withStyle:ComingStyle_PUSH
-                               requestParams:nil
+                               requestParams:self.quantity
                                      success:^(id data) {}
                                     animated:YES];
         }

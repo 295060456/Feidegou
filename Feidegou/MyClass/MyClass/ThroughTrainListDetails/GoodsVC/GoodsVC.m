@@ -251,7 +251,7 @@ UIScrollViewDelegate
 -(UILabel *)titleLab{
     if (!_titleLab) {
         _titleLab = UILabel.new;
-        _titleLab.text = @"木糖醇红枣燕麦";
+        _titleLab.text = @"喵粮";
         [self.viewr addSubview:_titleLab];
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.equalTo(self.viewr).offset(SCALING_RATIO(10));

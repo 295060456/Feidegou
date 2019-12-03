@@ -39,6 +39,7 @@
                                                         BOOL * _Nonnull stop) {
                         @strongify(self)
                         ThroughTrainListModel *model = array[idx];
+                        model.quantity = self.quantity;
                         [self.dataMutArr addObject:model];
                     }];
                     if (self.dataMutArr.count) {
