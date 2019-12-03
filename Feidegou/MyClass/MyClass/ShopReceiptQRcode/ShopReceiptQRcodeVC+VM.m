@@ -90,13 +90,13 @@
 constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         if (paywayType == PaywayTypeWX) {
             [formData appendPartWithFileData:picData
-                                        name:@"qr_type"//Key
-                                    fileName:@"weixin_qr"//图片名
+                                        name:@"weixin_qr"//Key
+                                    fileName:@"test.png"//图片名
                                     mimeType:@"image/jpeg"];
         }else if (paywayType == PaywayTypeZFB){
             [formData appendPartWithFileData:picData
-                                        name:@"qr_type"//Key
-                                    fileName:@"alipay_qr"//图片名
+                                        name:@"alipay_qr"//Key
+                                    fileName:@"test.png"//图片名
                                     mimeType:@"image/jpeg"];
         }else{
             NSLog(@"错误");

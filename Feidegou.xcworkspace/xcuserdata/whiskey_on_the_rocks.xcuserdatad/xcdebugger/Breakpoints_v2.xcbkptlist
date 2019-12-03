@@ -19,7 +19,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "0C3DF189-CCF8-4517-8702-30072D9238D3"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Feidegou/MyClass/MyClass/Manager/CatFoodsManagementVC+VM.m"
