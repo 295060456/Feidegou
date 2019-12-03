@@ -33,7 +33,7 @@ UITableViewDataSource
 @property(nonatomic,strong)NSMutableArray <NSArray *>*imgMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*VCMutArr;
 
-@property(nonatomic,strong)TimeManager *timeManager;
+@property(nonatomic,weak)TimeManager *timeManager;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -46,6 +46,7 @@ UITableViewDataSource
 
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
+    [self.timeManager endGCDTimer];
 }
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
@@ -114,7 +115,7 @@ UITableViewDataSource
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.timeManager endGCDTimer];
+    [self.timeManager suspendGCDTimer];
     self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— 点击事件

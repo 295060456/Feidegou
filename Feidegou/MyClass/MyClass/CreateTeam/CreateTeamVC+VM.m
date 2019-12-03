@@ -42,13 +42,17 @@
                 for (ZYTextField *tf in self.dataMutSet) {
                     if ([tf.placeholder isEqualToString:self.titleMutArr[0]]) {//手机
                         tf.text = dic[@"contactmobile"];
+                        self.telePhoneStr = tf.text;
                     }else if ([tf.placeholder isEqualToString:self.titleMutArr[1]]){//QQ
                         tf.text = dic[@"QQ"];
+                        self.QQStr = tf.text;
                     }else if ([tf.placeholder isEqualToString:self.titleMutArr[2]]){//微信
                         tf.text = dic[@"weixin_account"];
+                        self.wechatStr = tf.text;
                     }else{}
                 }
-                self.tableView.mj_footer.hidden = NO;
+            
+//                self.tableView.mj_footer.hidden = NO;
                 [self.tableView.mj_header endRefreshing];
                 [self.tableView.mj_footer endRefreshing];
                 [self.tableView reloadData];
@@ -85,6 +89,8 @@
         [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
             @strongify(self)
             NSLog(@"");//OK
+            Toast(@"修改成功");
+            [self backBtnClickEvent:UIButton.new];
         }];
     }
 }

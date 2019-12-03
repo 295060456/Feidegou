@@ -18,6 +18,21 @@
 
 @implementation TimeManager
 
+- (void)dealloc {
+    NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
+    
+    if (self.GCDtimer) {
+        [self endGCDTimer];
+    }
+    if (self.CADtimer) {
+        [self endCADTimer];
+    }
+    
+    if (self.nsTimer) {
+        
+    }
+}
+
 //static TimeManager *instance = nil;
 //+ (instancetype)sharedInstance {
 //    static dispatch_once_t onceToken;

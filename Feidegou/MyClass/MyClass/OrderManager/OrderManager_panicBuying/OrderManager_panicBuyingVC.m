@@ -19,7 +19,7 @@ UITableViewDataSource
 
 @property(nonatomic,strong)SearchView *searchView;
 
-@property(nonatomic,strong)TimeManager *timeManager;
+@property(nonatomic,weak)TimeManager *timeManager;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
