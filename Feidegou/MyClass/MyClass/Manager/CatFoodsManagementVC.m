@@ -33,7 +33,7 @@ UITableViewDataSource
 @property(nonatomic,strong)NSMutableArray <NSArray *>*imgMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*VCMutArr;
 
-@property(nonatomic,weak)TimeManager *timeManager;
+@property(nonatomic,strong)TimeManager *timeManager;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -90,9 +90,10 @@ UITableViewDataSource
 -(instancetype)init{
     if (self = [super init]) {
         [self catfoodboothType];//
+        @weakify(self)
         self.timeManager = TimeManager.new;
-        [self.timeManager GCDTimer:@selector(GCDtimer)
-                            caller:self
+        [self.timeManager GCDTimer:@selector(GCDtimerMaker)
+                            caller:self_weak_
                           interval:3];
     }return self;
 }
@@ -146,8 +147,9 @@ UITableViewDataSource
     }
 }
 #pragma mark —— 私有方法
--(void)GCDtimer{
+-(void)GCDtimerMaker{
     //轮询
+    NSLog(@"轮询_CatFoodsManagementVC");
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
     }

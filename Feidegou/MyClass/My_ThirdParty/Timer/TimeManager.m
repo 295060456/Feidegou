@@ -83,8 +83,9 @@
 }
 //取消定时器
 -(void)endGCDTimer{
+//    dispatch_source_cancel(self.GCDtimer);
     dispatch_cancel(self.GCDtimer);
-    self.GCDtimer = nil;
+    _GCDtimer = nil;
 }
 //暂停定时器
 -(void)suspendGCDTimer{
@@ -176,7 +177,7 @@
     
     // 创建一个定时器，但是么有添加到运行循环，我们需要在创建定时器后手动的调用 NSRunLoop 对象的 addTimer:forMode: 方法。
 //    + (NSTimer *)timerWithTimeInterval:(NSTimeInterval)ti invocation:(NSInvocation *)invocation repeats:(BOOL)yesOrNo;
-
+    
     
 //    1、参数repeats是指定是否循环执行，YES将循环，NO将只执行一次。
 //    2、timerWithTimeInterval  这两个类方法创建出来的对象如果不用 addTimer: forMode方法手动加入主循环池中，将不会循环执行。

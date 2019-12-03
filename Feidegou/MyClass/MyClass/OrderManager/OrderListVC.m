@@ -128,7 +128,13 @@ OrderListVC *orderListVC;
                                               self.view.bounds.size.width,
                                               self.view.bounds.size.height);
 }
-#pragma mark - JXCategoryViewDelegate
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    NSLog(@"");
+    printf("retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(self)));
+}
+#pragma mark —— JXCategoryViewDelegate
 - (void)categoryView:(JXCategoryBaseView *)categoryView
 didSelectedItemAtIndex:(NSInteger)index {
     //侧滑手势处理

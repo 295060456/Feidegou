@@ -17,9 +17,9 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
-@property(nonatomic,strong)SearchView *searchView;
+@property(nonatomic,weak)SearchView *searchView;
 
-@property(nonatomic,weak)TimeManager *timeManager;
+@property(nonatomic,strong)TimeManager *timeManager;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -36,7 +36,8 @@ UITableViewDataSource
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self.timeManager endGCDTimer];
+//    @weakify(self)
+    [_timeManager endGCDTimer];
 }
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
@@ -90,9 +91,10 @@ UITableViewDataSource
 
 -(instancetype)init{
     if (self = [super init]) {
+        @weakify(self)
         self.timeManager = TimeManager.new;
         [self.timeManager GCDTimer:@selector(GCDtimer)
-                            caller:self
+                            caller:self_weak_
                           interval:3];
     }return self;
 }
@@ -111,13 +113,13 @@ UITableViewDataSource
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-    [self.timeManager startGCDTimer];
     [self.tableView.mj_header beginRefreshing];
 }
 
--(void)viewWillDisappear:(BOOL)animated{
+-(void)viewWillDisappear:(BOOL)animated{//在这种框架下几乎等同于dealloc
     [super viewWillDisappear:animated];
-    [self.timeManager suspendGCDTimer];
+    [self.timeManager endGCDTimer];
+    self.timeManager = nil;
     self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— JXCategoryListContentViewDelegate
@@ -125,12 +127,15 @@ UITableViewDataSource
  可选实现，列表显示的时候调用
  */
 - (void)listDidAppear{
+    [self.timeManager startGCDTimer];
     [self.tableView.mj_header beginRefreshing];
 }
 /**
  可选实现，列表消失的时候调用
  */
 - (void)listDidDisappear{
+    printf("retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(self)));
+    [self.timeManager suspendGCDTimer];
     if (self.dataMutArr.count) {
         self.selected = YES;
         [self showOrHiddenSearchView];
@@ -139,6 +144,7 @@ UITableViewDataSource
 #pragma mark —— 私有方法
 -(void)GCDtimer{
     //轮询
+    NSLog(@"轮询_OrderManager_panicBuyingVC");
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
     }
@@ -289,7 +295,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 //        }];
     }
 }
-
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{
     if (!_tableView) {
