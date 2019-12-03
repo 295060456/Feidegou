@@ -10,14 +10,13 @@
 #import "OrderListTBVCell.h"
 #import "OrderManager_panicBuyingVC+VM.h"
 #import "OrderListVC.h"
+#import "OrderManagerTBViewForHeader.h"
 
 @interface OrderManager_panicBuyingVC ()
 <
 UITableViewDelegate,
 UITableViewDataSource
 >
-
-@property(nonatomic,weak)SearchView *searchView;
 
 @property(nonatomic,strong)TimeManager *timeManager;
 @property(nonatomic,strong)id requestParams;
@@ -26,7 +25,6 @@ UITableViewDataSource
 @property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,assign)BOOL isFirstComing;
 @property(nonatomic,assign)BOOL isDelCell;
-@property(nonatomic,assign)BOOL selected;
 @property(nonatomic,strong)NSMutableArray <NSString *>*btnTitleMutArr;
 
 @end
@@ -100,10 +98,6 @@ UITableViewDataSource
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navigationBar.hidden = YES;
     self.tableView.alpha = 1;
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(CategoryViewActionNotification:)
-                                                 name:@"CategoryViewAction"
-                                               object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -131,10 +125,6 @@ UITableViewDataSource
     printf("retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(self)));
     [self.timeManager endGCDTimer];
     self.timeManager = nil;
-    if (self.dataMutArr.count) {
-        self.selected = YES;
-        [self showOrHiddenSearchView];
-    }
 }
 #pragma mark —— 私有方法
 -(void)GCDtimer{
@@ -156,59 +146,37 @@ UITableViewDataSource
     self.page++;//无用
     [self.tableView.mj_footer endRefreshing];
 }
-
--(void)showOrHiddenSearchView{
-    @weakify(self)
-    UIEdgeInsets inset = [self.tableView contentInset];
-    if (!self.selected) {//开
-        inset.top = SCALING_RATIO(50);
-        [UIView animateWithDuration:1.f
-                              delay:0.f
-                            options:UIViewAnimationOptionTransitionCurlDown
-                         animations:^{
-            @strongify(self)
-            self.searchView.alpha = 1;
-            
-        }
-                         completion:^(BOOL finished) {
-            
-        }];
-    }
-    else{//关
-        inset.top = SCALING_RATIO(0);
-        [UIView animateWithDuration:1.f
-                              delay:0.f
-                            options:UIViewAnimationOptionTransitionCurlUp
-                         animations:^{
-            @strongify(self)
-            self.searchView.alpha = 0;
-        }
-                         completion:^(BOOL finished) {
-            
-        }];
-    }
-    
-    [self.tableView setContentInset:inset];
-    //获取到需要跳转位置的行数
-    NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0
-                                                      inSection:0];
-    //滚动到其相应的位置
-    [[self tableView] scrollToRowAtIndexPath:scrollIndexPath
-            atScrollPosition:UITableViewScrollPositionBottom
-                                    animated:YES];
-}
-
--(void)CategoryViewActionNotification:(NSNotification *)notification{
-    NSNumber *b = notification.object;
-    if ([b intValue] == 0) {
-        NSLog(@"2");
-        if (self.dataMutArr.count) {
-            [self showOrHiddenSearchView];
-            self.selected = !self.selected;
-        }
-    }
-}
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
+- (UIView *)tableView:(UITableView *)tableView
+viewForHeaderInSection:(NSInteger)section {
+    OrderManagerTBViewForHeader *viewForHeader = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:ReuseIdentifier];
+    if (!viewForHeader) {
+        viewForHeader = [[OrderManagerTBViewForHeader alloc]initWithReuseIdentifier:ReuseIdentifier
+                                                                           withData:self.btnTitleMutArr];
+        @weakify(self)
+        [viewForHeader clickBlock:^(id data) {
+            @strongify(self)
+            NSLog(@"");
+            if ([data isKindOfClass:[MMButton class]]) {
+                MMButton *btn = (MMButton *)data;
+                if ([btn.titleLabel.text isEqualToString:@"已下单"]) {//2
+                    [self networking_type:BusinessType_HadOrdered];
+                }else if ([btn.titleLabel.text isEqualToString:@"已发货"]){//4
+                    [self networking_type:BusinessType_HadConsigned];
+                }else if ([btn.titleLabel.text isEqualToString:@"已取消"]){//3
+                    [self networking_type:BusinessType_HadCompleted];
+                }else{}
+            }
+        }];
+        [viewForHeader headerViewWithModel:nil];
+    }return viewForHeader;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView
+heightForHeaderInSection:(NSInteger)section{
+    return [OrderManagerTBViewForHeader headerViewHeightWithModel:nil];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return [OrderListTBVCell cellHeightWithModel:nil];
@@ -309,37 +277,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             make.top.equalTo(self.view).offset(SCALING_RATIO(0));
         }];
     }return _tableView;
-}
-
--(SearchView *)searchView{
-    if (!_searchView) {
-        _searchView = [[SearchView alloc]initWithBtnTitleMutArr:self.btnTitleMutArr];
-        _searchView.backgroundColor = kRedColor;
-        @weakify(self)
-        [_searchView actionBlock:^(id data) {
-            @strongify(self)
-            if (self.dataMutArr.count) {
-                [self.dataMutArr removeAllObjects];
-            }
-            if ([data isKindOfClass:[MMButton class]]) {
-                MMButton *btn = (MMButton *)data;
-                if ([btn.titleLabel.text isEqualToString:@"已下单"]) {//2
-                    [self networking_type:BusinessType_HadOrdered];
-                }else if ([btn.titleLabel.text isEqualToString:@"已发货"]){//4
-                    [self networking_type:BusinessType_HadConsigned];
-                }else if ([btn.titleLabel.text isEqualToString:@"已取消"]){//3
-                    [self networking_type:BusinessType_HadCompleted];
-                }else{}
-            }
-        }];
-        extern OrderListVC *orderListVC;
-        [self.view addSubview:_searchView];
-        [_searchView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view);
-            make.top.equalTo(orderListVC.categoryView.mas_bottom);
-            make.height.mas_equalTo(SCALING_RATIO(50));
-        }];
-    }return _searchView;
 }
 
 -(NSMutableArray<OrderListModel *> *)dataMutArr{

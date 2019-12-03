@@ -12,6 +12,7 @@
 
 @property(nonatomic,copy)DataBlock ClickBlock;
 
+
 @end
 
 @implementation ViewForHeader

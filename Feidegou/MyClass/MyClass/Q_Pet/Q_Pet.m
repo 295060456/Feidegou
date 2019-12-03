@@ -153,6 +153,7 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
 -(LOTAnimationView *)laAnimation{
     if (!_laAnimation) {
         _laAnimation = [LOTAnimationView animationNamed:@"Watermelon.json"];
+//        _laAnimation = [LOTAnimationView animationNamed:@"data.json"];
         _laAnimation.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:_laAnimation];
         [_laAnimation mas_makeConstraints:^(MASConstraintMaker *make) {

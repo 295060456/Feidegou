@@ -83,6 +83,8 @@
 		8BA1CB9623963CAD002B3231 /* ConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA1CB9523963CAD002B3231 /* ConversationModel.m */; };
 		8BA69E4B23965E1A00575B2F /* PlatformConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA69E4A23965E1A00575B2F /* PlatformConversationModel.m */; };
 		8BA69E4F2396C3BD00575B2F /* GettingDeviceIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA69E4E2396C3BC00575B2F /* GettingDeviceIP.m */; };
+		8BA69E5D2396CBF000575B2F /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BA69E5C2396CBF000575B2F /* data.json */; };
+		8BA69E602396CFFF00575B2F /* OrderManagerTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA69E5F2396CFFF00575B2F /* OrderManagerTBViewForHeader.m */; };
 		8BAC1F0E2381A3B90084B6B4 /* OrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F0D2381A3B90084B6B4 /* OrderDetailVC.m */; };
 		8BAC1F112382374A0084B6B4 /* OrderDetailTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F102382374A0084B6B4 /* OrderDetailTBViewForHeader.m */; };
 		8BAC1F162382392C0084B6B4 /* ViewForFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F132382392B0084B6B4 /* ViewForFooter.m */; };
@@ -799,6 +801,9 @@
 		8BA69E4A23965E1A00575B2F /* PlatformConversationModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlatformConversationModel.m; sourceTree = "<group>"; };
 		8BA69E4D2396C3BC00575B2F /* GettingDeviceIP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GettingDeviceIP.h; sourceTree = "<group>"; };
 		8BA69E4E2396C3BC00575B2F /* GettingDeviceIP.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GettingDeviceIP.m; sourceTree = "<group>"; };
+		8BA69E5C2396CBF000575B2F /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
+		8BA69E5E2396CFFF00575B2F /* OrderManagerTBViewForHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderManagerTBViewForHeader.h; sourceTree = "<group>"; };
+		8BA69E5F2396CFFF00575B2F /* OrderManagerTBViewForHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderManagerTBViewForHeader.m; sourceTree = "<group>"; };
 		8BAC1F0C2381A3B90084B6B4 /* OrderDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailVC.h; sourceTree = "<group>"; };
 		8BAC1F0D2381A3B90084B6B4 /* OrderDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailVC.m; sourceTree = "<group>"; };
 		8BAC1F0F2382374A0084B6B4 /* OrderDetailTBViewForHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailTBViewForHeader.h; sourceTree = "<group>"; };
@@ -2471,6 +2476,7 @@
 		8BB2D2EE2366C7310047D0E2 /* Q_Pet */ = {
 			isa = PBXGroup;
 			children = (
+				8BA69E5C2396CBF000575B2F /* data.json */,
 				8BB2D2F02366C7310047D0E2 /* Q_Pet.h */,
 				8BB2D2EF2366C7310047D0E2 /* Q_Pet.m */,
 				8B7DED992382C0D200DEBA38 /* Q_Pet+VM.h */,
@@ -2726,6 +2732,8 @@
 				8BF2EC20238C220A0058C771 /* OrderListModel.m */,
 				8B16F04523867F03003941B4 /* OrderListTBVCell.h */,
 				8B16F04623867F03003941B4 /* OrderListTBVCell.m */,
+				8BA69E5E2396CFFF00575B2F /* OrderManagerTBViewForHeader.h */,
+				8BA69E5F2396CFFF00575B2F /* OrderManagerTBViewForHeader.m */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -4364,6 +4372,7 @@
 				8BB2D2852366C6990047D0E2 /* F.json in Resources */,
 				8BB2D2822366C6990047D0E2 /* HamburgerArrow.json in Resources */,
 				C42CD133213CC2640096675F /* CLCellGoodNum.xib in Resources */,
+				8BA69E5D2396CBF000575B2F /* data.json in Resources */,
 				C42CD05F213CC2640096675F /* CLCellCenterType.xib in Resources */,
 				C42CD0B7213CC2640096675F /* CellBilInfo.xib in Resources */,
 				C42CD177213CC2640096675F /* WithdrawDeposit.storyboard in Resources */,
@@ -4953,6 +4962,7 @@
 				C42CD050213CC2640096675F /* CellTextField.m in Sources */,
 				C42CD19B213CC2640096675F /* UILabelDarkGaryBig.m in Sources */,
 				C42CD1B3213CC2640096675F /* ShopCartNavigationController.m in Sources */,
+				8BA69E602396CFFF00575B2F /* OrderManagerTBViewForHeader.m in Sources */,
 				C42CD0FB213CC2640096675F /* GoodDetailDiscussController.m in Sources */,
 				C42CD059213CC2640096675F /* ChangeHeadImgController.m in Sources */,
 				8BAC1F0E2381A3B90084B6B4 /* OrderDetailVC.m in Sources */,

@@ -21,7 +21,6 @@ UICollectionViewDelegateFlowLayout,
 PGBannerDelegate
 >
 
-@property(nonatomic,strong)PGBanner *banner;
 @property(nonatomic,strong)HQCollectionViewFlowLayout *flowlayout;
 
 @property(nonatomic,strong)id requestParams;
@@ -108,25 +107,16 @@ PGBannerDelegate
 #pragma mark ---------  UICollectionViewDataSource 配置单元格   --------------
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UICollectionViewCell"
-                                                                               forIndexPath:indexPath];
-        [cell addSubview:self.banner];
-        return cell;
-    }else{
-        ThroughTrainListCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ThroughTrainListCollectionViewCell"
-                                                                                             forIndexPath:indexPath];
-        if (self.dataMutArr.count) {
-            [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
-        }return cell;
-    }return UICollectionViewCell.new;
+    ThroughTrainListCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ThroughTrainListCollectionViewCell"
+                                                                                         forIndexPath:indexPath];
+    if (self.dataMutArr.count) {
+        [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+    }return cell;
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView
     numberOfItemsInSection:(NSInteger)section{
-    if (section == 0) {
-        return 1;
-    }return self.dataMutArr.count;
+    return self.dataMutArr.count;
 }
 #pragma mark —— PGBannerDelegate
 - (void)selectAction:(NSInteger)didSelectAtIndex didSelectView:(id)view {
@@ -159,15 +149,13 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 2;
+    return 1;
 }
 //设置区头高度
 - (CGSize)collectionView:(UICollectionView *)collectionView
                   layout:(UICollectionViewLayout*)collectionViewLayout
 referenceSizeForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        return CGSizeZero;
-    }return CGSizeMake(SCREEN_WIDTH,SCALING_RATIO(50));
+    return CGSizeMake(SCREEN_WIDTH,SCALING_RATIO(50));
 }
 //设置区尾高度
 - (CGSize)collectionView:(UICollectionView *)collectionView
@@ -180,9 +168,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     CGFloat d = (SCREEN_WIDTH -1-2-2) / 2;
-    if (indexPath.section == 0) {//轮播
-        return CGSizeMake(SCREEN_WIDTH,SCALING_RATIO(150));
-    }return CGSizeMake(d,d * 640 * 2 / 467 / 3);
+    return CGSizeMake(d,d * 640 * 2 / 467 / 3);
 }
 #pragma mark —— lazyLoad
 -(HQCollectionViewFlowLayout *)flowlayout{
@@ -228,21 +214,6 @@ referenceSizeForFooterInSection:(NSInteger)section{
                withReuseIdentifier:ReuseIdentifier];
     [self.view addSubview:_collectionView];
     return _collectionView;
-}
-
--(PGBanner *)banner{
-    if (!_banner) {
-        _banner = [[PGBanner alloc]initImageViewWithFrame:CGRectMake(0,
-                                                                     0,
-                                                                     SCREEN_WIDTH,
-                                                                     SCALING_RATIO(150)
-                                                                     )
-                                                imageList:@[@"1.png",
-                                                            @"2.png",
-                                                            @"3.png"]
-                                             timeInterval:3.0];
-        _banner.delegate = self;
-    }return _banner;
 }
 
 -(NSMutableArray<ThroughTrainListModel *> *)dataMutArr{
