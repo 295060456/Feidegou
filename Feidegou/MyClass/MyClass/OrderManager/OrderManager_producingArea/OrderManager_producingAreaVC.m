@@ -20,7 +20,7 @@ UITableViewDataSource
 
 @property(nonatomic,strong)SearchView *searchView;
 
-@property(nonatomic,strong)TimeManager *timeManager;//必须weak 引用计数器不为0
+@property(nonatomic,strong)TimeManager *timeManager;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -91,11 +91,7 @@ UITableViewDataSource
 
 -(instancetype)init{
     if (self = [super init]) {
-        @weakify(self)
-        self.timeManager = TimeManager.new;
-        [self.timeManager GCDTimer:@selector(GCDtimer)
-                            caller:self_weak_
-                          interval:3];
+        
     }return self;
 }
 
@@ -118,8 +114,6 @@ UITableViewDataSource
 
 -(void)viewWillDisappear:(BOOL)animated{//在这种框架下几乎等同于dealloc
     [super viewWillDisappear:animated];
-    [self.timeManager endGCDTimer];
-    self.timeManager = nil;
     self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— JXCategoryListContentViewDelegate
@@ -134,7 +128,8 @@ UITableViewDataSource
  可选实现，列表消失的时候调用
  */
 - (void)listDidDisappear{
-    [self.timeManager suspendGCDTimer];
+    [self.timeManager endGCDTimer];
+    self.timeManager = nil;
     if (self.dataMutArr.count) {
         self.selected = YES;
         [self showOrHiddenSearchView];
@@ -359,6 +354,16 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [_btnTitleMutArr addObject:@"已支付"];
         [_btnTitleMutArr addObject:@"已发货"];
     }return _btnTitleMutArr;
+}
+
+-(TimeManager *)timeManager{
+    if (!_timeManager) {
+        _timeManager = TimeManager.new;
+        @weakify(self)
+        [_timeManager GCDTimer:@selector(GCDtimer)
+                        caller:self_weak_
+                      interval:3];
+    }return _timeManager;
 }
 
 @end

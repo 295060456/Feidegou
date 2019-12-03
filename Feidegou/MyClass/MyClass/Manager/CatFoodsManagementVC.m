@@ -89,11 +89,6 @@ UITableViewDataSource
 -(instancetype)init{
     if (self = [super init]) {
         [self catfoodboothType];//
-        @weakify(self)
-        self.timeManager = TimeManager.new;
-        [self.timeManager GCDTimer:@selector(GCDtimerMaker)
-                            caller:self_weak_
-                          interval:3];
     }return self;
 }
 
@@ -115,8 +110,7 @@ UITableViewDataSource
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.timeManager endGCDTimer];
-    self.timeManager = nil;
+    [self.timeManager suspendGCDTimer];
     self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— 点击事件
@@ -461,6 +455,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _dataMutArr;
 }
 
+-(TimeManager *)timeManager{
+    if (!_timeManager) {
+        _timeManager = TimeManager.new;
+        @weakify(self)
+        [_timeManager GCDTimer:@selector(GCDtimerMaker)
+                        caller:self_weak_
+                      interval:3];
+    }return _timeManager;
+}
 
 
 @end
