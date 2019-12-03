@@ -25,7 +25,7 @@
         @"identity":[YDDevice getUQID]
     };
     @weakify(self)//[NSString jointMakeURL:@[HTTP,IP_Gouge,Port_Gouge,nil]]
-    [mgr POST:[NSString jointMakeURL:@[BaseUrl,@"/catfoodapp",@"/CatfoodCO_payURL"]]//BaseUrl
+    [mgr POST:[NSString jointMakeURL:@[ImgBaseURL,@"/catfoodapp",@"/CatfoodCO_payURL"]]//正式BaseURL 测试BaseUrl
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
        @"key":[RSAUtil encryptString:randomStr
@@ -82,7 +82,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
     @weakify(self)
-    [mgr POST:[NSString stringWithFormat:@"%@%@",BaseUrl,CatfoodSale_payURL]
+    [mgr POST:[NSString stringWithFormat:@"%@%@",ImgBaseURL,CatfoodSale_payURL]//正式BaseURL 测试BaseUrl
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
        @"key":[RSAUtil encryptString:randomStr
@@ -142,7 +142,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     };
     __block NSData *picData = [UIImage imageZipToData:self.pic];
     @weakify(self)
-    [mgr POST:[NSString stringWithFormat:@"%@%@",BaseUrl,CatfoodRecord_delURL]
+    [mgr POST:[NSString stringWithFormat:@"%@%@",ImgBaseURL,CatfoodRecord_delURL]//正式BaseURL 测试BaseUrl
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
        @"key":[RSAUtil encryptString:randomStr

@@ -12,7 +12,7 @@
 #define FMHttpConstant_h
 
 /********ImgBaseURL*****/
-#define ImgBaseURL @""
+//#define ImgBaseURL @""
 #define HTTP @"http://"
 #define WS @"ws://"
 #define IP_Gouge @"10.1.41.158"
@@ -43,17 +43,19 @@
 //#define YQM [NSString stringWithFormat:@"%@%@%@/%@",HTTP,IP_Daniel,Port_Daniel,RELATIVE_PATH_WRITE]//邀请码
 ////webSocket
 //#define WebSocketLocalhost [NSString stringWithFormat:@"%@%@%@%@",WS,IP_Daniel,Port_Daniel,@"/MFW/websocket"]
+//#define ImgBaseURL BaseUrl //正式BaseURL 测试BaseUrl
 
 #pragma mark —— 预上线环境
 #pragma mark —— 线上环境
 #define BaseUrl @"http://www.miaoxiaodian.shop/SHOPAPP2.0/appShop7"//喵粮管理地址
 #define BaseURL @"http://www.miaoxiaodian.shop"//喵粮管理地址
-//#define BASE_URL @"http://10.1.41.174:8080"//商城服务器正式地址
 #define AK @"http://www.miaoxiaodian.shop/SHOPAPP2.0/appShop7/query.do"//登录
 #define YQM @"http://www.miaoxiaodian.shop/SHOPAPP2.0/appShop7/write.do"//邀请码
 #define WebSocketLocalhost @"ws://www.miaoxiaodian.shop:8080/websocket/"//喵粮转转
 #define DanielUrL @"http://www.miaoxiaodian.shop/SHOPAPP2.0/appShop7"//
 #define DanielUrL_1 @"http://www.miaoxiaodian.shop/SHOPAPP2.0/appShop7"//查看上下级
+#define ImgBaseURL BaseURL //正式BaseURL 测试BaseUrl
+//#define BASE_URL @"http://10.1.41.174:8080"//商城服务器正式地址
 
 #define CatfoodManageURL @"/catfoodapp/user/seller/Catfoodmanage.htm"//喵粮管理 post 1 Y
 #define buyer_CatfoodRecord_listURL @"/catfoodapp/user/seller/CatfoodRecord_list.htm"//喵粮订单列表 post 2 Y

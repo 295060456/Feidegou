@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "RegisterViewController.h"
 #import "UITextFieldPassWord.h"
+#import "GettingDeviceIP.h"
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *txtUserName;
@@ -123,9 +124,10 @@
     [dateFormatter setTimeZone:timeZone];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSString *strToday = [dateFormatter stringFromDate:[NSDate date]];
-    [params setObject:strToday forKey:@"datetoken"];
-    [params setObject:[YDDevice getUQID] forKey:@"identity"];
-    
+    [params setObject:strToday forKey:@"datetoken"];//token
+    [params setObject:[YDDevice getUQID] forKey:@"identity"];//设备号
+    [params setObject:[GettingDeviceIP getIPaddress] forKey:@"loginIp"];//ip
+
     NSString *strJson = [self DataTOjsonString:params];// 字典转为json
     strJson = [NSString encodeToPercentEscapeString:strJson];// encodeing  json
     NSString *strKey =  [self encryptionTheParameter:strJson];// 根据json生成Key

@@ -90,7 +90,13 @@ UITableViewDataSource
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
     [self.tableView.mj_header beginRefreshing];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— 点击事件
 -(void)fleshBtnClickEvent:(UIButton *)sender{
@@ -105,7 +111,6 @@ UITableViewDataSource
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
-
 #pragma mark —— 私有方法
 // 下拉刷新
 -(void)pullToRefresh{
@@ -261,9 +266,22 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     if ([model isKindOfClass:[CatFoodProducingAreaModel class]]) {
         CatFoodProducingAreaModel *catFoodProducingAreaModel = model;
-        self.sellerNameLab.text = [NSString stringWithFormat:@"厂家:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.seller ReplaceStr:@"无"]];
-        self.priceLab.text = [NSString stringWithFormat:@"单价:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.price ReplaceStr:@"无"]];
-        self.numLab.text = [NSString stringWithFormat:@"数量:%@",[NSString ensureNonnullString:catFoodProducingAreaModel.quantity ReplaceStr:@"无"]];
+        if (catFoodProducingAreaModel.trade_no) {
+            NSString *str = [NSString stringWithFormat:@"%lu",[catFoodProducingAreaModel.trade_no unsignedLongValue]];
+            self.sellerNameLab.text = [@"厂家:" stringByAppendingString:str];
+        }else{
+            NSString *str = [NSString ensureNonnullString:catFoodProducingAreaModel.trade_no ReplaceStr:@"无"];
+            self.sellerNameLab.text = [@"厂家:" stringByAppendingString:str];
+        }
+        
+        if (catFoodProducingAreaModel.price) {
+            NSString *str = [NSString stringWithFormat:@"%.3f",[catFoodProducingAreaModel.price floatValue]];
+            self.priceLab.text = [[@"单价:" stringByAppendingString:str] stringByAppendingString:@" CNY"];
+        }else{
+            NSString *str = [NSString ensureNonnullString:catFoodProducingAreaModel.price ReplaceStr:@"无"];
+            self.priceLab.text = [@"单价:" stringByAppendingString:str];
+        }
+        self.numLab.text = [NSString stringWithFormat:@"数量:%@ g",[NSString ensureNonnullString:catFoodProducingAreaModel.quantity ReplaceStr:@"无"]];
         self.buyTipsLab.text = @"点击购买";
         [self.sellerNameLab sizeToFit];
         [self.priceLab sizeToFit];

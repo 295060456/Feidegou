@@ -135,6 +135,7 @@ RCIMConnectionStatusDelegate
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO];//和GK冲突，还原设置
     self.tabBarController.tabBar.hidden = YES;
     [self.conversationListTableView.mj_header beginRefreshing];
     [self.conversationListTableView reloadData];// 更新未读消息角标

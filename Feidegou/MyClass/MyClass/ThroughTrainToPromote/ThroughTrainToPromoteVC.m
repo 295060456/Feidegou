@@ -124,7 +124,6 @@ UITableViewDataSource
 }
 
 -(void)backBtnClickEvent:(UIButton *)sender{
-    [self deleteThroughTrainToPromote_netWorking];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

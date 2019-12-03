@@ -82,6 +82,7 @@
 		8B9EAF8D237429950012884C /* SettingPaymentWayTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF8C237429950012884C /* SettingPaymentWayTBViewForHeader.m */; };
 		8BA1CB9623963CAD002B3231 /* ConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA1CB9523963CAD002B3231 /* ConversationModel.m */; };
 		8BA69E4B23965E1A00575B2F /* PlatformConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA69E4A23965E1A00575B2F /* PlatformConversationModel.m */; };
+		8BA69E4F2396C3BD00575B2F /* GettingDeviceIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA69E4E2396C3BC00575B2F /* GettingDeviceIP.m */; };
 		8BAC1F0E2381A3B90084B6B4 /* OrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F0D2381A3B90084B6B4 /* OrderDetailVC.m */; };
 		8BAC1F112382374A0084B6B4 /* OrderDetailTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F102382374A0084B6B4 /* OrderDetailTBViewForHeader.m */; };
 		8BAC1F162382392C0084B6B4 /* ViewForFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F132382392B0084B6B4 /* ViewForFooter.m */; };
@@ -796,6 +797,8 @@
 		8BA1CB9523963CAD002B3231 /* ConversationModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationModel.m; sourceTree = "<group>"; };
 		8BA69E4923965E1A00575B2F /* PlatformConversationModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformConversationModel.h; sourceTree = "<group>"; };
 		8BA69E4A23965E1A00575B2F /* PlatformConversationModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlatformConversationModel.m; sourceTree = "<group>"; };
+		8BA69E4D2396C3BC00575B2F /* GettingDeviceIP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GettingDeviceIP.h; sourceTree = "<group>"; };
+		8BA69E4E2396C3BC00575B2F /* GettingDeviceIP.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GettingDeviceIP.m; sourceTree = "<group>"; };
 		8BAC1F0C2381A3B90084B6B4 /* OrderDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailVC.h; sourceTree = "<group>"; };
 		8BAC1F0D2381A3B90084B6B4 /* OrderDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailVC.m; sourceTree = "<group>"; };
 		8BAC1F0F2382374A0084B6B4 /* OrderDetailTBViewForHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailTBViewForHeader.h; sourceTree = "<group>"; };
@@ -2145,6 +2148,15 @@
 			path = JoinInTeam;
 			sourceTree = "<group>";
 		};
+		8BA69E4C2396C37100575B2F /* GetDeviceIP */ = {
+			isa = PBXGroup;
+			children = (
+				8BA69E4D2396C3BC00575B2F /* GettingDeviceIP.h */,
+				8BA69E4E2396C3BC00575B2F /* GettingDeviceIP.m */,
+			);
+			path = GetDeviceIP;
+			sourceTree = "<group>";
+		};
 		8BAC1F1823826F950084B6B4 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -2261,6 +2273,7 @@
 		8BB2D2942366C7310047D0E2 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				8BA69E4C2396C37100575B2F /* GetDeviceIP */,
 				8BC31198239555490050E1C1 /* Timer */,
 				8B8A0E112390D54E000D7579 /* XXTools */,
 				8BCAB641238A8E16000B0360 /* SearchView */,
@@ -4901,6 +4914,7 @@
 				C42CD156213CC2640096675F /* CellOneImage.m in Sources */,
 				8B86A7F9237D0FE50058173B /* ReleaseOrderVC.m in Sources */,
 				C46368D4213FBE6C006922D5 /* LayoutSixType.m in Sources */,
+				8BA69E4F2396C3BD00575B2F /* GettingDeviceIP.m in Sources */,
 				8BF2EC21238C220A0058C771 /* OrderListModel.m in Sources */,
 				C42CD065213CC2640096675F /* CellCollectionType.m in Sources */,
 				8BB2D3412366CB3B0047D0E2 /* FMARCNetwork.m in Sources */,

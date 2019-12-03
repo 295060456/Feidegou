@@ -401,12 +401,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [tempMutArr addObject:@"喵粮订单管理"];
         [tempMutArr addObject:@"店铺收款码"];
         [tempMutArr addObject:@"赠送"];
-        if ([self.loginModel.grade_id intValue] == 3) {//只有Vip商家可见
-            [tempMutArr addObject:@"喵粮产地"];//喵粮产地
-        }
         [tempMutArr addObject:@"直通车"];
         if ([[PersonalInfo sharedInstance] isLogined]) {
             ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+            if ([model.grade_id intValue] == 3) {
+                [tempMutArr addObject:@"喵粮产地"];
+            }
             if ([model.grade_id intValue] == 2) {
                 [tempMutArr addObject:@"进货市场"];
             }
@@ -427,12 +427,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [tempMutArr addObject:@"listManager"];
         [tempMutArr addObject:@"StoreReceiptCode"];
         [tempMutArr addObject:@"send"];
-        if ([self.loginModel.grade_id intValue] == 3) {//只有Vip商家可见
-            [tempMutArr addObject:@"producingArea"];//喵粮产地
-        }
         [tempMutArr addObject:@"panicPurchase"];
         if ([[PersonalInfo sharedInstance] isLogined]) {
             ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+            if ([model.grade_id intValue] == 3) {//只有Vip商家可见
+                [tempMutArr addObject:@"producingArea"];//喵粮产地
+            }
             if ([model.grade_id intValue] == 2) {
                 [tempMutArr addObject:@"wholesaleMarket"];
             }

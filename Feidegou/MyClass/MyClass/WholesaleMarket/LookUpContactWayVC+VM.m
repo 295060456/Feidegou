@@ -46,10 +46,10 @@
             NSLog(@"");
             if ([response isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *dataDic = (NSDictionary *)response;
-                [self.contentTextMutArr addObject:dataDic[@"id"]];
-                [self.contentTextMutArr addObject:dataDic[@"weixin_account"]];
-                [self.contentTextMutArr addObject:dataDic[@"contactmobile"]];
-                [self.contentTextMutArr addObject:dataDic[@"QQ"]];
+                [self.contentTextMutArr addObject:[NSString ensureNonnullString:dataDic[@"id"] ReplaceStr:@"暂无"]];
+                [self.contentTextMutArr addObject:[NSString ensureNonnullString:dataDic[@"weixin_account"] ReplaceStr:@"暂无"]];
+                [self.contentTextMutArr addObject:[NSString ensureNonnullString:dataDic[@"contactmobile"] ReplaceStr:@"暂无"]];
+                [self.contentTextMutArr addObject:[NSString ensureNonnullString:dataDic[@"QQ"] ReplaceStr:@"暂无"]];
             }
             [self.tableView reloadData];
             [self.tableView.mj_header endRefreshing];

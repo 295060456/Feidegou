@@ -241,13 +241,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 @property(nonatomic,strong)UILabel *styleLab;//类型
 @property(nonatomic,strong)UILabel *numLab;//数量
 @property(nonatomic,strong)UILabel *remarkTitleLab;//备注标题
-@property(nonatomic,strong)UILabel *balanceTitleLab;//余额标题
 @property(nonatomic,strong)UILabel *remarkLab;//备注
+@property(nonatomic,strong)UILabel *balanceTitleLab;//余额标题
+@property(nonatomic,strong)UILabel *orderNumTitleLab;//订单号标题
+@property(nonatomic,strong)UILabel *orderNumLab;//订单号
 
 @property(nonatomic,copy)NSString *styleLabStr;//类型
 @property(nonatomic,copy)NSString *numLabStr;//数量
 @property(nonatomic,copy)NSString *remarkLabStr;//备注
 @property(nonatomic,copy)NSString *balanceLabStr;//余额
+@property(nonatomic,copy)NSString *orderNumStr;//订单号
 
 @end
 
@@ -316,6 +319,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         self.remarkLab.alpha = 1;
         self.balanceTitleLab.alpha = 1;
         self.balanceLab.alpha = 1;
+        self.orderNumTitleLab.alpha = 1;
+        self.orderNumLab.text = [NSString ensureNonnullString:personalDataChangedListModel.ordercode ReplaceStr:@"无"];
     }
 }
 #pragma mark —— lazyLoad
@@ -412,6 +417,35 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             make.left.equalTo(self.balanceTitleLab.mas_right);
         }];
     }return _balanceLab;
+}
+
+-(UILabel *)orderNumTitleLab{
+    if (!_orderNumTitleLab) {
+        _orderNumTitleLab = UILabel.new;
+//        _orderNumTitleLab.textAlignment = NSTextAlignmentCenter;
+        _orderNumTitleLab.text = @"订单号:";
+        [self.contentView addSubview:_orderNumTitleLab];
+        [_orderNumTitleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
+            make.width.mas_equalTo(SCALING_RATIO(70));
+            make.top.equalTo(self.balanceTitleLab.mas_bottom).offset(SCALING_RATIO(10));
+        }];
+    }return _orderNumTitleLab;
+}
+
+-(UILabel *)orderNumLab{
+    if (!_orderNumLab) {
+        _orderNumLab = UILabel.new;
+//        _orderNumLab.backgroundColor = kGrayColor;
+        _orderNumLab.textAlignment = NSTextAlignmentCenter;
+        _orderNumLab.text = self.orderNumStr;
+        [self.contentView addSubview:_orderNumLab];
+        [_orderNumLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.balanceLab.mas_bottom).offset(SCALING_RATIO(10));
+            make.right.equalTo(self.contentView).offset(SCALING_RATIO(10));
+            make.left.equalTo(self.balanceTitleLab.mas_right);
+        }];
+    }return _orderNumLab;
 }
 
 @end

@@ -34,7 +34,10 @@
                     self.wechatPlaceholderStr = dic[@"weixin_account"];
                     [self.sendBtn setTitle:@"点我修改"
                                   forState:UIControlStateNormal];
-                    [self.titleMutArr addObject:[self.invitationCodeStr stringByAppendingString:[NSString ensureNonnullString:dic[@"code"] ReplaceStr:@"暂无信息"]]];
+                    if ([[PersonalInfo sharedInstance] isLogined]) {
+                        [self.titleMutArr addObject:[self.invitationCodeStr stringByAppendingString:[NSString ensureNonnullString:[[PersonalInfo sharedInstance] fetchLoginUserInfo].code
+                                                                                                                       ReplaceStr:@"暂无信息"]]];
+                    }
                 }else{
                     [self.sendBtn setTitle:@"点我发送"
                                   forState:UIControlStateNormal];
@@ -53,12 +56,12 @@
                 }
             
 //                self.tableView.mj_footer.hidden = NO;
-                [self.tableView.mj_header endRefreshing];
-                [self.tableView.mj_footer endRefreshing];
                 [self.tableView reloadData];
             }
         }];
     }
+    [self.tableView.mj_header endRefreshing];
+    [self.tableView.mj_footer endRefreshing];
 }
 //#define Updatewx @"/catfoodapp/user/updatewx.htm"//我的团队修改信息 需要传给我的值   微信必填其余可不填：weixin_account QQ user_id  contactmobile手机号
 -(void)ChangeMyInfo{

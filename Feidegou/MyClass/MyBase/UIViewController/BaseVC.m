@@ -386,7 +386,7 @@
     if (!_backBtn) {
         _backBtn = MMButton.new;
         _backBtn.imageAlignment = MMImageAlignmentLeft;
-        _backBtn.spaceBetweenTitleAndImage = SCALING_RATIO(5);
+        _backBtn.spaceBetweenTitleAndImage = SCALING_RATIO(10);
         [_backBtn setTitleColor:kWhiteColor
                        forState:UIControlStateNormal];
         [_backBtn setTitle:@"返回"

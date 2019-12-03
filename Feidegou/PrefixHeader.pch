@@ -112,6 +112,7 @@
 #import "SocketRocketUtility.h"
 #import "YDDevice.h"
 #import "UIControl+XY.h"
+#import "GettingDeviceIP.h"
 //#import "MISCustomButton.h"
 //加密体系
 #import "RSAUtil.h"
