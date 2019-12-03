@@ -46,7 +46,6 @@ UITableViewDataSource
 
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
-    [self.timeManager endGCDTimer];
 }
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
@@ -116,7 +115,8 @@ UITableViewDataSource
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.timeManager suspendGCDTimer];
+    [self.timeManager endGCDTimer];
+    self.timeManager = nil;
     self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— 点击事件
