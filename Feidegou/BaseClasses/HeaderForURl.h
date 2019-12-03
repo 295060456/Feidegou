@@ -62,7 +62,6 @@
 //获取屏幕高度
 #define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
 
-
 #pragma mark - ===================系统版本========================
 
 //当前设备系统版本号

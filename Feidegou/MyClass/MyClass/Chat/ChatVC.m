@@ -7,12 +7,17 @@
 //
 
 #import "ChatVC.h"
+#import "CatFoodsManagementVC.h"
 
 @interface ChatVC ()
 <
 RCIMConnectionStatusDelegate
 >
 
+@property(nonatomic,strong)UIViewController *rootVC;
+
+@property(nonatomic,strong)RCConversationModel *rcConversationModel;
+@property(nonatomic,strong)ConversationModel *conversationModel;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -35,13 +40,23 @@ RCIMConnectionStatusDelegate
     ChatVC *vc = ChatVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-    if ([requestParams isKindOfClass:[RCConversationModel class]]) {
-        RCConversationModel *model = (RCConversationModel *)requestParams;
-        vc.conversationType = model.conversationType;
-        vc.targetId = model.targetId;
+    vc.rootVC = rootVC;
+    if ([requestParams isKindOfClass:[ConversationModel class]]){
+        vc.conversationModel = (ConversationModel *)requestParams;
+        vc.conversationType = vc.conversationModel.conversationType;
+        vc.targetId = vc.conversationModel.targetId;
         vc.chatSessionInputBarControl.hidden = NO;
-        vc.title = model.conversationTitle;
-    }
+        vc.title = vc.conversationModel.conversationTitle;
+    }else{}
+    
+//    if ([requestParams isKindOfClass:[RCConversationModel class]]) {
+//        vc.rcConversationModel = (RCConversationModel *)requestParams;
+//        vc.conversationType = vc.rcConversationModel.conversationType;
+//        vc.targetId = vc.rcConversationModel.targetId;
+//        vc.chatSessionInputBarControl.hidden = NO;
+//        vc.title = vc.rcConversationModel.conversationTitle;
+//    }else
+    
     extern NSString *tokenStr;
     RCIM *rcim = [RCIM sharedRCIM];
     rcim.connectionStatusDelegate = vc;
@@ -112,27 +127,33 @@ RCIMConnectionStatusDelegate
 -(void)sendUserInfoExtras{
     NSString *content = @"你好";
     RCTextMessage *txtMessage = [RCTextMessage messageWithContent:content];
-    NSDictionary *dataDic = @{
-        @"nick":@"kite",
-        @"portrait":@"123456",
-        @"order_code":@"0987654321"
-    };
+    NSDictionary *dataDic = nil;
+    if (self.rcConversationModel) {
+         dataDic = @{};
+    }else if (self.conversationModel){
+        dataDic = @{
+            @"nick":self.conversationModel.nick,
+            @"portrait":self.conversationModel.portrait,
+            @"order_code":self.conversationModel.order_code,
+        };
+    }else{}
+    
     NSData * data = [NSJSONSerialization dataWithJSONObject:dataDic
                                                     options:NSJSONWritingPrettyPrinted
                                                       error:Nil];
     txtMessage.extra = [[NSString alloc] initWithData:data
                                              encoding:NSUTF8StringEncoding];
       [[RCIMClient sharedRCIMClient]
-                  sendMessage:ConversationType_PRIVATE
-                  targetId:@"admin"
-                  content:txtMessage
-                  pushContent:@"远程推送显示的内容"
-                  pushData:@"远程推送的附加信息"
-                  success:^(long messageId) {
+       sendMessage:ConversationType_PRIVATE
+       targetId:@"admin"
+       content:txtMessage
+       pushContent:@"远程推送显示的内容"
+       pushData:@"远程推送的附加信息"
+       success:^(long messageId) {
 
-                  }
-                  error:^(RCErrorCode nErrorCode,
-                          long messageId) {
+      }
+       error:^(RCErrorCode nErrorCode,
+               long messageId) {
       }];
 }
 

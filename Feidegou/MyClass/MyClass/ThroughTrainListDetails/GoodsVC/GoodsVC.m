@@ -125,12 +125,11 @@ UIScrollViewDelegate
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
+//    self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— 私有方法
 // 手动下拉刷新

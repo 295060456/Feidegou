@@ -77,7 +77,7 @@ PGBannerDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    self.gk_navTitle = @"";
+    self.gk_navTitle = @"喵粮精选";
     self.collectionView.alpha = 1;
 }
 

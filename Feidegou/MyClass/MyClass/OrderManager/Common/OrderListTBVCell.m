@@ -57,7 +57,7 @@
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCREEN_HEIGHT / 5;
+    return SCREEN_HEIGHT / 3;
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{

@@ -13,7 +13,6 @@
 }
 
 @property(nonatomic,strong)YYLabel *titleLab;
-@property(nonatomic,strong)UIImageView *tipsIMGV;
 
 @property(nonatomic,copy)NSString *str;
 @property(nonatomic,copy)NSMutableAttributedString *attributedString;
@@ -134,7 +133,7 @@
 -(UIImageView *)tipsIMGV{
     if (!_tipsIMGV) {
         _tipsIMGV = UIImageView.new;
-        _tipsIMGV.image = kIMG(@"telephone");
+        _tipsIMGV.image = kIMG(@"TELE");
         [self addSubview:_tipsIMGV];
         [_tipsIMGV mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self);

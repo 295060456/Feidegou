@@ -140,6 +140,7 @@
 #import "DefineStructure.h"
 #import "OrderListModel.h"
 #import "ThroughTrainListModel.h"
+#import "ConversationModel.h"
 
 #import "LoginViewController.h"
 #import "OrderDetailVC.h"//订单详情

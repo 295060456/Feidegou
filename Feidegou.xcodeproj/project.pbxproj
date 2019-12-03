@@ -80,6 +80,7 @@
 		8B9EAF87237417390012884C /* SettingPaymentWayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF86237417390012884C /* SettingPaymentWayVC.m */; };
 		8B9EAF8A2374175D0012884C /* SettingPaymentWayVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF892374175D0012884C /* SettingPaymentWayVC+VM.m */; };
 		8B9EAF8D237429950012884C /* SettingPaymentWayTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF8C237429950012884C /* SettingPaymentWayTBViewForHeader.m */; };
+		8BA1CB9623963CAD002B3231 /* ConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA1CB9523963CAD002B3231 /* ConversationModel.m */; };
 		8BAC1F0E2381A3B90084B6B4 /* OrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F0D2381A3B90084B6B4 /* OrderDetailVC.m */; };
 		8BAC1F112382374A0084B6B4 /* OrderDetailTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F102382374A0084B6B4 /* OrderDetailTBViewForHeader.m */; };
 		8BAC1F162382392C0084B6B4 /* ViewForFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F132382392B0084B6B4 /* ViewForFooter.m */; };
@@ -790,6 +791,8 @@
 		8B9EAF892374175D0012884C /* SettingPaymentWayVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SettingPaymentWayVC+VM.m"; sourceTree = "<group>"; };
 		8B9EAF8B237429950012884C /* SettingPaymentWayTBViewForHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingPaymentWayTBViewForHeader.h; sourceTree = "<group>"; };
 		8B9EAF8C237429950012884C /* SettingPaymentWayTBViewForHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingPaymentWayTBViewForHeader.m; sourceTree = "<group>"; };
+		8BA1CB9423963CAD002B3231 /* ConversationModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationModel.h; sourceTree = "<group>"; };
+		8BA1CB9523963CAD002B3231 /* ConversationModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationModel.m; sourceTree = "<group>"; };
 		8BAC1F0C2381A3B90084B6B4 /* OrderDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailVC.h; sourceTree = "<group>"; };
 		8BAC1F0D2381A3B90084B6B4 /* OrderDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailVC.m; sourceTree = "<group>"; };
 		8BAC1F0F2382374A0084B6B4 /* OrderDetailTBViewForHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailTBViewForHeader.h; sourceTree = "<group>"; };
@@ -2146,6 +2149,8 @@
 				8B86E02E23854607004D4C0A /* ChatListVC.m */,
 				8B86E033238557ED004D4C0A /* ChatVC.h */,
 				8B86E034238557ED004D4C0A /* ChatVC.m */,
+				8BA1CB9423963CAD002B3231 /* ConversationModel.h */,
+				8BA1CB9523963CAD002B3231 /* ConversationModel.m */,
 				8B86E030238556FA004D4C0A /* OTCConversationListCellTableViewCell.h */,
 				8B86E031238556FA004D4C0A /* OTCConversationListCellTableViewCell.m */,
 			);
@@ -4611,6 +4616,7 @@
 				C42CD195213CC2640096675F /* UILabelDarkSmall.m in Sources */,
 				C42CD0BA213CC2640096675F /* CellOrderDetailLogistics.m in Sources */,
 				C4FC07C5215B35F400C6ECF3 /* UAProgressView.m in Sources */,
+				8BA1CB9623963CAD002B3231 /* ConversationModel.m in Sources */,
 				C42CD193213CC2640096675F /* UILabelDarkGarySmall.m in Sources */,
 				8BEAAFC423884DB2008D7F1D /* UIControl+XY.m in Sources */,
 				C42CD1CE213CC2650096675F /* ModelOrderList.m in Sources */,

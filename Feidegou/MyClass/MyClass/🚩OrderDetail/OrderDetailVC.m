@@ -121,17 +121,19 @@ UITableViewDataSource
     }else{
         [self.tableView.mj_header beginRefreshing];
     }
+    self.tabBarController.tabBar.hidden = YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— 私有方法
 -(void)data{
     if (self.orderListModel) {
         NSString *str1 = [NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"];
         NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
-        self.str = [NSString stringWithFormat:@"stallListModel厂家%@购买%@g喵粮",str1,str2];
+        self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
             if ([self.orderListModel.order_type intValue] == 1) {//直通车 只有卖家 订单类型 1、直通车;2、批发;3、平台
                 self.gk_navTitle = @"直通车订单详情";
                 if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
@@ -424,29 +426,42 @@ viewForHeaderInSection:(NSInteger)section {
         viewForHeader = [[OrderDetailTBViewForHeader alloc]initWithReuseIdentifier:ReuseIdentifier
                                                                           withData:self.str];
         [viewForHeader headerViewWithModel:nil];
-        @weakify(self)
-        [viewForHeader actionBlock:^(id data) {
-            @strongify(self)
-            NSLog(@"联系");
-#warning KKK
-            RCConversationModel *model = RCConversationModel.new;
-            model.conversationType = ConversationType_PRIVATE;
-            model.targetId = @"admin";//[NSString stringWithFormat:@"%@",self.orderListModel.seller];
-            
-            if (self.orderListModel) {
-                [ChatVC ComingFromVC:self_weak_
-                           withStyle:ComingStyle_PUSH
-                       requestParams:model
-                             success:^(id data) {}
-                            animated:YES];
-            }
-//            if (self.catFoodProducingAreaModel) {
-//                self.catFoodProducingAreaModel.seller;
-//            }
-//            if (self.stallListModel) {
-//                self.stallListModel.seller;
-//            }
-        }];
+        //只有取消状态才可以聊天
+        if ([self.orderListModel.order_status intValue] == 3) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            viewForHeader.tipsIMGV.alpha = 1;
+            @weakify(self)
+            [viewForHeader actionBlock:^(id data) {
+                @strongify(self)
+                NSLog(@"联系");
+                ConversationModel *model = ConversationModel.new;
+                model.conversationType = ConversationType_PRIVATE;
+
+                if ([[PersonalInfo sharedInstance] isLogined]) {
+                    ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+                    model.nick = modelLogin.userName;
+                    model.order_code = [self.orderListModel.ID stringValue];
+                    model.portrait = modelLogin.head;
+                    model.conversationTitle = @"对话";
+                    model.targetId = [NSString stringWithFormat:@"%@",self.orderListModel.platform_id];//0
+                }
+                
+                if (self.orderListModel) {
+                    [ChatVC ComingFromVC:self_weak_
+                               withStyle:ComingStyle_PUSH
+                           requestParams:model
+                                 success:^(id data) {}
+                                animated:YES];
+                }
+    //            if (self.catFoodProducingAreaModel) {
+    //                self.catFoodProducingAreaModel.seller;
+    //            }
+    //            if (self.stallListModel) {
+    //                self.stallListModel.seller;
+    //            }
+            }];
+        }else{
+            viewForHeader.tipsIMGV.alpha = 0;
+        }
     }return viewForHeader;
 }
 

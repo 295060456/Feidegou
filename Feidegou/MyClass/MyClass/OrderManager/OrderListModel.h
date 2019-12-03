@@ -25,6 +25,24 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *payment_weixin;//
 @property(nonatomic,copy)NSString *payment_alipay;//
 
+@property(nonatomic,copy)NSString *weixin_decode;
+@property(nonatomic,copy)NSString *payment_alipay_img;
+@property(nonatomic,copy)NSString *del_reason;
+@property(nonatomic,copy)NSString *comefrom;
+@property(nonatomic,copy)NSString *msg_type;
+@property(nonatomic,copy)NSString *overdueTime;
+@property(nonatomic,copy)NSString *payment_weixin_img;
+@property(nonatomic,copy)NSString *byname;
+@property(nonatomic,strong)NSNumber *affirm;
+@property(nonatomic,strong)NSNumber *goods_status;
+@property(nonatomic,copy)NSString *seller_ip;
+@property(nonatomic,strong)NSNumber *platform_id;
+@property(nonatomic,copy)NSString *seller_city;
+@property(nonatomic,copy)NSString *alipay_decode;
+@property(nonatomic,copy)NSString *ip;
+@property(nonatomic,copy)NSString *notifyurl;
+@property(nonatomic,copy)NSString *buyer_city;
+
 @property(nonatomic,copy)NSString *identity;//我自己手动加的字段
 
 @end
