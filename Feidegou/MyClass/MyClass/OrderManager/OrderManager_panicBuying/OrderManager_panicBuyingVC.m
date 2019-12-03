@@ -314,6 +314,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(SearchView *)searchView{
     if (!_searchView) {
         _searchView = [[SearchView alloc]initWithBtnTitleMutArr:self.btnTitleMutArr];
+        _searchView.backgroundColor = kRedColor;
         @weakify(self)
         [_searchView actionBlock:^(id data) {
             @strongify(self)

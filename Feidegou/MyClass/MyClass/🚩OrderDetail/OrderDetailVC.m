@@ -427,7 +427,8 @@ viewForHeaderInSection:(NSInteger)section {
                                                                           withData:self.str];
         [viewForHeader headerViewWithModel:nil];
         //只有取消状态才可以聊天
-        if ([self.orderListModel.order_status intValue] == 3) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+#warning KKK
+        if ([self.orderListModel.order_status intValue] == 2) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
             viewForHeader.tipsIMGV.alpha = 1;
             @weakify(self)
             [viewForHeader actionBlock:^(id data) {
