@@ -81,6 +81,7 @@
 		8B9EAF8A2374175D0012884C /* SettingPaymentWayVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF892374175D0012884C /* SettingPaymentWayVC+VM.m */; };
 		8B9EAF8D237429950012884C /* SettingPaymentWayTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9EAF8C237429950012884C /* SettingPaymentWayTBViewForHeader.m */; };
 		8BA1CB9623963CAD002B3231 /* ConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA1CB9523963CAD002B3231 /* ConversationModel.m */; };
+		8BA69E4B23965E1A00575B2F /* PlatformConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA69E4A23965E1A00575B2F /* PlatformConversationModel.m */; };
 		8BAC1F0E2381A3B90084B6B4 /* OrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F0D2381A3B90084B6B4 /* OrderDetailVC.m */; };
 		8BAC1F112382374A0084B6B4 /* OrderDetailTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F102382374A0084B6B4 /* OrderDetailTBViewForHeader.m */; };
 		8BAC1F162382392C0084B6B4 /* ViewForFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F132382392B0084B6B4 /* ViewForFooter.m */; };
@@ -793,6 +794,8 @@
 		8B9EAF8C237429950012884C /* SettingPaymentWayTBViewForHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingPaymentWayTBViewForHeader.m; sourceTree = "<group>"; };
 		8BA1CB9423963CAD002B3231 /* ConversationModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConversationModel.h; sourceTree = "<group>"; };
 		8BA1CB9523963CAD002B3231 /* ConversationModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConversationModel.m; sourceTree = "<group>"; };
+		8BA69E4923965E1A00575B2F /* PlatformConversationModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlatformConversationModel.h; sourceTree = "<group>"; };
+		8BA69E4A23965E1A00575B2F /* PlatformConversationModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlatformConversationModel.m; sourceTree = "<group>"; };
 		8BAC1F0C2381A3B90084B6B4 /* OrderDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailVC.h; sourceTree = "<group>"; };
 		8BAC1F0D2381A3B90084B6B4 /* OrderDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailVC.m; sourceTree = "<group>"; };
 		8BAC1F0F2382374A0084B6B4 /* OrderDetailTBViewForHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailTBViewForHeader.h; sourceTree = "<group>"; };
@@ -2507,6 +2510,8 @@
 			children = (
 				8BB2D2FB2366C7310047D0E2 /* CatFoodsManagementVC.h */,
 				8BB2D2FC2366C7310047D0E2 /* CatFoodsManagementVC.m */,
+				8BA69E4923965E1A00575B2F /* PlatformConversationModel.h */,
+				8BA69E4A23965E1A00575B2F /* PlatformConversationModel.m */,
 				8B7A552A236EC3FF006B12F8 /* CatFoodsManagementVC+VM.h */,
 				8B7A552B236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m */,
 			);
@@ -4544,6 +4549,7 @@
 				C42CD06E213CC2640096675F /* ChangePswController.m in Sources */,
 				C46D6B5321438F6400428D7A /* PayMoneySuccedController.m in Sources */,
 				C42CD09D213CC2640096675F /* CellLogisticsEnd.m in Sources */,
+				8BA69E4B23965E1A00575B2F /* PlatformConversationModel.m in Sources */,
 				C42CD0F0213CC2640096675F /* RegisterInviterController.m in Sources */,
 				8B8A1DCC238D730D006AE2CB /* LookUpContactWayTBViewForHeader.m in Sources */,
 				C46143F2214386B6000C0CDC /* CellVendorAddress.m in Sources */,

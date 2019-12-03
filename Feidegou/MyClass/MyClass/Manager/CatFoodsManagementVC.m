@@ -129,9 +129,9 @@ UITableViewDataSource
     @weakify(self)
     if ([[PersonalInfo sharedInstance] isLogined]) {
         ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-        RCConversationModel *conversationModel = RCConversationModel.new;
+        PlatformConversationModel *conversationModel = PlatformConversationModel.new;
         conversationModel.conversationType = ConversationType_PRIVATE;
-        conversationModel.targetId = [model.platform_id stringValue];
+        conversationModel.targetId = [model.platform_id stringValue];//
         [ChatVC ComingFromVC:self_weak_
                    withStyle:ComingStyle_PUSH
                requestParams:conversationModel

@@ -79,7 +79,7 @@
     }
     __block NSData *picData = [UIImage imageZipToData:image];
     
-    NSString *str = [NSString stringWithFormat:@"%@%@",BaseURL,Catfood_qr_addURL];
+    NSString *str = [NSString stringWithFormat:@"%@%@",BaseUrl,Catfood_qr_addURL];
     [mgr POST:str
    parameters:@{
        @"data":aesEncryptString([NSString convertToJsonData:dataMutDic], randomStr),

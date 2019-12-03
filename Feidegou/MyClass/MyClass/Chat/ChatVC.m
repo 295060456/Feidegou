@@ -18,6 +18,7 @@ RCIMConnectionStatusDelegate
 
 @property(nonatomic,strong)RCConversationModel *rcConversationModel;
 @property(nonatomic,strong)ConversationModel *conversationModel;
+@property(nonatomic,strong)PlatformConversationModel *platformConversationModel;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -41,22 +42,26 @@ RCIMConnectionStatusDelegate
     vc.successBlock = block;
     vc.requestParams = requestParams;
     vc.rootVC = rootVC;
-    if ([requestParams isKindOfClass:[ConversationModel class]]){
+    if ([requestParams isKindOfClass:[ConversationModel class]]){//订单详情——直通车进来
         vc.conversationModel = (ConversationModel *)requestParams;
         vc.conversationType = vc.conversationModel.conversationType;
         vc.targetId = vc.conversationModel.targetId;
         vc.chatSessionInputBarControl.hidden = NO;
         vc.title = vc.conversationModel.conversationTitle;
-    }else{}
-    
-//    if ([requestParams isKindOfClass:[RCConversationModel class]]) {
-//        vc.rcConversationModel = (RCConversationModel *)requestParams;
-//        vc.conversationType = vc.rcConversationModel.conversationType;
-//        vc.targetId = vc.rcConversationModel.targetId;
-//        vc.chatSessionInputBarControl.hidden = NO;
-//        vc.title = vc.rcConversationModel.conversationTitle;
-//    }else
-    
+    }else if ([requestParams isKindOfClass:[PlatformConversationModel class]]){//喵粮管理右上角进
+        vc.platformConversationModel = (PlatformConversationModel *)requestParams;
+        vc.conversationType = vc.platformConversationModel.conversationType;
+        vc.targetId = vc.platformConversationModel.targetId;
+        vc.chatSessionInputBarControl.hidden = NO;
+        vc.title = vc.platformConversationModel.conversationTitle;
+    }else{//从会话列表进
+        vc.rcConversationModel = (RCConversationModel *)requestParams;
+        vc.conversationType = vc.rcConversationModel.conversationType;
+        vc.targetId = vc.rcConversationModel.targetId;
+        vc.chatSessionInputBarControl.hidden = NO;
+        vc.title = vc.rcConversationModel.conversationTitle;
+    }
+
     extern NSString *tokenStr;
     RCIM *rcim = [RCIM sharedRCIM];
     rcim.connectionStatusDelegate = vc;
@@ -136,6 +141,8 @@ RCIMConnectionStatusDelegate
             @"portrait":self.conversationModel.portrait,
             @"order_code":self.conversationModel.order_code,
         };
+    }else if (self.platformConversationModel){
+        dataDic = @{};
     }else{}
     
     NSData * data = [NSJSONSerialization dataWithJSONObject:dataDic

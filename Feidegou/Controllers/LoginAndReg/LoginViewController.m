@@ -157,14 +157,25 @@
           success:^(NSURLSessionDataTask * _Nonnull task,
                     id  _Nullable responseObject) {
         NSLog(@"%@---%@",[responseObject class],responseObject);
-        ModelLogin *model = [ModelLogin mj_objectWithKeyValues:responseObject[@"data"][@"data"]];
-        [[PersonalInfo sharedInstance] updateLoginUserInfo:model];
-        if ([[PersonalInfo sharedInstance] isLogined]) {
-            [SVProgressHUD showSuccessWithStatus:@"登录成功"];
-            [self.navigationController popViewControllerAnimated:YES];
-        }else{
-//            [SVProgressHUD showSuccessWithStatus:@"登录成功但是存取状态异常"];
-//            Toast(@"登录成功但是存取状态异常");
+        
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dataDic = (NSDictionary *)responseObject;
+            NSString *str = (NSString *)dataDic[@"data"][@"msg"];
+            if ([str isEqualToString:@"用户名或密码错误"]) {
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    Toast(str);
+                }];
+            }else if ([str isEqualToString:@"登录成功"]){
+                ModelLogin *model = [ModelLogin mj_objectWithKeyValues:responseObject[@"data"][@"data"]];
+                [[PersonalInfo sharedInstance] updateLoginUserInfo:model];
+                if ([[PersonalInfo sharedInstance] isLogined]) {
+                    [SVProgressHUD showSuccessWithStatus:@"登录成功"];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }else{
+        //            [SVProgressHUD showSuccessWithStatus:@"登录成功但是存取状态异常"];
+        //            Toast(@"登录成功但是存取状态异常");
+                }
+            }else{}
         }
     } failure:^(NSURLSessionDataTask * _Nullable task,
                 NSError * _Nonnull error) {

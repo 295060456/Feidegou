@@ -10,6 +10,13 @@
 #import "OTCConversationListCellTableViewCell.h"
 
 @interface ChatListVC ()
+<
+RCIMConnectionStatusDelegate
+>
+
+@property(nonatomic,strong)MJRefreshAutoGifFooter *tableViewFooter;
+@property(nonatomic,strong)MJRefreshGifHeader *tableViewHeader;
+@property(nonatomic,strong)MJRefreshBackNormalFooter *refreshBackNormalFooter;
 
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
@@ -33,6 +40,11 @@
     ChatListVC *vc = ChatListVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
+    NSArray *array = [NSArray arrayWithObject:[NSNumber numberWithInt:ConversationType_PRIVATE]];
+    [vc setDisplayConversationTypes:array];
+    [vc setCollectionConversationType:nil];
+    vc.isEnteredToCollectionViewController = YES;
+    
     switch (comingStyle) {
         case ComingStyle_PUSH:{
             if (rootVC.navigationController) {
@@ -62,15 +74,69 @@
     }return vc;
 }
 
+-(instancetype)init{
+    if ([super init]) {
+        self.navigationItem.title = @"消息";
+        // 设置需要显示的会话类型
+        [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),
+                                            @(ConversationType_DISCUSSION),
+                                            @(ConversationType_CHATROOM),
+                                            @(ConversationType_GROUP),
+                                            @(ConversationType_APPSERVICE),
+                                            @(ConversationType_SYSTEM)]];
+        //设置聚合显示
+        [self setCollectionConversationType:@[@(ConversationType_DISCUSSION),
+                                              @(ConversationType_GROUP)]];
+        //设置聊天头像为圆形
+        [RCIM sharedRCIM].globalConversationAvatarStyle = RC_USER_AVATAR_CYCLE;
+        // 设置没有消息时显示的bgView
+    //    self.emptyMsgShowIMGV.alpha = 1;
+        // 是否显示 无网络时的提示（默认：true）
+        [self setIsShowNetworkIndicatorView:YES];
+        // 置顶Cell bgColor
+        [self setTopCellBackgroundColor:kWhiteColor];
+        // conversationListTableView继承自UITableView
+        // 设置 头、尾视图
+        [self.conversationListTableView setTableHeaderView:UIView.new];
+        [self.conversationListTableView setTableFooterView:UIView.new];
+        // 分割线
+        [self.conversationListTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+        // bgColor
+        self.conversationListTableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+        // 内间距
+        [self.conversationListTableView setContentInset:UIEdgeInsetsMake(10,
+                                                                         0,
+                                                                         0,
+                                                                         0)];
+        /*
+        融云 sdk 的机制是，在 connect 后，会解析 token 获取到对应的 userId，然后根据 userId 打开对应的数据库（如果数据库中有该 userId 的数据），之后，使用者才可以调用获取历史消息，会话列表的接口，并获取到数据。
+
+        所以，不论有没有网络，使用者都应该调用 connect。
+
+        拿不到数据的原因之一，没有调用 connect，没有打开对应用户的数据库。
+         */
+        extern NSString *tokenStr;
+        RCIM *rcim = [RCIM sharedRCIM];
+        rcim.connectionStatusDelegate = self;
+        [rcim connectWithToken:tokenStr
+                       success:^(NSString *userId) {
+            NSLog(@"%@",userId);
+        }error:^(RCConnectErrorCode status) {
+            
+        }tokenIncorrect:^{}];
+    }return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationItem.title = @"1234";
-    [self setupUI];
+    self.conversationListTableView.mj_header = self.tableViewHeader;
+    self.conversationListTableView.mj_footer = self.tableViewFooter;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    [self.conversationListTableView.mj_header beginRefreshing];
     [self.conversationListTableView reloadData];// 更新未读消息角标
 }
 
@@ -79,53 +145,29 @@
     self.tabBarController.tabBar.hidden = NO;
 }
 
--(void)setupUI{
-    self.navigationItem.title = @"消息";
-    // 设置需要显示的会话类型
-    [self setDisplayConversationTypes:@[@(ConversationType_PRIVATE),
-                                        @(ConversationType_DISCUSSION),
-                                        @(ConversationType_CHATROOM),
-                                        @(ConversationType_GROUP),
-                                        @(ConversationType_APPSERVICE),
-                                        @(ConversationType_SYSTEM)]];
-    //设置聚合显示
-    [self setCollectionConversationType:@[@(ConversationType_DISCUSSION),
-                                          @(ConversationType_GROUP)]];
-    //设置聊天头像为圆形
-    [RCIM sharedRCIM].globalConversationAvatarStyle = RC_USER_AVATAR_CYCLE;
-    // 设置没有消息时显示的bgView
-//    self.emptyMsgShowIMGV.alpha = 1;
-    // 是否显示 无网络时的提示（默认：true）
-    [self setIsShowNetworkIndicatorView:true];
-    // 置顶Cell bgColor
-//    [self setTopCellBackgroundColor:[UIColor redColor]];
-    // conversationListTableView继承自UITableView
-    // 设置 头、尾视图
-    [self.conversationListTableView setTableHeaderView:UIView.new];
-    [self.conversationListTableView setTableFooterView:UIView.new];
-    // 分割线
-    [self.conversationListTableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-    // bgColor
-    self.conversationListTableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
-    // 内间距
-    [self.conversationListTableView setContentInset:UIEdgeInsetsMake(10,
-                                                                     0,
-                                                                     0,
-                                                                     0)];
-    // 自定义CELL
-//    [self.conversationListTableView registerClass:[OTCConversationListCellTableViewCell class] forCellReuseIdentifier:NSStringFromClass([OTCConversationListCellTableViewCell class])];
-    /*
-     // 头像style (默认；矩形，圆形)
-     [[RCIM sharedRCIM]setGlobalMessageAvatarStyle:RC_USER_AVATAR_CYCLE];
-     // 头像size（默认：46*46，必须>36*36）
-     [[RCIM sharedRCIM]setGlobalMessagePortraitSize:CGSizeMake(46, 46)];
-     
-     // 个人信息,自定义后不再有效。没自定义CELL时可使用，并实现getUserInfoWithUserId代理方法（详见聊天页）
-     [[RCIM sharedRCIM]setUserInfoDataSource:self];
-     */
-    
-    // 推送
-//    [self setupPush];
+// 下拉刷新
+-(void)pullToRefresh{//轮询
+    NSLog(@"下拉刷新");
+    [self.conversationListTableView.mj_header endRefreshing];
+}
+//上拉加载更多
+- (void)loadMoreRefresh{
+    NSLog(@"上拉加载更多");
+    [self.conversationListTableView.mj_footer endRefreshing];
+}
+
+#pragma mark —— RCIMConnectionStatusDelegate
+/*!
+ IMKit连接状态的的监听器
+
+ @param status  SDK与融云服务器的连接状态
+
+ @discussion 如果您设置了IMKit消息监听之后，当SDK与融云服务器的连接状态发生变化时，会回调此方法。
+ */
+- (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status{
+    if (status == ConnectionStatus_Connected) {
+        
+    }
 }
 
 - (CGFloat)rcConversationListTableView:(UITableView *)tableView
@@ -161,15 +203,70 @@
                atIndexPath:(NSIndexPath *)indexPath {
     @weakify(self)
     [ChatVC ComingFromVC:self_weak_
-                withStyle:ComingStyle_PUSH
-            requestParams:model
-                  success:^(id data) {}
-                 animated:YES];
+               withStyle:ComingStyle_PUSH
+           requestParams:model
+                 success:^(id data) {}
+                animated:YES];
 }
 //收到消息 --- 更新未读角标
 -(void)onRCIMReceiveMessage:(RCMessage *)message
                        left:(int)left{
     [self.conversationListTableView reloadData];
+}
+
+-(MJRefreshGifHeader *)tableViewHeader{
+    if (!_tableViewHeader) {
+        _tableViewHeader =  [MJRefreshGifHeader headerWithRefreshingTarget:self
+                                                          refreshingAction:@selector(pullToRefresh)];
+        // 设置普通状态的动画图片
+        [_tableViewHeader setImages:@[kIMG(@"catFoods")]
+                           forState:MJRefreshStateIdle];
+        // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
+        [_tableViewHeader setImages:@[kIMG(@"kitty")]
+                           forState:MJRefreshStatePulling];
+        // 设置正在刷新状态的动画图片
+        [_tableViewHeader setImages:@[kIMG(@"catClaw")]
+                           forState:MJRefreshStateRefreshing];
+        // 设置文字
+        [_tableViewHeader setTitle:@"Click or drag down to refresh"
+                          forState:MJRefreshStateIdle];
+        [_tableViewHeader setTitle:@"Loading more ..."
+                          forState:MJRefreshStateRefreshing];
+        [_tableViewHeader setTitle:@"No more data"
+                          forState:MJRefreshStateNoMoreData];
+        // 设置字体
+        _tableViewHeader.stateLabel.font = [UIFont systemFontOfSize:17];
+        // 设置颜色
+        _tableViewHeader.stateLabel.textColor = KLightGrayColor;
+    }return _tableViewHeader;
+}
+
+-(MJRefreshAutoGifFooter *)tableViewFooter{
+    if (!_tableViewFooter) {
+        _tableViewFooter = [MJRefreshAutoGifFooter footerWithRefreshingTarget:self
+                                                                refreshingAction:@selector(loadMoreRefresh)];
+        // 设置普通状态的动画图片
+        [_tableViewFooter setImages:@[kIMG(@"catFoods")]
+                           forState:MJRefreshStateIdle];
+        // 设置即将刷新状态的动画图片（一松开就会刷新的状态）
+        [_tableViewFooter setImages:@[kIMG(@"kitty")]
+                           forState:MJRefreshStatePulling];
+        // 设置正在刷新状态的动画图片
+        [_tableViewFooter setImages:@[kIMG(@"catClaw")]
+                           forState:MJRefreshStateRefreshing];
+        // 设置文字
+        [_tableViewFooter setTitle:@"Click or drag up to refresh"
+                          forState:MJRefreshStateIdle];
+        [_tableViewFooter setTitle:@"Loading more ..."
+                          forState:MJRefreshStateRefreshing];
+        [_tableViewFooter setTitle:@"No more data"
+                          forState:MJRefreshStateNoMoreData];
+        // 设置字体
+        _tableViewFooter.stateLabel.font = [UIFont systemFontOfSize:17];
+        // 设置颜色
+        _tableViewFooter.stateLabel.textColor = KLightGrayColor;
+        _tableViewFooter.hidden = YES;
+    }return _tableViewFooter;
 }
 
 @end
