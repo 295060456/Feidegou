@@ -62,12 +62,8 @@ NS_ASSUME_NONNULL_END
     [self.timeManager endGCDTimer];
     self.timeManager = nil;/Users/whiskey_on_the_rocks/Documents/GitHub管理文件/My_BaseProj_Carthage/MyBaseProj_Carthage/🔨Manual_Add_ThirdParty /Timer/TimeManager.h
 }
-
-2、在框架JXCategoryView之下
-- (void)listDidDisappear{//可选实现，列表消失的时候调用
-    [self.timeManager suspendGCDTimer];
-}
--(void)viewWillDisappear:(BOOL)animated//在这种框架下几乎等同于dealloc
+ 
+2、一般不用suspend暂停 一般直接end移除timer,用的时候直接本类属性化懒加载start，suspend可能会出现一些问题，在进出界面的时候
 
 3、本类属性化一定要被强硬用，否则其他类进行挂载的时候是为nil
  
