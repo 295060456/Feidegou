@@ -70,6 +70,10 @@ UITableViewDataSource
     }else if ([vc.requestParams isKindOfClass:[OrderDetailModel class]]){
         vc.orderDetailModel = (OrderDetailModel *)vc.requestParams;
         vc.Order_id = vc.orderDetailModel.ID;
+    }else if ([vc.requestParams isKindOfClass:[OrderManager_producingAreaModel class]]){
+        vc.orderManager_producingAreaModel = (OrderManager_producingAreaModel *)vc.requestParams;
+    }else if ([vc.requestParams isKindOfClass:[OrderManager_panicBuyingModel class]]){
+        vc.orderManager_panicBuyingModel = (OrderManager_panicBuyingModel *)vc.requestParams;
     }
     else{}
     switch (comingStyle) {
@@ -127,257 +131,384 @@ UITableViewDataSource
 }
 #pragma mark —— 私有方法
 -(void)data{
-    if (self.orderListModel) {
-        NSString *str1 = [NSString ensureNonnullString:self.orderListModel.byname ReplaceStr:@"无"];
-        NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
-        self.str = [NSString stringWithFormat:@"您向%@购买%@g喵粮",str1,str2];
-            if ([self.orderListModel.order_type intValue] == 1) {//直通车 只有卖家 订单类型 1、直通车;2、批发;3、平台
-                self.gk_navTitle = @"直通车订单详情";
-                if ([self.orderListModel.order_status intValue] == 0) {
-                    [self.dataMutArr addObject:@"订单已支付"];
-                    //倒计时3s + 发货
+    if (self.orderManager_panicBuyingModel) {//直通车
+#warning KKKKKKK
+        NSString *str1 = [NSString ensureNonnullString:self.orderManager_panicBuyingModel.trade_no ReplaceStr:@"无"];//?????????
+        NSString *str2 = [NSString ensureNonnullString:self.orderManager_panicBuyingModel.quantity ReplaceStr:@""];
+        self.str = [NSString stringWithFormat:@"您向%@购买%@g喵粮",str1,str2];//trade_no
+        if ([self.orderManager_panicBuyingModel.order_type intValue] == 1) {//直通车 只有卖家 订单类型 1、直通车;2、批发;3、平台
+            self.gk_navTitle = @"直通车订单详情";
+            if ([self.orderListModel.order_status intValue] == 0) {
+                [self.dataMutArr addObject:@"订单已支付"];
+                //倒计时3s + 发货
+                [self.sureBtn setTitle:@"发货"
+                              forState:UIControlStateNormal];
+                [self.sureBtn addTarget:self
+                            action:@selector(boothDeliver_networking)//喵粮抢摊位发货
+                  forControlEvents:UIControlEventTouchUpInside];//#21
+                self.titleEndStr = @"取消";
+                [self.countDownCancelBtn addTarget:self
+                                            action:@selector(CancelDelivery_NetWorking)
+                                  forControlEvents:UIControlEventTouchUpInside];
+            }else if ([self.orderListModel.order_status intValue] == 1){
+                [self.dataMutArr addObject:@"订单已发单"];
+            }else if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                if ([self.orderListModel.del_state intValue] == 0) {//0状态 0、不影响;1、待审核;2、已通过 3、驳回
+                    [self.dataMutArr addObject:@"已下单"];
+                    //去请求 #22-2 获取最新时间
+                    [self CatfoodBooth_del_time_netWorking];//#22-2
                     [self.sureBtn setTitle:@"发货"
                                   forState:UIControlStateNormal];
                     [self.sureBtn addTarget:self
                                 action:@selector(boothDeliver_networking)//喵粮抢摊位发货
                       forControlEvents:UIControlEventTouchUpInside];//#21
                     self.titleEndStr = @"取消";
+                    //KKK
                     [self.countDownCancelBtn addTarget:self
-                                                action:@selector(CancelDelivery_NetWorking)
+                                                action:@selector(CancelDelivery_NetWorking)//
                                       forControlEvents:UIControlEventTouchUpInside];
-                }else if ([self.orderListModel.order_status intValue] == 1){
-                    [self.dataMutArr addObject:@"订单已发单"];
-                }else if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                    if ([self.orderListModel.del_state intValue] == 0) {//0状态 0、不影响;1、待审核;2、已通过 3、驳回
-                        [self.dataMutArr addObject:@"已下单"];
-                        //去请求 #22-2 获取最新时间
-                        [self CatfoodBooth_del_time_netWorking];//#22-2
-                        [self.sureBtn setTitle:@"发货"
-                                      forState:UIControlStateNormal];
-                        [self.sureBtn addTarget:self
-                                    action:@selector(boothDeliver_networking)//喵粮抢摊位发货
-                          forControlEvents:UIControlEventTouchUpInside];//#21
-                        self.titleEndStr = @"取消";
-                        //KKK
-                        [self.countDownCancelBtn addTarget:self
-                                                    action:@selector(CancelDelivery_NetWorking)//
-                                          forControlEvents:UIControlEventTouchUpInside];
-                    }else if ([self.orderListModel.del_state intValue] == 1){//在审核中/买家确认中  0、不影响;1、待审核;2、已通过 3、驳回
-                        //买家未确认
-                        [self.titleMutArr addObject:@"凭证:"];
-                        [self.dataMutArr addObject:@"待审核"];//@"待审核 —— 等待买家确认(3小时内)"
-                        [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.payment_print ReplaceStr:@""]];
-                        NSLog(@"");
-//                        [self.sureBtn setTitle:@"发货"
-//                                      forState:UIControlStateNormal];
-//                        [self.sureBtn addTarget:self
-//                                    action:@selector(boothDeliver_networking)//喵粮抢摊位发货
-//                          forControlEvents:UIControlEventTouchUpInside];//#21
-                        //3小时内，等待买家确认 倒计时 是3秒取消按钮
-                        //去请求 #22-2 获取最新时间
-                        [self CatfoodBooth_del_time_netWorking];//#22-2 喵粮抢摊位取消剩余时间
-                        NSLog(@"");
-                    }else if ([self.orderListModel.del_state intValue] == 2){//确定取消了 //撤销状态 0、不影响;1、待审核;2、已通过 3、驳回
-                        [self.dataMutArr addObject:@"订单已通过"];
-                    }else if ([self.orderListModel.del_state intValue] == 3){//撤销被驳回 或者 发货了//撤销状态 0、不影响;1、待审核;2、已通过 3、驳回
-                        //订单状态显示为 已驳回
-                        [self.dataMutArr addObject:@"订单已驳回"];
-                    }else{
-                        [self.dataMutArr addObject:@""];
-                    }
-                }else if ([self.orderListModel.order_status intValue] == 3){//订单状态|已完成 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                    [self.dataMutArr addObject:@"订单已取消"];
-                }else if ([self.orderListModel.order_status intValue] == 4){//订单状态|已发货 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                    [self.dataMutArr addObject:@"订单已发货"];
-                }else if ([self.orderListModel.order_status intValue] == 5){//订单状态|已完成 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                    [self.dataMutArr addObject:@"订单已完成"];
+                }else if ([self.orderListModel.del_state intValue] == 1){//在审核中/买家确认中  0、不影响;1、待审核;2、已通过 3、驳回
+                    //买家未确认
+                    [self.titleMutArr addObject:@"凭证:"];
+                    [self.dataMutArr addObject:@"待审核"];//@"待审核 —— 等待买家确认(3小时内)"
+                    [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.payment_print ReplaceStr:@""]];
+                    NSLog(@"");
+    //                        [self.sureBtn setTitle:@"发货"
+    //                                      forState:UIControlStateNormal];
+    //                        [self.sureBtn addTarget:self
+    //                                    action:@selector(boothDeliver_networking)//喵粮抢摊位发货
+    //                          forControlEvents:UIControlEventTouchUpInside];//#21
+                    //3小时内，等待买家确认 倒计时 是3秒取消按钮
+                    //去请求 #22-2 获取最新时间
+                    [self CatfoodBooth_del_time_netWorking];//#22-2 喵粮抢摊位取消剩余时间
+                    NSLog(@"");
+                }else if ([self.orderListModel.del_state intValue] == 2){//确定取消了 //撤销状态 0、不影响;1、待审核;2、已通过 3、驳回
+                    [self.dataMutArr addObject:@"订单已通过"];
+                }else if ([self.orderListModel.del_state intValue] == 3){//撤销被驳回 或者 发货了//撤销状态 0、不影响;1、待审核;2、已通过 3、驳回
+                    //订单状态显示为 已驳回
+                    [self.dataMutArr addObject:@"订单已驳回"];
                 }else{
-                    [self.dataMutArr addObject:@"数据异常"];
+                    [self.dataMutArr addObject:@""];
                 }
+            }else if ([self.orderListModel.order_status intValue] == 3){//订单状态|已完成 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                [self.dataMutArr addObject:@"订单已取消"];
+            }else if ([self.orderListModel.order_status intValue] == 4){//订单状态|已发货 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                [self.dataMutArr addObject:@"订单已发货"];
+            }else if ([self.orderListModel.order_status intValue] == 5){//订单状态|已完成 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                [self.dataMutArr addObject:@"订单已完成"];
+            }else{
+                [self.dataMutArr addObject:@"数据异常"];
             }
-            else if ([self.orderListModel.order_type intValue] == 2){//批发 订单类型 1、直通车;2、批发;3、平台 允许重新上传图片
-                //先判断是买家还是卖家 deal :1、买；2、卖
-                if ([self.orderListModel.identity isEqualToString:@"买家"]) {
-                    self.gk_navTitle = @"批发（买家）订单详情";
-                    if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单  —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                        [self.dataMutArr addObject:@"已下单"];//
-                        [self.normalCancelBtn setTitle:@"取消"
+        }
+    }
+    else if (self.orderManager_producingAreaModel){//产地
+        NSString *str1 = [NSString ensureNonnullString:self.orderManager_producingAreaModel.seller_name ReplaceStr:@"无"];
+        NSString *str2 = [NSString ensureNonnullString:self.orderManager_producingAreaModel.quantity ReplaceStr:@""];
+        self.str = [NSString stringWithFormat:@"您向%@购买%@g喵粮",str1,str2];//trade_no
+        if ([self.orderManager_producingAreaModel.order_type intValue] == 3){//产地 只有买家 订单类型 1、直通车;2、批发;3、平台 允许重新上传图片
+            self.gk_navTitle = @"产地订单详情";
+            if ([self.orderListModel.order_status intValue] == 0){//订单状态|已支付 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成 显示凭证
+            [self.dataMutArr addObject:@"订单已支付"];//🏳️
+            //订单详情上传凭证的订单状态：del_state = 0，order_status = 2;重新上传凭证，del_state = 0,order_status = 0
+            if ([self.orderListModel.del_state intValue] == 0) {
+                [self.reloadPicBtn setTitle:@"重新上传支付凭证"
+                                   forState:UIControlStateNormal];
+            }
+            [self.reloadPicBtn addTarget:self
+                                  action:@selector(getPrintPic:)
+                        forControlEvents:UIControlEventTouchUpInside];//CatfoodCO_payURL 喵粮产地购买已支付  #8
+        }
+            else if ([self.orderListModel.order_status intValue] == 1){//订单状态|已发单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                [self.dataMutArr addObject:@"订单已发单"];//311
+            }
+            else if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                [self.dataMutArr addObject:@"订单已下单"];//333
+                self.time = 3;
+                self.titleEndStr = @"取消";
+                self.titleBeginStr = @"取消";
+    //                    [self.countDownCancelBtn addTarget:self
+    //                                                action:@selector(cancelOrder_producingArea_netWorking)
+    //                                      forControlEvents:UIControlEventTouchUpInside];//#9
+                [self.normalCancelBtn setTitle:@"取消"
                                         forState:UIControlStateNormal];
-                        [self.normalCancelBtn addTarget:self
-                                                 action:@selector(normalCancelBtnClickEvent:)//喵粮批发取消
-                                       forControlEvents:UIControlEventTouchUpInside];//#18
-//                        订单详情上传凭证的订单状态：del_state = 0，order_status = 2;重新上传凭证，del_state = 0,order_status = 0
-                        if ([self.orderListModel.del_state intValue] == 0) {
-                            if ([self.orderListModel.order_status intValue] == 2) {
-                                [self.sureBtn setTitle:@"上传支付凭证"//
-                                              forState:UIControlStateNormal];
-                            }else if ([self.orderListModel.order_status intValue] == 0){
-                                [self.sureBtn setTitle:@"重新上传支付凭证"//
-                                              forState:UIControlStateNormal];
-                            }
-                        }
-                        [self.sureBtn addTarget:self
-                                         action:@selector(getPrintPic:)//CatfoodSale_payURL 喵粮批发已支付 #17
-                               forControlEvents:UIControlEventTouchUpInside];//#17
-                    }else if([self.orderListModel.order_status intValue] == 0){//订单状态|已支付  —— 显示凭证 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                        [self.sureBtn setTitle:@"重新上传支付凭证"//🏳️
-                                      forState:UIControlStateNormal];
-                        [self.sureBtn addTarget:self
-                                         action:@selector(getPrintPic:)
-                               forControlEvents:UIControlEventTouchUpInside];//CatfoodSale_payURL 喵粮批发已支付 #17
-                        [self.dataMutArr addObject:@"已支付"];
-                    }else{
-                        [self.dataMutArr addObject:@"数据异常"];
-                    }
-                }else if([self.orderListModel.identity isEqualToString:@"卖家"]){
-                    self.gk_navTitle = @"批发（卖家）订单详情";
-                    if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                        [self.dataMutArr addObject:@"订单已下单"];//5s 取消 22 1
-                        [self.normalCancelBtn setTitle:@"取消"
-                                           forState:UIControlStateNormal];
-                        [self.normalCancelBtn addTarget:self
-                                              action:@selector(normalCancelBtnClickEvent:)//喵粮批发取消
-                                            forControlEvents:UIControlEventTouchUpInside];//18
-                    }else if ([self.orderListModel.order_status intValue] == 0){//订单状态|已支付 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                        [self.dataMutArr addObject:@"订单已支付"];//21 23_1 1
-                        //显示凭证
-                        [self.titleMutArr addObject:@"凭证"];
-                        [self.dataMutArr addObject:self.orderListModel.payment_print];//凭证图像地址
-//                        NSTimeInterval time = [NSString timeIntervalstartDate:self.stallListModel.updateTime
-//                                                                      endDate:nil
-//                                                                timeFormatter:nil];
-//                        self.time = 5 * 60 - time;
-                        self.titleEndStr = @"撤销";
-                        self.titleBeginStr = @"撤销";
-                        self.countDownCancelBtn.titleEndStr = @"撤销";//显示凭证
-                        [self.countDownCancelBtn addTarget:self
-                                                    action:@selector(CancelDelivery_NetWorking)//喵粮订单撤销
-                                          forControlEvents:UIControlEventTouchUpInside];//#5
-                        [self.sureBtn setTitle:@"立即发货"
-                                      forState:UIControlStateNormal];
-                        [self.sureBtn addTarget:self
-                                         action:@selector(deliver_wholesaleMarket_PNetworking)//喵粮批发订单发货
-                               forControlEvents:UIControlEventTouchUpInside];//#14
-                    }else if ([self.orderListModel.order_status intValue] == 3){//订单状态|已作废 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                        [self.dataMutArr addObject:@"订单已作废"]; //23_6
-                    }else{
-                        [self.dataMutArr addObject:@"数据异常"];
-                    }
-                }
-            }
-            else if ([self.orderListModel.order_type intValue] == 3){//产地 只有买家 订单类型 1、直通车;2、批发;3、平台 允许重新上传图片
-                self.gk_navTitle = @"产地订单详情";
-                if ([self.orderListModel.order_status intValue] == 0){//订单状态|已支付 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成 显示凭证
-                [self.dataMutArr addObject:@"订单已支付"];//🏳️
+                [self.normalCancelBtn addTarget:self
+                                        action:@selector(cancelOrder_producingArea_netWorking)// 喵粮产地购买取消
+                            forControlEvents:UIControlEventTouchUpInside];//#9
                 //订单详情上传凭证的订单状态：del_state = 0，order_status = 2;重新上传凭证，del_state = 0,order_status = 0
                 if ([self.orderListModel.del_state intValue] == 0) {
-                    [self.sureBtn setTitle:@"重新上传支付凭证"
+                    [self.sureBtn setTitle:@"上传支付凭证"//
                                     forState:UIControlStateNormal];
                 }
                 [self.sureBtn addTarget:self
                                     action:@selector(getPrintPic:)
                         forControlEvents:UIControlEventTouchUpInside];//CatfoodCO_payURL 喵粮产地购买已支付  #8
             }
-                else if ([self.orderListModel.order_status intValue] == 1){//订单状态|已发单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                    [self.dataMutArr addObject:@"订单已发单"];//311
-                }
-                else if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                    [self.dataMutArr addObject:@"订单已下单"];//333
-                    self.time = 3;
-                    self.titleEndStr = @"取消";
-                    self.titleBeginStr = @"取消";
+            else if ([self.orderListModel.order_status intValue] == 3){//3、已作废
+                [self.dataMutArr addObject:@"订单已作废"];//311
+            }
+            else if ([self.orderListModel.order_status intValue] == 4){//订单状态|已发货 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                [self.dataMutArr addObject:@"订单已发货"];//1111
+            }
+            else if ([self.orderListModel.order_status intValue] == 5){//订单状态|已完成 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                [self.dataMutArr addObject:@"订单已完成"];
+            }
+            else{
+                [self.dataMutArr addObject:@"数据异常"];
+            }
+        }
+    }
+//    if (self.orderListModel) {
+//        NSString *str1 = [NSString ensureNonnullString:self.orderListModel.byname ReplaceStr:@"无"];
+//        NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
+//        self.str = [NSString stringWithFormat:@"您向%@购买%@g喵粮",str1,str2];//trade_no
+//            if ([self.orderListModel.order_type intValue] == 1) {//直通车 只有卖家 订单类型 1、直通车;2、批发;3、平台
+//                self.gk_navTitle = @"直通车订单详情";
+//                if ([self.orderListModel.order_status intValue] == 0) {
+//                    [self.dataMutArr addObject:@"订单已支付"];
+//                    //倒计时3s + 发货
+//                    [self.sureBtn setTitle:@"发货"
+//                                  forState:UIControlStateNormal];
+//                    [self.sureBtn addTarget:self
+//                                action:@selector(boothDeliver_networking)//喵粮抢摊位发货
+//                      forControlEvents:UIControlEventTouchUpInside];//#21
+//                    self.titleEndStr = @"取消";
 //                    [self.countDownCancelBtn addTarget:self
-//                                                action:@selector(cancelOrder_producingArea_netWorking)
-//                                      forControlEvents:UIControlEventTouchUpInside];//#9
-                    [self.normalCancelBtn setTitle:@"取消"
-                                            forState:UIControlStateNormal];
-                    [self.normalCancelBtn addTarget:self
-                                            action:@selector(cancelOrder_producingArea_netWorking)// 喵粮产地购买取消
-                                forControlEvents:UIControlEventTouchUpInside];//#9
-                    //订单详情上传凭证的订单状态：del_state = 0，order_status = 2;重新上传凭证，del_state = 0,order_status = 0
-                    if ([self.orderListModel.del_state intValue] == 0) {
-                        [self.sureBtn setTitle:@"上传支付凭证"//
-                                        forState:UIControlStateNormal];
-                    }
-                    [self.sureBtn addTarget:self
-                                        action:@selector(getPrintPic:)
-                            forControlEvents:UIControlEventTouchUpInside];//CatfoodCO_payURL 喵粮产地购买已支付  #8
-                }
-                else if ([self.orderListModel.order_status intValue] == 3){//3、已作废
-                    [self.dataMutArr addObject:@"订单已作废"];//311
-                }
-                else if ([self.orderListModel.order_status intValue] == 4){//订单状态|已发货 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                    [self.dataMutArr addObject:@"订单已发货"];//1111
-                }
-                else if ([self.orderListModel.order_status intValue] == 5){//订单状态|已完成 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                    [self.dataMutArr addObject:@"订单已完成"];
-                }
-                else{
-                    [self.dataMutArr addObject:@"数据异常"];
-                }
-            }else{}
-        if (![NSString isNullString:self.orderListModel.payment_print]) {
-            [self.titleMutArr addObject:@"凭证"];
-            [self.dataMutArr addObject:self.orderListModel.payment_print];
-        }
-    }
-    else if (self.catFoodProducingAreaModel){//喵粮产地
-        NSString *str1 = [NSString ensureNonnullString:self.catFoodProducingAreaModel.ID ReplaceStr:@"无"];
-        NSString *str2 = [NSString ensureNonnullString:self.catFoodProducingAreaModel.quantity ReplaceStr:@""];
-        self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
-        self.gk_navTitle = @"产地订单详情";
-        //只有3秒取消、发货、状态为已下单
-        [self.dataMutArr addObject:@"订单已下单"];//
-        self.time = 3;
-        self.titleEndStr = @"取消";
-        self.titleBeginStr = @"取消";
-        [self.countDownCancelBtn addTarget:self
-                                    action:@selector(cancelOrder_producingArea_netWorking)//喵粮产地购买取消
-                          forControlEvents:UIControlEventTouchUpInside];//#9
-        //订单详情上传凭证的订单状态：del_state = 0，order_status = 2;重新上传凭证，del_state = 0,order_status = 0
-        if ([self.catFoodProducingAreaModel.del_state intValue] == 0) {
-            if ([self.catFoodProducingAreaModel.order_status intValue] == 2) {
-                [self.sureBtn setTitle:@"上传支付凭证"//
-                              forState:UIControlStateNormal];
-            }else if ([self.catFoodProducingAreaModel.order_status intValue] == 0){
-                [self.sureBtn setTitle:@"重新上传支付凭证"//
-                              forState:UIControlStateNormal];
-            }else{}
-        }
-        [self.sureBtn addTarget:self
-                         action:@selector(getPrintPic:)
-               forControlEvents:UIControlEventTouchUpInside];//#7
-        if (![NSString isNullString:self.catFoodProducingAreaModel.payment_print]) {
-            [self.titleMutArr addObject:@"凭证"];
-            [self.dataMutArr addObject:self.catFoodProducingAreaModel.payment_print];
-        }
-    }
-    else if (self.orderDetailModel){//原直通车
-        NSString *str1 = [NSString ensureNonnullString:self.orderDetailModel.ID ReplaceStr:@"无"];
-        NSString *str2 = [NSString ensureNonnullString:self.orderDetailModel.quantity ReplaceStr:@""];
-        self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
-        self.gk_navTitle = @"直通车订单详情";
-        //只有3小时取消、发货、状态为已下单
-        [self.dataMutArr addObject:@"订单已下单"];//333
-        NSTimeInterval time = [NSString timeIntervalstartDate:self.orderDetailModel.updateTime
-                                                      endDate:nil
-                                                timeFormatter:nil];
-        self.time = 3 * 60 - time;
-        self.titleEndStr = @"取消";
-        self.titleBeginStr = @"取消";
-        [self.countDownCancelBtn addTarget:self
-                                    action:@selector(CatfoodBooth_del_netWorking)//喵粮抢摊位取消
-                          forControlEvents:UIControlEventTouchUpInside];//#21_1
-        [self.sureBtn setTitle:@"发货"
-                      forState:UIControlStateNormal];
-        [self.sureBtn addTarget:self
-                         action:@selector(boothDeliver_networking)//喵粮抢摊位发货
-               forControlEvents:UIControlEventTouchUpInside];//#21
-        if (![NSString isNullString:self.orderDetailModel.payment_print]) {
-            [self.titleMutArr addObject:@"凭证"];
-            [self.dataMutArr addObject:self.orderDetailModel.payment_print];
-        }
-    }
+//                                                action:@selector(CancelDelivery_NetWorking)
+//                                      forControlEvents:UIControlEventTouchUpInside];
+//                }else if ([self.orderListModel.order_status intValue] == 1){
+//                    [self.dataMutArr addObject:@"订单已发单"];
+//                }else if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                    if ([self.orderListModel.del_state intValue] == 0) {//0状态 0、不影响;1、待审核;2、已通过 3、驳回
+//                        [self.dataMutArr addObject:@"已下单"];
+//                        //去请求 #22-2 获取最新时间
+//                        [self CatfoodBooth_del_time_netWorking];//#22-2
+//                        [self.sureBtn setTitle:@"发货"
+//                                      forState:UIControlStateNormal];
+//                        [self.sureBtn addTarget:self
+//                                    action:@selector(boothDeliver_networking)//喵粮抢摊位发货
+//                          forControlEvents:UIControlEventTouchUpInside];//#21
+//                        self.titleEndStr = @"取消";
+//                        //KKK
+//                        [self.countDownCancelBtn addTarget:self
+//                                                    action:@selector(CancelDelivery_NetWorking)//
+//                                          forControlEvents:UIControlEventTouchUpInside];
+//                    }else if ([self.orderListModel.del_state intValue] == 1){//在审核中/买家确认中  0、不影响;1、待审核;2、已通过 3、驳回
+//                        //买家未确认
+//                        [self.titleMutArr addObject:@"凭证:"];
+//                        [self.dataMutArr addObject:@"待审核"];//@"待审核 —— 等待买家确认(3小时内)"
+//                        [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.payment_print ReplaceStr:@""]];
+//                        NSLog(@"");
+////                        [self.sureBtn setTitle:@"发货"
+////                                      forState:UIControlStateNormal];
+////                        [self.sureBtn addTarget:self
+////                                    action:@selector(boothDeliver_networking)//喵粮抢摊位发货
+////                          forControlEvents:UIControlEventTouchUpInside];//#21
+//                        //3小时内，等待买家确认 倒计时 是3秒取消按钮
+//                        //去请求 #22-2 获取最新时间
+//                        [self CatfoodBooth_del_time_netWorking];//#22-2 喵粮抢摊位取消剩余时间
+//                        NSLog(@"");
+//                    }else if ([self.orderListModel.del_state intValue] == 2){//确定取消了 //撤销状态 0、不影响;1、待审核;2、已通过 3、驳回
+//                        [self.dataMutArr addObject:@"订单已通过"];
+//                    }else if ([self.orderListModel.del_state intValue] == 3){//撤销被驳回 或者 发货了//撤销状态 0、不影响;1、待审核;2、已通过 3、驳回
+//                        //订单状态显示为 已驳回
+//                        [self.dataMutArr addObject:@"订单已驳回"];
+//                    }else{
+//                        [self.dataMutArr addObject:@""];
+//                    }
+//                }else if ([self.orderListModel.order_status intValue] == 3){//订单状态|已完成 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                    [self.dataMutArr addObject:@"订单已取消"];
+//                }else if ([self.orderListModel.order_status intValue] == 4){//订单状态|已发货 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                    [self.dataMutArr addObject:@"订单已发货"];
+//                }else if ([self.orderListModel.order_status intValue] == 5){//订单状态|已完成 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                    [self.dataMutArr addObject:@"订单已完成"];
+//                }else{
+//                    [self.dataMutArr addObject:@"数据异常"];
+//                }
+//            }
+//            else if ([self.orderListModel.order_type intValue] == 2){//批发 订单类型 1、直通车;2、批发;3、平台 允许重新上传图片
+//                //先判断是买家还是卖家 deal :1、买；2、卖
+//                if ([self.orderListModel.identity isEqualToString:@"买家"]) {
+//                    self.gk_navTitle = @"批发（买家）订单详情";
+//                    if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单  —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                        [self.dataMutArr addObject:@"已下单"];//
+//                        [self.normalCancelBtn setTitle:@"取消"
+//                                        forState:UIControlStateNormal];
+//                        [self.normalCancelBtn addTarget:self
+//                                                 action:@selector(normalCancelBtnClickEvent:)//喵粮批发取消
+//                                       forControlEvents:UIControlEventTouchUpInside];//#18
+////                        订单详情上传凭证的订单状态：del_state = 0，order_status = 2;重新上传凭证，del_state = 0,order_status = 0
+//                        if ([self.orderListModel.del_state intValue] == 0) {
+//                            if ([self.orderListModel.order_status intValue] == 2) {
+//                                [self.sureBtn setTitle:@"上传支付凭证"//
+//                                              forState:UIControlStateNormal];
+//                            }else if ([self.orderListModel.order_status intValue] == 0){
+//                                [self.sureBtn setTitle:@"重新上传支付凭证"//
+//                                              forState:UIControlStateNormal];
+//                            }
+//                        }
+//                        [self.sureBtn addTarget:self
+//                                         action:@selector(getPrintPic:)//CatfoodSale_payURL 喵粮批发已支付 #17
+//                               forControlEvents:UIControlEventTouchUpInside];//#17
+//                    }else if([self.orderListModel.order_status intValue] == 0){//订单状态|已支付  —— 显示凭证 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                        [self.sureBtn setTitle:@"重新上传支付凭证"//🏳️
+//                                      forState:UIControlStateNormal];
+//                        [self.sureBtn addTarget:self
+//                                         action:@selector(getPrintPic:)
+//                               forControlEvents:UIControlEventTouchUpInside];//CatfoodSale_payURL 喵粮批发已支付 #17
+//                        [self.dataMutArr addObject:@"已支付"];
+//                    }else{
+//                        [self.dataMutArr addObject:@"数据异常"];
+//                    }
+//                }else if([self.orderListModel.identity isEqualToString:@"卖家"]){
+//                    self.gk_navTitle = @"批发（卖家）订单详情";
+//                    if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                        [self.dataMutArr addObject:@"订单已下单"];//5s 取消 22 1
+//                        [self.normalCancelBtn setTitle:@"取消"
+//                                           forState:UIControlStateNormal];
+//                        [self.normalCancelBtn addTarget:self
+//                                              action:@selector(normalCancelBtnClickEvent:)//喵粮批发取消
+//                                            forControlEvents:UIControlEventTouchUpInside];//18
+//                    }else if ([self.orderListModel.order_status intValue] == 0){//订单状态|已支付 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                        [self.dataMutArr addObject:@"订单已支付"];//21 23_1 1
+//                        //显示凭证
+//                        [self.titleMutArr addObject:@"凭证"];
+//                        [self.dataMutArr addObject:self.orderListModel.payment_print];//凭证图像地址
+////                        NSTimeInterval time = [NSString timeIntervalstartDate:self.stallListModel.updateTime
+////                                                                      endDate:nil
+////                                                                timeFormatter:nil];
+////                        self.time = 5 * 60 - time;
+//                        self.titleEndStr = @"撤销";
+//                        self.titleBeginStr = @"撤销";
+//                        self.countDownCancelBtn.titleEndStr = @"撤销";//显示凭证
+//                        [self.countDownCancelBtn addTarget:self
+//                                                    action:@selector(CancelDelivery_NetWorking)//喵粮订单撤销
+//                                          forControlEvents:UIControlEventTouchUpInside];//#5
+//                        [self.sureBtn setTitle:@"立即发货"
+//                                      forState:UIControlStateNormal];
+//                        [self.sureBtn addTarget:self
+//                                         action:@selector(deliver_wholesaleMarket_PNetworking)//喵粮批发订单发货
+//                               forControlEvents:UIControlEventTouchUpInside];//#14
+//                    }else if ([self.orderListModel.order_status intValue] == 3){//订单状态|已作废 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                        [self.dataMutArr addObject:@"订单已作废"]; //23_6
+//                    }else{
+//                        [self.dataMutArr addObject:@"数据异常"];
+//                    }
+//                }
+//            }
+//            else if ([self.orderListModel.order_type intValue] == 3){//产地 只有买家 订单类型 1、直通车;2、批发;3、平台 允许重新上传图片
+//                self.gk_navTitle = @"产地订单详情";
+//                if ([self.orderListModel.order_status intValue] == 0){//订单状态|已支付 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成 显示凭证
+//                [self.dataMutArr addObject:@"订单已支付"];//🏳️
+//                //订单详情上传凭证的订单状态：del_state = 0，order_status = 2;重新上传凭证，del_state = 0,order_status = 0
+//                if ([self.orderListModel.del_state intValue] == 0) {
+//                    [self.sureBtn setTitle:@"重新上传支付凭证"
+//                                    forState:UIControlStateNormal];
+//                }
+//                [self.sureBtn addTarget:self
+//                                    action:@selector(getPrintPic:)
+//                        forControlEvents:UIControlEventTouchUpInside];//CatfoodCO_payURL 喵粮产地购买已支付  #8
+//            }
+//                else if ([self.orderListModel.order_status intValue] == 1){//订单状态|已发单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                    [self.dataMutArr addObject:@"订单已发单"];//311
+//                }
+//                else if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                    [self.dataMutArr addObject:@"订单已下单"];//333
+//                    self.time = 3;
+//                    self.titleEndStr = @"取消";
+//                    self.titleBeginStr = @"取消";
+////                    [self.countDownCancelBtn addTarget:self
+////                                                action:@selector(cancelOrder_producingArea_netWorking)
+////                                      forControlEvents:UIControlEventTouchUpInside];//#9
+//                    [self.normalCancelBtn setTitle:@"取消"
+//                                            forState:UIControlStateNormal];
+//                    [self.normalCancelBtn addTarget:self
+//                                            action:@selector(cancelOrder_producingArea_netWorking)// 喵粮产地购买取消
+//                                forControlEvents:UIControlEventTouchUpInside];//#9
+//                    //订单详情上传凭证的订单状态：del_state = 0，order_status = 2;重新上传凭证，del_state = 0,order_status = 0
+//                    if ([self.orderListModel.del_state intValue] == 0) {
+//                        [self.sureBtn setTitle:@"上传支付凭证"//
+//                                        forState:UIControlStateNormal];
+//                    }
+//                    [self.sureBtn addTarget:self
+//                                        action:@selector(getPrintPic:)
+//                            forControlEvents:UIControlEventTouchUpInside];//CatfoodCO_payURL 喵粮产地购买已支付  #8
+//                }
+//                else if ([self.orderListModel.order_status intValue] == 3){//3、已作废
+//                    [self.dataMutArr addObject:@"订单已作废"];//311
+//                }
+//                else if ([self.orderListModel.order_status intValue] == 4){//订单状态|已发货 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                    [self.dataMutArr addObject:@"订单已发货"];//1111
+//                }
+//                else if ([self.orderListModel.order_status intValue] == 5){//订单状态|已完成 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                    [self.dataMutArr addObject:@"订单已完成"];
+//                }
+//                else{
+//                    [self.dataMutArr addObject:@"数据异常"];
+//                }
+//            }
+//            else{}
+//        if (![NSString isNullString:self.orderListModel.payment_print]) {
+//            [self.titleMutArr addObject:@"凭证"];
+//            [self.dataMutArr addObject:self.orderListModel.payment_print];
+//        }
+//    }
+//    else if (self.catFoodProducingAreaModel){//喵粮产地
+//        NSString *str1 = [NSString ensureNonnullString:self.catFoodProducingAreaModel.ID ReplaceStr:@"无"];
+//        NSString *str2 = [NSString ensureNonnullString:self.catFoodProducingAreaModel.quantity ReplaceStr:@""];
+//        self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
+//        self.gk_navTitle = @"产地订单详情";
+//        //只有3秒取消、发货、状态为已下单
+//        [self.dataMutArr addObject:@"订单已下单"];//
+//        self.time = 3;
+//        self.titleEndStr = @"取消";
+//        self.titleBeginStr = @"取消";
+//        [self.countDownCancelBtn addTarget:self
+//                                    action:@selector(cancelOrder_producingArea_netWorking)//喵粮产地购买取消
+//                          forControlEvents:UIControlEventTouchUpInside];//#9
+//        //订单详情上传凭证的订单状态：del_state = 0，order_status = 2;重新上传凭证，del_state = 0,order_status = 0
+//        if ([self.catFoodProducingAreaModel.del_state intValue] == 0) {
+//            if ([self.catFoodProducingAreaModel.order_status intValue] == 2) {
+//                [self.sureBtn setTitle:@"上传支付凭证"//
+//                              forState:UIControlStateNormal];
+//            }else if ([self.catFoodProducingAreaModel.order_status intValue] == 0){
+//                [self.sureBtn setTitle:@"重新上传支付凭证"//
+//                              forState:UIControlStateNormal];
+//            }else{}
+//        }
+//        [self.sureBtn addTarget:self
+//                         action:@selector(getPrintPic:)
+//               forControlEvents:UIControlEventTouchUpInside];//#7
+//        if (![NSString isNullString:self.catFoodProducingAreaModel.payment_print]) {
+//            [self.titleMutArr addObject:@"凭证"];
+//            [self.dataMutArr addObject:self.catFoodProducingAreaModel.payment_print];
+//        }
+//    }
+//    else if (self.orderDetailModel){//原直通车
+//        NSString *str1 = [NSString ensureNonnullString:self.orderDetailModel.ID ReplaceStr:@"无"];
+//        NSString *str2 = [NSString ensureNonnullString:self.orderDetailModel.quantity ReplaceStr:@""];
+//        self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
+//        self.gk_navTitle = @"直通车订单详情";
+//        //只有3小时取消、发货、状态为已下单
+//        [self.dataMutArr addObject:@"订单已下单"];//333
+//        NSTimeInterval time = [NSString timeIntervalstartDate:self.orderDetailModel.updateTime
+//                                                      endDate:nil
+//                                                timeFormatter:nil];
+//        self.time = 3 * 60 - time;
+//        self.titleEndStr = @"取消";
+//        self.titleBeginStr = @"取消";
+//        [self.countDownCancelBtn addTarget:self
+//                                    action:@selector(CatfoodBooth_del_netWorking)//喵粮抢摊位取消
+//                          forControlEvents:UIControlEventTouchUpInside];//#21_1
+//        [self.sureBtn setTitle:@"发货"
+//                      forState:UIControlStateNormal];
+//        [self.sureBtn addTarget:self
+//                         action:@selector(boothDeliver_networking)//喵粮抢摊位发货
+//               forControlEvents:UIControlEventTouchUpInside];//#21
+//        if (![NSString isNullString:self.orderDetailModel.payment_print]) {
+//            [self.titleMutArr addObject:@"凭证"];
+//            [self.dataMutArr addObject:self.orderDetailModel.payment_print];
+//        }
+//    }
     else{
         [self.dataMutArr addObject:@"数据异常"];
     }
@@ -579,12 +710,47 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSMutableArray<NSString *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
-        if (self.orderListModel) {
-            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.ordercode ReplaceStr:@"无"]];//订单号
-            [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderListModel.price ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//单价
-            [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@"无"] stringByAppendingString:@" g"]];//数量
-            [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderListModel.rental ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//总额
-            switch ([self.orderListModel.payment_status intValue]) {//支付方式: 1、支付宝;2、微信;3、银行卡
+        if (self.orderManager_producingAreaModel) {
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_producingAreaModel.ordercode ReplaceStr:@"无"]];//订单号
+            [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderManager_producingAreaModel.price ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//单价
+            [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderManager_producingAreaModel.quantity ReplaceStr:@"无"] stringByAppendingString:@" g"]];//数量
+            [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderManager_producingAreaModel.rental ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//总额
+            switch ([self.orderManager_producingAreaModel.payment_status intValue]) {//支付方式: 1、支付宝;2、微信;3、银行卡
+                case 1:{
+                    [_dataMutArr addObject:@"支付宝"];
+                }break;
+                case 2:{
+                    [_dataMutArr addObject:@"微信"];
+                }break;
+                 case 3:{
+                     [_dataMutArr addObject:@"银行卡"];
+                 }break;
+                default:
+                    [_dataMutArr addObject:@"无支付方式"];
+                    break;
+            }
+            //1、支付宝;2、微信;3、银行卡
+            if ([self.orderManager_producingAreaModel.payment_status intValue] == 3) {//银行卡
+                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_producingAreaModel.bankcard ReplaceStr:@"暂无信息"]];//银行卡号
+                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_producingAreaModel.bankuser ReplaceStr:@"暂无信息"]];//姓名
+                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_producingAreaModel.bankName ReplaceStr:@"暂无信息"]];//银行类型
+                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_producingAreaModel.bankaddress ReplaceStr:@"暂无信息"]];//支行信息
+            }else if ([self.orderManager_producingAreaModel.payment_status intValue] == 2){//微信
+#warning KKKKKK
+                [_dataMutArr addObject:[NSString ensureNonnullString:@"" ReplaceStr:@"无"]];//self.orderManager_producingAreaModel.payment_weixin ???????????????
+            }else if ([self.orderManager_producingAreaModel.payment_status intValue] == 1){//支付宝
+                [_dataMutArr addObject:[NSString ensureNonnullString:@"" ReplaceStr:@"无"]];//self.orderManager_producingAreaModel.payment_alipay ?????????????
+            }else{
+                [_dataMutArr addObject:@"无支付账户"];
+            }
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_producingAreaModel.updateTime ReplaceStr:@"无"]];//时间
+        }
+        else if (self.orderManager_panicBuyingModel){
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_panicBuyingModel.ordercode ReplaceStr:@"无"]];//订单号
+            [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderManager_panicBuyingModel.price ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//单价
+            [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderManager_panicBuyingModel.quantity ReplaceStr:@"无"] stringByAppendingString:@" g"]];//数量
+            [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderManager_panicBuyingModel.rental ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//总额
+            switch ([self.orderManager_panicBuyingModel.payment_status intValue]) {//支付方式: 1、支付宝;2、微信;3、银行卡
                 case 1:{
                     [_dataMutArr addObject:@"支付宝"];
                 }break;
@@ -600,19 +766,54 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             }
             //1、支付宝;2、微信;3、银行卡
             if ([self.orderListModel.payment_status intValue] == 3) {//银行卡
-                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankCard ReplaceStr:@"暂无信息"]];//银行卡号
-                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankUser ReplaceStr:@"暂无信息"]];//姓名
-                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankName ReplaceStr:@"暂无信息"]];//银行类型
-                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankaddress ReplaceStr:@"暂无信息"]];//支行信息
+                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_panicBuyingModel.bankcard ReplaceStr:@"暂无信息"]];//银行卡号
+                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_panicBuyingModel.bankuser ReplaceStr:@"暂无信息"]];//姓名
+                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_panicBuyingModel.bankName ReplaceStr:@"暂无信息"]];//银行类型
+                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_panicBuyingModel.bankaddress ReplaceStr:@"暂无信息"]];//支行信息
             }else if ([self.orderListModel.payment_status intValue] == 2){//微信
-                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.payment_weixin ReplaceStr:@"无"]];
+                [_dataMutArr addObject:[NSString ensureNonnullString:@"" ReplaceStr:@"无"]];//self.orderManager_panicBuyingModel.payment_weixin ?????????????????
             }else if ([self.orderListModel.payment_status intValue] == 1){//支付宝
-                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.payment_alipay ReplaceStr:@"无"]];
+                [_dataMutArr addObject:[NSString ensureNonnullString:@"" ReplaceStr:@"无"]];//self.orderManager_panicBuyingModel.payment_alipay ??????????????
             }else{
                 [_dataMutArr addObject:@"无支付账户"];
             }
-            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.updateTime ReplaceStr:@"无"]];//时间
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_panicBuyingModel.updateTime ReplaceStr:@"无"]];//时间
         }
+        
+//        if (self.orderListModel) {
+//            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.ordercode ReplaceStr:@"无"]];//订单号
+//            [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderListModel.price ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//单价
+//            [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@"无"] stringByAppendingString:@" g"]];//数量
+//            [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderListModel.rental ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//总额
+//            switch ([self.orderListModel.payment_status intValue]) {//支付方式: 1、支付宝;2、微信;3、银行卡
+//                case 1:{
+//                    [_dataMutArr addObject:@"支付宝"];
+//                }break;
+//                case 2:{
+//                    [_dataMutArr addObject:@"微信"];
+//                }break;
+//                 case 3:{
+//                     [_dataMutArr addObject:@"银行卡"];
+//                 }break;
+//                default:
+//                    [_dataMutArr addObject:@"无支付方式"];
+//                    break;
+//            }
+//            //1、支付宝;2、微信;3、银行卡
+//            if ([self.orderListModel.payment_status intValue] == 3) {//银行卡
+//                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankCard ReplaceStr:@"暂无信息"]];//银行卡号
+//                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankUser ReplaceStr:@"暂无信息"]];//姓名
+//                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankName ReplaceStr:@"暂无信息"]];//银行类型
+//                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.bankaddress ReplaceStr:@"暂无信息"]];//支行信息
+//            }else if ([self.orderListModel.payment_status intValue] == 2){//微信
+//                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.payment_weixin ReplaceStr:@"无"]];
+//            }else if ([self.orderListModel.payment_status intValue] == 1){//支付宝
+//                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.payment_alipay ReplaceStr:@"无"]];
+//            }else{
+//                [_dataMutArr addObject:@"无支付账户"];
+//            }
+//            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.updateTime ReplaceStr:@"无"]];//时间
+//        }
         else if (self.catFoodProducingAreaModel){
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.ordercode ReplaceStr:@"无"]];//订单号
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.price ReplaceStr:@"无"]];//单价
@@ -640,7 +841,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSMutableArray<NSString *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
-        if (self.orderListModel) {
+        if (self.orderManager_producingAreaModel) {
             [_titleMutArr addObject:@"订单号:"];
             [_titleMutArr addObject:@"单价:"];
             [_titleMutArr addObject:@"数量:"];
@@ -662,6 +863,51 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [_titleMutArr addObject:@"下单时间:"];
             [_titleMutArr addObject:@"订单状态"];
         }
+        else if (self.orderManager_panicBuyingModel){
+            [_titleMutArr addObject:@"订单号:"];
+            [_titleMutArr addObject:@"单价:"];
+            [_titleMutArr addObject:@"数量:"];
+            [_titleMutArr addObject:@"总价:"];
+            [_titleMutArr addObject:@"支付方式:"];
+            //1、支付宝;2、微信;3、银行卡
+            if ([self.orderListModel.payment_status intValue] == 3) {//3、银行卡
+                [_titleMutArr addObject:@"银行卡号:"];
+                [_titleMutArr addObject:@"姓名:"];
+                [_titleMutArr addObject:@"银行类型:"];
+                [_titleMutArr addObject:@"支行信息:"];
+            }else if ([self.orderListModel.payment_status intValue] == 2){//2、微信
+                [_titleMutArr addObject:@"微信账号:"];
+            }else if ([self.orderListModel.payment_status intValue] == 1){//1、支付宝
+                [_titleMutArr addObject:@"支付宝账号:"];
+            }else{
+                [_titleMutArr addObject:@"异常:"];
+            }
+            [_titleMutArr addObject:@"下单时间:"];
+            [_titleMutArr addObject:@"订单状态"];
+        }
+        
+//        if (self.orderListModel) {
+//            [_titleMutArr addObject:@"订单号:"];
+//            [_titleMutArr addObject:@"单价:"];
+//            [_titleMutArr addObject:@"数量:"];
+//            [_titleMutArr addObject:@"总价:"];
+//            [_titleMutArr addObject:@"支付方式:"];
+//            //1、支付宝;2、微信;3、银行卡
+//            if ([self.orderListModel.payment_status intValue] == 3) {//3、银行卡
+//                [_titleMutArr addObject:@"银行卡号:"];
+//                [_titleMutArr addObject:@"姓名:"];
+//                [_titleMutArr addObject:@"银行类型:"];
+//                [_titleMutArr addObject:@"支行信息:"];
+//            }else if ([self.orderListModel.payment_status intValue] == 2){//2、微信
+//                [_titleMutArr addObject:@"微信账号:"];
+//            }else if ([self.orderListModel.payment_status intValue] == 1){//1、支付宝
+//                [_titleMutArr addObject:@"支付宝账号:"];
+//            }else{
+//                [_titleMutArr addObject:@"异常:"];
+//            }
+//            [_titleMutArr addObject:@"下单时间:"];
+//            [_titleMutArr addObject:@"订单状态"];
+//        }
         else if (self.catFoodProducingAreaModel){//只允许银行卡
             [_titleMutArr addObject:@"订单号:"];
             [_titleMutArr addObject:@"单价:"];
@@ -711,6 +957,33 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                              SCALING_RATIO(50)));
         }];
     }return _contactBuyer;
+}
+
+-(UIButton *)reloadPicBtn{
+    if (!_reloadPicBtn) {
+        _reloadPicBtn = UIButton.new;
+        _reloadPicBtn.uxy_acceptEventInterval = btnActionTime;
+        _reloadPicBtn.backgroundColor = kOrangeColor;
+        [_reloadPicBtn setTitleColor:kWhiteColor
+                       forState:UIControlStateNormal];
+        [UIView cornerCutToCircleWithView:_sureBtn
+                          AndCornerRadius:5.f];
+        [self.tableView addSubview:_reloadPicBtn];
+        [_reloadPicBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.view);
+            make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2, SCALING_RATIO(50)));
+            if (![NSString isNullString:self.orderListModel.payment_print] ||
+            ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
+                ![NSString isNullString:self.orderDetailModel.payment_print]
+            ) {
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
+            }else{//[OrderDetailTBVCell cellHeightWithModel:nil]
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil]);
+            }
+        }];
+        [self.view layoutIfNeeded];
+        NSLog(@"");
+    }return _reloadPicBtn;
 }
 
 -(VerifyCodeButton *)countDownCancelBtn{

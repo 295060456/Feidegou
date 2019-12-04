@@ -126,7 +126,7 @@
     NSString *strToday = [dateFormatter stringFromDate:[NSDate date]];
     [params setObject:strToday forKey:@"datetoken"];//token
     [params setObject:[YDDevice getUQID] forKey:@"identity"];//设备号
-    [params setObject:[GettingDeviceIP getIPaddress] forKey:@"loginIp"];//ip
+    [params setObject:[GettingDeviceIP getNetworkIPAddress] forKey:@"loginIp"];//ip
 
     NSString *strJson = [self DataTOjsonString:params];// 字典转为json
     strJson = [NSString encodeToPercentEscapeString:strJson];// encodeing  json

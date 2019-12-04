@@ -116,7 +116,7 @@ static FMARCNetwork *_instance = nil;
                                                           code:-1 
                                                       userInfo:nil]];/// request 必须的有值
     @weakify(self);
-    /// 创建信号
+    /// 创建信号 
     RACSignal *signal = [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
         @strongify(self);
         /// 获取request KKK

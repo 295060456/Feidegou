@@ -29,7 +29,8 @@
          _searchView = [[SearchView alloc] initWithBtnTitleMutArr:self.btnTitleMutArr];
         [self addSubview:_searchView];
         [_searchView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self);
+            make.top.left.equalTo(self).offset(SCALING_RATIO(10));
+            make.bottom.right.equalTo(self).offset(SCALING_RATIO(-10));
         }];
     }return _searchView;
 }

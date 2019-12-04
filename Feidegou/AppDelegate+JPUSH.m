@@ -86,19 +86,38 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //在这里处理回调信息 app active的时候
     Toast(@"2");
     NSLog(@"KKK = %@",notification);
-    [NSObject playSoundWithFileName:@"Sound.wav"];
-    if (!self.orderDetailVC) {
-        @weakify(self)
-        self.orderDetailVC = [OrderDetailVC ComingFromVC:self_weak_.window.rootViewController
-                                               withStyle:ComingStyle_PUSH
-                                           requestParams:nil
-                                                 success:^(id data) {}
-                                                animated:YES];
-    }
+
+//    if (!self.orderDetailVC) {
+//        @weakify(self)
+//        self.orderDetailVC = [OrderDetailVC ComingFromVC:self_weak_.window.rootViewController
+//                                               withStyle:ComingStyle_PUSH
+//                                           requestParams:nil
+//                                                 success:^(id data) {}
+//                                                animated:YES];
+//    }
 //   Required
   NSDictionary *userInfo = notification.request.content.userInfo;
   if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
-    [JPUSHService handleRemoteNotification:userInfo];
+      [JPUSHService handleRemoteNotification:userInfo];
+      // 取得 APNs 标准信息内容
+      NSDictionary *aps = [userInfo valueForKey:@"aps"];
+      NSString *content = [aps valueForKey:@"alert"]; //推送显示的内容
+      NSInteger badge = [[aps valueForKey:@"badge"] integerValue]; //badge 数量
+      NSString *sound = [aps valueForKey:@"Sound.wav"]; //播放的声音
+      // 取得 Extras 字段内容
+      NSString *customizeField1 = [userInfo valueForKey:@"customizeExtras"]; //服务端中 Extras 字段，key 是自己定义的
+      NSLog(@"content =[%@], badge=[%ld], sound=[%@], customize field  =[%@]",content,(long)badge,sound,customizeField1);
+      NSLog(@"order_id = %@",userInfo[@"order_id"]);//2
+      NSLog(@"order_type = %@",userInfo[@"order_type"]);//1
+      
+      if (userInfo[@"order_id"] &&
+          userInfo[@"order_type"]) {//订单详情
+          [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:userInfo[@"order_id"]//1
+                                                             Order_id:userInfo[@"order_type"]];//20190000
+          [NSObject playSoundWithFileName:@"Sound.wav"];
+      }else{//
+          Toast(userInfo[@"aps"][@"alert"]);
+      }
   }
   completionHandler(UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有 Badge、Sound、Alert 三种类型可以选择设置
 }

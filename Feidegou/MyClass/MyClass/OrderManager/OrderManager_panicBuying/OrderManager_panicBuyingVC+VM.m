@@ -62,13 +62,13 @@
             if ([response isKindOfClass:[NSArray class]]) {
                 NSArray *arr = (NSArray *)response;
                 if (arr.count) {
-                    NSArray *array = [OrderListModel mj_objectArrayWithKeyValuesArray:response];
+                    NSArray *array = [OrderManager_panicBuyingModel mj_objectArrayWithKeyValuesArray:response];
                     if (array) {
                         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
                                                             NSUInteger idx,
                                                             BOOL * _Nonnull stop) {
                             @strongify(self)
-                            OrderListModel *model = array[idx];
+                            OrderManager_panicBuyingModel *model = array[idx];
                             ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
                             if ([modelLogin.userId intValue] == [model.seller intValue]) {
                                 model.identity = @"卖家";
@@ -86,11 +86,11 @@
                 }else{
                     NSLog(@"没数据了");
                 }
-                [self.tableView.mj_header endRefreshing];
-                [self.tableView.mj_footer endRefreshing];
-                [self.tableView reloadData];
             }
         }
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        [self.tableView reloadData];
     }];
 }
 

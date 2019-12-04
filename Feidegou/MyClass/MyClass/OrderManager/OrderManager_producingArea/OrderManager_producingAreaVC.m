@@ -221,7 +221,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (self.dataMutArr.count) {
         @weakify(self)
-        OrderListModel *orderListModel = self.dataMutArr[indexPath.row];
+        OrderManager_producingAreaModel *orderListModel = self.dataMutArr[indexPath.row];
         [OrderDetailVC ComingFromVC:self_weak_
                           withStyle:ComingStyle_PUSH
                       requestParams:orderListModel
@@ -290,6 +290,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                            detailStr:@""];
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
+        _tableView.tableFooterView = UIView.new;
         _tableView.mj_footer.hidden = YES;
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -299,7 +300,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _tableView;
 }
 
--(NSMutableArray<OrderListModel *> *)dataMutArr{
+-(NSMutableArray<OrderManager_producingAreaModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
     }return _dataMutArr;

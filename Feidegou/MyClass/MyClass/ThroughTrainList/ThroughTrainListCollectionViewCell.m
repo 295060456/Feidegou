@@ -61,7 +61,7 @@
         self.titleLab.text = throughTrainListModel.name;//商品名
         self.salesLab.text = [@"剩余" stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.quantity ReplaceStr:@"0"]];//当前剩余
         self.repertoryLab.text = [@"已售:"stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.sales ReplaceStr:@"0"]];//已销售
-        self.rankLab.text = [@"当前排名:"stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.ranking ReplaceStr:@"0"]];
+        self.rankLab.text = [@"当前排名:"stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.ranking ReplaceStr:@"暂无"]];
         self.quantityLab.text = [@"参与数量:"stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.quantity ReplaceStr:@"0"]];
     }
 }
@@ -92,7 +92,7 @@
 -(UIImageView *)imageView{
     if (!_imageView) {
         _imageView = UIImageView.new;
-        _imageView.image = kIMG(@"picLoadErr");
+        _imageView.image = kIMG(@"1");
         [self.contentView addSubview:_imageView];
         [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.top.equalTo(self.contentView).offset(SCALING_RATIO(5));

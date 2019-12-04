@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,assign)__block int page;//分页面
-@property(nonatomic,strong)NSMutableArray <OrderListModel *>*dataMutArr;
+@property(nonatomic,strong)NSMutableArray <OrderManager_producingAreaModel *>*dataMutArr;
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
                     withStyle:(ComingStyle)comingStyle

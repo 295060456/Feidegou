@@ -76,7 +76,6 @@
         }
     });
 }
-
 //开启定时器
 -(void)startGCDTimer{
     dispatch_resume(self.GCDtimer);

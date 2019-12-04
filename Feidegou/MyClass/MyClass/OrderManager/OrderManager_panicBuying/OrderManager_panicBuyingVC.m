@@ -109,12 +109,14 @@ UITableViewDataSource
     self.tabBarController.tabBar.hidden = YES;
 //    self.tabBarController.gk_interactivePopDisabled = YES;//禁止手势侧滑
     [self.tableView.mj_header beginRefreshing];
+    NSLog(@"KKK_viewWillAppear");
 #warning KKK
 //    [self networking_platformType:PlatformType_Stall];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{//在这种框架下几乎等同于dealloc
     [super viewWillDisappear:animated];
+    NSLog(@"KKK_viewWillDisappear");
 //    self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— JXCategoryListContentViewDelegate
@@ -122,6 +124,7 @@ UITableViewDataSource
  可选实现，列表显示的时候调用
  */
 - (void)listDidAppear{
+     NSLog(@"KKK_listDidAppear");
     [self.timeManager startGCDTimer];
     [self.tableView.mj_header beginRefreshing];
 }
@@ -129,6 +132,7 @@ UITableViewDataSource
  可选实现，列表消失的时候调用
  */
 - (void)listDidDisappear{
+    NSLog(@"KKK_listDidDisappear");
     printf("retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(self)));
     [self.timeManager endGCDTimer];
     self.timeManager = nil;
@@ -137,6 +141,7 @@ UITableViewDataSource
 -(void)GCDtimer{
     //轮询
     NSLog(@"轮询_OrderManager_panicBuyingVC");
+    //KKK
     [self networking_type:self.businessType];//默认查当前页
 }
 // 下拉刷新
@@ -224,7 +229,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (self.dataMutArr.count) {
         @weakify(self)
-        OrderListModel *orderListModel = self.dataMutArr[indexPath.row];
+        OrderManager_panicBuyingModel *orderListModel = self.dataMutArr[indexPath.row];
         [OrderDetailVC ComingFromVC:self_weak_
                           withStyle:ComingStyle_PUSH
                       requestParams:orderListModel
@@ -294,6 +299,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                            detailStr:@""];
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
+        _tableView.tableFooterView = UIView.new;
         _tableView.mj_footer.hidden = YES;
 //        _tableView.contentOffset = CGPointMake(0, SCALING_RATIO(20));
         [self.view addSubview:_tableView];
@@ -305,7 +311,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _tableView;
 }
 
--(NSMutableArray<OrderListModel *> *)dataMutArr{
+-(NSMutableArray<OrderManager_panicBuyingModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
     }return _dataMutArr;

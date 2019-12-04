@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,strong)UITableView *tableView;
 @property(nonatomic,strong)UIButton *sureBtn;
+@property(nonatomic,strong)UIButton *reloadPicBtn;
 @property(nonatomic,strong)UIButton *normalCancelBtn;
 @property(nonatomic,strong)VerifyCodeButton *contactBuyer;//???
 @property(nonatomic,strong)VerifyCodeButton *countDownCancelBtn;
@@ -48,6 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)OrderListModel *orderListModel;
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
 @property(nonatomic,strong)OrderDetailModel *orderDetailModel;
+@property(nonatomic,strong)OrderManager_producingAreaModel *orderManager_producingAreaModel;
+@property(nonatomic,strong)OrderManager_panicBuyingModel *orderManager_panicBuyingModel;
 //@property(nonatomic,strong)StallListModel *stallListModel;
 
 -(void)chat;
