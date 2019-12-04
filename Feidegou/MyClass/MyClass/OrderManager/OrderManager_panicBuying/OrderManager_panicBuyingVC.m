@@ -104,6 +104,8 @@ UITableViewDataSource
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
     [self.tableView.mj_header beginRefreshing];
+#warning KKK
+    [self networking_platformType:PlatformType_Stall];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{//在这种框架下几乎等同于dealloc
@@ -130,10 +132,7 @@ UITableViewDataSource
 -(void)GCDtimer{
     //轮询
     NSLog(@"轮询_OrderManager_panicBuyingVC");
-    if (self.dataMutArr.count) {
-        [self.dataMutArr removeAllObjects];
-    }
-    [self networking_platformType:PlatformType_Stall];
+//    [self networking_platformType:PlatformType_Stall];
 }
 // 下拉刷新
 -(void)pullToRefresh{
@@ -143,7 +142,6 @@ UITableViewDataSource
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-    self.page++;//无用
     [self.tableView.mj_footer endRefreshing];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
@@ -208,6 +206,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                       requestParams:orderListModel
                             success:^(id data) {}
                            animated:YES];
+    }else{
+        NSLog(@"等待数据");
     }
     
 //    if ([orderListModel.identity isEqualToString:@"买家"]) {

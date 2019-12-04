@@ -204,7 +204,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         @strongify(self)
         if ([response isKindOfClass:[NSDictionary class]]) {
             OrderDetailModel *orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:response];
-            NSString *str1 = [NSString ensureNonnullString:orderDetailModel.ID ReplaceStr:@"无"];
+            NSString *str1 = [NSString ensureNonnullString:orderDetailModel.ID ReplaceStr:@"无"];//byname
             NSString *str2 = [NSString ensureNonnullString:orderDetailModel.quantity ReplaceStr:@""];
             [self.dataMutArr addObject:[NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2]];
             self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
@@ -328,7 +328,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //        }
     }];
 }
-
 //CatfoodSale_pay_delURL 喵粮批发取消 18
 -(void)cancelOrder_wholesaleMarket_netWorking{//展示数据
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
@@ -439,23 +438,24 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             NSString *str = (NSString *)response;
             NSCharacterSet *nonDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
             self.time = [[str stringByTrimmingCharactersInSet:nonDigits] intValue];
-            if ([self.orderListModel.order_type intValue] == 1) {
-                if ([self.orderListModel.order_status intValue] == 2) {
-                    if ([self.orderListModel.del_state intValue] == 0) {
+            if ([self.orderListModel.order_type intValue] == 1) {//订单类型 1、直通车;2、批发;3、平台
+                if ([self.orderListModel.order_status intValue] == 2) {//已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                    if ([self.orderListModel.del_state intValue] == 0) {//不影响（驳回） 0、不影响（驳回）;1、待审核;2、已通过
                         self.countDownCancelBtn.titleEndStr = @"取消";
 //                        self.countDownCancelBtn.titleBeginStr = @"";
                         [self.countDownCancelBtn addTarget:self
                                                     action:@selector(CatfoodBooth_del_netWorking)
                                           forControlEvents:UIControlEventTouchUpInside];//#22_1
-                    }else if ([self.orderListModel.del_state intValue] == 1){
+                    }else if ([self.orderListModel.del_state intValue] == 1){//待审核 0、不影响（驳回）;1、待审核;2、已通过
                         //计算两个时间的相隔
-                        NSDateFormatter *formatter = NSDateFormatter.new;
-                        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                        NSTimeInterval time = [NSString timeIntervalstartDate:self.orderListModel.updateTime
-                                                                      endDate:[formatter stringFromDate:[NSDate date]]
-                                                                timeFormatter:formatter];
-                        self.time = 3 * 3600 - time;
-                        self.contactBuyer.titleEndStr = @"联系买家";
+//                        NSDateFormatter *formatter = NSDateFormatter.new;
+//                        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//                        NSTimeInterval time = [NSString timeIntervalstartDate:self.orderListModel.updateTime
+//                                                                      endDate:[formatter stringFromDate:[NSDate date]]
+//                                                                timeFormatter:formatter];
+//                        self.time = 3 * 3600 - time;
+                        self.time = 3;
+                        self.titleEndStr = @"联系买家";
                         [self.contactBuyer addTarget:self
                                               action:@selector(联系买家)
                                     forControlEvents:UIControlEventTouchUpInside];
@@ -573,7 +573,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 }
 
 -(void)联系买家{
-    Toast(@"开发中...");
+//    Toast(@"开发中...");
+    [self chat];
 }
 
 

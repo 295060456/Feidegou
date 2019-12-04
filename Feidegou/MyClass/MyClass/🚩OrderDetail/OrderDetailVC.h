@@ -37,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)__block UIImage *pic;
 @property(nonatomic,copy)__block NSString *resultStr;
 @property(nonatomic,copy)__block NSString *str;
+@property(nonatomic,copy)__block NSString *titleEndStr;
+@property(nonatomic,copy)__block NSString *titleBeginStr;
 @property(nonatomic,assign)__block int time;
 @property(nonatomic,strong)NSNumber *Order_id;
 @property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
@@ -47,6 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
 @property(nonatomic,strong)OrderDetailModel *orderDetailModel;
 //@property(nonatomic,strong)StallListModel *stallListModel;
+
+-(void)chat;
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
                    withStyle:(ComingStyle)comingStyle

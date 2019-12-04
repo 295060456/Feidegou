@@ -27,19 +27,36 @@
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         @strongify(self)
-        if (response) {
+#warning KKK
+        if (response) {//@"请尽快完成订单！" msg? 500
             NSLog(@"--%@",response);
-            if ([response isKindOfClass:[NSNumber class]]) {
-                NSNumber *d = (NSNumber *)response;
-                if ([d intValue] == 0) {//没开通直通车
-                    self.openBtn.alpha = 1;
-                }else{//已经开通直通车
-                    self.cancelBtn.alpha = 1;
-                    self.goOnBtn.alpha = 1;
-                    //回显
-                    self.quantity = [d stringValue];
-                }
-            }
+//            if ([response isKindOfClass:[NSNumber class]]) {
+//                NSNumber *d = (NSNumber *)response;
+//
+////                if (<#condition#>) {//code == 200
+////                    if ([d intValue] == 0) {//没开通直通车 200
+////                        self.openBtn.alpha = 1;
+////                    }else{//已经开通直通车 500
+//                        self.cancelBtn.alpha = 1;
+//                        self.goOnBtn.alpha = 1;
+////                        //回显
+////                        self.quantity = [d stringValue];
+////                    }
+////                }else if (500){
+////                    self.cancelBtn.alpha = 1;
+////                                           self.goOnBtn.alpha = 1;
+////                                           //回显
+////                                           self.quantity = [d stringValue];
+////                }
+//
+//
+//            }
+            
+            self.openBtn.alpha = 1;
+            
+            self.cancelBtn.alpha = 1;
+            self.goOnBtn.alpha = 1;
+            
             [self.tableView.mj_header endRefreshing];
             [self.tableView.mj_footer endRefreshing];
             [self.tableView reloadData];

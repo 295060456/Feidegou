@@ -76,7 +76,10 @@
                         [self.tableView.mj_header endRefreshing];
                         [self.tableView.mj_footer endRefreshing];
                         [self.tableView reloadData];
+                        self.page++;
                     }
+                }else{
+                    NSLog(@"没数据了");
                 }
             }
         }

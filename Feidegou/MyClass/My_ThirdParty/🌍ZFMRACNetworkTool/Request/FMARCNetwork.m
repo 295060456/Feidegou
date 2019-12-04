@@ -189,7 +189,7 @@ static FMARCNetwork *_instance = nil;
 //                HTTPResponseCodeError_01 = 401,//重新输入喵粮数量
 //                HTTPResponseCodeError_02 = 402,//输入有误请重新输入
 #warning
-                if (statusCode == HTTPResponseCodeSuccess) {//200 请求成功
+                if (statusCode == HTTPResponseCodeSuccess) {//200 请求成功 data
                     if (httpResponse.isSuccess) {
                         if (httpResponse.reqResult[HTTPServiceResponseDataKey]) {
                             [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseDataKey]];//
@@ -220,7 +220,7 @@ static FMARCNetwork *_instance = nil;
                         [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseMsgKey]];//
                         [subscriber sendCompleted];
                     }
-                }else if (statusCode == HTTPResponseCodeError){//500 数据错误
+                }else if (statusCode == HTTPResponseCodeError){//500 数据错误 msg
                     if (httpResponse.isSuccess) {
                         Toast(httpResponse.reqResult[HTTPServiceResponseMsgKey]);
                         [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseMsgKey]];//

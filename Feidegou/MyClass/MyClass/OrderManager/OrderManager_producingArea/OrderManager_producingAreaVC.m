@@ -131,9 +131,6 @@ UITableViewDataSource
 -(void)GCDtimer{
     //轮询
     NSLog(@"轮询_OrderManager_producingAreaVC");
-    if (self.dataMutArr.count) {
-        [self.dataMutArr removeAllObjects];
-    }
     [self networking_platformType:PlatformType_ProducingArea];
 }
 // 下拉刷新
@@ -144,7 +141,6 @@ UITableViewDataSource
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
-    self.page++;//无用
     [self.tableView.mj_footer endRefreshing];
 }
 

@@ -36,8 +36,6 @@ UITableViewDataSource
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
-@property(nonatomic,copy)NSString *titleEndStr;
-@property(nonatomic,copy)NSString *titleBeginStr;
 @property(nonatomic,assign)BOOL isFirstComing;
 @property(nonatomic,strong)UIViewController *rootVC;
 
@@ -104,12 +102,11 @@ UITableViewDataSource
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
-    self.tableView.alpha = 1;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -117,6 +114,7 @@ UITableViewDataSource
     if (self.isFirstComing) {
         [self data];
         self.isFirstComing = NO;
+        self.tableView.alpha = 1;
     }else{
         [self.tableView.mj_header beginRefreshing];
     }
@@ -130,13 +128,14 @@ UITableViewDataSource
 #pragma mark —— 私有方法
 -(void)data{
     if (self.orderListModel) {
-        NSString *str1 = [NSString ensureNonnullString:self.orderListModel.ID ReplaceStr:@"无"];
+        NSString *str1 = [NSString ensureNonnullString:self.orderListModel.byname ReplaceStr:@"无"];
         NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
-        self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
+        self.str = [NSString stringWithFormat:@"您向%@购买%@g喵粮",str1,str2];
             if ([self.orderListModel.order_type intValue] == 1) {//直通车 只有卖家 订单类型 1、直通车;2、批发;3、平台
                 self.gk_navTitle = @"直通车订单详情";
                 if ([self.orderListModel.order_status intValue] == 0) {
                     [self.dataMutArr addObject:@"订单已支付"];
+                    //倒计时3s + 发货
                 }else if ([self.orderListModel.order_status intValue] == 1){
                     [self.dataMutArr addObject:@"订单已发单"];
                 }else if ([self.orderListModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
@@ -150,10 +149,20 @@ UITableViewDataSource
                                     action:@selector(boothDeliver_networking)//喵粮抢摊位发货
                           forControlEvents:UIControlEventTouchUpInside];//#21
                     }else if ([self.orderListModel.del_state intValue] == 1){//在审核中/买家确认中  0、不影响;1、待审核;2、已通过 3、驳回
-                        //3小时内，等待买家确认 倒计时
+                        //买家未确认
+                        [self.titleMutArr addObject:@"凭证:"];
+                        [self.dataMutArr addObject:@"待审核 —— 等待买家确认(3小时内)"];
+                        [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.payment_print ReplaceStr:@""]];
+                        NSLog(@"");
+//                        [self.sureBtn setTitle:@"发货"
+//                                      forState:UIControlStateNormal];
+//                        [self.sureBtn addTarget:self
+//                                    action:@selector(boothDeliver_networking)//喵粮抢摊位发货
+//                          forControlEvents:UIControlEventTouchUpInside];//#21
+                        //3小时内，等待买家确认 倒计时 是3秒取消按钮
                         //去请求 #22-2 获取最新时间
                         [self CatfoodBooth_del_time_netWorking];//#22-2 喵粮抢摊位取消剩余时间
-                        [self.dataMutArr addObject:@"待审核 —— 等待买家确认(3小时内)"];
+                        NSLog(@"");
                     }else if ([self.orderListModel.del_state intValue] == 2){//确定取消了 //撤销状态 0、不影响;1、待审核;2、已通过 3、驳回
                         [self.dataMutArr addObject:@"订单已通过"];
                     }else if ([self.orderListModel.del_state intValue] == 3){//撤销被驳回 或者 发货了//撤销状态 0、不影响;1、待审核;2、已通过 3、驳回
@@ -432,6 +441,37 @@ UITableViewDataSource
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
+
+-(void)chat{
+    @weakify(self)
+    NSLog(@"联系");
+    ConversationModel *model = ConversationModel.new;
+    model.conversationType = ConversationType_PRIVATE;
+
+    if ([[PersonalInfo sharedInstance] isLogined]) {
+        ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+        model.nick = modelLogin.userName;
+        model.order_code = [self.orderListModel.ID stringValue];
+        model.portrait = modelLogin.head;
+        model.conversationTitle = @"对话";
+        model.targetId = [NSString stringWithFormat:@"%@",self.orderListModel.platform_id];//0
+    }
+    
+    if (self.orderListModel) {
+        [ChatVC ComingFromVC:self_weak_
+                   withStyle:ComingStyle_PUSH
+               requestParams:model
+                     success:^(id data) {}
+                    animated:YES];
+    }
+//            if (self.catFoodProducingAreaModel) {
+//                self.catFoodProducingAreaModel.seller;
+//            }
+//            if (self.stallListModel) {
+//                self.stallListModel.seller;
+//            }
+}
+
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section {
@@ -447,32 +487,7 @@ viewForHeaderInSection:(NSInteger)section {
             @weakify(self)
             [viewForHeader actionBlock:^(id data) {
                 @strongify(self)
-                NSLog(@"联系");
-                ConversationModel *model = ConversationModel.new;
-                model.conversationType = ConversationType_PRIVATE;
-
-                if ([[PersonalInfo sharedInstance] isLogined]) {
-                    ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
-                    model.nick = modelLogin.userName;
-                    model.order_code = [self.orderListModel.ID stringValue];
-                    model.portrait = modelLogin.head;
-                    model.conversationTitle = @"对话";
-                    model.targetId = [NSString stringWithFormat:@"%@",self.orderListModel.platform_id];//0
-                }
-                
-                if (self.orderListModel) {
-                    [ChatVC ComingFromVC:self_weak_
-                               withStyle:ComingStyle_PUSH
-                           requestParams:model
-                                 success:^(id data) {}
-                                animated:YES];
-                }
-    //            if (self.catFoodProducingAreaModel) {
-    //                self.catFoodProducingAreaModel.seller;
-    //            }
-    //            if (self.stallListModel) {
-    //                self.stallListModel.seller;
-    //            }
+                [self chat];
             }];
         }else{
             viewForHeader.tipsIMGV.alpha = 0;

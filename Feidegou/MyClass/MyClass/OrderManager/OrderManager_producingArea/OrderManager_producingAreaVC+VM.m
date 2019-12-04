@@ -74,6 +74,7 @@
                         [self.tableView.mj_header endRefreshing];
                         [self.tableView.mj_footer endRefreshing];
                         [self.tableView reloadData];
+                        self.page++;
                     }
                 }else{
                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
