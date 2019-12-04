@@ -718,18 +718,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [_sureBtn setTitleColor:kWhiteColor
                        forState:UIControlStateNormal];
         [UIView cornerCutToCircleWithView:_sureBtn
-                          AndCornerRadius:3.f];
+                          AndCornerRadius:5.f];
         [self.tableView addSubview:_sureBtn];
         [_sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.tableView);
-            make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2, SCALING_RATIO(80)));
+            make.right.equalTo(self.view).offset(SCALING_RATIO(-30));
+            make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2, SCALING_RATIO(50)));
             if (![NSString isNullString:self.orderListModel.payment_print] ||
             ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
                 ![NSString isNullString:self.orderDetailModel.payment_print]
             ) {
-                make.top.equalTo(self.view).offset(self.titleMutArr.count * [OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
-            }else{
-                make.top.equalTo(self.view).offset(self.titleMutArr.count * [OrderDetailTBViewForHeader headerViewHeightWithModel:nil]);
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
+            }else{//[OrderDetailTBVCell cellHeightWithModel:nil]
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil]);
             }
         }];
         [self.view layoutIfNeeded];
@@ -746,10 +746,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _normalCancelBtn.backgroundColor = KLightGrayColor;
         [self.tableView addSubview:_normalCancelBtn];
         [_normalCancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.view);
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100),
-                                             SCALING_RATIO(50)));
-            make.bottom.equalTo(self.view).offset(SCALING_RATIO(-100));
+            make.left.equalTo(self.view).offset(SCALING_RATIO(30));
+            make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2, SCALING_RATIO(50)));
+            if (![NSString isNullString:self.orderListModel.payment_print] ||
+            ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
+                ![NSString isNullString:self.orderDetailModel.payment_print]
+            ) {
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
+            }else{//[OrderDetailTBVCell cellHeightWithModel:nil]
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil]);
+            }
         }];
     }return _normalCancelBtn;
 }

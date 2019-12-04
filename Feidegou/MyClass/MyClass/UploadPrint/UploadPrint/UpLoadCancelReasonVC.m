@@ -99,15 +99,23 @@ UITableViewDataSource
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
+    
     self.imageView.alpha = 1;
     self.tableView.alpha = 1;
-    self.demoPicBtn.alpha = 1;
-    self.titleLab.alpha = 1;
+//    self.demoPicBtn.alpha = 1;
+//    self.titleLab.alpha = 1;
     self.tipLab.alpha = 1;
+    self.gk_navLineHidden = YES;
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = YES;
     self.gk_navTitle = @"上传凭证";
 }
 #pragma mark —— 点击事件
@@ -247,7 +255,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIImageView *)imageView{
     if (!_imageView) {
         _imageView = UIImageView.new;
-        _imageView.backgroundColor = COLOR_HEX(0x4870EF, 1);
+        _imageView.backgroundColor = AppMainThemeColor;//COLOR_HEX(0x4870EF, 1);
         [self.view addSubview:_imageView];
         [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
@@ -432,7 +440,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)upLoadbtn{
     if (!_upLoadbtn) {
         _upLoadbtn = UIButton.new;
-        _upLoadbtn.backgroundColor = COLOR_HEX(0x4870EF, 1);
+        _upLoadbtn.backgroundColor = AppMainThemeColor;//COLOR_HEX(0x4870EF, 1);
         [_upLoadbtn addTarget:self
                        action:@selector(upLoadbtnClickEvent:)
              forControlEvents:UIControlEventTouchUpInside];
