@@ -308,10 +308,9 @@ static FMARCNetwork *_instance = nil;
     RACSignal *signal = [RACSignal createSignal:^(id<RACSubscriber> subscriber) {
         @strongify(self);
         NSError *serializationError = nil;
-        NSMutableURLRequest *request = [self.manager.requestSerializer multipartFormRequestWithMethod:@"POST"
-                                                                                            URLString:[[NSURL URLWithString:path
-                                                                                                              relativeToURL:[NSURL URLWithString:ImgBaseURL]]
-                                                                                                       absoluteString]
+        NSString *url = [ImgBaseURL stringByAppendingString:path];
+        NSMutableURLRequest *request = [self.manager.requestSerializer multipartFormRequestWithMethod:HTTTP_METHOD_POST
+                                                                                            URLString:url
                                                                                            parameters:parameters
                                                                             constructingBodyWithBlock:block
                                                                                                 error:&serializationError];
@@ -325,11 +324,19 @@ static FMARCNetwork *_instance = nil;
             return [RACDisposable disposableWithBlock:^{
             }];
         }
+        
         __block NSURLSessionDataTask *task = [self.manager uploadTaskWithStreamedRequest:request
-                                                                                progress:nil
-                                                                       completionHandler:^(NSURLResponse * __unused response,
-                                                                                           id responseObject,
-                                                                                           NSError *error) {
+                                           progress:^(NSProgress * _Nonnull uploadProgress) {
+                    NSLog(@"uploadProgress = %@",uploadProgress);
+            CGFloat _percent = uploadProgress.fractionCompleted * 100;
+            NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
+            NSLog(@"%@",str);
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                Toast(str);
+            }];
+        } completionHandler:^(NSURLResponse * _Nonnull response,
+                              id  _Nullable responseObject,
+                              NSError * _Nullable error) {
             @strongify(self);
             if (error) {
                 NSError *parseError = [self errorFromRequestWithTask:task
@@ -348,51 +355,56 @@ static FMARCNetwork *_instance = nil;
                 [subscriber sendCompleted];
                 [self showMsgtext:msgStr];
             } else {
-                NSInteger statusCode = [responseObject[HTTPServiceResponseCodeKey] integerValue];
-                if (statusCode == HTTPResponseCodeSuccess) {
-                    FMHttpResonse *response = [[FMHttpResonse alloc] initWithResponseSuccess:responseObject[HTTPServiceResponseDataKey]
-                                                                                        code:statusCode];
-                    [subscriber sendNext:response];
-                    [subscriber sendCompleted];
-                }else{
-                    if (statusCode == HTTPResponseCodeNotLogin) {
-                        //可以在此处理需要登录的逻辑、比如说弹出登录框，但是，一般请求某个 api 判断了是否需要登录就不会进入
-                        //如果进入可一做错误处理
-                        NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-                        userInfo[HTTPServiceErrorHTTPStatusCodeKey] = @(statusCode);
-                        userInfo[HTTPServiceErrorDescriptionKey] = @"请登录!";
-                        NSError *noLoginError = [NSError errorWithDomain:HTTPServiceErrorDomain
-                                                                    code:statusCode
-                                                                userInfo:userInfo];
-                        FMHttpResonse *response = [[FMHttpResonse alloc] initWithResponseError:noLoginError
-                                                                                          code:statusCode
-                                                                                           msg:@"请登录!"];
-                        [subscriber sendNext:response];
-                        [subscriber sendCompleted];
-                        [self showMsgtext:@"请登录"];
-                    }else{
-                        NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-                        userInfo[HTTPServiceErrorResponseCodeKey] = @(statusCode);
-                        NSString *msgTips = responseObject[HTTPServiceResponseMsgKey];//取出服务给的提示
-                        if ((msgTips.length == 0 ||
-                             msgTips == nil ||
-                             [msgTips isKindOfClass:[NSNull class]])) {//服务器没有返回，错误信息
-                            msgTips = @"服务器出错了，请稍后重试~";
-                        }
-                        userInfo[HTTPServiceErrorMessagesKey] = msgTips;
-                        if (task.currentRequest.URL) userInfo[HTTPServiceErrorRequestURLKey] = task.currentRequest.URL.absoluteString;
-                        if (task.error) userInfo[NSUnderlyingErrorKey] = task.error;
-                        NSError *requestError = [NSError errorWithDomain:HTTPServiceErrorDomain
-                                                                    code:statusCode
-                                                                userInfo:userInfo];
-                        FMHttpResonse *response = [[FMHttpResonse alloc] initWithResponseError:requestError
-                                                                                          code:statusCode
-                                                                                           msg:msgTips];//错误信息反馈回去了、可以在此做响应的弹窗处理，展示出服务器给我们的信息
-                        [subscriber sendNext:response];
-                        [subscriber sendCompleted];
-                        [self showMsgtext:msgTips];
-                    }
-                }
+                FMHttpResonse *response = [[FMHttpResonse alloc] initWithResponseSuccess:responseObject
+                                                                                    code:0];
+                [subscriber sendNext:response];
+                [subscriber sendCompleted];
+                
+//                NSInteger statusCode = [responseObject[HTTPServiceResponseCodeKey] integerValue];
+//                if (statusCode == HTTPResponseCodeSuccess) {
+//                    FMHttpResonse *response = [[FMHttpResonse alloc] initWithResponseSuccess:responseObject[HTTPServiceResponseDataKey]
+//                                                                                    code:statusCode];
+//                    [subscriber sendNext:response];
+//                    [subscriber sendCompleted];
+//                }else{
+//                    if (statusCode == HTTPResponseCodeNotLogin) {
+//                        //可以在此处理需要登录的逻辑、比如说弹出登录框，但是，一般请求某个 api 判断了是否需要登录就不会进入
+//                        //如果进入可一做错误处理
+//                        NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+//                        userInfo[HTTPServiceErrorHTTPStatusCodeKey] = @(statusCode);
+//                        userInfo[HTTPServiceErrorDescriptionKey] = @"请登录!";
+//                        NSError *noLoginError = [NSError errorWithDomain:HTTPServiceErrorDomain
+//                                                                    code:statusCode
+//                                                                userInfo:userInfo];
+//                        FMHttpResonse *response = [[FMHttpResonse alloc] initWithResponseError:noLoginError
+//                                                                                          code:statusCode
+//                                                                                           msg:@"请登录!"];
+//                        [subscriber sendNext:response];
+//                        [subscriber sendCompleted];
+//                        [self showMsgtext:@"请登录"];
+//                    }else{
+//                        NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+//                        userInfo[HTTPServiceErrorResponseCodeKey] = @(statusCode);
+//                        NSString *msgTips = responseObject[HTTPServiceResponseMsgKey];//取出服务给的提示
+//                        if ((msgTips.length == 0 ||
+//                             msgTips == nil ||
+//                             [msgTips isKindOfClass:[NSNull class]])) {//服务器没有返回，错误信息
+//                            msgTips = @"服务器出错了，请稍后重试~";
+//                        }
+//                        userInfo[HTTPServiceErrorMessagesKey] = msgTips;
+//                        if (task.currentRequest.URL) userInfo[HTTPServiceErrorRequestURLKey] = task.currentRequest.URL.absoluteString;
+//                        if (task.error) userInfo[NSUnderlyingErrorKey] = task.error;
+//                        NSError *requestError = [NSError errorWithDomain:HTTPServiceErrorDomain
+//                                                                    code:statusCode
+//                                                                userInfo:userInfo];
+//                        FMHttpResonse *response = [[FMHttpResonse alloc] initWithResponseError:requestError
+//                                                                                          code:statusCode
+//                                                                                           msg:msgTips];//错误信息反馈回去了、可以在此做响应的弹窗处理，展示出服务器给我们的信息
+//                        [subscriber sendNext:response];
+//                        [subscriber sendCompleted];
+//                        [self showMsgtext:msgTips];
+//                    }
+//                }
             }
         }];
         [task resume];

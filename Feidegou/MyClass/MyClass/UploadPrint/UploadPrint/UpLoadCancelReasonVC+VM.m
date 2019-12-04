@@ -9,64 +9,105 @@
 #import "UpLoadCancelReasonVC+VM.h"
 
 @implementation UpLoadCancelReasonVC (VM)
-//CatfoodCO_payURL 喵粮产地购买已支付  #8
+
 -(void)uploadPic_producingArea_havePaid_netWorking:(UIImage *)image{
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
+    __block NSData *picData = [UIImage imageZipToData:image];
     ModelLogin *modelLogin;
     if ([[PersonalInfo sharedInstance] isLogined]) {
         modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
     }
-    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
-    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
-    __block NSData *picData = [UIImage imageZipToData:image];
     NSDictionary *dataDic = @{
         @"order_id":self.Order_id,
         @"user_id":modelLogin.userId,
         @"identity":[YDDevice getUQID]
     };
+    
+    NSDictionary *dic = @{
+        @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
+        @"key":[RSAUtil encryptString:randomStr
+                            publicKey:RSA_Public_key],
+        @"randomStr":randomStr
+    };
+    
+    self.reqSignal = [[FMARCNetwork sharedInstance] uploadNetworkPath:CatfoodCO_payURL
+                                                               params:dic
+                                                            fileDatas:@[picData]
+                                                                 name:@"test.png"
+                                                             mimeType:@"image/png"];
     @weakify(self)
-    NSString *str = [NSString jointMakeURL:@[ImgBaseURL,@"/catfoodapp",@"/CatfoodCO_payURL"]];
-    [mgr POST:str//正式BaseURL 测试BaseUrl
-   parameters:@{
-       @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
-       @"key":[RSAUtil encryptString:randomStr
-                           publicKey:RSA_Public_key],
-       @"randomStr":randomStr
-   }
-constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        [formData appendPartWithFileData:picData
-                                    name:@"payment_print"
-                                fileName:@"test.png"
-                                mimeType:@"image/png"];
-    }
-     progress:^(NSProgress * _Nonnull uploadProgress) {
-        NSLog(@"uploadProgress = %@",uploadProgress);
-        CGFloat _percent = uploadProgress.fractionCompleted * 100;
-        NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
-        NSLog(@"%@",str);
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(str);
-        }];
-    }
-      success:^(NSURLSessionDataTask * _Nonnull task,
-                id  _Nullable responseObject) {
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         @strongify(self)
-        NSLog(@"responseObject = %@",responseObject);
+        NSDictionary *dic = [NSString dictionaryWithJsonString:aesDecryptString(response.reqResult, randomStr)];
+        NSLog(@"%@",dic);
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(@"上传凭证成功");
+            Toast(dic[@"message"]);
         }];
-        NSArray *vcArr = self.navigationController.viewControllers;
-        UIViewController *vc = vcArr[2];
-        [self.navigationController popToViewController:vc animated:YES];
+        if ([dic[@"code"] intValue] == 200) {
+                    NSArray *vcArr = self.navigationController.viewControllers;
+            UIViewController *vc = vcArr[2];
+            [self.navigationController popToViewController:vc animated:YES];
         }
-      failure:^(NSURLSessionDataTask * _Nullable task,
-                NSError * _Nonnull error) {
-        NSLog(@"error = %@",error);
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            Toast(@"上传图片失败");
-        }];
     }];
 }
+//CatfoodCO_payURL 喵粮产地购买已支付  #8
+//-(void)uploadPic_producingArea_havePaid_netWorking1:(UIImage *)image{//
+//    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
+//    ModelLogin *modelLogin;
+//    if ([[PersonalInfo sharedInstance] isLogined]) {
+//        modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+//    }
+//    AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
+//    mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    __block NSData *picData = [UIImage imageZipToData:image];
+//    NSDictionary *dataDic = @{
+//        @"order_id":self.Order_id,
+//        @"user_id":modelLogin.userId,
+//        @"identity":[YDDevice getUQID]
+//    };
+//    @weakify(self)
+//    NSString *str = [NSString jointMakeURL:@[ImgBaseURL,CatfoodCO_payURL]];
+//    [mgr POST:str//正式BaseURL 测试BaseUrl
+//   parameters:@{
+//       @"data":aesEncryptString([NSString convertToJsonData:dataDic], randomStr),
+//       @"key":[RSAUtil encryptString:randomStr
+//                           publicKey:RSA_Public_key],
+//       @"randomStr":randomStr
+//   }
+//constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+//        [formData appendPartWithFileData:picData
+//                                    name:@"payment_print"
+//                                fileName:@"test.png"
+//                                mimeType:@"image/png"];
+//    }
+//     progress:^(NSProgress * _Nonnull uploadProgress) {
+//        NSLog(@"uploadProgress = %@",uploadProgress);
+//        CGFloat _percent = uploadProgress.fractionCompleted * 100;
+//        NSString *str = [NSString stringWithFormat:@"上传图片中...%.2f",_percent];
+//        NSLog(@"%@",str);
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//            Toast(str);
+//        }];
+//    }
+//      success:^(NSURLSessionDataTask * _Nonnull task,
+//                id  _Nullable responseObject) {
+//        @strongify(self)
+//        NSLog(@"responseObject = %@",responseObject);
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//            Toast(@"上传凭证成功");
+//        }];
+//        NSArray *vcArr = self.navigationController.viewControllers;
+//        UIViewController *vc = vcArr[2];
+//        [self.navigationController popToViewController:vc animated:YES];
+//        }
+//      failure:^(NSURLSessionDataTask * _Nullable task,
+//                NSError * _Nonnull error) {
+//        NSLog(@"error = %@",error);
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//            Toast(@"上传图片失败");
+//        }];
+//    }];
+//}
 //CatfoodSale_payURL 喵粮批发已支付 #17
 -(void)upLoadPic_wholesaleMarket_havePaid_netWorking:(UIImage *)pic{
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
