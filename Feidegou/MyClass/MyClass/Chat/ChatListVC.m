@@ -131,6 +131,8 @@ RCIMConnectionStatusDelegate
     [super viewDidLoad];
     self.conversationListTableView.mj_header = self.tableViewHeader;
     self.conversationListTableView.mj_footer = self.tableViewFooter;
+    self.conversationListTableView.tableFooterView = UIView.new;
+    self.conversationListTableView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

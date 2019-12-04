@@ -72,8 +72,10 @@ UITableViewDataSource
         vc.Order_id = vc.orderDetailModel.ID;
     }else if ([vc.requestParams isKindOfClass:[OrderManager_producingAreaModel class]]){
         vc.orderManager_producingAreaModel = (OrderManager_producingAreaModel *)vc.requestParams;
+        vc.Order_id = vc.orderManager_producingAreaModel.ID;
     }else if ([vc.requestParams isKindOfClass:[OrderManager_panicBuyingModel class]]){
         vc.orderManager_panicBuyingModel = (OrderManager_panicBuyingModel *)vc.requestParams;
+        vc.Order_id = vc.orderManager_panicBuyingModel.ID;
     }
     else{}
     switch (comingStyle) {
@@ -110,7 +112,7 @@ UITableViewDataSource
     [self.gk_navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : kBlackColor,
                                                     NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold"
                                                                                         size:17]}];
-    self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
+    self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];//self.Order_id
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -517,6 +519,7 @@ UITableViewDataSource
     }
 }
 // 手动下拉刷新
+#warning 刷新数据 KKKK
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
     if (self.dataMutArr.count) {
@@ -526,38 +529,13 @@ UITableViewDataSource
     if (self.titleMutArr.count) {
         [self.titleMutArr removeAllObjects];
     }
+
+    if (self.orderManager_producingAreaModel) {//产地
+        [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"产地"];//订单类型 —— 1、直通车;2、批发;3、产地
+    }
     
-    //订单类型 —— 1、摊位;2、批发;3、产地
-    if (self.orderListModel) {
-            if ([self.orderListModel.order_type intValue] == 1) {
-            if ([self.orderListModel.order_status intValue] == 2) {
-                if ([self.orderListModel.del_state intValue] == 0) {//0、不影响;1、待审核;2、已通过 3、驳回
-                    [self CatfoodBooth_del_time_netWorking];//喵粮抢摊位取消剩余时间
-                }
-            }
-        }
-        switch ([self.orderListModel.order_type intValue]) {
-            case 1:{//摊位
-                [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"摊位"];//喵粮订单查看 3小时
-            }break;
-            case 2:{//批发
-                 [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"批发"];//喵粮订单查看 3小时
-            }break;
-            case 3:{//产地
-                [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"产地"];//喵粮订单查看 3小时
-            }break;
-            default:
-                break;
-        }
-    }
-    else if (self.catFoodProducingAreaModel){
-        [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"产地"];//喵粮订单查看 3小时
-    }
-    else if (self.orderDetailModel){//原直通车
-        [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"摊位"];//喵粮订单查看 3小时
-    }
-    else{
-//        [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@""];//喵粮订单查看 3小时
+    else if (self.orderManager_panicBuyingModel){//直通车
+        [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"直通车"];//订单类型 —— 1、直通车;2、批发;3、产地
     }
 }
 //上拉加载更多
@@ -676,18 +654,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             ![NSString isNullString:self.orderDetailModel.payment_print]
             ) {//有凭证数据  ![NSString isNullString:self.stallListModel.payment_print]
             OrderDetailTBVIMGCell *cell = [OrderDetailTBVIMGCell cellWith:tableView];//
-            cell.textLabel.text = self.titleMutArr[indexPath.row];
-            [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
-            return cell;
+            if (self.titleMutArr.count) {
+                cell.textLabel.text = self.titleMutArr[indexPath.row];
+                [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+            }return cell;
         }else{//没有凭证数据，则显示正常的行
             OrderDetailTBVCell *cell = [OrderDetailTBVCell cellWith:tableView];//
-            cell.textLabel.text = self.titleMutArr[indexPath.row];
-            [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
-            return cell;
+            if (self.titleMutArr.count) {
+                cell.textLabel.text = self.titleMutArr[indexPath.row];
+                [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+            }return cell;
         }
     }else{//其他正常的行
         OrderDetailTBVCell *cell = [OrderDetailTBVCell cellWith:tableView];//
-        cell.textLabel.text = self.titleMutArr[indexPath.row];
+        if (self.titleMutArr.count) {
+            cell.textLabel.text = self.titleMutArr[indexPath.row];
+        }
         if (self.dataMutArr.count) {//最新数据
             [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
         }else{//原始数据

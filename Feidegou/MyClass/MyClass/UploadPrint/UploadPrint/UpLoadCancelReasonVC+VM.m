@@ -44,7 +44,7 @@
             Toast(dic[@"message"]);
         }];
         if ([dic[@"code"] intValue] == 200) {
-                    NSArray *vcArr = self.navigationController.viewControllers;
+            NSArray *vcArr = self.navigationController.viewControllers;
             UIViewController *vc = vcArr[2];
             [self.navigationController popToViewController:vc animated:YES];
         }

@@ -468,7 +468,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //buyer_CatfoodRecord_checkURL 喵粮订单查看
 -(void)buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:(NSString *)order_type{//订单类型 —— 1、摊位;2、批发;3、产地
     NSNumber *b;
-    if ([order_type isEqualToString:@"摊位"]) {
+    if ([order_type isEqualToString:@"直通车"]) {
         b = [NSNumber numberWithInt:1];
     }else if ([order_type isEqualToString:@"批发"]){
         b = [NSNumber numberWithInt:2];
@@ -558,7 +558,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                     }else{
                         [self.dataMutArr addObject:@"订单状态异常"];
                     }
-                    
+#warning KKK 凭证为空？？？？KKKKKKKKK
                     if (![NSString isNullString:model.payment_print]) {
                         [self.titleMutArr addObject:@"凭证:"];
                         [self.dataMutArr addObject:model.payment_print];

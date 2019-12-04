@@ -61,11 +61,18 @@ UITableViewDataSource
         vc.orderListModel = (OrderListModel *)requestParams;
         vc.Order_id = vc.orderListModel.ID;
         vc.Order_type = vc.orderListModel.order_type;
-    }else if ([requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){
+    }
+    else if ([requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){
         vc.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)requestParams;
         vc.Order_id = vc.catFoodProducingAreaModel.ID;
         vc.Order_type = vc.catFoodProducingAreaModel.order_type;
-    }else{}
+    }
+    else if ([requestParams isKindOfClass:[OrderManager_producingAreaModel class]]){
+        vc.orderManager_producingAreaModel = (OrderManager_producingAreaModel *)requestParams;
+        vc.Order_id = vc.orderManager_producingAreaModel.ID;
+        vc.Order_type = vc.orderManager_producingAreaModel.order_type;
+    }
+    else{}
     switch (comingStyle) {
         case ComingStyle_PUSH:{
             if (rootVC.navigationController) {
@@ -152,30 +159,40 @@ UITableViewDataSource
 
 -(void)GoUploadPic{
     if (self.pic) {
-        if (self.orderListModel) {
-            if ([self.orderListModel.order_status intValue] == 2 &&
-                [self.orderListModel.identity isEqualToString:@"买家"] &&
-                [self.orderListModel.order_type intValue] == 2) {
-                //#17
-                [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.pic];
-            }
-            if ([self.orderListModel.order_status intValue] == 0 &&
-                [self.orderListModel.identity isEqualToString:@"买家"] &&
-                [self.orderListModel.order_type intValue] == 2) {
-                //#17
-                [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.pic];
-            }
-            if ([self.orderListModel.order_status intValue] == 2 &&
-                [self.orderListModel.order_type intValue] == 3) {
-                //#8
+        if (self.orderManager_producingAreaModel) {
+            NSLog(@"");
+            if ([self.orderManager_producingAreaModel.order_status intValue] == 4 &&//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                [self.orderManager_producingAreaModel.identity isEqualToString:@"买家"] &&
+                [self.orderManager_producingAreaModel.order_type intValue] == 3) {//订单类型 1、直通车;2、批发;3、平台
                 [self uploadPic_producingArea_havePaid_netWorking:self.pic];
             }
-            if ([self.orderListModel.order_status intValue] == 0 &&
-                [self.orderListModel.order_type intValue] == 3) {//??
-                //#8
-                [self uploadPic_producingArea_havePaid_netWorking:self.pic];
-            }
-        }else if (self.catFoodProducingAreaModel){
+        }
+//        if (self.orderListModel) {
+//            if ([self.orderListModel.order_status intValue] == 2 &&
+//                [self.orderListModel.identity isEqualToString:@"买家"] &&
+//                [self.orderListModel.order_type intValue] == 2) {
+//                //#17
+//                [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.pic];
+//            }
+//            if ([self.orderListModel.order_status intValue] == 0 &&
+//                [self.orderListModel.identity isEqualToString:@"买家"] &&
+//                [self.orderListModel.order_type intValue] == 2) {
+//                //#17
+//                [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.pic];
+//            }
+//            if ([self.orderListModel.order_status intValue] == 2 &&
+//                [self.orderListModel.order_type intValue] == 3) {
+//                //#8
+//                [self uploadPic_producingArea_havePaid_netWorking:self.pic];
+//            }
+//            if ([self.orderListModel.order_status intValue] == 0 &&
+//                [self.orderListModel.order_type intValue] == 3) {//??
+//                //#8
+//                [self uploadPic_producingArea_havePaid_netWorking:self.pic];
+//            }
+//        }
+#warning KKK 检查
+        else if (self.catFoodProducingAreaModel){
             //#8
             [self uploadPic_producingArea_havePaid_netWorking:self.pic];
         }else{

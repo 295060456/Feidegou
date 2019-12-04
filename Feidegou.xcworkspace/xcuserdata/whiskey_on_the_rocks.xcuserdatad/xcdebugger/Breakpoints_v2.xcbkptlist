@@ -5,18 +5,29 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            uuid = "10DFA51E-2C5F-4B0F-AE64-B17B482C8BBB"
+            uuid = "1338E41B-6CA5-4413-9C47-4B0D3700B04C"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC.m"
+            scope = "1"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "07D395A4-1BFF-4139-8D4C-8574D24B3D30"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC+VM.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
-            landmarkName = "-data"
+            startingLineNumber = "563"
+            endingLineNumber = "563"
+            landmarkName = "-buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

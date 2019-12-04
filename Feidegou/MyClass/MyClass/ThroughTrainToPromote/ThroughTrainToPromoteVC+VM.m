@@ -105,7 +105,8 @@
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     @weakify(self)
     NSDictionary *dataDic = @{
-        @"quantity":self.quantity
+        @"quantity":self.quantity,
+        @"login_ip":[GettingDeviceIP getNetworkIPAddress]//ip 是否在这里加？
     };
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:CatfoodTrainURL
