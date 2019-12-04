@@ -104,13 +104,14 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+//    self.tabBarController.gk_interactivePopDisabled = YES;//禁止手势侧滑
     self.tabBarController.tabBar.hidden = YES;
     [self.tableView.mj_header beginRefreshing];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{//在这种框架下几乎等同于dealloc
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
+//    self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— JXCategoryListContentViewDelegate
 /**
@@ -273,7 +274,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
-            make.top.equalTo(self.view).offset(SCALING_RATIO(10));
+            make.top.equalTo(self.view).offset(SCALING_RATIO(50));
         }];
     }return _tableView;
 }

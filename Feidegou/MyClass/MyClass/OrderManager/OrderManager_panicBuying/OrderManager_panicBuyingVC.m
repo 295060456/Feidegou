@@ -103,14 +103,15 @@ UITableViewDataSource
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+//    self.tabBarController.gk_interactivePopDisabled = YES;//禁止手势侧滑
     [self.tableView.mj_header beginRefreshing];
 #warning KKK
-    [self networking_platformType:PlatformType_Stall];
+//    [self networking_platformType:PlatformType_Stall];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{//在这种框架下几乎等同于dealloc
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
+//    self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— JXCategoryListContentViewDelegate
 /**
@@ -132,7 +133,7 @@ UITableViewDataSource
 -(void)GCDtimer{
     //轮询
     NSLog(@"轮询_OrderManager_panicBuyingVC");
-//    [self networking_platformType:PlatformType_Stall];
+    [self networking_platformType:PlatformType_Stall];
 }
 // 下拉刷新
 -(void)pullToRefresh{
@@ -271,11 +272,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.mj_header = self.tableViewHeader;
         _tableView.mj_footer = self.tableViewFooter;
         _tableView.mj_footer.hidden = YES;
+//        _tableView.contentOffset = CGPointMake(0, SCALING_RATIO(20));
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.view);
             make.left.right.equalTo(self.view);
-            make.top.equalTo(self.view).offset(SCALING_RATIO(10));
+            make.top.equalTo(self.view).offset(SCALING_RATIO(50));
         }];
     }return _tableView;
 }

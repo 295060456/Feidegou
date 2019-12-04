@@ -261,6 +261,7 @@ viewForHeaderInSection:(NSInteger)section {
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
         return SCALING_RATIO(10);
+//        isiPhoneX_series()
     }
     return SCALING_RATIO(30);
 }

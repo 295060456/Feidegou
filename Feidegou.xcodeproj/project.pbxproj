@@ -96,6 +96,7 @@
 		8BB217C823979CF400BD1B5F /* 综合.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BB217C423979CF300BD1B5F /* 综合.png */; };
 		8BB217C923979CF400BD1B5F /* 价格.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BB217C523979CF400BD1B5F /* 价格.png */; };
 		8BB217CA23979CF400BD1B5F /* 筛选.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BB217C623979CF400BD1B5F /* 筛选.png */; };
+		8BB217DD2397D10600BD1B5F /* UIDevice+XMUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB217DC2397D10600BD1B5F /* UIDevice+XMUtils.m */; };
 		8BB2D2812366C6990047D0E2 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2772366C6990047D0E2 /* TwitterHeart.json */; };
 		8BB2D2822366C6990047D0E2 /* HamburgerArrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */; };
 		8BB2D2832366C6990047D0E2 /* G.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2792366C6990047D0E2 /* G.json */; };
@@ -826,6 +827,9 @@
 		8BB217C423979CF300BD1B5F /* 综合.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "综合.png"; sourceTree = "<group>"; };
 		8BB217C523979CF400BD1B5F /* 价格.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "价格.png"; sourceTree = "<group>"; };
 		8BB217C623979CF400BD1B5F /* 筛选.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "筛选.png"; sourceTree = "<group>"; };
+		8BB217DB2397D10600BD1B5F /* UIDevice+XMUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+XMUtils.h"; sourceTree = "<group>"; };
+		8BB217DC2397D10600BD1B5F /* UIDevice+XMUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+XMUtils.m"; sourceTree = "<group>"; };
+		8BB217DE2397D4B400BD1B5F /* Snip20191204_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snip20191204_2.png; sourceTree = "<group>"; };
 		8BB2D2772366C6990047D0E2 /* TwitterHeart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeart.json; sourceTree = "<group>"; };
 		8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HamburgerArrow.json; sourceTree = "<group>"; };
 		8BB2D2792366C6990047D0E2 /* G.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = G.json; sourceTree = "<group>"; };
@@ -2209,6 +2213,16 @@
 			path = UQID;
 			sourceTree = "<group>";
 		};
+		8BB217DA2397D0F800BD1B5F /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				8BB217DE2397D4B400BD1B5F /* Snip20191204_2.png */,
+				8BB217DB2397D10600BD1B5F /* UIDevice+XMUtils.h */,
+				8BB217DC2397D10600BD1B5F /* UIDevice+XMUtils.m */,
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		8BB2D2732366C6410047D0E2 /* 🤮Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -2290,6 +2304,7 @@
 		8BB2D2942366C7310047D0E2 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				8BB217DA2397D0F800BD1B5F /* New Group */,
 				8BA69E4C2396C37100575B2F /* GetDeviceIP */,
 				8BC31198239555490050E1C1 /* Timer */,
 				8B8A0E112390D54E000D7579 /* XXTools */,
@@ -4670,6 +4685,7 @@
 				C42CD08A213CC2640096675F /* RSADataSigner.m in Sources */,
 				C42CD1B8213CC2640096675F /* BaseTableView.m in Sources */,
 				C42CD070213CC2640096675F /* ChangeNameController.m in Sources */,
+				8BB217DD2397D10600BD1B5F /* UIDevice+XMUtils.m in Sources */,
 				8BB2D33E2366CB170047D0E2 /* MMButton.m in Sources */,
 				C42CD0EB213CC2640096675F /* CellCartHead.m in Sources */,
 				C4614412214386B6000C0CDC /* VendorDetailGoodController.m in Sources */,
