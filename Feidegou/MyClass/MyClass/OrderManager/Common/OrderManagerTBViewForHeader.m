@@ -22,6 +22,7 @@
 - (instancetype)initWithReuseIdentifier:(nullable NSString *)reuseIdentifier
                                withData:(id)data{
     if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
+        self.backgroundColor = kClearColor;
         if ([data isKindOfClass:[NSMutableArray class]]) {
             self.btnTitleMutArr = (NSMutableArray *)data;
         }
@@ -48,6 +49,7 @@
 -(SearchView *)searchView{
     if (!_searchView) {
         _searchView = [[SearchView alloc]initWithBtnTitleMutArr:self.btnTitleMutArr];
+        _searchView.backgroundColor = kClearColor;
         @weakify(self)
         [_searchView actionBlock:^(id data) {
             @strongify(self)
@@ -57,7 +59,9 @@
         }];
         [self addSubview:_searchView];
         [_searchView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self);
+            make.top.equalTo(self).offset(SCALING_RATIO(10));
+            make.left.equalTo(self).offset(SCALING_RATIO(5));
+            make.bottom.right.equalTo(self).offset(SCALING_RATIO(-5));
         }];
     }return _searchView;
 }

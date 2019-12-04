@@ -16,19 +16,19 @@
 UIScrollViewDelegate
 >
 
-@property(nonatomic,strong)NSMutableArray <MMButton *>*btnMutArr;
 @property(nonatomic,copy)DataBlock block;
 @property(nonatomic,assign)CGFloat BtnWidth;
+@property(nonatomic,strong)MMButton *tempBtn;
 
 @end
 
 @implementation SearchView
 
--(instancetype)initWithBtnTitleMutArr:(NSArray <NSString *>*)btnTitleMutArr{
+-(instancetype)initWithBtnTitleMutArr:(NSArray *)btnTitleMutArr{
     if (self = [super init]) {
         self.btnTitleArr = btnTitleMutArr;
         self.scrollView.alpha = 1;
-        self.backgroundColor = kWhiteColor;
+        self.backgroundColor = kClearColor;
         
         if (btnTitleMutArr.count < 5) {
             self.BtnWidth = (SCREEN_WIDTH - SCALING_RATIO(5) * 2 - SCALING_RATIO(10) * (btnTitleMutArr.count - 1))/ btnTitleMutArr.count;
@@ -44,12 +44,23 @@ UIScrollViewDelegate
             [UIView colourToLayerOfView:btn
                              WithColour:KLightGrayColor
                          AndBorderWidth:.5f];
-            [btn setTitle:btnTitleMutArr[i]
-                 forState:UIControlStateNormal];
-            [btn setImage:kIMG(@"TwoWayArrow_1")
-                 forState:UIControlStateNormal];
-            [btn setImage:kIMG(@"TwoWayArrow_2")
-                 forState:UIControlStateSelected];
+            
+            if ([btnTitleMutArr[i] isKindOfClass:[UIImage class]]) {
+                [btn setBackgroundImage:btnTitleMutArr[i]
+                               forState:UIControlStateNormal];
+            }else if ([btnTitleMutArr[i] isKindOfClass:[NSString class]]){
+                [btn setTitle:btnTitleMutArr[i]
+                     forState:UIControlStateNormal];
+                [btn setImage:kIMG(@"TwoWayArrow_1")
+                     forState:UIControlStateNormal];
+                [btn setImage:kIMG(@"TwoWayArrow_2")
+                     forState:UIControlStateSelected];
+                [btn setTitleColor:kBlackColor
+                          forState:UIControlStateNormal];
+                [btn setTitleColor:kRedColor
+                          forState:UIControlStateSelected];
+            }else{}
+            
             btn.imageAlignment = MMImageAlignmentRight;
             btn.spaceBetweenTitleAndImage = SCALING_RATIO(2);
             [btn.titleLabel sizeToFit];
@@ -63,7 +74,7 @@ UIScrollViewDelegate
             btn.frame = CGRectMake((self.BtnWidth + SCALING_RATIO(10)) * (i) + SCALING_RATIO(5),
                                    0,
                                    self.BtnWidth,
-                                   SCALING_RATIO(50));
+                                   SCALING_RATIO(30));
             [self.btnMutArr addObject:btn];
         }
     }return self;
@@ -74,6 +85,16 @@ UIScrollViewDelegate
 }
 
 -(void)MMButtonClickEvent:(MMButton *)sender{
+    if ([self.tempBtn isEqual:sender]) {//同一个btn
+        sender.selected = !sender.selected;
+    }else{//不同一个btn
+        //点击不同的btn
+        for (MMButton *btn in self.btnMutArr) {
+            btn.selected = NO;
+        }
+        sender.selected = YES;
+    }
+    self.tempBtn = sender;//上一个被点击的btn
     if (self.block) {
         self.block(sender);
     }

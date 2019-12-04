@@ -151,7 +151,7 @@ UITableViewDataSource
                     }else if ([self.orderListModel.del_state intValue] == 1){//在审核中/买家确认中  0、不影响;1、待审核;2、已通过 3、驳回
                         //买家未确认
                         [self.titleMutArr addObject:@"凭证:"];
-                        [self.dataMutArr addObject:@"待审核 —— 等待买家确认(3小时内)"];
+                        [self.dataMutArr addObject:@"待审核"];//@"待审核 —— 等待买家确认(3小时内)"
                         [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.payment_print ReplaceStr:@""]];
                         NSLog(@"");
 //                        [self.sureBtn setTitle:@"发货"

@@ -12,7 +12,7 @@
 
 @interface HQTopStopView ()
 
-@property(nonatomic,strong)NSMutableArray <NSString *>*btnTitleMutArr;
+@property(nonatomic,strong)NSMutableArray *btnTitleMutArr;
 
 @end
 
@@ -34,13 +34,13 @@
     }return _searchView;
 }
 
--(NSMutableArray<NSString *> *)btnTitleMutArr{
+-(NSMutableArray *)btnTitleMutArr{
     if (!_btnTitleMutArr) {
         _btnTitleMutArr = NSMutableArray.array;
-        [_btnTitleMutArr addObject:@"综合"];
-        [_btnTitleMutArr addObject:@"销量"];
-        [_btnTitleMutArr addObject:@"价格"];
-        [_btnTitleMutArr addObject:@"筛选"];
+        [_btnTitleMutArr addObject:kIMG(@"综合")];
+        [_btnTitleMutArr addObject:kIMG(@"销量")];
+        [_btnTitleMutArr addObject:kIMG(@"价格")];
+        [_btnTitleMutArr addObject:kIMG(@"筛选")];
     }return _btnTitleMutArr;
 }
 

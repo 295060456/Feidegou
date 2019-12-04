@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)RACSignal *reqSignal;
 @property(nonatomic,strong)LOTAnimationView *laAnimation;//MISFloatingBall
 @property(nonatomic,copy)DataBlock block;
+
 -(void)actionBlock:(DataBlock)block;
 
 @end

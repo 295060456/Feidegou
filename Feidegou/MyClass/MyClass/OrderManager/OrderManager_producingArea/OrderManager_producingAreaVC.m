@@ -261,7 +261,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView alloc]initWithFrame:CGRectZero
-                                                 style:UITableViewStyleGrouped];
+                                                 style:UITableViewStylePlain];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.ly_emptyView = [LYEmptyView emptyViewWithImageStr:@"picLoadErr"
@@ -273,7 +273,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
-            make.top.equalTo(self.view).offset(SCALING_RATIO(0));
+            make.top.equalTo(self.view).offset(SCALING_RATIO(10));
         }];
     }return _tableView;
 }
