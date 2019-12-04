@@ -29,6 +29,7 @@ UITableViewDataSource
 @property(nonatomic,assign)BOOL isFirstComing;
 @property(nonatomic,assign)BOOL isDelCell;
 @property(nonatomic,strong)NSMutableArray <NSString *>*btnTitleMutArr;
+@property(nonatomic,assign)BusinessType businessType;
 
 @end
 
@@ -47,7 +48,8 @@ UITableViewDataSource
     OrderManager_producingAreaVC *vc = OrderManager_producingAreaVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-//    vc.page = 1;
+    vc.page = 1;
+    vc.businessType = BusinessType_ALL;
     if ([requestParams isKindOfClass:[RCConversationModel class]]) {
 
     }
@@ -86,6 +88,8 @@ UITableViewDataSource
     OrderManager_producingAreaVC *vc = OrderManager_producingAreaVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
+    vc.page = 1;
+    vc.businessType = BusinessType_ALL;
     return vc;
 }
 
@@ -132,7 +136,7 @@ UITableViewDataSource
 -(void)GCDtimer{
     //轮询
     NSLog(@"轮询_OrderManager_producingAreaVC");
-    [self networking_platformType:PlatformType_ProducingArea];
+    [self networking_type:self.businessType];
 }
 // 下拉刷新
 -(void)pullToRefresh{
@@ -142,6 +146,7 @@ UITableViewDataSource
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
+    self.page++;
     [self.tableView.mj_footer endRefreshing];
 }
 
@@ -156,16 +161,31 @@ viewForHeaderInSection:(NSInteger)section {
         [viewForHeader clickBlock:^(id data) {
             @strongify(self)
             NSLog(@"");
-            if ([data isKindOfClass:[MMButton class]]) {
+            if ([data isKindOfClass:[MMButton class]]){
                 MMButton *btn = (MMButton *)data;
-                if ([btn.titleLabel.text isEqualToString:@"已下单"]) {//2
-                    [self networking_type:BusinessType_HadOrdered];
-                }else if ([btn.titleLabel.text isEqualToString:@"已支付"]){//0
-                    [self networking_type:BusinessType_HadPaid];
-                }else if ([btn.titleLabel.text isEqualToString:@"已发货"]){//4
-                    [self networking_type:BusinessType_HadConsigned];
+                if (btn.selected) {
+
                 }else{}
-            }
+                if ([btn.titleLabel.text isEqualToString:@"已下单"]) {//2
+                    if (btn.selected) {
+                        self.businessType = BusinessType_HadOrdered;
+                    }else{
+                        self.businessType = BusinessType_ALL;
+                    }
+                }else if ([btn.titleLabel.text isEqualToString:@"已支付"]){//4
+                    if (btn.selected) {
+                        self.businessType = BusinessType_HadConsigned;
+                    }else{
+                        self.businessType = BusinessType_ALL;
+                    }
+                }else if ([btn.titleLabel.text isEqualToString:@"已发货"]){//3
+                    if (btn.selected) {
+                        self.businessType = BusinessType_HadCompleted;
+                    }else{
+                        self.businessType = BusinessType_ALL;
+                    }
+                }else{}
+                }
         }];
         [viewForHeader headerViewWithModel:nil];
     }return viewForHeader;

@@ -16,6 +16,7 @@ typedef enum : NSUInteger {
     BusinessType_HadCanceled,//已作废 已取消
     BusinessType_HadConsigned,//已发货
     BusinessType_HadCompleted,//已完成
+    BusinessType_ALL//全部
 } BusinessType;
 
 typedef enum : NSUInteger {//1、摊位;2、批发;3、厂家

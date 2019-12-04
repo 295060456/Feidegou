@@ -26,6 +26,7 @@ UITableViewDataSource
 @property(nonatomic,assign)BOOL isFirstComing;
 @property(nonatomic,assign)BOOL isDelCell;
 @property(nonatomic,strong)NSMutableArray <NSString *>*btnTitleMutArr;
+@property(nonatomic,assign)BusinessType businessType;
 
 @end
 
@@ -46,7 +47,8 @@ UITableViewDataSource
     OrderManager_panicBuyingVC *vc = OrderManager_panicBuyingVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-//    vc.page = 1;
+    vc.page = 1;
+    vc.businessType = BusinessType_ALL;
     if ([requestParams isKindOfClass:[RCConversationModel class]]) {
 
     }
@@ -84,6 +86,8 @@ UITableViewDataSource
     OrderManager_panicBuyingVC *vc = OrderManager_panicBuyingVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
+    vc.businessType = BusinessType_ALL;
+    vc.page = 1;
     return vc;
 }
 
@@ -133,16 +137,20 @@ UITableViewDataSource
 -(void)GCDtimer{
     //轮询
     NSLog(@"轮询_OrderManager_panicBuyingVC");
-    [self networking_platformType:PlatformType_Stall];
+    [self networking_type:self.businessType];//默认查当前页
 }
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
+//    if (self.dataMutArr) {
+//        [self.dataMutArr removeAllObjects];
+//    }
     [self.tableView.mj_header endRefreshing];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
+    self.page++;
     [self.tableView.mj_footer endRefreshing];
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
@@ -158,12 +166,27 @@ viewForHeaderInSection:(NSInteger)section {
             NSLog(@"");
             if ([data isKindOfClass:[MMButton class]]) {
                 MMButton *btn = (MMButton *)data;
+                if (btn.selected) {
+
+                }else{}
                 if ([btn.titleLabel.text isEqualToString:@"已下单"]) {//2
-                    [self networking_type:BusinessType_HadOrdered];
+                    if (btn.selected) {
+                        self.businessType = BusinessType_HadOrdered;
+                    }else{
+                        self.businessType = BusinessType_ALL;
+                    }
                 }else if ([btn.titleLabel.text isEqualToString:@"已发货"]){//4
-                    [self networking_type:BusinessType_HadConsigned];
+                    if (btn.selected) {
+                        self.businessType = BusinessType_HadConsigned;
+                    }else{
+                        self.businessType = BusinessType_ALL;
+                    }
                 }else if ([btn.titleLabel.text isEqualToString:@"已取消"]){//3
-                    [self networking_type:BusinessType_HadCompleted];
+                    if (btn.selected) {
+                        self.businessType = BusinessType_HadCompleted;
+                    }else{
+                        self.businessType = BusinessType_ALL;
+                    }
                 }else{}
             }
         }];

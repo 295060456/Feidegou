@@ -5,109 +5,34 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4DE44E5C-E025-447A-9732-ADCA9D6CEB51"
+            uuid = "DD164D70-BD50-495F-8EA0-03EE7E83FECE"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            scope = "1"
-            stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "71E0D989-7564-499F-B13E-0C834E34DF1F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC.m"
+            filePath = "Feidegou/MyClass/MyClass/OrderManager/OrderManager_producingArea/OrderManager_producingAreaVC+VM.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "269"
-            endingLineNumber = "269"
-            landmarkName = "-data"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "-networkingWithArgument:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "48AD78E5-2A28-4073-A9A8-034567DF2A4C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feidegou/MyClass/MyClass/OrderManager/OrderManager_panicBuying/OrderManager_panicBuyingVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "-viewWillAppear:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E5718692-9D4A-47A2-AED0-82FDF400A918"
+            uuid = "ED6485BA-D2A9-4783-895E-0AC43BECC26F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/MyClass/MyClass/OrderManager/OrderManager_panicBuying/OrderManager_panicBuyingVC.m"
+            filePath = "Feidegou/MyClass/MyClass/OrderManager/OrderManager_panicBuying/OrderManager_panicBuyingVC+VM.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "277"
-            endingLineNumber = "277"
-            landmarkName = "-tableView"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "E5718692-9D4A-47A2-AED0-82FDF400A918 - fa53d273290b311"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[OrderManager_panicBuyingVC tableView]"
-                  moduleName = "&#x55b5;&#x7cae;&#x5546;&#x57ce;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/whiskey_on_the_rocks/Documents/GitHub%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6/Feidegou/Feidegou/MyClass/MyClass/OrderManager/OrderManager_panicBuying/OrderManager_panicBuyingVC.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "277"
-                  endingLineNumber = "277"
-                  offsetFromSymbolStart = "816">
-               </Location>
-               <Location
-                  uuid = "E5718692-9D4A-47A2-AED0-82FDF400A918 - 27ba78f50491bbe1"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__39-[OrderManager_panicBuyingVC tableView]_block_invoke"
-                  moduleName = "&#x55b5;&#x7cae;&#x5546;&#x57ce;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/whiskey_on_the_rocks/Documents/GitHub%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6/Feidegou/Feidegou/MyClass/MyClass/OrderManager/OrderManager_panicBuying/OrderManager_panicBuyingVC.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "278"
-                  endingLineNumber = "278"
-                  offsetFromSymbolStart = "76">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A9CB3B8D-0043-44B3-8422-09FCD9E0BB86"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feidegou/MyClass/MyClass/Manager/CatFoodsManagementVC+VM.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "-networking"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "-networkingWithArgument:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

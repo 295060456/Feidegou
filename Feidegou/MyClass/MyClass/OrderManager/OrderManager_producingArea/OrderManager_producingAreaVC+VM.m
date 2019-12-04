@@ -22,13 +22,19 @@
 }
 
 -(void)networking_type:(BusinessType)businessType{//按交易状态
+    NSString *str;
+    if (businessType == BusinessType_ALL) {
+        str = @"-1";
+    }else{
+        str = [NSString stringWithFormat:@"%lu",(unsigned long)businessType];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成;默认查全部
+    }
     NSDictionary *dic = @{
         @"currentpage":[NSString stringWithFormat:@"%d",self.page],//分页数 默认1
         @"pagesize":@"",//分页大小 默认12
-        @"order_status":[NSString stringWithFormat:@"%lu",(unsigned long)businessType],//状态：0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成;默认查全部
+        @"order_status":str,
         @"type":@"",//买家1;卖家2;默认查全部
         @"order_code":@"",//搜索订单号
-        @"order_type":@""//1、直通车;2、批发;3、厂家;默认查全部
+        @"order_type":@"3"//1、直通车;2、批发;3、厂家;默认查全部
     };
     [self networkingWithArgument:dic];
 }
@@ -48,6 +54,9 @@
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response) {
             NSLog(@"--%@",response);
+            if (self.dataMutArr.count) {
+                [self.dataMutArr removeAllObjects];
+            }
             if ([response isKindOfClass:[NSArray class]]) {
                 NSArray *arr = (NSArray *)response;
                 if (arr.count) {
@@ -71,16 +80,15 @@
                         }else{
                             self.tableView.mj_footer.hidden = YES;
                         }
-                        [self.tableView.mj_header endRefreshing];
-                        [self.tableView.mj_footer endRefreshing];
-                        [self.tableView reloadData];
-                        self.page++;
                     }
                 }else{
                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                         Toast(@"没数据了");
                     }];
                 }
+                [self.tableView.mj_header endRefreshing];
+                [self.tableView.mj_footer endRefreshing];
+                [self.tableView reloadData];
             }
         }
     }];
