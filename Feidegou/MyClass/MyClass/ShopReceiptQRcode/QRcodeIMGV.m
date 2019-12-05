@@ -81,15 +81,18 @@
 -(void)imgCode:(NSString *)QRcodeStr{
     if (![NSString isNullString:QRcodeStr]) {
         @weakify(self)
-        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:QRcodeStr]
-                             options:SDWebImageDownloaderProgressiveDownload//渐进式下载
-                                                         progress:^(NSInteger receivedSize,
-                                                                    NSInteger expectedSize,
-                                                                    NSURL * _Nullable targetURL) {}
-                                                        completed:^(UIImage * _Nullable image,
-                                                                    NSData * _Nullable data,
-                                                                    NSError * _Nullable error,
-                                                                    BOOL finished) {
+        [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:QRcodeStr]
+                                                    options:SDWebImageProgressiveLoad//渐进式下载
+                                                    context:nil
+                                                   progress:^(NSInteger receivedSize,
+                                                              NSInteger expectedSize,
+                                                              NSURL * _Nullable targetURL) {}
+                                                  completed:^(UIImage * _Nullable image,
+                                                              NSData * _Nullable data,
+                                                              NSError * _Nullable error,
+                                                              SDImageCacheType cacheType,
+                                                              BOOL finished,
+                                                              NSURL * _Nullable imageURL) {
             @strongify(self)
             if (image) {
                 self.image = image;
@@ -97,6 +100,23 @@
                 self.image = kIMG(@"picLoadErr");
             }
         }];
+        
+//        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:QRcodeStr]
+//                             options:SDWebImageDownloaderProgressiveDownload//渐进式下载
+//                                                         progress:^(NSInteger receivedSize,
+//                                                                    NSInteger expectedSize,
+//                                                                    NSURL * _Nullable targetURL) {}
+//                                                        completed:^(UIImage * _Nullable image,
+//                                                                    NSData * _Nullable data,
+//                                                                    NSError * _Nullable error,
+//                                                                    BOOL finished) {
+//            @strongify(self)
+//            if (image) {
+//                self.image = image;
+//            }else{
+//                self.image = kIMG(@"picLoadErr");
+//            }
+//        }];
     }
 }
 

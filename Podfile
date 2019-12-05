@@ -7,13 +7,13 @@ pod 'Mantle', '~> 1.5.8'
 pod 'FMDB', '~> 2.6.2'
 pod 'AFNetworking', '~> 3.1.0'
 pod 'SVProgressHUD', '~> 2.2.2'
-pod 'SDWebImage', '~> 4.4.2'
+#pod 'SDWebImage', '~> 4.4.2'
 pod 'ReactiveObjC', '~> 3.0.0'
 pod 'SWTableViewCell', '~> 0.3.7'
 pod 'REMenu', '~> 1.10'
 pod 'iOS-AlipaySDK', '~> 3.0.2'
 pod 'pop', '~> 1.0.9'
-pod 'SDCycleScrollView', '~> 1.75'
+#pod 'SDCycleScrollView', '~> 1.75'
 pod 'LJWKeyboardHandler', '~> 1.0.3'
 pod 'BaiduMapKit' #百度地图SDK
 #pod 'WeChatSDK-iOS', '~> 1.7.3'
@@ -71,6 +71,11 @@ pod 'RongCloudIM/IMLib'
 pod 'RongCloudIM/IMKit'
 pod 'LYEmptyView'
 pod 'PYSearch'
+#pod 'SDWebImage'
+pod 'SDWebImageWebPCoder'
+pod 'SDCycleScrollView'
+
+
 #pod 'SDWebImage'
 #pod 'YYKit'#有问题
 

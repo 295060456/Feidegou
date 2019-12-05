@@ -55,7 +55,7 @@
     if (indexPath.row == 0) {
         cell.fWidthPre = 10;
             [cell.lblName setText:@"清除本地缓存"];
-            NSInteger integerSize = [[SDImageCache sharedImageCache] getSize];
+            NSInteger integerSize = [[SDImageCache sharedImageCache] totalDiskSize];
             [cell.lblContent setText:StringFormat(@"%0.2fM",integerSize/1024.0/1024.0)];
         }
         if (indexPath.row == 1) {

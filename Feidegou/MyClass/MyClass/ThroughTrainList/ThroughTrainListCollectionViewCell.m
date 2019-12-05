@@ -70,15 +70,18 @@
     if (![NSString isNullString:imageUrl]) {
         @weakify(self)
         NSString *str = [NSString stringWithFormat:@"%@/%@",BaseUrl_Gouge,imageUrl];
-        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:str]
-                             options:SDWebImageDownloaderProgressiveDownload//渐进式下载
-                                                         progress:^(NSInteger receivedSize,
-                                                                    NSInteger expectedSize,
-                                                                    NSURL * _Nullable targetURL) {}
-                                                        completed:^(UIImage * _Nullable image,
-                                                                    NSData * _Nullable data,
-                                                                    NSError * _Nullable error,
-                                                                    BOOL finished) {
+        [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:str]
+                                                    options:SDWebImageProgressiveLoad//渐进式下载
+                                                    context:nil
+                                                   progress:^(NSInteger receivedSize,
+                                                              NSInteger expectedSize,
+                                                              NSURL * _Nullable targetURL) {}
+                                                  completed:^(UIImage * _Nullable image,
+                                                              NSData * _Nullable data,
+                                                              NSError * _Nullable error,
+                                                              SDImageCacheType cacheType,
+                                                              BOOL finished,
+                                                              NSURL * _Nullable imageURL) {
             @strongify(self)
             if (image) {
                 self.imageView.image = image;

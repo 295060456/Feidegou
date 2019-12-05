@@ -132,6 +132,19 @@ UITableViewDataSource
     self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— 私有方法
+-(void)backBtnClickEvent:(UIButton *)sender{
+    
+    if (self.catFoodProducingAreaModel) {//喵粮产地取消
+        [self cancelOrder_producingArea_netWorking];
+    }
+    
+    if (self.navigationController) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 -(void)data{
     if (self.orderManager_panicBuyingModel) {//直通车
 #warning KKKKKKK
@@ -588,14 +601,6 @@ UITableViewDataSource
                          requestParams:self.requestParams
                                success:^(id data) {}
                               animated:YES];
-}
-
--(void)backBtnClickEvent:(UIButton *)sender{
-    if (self.navigationController) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }else{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
 }
 
 -(void)chat{
@@ -1163,15 +1168,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         if (![NSString isNullString:str]) {
             @weakify(self)
             NSString *urlStr = [BaseUrl stringByAppendingString:[NSString stringWithFormat:@"/%@",str]];
-            [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:urlStr]
-                                     options:SDWebImageDownloaderProgressiveDownload//渐进式下载
-                                                                 progress:^(NSInteger receivedSize,
-                                                                            NSInteger expectedSize,
-                                                                            NSURL * _Nullable targetURL) {}
-                                                                completed:^(UIImage * _Nullable image,
-                                                                            NSData * _Nullable data,
-                                                                            NSError * _Nullable error,
-                                                                            BOOL finished) {
+            [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:urlStr]
+                                                        options:SDWebImageProgressiveLoad//渐进式下载
+                                                        context:nil
+                                                       progress:^(NSInteger receivedSize,
+                                                                  NSInteger expectedSize,
+                                                                  NSURL * _Nullable targetURL) {}
+                                                      completed:^(UIImage * _Nullable image,
+                                                                  NSData * _Nullable data,
+                                                                  NSError * _Nullable error,
+                                                                  SDImageCacheType cacheType,
+                                                                  BOOL finished,
+                                                                  NSURL * _Nullable imageURL) {
                 @strongify(self)
                 if (image) {
                     self.imgV.image = image;

@@ -76,6 +76,8 @@
 #import <LYEmptyView/LYEmptyViewHeader.h>
 #import <PYSearch.h>
 #import "TXScrollLabelView.h"
+#import <SDImageWebPCoder.h>
+#import <SDImageCodersManager.h>
 //#import <YYKit/YYKit.h>
 
 //我自己手动引入的第三方
