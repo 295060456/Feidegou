@@ -71,8 +71,7 @@
         @weakify(self)
         NSString *str = [NSString stringWithFormat:@"%@/%@",BaseUrl_Gouge,imageUrl];
         [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:str]
-                                                    options:SDWebImageProgressiveLoad//渐进式下载
-                                                    context:nil
+                                                    options:SDWebImageProgressiveDownload//渐进式下载 context:nil
                                                    progress:^(NSInteger receivedSize,
                                                               NSInteger expectedSize,
                                                               NSURL * _Nullable targetURL) {}

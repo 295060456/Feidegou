@@ -82,8 +82,7 @@
     if (![NSString isNullString:QRcodeStr]) {
         @weakify(self)
         [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:QRcodeStr]
-                                                    options:SDWebImageProgressiveLoad//渐进式下载
-                                                    context:nil
+                                                    options:SDWebImageProgressiveDownload//渐进式下载
                                                    progress:^(NSInteger receivedSize,
                                                               NSInteger expectedSize,
                                                               NSURL * _Nullable targetURL) {}
@@ -100,23 +99,6 @@
                 self.image = kIMG(@"picLoadErr");
             }
         }];
-        
-//        [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:QRcodeStr]
-//                             options:SDWebImageDownloaderProgressiveDownload//渐进式下载
-//                                                         progress:^(NSInteger receivedSize,
-//                                                                    NSInteger expectedSize,
-//                                                                    NSURL * _Nullable targetURL) {}
-//                                                        completed:^(UIImage * _Nullable image,
-//                                                                    NSData * _Nullable data,
-//                                                                    NSError * _Nullable error,
-//                                                                    BOOL finished) {
-//            @strongify(self)
-//            if (image) {
-//                self.image = image;
-//            }else{
-//                self.image = kIMG(@"picLoadErr");
-//            }
-//        }];
     }
 }
 

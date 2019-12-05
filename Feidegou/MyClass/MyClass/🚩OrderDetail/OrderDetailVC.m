@@ -1169,8 +1169,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             @weakify(self)
             NSString *urlStr = [BaseUrl stringByAppendingString:[NSString stringWithFormat:@"/%@",str]];
             [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:urlStr]
-                                                        options:SDWebImageProgressiveLoad//渐进式下载
-                                                        context:nil
+                                                        options:SDWebImageProgressiveDownload//渐进式下载
                                                        progress:^(NSInteger receivedSize,
                                                                   NSInteger expectedSize,
                                                                   NSURL * _Nullable targetURL) {}

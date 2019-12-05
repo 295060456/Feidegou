@@ -90,14 +90,14 @@ PODS:
   - RongCloudIM/IMKit (2.10.0):
     - RongCloudIM/IMLib
   - RongCloudIM/IMLib (2.10.0)
-  - SDCycleScrollView (1.80):
-    - SDWebImage (>= 5.0.0)
-  - SDWebImage (5.3.1):
-    - SDWebImage/Core (= 5.3.1)
-  - SDWebImage/Core (5.3.1)
-  - SDWebImageWebPCoder (0.2.5):
-    - libwebp (~> 1.0)
-    - SDWebImage/Core (~> 5.0)
+  - SDCycleScrollView (1.75):
+    - SDWebImage (>= 4.0.0)
+  - SDWebImage (4.4.7):
+    - SDWebImage/Core (= 4.4.7)
+  - SDWebImage/Core (4.4.7)
+  - SDWebImage/WebP (4.4.7):
+    - libwebp (< 2.0, >= 0.5)
+    - SDWebImage/Core
   - SGQRCode (3.0.1)
   - SocketRocket (0.5.1)
   - SVProgressHUD (2.2.5)
@@ -151,7 +151,8 @@ DEPENDENCIES:
   - RongCloudIM/IMKit
   - RongCloudIM/IMLib
   - SDCycleScrollView
-  - SDWebImageWebPCoder
+  - SDWebImage
+  - SDWebImage/WebP
   - SGQRCode
   - SocketRocket
   - SVProgressHUD (~> 2.2.2)
@@ -204,7 +205,6 @@ SPEC REPOS:
     - RongCloudIM
     - SDCycleScrollView
     - SDWebImage
-    - SDWebImageWebPCoder
     - SGQRCode
     - SocketRocket
     - SVProgressHUD
@@ -254,9 +254,8 @@ SPEC CHECKSUMS:
   REMenu: 30dad195930adf6c5eeb8041e3257aa60bf9fa49
   Reveal-SDK: 5d7e56b8f018c0a88b3a2c10bf68d598bbd3b071
   RongCloudIM: 2f513fa5079744e52d2a383c3514d0971797afbb
-  SDCycleScrollView: b3c9a5ed840c771c4938978174c7c9d9feefeb96
-  SDWebImage: 7137d57385fb632129838c1e6ab9528a22c666cc
-  SDWebImageWebPCoder: 947093edd1349d820c40afbd9f42acb6cdecd987
+  SDCycleScrollView: 884b88f0266dd4708a0e1934975c69cb971707b1
+  SDWebImage: c10d14a8883ebd89664f02a422006f66a85c0c5d
   SGQRCode: bf02d60e18d6660a9d75ff1c8b9b467f064f054e
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
@@ -269,6 +268,6 @@ SPEC CHECKSUMS:
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: ae2ff0c6be500222bb0aa4085f0aeeaa8e23cb8c
+PODFILE CHECKSUM: b97571126ecd1fd02c392c3bdd5df5c8bd943fdf
 
 COCOAPODS: 1.8.4

@@ -71,8 +71,8 @@ pod 'RongCloudIM/IMLib'
 pod 'RongCloudIM/IMKit'
 pod 'LYEmptyView'
 pod 'PYSearch'
-#pod 'SDWebImage'
-pod 'SDWebImageWebPCoder'
+pod 'SDWebImage'
+pod 'SDWebImage/WebP'
 pod 'SDCycleScrollView'
 
 
