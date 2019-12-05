@@ -239,6 +239,7 @@
     
     
     ButtonShare *btnSignIn = [[ButtonShare alloc] initWithFrame:CGRectMake(self.view.frame.size.width-53, self.viHeader.frame.size.height-44, 36, 36)];
+    btnSignIn.alpha = 0;
     [btnSignIn setTitle:@"签到送" forState:UIControlStateNormal];
     [btnSignIn.titleLabel setFont:[UIFont systemFontOfSize:6.0]];
     [btnSignIn addTarget:self action:@selector(clickButtonSign:) forControlEvents:UIControlEventTouchUpInside];

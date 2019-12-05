@@ -25,6 +25,24 @@ UITableViewDataSource
 
 @end
 
+@interface PersonalDataChangedListTBVCell ()
+
+@property(nonatomic,strong)UILabel *styleLab;//类型
+@property(nonatomic,strong)UILabel *numLab;//数量
+@property(nonatomic,strong)UILabel *remarkTitleLab;//备注标题
+@property(nonatomic,strong)UILabel *remarkLab;//备注
+@property(nonatomic,strong)UILabel *balanceTitleLab;//余额标题
+@property(nonatomic,strong)UILabel *orderNumTitleLab;//订单号标题
+@property(nonatomic,strong)UILabel *orderNumLab;//订单号
+
+@property(nonatomic,copy)NSString *styleLabStr;//类型
+@property(nonatomic,copy)NSString *numLabStr;//数量
+@property(nonatomic,copy)NSString *remarkLabStr;//备注
+@property(nonatomic,copy)NSString *balanceLabStr;//余额
+@property(nonatomic,copy)NSString *orderNumStr;//订单号
+
+@end
+
 @implementation PersonalDataChangedListVC
 
 - (void)dealloc {
@@ -236,24 +254,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 @end
 
-@interface PersonalDataChangedListTBVCell ()
-
-@property(nonatomic,strong)UILabel *styleLab;//类型
-@property(nonatomic,strong)UILabel *numLab;//数量
-@property(nonatomic,strong)UILabel *remarkTitleLab;//备注标题
-@property(nonatomic,strong)UILabel *remarkLab;//备注
-@property(nonatomic,strong)UILabel *balanceTitleLab;//余额标题
-@property(nonatomic,strong)UILabel *orderNumTitleLab;//订单号标题
-@property(nonatomic,strong)UILabel *orderNumLab;//订单号
-
-@property(nonatomic,copy)NSString *styleLabStr;//类型
-@property(nonatomic,copy)NSString *numLabStr;//数量
-@property(nonatomic,copy)NSString *remarkLabStr;//备注
-@property(nonatomic,copy)NSString *balanceLabStr;//余额
-@property(nonatomic,copy)NSString *orderNumStr;//订单号
-
-@end
-
 @implementation PersonalDataChangedListTBVCell
 
 +(instancetype)cellWith:(UITableView *)tableView{
@@ -295,7 +295,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             case 34://批发发布
             case 25://产地出售
             case 35:{//产地发布
-                self.numLabStr = [NSString stringWithFormat:@"-%@g",[NSString ensureNonnullString:personalDataChangedListModel.number ReplaceStr:@"无"]];
+                self.numLabStr = [NSString stringWithFormat:@"+%@g",[NSString ensureNonnullString:personalDataChangedListModel.number ReplaceStr:@"无"]];
         }break;
             case 21://赠送减少
             case 22://后台减少
@@ -305,7 +305,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             case 15://产地购买
             case 26://开启直通车减少
             case 27:{//喂食喵粮减少
-                self.numLabStr = [NSString stringWithFormat:@"+%@g",[NSString ensureNonnullString:personalDataChangedListModel.number ReplaceStr:@"无"]];
+                self.numLabStr = [NSString stringWithFormat:@"-%@g",[NSString ensureNonnullString:personalDataChangedListModel.number ReplaceStr:@"无"]];
             }break;
             default:{
                 self.numLabStr = @"数据异常";

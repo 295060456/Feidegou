@@ -147,9 +147,7 @@ UITableViewDataSource
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
-//    if (self.dataMutArr) {
-//        [self.dataMutArr removeAllObjects];
-//    }
+    self.page = 1;
     [self.tableView.mj_header endRefreshing];
 }
 //上拉加载更多

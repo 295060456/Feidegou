@@ -80,6 +80,9 @@
         }];
     }] doError:^(NSError *error) {
         NSLog(@"ERROR:%@",error);
+        if (error.code == 300) {
+            [[PersonalInfo sharedInstance] deleteLoginUserInfo];
+        }
     }];
 }
 #pragma mark -
@@ -126,9 +129,9 @@
         NSString *strMsg = responseObject[@"msg"];
         if ([NSString isNullString:strMsg]) {
 //            strMsg= @"请求失败!";
-            
             strMsg = StringFormat(@"%ld请求失败!",(long)result);
-
+        }else if ([strMsg isEqualToString:@"未登录或已被踢下线"]){
+            [[PersonalInfo sharedInstance]deleteLoginUserInfo];
         }
         [subscriber sendError:[self requestErrorWithDescription:strMsg
                                                       errorCode:result]];

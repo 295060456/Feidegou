@@ -30,6 +30,11 @@
     }else{
         str = [NSString stringWithFormat:@"%lu",(unsigned long)businessType];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成;默认查全部
     }
+    NSString *USERID = @"";
+    if ([[PersonalInfo sharedInstance] isLogined]) {
+        ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+        USERID = model.userId;
+    }
     NSDictionary *dic = @{
         @"currentpage":[NSString stringWithFormat:@"%d",self.page],//分页数 默认1
         @"pagesize":@"",//分页大小 默认12
@@ -37,6 +42,7 @@
         @"type":@"",//买家1;卖家0;默认查全部
         @"order_code":@"",//搜索订单号
         @"order_type":@"1",//订单类型 1、直通车;2、批发;3、平台
+        @"user_id":USERID
     };
     [self networkingWithArgument:dic];
 }

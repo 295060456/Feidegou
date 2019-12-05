@@ -212,7 +212,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     if (indexPath.section == 2) {
         return 105.0f;
-    }return 45.0f;
+    }
+    if (indexPath.section == 3) {
+        return 0;
+    }
+    
+    return 45.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView

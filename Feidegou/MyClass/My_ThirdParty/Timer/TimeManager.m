@@ -62,7 +62,10 @@
     if (!caller) {
         caller = self;
     }
-    dispatch_source_set_timer(self.GCDtimer, start, interval, 0);
+    dispatch_source_set_timer(self.GCDtimer,
+                              start,
+                              interval,
+                              0);
     @weakify(caller)
     dispatch_source_set_event_handler(self.GCDtimer, ^{
         //要执行的任务

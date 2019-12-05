@@ -56,6 +56,27 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
 
 - (void)motionBegan:(UIEventSubtype)motion
           withEvent:(nullable UIEvent *)event{
+//    [self shake];
+}
+
+- (void)motionEnded:(UIEventSubtype)motion
+          withEvent:(UIEvent *)event {
+    if (event.subtype == UIEventSubtypeMotionShake) {
+        NSLog(@"Shake!");
+    }
+    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
+        [super motionEnded:motion
+                 withEvent:event];
+    }
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches
+          withEvent:(UIEvent *)event{
+//    [self Animation];
+     [self shake];
+}
+
+-(void)shake{
     NSLog(@"摇晃");
     NSMutableArray *obj = NSMutableArray.array;
     for (NSInteger i = 0; i < self.titlesMutArr.count; i++) {
@@ -77,19 +98,7 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
     }];
 }
 
-- (void)motionEnded:(UIEventSubtype)motion
-          withEvent:(UIEvent *)event {
-    if (event.subtype == UIEventSubtypeMotionShake) {
-        NSLog(@"Shake!");
-    }
-    if ([super respondsToSelector:@selector(motionEnded:withEvent:)]) {
-        [super motionEnded:motion
-                 withEvent:event];
-    }
-}
-
--(void)touchesBegan:(NSSet<UITouch *> *)touches
-          withEvent:(UIEvent *)event{
+-(void)Animation{
     d++;
     if (_laAnimation) {
         [_laAnimation removeFromSuperview];

@@ -103,7 +103,8 @@
     NSLog(@"url is %@",self.strWebUrl);
     self.view.backgroundColor=[UIColor whiteColor];
     self.strWebUrl = [self.strWebUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURL *url = [NSURL URLWithString:self.strWebUrl];
+//    NSURL *url = [NSURL URLWithString:self.strWebUrl];
+     NSURL *url = [NSURL URLWithString:@"http://www.miaoxiaodian.shop"];
     //加载文件
     [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
 }

@@ -160,8 +160,9 @@ UITableViewDataSource
 -(void)GoUploadPic{
     if (self.pic) {
         if (self.orderManager_producingAreaModel) {
-            NSLog(@"");
-            if ([self.orderManager_producingAreaModel.order_status intValue] == 4 &&//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            NSLog(@"");//已下单上传凭证 已支付重新上传
+            if (([self.orderManager_producingAreaModel.order_status intValue] == 0 || //已支付
+            [self.orderManager_producingAreaModel.order_status intValue] == 2) &&//已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                 [self.orderManager_producingAreaModel.identity isEqualToString:@"买家"] &&
                 [self.orderManager_producingAreaModel.order_type intValue] == 3) {//订单类型 1、直通车;2、批发;3、平台
                 [self uploadPic_producingArea_havePaid_netWorking:self.pic];

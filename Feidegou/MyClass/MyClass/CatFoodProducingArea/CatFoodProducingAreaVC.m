@@ -91,6 +91,7 @@ UITableViewDataSource
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
+    NSLog(@"KKK");
     [self.tableView.mj_header beginRefreshing];
 }
 
@@ -118,6 +119,7 @@ UITableViewDataSource
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
     }
+    NSLog(@"MMM");
     [self netWorking];
 }
 //上拉加载更多
