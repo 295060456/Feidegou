@@ -555,7 +555,7 @@
     NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *err;
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                        options:NSJSONReadingMutableContainers
+                                                        options:NSJSONReadingAllowFragments//NSJSONReadingMutableContainers
                                                           error:&err];
     if(err)
     {

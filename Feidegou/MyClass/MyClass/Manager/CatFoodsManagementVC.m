@@ -454,7 +454,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         @weakify(self)
         [_timeManager GCDTimer:@selector(GCDtimerMaker)
                         caller:self_weak_
-                      interval:3];
+                      interval:30];
     }return _timeManager;
 }
 

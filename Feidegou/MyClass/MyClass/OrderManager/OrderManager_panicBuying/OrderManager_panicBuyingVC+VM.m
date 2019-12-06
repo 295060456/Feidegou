@@ -49,7 +49,7 @@
 }
 //正式请求
 -(void)networkingWithArgument:(NSDictionary *)dic{//{"user_id":"136648","order_status":-1,"order_type":1,"identity":"865547048518264"}
-    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
+    NSString *randomStr = @"NMYUIXOJSPHTAKFG";//[EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:buyer_CatfoodRecord_listURL
                                                      parameters:@{
