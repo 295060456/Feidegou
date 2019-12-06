@@ -268,7 +268,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         NSMutableDictionary *dic3 = [NSMutableDictionary dictionary];
         [dic3 setObject:@"img_center_wdtd" forKey:@"image"];
         [dic3 setObject:@"我的团队" forKey:@"name"];
-        [dic3 setObject:[NSString stringStandardZero:self.model.inviterSize] forKey:@"tip"];
+        [dic3 setObject:[NSString stringStandardZero:self.model.inviterSize] forKey:@"tip"];//self.model.inviterSize
         [arrType addObject:dic0];
         [arrType addObject:dic1];
         [arrType addObject:dic2];

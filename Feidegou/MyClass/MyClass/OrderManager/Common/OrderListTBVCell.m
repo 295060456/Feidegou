@@ -76,87 +76,87 @@
         OrderManager_producingAreaModel *orderManager_producingAreaModel = (OrderManager_producingAreaModel *)model;
         self.orderManager_producingAreaModel = orderManager_producingAreaModel;
         self.titleStr = [NSString stringWithFormat:@"购买喵粮:%@ g",[NSString ensureNonnullString:orderManager_producingAreaModel.quantity ReplaceStr:@"无"]];
-        self.timeStr = [@"下单时间:" stringByAppendingString:[NSString ensureNonnullString:orderManager_producingAreaModel.addTime ReplaceStr:@"无"]];
+        self.timeStr = [@"下单时间:    " stringByAppendingString:[NSString ensureNonnullString:orderManager_producingAreaModel.addTime ReplaceStr:@"无"]];
         if ([orderManager_producingAreaModel.identity isEqualToString:@"卖家"]) {
 //            self.typeImgV.image = kIMG(@"Mf_flag_Red");
             self.imgV.backgroundColor = kRedColor;
-            self.sellerStr = [@"买家:" stringByAppendingString:[NSString ensureNonnullString:orderManager_producingAreaModel.trade_no ReplaceStr:@"无"]];
+            self.sellerStr = [@"买家:    " stringByAppendingString:[NSString ensureNonnullString:orderManager_producingAreaModel.trade_no ReplaceStr:@"无"]];
         }else if ([orderManager_producingAreaModel.identity isEqualToString:@"买家"]){
 //            self.typeImgV.image = kIMG(@"Mf_flag_Green");
             self.imgV.backgroundColor = KGreenColor;
-            self.sellerStr = [@"卖家:" stringByAppendingString:[NSString ensureNonnullString:orderManager_producingAreaModel.buyer_name ReplaceStr:@"无"]];
+            self.sellerStr = [@"卖家:    " stringByAppendingString:[NSString ensureNonnullString:orderManager_producingAreaModel.buyer_name ReplaceStr:@"无"]];
         }
         if ([orderManager_producingAreaModel.payment_status intValue] == 1) {//支付宝
-            self.paymentWayStr = [@"支付方式:" stringByAppendingString:@"支付宝"];//支付类型:1、支付宝;2、微信;3、银行卡
+            self.paymentWayStr = [@"支付方式:    " stringByAppendingString:@"支付宝"];//支付类型:1、支付宝;2、微信;3、银行卡
         }else if ([orderManager_producingAreaModel.payment_status intValue] == 2){//微信
-            self.paymentWayStr = [@"支付方式:" stringByAppendingString:@"微信"];//支付类型:1、支付宝;2、微信;3、银行卡
+            self.paymentWayStr = [@"支付方式:    " stringByAppendingString:@"微信"];//支付类型:1、支付宝;2、微信;3、银行卡
         }else if ([orderManager_producingAreaModel.payment_status intValue] == 3){//银行卡
-            self.paymentWayStr = [@"支付方式:" stringByAppendingString:@"银行卡"];//支付类型:1、支付宝;2、微信;3、银行卡
+            self.paymentWayStr = [@"支付方式:    " stringByAppendingString:@"银行卡"];//支付类型:1、支付宝;2、微信;3、银行卡
         }else{}
         
         if ([orderManager_producingAreaModel.order_type intValue] == 1) {//直通车
-            self.orderTypeStr = [@"订单类型:" stringByAppendingString:@"直通车"];//订单类型 1、直通车;2、批发;3、平台
+            self.orderTypeStr = [@"订单类型:    " stringByAppendingString:@"直通车"];//订单类型 1、直通车;2、批发;3、平台
         }else if ([orderManager_producingAreaModel.order_type intValue] == 2){//批发
-            self.orderTypeStr = [@"订单类型:" stringByAppendingString:@"批发"];//订单类型 1、直通车;2、批发;3、平台
+            self.orderTypeStr = [@"订单类型:    " stringByAppendingString:@"批发"];//订单类型 1、直通车;2、批发;3、平台
         }else if ([orderManager_producingAreaModel.order_type intValue] == 3){//平台
-            self.orderTypeStr = [@"订单类型:" stringByAppendingString:@"喵粮产地"];//订单类型 1、直通车;2、批发;3、平台
+            self.orderTypeStr = [@"订单类型:    " stringByAppendingString:@"喵粮产地"];//订单类型 1、直通车;2、批发;3、平台
         }else{}
         
         if ([orderManager_producingAreaModel.order_status intValue] == 0) {//已支付
-            self.orderStatusStr = [@"订单状态:" stringByAppendingString:@"已支付"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"已支付"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if ([orderManager_producingAreaModel.order_status intValue] == 1){//已发单
-            self.orderStatusStr = [@"订单状态:" stringByAppendingString:@"已发单"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"已发单"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if ([orderManager_producingAreaModel.order_status intValue] == 2){//已下单
-            self.orderStatusStr = [@"订单状态:" stringByAppendingString:@"已下单"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"已下单"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if ([orderManager_producingAreaModel.order_status intValue] == 3){//已作废
-            self.orderStatusStr = [@"订单状态:" stringByAppendingString:@"已作废"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"已作废"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if ([orderManager_producingAreaModel.order_status intValue] == 4){//已发货
-            self.orderStatusStr = [@"订单状态:" stringByAppendingString:@"已发货"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"已发货"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if ([orderManager_producingAreaModel.order_status intValue] == 5){//已完成
-            self.orderStatusStr = [@"订单状态:" stringByAppendingString:@"已完成"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"已完成"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else{}
     }else if ([model isKindOfClass:[OrderManager_panicBuyingModel class]]){
         OrderManager_panicBuyingModel *orderManager_panicBuyingModel = (OrderManager_panicBuyingModel *)model;
         self.orderManager_panicBuyingModel = orderManager_panicBuyingModel;
-        self.titleStr = [NSString stringWithFormat:@"出售喵粮:%@ g",[NSString ensureNonnullString:orderManager_panicBuyingModel.quantity ReplaceStr:@"无"]];
-        self.timeStr = [@"下单时间:" stringByAppendingString:[NSString ensureNonnullString:orderManager_panicBuyingModel.addTime ReplaceStr:@"无"]];
+        self.titleStr = [NSString stringWithFormat:@"出售喵粮:    %@ g",[NSString ensureNonnullString:orderManager_panicBuyingModel.quantity ReplaceStr:@"无"]];
+        self.timeStr = [@"下单时间:    " stringByAppendingString:[NSString ensureNonnullString:orderManager_panicBuyingModel.addTime ReplaceStr:@"无"]];
         if ([orderManager_panicBuyingModel.identity isEqualToString:@"卖家"]) {
 //            self.typeImgV.image = kIMG(@"Mf_flag_Red");
             self.imgV.backgroundColor = kRedColor;
-            self.sellerStr = [@"买家:" stringByAppendingString:[NSString ensureNonnullString:orderManager_panicBuyingModel.byname ReplaceStr:@"无"]];
+            self.sellerStr = [@"买家:    " stringByAppendingString:[NSString ensureNonnullString:orderManager_panicBuyingModel.byname ReplaceStr:@"无"]];
         }else if ([orderManager_panicBuyingModel.identity isEqualToString:@"买家"]){
 //            self.typeImgV.image = kIMG(@"Mf_flag_Green");
             self.imgV.backgroundColor = KGreenColor;
-            self.sellerStr = [@"卖家:" stringByAppendingString:[NSString ensureNonnullString:orderManager_panicBuyingModel.buyer_name ReplaceStr:@"无"]];
+            self.sellerStr = [@"卖家:    " stringByAppendingString:[NSString ensureNonnullString:orderManager_panicBuyingModel.buyer_name ReplaceStr:@"无"]];
         }
         if ([orderManager_panicBuyingModel.payment_status intValue] == 1) {//支付宝
-            self.paymentWayStr = [@"支付方式:" stringByAppendingString:@"支付宝"];//支付类型:1、支付宝;2、微信;3、银行卡
+            self.paymentWayStr = [@"支付方式:    " stringByAppendingString:@"支付宝"];//支付类型:1、支付宝;2、微信;3、银行卡
         }else if ([orderManager_panicBuyingModel.payment_status intValue] == 2){//微信
-            self.paymentWayStr = [@"支付方式:" stringByAppendingString:@"微信"];//支付类型:1、支付宝;2、微信;3、银行卡
+            self.paymentWayStr = [@"支付方式:    " stringByAppendingString:@"微信"];//支付类型:1、支付宝;2、微信;3、银行卡
         }else if ([orderManager_panicBuyingModel.payment_status intValue] == 3){//银行卡
-            self.paymentWayStr = [@"支付方式:" stringByAppendingString:@"银行卡"];//支付类型:1、支付宝;2、微信;3、银行卡
+            self.paymentWayStr = [@"支付方式:    " stringByAppendingString:@"银行卡"];//支付类型:1、支付宝;2、微信;3、银行卡
         }else{}
         
         if ([orderManager_panicBuyingModel.order_type intValue] == 1) {//直通车
-            self.orderTypeStr = [@"订单类型:" stringByAppendingString:@"直通车"];//订单类型 1、直通车;2、批发;3、平台
+            self.orderTypeStr = [@"订单类型:    " stringByAppendingString:@"直通车"];//订单类型 1、直通车;2、批发;3、平台
         }else if ([orderManager_panicBuyingModel.order_type intValue] == 2){//批发
-            self.orderTypeStr = [@"订单类型:" stringByAppendingString:@"批发"];//订单类型 1、直通车;2、批发;3、平台
+            self.orderTypeStr = [@"订单类型:    " stringByAppendingString:@"批发"];//订单类型 1、直通车;2、批发;3、平台
         }else if ([orderManager_panicBuyingModel.order_type intValue] == 3){//平台
-            self.orderTypeStr = [@"订单类型:" stringByAppendingString:@"喵粮产地"];//订单类型 1、直通车;2、批发;3、平台
+            self.orderTypeStr = [@"订单类型:    " stringByAppendingString:@"喵粮产地"];//订单类型 1、直通车;2、批发;3、平台
         }else{}
         
         if ([orderManager_panicBuyingModel.order_status intValue] == 0) {//已支付
-            self.orderStatusStr = [@"订单状态:" stringByAppendingString:@"已支付"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"已支付"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if ([orderManager_panicBuyingModel.order_status intValue] == 1){//已发单
-            self.orderStatusStr = [@"订单状态:" stringByAppendingString:@"已发单"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"已发单"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if ([orderManager_panicBuyingModel.order_status intValue] == 2){//已下单
-            self.orderStatusStr = [@"订单状态:" stringByAppendingString:@"已下单"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"已下单"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if ([orderManager_panicBuyingModel.order_status intValue] == 3){//已作废
-            self.orderStatusStr = [@"订单状态:" stringByAppendingString:@"已作废"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"已作废"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if ([orderManager_panicBuyingModel.order_status intValue] == 4){//已发货
-            self.orderStatusStr = [@"订单状态:" stringByAppendingString:@"已发货"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"已发货"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if ([orderManager_panicBuyingModel.order_status intValue] == 5){//已完成
-            self.orderStatusStr = [@"订单状态:" stringByAppendingString:@"已完成"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"已完成"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else{}
     }
     self.orderStatusLab.text = self.orderStatusStr;
