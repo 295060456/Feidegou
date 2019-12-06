@@ -18,8 +18,6 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
-//@property(nonatomic,strong)TimeManager *timeManager;
-
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -28,10 +26,6 @@ UITableViewDataSource
 @property(nonatomic,assign)BOOL isDelCell;
 @property(nonatomic,strong)NSMutableArray <NSString *>*btnTitleMutArr;
 @property(nonatomic,assign)BusinessType businessType;
-//@property(nonatomic,assign)BOOL btn1;
-//@property(nonatomic,assign)BOOL btn2;
-//@property(nonatomic,assign)BOOL btn3;
-
 
 @end
 
@@ -40,8 +34,6 @@ UITableViewDataSource
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-//    @weakify(self)
-//    [_timeManager endGCDTimer];
     [self.timer invalidate];
 }
 
@@ -55,9 +47,6 @@ UITableViewDataSource
     vc.requestParams = requestParams;
     vc.page = 1;
     vc.businessType = BusinessType_ALL;
-//    vc.btn1 = NO;
-//    vc.btn2 = NO;
-//    vc.btn3 = NO;
     if ([requestParams isKindOfClass:[RCConversationModel class]]) {
 
     }
@@ -102,12 +91,11 @@ UITableViewDataSource
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:3
                                                       target:self
                                                     selector:@selector(timerFired)
                                                     userInfo:nil
                                                      repeats:YES];
-        self.timerisOn = YES;
     }return self;
 }
 
@@ -121,7 +109,6 @@ UITableViewDataSource
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-//    self.tabBarController.gk_interactivePopDisabled = YES;//禁止手势侧滑
     [self.tableView.mj_header beginRefreshing];
     NSLog(@"KKK_viewWillAppear");
 #warning KKK
@@ -130,7 +117,7 @@ UITableViewDataSource
 
 -(void)viewWillDisappear:(BOOL)animated{//在这种框架下几乎等同于dealloc
     [super viewWillDisappear:animated];
-    NSLog(@"KKK_viewWillDisappear");
+//    NSLog(@"KKK_viewWillDisappear");
     [self.timer invalidate];
 //    self.tabBarController.tabBar.hidden = NO;
 }
@@ -139,33 +126,22 @@ UITableViewDataSource
  可选实现，列表显示的时候调用
  */
 - (void)listDidAppear{
-     NSLog(@"KKK_listDidAppear");
-//    [self.timeManager startGCDTimer];
+//     NSLog(@"KKK_listDidAppear");
     [self.tableView.mj_header beginRefreshing];
 }
 /**
  可选实现，列表消失的时候调用
  */
 - (void)listDidDisappear{
-    NSLog(@"KKK_listDidDisappear");
+//    NSLog(@"KKK_listDidDisappear");
     printf("retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(self)));
-//    [self.timeManager endGCDTimer];
-//    self.timeManager = nil;
 }
 #pragma mark —— 私有方法
 //计时器方法:
 - (void)timerFired {
     NSLog(@"page = %d",self.page);
-    [self pullToRefresh];
-//    [self networking_type:self.businessType];//默认查当前页
+//    [self pullToRefresh];
 }
-
-//-(void)GCDtimer{
-//    //轮询
-//    NSLog(@"轮询_OrderManager_panicBuyingVC");
-//    //KKK
-//    [self networking_type:self.businessType];//默认查当前页
-//}
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
@@ -174,15 +150,12 @@ UITableViewDataSource
     }
     //刷新当前数据
     self.page = 1;
-//    [self networking_type:self.businessType];//默认查当前页
     [self networking_type:self.businessType];//默认查当前页
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
     self.page++;
-//    [self networking_type:self.businessType];//默认查当前页
-//    [self.tableView.mj_footer endRefreshing];
     [self networking_type:self.businessType];//默认查当前页
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
@@ -195,51 +168,39 @@ viewForHeaderInSection:(NSInteger)section {
         @weakify(self)
         [viewForHeader clickBlock:^(id data) {
             @strongify(self)
-            NSLog(@"");
             if ([data isKindOfClass:[MMButton class]]) {
                 MMButton *btn = (MMButton *)data;
                 if ([btn.titleLabel.text isEqualToString:@"已下单"]) {//2
-                    
                     if (btn.selected) {
-                        NSLog(@"QQQ1");
+                        NSLog(@"ZZ1");
+                        [self.timer setFireDate:[NSDate distantFuture]];//stop
+                        self.businessType = BusinessType_HadOrdered;
                     }else{
-                        NSLog(@"QQQ2");
+                        NSLog(@"ZZ2");
+                        [self.timer setFireDate:[NSDate date]];//start
+                        self.businessType = BusinessType_ALL;
                     }
-                
-//                    self.btn1 = !self.btn1;
-//                    if (self.btn1) {
-//                        [self.timer setFireDate:[NSDate distantFuture]];//stop
-//                        self.businessType = BusinessType_HadOrdered;
-//                    }else{
-//                        [self.timer setFireDate:[NSDate date]];//start
-//                        self.businessType = BusinessType_ALL;
-//                    }
-
                 }else if ([btn.titleLabel.text isEqualToString:@"已发货"]){//4
-                    
-//                    self.btn2 = !self.btn2;
-//                    if (self.btn2) {
-//                        [self.timer setFireDate:[NSDate distantFuture]];//stop
-//                        self.businessType = BusinessType_HadOrdered;
-//                    }else{
-//                        [self.timer setFireDate:[NSDate date]];//start
-//                        self.businessType = BusinessType_ALL;
-//                    }
-                    
+                    if (btn.selected) {
+                        NSLog(@"ZZZ1");
+                        [self.timer setFireDate:[NSDate distantFuture]];//stop
+                        self.businessType = BusinessType_HadConsigned;
+                    }else{
+                        NSLog(@"ZZZ2");
+                        [self.timer setFireDate:[NSDate date]];//start
+                        self.businessType = BusinessType_ALL;
+                    }
                 }else if ([btn.titleLabel.text isEqualToString:@"已取消"]){//3
-                    
-//                    self.btn3 = !self.btn3;
-//                    if (self.btn3) {
-//                        [self.timer setFireDate:[NSDate distantFuture]];//stop
-//                        self.businessType = BusinessType_HadOrdered;
-//                    }else{
-//                        [self.timer setFireDate:[NSDate date]];//start
-//                        self.businessType = BusinessType_ALL;
-//                    }
-                    
+                    if (btn.selected) {
+                        NSLog(@"ZZZZ1");
+                        [self.timer setFireDate:[NSDate distantFuture]];//stop
+                        self.businessType = BusinessType_HadCanceled;
+                    }else{
+                        NSLog(@"ZZZZ2");
+                        [self.timer setFireDate:[NSDate date]];//start
+                        self.businessType = BusinessType_ALL;
+                    }
                 }else{}
-
-                
                 [self networking_type:self.businessType];//默认查当前页
             }
         }];
@@ -264,17 +225,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //
     //先移除数据源
     //
-    self.isDelCell = YES;
-    
-//    [self.dataMutArr removeObjectAtIndex:indexPath.row];
-//
-//    [self.tableView beginUpdates];
-//    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-//                            withRowAnimation:UITableViewRowAnimationMiddle];
-//    [self.tableView endUpdates];
-//    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
-//                    withRowAnimation:UITableViewRowAnimationNone];
-    
     if (self.dataMutArr.count) {
         @weakify(self)
         OrderManager_panicBuyingModel *orderListModel = self.dataMutArr[indexPath.row];
@@ -318,25 +268,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-//给cell添加动画
--(void)tableView:(UITableView *)tableView
- willDisplayCell:(UITableViewCell *)cell
-forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (!self.isDelCell) {
-        //设置Cell的动画效果为3D效果
-        //设置x和y的初始值为0.1；
-//        cell.layer.transform = CATransform3DMakeScale(0.1,
-//                                                      0.1,
-//                                                      1);
-//        //x和y的最终值为1
-//        [UIView animateWithDuration:1
-//                         animations:^{
-//            cell.layer.transform = CATransform3DMakeScale(1,
-//                                                          1,
-//                                                          1);
-//        }];
-    }
-}
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{
     if (!_tableView) {
@@ -375,15 +306,5 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [_btnTitleMutArr addObject:@"已取消"];
     }return _btnTitleMutArr;
 }
-
-//-(TimeManager *)timeManager{
-//    if (!_timeManager) {
-//        _timeManager = TimeManager.new;
-//        @weakify(self)
-//        [_timeManager GCDTimer:@selector(GCDtimer)
-//                        caller:self_weak_
-//                      interval:3];
-//    }return _timeManager;
-//}
 
 @end

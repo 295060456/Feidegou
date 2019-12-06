@@ -48,14 +48,13 @@
     [self networkingWithArgument:dic];
 }
 //正式请求
--(void)networkingWithArgument:(NSDictionary *)dic{//{"user_id":"136648","order_status":-1,"order_type":1,"identity":"865547048518264"}
+-(void)networkingWithArgument:(NSDictionary *)dic{
     NSString *randomStr = @"NMYUIXOJSPHTAKFG";//[EncryptUtils shuffledAlphabet:16];
     
     NSLog(@"KKK = %@",dic[@"order_status"]);//状态：0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成;默认查全部
     NSLog(@"DDD = %@",dic[@"currentpage"]);//状态：0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成;默认查全部
     NSLog(@"AAAA = %ld",self.dataMutArr.count);
     
-//    [self.tableView reloadData];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:buyer_CatfoodRecord_listURL
                                                      parameters:@{
@@ -68,14 +67,13 @@
     @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response) {
-            NSLog(@"sss = %lu",(unsigned long)self.dataMutArr.count);
             NSLog(@"--%@",response);
             if ([response isKindOfClass:[NSArray class]]) {
                 NSArray *arr = (NSArray *)response;
+                if (self.dataMutArr.count) {
+                    [self.dataMutArr removeAllObjects];
+                }
                 if (arr.count) {
-                    if (self.dataMutArr.count) {
-                        [self.dataMutArr removeAllObjects];
-                    }
                     NSArray *array = [OrderManager_panicBuyingModel mj_objectArrayWithKeyValuesArray:response];
                     if (array) {
                         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
@@ -97,19 +95,15 @@
                             self.tableView.mj_footer.hidden = YES;
                         }
                     }
-                    [self.tableView reloadData];
                     [self.tableView.mj_header endRefreshing];
                     [self.tableView.mj_footer endRefreshing];
                 }else{
                     NSLog(@"没数据了");
-                    [self.tableView reloadData];
                 }
             }
-            NSLog(@"UUU = %ld",self.dataMutArr.count);
-            
-//            [self.timer setFireDate:[NSDate date]];//开始
-//            self.timerisOn = YES;
         }
+        [self.tableView reloadData];
+        [self.timer setFireDate:[NSDate date]];//开始
     }];
 }
 

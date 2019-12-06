@@ -60,7 +60,6 @@ UITableViewDataSource
     vc.requestParams = requestParams;
     vc.isFirstComing = YES;
     vc.rootVC = rootVC;
-//    OrderDetailModel
     if ([vc.requestParams isKindOfClass:[OrderListModel class]]) {//订单管理 子页面共用一个model 进
         vc.orderListModel = (OrderListModel *)vc.requestParams;
         vc.Order_id = vc.orderListModel.ID;
@@ -118,7 +117,6 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    self.gk_interactivePopDisabled = NO;//开启手势侧滑
     if (self.isFirstComing) {
         [self data];
         self.isFirstComing = NO;
@@ -667,7 +665,6 @@ viewForHeaderInSection:(NSInteger)section {
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForHeaderInSection:(NSInteger)section{
-
     return [OrderDetailTBViewForHeader headerViewHeightWithModel:nil];
 }
 
