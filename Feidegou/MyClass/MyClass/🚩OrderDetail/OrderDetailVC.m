@@ -222,15 +222,20 @@ UITableViewDataSource
             self.gk_navTitle = @"产地订单详情";
             if ([self.orderManager_producingAreaModel.order_status intValue] == 0){//订单状态|已支付 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成 显示凭证
             [self.dataMutArr addObject:@"已支付"];//🏳️
+                if (self.orderManager_producingAreaModel.payment_print) {
+                    [self.titleMutArr addObject:@"支付凭证"];
+                    [self.dataMutArr addObject:self.orderManager_producingAreaModel.payment_print];
+                }
+                
             //订单详情上传凭证的订单状态：del_state = 0，order_status = 2;重新上传凭证，del_state = 0,order_status = 0
-            if ([self.orderManager_producingAreaModel.del_state intValue] == 0) {
-                [self.reloadPicBtn setTitle:@"重新上传支付凭证"
-                                   forState:UIControlStateNormal];
-                [self.reloadPicBtn addTarget:self
-                          action:@selector(getPrintPic:)
-                forControlEvents:UIControlEventTouchUpInside];//CatfoodCO_payURL 喵粮产地购买已支付  #8
+                if ([self.orderManager_producingAreaModel.del_state intValue] == 0) {
+                    [self.reloadPicBtn setTitle:@"重新上传支付凭证"
+                                       forState:UIControlStateNormal];
+                    [self.reloadPicBtn addTarget:self
+                              action:@selector(getPrintPic:)
+                    forControlEvents:UIControlEventTouchUpInside];//CatfoodCO_payURL 喵粮产地购买已支付  #8
+                }
             }
-        }
             else if ([self.orderManager_producingAreaModel.order_status intValue] == 1){//订单状态|已发单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                 [self.dataMutArr addObject:@"已发单"];//311
             }
@@ -662,6 +667,7 @@ viewForHeaderInSection:(NSInteger)section {
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForHeaderInSection:(NSInteger)section{
+
     return [OrderDetailTBViewForHeader headerViewHeightWithModel:nil];
 }
 
@@ -669,7 +675,8 @@ heightForHeaderInSection:(NSInteger)section{
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (![NSString isNullString:self.orderListModel.payment_print] ||
     ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-        ![NSString isNullString:self.orderDetailModel.payment_print]
+        ![NSString isNullString:self.orderDetailModel.payment_print] ||
+        ![NSString isNullString:self.orderManager_producingAreaModel.payment_print]
     ) {//![NSString isNullString:self.stallListModel.payment_print]
         if (indexPath.row == self.titleMutArr.count - 1) {
             return [OrderDetailTBVIMGCell cellHeightWithModel:nil];//凭证图
@@ -694,7 +701,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == self.titleMutArr.count - 1) {//最后一行
         if (![NSString isNullString:self.orderListModel.payment_print] ||
             ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-            ![NSString isNullString:self.orderDetailModel.payment_print]
+            ![NSString isNullString:self.orderDetailModel.payment_print] ||
+            ![NSString isNullString:self.orderManager_producingAreaModel.payment_print]
             ) {//有凭证数据  ![NSString isNullString:self.stallListModel.payment_print]
             OrderDetailTBVIMGCell *cell = [OrderDetailTBVIMGCell cellWith:tableView];//
             if (self.titleMutArr.count) {

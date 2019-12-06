@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *update;//下单时间
 @property(nonatomic,strong)NSNumber *order_state;//订单状态
 @property(nonatomic,strong)NSNumber *payment_status;//支付类型:1、支付宝;2、微信;3、银行卡
-@property(nonatomic,copy)NSString *payment_print;//支付凭证
+@property(nonatomic,copy)NSString *payment_print;//支付凭证 
 @property(nonatomic,copy)NSString *ordercode;//订单号
 @property(nonatomic,strong)NSNumber *quantity;//喵粮数量
 @property(nonatomic,strong)NSNumber *price;//喵粮单价
