@@ -8,7 +8,7 @@
 
 #import "QRCodeController.h"
 #import "JJHttpClient+ShopGood.h"
-#import <ShareSDKUI/ShareSDK+SSUI.h>
+//#import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "AppDelegate.h"
 
 @interface QRCodeController ()
@@ -52,17 +52,17 @@
     //        （注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
     if (imageArray) {
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-        [shareParams SSDKSetupShareParamsByText:@"邀请好友"
-                                         images:imageArray
-                                            url:nil
-                                          title:@"7商城"
-                                           type:SSDKContentTypeImage];
+//        [shareParams SSDKSetupShareParamsByText:@"邀请好友"
+//                                         images:imageArray
+//                                            url:nil
+//                                          title:@"7商城"
+//                                           type:SSDKContentTypeImage];
         //2、分享（可以弹出我们的分享菜单和编辑界面）
-        [ShareSDK showShareActionSheet:nil customItems:nil shareParams:shareParams sheetConfiguration:nil onStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
-            
-            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-            [appDelegate shareSucceed];
-        }];
+//        [ShareSDK showShareActionSheet:nil customItems:nil shareParams:shareParams sheetConfiguration:nil onStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+//            
+//            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//            [appDelegate shareSucceed];
+//        }];
     }
     
 //    SSDKPlatformType type = SSDKPlatformSubTypeWechatSession;

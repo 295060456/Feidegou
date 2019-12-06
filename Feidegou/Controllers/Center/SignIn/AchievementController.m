@@ -9,7 +9,7 @@
 #import "AchievementController.h"
 #import "ButtonShare.h"
 #import "JJHttpClient+ShopGood.h"
-#import <ShareSDK/ShareSDK.h>
+//#import <ShareSDK/ShareSDK.h>
 #import "WXApi.h"
 #import "AppDelegate.h"
 
@@ -86,22 +86,22 @@
     NSArray* imageArray = @[imageShare];
     
     
-    SSDKPlatformType type = SSDKPlatformSubTypeWechatTimeline;
-    if (sender.tag == 11) {
-        type = SSDKPlatformSubTypeWechatSession;
-    }
-    if (imageArray) {
-        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-        [shareParams SSDKSetupShareParamsByText:@"一键分享"
-                                         images:imageArray
-                                            url:nil
-                                          title:@"shop7"
-                                           type:SSDKContentTypeImage];
-        
-        [ShareSDK share:type parameters:shareParams onStateChanged:^(SSDKResponseState state,NSDictionary *userData,SSDKContentEntity *contentEntity,NSError *error){
-            
-            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-            [appDelegate shareSucceed];
+//    SSDKPlatformType type = SSDKPlatformSubTypeWechatTimeline;
+//    if (sender.tag == 11) {
+//        type = SSDKPlatformSubTypeWechatSession;
+//    }
+//    if (imageArray) {
+//        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+//        [shareParams SSDKSetupShareParamsByText:@"一键分享"
+//                                         images:imageArray
+//                                            url:nil
+//                                          title:@"shop7"
+//                                           type:SSDKContentTypeImage];
+//        
+//        [ShareSDK share:type parameters:shareParams onStateChanged:^(SSDKResponseState state,NSDictionary *userData,SSDKContentEntity *contentEntity,NSError *error){
+//            
+//            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//            [appDelegate shareSucceed];
             
 //            switch (state) {
 //                case SSDKResponseStateSuccess:
@@ -122,8 +122,8 @@
 //                default:
 //                    break;
 //            }
-        }];
-    }
+//        }];
+//    }
 
     
 //    UIImage *shareImage = [PublicFunction fetchImageForShareAchievement:self.dicInfo];

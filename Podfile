@@ -19,11 +19,11 @@ pod 'BaiduMapKit' #百度地图SDK
 #pod 'WeChatSDK-iOS', '~> 1.7.3'
 
 #  以下是分享
-pod 'mob_sharesdk'
-# UI模块(非必须，需要用到ShareSDK提供的分享菜单栏和分享编辑页面需要以下1行)
-pod 'mob_sharesdk/ShareSDKUI'
-pod 'mob_sharesdk/ShareSDKExtension'
-pod 'mob_sharesdk/ShareSDKPlatforms/WeChatFull'
+#pod 'mob_sharesdk'
+## UI模块(非必须，需要用到ShareSDK提供的分享菜单栏和分享编辑页面需要以下1行)
+#pod 'mob_sharesdk/ShareSDKUI'
+#pod 'mob_sharesdk/ShareSDKExtension'
+#pod 'mob_sharesdk/ShareSDKPlatforms/WeChatFull'
 
 #pod 'mob_sharesdk'
 ## UI模块(非必须，需要用到ShareSDK提供的分享菜单栏和分享编辑页面需要以下1行)
@@ -75,6 +75,7 @@ pod 'SDWebImage'
 pod 'SDWebImage/WebP'
 pod 'SDCycleScrollView'
 
+pod 'WechatOpenSDK'
 
 #pod 'SDWebImage'
 #pod 'YYKit'#有问题

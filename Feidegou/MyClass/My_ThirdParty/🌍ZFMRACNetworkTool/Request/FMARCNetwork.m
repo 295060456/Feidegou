@@ -122,21 +122,21 @@ static FMARCNetwork *_instance = nil;
         /// 获取request KKK
         NSError *serializationError = nil;
 #warning KKK 正式环境，下面代码不要
-//        NSString *url;
-//        if ([req.path isEqualToString:Updatewx]) {
-//            url = [DanielUrL stringByAppendingString:req.path];//KKK 8080
-//        }else if ([req.path isEqualToString:GetSuperior] ||
-//                  [req.path isEqualToString:CatfoodboothType] ||
-//                  [req.path isEqualToString:GetTeam]){
-//            url = [DanielUrL_1 stringByAppendingString:req.path];//KKK 8888
-//        }
-//        else{
-//            url = [BaseUrl_Gouge stringByAppendingString:req.path];//KKK
-//        }
+        NSString *url;
+        if ([req.path isEqualToString:Updatewx]) {
+            url = [DanielUrL stringByAppendingString:req.path];//KKK 8080
+        }else if ([req.path isEqualToString:GetSuperior] ||
+                  [req.path isEqualToString:CatfoodboothType] ||
+                  [req.path isEqualToString:GetTeam]){
+            url = [DanielUrL_1 stringByAppendingString:req.path];//KKK 8888
+        }
+        else{
+            url = [BaseUrl_Gouge stringByAppendingString:req.path];//KKK
+        }
 #warning KKK 正式环境，上面代码不要
         
 #warning 正式环境用下面
-        NSString *url = [BaseURL stringByAppendingString:req.path];//KKK
+//        NSString *url = [BaseURL stringByAppendingString:req.path];//KKK
         
         NSMutableURLRequest *request = [self.manager.requestSerializer requestWithMethod:req.method
                                                                                URLString:url
@@ -178,6 +178,7 @@ static FMARCNetwork *_instance = nil;
                 //错误可以在此处处理---比如加入自己弹窗，主要是服务器错误、和请求超时、网络开小差
                 [self showMsgtext:msgStr];
             } else {
+                NSDictionary *dic = [NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)];
                 FMHttpResonse *httpResponse = [[FMHttpResonse alloc] initWithResponseSuccess:[NSString dictionaryWithJsonString:aesDecryptString(responseObject, randomStr)]
                                                                                         code:1];
                 NSInteger statusCode = [httpResponse.reqResult[HTTPServiceResponseCodeKey] integerValue];

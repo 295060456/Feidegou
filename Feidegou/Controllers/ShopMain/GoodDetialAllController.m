@@ -21,7 +21,7 @@
 #import "ButtonUpDown.h"
 #import "JJDBHelper+ShopCart.h"
 #import "GoodOtherListController.h"
-#import <ShareSDKUI/ShareSDK+SSUI.h>
+//#import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "GoodShareController.h"
 
 typedef enum{

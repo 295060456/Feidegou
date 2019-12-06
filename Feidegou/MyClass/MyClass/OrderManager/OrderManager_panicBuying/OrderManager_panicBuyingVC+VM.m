@@ -37,17 +37,18 @@
     }
     NSDictionary *dic = @{
         @"currentpage":[NSString stringWithFormat:@"%d",self.page],//分页数 默认1
-        @"pagesize":@"",//分页大小 默认12
+        @"pagesize":@"12",//分页大小 默认12
         @"order_status":str,
         @"type":@"",//买家1;卖家0;默认查全部
         @"order_code":@"",//搜索订单号
         @"order_type":@"1",//订单类型 1、直通车;2、批发;3、平台
-        @"user_id":USERID
+        @"user_id":USERID,
+        @"identity":[YDDevice getUQID]
     };
     [self networkingWithArgument:dic];
 }
 //正式请求
--(void)networkingWithArgument:(NSDictionary *)dic{
+-(void)networkingWithArgument:(NSDictionary *)dic{//{"user_id":"136648","order_status":-1,"order_type":1,"identity":"865547048518264"}
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:buyer_CatfoodRecord_listURL

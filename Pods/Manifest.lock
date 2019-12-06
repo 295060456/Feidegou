@@ -65,21 +65,6 @@ PODS:
   - MISFloatingBall (1.1.1)
   - MJExtension (3.2.1)
   - MJRefresh (3.2.0)
-  - mob_sharesdk (4.3.3):
-    - mob_sharesdk/ShareSDK (= 4.3.3)
-    - MOBFoundation
-  - mob_sharesdk/ShareSDK (4.3.3):
-    - MOBFoundation
-  - mob_sharesdk/ShareSDKExtension (4.3.3):
-    - mob_sharesdk/ShareSDK
-    - MOBFoundation
-  - mob_sharesdk/ShareSDKPlatforms/WeChatFull (4.3.3):
-    - mob_sharesdk/ShareSDK
-    - MOBFoundation
-  - mob_sharesdk/ShareSDKUI (4.3.3):
-    - mob_sharesdk/ShareSDK
-    - MOBFoundation
-  - MOBFoundation (3.2.6)
   - PGBanner (1.0.4)
   - pop (1.0.12)
   - PYSearch (0.9.1)
@@ -107,6 +92,7 @@ PODS:
   - TXScrollLabelView (1.3.2)
   - TZImagePickerController (3.2.7)
   - UICountingLabel (1.4.1)
+  - WechatOpenSDK (1.8.6)
   - YYText (1.0.7)
   - ZXingObjC/Core (3.6.5)
   - ZXingObjC/QRCode (3.6.5):
@@ -137,10 +123,6 @@ DEPENDENCIES:
   - MISFloatingBall
   - MJExtension
   - MJRefresh
-  - mob_sharesdk
-  - mob_sharesdk/ShareSDKExtension
-  - mob_sharesdk/ShareSDKPlatforms/WeChatFull
-  - mob_sharesdk/ShareSDKUI
   - PGBanner
   - pop (~> 1.0.9)
   - PYSearch
@@ -162,6 +144,7 @@ DEPENDENCIES:
   - TXScrollLabelView
   - TZImagePickerController
   - UICountingLabel
+  - WechatOpenSDK
   - YYText
   - ZXingObjC/QRCode
 
@@ -193,8 +176,6 @@ SPEC REPOS:
     - MISFloatingBall
     - MJExtension
     - MJRefresh
-    - mob_sharesdk
-    - MOBFoundation
     - PGBanner
     - pop
     - PYSearch
@@ -214,6 +195,7 @@ SPEC REPOS:
     - TXScrollLabelView
     - TZImagePickerController
     - UICountingLabel
+    - WechatOpenSDK
     - YYText
     - ZXingObjC
 
@@ -244,8 +226,6 @@ SPEC CHECKSUMS:
   MISFloatingBall: c2b0c60baaa87cc5675ef33159d3b999f82253a3
   MJExtension: 635f2c663dcb1bf76fa4b715b2570a5710aec545
   MJRefresh: ed450d6eb9d3346a2cb033ab7eb6de090aeef437
-  mob_sharesdk: 48cb240a4b9cc393be2d6ff9c5b597ae77a1da73
-  MOBFoundation: 08c456357888e4c984fba23bbf04cfd2f4fc1e02
   PGBanner: 0c52ab4ce9e04ad17f8dd0627b45951b96770c67
   pop: d582054913807fd11fd50bfe6a539d91c7e1a55a
   PYSearch: 76dee18eea3309b60921a5d6a69390a63a5dda15
@@ -265,9 +245,10 @@ SPEC CHECKSUMS:
   TXScrollLabelView: 0e1650caf61198bf5dc0938ea6493254aeb80f90
   TZImagePickerController: 821b81f83594a736e831a018f2a2ce31822ddf0b
   UICountingLabel: faf890b505d96312e324a86718f031fafffb0ccb
+  WechatOpenSDK: 368ae03b72ee3ea1328c4f11326fbb5d2721d118
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: b97571126ecd1fd02c392c3bdd5df5c8bd943fdf
+PODFILE CHECKSUM: 5b81ee8606bb4f0a3f900f77808c4afeb35b3fa9
 
 COCOAPODS: 1.8.4
