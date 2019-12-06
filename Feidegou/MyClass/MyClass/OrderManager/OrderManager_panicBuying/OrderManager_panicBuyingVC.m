@@ -18,7 +18,10 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
-@property(nonatomic,strong)TimeManager *timeManager;
+//@property(nonatomic,strong)TimeManager *timeManager;
+
+@property(nonatomic,strong)NSTimer *timer;
+
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -37,6 +40,7 @@ UITableViewDataSource
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 //    @weakify(self)
 //    [_timeManager endGCDTimer];
+    [self.timer invalidate];
 }
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
@@ -93,7 +97,11 @@ UITableViewDataSource
 
 -(instancetype)init{
     if (self = [super init]) {
-
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1
+                                                      target:self
+                                                    selector:@selector(timerFired)
+                                                    userInfo:nil
+                                                     repeats:YES];
     }return self;
 }
 
@@ -117,6 +125,7 @@ UITableViewDataSource
 -(void)viewWillDisappear:(BOOL)animated{//在这种框架下几乎等同于dealloc
     [super viewWillDisappear:animated];
     NSLog(@"KKK_viewWillDisappear");
+    [self.timer invalidate];
 //    self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— JXCategoryListContentViewDelegate
@@ -125,7 +134,7 @@ UITableViewDataSource
  */
 - (void)listDidAppear{
      NSLog(@"KKK_listDidAppear");
-    [self.timeManager startGCDTimer];
+//    [self.timeManager startGCDTimer];
     [self.tableView.mj_header beginRefreshing];
 }
 /**
@@ -134,27 +143,41 @@ UITableViewDataSource
 - (void)listDidDisappear{
     NSLog(@"KKK_listDidDisappear");
     printf("retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(self)));
-    [self.timeManager endGCDTimer];
-    self.timeManager = nil;
+//    [self.timeManager endGCDTimer];
+//    self.timeManager = nil;
 }
 #pragma mark —— 私有方法
--(void)GCDtimer{
-    //轮询
-    NSLog(@"轮询_OrderManager_panicBuyingVC");
-    //KKK
-    [self networking_type:self.businessType];//默认查当前页
+//计时器方法:
+- (void)timerFired {
+    NSLog(@"page = %d",self.page);
+    [self pullToRefresh];
+//    [self networking_type:self.businessType];//默认查当前页
 }
+
+//-(void)GCDtimer{
+//    //轮询
+//    NSLog(@"轮询_OrderManager_panicBuyingVC");
+//    //KKK
+//    [self networking_type:self.businessType];//默认查当前页
+//}
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
+    if (self.dataMutArr.count) {
+        [self.dataMutArr removeAllObjects];
+    }
+    //刷新当前数据
     self.page = 1;
-    [self.tableView.mj_header endRefreshing];
+//    [self networking_type:self.businessType];//默认查当前页
+    [self networking_type:self.businessType];//默认查当前页
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
     NSLog(@"上拉加载更多");
     self.page++;
-    [self.tableView.mj_footer endRefreshing];
+//    [self networking_type:self.businessType];//默认查当前页
+//    [self.tableView.mj_footer endRefreshing];
+    [self networking_type:self.businessType];//默认查当前页
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView
@@ -169,9 +192,6 @@ viewForHeaderInSection:(NSInteger)section {
             NSLog(@"");
             if ([data isKindOfClass:[MMButton class]]) {
                 MMButton *btn = (MMButton *)data;
-                if (btn.selected) {
-
-                }else{}
                 if ([btn.titleLabel.text isEqualToString:@"已下单"]) {//2
                     if (btn.selected) {
                         self.businessType = BusinessType_HadOrdered;
@@ -186,7 +206,7 @@ viewForHeaderInSection:(NSInteger)section {
                     }
                 }else if ([btn.titleLabel.text isEqualToString:@"已取消"]){//3
                     if (btn.selected) {
-                        self.businessType = BusinessType_HadCompleted;
+                        self.businessType = BusinessType_HadCanceled;
                     }else{
                         self.businessType = BusinessType_ALL;
                     }
@@ -260,6 +280,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     OrderListTBVCell *cell = [OrderListTBVCell cellWith:tableView];
     if (self.dataMutArr.count) {
         [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+    }else{
+        [cell richElementsInCellWithModel:nil];
     }return cell;
 }
 
@@ -324,14 +346,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _btnTitleMutArr;
 }
 
--(TimeManager *)timeManager{
-    if (!_timeManager) {
-        _timeManager = TimeManager.new;
-        @weakify(self)
-        [_timeManager GCDTimer:@selector(GCDtimer)
-                        caller:self_weak_
-                      interval:3];
-    }return _timeManager;
-}
+//-(TimeManager *)timeManager{
+//    if (!_timeManager) {
+//        _timeManager = TimeManager.new;
+//        @weakify(self)
+//        [_timeManager GCDTimer:@selector(GCDtimer)
+//                        caller:self_weak_
+//                      interval:3];
+//    }return _timeManager;
+//}
 
 @end

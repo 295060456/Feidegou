@@ -110,7 +110,7 @@ OrderListVC *orderListVC;
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-    self.gk_interactivePopDisabled = YES;//禁止手势侧滑
+//    self.gk_interactivePopDisabled = YES;//禁止手势侧滑
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
