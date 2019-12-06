@@ -31,6 +31,7 @@
 #import "CellTwoLblArrow.h"
 #import "CatFoodsManagementVC.h"
 #import "JoinInTeamVC.h"
+#import "CenterController+VM.h"
 
 @interface CenterController ()
 <
@@ -112,6 +113,7 @@ DidClickCollectionViewDelegete
                                              animated:animated];
     [self refreshTab];
     [self requestCenterInfo];
+    [self requestMyTeamNumberInfo];
     if ([[PersonalInfo sharedInstance]isLogined]) {
         ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
         if ([model.grade_id intValue] == 2 ||
@@ -156,6 +158,27 @@ DidClickCollectionViewDelegete
         }];
     }
 }
+
+- (void)requestMyTeamNumberInfo{
+    if (self.disposable2) {
+        return;
+    }
+    if ([[PersonalInfo sharedInstance] isLogined]){
+        @weakify(self)
+        self.disposable2 = [[[JJHttpClient new] requestMyTeamNumberInfoUserId:[[PersonalInfo sharedInstance]
+                                                                              fetchLoginUserInfo].userId]
+                             subscribeNext:^(ModelCenter *model) {
+            [self refreshTab];
+        }error:^(NSError *error) {
+            @strongify(self)
+            self.disposable2 = nil;
+        }completed:^{
+            @strongify(self)
+            self.disposable2 = nil;
+        }];
+    }
+}
+
 #pragma mark---tableviewdelegate---
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
@@ -268,7 +291,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         NSMutableDictionary *dic3 = [NSMutableDictionary dictionary];
         [dic3 setObject:@"img_center_wdtd" forKey:@"image"];
         [dic3 setObject:@"我的团队" forKey:@"name"];
-        [dic3 setObject:[NSString stringStandardZero:self.model.inviterSize] forKey:@"tip"];//self.model.inviterSize
+        extern NSNumber *numb;
+//        [dic3 setObject:[NSString stringStandardZero:self.model.AAA] forKey:@"tip"];//self.model.inviterSize
+        [dic3 setObject:[NSString stringStandardZero:[numb stringValue]] forKey:@"tip"];//self.model.inviterSize
         [arrType addObject:dic0];
         [arrType addObject:dic1];
         [arrType addObject:dic2];
@@ -571,7 +596,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 MoneyDetailListController *controller = [[UIStoryboard storyboardWithName:StoryboardWithdrawDeposit bundle:nil]
                                                          instantiateViewControllerWithIdentifier:@"MoneyDetailListController"];
                 controller.numDetail = enum_numDetail_wdtd;
-                controller.strMoneyAll = self.model.inviterSize;
+                extern NSNumber *numb;
+                controller.strMoneyAll = [numb stringValue];
                 [self.navigationController pushViewController:controller
                                                      animated:YES];
             }
@@ -661,8 +687,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_pet) {
         _pet = [[Q_Pet alloc]initWithFrame:CGRectMake(SCALING_RATIO(0),
                                                       SCREEN_HEIGHT - SCALING_RATIO(250),
-                                                      SCALING_RATIO(50),
-                                                      SCALING_RATIO(50))];
+                                                      SCALING_RATIO(200),
+                                                      SCALING_RATIO(200))];
         _pet.autoCloseEdge = YES;
         [_pet show];
         [self.view addSubview:_pet];

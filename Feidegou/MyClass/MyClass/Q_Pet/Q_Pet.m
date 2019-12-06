@@ -37,12 +37,11 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-
     }return self;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [self setContent:kIMG(@"NewRobotCat")
+    [self setContent:kIMG(@"NewRobotCat")//img_icon NewRobotCat
          contentType:MISFloatingBallContentTypeImage];
 }
 
@@ -73,7 +72,8 @@ typedef NS_ENUM  (NSInteger,DYAnimationType){
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
           withEvent:(UIEvent *)event{
 //    [self Animation];
-     [self shake];
+    NSLog(@"QQQ");
+    [self shake];
 }
 
 -(void)shake{

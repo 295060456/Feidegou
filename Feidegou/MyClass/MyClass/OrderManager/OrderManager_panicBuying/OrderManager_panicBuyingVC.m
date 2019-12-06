@@ -140,7 +140,7 @@ UITableViewDataSource
 //计时器方法:
 - (void)timerFired {
     NSLog(@"page = %d",self.page);
-//    [self pullToRefresh];
+    [self pullToRefresh];
 }
 // 下拉刷新
 -(void)pullToRefresh{
@@ -222,9 +222,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-    //
-    //先移除数据源
-    //
+    [self.timer setFireDate:[NSDate distantFuture]];//stop
+    NSLog(@"BBBB = %ld",self.dataMutArr.count);
     if (self.dataMutArr.count) {
         @weakify(self)
         OrderManager_panicBuyingModel *orderListModel = self.dataMutArr[indexPath.row];

@@ -97,6 +97,7 @@
 		8BB217C923979CF400BD1B5F /* 价格.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BB217C523979CF400BD1B5F /* 价格.png */; };
 		8BB217CA23979CF400BD1B5F /* 筛选.png in Resources */ = {isa = PBXBuildFile; fileRef = 8BB217C623979CF400BD1B5F /* 筛选.png */; };
 		8BB217DD2397D10600BD1B5F /* UIDevice+XMUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB217DC2397D10600BD1B5F /* UIDevice+XMUtils.m */; };
+		8BB217E7239AED3A00BD1B5F /* CenterController+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB217E6239AED3A00BD1B5F /* CenterController+VM.m */; };
 		8BB2D2812366C6990047D0E2 /* TwitterHeart.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2772366C6990047D0E2 /* TwitterHeart.json */; };
 		8BB2D2822366C6990047D0E2 /* HamburgerArrow.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */; };
 		8BB2D2832366C6990047D0E2 /* G.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BB2D2792366C6990047D0E2 /* G.json */; };
@@ -830,6 +831,8 @@
 		8BB217DB2397D10600BD1B5F /* UIDevice+XMUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+XMUtils.h"; sourceTree = "<group>"; };
 		8BB217DC2397D10600BD1B5F /* UIDevice+XMUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+XMUtils.m"; sourceTree = "<group>"; };
 		8BB217DE2397D4B400BD1B5F /* Snip20191204_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snip20191204_2.png; sourceTree = "<group>"; };
+		8BB217E5239AED3900BD1B5F /* CenterController+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CenterController+VM.h"; sourceTree = "<group>"; };
+		8BB217E6239AED3A00BD1B5F /* CenterController+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CenterController+VM.m"; sourceTree = "<group>"; };
 		8BB2D2772366C6990047D0E2 /* TwitterHeart.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TwitterHeart.json; sourceTree = "<group>"; };
 		8BB2D2782366C6990047D0E2 /* HamburgerArrow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = HamburgerArrow.json; sourceTree = "<group>"; };
 		8BB2D2792366C6990047D0E2 /* G.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = G.json; sourceTree = "<group>"; };
@@ -2937,6 +2940,8 @@
 				C42CCD7A213CC2620096675F /* WithDarw */,
 				C42CCD4B213CC2620096675F /* CenterController.h */,
 				C42CCD71213CC2620096675F /* CenterController.m */,
+				8BB217E5239AED3900BD1B5F /* CenterController+VM.h */,
+				8BB217E6239AED3A00BD1B5F /* CenterController+VM.m */,
 				C46F8C2E214CE6EB00F0C7D1 /* IntegerGoodDetailController.h */,
 				C46F8C2F214CE6EB00F0C7D1 /* IntegerGoodDetailController.m */,
 				C42CCD35213CC2620096675F /* SettingController.h */,
@@ -4922,6 +4927,7 @@
 				C42F5D33213F859B00114E0E /* CellIncomeDay.m in Sources */,
 				8B86A7FC237D120C0058173B /* ReleaseOrderModel.m in Sources */,
 				C46368E7213FBE6C006922D5 /* CLCellTypeMiddle.m in Sources */,
+				8BB217E7239AED3A00BD1B5F /* CenterController+VM.m in Sources */,
 				8BB2D37A2366CBC70047D0E2 /* ShopReceiptQRcodeVC.m in Sources */,
 				C42CD0A3213CC2640096675F /* CellLogisticsMiddle.m in Sources */,
 				C4062BF4218FFDE700588193 /* SiginShowAdverController.m in Sources */,

@@ -9,6 +9,8 @@
 #import "JJHttpClient+ShopGood.h"
 #import "JJDBHelper+Center.h"
 
+NSNumber *numb;
+
 @implementation JJHttpClient (ShopGood)
 
 -(RACSignal*)requestShopGoodMainGoodLimit:(NSString *)limit andPage:(NSString *)page{
@@ -381,6 +383,20 @@
         ModelCenter *model = [MTLJSONAdapter modelOfClass:[ModelCenter class] fromJSONDictionary:dictionary[@"data"] error:nil];
         [[JJDBHelper sharedInstance] saveCenterMsg:model];
         return model;
+    }];
+}
+
+-(RACSignal*)requestMyTeamNumberInfoUserId:(NSString *)userId{
+    NSDictionary *param = [self paramStringWithStype:@"3203"
+                                                data:@{@"userId":userId}];
+    
+    return [[self requestPOSTWithRelativePath:RELATIVE_PATH_QUERY
+                                   parameters:param] map:^id(NSDictionary* dictionary) {
+        ModelCenter *modelCenter = [[JJDBHelper sharedInstance] fetchCenterMsg];
+        numb = dictionary[@"data"];
+        modelCenter.AAA = dictionary[@"data"];
+        [[JJDBHelper sharedInstance] saveCenterMsg:modelCenter];
+        return modelCenter;
     }];
 }
 

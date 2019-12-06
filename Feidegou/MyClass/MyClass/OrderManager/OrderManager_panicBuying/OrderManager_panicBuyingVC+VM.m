@@ -53,7 +53,7 @@
     
     NSLog(@"KKK = %@",dic[@"order_status"]);//状态：0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成;默认查全部
     NSLog(@"DDD = %@",dic[@"currentpage"]);//状态：0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成;默认查全部
-    NSLog(@"AAAA = %ld",self.dataMutArr.count);
+//    NSLog(@"AAAA = %ld",self.dataMutArr.count);
     
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:buyer_CatfoodRecord_listURL
@@ -102,6 +102,7 @@
                 }
             }
         }
+        NSLog(@"AAAA = %ld",self.dataMutArr.count);
         [self.tableView reloadData];
         [self.timer setFireDate:[NSDate date]];//开始
     }];

@@ -34,7 +34,7 @@
                 if (self.block) {
                     self.block(str);
                     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                        Toast(@"喂食成功，生命值+1");
+                        Toast(@"喂食成功,喵粮-1");
                     }];
                 }
             }

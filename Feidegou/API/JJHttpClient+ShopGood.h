@@ -75,6 +75,8 @@
 -(RACSignal*)requestShopGoodCartToOrderDetailsc_id:(NSString *)sc_id andUserId:(NSString *)userId;
 //个人中心
 -(RACSignal*)requestShopGoodCenterInfoUserId:(NSString *)userId;
+//我的团队下线人数
+-(RACSignal*)requestMyTeamNumberInfoUserId:(NSString *)userId;
 //余额明细
 -(RACSignal*)requestShopGoodBlanceDetialLimit:(NSString *)limit andPage:(NSString *)page anduserId:(NSString *)userId;
 //业绩提成明细

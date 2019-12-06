@@ -89,4 +89,9 @@
  *
  */
 @property (nonatomic,strong) NSString *corporate;
+
+
+@property (nonatomic,strong) NSString *AAA;
+
+
 @end

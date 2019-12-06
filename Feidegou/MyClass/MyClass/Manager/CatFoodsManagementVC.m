@@ -328,10 +328,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }else if (indexPath.section == 1){
         if ([cell.textLabel.text isEqualToString:@"喵粮订单管理"]) {
 #warning KKK
-            extern NSString *wait_goods;//待处理订单的数量
-            if (![NSString isNullString:wait_goods] ) {
+            extern NSNumber *wait_goods;//待处理订单的数量
+            if ([wait_goods intValue]) {
                             UIButton *btn = UIButton.new;
-                [btn setTitle:wait_goods
+                [btn setTitle:[wait_goods stringValue]
                      forState:UIControlStateNormal];
                 [btn setBackgroundImage:kIMG(@"RedDot")
                                forState:UIControlStateNormal];

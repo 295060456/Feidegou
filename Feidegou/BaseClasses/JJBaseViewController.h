@@ -40,6 +40,7 @@ typedef enum {
 
 @interface JJBaseViewController : UIViewController
 @property (nonatomic,strong) RACDisposable *disposable;
+@property (nonatomic,strong) RACDisposable *disposable2;
 @property (strong, nonatomic) UIButton *btnBack;
 //返回
 - (void)clickButtonBack:(UIButton *)sender;

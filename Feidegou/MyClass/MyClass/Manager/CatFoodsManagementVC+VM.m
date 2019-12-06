@@ -12,7 +12,7 @@ NSString *tokenStr;//??没有了
 NSString *alipay_qr_img;//支付宝收款二维码
 NSString *market_price_booth;//摊位均价
 NSString *weixin_qr_img;//微信收款二维码
-NSString *wait_goods;//待处理订单的数量
+NSNumber *wait_goods;//待处理订单的数量
 NSString *market_price_sale;//批发均价
 NSString *Foodsell;
 NSString *Foodstuff;
@@ -61,6 +61,7 @@ NSString *market_price_co;//产地均价
                 market_price_co = self.dataMutArr[4];
                 Foodsell = self.dataMutArr[5];
                 alipay_qr_img = self.dataMutArr[6];
+                wait_goods = dic[@"wait_goods"];
                 
                 if ([weixin_qr_img intValue] == -1) {//微信是必须的 微信不OK 管他支付宝OK不OK，先解决微信
                     [self showAlertViewTitle:@"请重新上传微信收款二维码"
