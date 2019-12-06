@@ -33,7 +33,6 @@ UITableViewDataSource
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
-@property(nonatomic,assign)BOOL isDelCell;
 
 @end
 
@@ -141,18 +140,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //
     //先移除数据源
     //
-    self.isDelCell = YES;
+    CatFoodProducingAreaModel *model = self.dataMutArr[indexPath.row];
     
-//    [self.dataMutArr removeObjectAtIndex:indexPath.row];
-//    
-//    [self.tableView beginUpdates];
-//    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-//                            withRowAnimation:UITableViewRowAnimationMiddle];
-//    [self.tableView endUpdates];
-//    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
-//                    withRowAnimation:UITableViewRowAnimationNone];
-    //点击进行购买
-    [self purchase_netWorking:self.dataMutArr[indexPath.row]];//购买完在上传凭证，可以不要凭证
+    if (!model.isSelect) {
+        [self purchase_netWorking:self.dataMutArr[indexPath.row]];//购买完在上传凭证，可以不要凭证
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -173,26 +165,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
-}
-
-//给cell添加动画
--(void)tableView:(UITableView *)tableView
- willDisplayCell:(UITableViewCell *)cell
-forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (!self.isDelCell) {
-        //设置Cell的动画效果为3D效果
-        //设置x和y的初始值为0.1；
-        cell.layer.transform = CATransform3DMakeScale(0.1,
-                                                      0.1,
-                                                      1);
-        //x和y的最终值为1
-        [UIView animateWithDuration:1
-                         animations:^{
-            cell.layer.transform = CATransform3DMakeScale(1,
-                                                          1,
-                                                          1);
-        }];
-    }
 }
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{

@@ -21,7 +21,6 @@ UITableViewDataSource
 
 @property(nonatomic,strong)SearchView *searchView;
 
-//@property(nonatomic,strong)TimeManager *timeManager;
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -122,22 +121,15 @@ UITableViewDataSource
  可选实现，列表显示的时候调用
  */
 - (void)listDidAppear{
-//    [self.timeManager startGCDTimer];
     [self.tableView.mj_header beginRefreshing];
 }
 /**
  可选实现，列表消失的时候调用
  */
 - (void)listDidDisappear{
-//    [self.timeManager endGCDTimer];
-//    self.timeManager = nil;
 }
 #pragma mark —— 私有方法
-//-(void)GCDtimer{
-//    //轮询
-//    NSLog(@"轮询_OrderManager_producingAreaVC");
-//    [self networking_type:self.businessType];
-//}
+
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
@@ -261,25 +253,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
-//给cell添加动画
--(void)tableView:(UITableView *)tableView
- willDisplayCell:(UITableViewCell *)cell
-forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (!self.isDelCell) {
-        //设置Cell的动画效果为3D效果
-        //设置x和y的初始值为0.1；
-//        cell.layer.transform = CATransform3DMakeScale(0.1,
-//                                                      0.1,
-//                                                      1);
-//        //x和y的最终值为1
-//        [UIView animateWithDuration:1
-//                         animations:^{
-//            cell.layer.transform = CATransform3DMakeScale(1,
-//                                                          1,
-//                                                          1);
-//        }];
-    }
-}
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{
     if (!_tableView) {
@@ -316,15 +289,5 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         [_btnTitleMutArr addObject:@"已发货"];
     }return _btnTitleMutArr;
 }
-
-//-(TimeManager *)timeManager{
-//    if (!_timeManager) {
-//        _timeManager = TimeManager.new;
-//        @weakify(self)
-//        [_timeManager GCDTimer:@selector(GCDtimer)
-//                        caller:self_weak_
-//                      interval:3];
-//    }return _timeManager;
-//}
 
 @end

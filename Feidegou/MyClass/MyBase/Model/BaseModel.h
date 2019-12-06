@@ -38,10 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *del_print_path;//?
 @property(nonatomic,copy)NSString *del_print_name;//?
 @property(nonatomic,copy)NSString *trueName;//真实姓名
-@property(nonatomic,copy)NSString *bankcard;//银行卡号
+@property(nonatomic,copy)NSString *bankCard;//银行卡号
 @property(nonatomic,copy)NSString *bankName;//银行名称
 @property(nonatomic,copy)NSString *bankaddress;//支行
-@property(nonatomic,copy)NSString *bankuser;//持卡人
+@property(nonatomic,copy)NSString *bankUser;//持卡人
 @property(nonatomic,strong)NSNumber *deal;//1、买家 2、卖家 卖家才有 发货&撤销
 @property(nonatomic,strong)NSNumber *ID;//订单ID
 @property(nonatomic,strong)NSNumber *order_status;//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成

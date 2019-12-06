@@ -7,79 +7,111 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A712DAFC-53F2-4BE0-98C7-8E6472C5D713"
+            uuid = "355430DD-ABA4-40C7-929E-2244B57EAEC1"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/API/JJHttpClient+ShopGood.m"
+            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "381"
-            endingLineNumber = "381"
-            landmarkName = "-requestShopGoodCenterInfoUserId:"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
+            landmarkName = "-data"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7ECD3E6C-A310-448F-A1DC-641AD69C4848"
+            uuid = "EC495A81-5FC9-4183-BD00-F201846FD4BF"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/Controllers/Center/ApplyForVender/ApplyForVenderController.m"
+            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "403"
-            endingLineNumber = "403"
-            landmarkName = "-clickButtonCommit:"
+            startingLineNumber = "845"
+            endingLineNumber = "845"
+            landmarkName = "-titleMutArr"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "98F181F5-CCBE-4604-95CE-737906B3CF39"
+            uuid = "592E8B32-05B1-433F-9FB6-488D5C625DDB"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/Controllers/Center/WithDarw/WithDrawDepositController.m"
+            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
-            landmarkName = "-clickButtonWithDraw:"
+            startingLineNumber = "224"
+            endingLineNumber = "224"
+            landmarkName = "-data"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B8F1C146-B0A5-4A75-AF6B-948ED11273F5"
+            uuid = "1AFBDFCA-C90A-40EA-B0B3-FC7B1B07725B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/Controllers/Center/PersonalInfoController.m"
+            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "-requestData"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "-data"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "076D9406-75E9-444F-BD1E-25A382BD97B2"
+            uuid = "B4ED7250-49BE-476E-9449-0D0704F254CD"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/Controllers/Center/PersonalInfoController.m"
+            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "842"
+            endingLineNumber = "842"
+            landmarkName = "-titleMutArr"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5466B4A3-52B3-4B74-B902-4F471EF7307F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "737"
+            endingLineNumber = "737"
+            landmarkName = "-dataMutArr"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CE21DD04-FE86-4330-BF03-CD333AB6E4F9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "714"
+            endingLineNumber = "714"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -87,80 +119,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "74F059C6-6571-496E-B286-331ADA94E7E3"
+            uuid = "6278CD68-9734-4C7F-B98D-9FB45E6799A1"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/Controllers/Center/ChangeHeadImgController.m"
+            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "-requestPostHeadImage:"
+            startingLineNumber = "744"
+            endingLineNumber = "744"
+            landmarkName = "-dataMutArr"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7734FB74-6C1F-4A74-90D5-5F5BA2D922D1"
-            shouldBeEnabled = "No"
+            uuid = "7AB9316B-5C09-413D-A74F-7E156E8876D5"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/DataLocation/JJDBHelper+Center.m"
+            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
-            landmarkName = "-fetchCenterMsg"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
+            landmarkName = "-data"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "B90D682A-A07B-4544-BB4F-3705B0FCFB7D"
-            shouldBeEnabled = "No"
+            uuid = "1E589B63-B80A-4685-B87C-C93615C51C50"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/Controllers/Center/CenterController.m"
+            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "818"
+            endingLineNumber = "818"
+            landmarkName = "-dataMutArr"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "80EB96CD-83AC-4496-B1E1-C28A75CD7896"
-            shouldBeEnabled = "No"
+            uuid = "437456E5-C99D-4D7C-8B57-D1353968C484"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/Controllers/Center/CenterController.m"
+            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
-            landmarkName = "-refreshTab"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BAC017CB-3D1A-43D7-ABE3-D47524D841AB"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feidegou/MyClass/MyClass/OrderManager/OrderManager_panicBuying/OrderManager_panicBuyingVC.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
-            landmarkName = "-tableView:viewForHeaderInSection:"
+            startingLineNumber = "824"
+            endingLineNumber = "824"
+            landmarkName = "-dataMutArr"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

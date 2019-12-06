@@ -294,13 +294,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }else if (self.indexPath.section == 2){//银行卡
             switch (self.indexPath.row) {
                 case 0:{//银行卡姓名
-                    if (![NSString isNullString:settingPaymentWayModel.bankuser]) {
-                        self.textField.text = settingPaymentWayModel.bankuser;
+                    if (![NSString isNullString:settingPaymentWayModel.bankUser]) {
+                        self.textField.text = settingPaymentWayModel.bankUser;
                     }
                 }break;
                 case 1:{//银行卡账号
-                    if (![NSString isNullString:settingPaymentWayModel.bankcard]) {
-                        self.textField.text = settingPaymentWayModel.bankcard;
+                    if (![NSString isNullString:settingPaymentWayModel.bankCard]) {
+                        self.textField.text = settingPaymentWayModel.bankCard;
                     }
                 }break;
                 case 2:{//银行卡类型

@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface OrderManager_panicBuyingVC : BaseVC
 
 @property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,strong)NSTimer *timer;
+@property(nonatomic,assign)BOOL timerisOn;
 @property(nonatomic,assign)__block int page;//分页面
 @property(nonatomic,strong)NSMutableArray <OrderManager_panicBuyingModel *>*dataMutArr;
 

@@ -27,6 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSNumber *trade_no;
 @property(nonatomic,strong)NSNumber *card_img;
 
+@property(nonatomic,copy)NSString *bankCard;//银行卡号
+
+@property(nonatomic,assign)bool isSelect;
+
 @end
 
 NS_ASSUME_NONNULL_END

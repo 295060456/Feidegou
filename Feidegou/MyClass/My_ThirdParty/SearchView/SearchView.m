@@ -85,6 +85,7 @@ UIScrollViewDelegate
 }
 
 -(void)MMButtonClickEvent:(MMButton *)sender{
+    NSLog(@"MMM = %d",sender.selected);
     if ([self.tempBtn isEqual:sender]) {//同一个btn
         sender.selected = !sender.selected;
     }else{//不同一个btn

@@ -20,8 +20,6 @@ UITableViewDataSource
 
 //@property(nonatomic,strong)TimeManager *timeManager;
 
-@property(nonatomic,strong)NSTimer *timer;
-
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,copy)DataBlock successBlock;
 @property(nonatomic,assign)BOOL isPush;
@@ -30,6 +28,10 @@ UITableViewDataSource
 @property(nonatomic,assign)BOOL isDelCell;
 @property(nonatomic,strong)NSMutableArray <NSString *>*btnTitleMutArr;
 @property(nonatomic,assign)BusinessType businessType;
+//@property(nonatomic,assign)BOOL btn1;
+//@property(nonatomic,assign)BOOL btn2;
+//@property(nonatomic,assign)BOOL btn3;
+
 
 @end
 
@@ -53,6 +55,9 @@ UITableViewDataSource
     vc.requestParams = requestParams;
     vc.page = 1;
     vc.businessType = BusinessType_ALL;
+//    vc.btn1 = NO;
+//    vc.btn2 = NO;
+//    vc.btn3 = NO;
     if ([requestParams isKindOfClass:[RCConversationModel class]]) {
 
     }
@@ -97,11 +102,12 @@ UITableViewDataSource
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:3
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5
                                                       target:self
                                                     selector:@selector(timerFired)
                                                     userInfo:nil
                                                      repeats:YES];
+        self.timerisOn = YES;
     }return self;
 }
 
@@ -193,27 +199,47 @@ viewForHeaderInSection:(NSInteger)section {
             if ([data isKindOfClass:[MMButton class]]) {
                 MMButton *btn = (MMButton *)data;
                 if ([btn.titleLabel.text isEqualToString:@"已下单"]) {//2
+                    
                     if (btn.selected) {
-                        self.businessType = BusinessType_HadOrdered;
+                        NSLog(@"QQQ1");
                     }else{
-                        self.businessType = BusinessType_ALL;
+                        NSLog(@"QQQ2");
                     }
+                
+//                    self.btn1 = !self.btn1;
+//                    if (self.btn1) {
+//                        [self.timer setFireDate:[NSDate distantFuture]];//stop
+//                        self.businessType = BusinessType_HadOrdered;
+//                    }else{
+//                        [self.timer setFireDate:[NSDate date]];//start
+//                        self.businessType = BusinessType_ALL;
+//                    }
+
                 }else if ([btn.titleLabel.text isEqualToString:@"已发货"]){//4
-                    if (btn.selected) {
-                        self.businessType = BusinessType_HadConsigned;
-                    }else{
-                        self.businessType = BusinessType_ALL;
-                    }
+                    
+//                    self.btn2 = !self.btn2;
+//                    if (self.btn2) {
+//                        [self.timer setFireDate:[NSDate distantFuture]];//stop
+//                        self.businessType = BusinessType_HadOrdered;
+//                    }else{
+//                        [self.timer setFireDate:[NSDate date]];//start
+//                        self.businessType = BusinessType_ALL;
+//                    }
+                    
                 }else if ([btn.titleLabel.text isEqualToString:@"已取消"]){//3
-                    if (btn.selected) {
-                        self.businessType = BusinessType_HadCanceled;
-                    }else{
-                        self.businessType = BusinessType_ALL;
-                    }
+                    
+//                    self.btn3 = !self.btn3;
+//                    if (self.btn3) {
+//                        [self.timer setFireDate:[NSDate distantFuture]];//stop
+//                        self.businessType = BusinessType_HadOrdered;
+//                    }else{
+//                        [self.timer setFireDate:[NSDate date]];//start
+//                        self.businessType = BusinessType_ALL;
+//                    }
+                    
                 }else{}
-                if (self.dataMutArr.count) {
-                    [self.dataMutArr removeAllObjects];
-                }
+
+                
                 [self networking_type:self.businessType];//默认查当前页
             }
         }];
