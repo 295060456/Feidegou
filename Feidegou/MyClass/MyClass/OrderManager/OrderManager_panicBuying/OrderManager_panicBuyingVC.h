@@ -13,8 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface OrderManager_panicBuyingVC : BaseVC
 
 @property(nonatomic,strong)UITableView *tableView;
-@property(nonatomic,strong)NSTimer *timer;
 @property(nonatomic,assign)__block int page;//分页面
+@property(nonatomic,assign)__block long pageSize;//当前页多少条数据
+@property(nonatomic,strong)MMButton *btn;
 @property(nonatomic,strong)NSMutableArray <OrderManager_panicBuyingModel *>*dataMutArr;
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
@@ -25,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(instancetype)initWithrequestParams:(nullable id)requestParams
                              success:(DataBlock)block;
+-(void)delay;
 
 @end
 

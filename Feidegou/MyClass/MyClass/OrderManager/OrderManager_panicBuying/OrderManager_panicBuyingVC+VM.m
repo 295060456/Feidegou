@@ -24,6 +24,7 @@
 }
 
 -(void)networking_type:(BusinessType)businessType{//按交易状态
+    NSLog(@"AAAAS");
     NSString *str;
     if (businessType == BusinessType_ALL) {
         str = @"-1";
@@ -67,14 +68,13 @@
     @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response) {
-            NSLog(@"--%@",response);
+//            NSLog(@"--%@",response);
             if ([response isKindOfClass:[NSArray class]]) {
                 NSArray *arr = (NSArray *)response;
-                if (self.dataMutArr.count) {
-                    [self.dataMutArr removeAllObjects];
-                }
                 if (arr.count) {
+                    NSLog(@"kj");
                     NSArray *array = [OrderManager_panicBuyingModel mj_objectArrayWithKeyValuesArray:response];
+                    self.pageSize = array.count;
                     if (array) {
                         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
                                                             NSUInteger idx,
@@ -104,7 +104,6 @@
         }
         NSLog(@"AAAA = %ld",self.dataMutArr.count);
         [self.tableView reloadData];
-        [self.timer setFireDate:[NSDate date]];//开始
     }];
 }
 

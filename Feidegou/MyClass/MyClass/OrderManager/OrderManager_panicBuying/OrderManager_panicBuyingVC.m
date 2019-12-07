@@ -34,7 +34,7 @@ UITableViewDataSource
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self.timer invalidate];
+
 }
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
@@ -91,11 +91,7 @@ UITableViewDataSource
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:3
-                                                      target:self
-                                                    selector:@selector(timerFired)
-                                                    userInfo:nil
-                                                     repeats:YES];
+
     }return self;
 }
 
@@ -109,16 +105,12 @@ UITableViewDataSource
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = YES;
-    [self.tableView.mj_header beginRefreshing];
     NSLog(@"KKK_viewWillAppear");
-#warning KKK
-//    [self networking_platformType:PlatformType_Stall];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{//在这种框架下几乎等同于dealloc
     [super viewWillDisappear:animated];
 //    NSLog(@"KKK_viewWillDisappear");
-    [self.timer invalidate];
 //    self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— JXCategoryListContentViewDelegate
@@ -126,7 +118,6 @@ UITableViewDataSource
  可选实现，列表显示的时候调用
  */
 - (void)listDidAppear{
-//     NSLog(@"KKK_listDidAppear");
     [self.tableView.mj_header beginRefreshing];
 }
 /**
@@ -137,17 +128,9 @@ UITableViewDataSource
     printf("retain count = %ld\n",CFGetRetainCount((__bridge CFTypeRef)(self)));
 }
 #pragma mark —— 私有方法
-//计时器方法:
-- (void)timerFired {
-    NSLog(@"page = %d",self.page);
-    [self pullToRefresh];
-}
 // 下拉刷新
--(void)pullToRefresh{
+-(void)pullToRefresh{//以前的历史数据移除，只有第一页数据
     NSLog(@"下拉刷新");
-    if (self.dataMutArr.count) {
-        [self.dataMutArr removeAllObjects];
-    }
     //刷新当前数据
     self.page = 1;
     [self networking_type:self.businessType];//默认查当前页
@@ -169,38 +152,35 @@ viewForHeaderInSection:(NSInteger)section {
         [viewForHeader clickBlock:^(id data) {
             @strongify(self)
             if ([data isKindOfClass:[MMButton class]]) {
-                MMButton *btn = (MMButton *)data;
-                if ([btn.titleLabel.text isEqualToString:@"已下单"]) {//2
-                    if (btn.selected) {
+                self.btn = (MMButton *)data;
+                if ([self.btn.titleLabel.text isEqualToString:@"已下单"]) {//2
+                    if (self.btn.selected) {
                         NSLog(@"ZZ1");
-                        [self.timer setFireDate:[NSDate distantFuture]];//stop
                         self.businessType = BusinessType_HadOrdered;
                     }else{
                         NSLog(@"ZZ2");
-                        [self.timer setFireDate:[NSDate date]];//start
                         self.businessType = BusinessType_ALL;
                     }
-                }else if ([btn.titleLabel.text isEqualToString:@"已发货"]){//4
-                    if (btn.selected) {
+                }else if ([self.btn.titleLabel.text isEqualToString:@"已发货"]){//4
+                    if (self.btn.selected) {
                         NSLog(@"ZZZ1");
-                        [self.timer setFireDate:[NSDate distantFuture]];//stop
                         self.businessType = BusinessType_HadConsigned;
                     }else{
                         NSLog(@"ZZZ2");
-                        [self.timer setFireDate:[NSDate date]];//start
                         self.businessType = BusinessType_ALL;
                     }
-                }else if ([btn.titleLabel.text isEqualToString:@"已取消"]){//3
-                    if (btn.selected) {
+                }else if ([self.btn.titleLabel.text isEqualToString:@"已取消"]){//3
+                    if (self.btn.selected) {
                         NSLog(@"ZZZZ1");
-                        [self.timer setFireDate:[NSDate distantFuture]];//stop
                         self.businessType = BusinessType_HadCanceled;
                     }else{
                         NSLog(@"ZZZZ2");
-                        [self.timer setFireDate:[NSDate date]];//start
                         self.businessType = BusinessType_ALL;
                     }
                 }else{}
+                if (self.dataMutArr.count) {
+                    [self.dataMutArr removeAllObjects];
+                }
                 [self networking_type:self.businessType];//默认查当前页
             }
         }];
@@ -222,7 +202,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-    [self.timer setFireDate:[NSDate distantFuture]];//stop
+
     NSLog(@"BBBB = %ld",self.dataMutArr.count);
     if (self.dataMutArr.count) {
         @weakify(self)

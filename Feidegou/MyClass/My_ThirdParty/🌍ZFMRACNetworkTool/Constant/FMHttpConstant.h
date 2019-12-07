@@ -87,7 +87,7 @@
 #define CatfoodSale_BuyeroneURL @"/catfoodapp/user/buyer/CatfoodSale_Buyerone.htm"//喵粮批发购买 post 16 Y
 #define CatfoodSale_payURL @"/user/buyer/CatfoodSale_pay.htm"//喵粮批发已支付 post 17 Y 不加catfoodapp
 #define CatfoodSale_pay_delURL @"/catfoodapp/user/buyer/CatfoodSale_pay_del.htm"//喵粮批发取消 post 18 Y
-#define CatfoodTrainURL @"/catfoodapp/user/buyer/CatfoodTrain.htm"//喵粮直通车 post 19 说是废弃了
+#define CatfoodTrainURL @"/catfoodapp/user/buyer/CatfoodTrain.htm"//喵粮直通车 post 19 
 //#define //喵粮抢摊位 20
 #define Catfoodbooth_robURL @"/catfoodapp/user/buyer/Catfoodbooth_rob.htm"
 //http://10.1.41.174:8888/catfoodapp/user/buyer/Catfoodbooth_rob.htm

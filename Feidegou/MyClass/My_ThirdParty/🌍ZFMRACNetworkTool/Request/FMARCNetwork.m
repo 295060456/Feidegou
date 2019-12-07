@@ -230,7 +230,6 @@ static FMARCNetwork *_instance = nil;
                     }
                 }else if (statusCode == HTTPResponseCodeError_01){//401 重新输入喵粮数量
                     if (httpResponse.isSuccess) {
-                        [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseMsgKey]];//
                         Toast(httpResponse.reqResult[HTTPServiceResponseMsgKey]);
                         [subscriber sendNext:httpResponse.reqResult[HTTPServiceResponseMsgKey]];//
                         [subscriber sendCompleted];

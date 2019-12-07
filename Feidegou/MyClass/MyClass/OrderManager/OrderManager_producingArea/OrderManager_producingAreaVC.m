@@ -107,7 +107,6 @@ UITableViewDataSource
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    self.tabBarController.gk_interactivePopDisabled = YES;//禁止手势侧滑
     self.tabBarController.tabBar.hidden = YES;
     [self.tableView.mj_header beginRefreshing];
 }
@@ -129,7 +128,6 @@ UITableViewDataSource
 - (void)listDidDisappear{
 }
 #pragma mark —— 私有方法
-
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");

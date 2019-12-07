@@ -38,6 +38,9 @@ NSString *market_price_co;//产地均价
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response) {
             NSLog(@"--%@",response);
+            if (self.dataMutArr.count) {
+                [self.dataMutArr removeAllObjects];
+            }
             if ([response isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *dic = (NSDictionary *)response;
                 [self.dataMutArr addObject:[NSString ensureNonnullString:[NSString stringWithFormat:@"%@",dic[@"market_price_booth"]]

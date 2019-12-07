@@ -32,8 +32,8 @@ UITableViewDataSource
 @property(nonatomic,strong)UILabel *remarkTitleLab;//备注标题
 @property(nonatomic,strong)UILabel *remarkLab;//备注
 @property(nonatomic,strong)UILabel *balanceTitleLab;//余额标题
-@property(nonatomic,strong)UILabel *orderNumTitleLab;//订单号标题
-@property(nonatomic,strong)UILabel *orderNumLab;//订单号
+//@property(nonatomic,strong)UILabel *orderNumTitleLab;//订单号标题
+//@property(nonatomic,strong)UILabel *orderNumLab;//订单号
 
 @property(nonatomic,copy)NSString *styleLabStr;//类型
 @property(nonatomic,copy)NSString *numLabStr;//数量
@@ -294,6 +294,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             case 24://批发出售
             case 34://批发发布
             case 25://产地出售
+            case 15://产地购买
             case 35:{//产地发布
                 self.numLabStr = [NSString stringWithFormat:@"+%@g",[NSString ensureNonnullString:personalDataChangedListModel.number ReplaceStr:@"无"]];
         }break;
@@ -302,7 +303,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             case 13://摊位购买
             case 14://批发购买
             case 44://批发下架
-            case 15://产地购买
             case 26://开启直通车减少
             case 27:{//喂食喵粮减少
                 self.numLabStr = [NSString stringWithFormat:@"-%@g",[NSString ensureNonnullString:personalDataChangedListModel.number ReplaceStr:@"无"]];
@@ -319,8 +319,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         self.remarkLab.alpha = 1;
         self.balanceTitleLab.alpha = 1;
         self.balanceLab.alpha = 1;
-        self.orderNumTitleLab.alpha = 1;
-        self.orderNumLab.text = [NSString ensureNonnullString:personalDataChangedListModel.ordercode ReplaceStr:@"无"];
+//        self.orderNumTitleLab.alpha = 1;
+//        self.orderNumLab.text = [NSString ensureNonnullString:personalDataChangedListModel.ordercode ReplaceStr:@"无"];
     }
 }
 #pragma mark —— lazyLoad
@@ -340,14 +340,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_numLab) {
         _numLab = UILabel.new;
         if ([self.numLabStr containsString:@"-"]) {
-            _numLab.textColor = KGreenColor;
+            _numLab.textColor = kBlueColor;
         }else if ([self.numLabStr containsString:@"+"]){
             _numLab.textColor = kRedColor;
         }
         if (@available(iOS 8.2, *)) {
-            _numLab.font = [UIFont systemFontOfSize:40.f weight:.7f];
+            _numLab.font = [UIFont systemFontOfSize:30.f weight:.7f];
         } else {
-            _numLab.font = [UIFont systemFontOfSize:40.f];
+            _numLab.font = [UIFont systemFontOfSize:30.f];
         }
         _numLab.textAlignment = NSTextAlignmentCenter;
         _numLab.text = self.numLabStr;
@@ -419,34 +419,34 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _balanceLab;
 }
 
--(UILabel *)orderNumTitleLab{
-    if (!_orderNumTitleLab) {
-        _orderNumTitleLab = UILabel.new;
-//        _orderNumTitleLab.textAlignment = NSTextAlignmentCenter;
-        _orderNumTitleLab.text = @"订单号:";
-        [self.contentView addSubview:_orderNumTitleLab];
-        [_orderNumTitleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
-            make.width.mas_equalTo(SCALING_RATIO(70));
-            make.top.equalTo(self.balanceTitleLab.mas_bottom).offset(SCALING_RATIO(10));
-        }];
-    }return _orderNumTitleLab;
-}
+//-(UILabel *)orderNumTitleLab{
+//    if (!_orderNumTitleLab) {
+//        _orderNumTitleLab = UILabel.new;
+////        _orderNumTitleLab.textAlignment = NSTextAlignmentCenter;
+//        _orderNumTitleLab.text = @"订单号:";
+//        [self.contentView addSubview:_orderNumTitleLab];
+//        [_orderNumTitleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self.contentView).offset(SCALING_RATIO(10));
+//            make.width.mas_equalTo(SCALING_RATIO(70));
+//            make.top.equalTo(self.balanceTitleLab.mas_bottom).offset(SCALING_RATIO(10));
+//        }];
+//    }return _orderNumTitleLab;
+//}
 
--(UILabel *)orderNumLab{
-    if (!_orderNumLab) {
-        _orderNumLab = UILabel.new;
-//        _orderNumLab.backgroundColor = kGrayColor;
-        _orderNumLab.textAlignment = NSTextAlignmentCenter;
-        _orderNumLab.text = self.orderNumStr;
-        [self.contentView addSubview:_orderNumLab];
-        [_orderNumLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.balanceLab.mas_bottom).offset(SCALING_RATIO(10));
-            make.right.equalTo(self.contentView).offset(SCALING_RATIO(10));
-            make.left.equalTo(self.balanceTitleLab.mas_right);
-        }];
-    }return _orderNumLab;
-}
+//-(UILabel *)orderNumLab{
+//    if (!_orderNumLab) {
+//        _orderNumLab = UILabel.new;
+////        _orderNumLab.backgroundColor = kGrayColor;
+//        _orderNumLab.textAlignment = NSTextAlignmentCenter;
+//        _orderNumLab.text = self.orderNumStr;
+//        [self.contentView addSubview:_orderNumLab];
+//        [_orderNumLab mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(self.balanceLab.mas_bottom).offset(SCALING_RATIO(10));
+//            make.right.equalTo(self.contentView).offset(SCALING_RATIO(10));
+//            make.left.equalTo(self.balanceTitleLab.mas_right);
+//        }];
+//    }return _orderNumLab;
+//}
 
 @end
 

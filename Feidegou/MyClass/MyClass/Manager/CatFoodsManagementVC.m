@@ -30,7 +30,6 @@ UITableViewDataSource
 @property(nonatomic,strong)NSMutableArray <NSArray *>*imgMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*VCMutArr;
 
-//@property(nonatomic,strong)TimeManager *timeManager;
 @property(nonatomic,strong)NSTimer *timer;
 
 @property(nonatomic,strong)id requestParams;
@@ -45,7 +44,6 @@ UITableViewDataSource
 
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
-    [self.timer invalidate];
 }
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
@@ -88,9 +86,9 @@ UITableViewDataSource
 #pragma mark - Lifecycle
 -(instancetype)init{
     if (self = [super init]) {
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:1
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:3
                                                       target:self
-                                                    selector:@selector(timerFired)
+                                                    selector:@selector(timerMaker)
                                                     userInfo:nil
                                                      repeats:YES];
         [self catfoodboothType];//
@@ -109,20 +107,18 @@ UITableViewDataSource
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
      self.tabBarController.tabBar.hidden = YES;
-//    [self.timeManager startGCDTimer];
     [self.tableView.mj_header beginRefreshing];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-//    [self.timeManager endGCDTimer];
-//    self.timeManager = nil;
     self.tabBarController.tabBar.hidden = NO;
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [self.timer invalidate];
+    self.timer = nil;
 }
 
 #pragma mark —— 点击事件
@@ -153,26 +149,18 @@ UITableViewDataSource
     }
 }
 #pragma mark —— 私有方法
-- (void)timerFired {
+-(void)timerMaker{
+    //轮询
     NSLog(@"轮询_CatFoodsManagementVC");
     if (self.dataMutArr.count) {
         [self.dataMutArr removeAllObjects];
     }
     [self networking];
 }
-
-//-(void)GCDtimerMaker{
-//    //轮询
-//    NSLog(@"轮询_CatFoodsManagementVC");
-//    if (self.dataMutArr.count) {
-//        [self.dataMutArr removeAllObjects];
-//    }
-//    [self networking];
-//}
 // 下拉刷新
 -(void)pullToRefresh{//轮询
     NSLog(@"下拉刷新");
-    [self.tableView.mj_header endRefreshing];
+    [self networking];
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
@@ -470,15 +458,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _dataMutArr;
 }
 
-//-(TimeManager *)timeManager{
-//    if (!_timeManager) {
-//        _timeManager = TimeManager.new;
-//        @weakify(self)
-//        [_timeManager GCDTimer:@selector(GCDtimerMaker)
-//                        caller:self_weak_
-//                      interval:30];
-//    }return _timeManager;
-//}
+
 
 
 @end

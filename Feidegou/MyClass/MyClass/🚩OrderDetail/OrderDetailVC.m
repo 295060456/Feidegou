@@ -10,6 +10,9 @@
 #import "OrderDetailVC+VM.h"
 #import "UpLoadCancelReasonVC.h"
 #import "OrderDetailTBViewForHeader.h"
+
+#import"SDImageCache.h"
+
 //凭证
 @interface OrderDetailTBVIMGCell ()
 
@@ -144,7 +147,7 @@ UITableViewDataSource
 -(void)data{
     if (self.orderManager_panicBuyingModel) {//直通车
 #warning KKKKKKK
-        NSString *str1 = [NSString ensureNonnullString:self.orderManager_panicBuyingModel.trade_no ReplaceStr:@"无"];//?????????
+        NSString *str1 = [NSString ensureNonnullString:self.orderManager_panicBuyingModel.byname ReplaceStr:@"无"];//?????????
         NSString *str2 = [NSString ensureNonnullString:self.orderManager_panicBuyingModel.quantity ReplaceStr:@""];
         self.str = [NSString stringWithFormat:@"您向%@购买%@g喵粮",str1,str2];//trade_no
         if ([self.orderManager_panicBuyingModel.order_type intValue] == 1) {//直通车 只有卖家 订单类型 1、直通车;2、批发;3、平台
@@ -769,19 +772,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                     [_dataMutArr addObject:@"无支付方式"];
                     break;
             }
-            //1、支付宝;2、微信;3、银行卡
-            if ([self.orderListModel.payment_status intValue] == 3) {//银行卡
-                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_panicBuyingModel.bankCard ReplaceStr:@"暂无信息"]];//银行卡号
-                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_panicBuyingModel.bankUser ReplaceStr:@"暂无信息"]];//姓名
-                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_panicBuyingModel.bankName ReplaceStr:@"暂无信息"]];//银行类型
-                [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_panicBuyingModel.bankaddress ReplaceStr:@"暂无信息"]];//支行信息
-            }else if ([self.orderListModel.payment_status intValue] == 2){//微信
-                [_dataMutArr addObject:[NSString ensureNonnullString:@"" ReplaceStr:@"无"]];//self.orderManager_panicBuyingModel.payment_weixin ?????????????????
-            }else if ([self.orderListModel.payment_status intValue] == 1){//支付宝
-                [_dataMutArr addObject:[NSString ensureNonnullString:@"" ReplaceStr:@"无"]];//self.orderManager_panicBuyingModel.payment_alipay ??????????????
-            }else{
-                [_dataMutArr addObject:@"无支付账户"];
-            }
             [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_panicBuyingModel.updateTime ReplaceStr:@"无"]];//时间
         }
         
@@ -863,19 +853,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [_titleMutArr addObject:@"数量:"];
             [_titleMutArr addObject:@"总价:"];
             [_titleMutArr addObject:@"支付方式:"];
-            //1、支付宝;2、微信;3、银行卡
-            if ([self.orderListModel.payment_status intValue] == 3) {//3、银行卡
-                [_titleMutArr addObject:@"银行卡号:"];
-                [_titleMutArr addObject:@"姓名:"];
-                [_titleMutArr addObject:@"银行类型:"];
-                [_titleMutArr addObject:@"支行信息:"];
-            }else if ([self.orderListModel.payment_status intValue] == 2){//2、微信
-                [_titleMutArr addObject:@"微信账号:"];
-            }else if ([self.orderListModel.payment_status intValue] == 1){//1、支付宝
-                [_titleMutArr addObject:@"支付宝账号:"];
-            }else{
-                [_titleMutArr addObject:@"异常:"];
-            }
             [_titleMutArr addObject:@"下单时间:"];
             [_titleMutArr addObject:@"订单状态"];
         }
@@ -960,25 +937,27 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                           AndCornerRadius:5.f];
         _reloadPicBtn.uxy_acceptEventInterval = btnActionTime;
         _reloadPicBtn.backgroundColor = kOrangeColor;
+
         [_reloadPicBtn setTitleColor:kWhiteColor
                        forState:UIControlStateNormal];
         [UIView cornerCutToCircleWithView:_sureBtn
                           AndCornerRadius:5.f];
         [self.tableView addSubview:_reloadPicBtn];
-        [_reloadPicBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.view);
-            make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2, SCALING_RATIO(50)));
-            if (![NSString isNullString:self.orderListModel.payment_print] ||
-            ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-                ![NSString isNullString:self.orderDetailModel.payment_print]
-            ) {
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
-            }else{//[OrderDetailTBVCell cellHeightWithModel:nil]
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil]);
-            }
-        }];
-        [self.view layoutIfNeeded];
-        NSLog(@"");
+        
+        if (![NSString isNullString:self.orderListModel.payment_print] ||
+        ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
+            ![NSString isNullString:self.orderDetailModel.payment_print]
+        ) {
+            _reloadPicBtn.frame = CGRectMake((SCREEN_WIDTH / 2 - (SCREEN_WIDTH - SCALING_RATIO(100)) / 4),
+                                             [OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil] + SCALING_RATIO(120),
+                                             (SCREEN_WIDTH - SCALING_RATIO(100)) / 2,
+                                             SCALING_RATIO(50));
+        }else{//(
+            _reloadPicBtn.frame = CGRectMake((SCREEN_WIDTH / 2 - (SCREEN_WIDTH - SCALING_RATIO(100)) / 4),
+                                             [OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(120),
+                                             (SCREEN_WIDTH - SCALING_RATIO(100)) / 2,
+                                             SCALING_RATIO(50));
+        }
     }return _reloadPicBtn;
 }
 
@@ -1134,9 +1113,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     if ([model isKindOfClass:[NSString class]]) {
         NSString *str = (NSString *)model;
+
+        [SDImageCache sharedImageCache].config.shouldCacheImagesInMemory = NO;
+        
         if (![NSString isNullString:str]) {
             @weakify(self)
-            NSString *urlStr = [BaseUrl stringByAppendingString:[NSString stringWithFormat:@"/%@",str]];
+            NSString *urlStr = [BaseURL stringByAppendingString:[NSString stringWithFormat:@"/%@",str]];
             [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:urlStr]
                                                         options:SDWebImageProgressiveDownload//渐进式下载
                                                        progress:^(NSInteger receivedSize,
@@ -1151,6 +1133,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 @strongify(self)
                 if (image) {
                     self.imgV.image = image;
+//                    self.imgV.image = kIMG(@"picLoadErr");
                 }else{
                     self.imgV.image = kIMG(@"picLoadErr");
                 }
@@ -1167,6 +1150,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_imgV) {
         _imgV = UIImageView.new;
 //        _imgV.backgroundColor = kRedColor;
+//        _imgV.image = kIMG(@"picLoadErr");
         [self.contentView addSubview:_imgV];
         [_imgV mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(self.contentView);

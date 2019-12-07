@@ -63,31 +63,32 @@
         self.repertoryLab.text = [@"已售:"stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.sales ReplaceStr:@"0"]];//已销售
         self.rankLab.text = [@"当前排名:"stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.ranking ReplaceStr:@"暂无"]];
         self.quantityLab.text = [@"参与数量:"stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.quantity ReplaceStr:@"0"]];
+        self.imageView.alpha = 1;
     }
 }
 
 -(void)showImagePic:(NSString *)imageUrl{
     if (![NSString isNullString:imageUrl]) {
         @weakify(self)
-        NSString *str = [NSString stringWithFormat:@"%@/%@",BaseUrl_Gouge,imageUrl];
-        [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:str]
-                                                    options:SDWebImageProgressiveDownload//渐进式下载 context:nil
-                                                   progress:^(NSInteger receivedSize,
-                                                              NSInteger expectedSize,
-                                                              NSURL * _Nullable targetURL) {}
-                                                  completed:^(UIImage * _Nullable image,
-                                                              NSData * _Nullable data,
-                                                              NSError * _Nullable error,
-                                                              SDImageCacheType cacheType,
-                                                              BOOL finished,
-                                                              NSURL * _Nullable imageURL) {
-            @strongify(self)
-            if (image) {
-                self.imageView.image = image;
-            }else{
-                self.imageView.image = kIMG(@"picLoadErr");
-            }
-        }];
+//        NSString *str = [NSString stringWithFormat:@"%@/%@",ImgBaseURL,imageUrl];//ImgBaseURL
+//        [[SDWebImageManager sharedManager] loadImageWithURL:[NSURL URLWithString:str]
+//                                                    options:SDWebImageProgressiveDownload//渐进式下载 context:nil
+//                                                   progress:^(NSInteger receivedSize,
+//                                                              NSInteger expectedSize,
+//                                                              NSURL * _Nullable targetURL) {}
+//                                                  completed:^(UIImage * _Nullable image,
+//                                                              NSData * _Nullable data,
+//                                                              NSError * _Nullable error,
+//                                                              SDImageCacheType cacheType,
+//                                                              BOOL finished,
+//                                                              NSURL * _Nullable imageURL) {
+//            @strongify(self)
+//            if (image) {
+//                self.imageView.image = image;
+//            }else{
+//                self.imageView.image = kIMG(@"picLoadErr");
+//            }
+//        }];
     }
 }
 #pragma mark —— lazyLoad

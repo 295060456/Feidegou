@@ -122,6 +122,8 @@
             NSString *str = (NSString *)response;
             if ([str isEqualToString:@"数量最少500g！"]) {
                 
+            }else if ([str isEqualToString:@"你暂时没参加直通车活动权限，请联系管理员！"]){
+                
             }else{
                 NSLog(@"--%@",response);
                 Toast(@"开通直通车成功");
