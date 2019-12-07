@@ -103,12 +103,19 @@ RCIMConnectionStatusDelegate
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.rightBarButtonItem = nil;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO];//和GK冲突，还原设置
     self.tabBarController.tabBar.hidden = YES;
+    [self.chatSessionInputBarControl setInputBarType:RCChatSessionInputBarControlDefaultType style:RC_CHAT_INPUT_BAR_STYLE_CONTAINER_EXTENTION];
+    if ([self.chatSessionInputBarControl.pluginBoardView allItems].count > 2) {
+        [self.chatSessionInputBarControl.pluginBoardView removeItemAtIndex:3];
+        [self.chatSessionInputBarControl.pluginBoardView removeItemAtIndex:2];
+    }
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -137,27 +144,25 @@ RCIMConnectionStatusDelegate
          dataDic = @{};
     }else if (self.conversationModel){
         dataDic = @{
-            @"nick":self.conversationModel.nick,
-            @"portrait":self.conversationModel.portrait,
-            @"order_code":self.conversationModel.order_code,
+            @"nick":[NSString ensureNonnullString:self.conversationModel.nick ReplaceStr:@""],
+            @"portrait":[NSString ensureNonnullString:self.conversationModel.portrait ReplaceStr:@""],
+            @"order_code":[NSString ensureNonnullString:self.conversationModel.order_code ReplaceStr:@""],
         };
     }else if (self.platformConversationModel){
         dataDic = @{};
     }else{}
     
-    NSData * data = [NSJSONSerialization dataWithJSONObject:dataDic
-                                                    options:NSJSONWritingPrettyPrinted
-                                                      error:Nil];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dataDic
+                                                   options:NSJSONWritingPrettyPrinted
+                                                     error:Nil];
     txtMessage.extra = [[NSString alloc] initWithData:data
                                              encoding:NSUTF8StringEncoding];
-      [[RCIMClient sharedRCIMClient]
-       sendMessage:ConversationType_PRIVATE
-       targetId:@"admin"
-       content:txtMessage
-       pushContent:@"远程推送显示的内容"
-       pushData:@"远程推送的附加信息"
-       success:^(long messageId) {
-
+      [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE
+                                        targetId:@"admin"
+                                         content:txtMessage
+                                     pushContent:@"远程推送显示的内容"
+                                        pushData:@"远程推送的附加信息"
+                                         success:^(long messageId) {
       }
        error:^(RCErrorCode nErrorCode,
                long messageId) {

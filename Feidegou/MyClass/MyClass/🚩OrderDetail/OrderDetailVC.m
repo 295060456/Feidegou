@@ -586,7 +586,7 @@ UITableViewDataSource
         self.titleEndStr = @"取消";
         self.titleBeginStr = @"取消";
         [self.countDownCancelBtn addTarget:self
-                                    action:@selector(CatfoodBooth_del_netWorking)//喵粮抢摊位取消
+                                    action:@selector(cancdel)//喵粮抢摊位取消
                           forControlEvents:UIControlEventTouchUpInside];//#21_1
         [self.sureBtn setTitle:@"发货"
                       forState:UIControlStateNormal];
@@ -604,6 +604,21 @@ UITableViewDataSource
     if ([self.rootVC isKindOfClass:[SearchVC class]]) {
         self.gk_navTitle = @"搜索订单";
     }
+}
+
+-(void)cancdel{
+    [self showAlertViewTitle:@"如果恶意取消订单，可能会面临处罚，如被封号等。"
+                     message:@""
+                 btnTitleArr:@[@"我再想想",@"取消订单"]
+              alertBtnAction:@[@"Later",@"sureCancel"]];
+}
+
+-(void)Later{
+    
+}
+
+-(void)sureCancel{
+    [self CatfoodBooth_del_netWorking];
 }
 // 手动下拉刷新
 #warning 刷新数据 KKKK
@@ -690,18 +705,26 @@ viewForHeaderInSection:(NSInteger)section {
         viewForHeader = [[OrderDetailTBViewForHeader alloc]initWithReuseIdentifier:ReuseIdentifier
                                                                           withData:self.str];
         [viewForHeader headerViewWithModel:nil];
+        
+#warning temp
+        @weakify(self)
+        [viewForHeader actionBlock:^(id data) {
+            @strongify(self)
+            [self chat];
+        }];
+        
         //只有取消状态才可以聊天
 #warning KKK
-        if ([self.orderListModel.order_status intValue] == 2) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-            viewForHeader.tipsIMGV.alpha = 1;
-            @weakify(self)
-            [viewForHeader actionBlock:^(id data) {
-                @strongify(self)
-                [self chat];
-            }];
-        }else{
-            viewForHeader.tipsIMGV.alpha = 0;
-        }
+//        if ([self.orderListModel.order_status intValue] == 2) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//            viewForHeader.tipsIMGV.alpha = 1;
+//            @weakify(self)
+//            [viewForHeader actionBlock:^(id data) {
+//                @strongify(self)
+//                [self chat];
+//            }];
+//        }else{
+//            viewForHeader.tipsIMGV.alpha = 0;
+//        }
     }return viewForHeader;
 }
 
@@ -1126,6 +1149,28 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     self.detailTextLabel.text = model;
+}
+
+-(VerifyCodeButton *)timeBtn{
+    if (!_timeBtn) {
+        _timeBtn = VerifyCodeButton.new;
+        _timeBtn.showTimeType = ShowTimeType_HHMMSS;
+        _timeBtn.layerCornerRadius = 5.f;
+        if (@available(iOS 8.2, *)) {
+            _timeBtn.titleLabelFont = [UIFont systemFontOfSize:20.f weight:1];
+        } else {
+            _timeBtn.titleLabelFont = [UIFont systemFontOfSize:20.f];
+        }
+        _timeBtn.clipsToBounds = YES;
+        _timeBtn.titleEndStr = @"";
+        _timeBtn.titleBeginStr = @"";
+//        [_timeBtn timeFailBeginFrom:self.time == 0 ? 10 : self.time];
+        [self.contentView addSubview:_timeBtn];
+        [_timeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.right.bottom.equalTo(self.contentView);
+            make.width.mas_equalTo(SCALING_RATIO(100));
+        }];
+    }return _timeBtn;
 }
 
 @end
