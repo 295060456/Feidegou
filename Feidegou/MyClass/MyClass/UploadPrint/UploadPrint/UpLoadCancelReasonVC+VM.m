@@ -33,7 +33,7 @@
     self.reqSignal = [[FMARCNetwork sharedInstance] uploadNetworkPath:CatfoodCO_payURL
                                                                params:dic
                                                             fileDatas:@[picData]
-                                                                 name:@"test.png"
+                                                                 name:@"payment_print"//字段名
                                                              mimeType:@"image/png"];
     @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
