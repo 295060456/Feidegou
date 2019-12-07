@@ -28,25 +28,59 @@
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         @strongify(self)
 #warning KKK
-        if (response) {
-            NSLog(@"--%@",response);
-            if ([response isKindOfClass:[NSString class]]) {//@"请尽快完成订单！" 500
-                //回显
-//                self.quantity = @"0";
-                self.openBtn.alpha = 1;
-            }else if ([response isKindOfClass:[NSNumber class]]){//
-                NSNumber *d = (NSNumber *)response;
-                if ([d intValue] == 0) {//没开通直通车 200
+        NSLog(@"");
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dic = (NSDictionary *)response;
+            NSNumber *b = dic[@"code"];
+            if (b.intValue == 200) {
+                NSNumber *f = (NSNumber *)dic[@"data"];
+                if (f.intValue == 0) {
                     self.openBtn.alpha = 1;
-                }else{//已经开通直通车 500
-                    self.quantity =  [d stringValue];
+                }else{
+                    self.quantity = f.stringValue;
                     self.cancelBtn.alpha = 1;
                     self.goOnBtn.alpha = 1;
                 }
             }
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView.mj_footer endRefreshing];
-            [self.tableView reloadData];
+        }
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        [self.tableView reloadData];
+    }];
+}
+
+-(void)rank{//
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
+    ModelLogin *modelLogin;
+    if ([[PersonalInfo sharedInstance] isLogined]) {
+        modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+    }
+    NSDictionary *dataDic = @{
+        @"user_id":modelLogin.userId,
+    };
+    
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodTrain_ranking
+                                                     parameters:@{
+                                                         @"data":dataDic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        @strongify(self)
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dic = (NSDictionary *)response;
+            NSNumber *b = dic[@"code"];
+            if (b.intValue == 200) {
+                [ThroughTrainListVC ComingFromVC:self_weak_
+                                       withStyle:ComingStyle_PUSH
+                                   requestParams:nil
+                                         success:^(id data) {}
+                                        animated:YES];
+            }
         }
     }];
 }
@@ -69,11 +103,11 @@
     @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         @strongify(self)
-        if ([response isKindOfClass:[NSString class]]) {
-            NSLog(@"");
-            NSString *str = (NSString *)response;
-            if ([NSString isNullString:str]) {
-                Toast(@"符合开通资格");
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dic = (NSDictionary *)response;
+            NSNumber *b = dic[@"code"];
+            Toast(dic[@"message"]);
+            if (b.intValue == 200) {
                 [self CatfoodTrainURL_networking];//查看机会成功，正式开启直通车
             }
         }
@@ -117,28 +151,20 @@
                                                          @"randomStr":randomStr
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-        if ([response isKindOfClass:[NSString class]]) {
-            NSString *str = (NSString *)response;
-            if ([str isEqualToString:@"数量最少500g！"]) {
-                
-            }else if ([str isEqualToString:@"你暂时没参加直通车活动权限，请联系管理员！"]){
-                
-            }else{
-                NSLog(@"--%@",response);
-                Toast(@"开通直通车成功");
+        @strongify(self)
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dic = (NSDictionary *)response;
+            NSNumber *b = dic[@"code"];
+            Toast(dic[@"message"]);
+            if (b.intValue == 200) {
                 [ThroughTrainListVC ComingFromVC:self_weak_
                                        withStyle:ComingStyle_PUSH
                                    requestParams:self.quantity
                                          success:^(id data) {}
                                         animated:YES];
             }
-        }else{
-            [ThroughTrainListVC ComingFromVC:self_weak_
-                                   withStyle:ComingStyle_PUSH
-                               requestParams:self.quantity
-                                     success:^(id data) {}
-                                    animated:YES];
         }
     }];
 }

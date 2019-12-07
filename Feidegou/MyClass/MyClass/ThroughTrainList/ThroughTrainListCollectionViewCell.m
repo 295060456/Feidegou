@@ -62,7 +62,7 @@
         self.salesLab.text = [@"剩余" stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.quantity ReplaceStr:@"0"]];//当前剩余
         self.repertoryLab.text = [@"已售:"stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.sales ReplaceStr:@"0"]];//已销售
         self.rankLab.text = [@"当前排名:"stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.ranking ReplaceStr:@"暂无"]];
-        self.quantityLab.text = [@"参与数量:"stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.quantity ReplaceStr:@"0"]];
+        self.quantityLab.text = [@"库存量:"stringByAppendingString:[NSString ensureNonnullString:throughTrainListModel.quantity ReplaceStr:@"0"]];
         self.imageView.alpha = 1;
     }
 }
@@ -133,6 +133,11 @@
 -(UILabel *)rankLab{
     if (!_rankLab) {
         _rankLab = UILabel.new;
+        if (@available(iOS 8.2, *)) {
+            _rankLab.font = [UIFont systemFontOfSize:10 weight:1];
+        } else {
+            _rankLab.font = [UIFont systemFontOfSize:10];
+        }
         [self.contentView addSubview:_rankLab];
         [_rankLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.contentView.mas_centerX);

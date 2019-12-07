@@ -175,7 +175,7 @@ didScrollSelectedItemAtIndex:(NSInteger)index {
 
 -(GoodsVC *)goodsVC{
     if (!_goodsVC) {
-        _goodsVC = [GoodsVC initWithrequestParams:nil
+        _goodsVC = [GoodsVC initWithrequestParams:self.requestParams
                                           success:^(id data) {}];
     }return _goodsVC;
 }

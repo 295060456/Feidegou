@@ -113,6 +113,11 @@
 #define GetTeam @"/catfoodapp/user/getTeam.htm"//查看用戶信息
 #define GetSuperior @"/catfoodapp/user/getSuperior.htm"//查看上级用户信息
 #define CatfoodboothType @"/catfoodapp/user/buyer/CatfoodboothType.htm"//Daniel
+#define CatfoodTrain_ranking @"/catfoodapp/user/buyer/CatfoodTrain_ranking.htm"
+
+///user/buyer/CatfoodBooth_del_time.htm // 看是否过3分钟
+
+///user/buyer/CatfoodBooth_del.htm
 
 /********如果需要存储，相应的的 key 宏定义********/
 /// 服务器相关

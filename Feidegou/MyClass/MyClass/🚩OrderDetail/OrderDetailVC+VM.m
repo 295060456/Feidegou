@@ -75,8 +75,70 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         }];
     }];
 }
+
+-(void)CancelDelivery_NetWorking{//看是否过3分钟
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
+    NSDictionary *dataDic = @{
+        @"order_id":self.Order_id
+    };
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodBooth_del_time
+                                                     parameters:@{
+                                                         @"data":dataDic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+//    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        if ([response isKindOfClass:[NSString class]]) {
+            NSString *str = (NSString *)response;
+            if ([NSString isNullString:str]) {
+//                @strongify(self)
+                NSLog(@"--%@",response);
+                Toast(@"取消成功");
+                [self CancelDelivery_NetWorking2];
+//                [self.tableView.mj_header beginRefreshing];
+            }
+        }
+    }];
+}
+
+-(void)CancelDelivery_NetWorking2{//CatfoodBooth_del
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
+    NSDictionary *dataDic = @{
+        @"order_id":self.Order_id
+    };
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodBooth_del
+                                                     parameters:@{
+                                                         @"data":dataDic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+//    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        if ([response isKindOfClass:[NSString class]]) {
+            NSString *str = (NSString *)response;
+            if ([NSString isNullString:str]) {
+//                @strongify(self)
+                NSLog(@"--%@",response);
+                Toast(@"取消成功");
+                [self.tableView.mj_header beginRefreshing];
+            }
+        }
+    }];
+}
+
+///user/buyer/CatfoodBooth_del_time.htm // 看是否过3分钟
+
+///user/buyer/CatfoodBooth_del.htm
+
 //CatfoodRecord_delURL 喵粮订单撤销 #5
--(void)CancelDelivery_NetWorking{
+-(void)CancelDelivery_NetWorking3{
     AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
     mgr.responseSerializer = [AFHTTPResponseSerializer serializer];
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
@@ -383,7 +445,11 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //                @strongify(self)
                 NSLog(@"--%@",response);
                 Toast(@"发货成功");
-                [self.navigationController popViewControllerAnimated:YES];
+                self.sureBtn.alpha = 0;
+                self.countDownCancelBtn.alpha = 0;
+                [self.dataMutArr removeAllObjects];
+                [self.titleMutArr removeAllObjects];
+                [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"直通车"];//订单类型 —— 1、直通车;2、批发;3、产地
             }
         }
     }];
@@ -411,6 +477,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 //                @strongify(self)
                 NSLog(@"--%@",response);
                 Toast(@"取消成功");
+                self.sureBtn.alpha = 0;
+                        self.countDownCancelBtn.alpha = 0;
                 [self.tableView.mj_header beginRefreshing];
             }
         }
@@ -514,25 +582,12 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                     [self.dataMutArr addObject:[[NSString ensureNonnullString:model.rental ReplaceStr:@"暂无"] stringByAppendingString:@" CNY"]];//总价
 
                     if ([model.payment_status intValue] == 3) {//3、银行卡
-                        [self.titleMutArr addObject:@"银行卡号:"];
-                        [self.titleMutArr addObject:@"姓名:"];
-                        [self.titleMutArr addObject:@"银行类型:"];
-                        [self.titleMutArr addObject:@"支行信息:"];
-                        
-                        [self.dataMutArr addObject:@"银行卡"];//支付方式
-                        [self.dataMutArr addObject:model.bankCard];//银行卡号
-                        [self.dataMutArr addObject:model.bankUser];//姓名
-                        [self.dataMutArr addObject:model.bankName];//银行类型
-                        [self.dataMutArr addObject:model.bankaddress];//支行信息
+                        [self.dataMutArr addObject:@"银行卡"];
                         
                     }else if ([model.payment_status intValue] == 2){//2、微信
-                        [self.titleMutArr addObject:@"账号:"];
-                        [self.dataMutArr addObject:@"微信"];//支付方式
-                        [self.dataMutArr addObject:model.payment_weixin];//账号
+                        [self.dataMutArr addObject:@"微信"];
                     }else if ([model.payment_status intValue] == 1){//1、支付宝
-                        [self.titleMutArr addObject:@"账号:"];
-                        [self.dataMutArr addObject:@"支付宝"];//支付方式
-                        [self.dataMutArr addObject:model.payment_alipay];//账号
+                        [self.dataMutArr addObject:@"支付宝"];
                     }else{
                         [self.titleMutArr addObject:@"异常:"];
                         [self.dataMutArr addObject:@"支付方式数据异常"];//支付方式

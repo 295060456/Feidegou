@@ -95,8 +95,6 @@
                             self.tableView.mj_footer.hidden = YES;
                         }
                     }
-                    [self.tableView.mj_header endRefreshing];
-                    [self.tableView.mj_footer endRefreshing];
                 }else{
                     NSLog(@"没数据了");
                 }
@@ -104,6 +102,8 @@
         }
         NSLog(@"AAAA = %ld",self.dataMutArr.count);
         [self.tableView reloadData];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
     }];
 }
 

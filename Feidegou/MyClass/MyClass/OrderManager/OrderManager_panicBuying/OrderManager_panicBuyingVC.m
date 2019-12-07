@@ -132,6 +132,9 @@ UITableViewDataSource
 -(void)pullToRefresh{//以前的历史数据移除，只有第一页数据
     NSLog(@"下拉刷新");
     //刷新当前数据
+    if (self.dataMutArr.count) {
+        [self.dataMutArr removeAllObjects];
+    }
     self.page = 1;
     [self networking_type:self.businessType];//默认查当前页
 }

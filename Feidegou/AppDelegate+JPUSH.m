@@ -84,7 +84,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         willPresentNotification:(UNNotification *)notification
           withCompletionHandler:(void (^)(NSInteger))completionHandler  API_AVAILABLE(ios(10.0)){
 //在这里处理回调信息 app active的时候
-    Toast(@"2");
     NSLog(@"KKK = %@",notification);
 
 //    if (!self.orderDetailVC) {
@@ -112,8 +111,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
       
       if (userInfo[@"order_id"] &&
           userInfo[@"order_type"]) {//订单详情
-          [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:userInfo[@"order_id"]//1
-                                                             Order_id:userInfo[@"order_type"]];//20190000
+          [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:userInfo[@"order_type"]//1
+                                                             Order_id:userInfo[@"order_id"]];//20190000
           [NSObject playSoundWithFileName:@"Sound.wav"];
       }else{//
           Toast(userInfo[@"aps"][@"alert"]);

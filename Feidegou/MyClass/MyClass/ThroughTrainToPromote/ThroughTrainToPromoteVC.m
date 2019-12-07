@@ -130,7 +130,7 @@ UITableViewDataSource
 -(void)goOnBtnClickEvent:(UIButton *)sender{
     NSLog(@"%@",sender.titleLabel.text);
 #warning KKK
-    [self openBtnClickEvent:sender];
+    [self rank];
 }
 
 -(void)openBtnClickEvent:(UIButton *)sender{
@@ -250,7 +250,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)goOnBtn{
     if (!_goOnBtn) {
         _goOnBtn = UIButton.new;
-        _goOnBtn.uxy_acceptEventInterval = btnActionTime;
+//        _goOnBtn.uxy_acceptEventInterval = btnActionTime;
         [_goOnBtn setTitle:@"继续上一次直通车"
                   forState:UIControlStateNormal];
         if (@available(iOS 8.2, *)) {

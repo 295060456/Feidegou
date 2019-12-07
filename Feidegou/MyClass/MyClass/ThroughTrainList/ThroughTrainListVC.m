@@ -132,7 +132,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     @weakify(self)
     [DetailsVC ComingFromVC:self_weak_
                   withStyle:ComingStyle_PUSH
-              requestParams:nil
+              requestParams:self.quantity
                     success:^(id data) {}
                    animated:YES];
 }

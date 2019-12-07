@@ -21,7 +21,8 @@ UIScrollViewDelegate
 @property(nonatomic,strong)UIView *viewr;//承接作用
 @property(nonatomic,strong)UILabel *titleLab;
 @property(nonatomic,strong)UILabel *priceLab;
-@property(nonatomic,strong)YYLabel *salesLab;
+@property(nonatomic,strong)UILabel *repertoryLab;
+@property(nonatomic,strong)YYLabel *rankLab;
 @property(nonatomic,strong)UIImageView *imgView;
 
 @property(nonatomic,copy)DataBlock successBlock;
@@ -102,9 +103,10 @@ UIScrollViewDelegate
     self.viewr.alpha = 1;
     
     self.titleLab.alpha = 1;
-    self.priceLab.alpha = 1;
-    self.str = @"已购买9件";
-    self.salesLab.alpha = 1;
+    self.priceLab.text = @"销售量: 0";
+    self.repertoryLab.text = [@"库存量:" stringByAppendingString:self.requestParams];
+    self.str = @"当前排名:暂无";
+    self.rankLab.alpha = 1;
     
     self.imgView.alpha = 1;
 }
@@ -264,7 +266,6 @@ UIScrollViewDelegate
 -(UILabel *)priceLab{
     if (!_priceLab) {
         _priceLab = UILabel.new;
-        _priceLab.text = @"$23.11";
         _priceLab.textColor = kRedColor;
         [self.viewr addSubview:_priceLab];
         [_priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -275,19 +276,32 @@ UIScrollViewDelegate
     }return _priceLab;
 }
 
--(YYLabel *)salesLab{
-    if (!_salesLab) {
-        _salesLab = YYLabel.new;
-        _salesLab.textAlignment = NSTextAlignmentCenter;
-        _salesLab.numberOfLines = 0;
-        _salesLab.attributedText = self.attributedString;
-        [_salesLab sizeToFit];
-        [self.viewr addSubview:_salesLab];
-        [_salesLab mas_makeConstraints:^(MASConstraintMaker *make) {
+-(UILabel *)repertoryLab{
+    if (!_repertoryLab) {
+        _repertoryLab = UILabel.new;
+        _repertoryLab.textColor = KGreenColor;
+        [self.viewr addSubview:_repertoryLab];
+        [_repertoryLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(self.viewr).offset(SCALING_RATIO(-10));
+            make.left.equalTo(self.priceLab.mas_right).offset(SCALING_RATIO(10));
+            make.height.mas_equalTo(SCALING_RATIO(30));
+        }];
+    }return _repertoryLab;
+}
+
+-(YYLabel *)rankLab{
+    if (!_rankLab) {
+        _rankLab = YYLabel.new;
+        _rankLab.textAlignment = NSTextAlignmentCenter;
+        _rankLab.numberOfLines = 0;
+        _rankLab.attributedText = self.attributedString;
+        [_rankLab sizeToFit];
+        [self.viewr addSubview:_rankLab];
+        [_rankLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.equalTo(self.priceLab);
             make.right.equalTo(self.viewr).offset(SCALING_RATIO(-10));
         }];
-    }return _salesLab;
+    }return _rankLab;
 }
 
 -(NSMutableAttributedString *)attributedString{
@@ -308,8 +322,8 @@ UIScrollViewDelegate
         _attributedString = [[NSMutableAttributedString alloc]initWithString:self.str
                                                                   attributes:attributeDic];
     }
-        NSRange selRange_01 = [self.str rangeOfString:@"已购买"];//location=0, length=2
-        NSRange selRange_02 = [self.str rangeOfString:@"件"];//location=6, length=2
+        NSRange selRange_01 = [self.str rangeOfString:@"当前排名:"];//location=0, length=2
+        NSRange selRange_02 = [self.str rangeOfString:@"名"];//location=6, length=2
 
         //设定可点击文字的的大小
         UIFont *selFont = [UIFont systemFontOfSize:16];
