@@ -14,7 +14,6 @@
 
 @property(nonatomic,strong)YYLabel *titleLab;
 @property(nonatomic,strong)MMButton *tipsBtn;
-//@property(nonatomic,strong)UIImageView *tipsIMGV;
 
 @property(nonatomic,copy)NSString *str;
 @property(nonatomic,copy)NSMutableAttributedString *attributedString;

@@ -186,7 +186,7 @@ UITableViewDataSource
                 }else if ([self.orderManager_panicBuyingModel.del_state intValue] == 1){//在审核中/买家确认中  0、不影响;1、待审核;2、已通过 3、驳回
                     //买家未确认
 //                    [self.titleMutArr addObject:@"凭证:"];
-                    [self.dataMutArr addObject:@"待审核"];//@"待审核 —— 等待买家确认(3小时内)"
+                    [self.dataMutArr addObject:@"等待买家确认"];//@"待审核 —— 等待买家确认(3小时内)"
                     [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_panicBuyingModel.payment_print ReplaceStr:@""]];
                     NSLog(@"");
     //                        [self.sureBtn setTitle:@"发货"
@@ -365,7 +365,7 @@ UITableViewDataSource
 
 -(void)Later{}
 
--(void)sureCancel{
+-(void)sureCancel{//真正开始取消
     [self CatfoodBooth_del_netWorking];
 }
 // 手动下拉刷新
@@ -417,6 +417,7 @@ UITableViewDataSource
     if ([[PersonalInfo sharedInstance] isLogined]) {
         ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
         model.nick = modelLogin.userName;
+        model.userID = modelLogin.userId;
         model.order_code = [self.orderListModel.ID stringValue];
         model.portrait = modelLogin.head;
         model.targetId = @"";

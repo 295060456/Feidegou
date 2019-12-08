@@ -48,7 +48,7 @@ RCIMConnectionStatusDelegate
         vc.conversationType = vc.conversationModel.conversationType;
         vc.targetId = vc.conversationModel.targetId;
         vc.chatSessionInputBarControl.hidden = NO;
-        vc.myOrderCode = [NSString stringWithFormat:@"我是:%@;我的订单号是:%@",vc.conversationModel.nick,vc.conversationModel.myOrderCode];
+        vc.myOrderCode = [NSString stringWithFormat:@"我是:%@;我的订单号是:%@",vc.conversationModel.userID,vc.conversationModel.myOrderCode];
         vc.title = vc.conversationModel.conversationTitle;
     }else if ([requestParams isKindOfClass:[PlatformConversationModel class]]){//喵粮管理右上角进
         vc.platformConversationModel = (PlatformConversationModel *)requestParams;

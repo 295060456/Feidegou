@@ -556,7 +556,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             if (b.intValue == 200) {
                 self.sureBtn.alpha = 0;
                 self.countDownCancelBtn.alpha = 0;
-                [self.tableView.mj_header beginRefreshing];
+                [self pullToRefresh];
             }else if (b.intValue == 500){
                 
             }else{}
@@ -577,93 +577,111 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     }
     
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
-        NSDictionary *dic = @{
-            @"order_id":[NSString ensureNonnullString:self.Order_id ReplaceStr:@"无"],//订单id
-            @"order_type":[NSString ensureNonnullString:b ReplaceStr:@"无"]//订单类型 —— 1、摊位;2、批发;3、产地
-        };
-           
-        FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
-                                                               path:buyer_CatfoodRecord_checkURL
-                                                         parameters:@{
-                                                             @"data":dic,
-                                                             @"key":[RSAUtil encryptString:randomStr
-                                                                                 publicKey:RSA_Public_key],
-                                                             @"randomStr":randomStr
-                                                         }];
-        self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
-        @weakify(self)
-        [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-            if (response) {
-                @strongify(self)
-                NSLog(@"--%@",response);
-                //1、支付宝;2、微信;3、银行卡
-                if ([response isKindOfClass:[NSDictionary class]]) {
-                    NSDictionary *dataDic = (NSDictionary *)response;
-                    OrderDetailModel *model = [OrderDetailModel mj_objectWithKeyValues:dataDic[@"catFoodOrder"]];
-                    [self.titleMutArr addObject:@"订单号:"];
-                    [self.titleMutArr addObject:@"单价:"];
-                    [self.titleMutArr addObject:@"数量:"];
-                    [self.titleMutArr addObject:@"总价:"];
-                    [self.titleMutArr addObject:@"支付方式:"];
-                    
-                    [self.dataMutArr addObject:[NSString ensureNonnullString:model.ordercode ReplaceStr:@"暂无"]];//订单号
-                    [self.dataMutArr addObject:[[NSString ensureNonnullString:model.price ReplaceStr:@"暂无"] stringByAppendingString:@"CNY"]];//单价
-                    [self.dataMutArr addObject:[[NSString ensureNonnullString:model.quantity ReplaceStr:@"暂无"] stringByAppendingString:@" g"]];//数量
-                    [self.dataMutArr addObject:[[NSString ensureNonnullString:model.rental ReplaceStr:@"暂无"] stringByAppendingString:@" CNY"]];//总价
+    NSDictionary *dic = @{
+//            @"order_id":[NSString ensureNonnullString:self.Order_id ReplaceStr:@"无"],//订单id
+#warning 测试需要
+        @"order_id":[NSString ensureNonnullString:@"494" ReplaceStr:@"无"],//订单id   //
+        @"order_type":[NSString ensureNonnullString:b ReplaceStr:@"无"]//订单类型 —— 1、摊位;2、批发;3、产地
+    };
+       
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:buyer_CatfoodRecord_checkURL
+                                                     parameters:@{
+                                                         @"data":dic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        if (response) {
+            @strongify(self)
+            NSLog(@"--%@",response);
+            //1、支付宝;2、微信;3、银行卡
+            if ([response isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *dataDic = (NSDictionary *)response;
+                OrderDetailModel *model = [OrderDetailModel mj_objectWithKeyValues:dataDic[@"catFoodOrder"]];
+                [self.titleMutArr addObject:@"订单号:"];
+                [self.titleMutArr addObject:@"单价:"];
+                [self.titleMutArr addObject:@"数量:"];
+                [self.titleMutArr addObject:@"总价:"];
+                [self.titleMutArr addObject:@"支付方式:"];
+                
+                [self.dataMutArr addObject:[NSString ensureNonnullString:model.ordercode ReplaceStr:@"暂无"]];//订单号
+                [self.dataMutArr addObject:[[NSString ensureNonnullString:model.price ReplaceStr:@"暂无"] stringByAppendingString:@"CNY"]];//单价
+                [self.dataMutArr addObject:[[NSString ensureNonnullString:model.quantity ReplaceStr:@"暂无"] stringByAppendingString:@" g"]];//数量
+                [self.dataMutArr addObject:[[NSString ensureNonnullString:model.rental ReplaceStr:@"暂无"] stringByAppendingString:@" CNY"]];//总价
 
-                    if ([model.payment_status intValue] == 3) {//3、银行卡
-                        [self.dataMutArr addObject:@"银行卡"];
-                        
-                    }else if ([model.payment_status intValue] == 2){//2、微信
-                        [self.dataMutArr addObject:@"微信"];
-                    }else if ([model.payment_status intValue] == 1){//1、支付宝
-                        [self.dataMutArr addObject:@"支付宝"];
-                    }else{
-                        [self.titleMutArr addObject:@"异常:"];
-                        [self.dataMutArr addObject:@"支付方式数据异常"];//支付方式
-                        [self.dataMutArr addObject:@"支付账号数据异常"];//账号
-                    }
-                    [self.titleMutArr addObject:@"下单时间:"];
-                    [self.titleMutArr addObject:@"订单状态:"];
+                if ([model.payment_status intValue] == 3) {//3、银行卡
+                    [self.dataMutArr addObject:@"银行卡"];
                     
-                    [self.dataMutArr addObject:[NSString ensureNonnullString:model.updateTime ReplaceStr:@"暂无"]];//下单时间
-                    //状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                    if ([model.order_status intValue] == 0) {//已支付
-                         [self.dataMutArr addObject:@"已支付"];
-                    }else if ([model.order_status intValue] == 1){//已发单
-                         [self.dataMutArr addObject:@"已发单"];
-                    }else if ([model.order_status intValue] == 2){//已下单
-                        ////撤销状态 0、不影响（驳回）;1、待审核;2、已通过
-                        if (model.del_state.intValue == 0) {
-                            [self.dataMutArr addObject:@"已下单"];
-                        }else if (model.del_state.intValue == 1){
-                            [self.dataMutArr addObject:@"待审核"];
-                        }else if (model.del_state.intValue == 2){
-                            [self.dataMutArr addObject:@"已通过"];
-                        }else{
-                            [self.dataMutArr addObject:@"已下单"];
-                        }
-                    }else if ([model.order_status intValue] == 3){//已作废
-                         [self.dataMutArr addObject:@"已作废"];
-                    }else if ([model.order_status intValue] == 4){//已发货
-                         [self.dataMutArr addObject:@"已发货"];
-                    }else if ([model.order_status intValue] == 5){//已完成
-                         [self.dataMutArr addObject:@"已完成"];
-                    }else{
-                        [self.dataMutArr addObject:@"状态异常"];
-                    }
-#warning KKK 凭证为空？？？？KKKKKKKKK
-                    if (![NSString isNullString:model.payment_print]) {
-                        [self.titleMutArr addObject:@"凭证:"];
-                        [self.dataMutArr addObject:model.payment_print];
-                    }
+                }else if ([model.payment_status intValue] == 2){//2、微信
+                    [self.dataMutArr addObject:@"微信"];
+                }else if ([model.payment_status intValue] == 1){//1、支付宝
+                    [self.dataMutArr addObject:@"支付宝"];
+                }else{
+                    [self.titleMutArr addObject:@"异常:"];
+                    [self.dataMutArr addObject:@"支付方式数据异常"];//支付方式
+                    [self.dataMutArr addObject:@"支付账号数据异常"];//账号
                 }
-                self.tableView.mj_footer.hidden = NO;
-                [self.tableView.mj_header endRefreshing];
-                [self.tableView.mj_footer endRefreshing];
-                [self.tableView reloadData];
+                [self.titleMutArr addObject:@"下单时间:"];
+                [self.titleMutArr addObject:@"订单状态:"];
+                
+                [self.dataMutArr addObject:[NSString ensureNonnullString:model.updateTime ReplaceStr:@"暂无"]];//下单时间
+                //状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                if ([model.order_status intValue] == 0) {//已支付
+                     [self.dataMutArr addObject:@"已支付"];
+                }else if ([model.order_status intValue] == 1){//已发单
+                     [self.dataMutArr addObject:@"已发单"];
+                }else if ([model.order_status intValue] == 2){//已下单
+                    ////撤销状态 0、不影响（驳回）;1、待审核;2、已通过
+                    if (model.del_state.intValue == 0) {
+                        [self.dataMutArr addObject:@"已下单"];
+                    }else if (model.del_state.intValue == 1){
+                        [self.dataMutArr addObject:@"待审核"];
+                    }else if (model.del_state.intValue == 2){
+                        [self.dataMutArr addObject:@"已通过"];
+                    }else{
+                        [self.dataMutArr addObject:@"已下单"];
+                    }
+                }else if ([model.order_status intValue] == 3){//已作废
+                     [self.dataMutArr addObject:@"已作废"];
+                }else if ([model.order_status intValue] == 4){//已发货
+                     [self.dataMutArr addObject:@"已发货"];
+                }else if ([model.order_status intValue] == 5){//已完成
+                     [self.dataMutArr addObject:@"已完成"];
+                }else{
+                    [self.dataMutArr addObject:@"状态异常"];
+                }
+                if (![NSString isNullString:model.payment_print]) {
+                    [self.titleMutArr addObject:@"凭证:"];
+                    [self.dataMutArr addObject:model.payment_print];
+                }
+#warning 倒计时数据源          OrderDetailModel
+                if (self.orderDetailModel) {
+                    if (self.orderDetailModel.del_state.intValue == 1 &&//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
+                        self.orderDetailModel.order_status.intValue == 2) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                        [self.dataMutArr removeLastObject];
+                        [self.dataMutArr addObject:@"1234567890"];
+                    }
+                }else if (self.orderManager_panicBuyingModel){
+                    if (self.orderManager_panicBuyingModel.del_state.intValue == 1 &&//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
+                        self.orderManager_panicBuyingModel.order_status.intValue == 2) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                        [self.dataMutArr removeLastObject];
+                        self.orderManager_panicBuyingModel.updateTime;
+                        self.orderManager_panicBuyingModel.delTime;
+//                        self.orderManager_panicBuyingModel.addTime;
+                        [self.dataMutArr addObject:@"1234567890"];
+                    }
+                }else{}
             }
-        }];
+            self.tableView.mj_footer.hidden = NO;
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 -(void)联系买家{
