@@ -24,6 +24,8 @@
 //订单、单价、总价、账号、支付方式、参考号、下单时间
 @interface OrderDetailTBVCell ()
 
+@property(nonatomic,assign)int time;
+
 +(instancetype)cellWith:(UITableView *)tableView;
 +(CGFloat)cellHeightWithModel:(id _Nullable)model;
 - (void)richElementsInCellWithModel:(id _Nullable)model;
@@ -852,8 +854,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     return SCALING_RATIO(50);
 }
 
-- (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.detailTextLabel.text = model;
+- (void)richElementsInCellWithModel:(id _Nullable)model{//
+    if ([model isKindOfClass:[NSString class]]) {
+        NSString *str = (NSString *)model;
+        if ([str containsString:@"等待买家确认"]) {
+            self.time = (int)[NSString getDigitsFromStr:str];
+            self.timeBtn.alpha = 1;
+        }else{
+            self.detailTextLabel.text = str;
+        }
+    }
 }
 
 -(VerifyCodeButton *)timeBtn{
@@ -867,13 +877,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             _timeBtn.titleLabelFont = [UIFont systemFontOfSize:20.f];
         }
         _timeBtn.clipsToBounds = YES;
-        _timeBtn.titleEndStr = @"";
-        _timeBtn.titleBeginStr = @"";
-//        [_timeBtn timeFailBeginFrom:self.time == 0 ? 10 : self.time];
+        _timeBtn.titleEndStr = @"等待买家确认";
+        _timeBtn.titleBeginStr = @"等待买家确认";
+        _timeBtn.titleColor = kRedColor;
+        _timeBtn.bgBeginColor = kWhiteColor;
+        _timeBtn.bgEndColor = kWhiteColor;
+        _timeBtn.titleRuningStr = @"等待买家确认";
+        if (@available(iOS 8.2, *)) {
+            _timeBtn.titleLabelFont = [UIFont systemFontOfSize:12 weight:1];
+        } else {
+            _timeBtn.titleLabelFont = [UIFont systemFontOfSize:12];
+        }
+        [_timeBtn timeFailBeginFrom:self.time == 0 ? 10 : self.time];
         [self.contentView addSubview:_timeBtn];
         [_timeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.right.bottom.equalTo(self.contentView);
-            make.width.mas_equalTo(SCALING_RATIO(100));
+            make.width.mas_equalTo(SCREEN_WIDTH * 2 / 3);
         }];
     }return _timeBtn;
 }
@@ -900,9 +919,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 - (void)richElementsInCellWithModel:(id _Nullable)model{
     if ([model isKindOfClass:[NSString class]]) {
         NSString *str = (NSString *)model;
-
         [SDImageCache sharedImageCache].config.shouldCacheImagesInMemory = NO;
-        
         if (![NSString isNullString:str]) {
             @weakify(self)
             NSString *urlStr = [BaseURL stringByAppendingString:[NSString stringWithFormat:@"/%@",str]];

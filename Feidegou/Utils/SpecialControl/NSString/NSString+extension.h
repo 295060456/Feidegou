@@ -108,4 +108,11 @@
                                endDate:(NSString *_Nullable)endTime
                          timeFormatter:(NSDateFormatter *_Nullable)timeFormatter;
 
+//传入 秒  得到 xx:xx:xx
++(NSString *)getHHMMSSFromStr:(NSString *)totalTime;
+//传入 秒  得到  xx分钟xx秒
++(NSString *)getMMSSFromStr:(NSString *)totalTime;
+
++(long long)getDigitsFromStr:(NSString *)str;
+
 @end
