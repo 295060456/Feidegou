@@ -421,7 +421,24 @@ UITableViewDataSource
         model.order_code = [self.orderListModel.ID stringValue];
         model.portrait = modelLogin.head;
         model.conversationTitle = @"对话";
-        model.targetId = [NSString stringWithFormat:@"%@",self.orderListModel.platform_id];//0
+        
+        model.targetId = @"";
+        if (self.orderListModel) {
+            model.targetId = [NSString stringWithFormat:@"%@",self.orderListModel.platform_id];//0
+            model.myOrderCode = self.orderListModel.ordercode;
+        }else if (self.catFoodProducingAreaModel){
+//            model.targetId = [NSString stringWithFormat:@"%@",self.catFoodProducingAreaModel.platform_id];//0
+        }else if (self.orderDetailModel){
+            model.targetId = [NSString stringWithFormat:@"%@",self.orderDetailModel.platform_id];//0
+            model.myOrderCode = self.orderDetailModel.ordercode;
+        }
+        else if (self.orderManager_producingAreaModel){
+//            model.targetId = [NSString stringWithFormat:@"%@",self.orderManager_producingAreaModel.platform_id];//0
+        }
+        else if (self.orderManager_panicBuyingModel){
+            model.targetId = [NSString stringWithFormat:@"%@",self.orderManager_panicBuyingModel.platform_id];//0
+            model.myOrderCode = self.orderManager_panicBuyingModel.ordercode;
+        }
     }
     
 //    [CatFoodsManagementVC ComingFromVC:self_weak_

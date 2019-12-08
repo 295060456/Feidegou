@@ -24,7 +24,7 @@ RCIMConnectionStatusDelegate
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,assign)BOOL isFirstComing;
-@property(nonatomic,strong)UISwipeGestureRecognizer *recognizer;
+@property(nonatomic,copy)NSString *myOrderCode;
 
 @end
 
@@ -48,6 +48,7 @@ RCIMConnectionStatusDelegate
         vc.conversationType = vc.conversationModel.conversationType;
         vc.targetId = vc.conversationModel.targetId;
         vc.chatSessionInputBarControl.hidden = NO;
+        vc.myOrderCode = [NSString stringWithFormat:@"我是:%@;我的订单号是:%@",vc.conversationModel.nick,vc.conversationModel.myOrderCode];
         vc.title = vc.conversationModel.conversationTitle;
     }else if ([requestParams isKindOfClass:[PlatformConversationModel class]]){//喵粮管理右上角进
         vc.platformConversationModel = (PlatformConversationModel *)requestParams;
@@ -105,47 +106,26 @@ RCIMConnectionStatusDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = nil;
-//    [self Recognizer];
+    self.conversationMessageCollectionView.backgroundColor = kClearColor;
+    self.view.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    [self.navigationController setNavigationBarHidden:NO];//和GK冲突，还原设置
+    [self.navigationController setNavigationBarHidden:NO];//和GK冲突，还原设置
     self.tabBarController.tabBar.hidden = YES;
     [self.chatSessionInputBarControl setInputBarType:RCChatSessionInputBarControlDefaultType style:RC_CHAT_INPUT_BAR_STYLE_CONTAINER_EXTENTION];
     if ([self.chatSessionInputBarControl.pluginBoardView allItems].count > 2) {
         [self.chatSessionInputBarControl.pluginBoardView removeItemAtIndex:3];
         [self.chatSessionInputBarControl.pluginBoardView removeItemAtIndex:2];
     }
+    [self sendMsg];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
-
-//-(void)Recognizer{
-//    self.recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self
-//                                                               action:@selector(handleSwipeFrom:)];
-//    [self.recognizer setDirection:(UISwipeGestureRecognizerDirectionDown)];
-//    [self.view addGestureRecognizer:self.recognizer];
-//}
-//
-// - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
-//    if(recognizer.direction == UISwipeGestureRecognizerDirectionDown) {
-//        NSLog(@"swipe down");
-//        [self dismissViewControllerAnimated:YES completion:nil];
-//    }
-//    if(recognizer.direction == UISwipeGestureRecognizerDirectionUp) {
-//        NSLog(@"swipe up");
-//    }
-//    if(recognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
-//        NSLog(@"swipe left");
-//    }
-//    if(recognizer.direction == UISwipeGestureRecognizerDirectionRight) {
-//      NSLog(@"swipe right");
-//    }
-//}
 
 #pragma mark —— RCIMConnectionStatusDelegate
 /*!
@@ -166,7 +146,7 @@ RCIMConnectionStatusDelegate
     RCTextMessage *txtMessage = [RCTextMessage messageWithContent:content];
     NSDictionary *dataDic = nil;
     if (self.rcConversationModel) {
-         dataDic = @{};
+        dataDic = @{};
     }else if (self.conversationModel){
         dataDic = @{
             @"nick":[NSString ensureNonnullString:self.conversationModel.nick ReplaceStr:@""],
@@ -192,6 +172,41 @@ RCIMConnectionStatusDelegate
        error:^(RCErrorCode nErrorCode,
                long messageId) {
       }];
+}
+
+-(void)sendMsg{
+    NSString *content = self.myOrderCode;
+    RCTextMessage *txtMessage = [RCTextMessage messageWithContent:content];
+    NSDictionary *dataDic = nil;
+    if (self.rcConversationModel) {
+        dataDic = @{};
+    }else if (self.conversationModel){
+        dataDic = @{
+            @"nick":[NSString ensureNonnullString:self.conversationModel.nick ReplaceStr:@""],
+            @"portrait":[NSString ensureNonnullString:self.conversationModel.portrait ReplaceStr:@""],
+            @"order_code":[NSString ensureNonnullString:self.conversationModel.order_code ReplaceStr:@""],
+        };
+    }else if (self.platformConversationModel){
+        dataDic = @{};
+    }else{}
+    
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dataDic
+                                                   options:NSJSONWritingPrettyPrinted
+                                                     error:Nil];
+    txtMessage.extra = [[NSString alloc] initWithData:data
+                                             encoding:NSUTF8StringEncoding];
+    [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE
+                                      targetId:self.targetId
+                                       content:txtMessage
+                                   pushContent:@"远程推送显示的内容"
+                                      pushData:@"远程推送的附加信息"
+                                       success:^(long messageId) {
+        NSLog(@"messageId = %ld",messageId);
+    }
+                                         error:^(RCErrorCode nErrorCode,
+                                                     long messageId) {
+        NSLog(@"messageId = %ld,nErrorCode = %ld",messageId,(long)nErrorCode);
+    }];
 }
 
 @end
