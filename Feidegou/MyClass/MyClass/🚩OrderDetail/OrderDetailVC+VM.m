@@ -629,19 +629,28 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                     [self.dataMutArr addObject:[NSString ensureNonnullString:model.updateTime ReplaceStr:@"暂无"]];//下单时间
                     //状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                     if ([model.order_status intValue] == 0) {//已支付
-                         [self.dataMutArr addObject:@"订单已支付"];
+                         [self.dataMutArr addObject:@"已支付"];
                     }else if ([model.order_status intValue] == 1){//已发单
-                         [self.dataMutArr addObject:@"订单已发单"];
+                         [self.dataMutArr addObject:@"已发单"];
                     }else if ([model.order_status intValue] == 2){//已下单
-                         [self.dataMutArr addObject:@"订单已下单"];
+                        ////撤销状态 0、不影响（驳回）;1、待审核;2、已通过
+                        if (model.del_state.intValue == 0) {
+                            [self.dataMutArr addObject:@"已下单"];
+                        }else if (model.del_state.intValue == 1){
+                            [self.dataMutArr addObject:@"待审核"];
+                        }else if (model.del_state.intValue == 2){
+                            [self.dataMutArr addObject:@"已通过"];
+                        }else{
+                            [self.dataMutArr addObject:@"已下单"];
+                        }
                     }else if ([model.order_status intValue] == 3){//已作废
-                         [self.dataMutArr addObject:@"订单已作废"];
+                         [self.dataMutArr addObject:@"已作废"];
                     }else if ([model.order_status intValue] == 4){//已发货
-                         [self.dataMutArr addObject:@"订单已发货"];
+                         [self.dataMutArr addObject:@"已发货"];
                     }else if ([model.order_status intValue] == 5){//已完成
-                         [self.dataMutArr addObject:@"订单已完成"];
+                         [self.dataMutArr addObject:@"已完成"];
                     }else{
-                        [self.dataMutArr addObject:@"订单状态异常"];
+                        [self.dataMutArr addObject:@"状态异常"];
                     }
 #warning KKK 凭证为空？？？？KKKKKKKKK
                     if (![NSString isNullString:model.payment_print]) {
