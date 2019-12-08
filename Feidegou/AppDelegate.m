@@ -71,7 +71,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSLog(@"%@", [NSString stringWithFormat:@"Device Token: %@", deviceToken]);
     [self registerDeviceToken:deviceToken];//注册 APNs 成功并上报 DeviceToken
-    [self getAlias];//
+    [self getAlias];//获取别名
     
 //    [[UIApplication sharedApplication] registerForRemoteNotifications];
 //    registerForRemoteNotifications
@@ -285,7 +285,9 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
 //获取别名
 - (void)getAlias{
     if ([[PersonalInfo sharedInstance] isLogined]){
-        [JPUSHService getAlias:^(NSInteger iResCode, NSString *iAlias, NSInteger seq) {
+        [JPUSHService getAlias:^(NSInteger iResCode,
+                                 NSString *iAlias,
+                                 NSInteger seq) {
             NSLog(@"已经登录");
             [self setAlias];
         } seq:[self seq]];
@@ -294,7 +296,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
         [self setAlias];
     }
 }
-
+//设置别名
 - (void)setAlias{
     if ([[PersonalInfo sharedInstance] isLogined]) {
         NSString *strUerId = TransformString([[PersonalInfo sharedInstance] fetchLoginUserInfo].userId);

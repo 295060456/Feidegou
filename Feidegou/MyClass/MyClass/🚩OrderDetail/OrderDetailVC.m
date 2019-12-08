@@ -70,7 +70,7 @@ UITableViewDataSource
         vc.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)vc.requestParams;
         vc.Order_id = vc.catFoodProducingAreaModel.ID;
         vc.catFoodProducingAreaModel.isSelect = YES;
-    }else if ([vc.requestParams isKindOfClass:[OrderDetailModel class]]){
+    }else if ([vc.requestParams isKindOfClass:[OrderDetailModel class]]){//极光推送进
         vc.orderDetailModel = (OrderDetailModel *)vc.requestParams;
         vc.Order_id = vc.orderDetailModel.ID;
     }else if ([vc.requestParams isKindOfClass:[OrderManager_producingAreaModel class]]){
@@ -161,6 +161,7 @@ UITableViewDataSource
                             action:@selector(boothDeliver_networking)//喵粮抢摊位发货
                   forControlEvents:UIControlEventTouchUpInside];//#21
                 self.titleEndStr = @"取消";
+                self.titleBeginStr = @"取消";
                 [self.countDownCancelBtn addTarget:self
                                             action:@selector(CancelDelivery_NetWorking)
                                   forControlEvents:UIControlEventTouchUpInside];
@@ -561,9 +562,9 @@ UITableViewDataSource
 //    }
     
     if (self.orderDetailModel) {
-        NSString *str1 = [NSString ensureNonnullString:self.orderDetailModel.ID ReplaceStr:@"无"];
+        NSString *str1 = [NSString ensureNonnullString:self.orderDetailModel.byname ReplaceStr:@"无"];
         NSString *str2 = [NSString ensureNonnullString:self.orderDetailModel.quantity ReplaceStr:@""];
-        self.str = [NSString stringWithFormat:@"您向厂家%@购买%@g喵粮",str1,str2];
+        self.str = [NSString stringWithFormat:@"您向%@出售%@g喵粮",str1,str2];
         self.gk_navTitle = @"直通车订单详情";
         //只有3小时取消、发货、状态为已下单
         //订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
@@ -582,12 +583,13 @@ UITableViewDataSource
         }else{
             [self.dataMutArr addObject:@"数据异常"];
         }
-        self.time = 3;
-        self.titleEndStr = @"取消";
-        self.titleBeginStr = @"取消";
-        [self.countDownCancelBtn addTarget:self
-                                    action:@selector(cancdel)//喵粮抢摊位取消
-                          forControlEvents:UIControlEventTouchUpInside];//#21_1
+//        [self.countDownCancelBtn setTitle:@"取消"
+//                                 forState:UIControlStateNormal];
+        [self.normalCancelBtn setTitle:@"取消"
+                                forState:UIControlStateNormal];
+        [self.normalCancelBtn addTarget:self
+                                action:@selector(CatfoodBooth_del_time_netWorking)//先查看剩余时间，过了倒计时才进行下一步
+                    forControlEvents:UIControlEventTouchUpInside];//#9
         [self.sureBtn setTitle:@"发货"
                       forState:UIControlStateNormal];
         [self.sureBtn addTarget:self
@@ -639,8 +641,8 @@ UITableViewDataSource
     else if (self.catFoodProducingAreaModel){//喵粮产地
         [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"产地"];//订单类型 —— 1、直通车;2、批发;3、产地
     }
-    else if (self.orderDetailModel){//直通车 推送
-         [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"直通车"];//订单类型 —— 1、直通车;2、批发;3、产地
+    else if (self.orderDetailModel){//直通车 极光推送
+        [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"直通车"];//订单类型 —— 1、直通车;2、批发;3、产地
     }
 }
 //上拉加载更多
@@ -705,26 +707,20 @@ viewForHeaderInSection:(NSInteger)section {
         viewForHeader = [[OrderDetailTBViewForHeader alloc]initWithReuseIdentifier:ReuseIdentifier
                                                                           withData:self.str];
         [viewForHeader headerViewWithModel:nil];
-        
-#warning temp
+        self.tipsIMGV = viewForHeader.tipsIMGV;
+        //只有已发单下面的取消状态才可以聊天
         @weakify(self)
-        [viewForHeader actionBlock:^(id data) {
-            @strongify(self)
-            [self chat];
-        }];
+        if (self.orderListModel.order_status.intValue == 2 &&
+            self.orderListModel.del_state.intValue == 1) {
+            viewForHeader.tipsIMGV.alpha = 1;
+            [viewForHeader actionBlock:^(id data) {
+                 @strongify(self)
+                [self chat];
+            }];
+        }else{
+            viewForHeader.tipsIMGV.alpha = 0;
+        }
         
-        //只有取消状态才可以聊天
-#warning KKK
-//        if ([self.orderListModel.order_status intValue] == 2) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-//            viewForHeader.tipsIMGV.alpha = 1;
-//            @weakify(self)
-//            [viewForHeader actionBlock:^(id data) {
-//                @strongify(self)
-//                [self chat];
-//            }];
-//        }else{
-//            viewForHeader.tipsIMGV.alpha = 0;
-//        }
     }return viewForHeader;
 }
 
@@ -1045,8 +1041,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 ![NSString isNullString:self.orderDetailModel.payment_print]
             ) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
-            }else{//[OrderDetailTBVCell cellHeightWithModel:nil]
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
+            }else{
+                if (self.orderListModel) {//极光推送
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + 7 * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
+                }else{
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
+                }
             }
         }];
     }return _countDownCancelBtn;
@@ -1082,7 +1082,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)normalCancelBtn{
     if (!_normalCancelBtn) {
         _normalCancelBtn = UIButton.new;
-        _normalCancelBtn.uxy_acceptEventInterval = btnActionTime;
+//        _normalCancelBtn.uxy_acceptEventInterval = btnActionTime;
         [UIView cornerCutToCircleWithView:_normalCancelBtn
                           AndCornerRadius:3.f];
         _normalCancelBtn.backgroundColor = KLightGrayColor;

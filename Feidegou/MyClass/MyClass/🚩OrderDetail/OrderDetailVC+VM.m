@@ -454,36 +454,6 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         }
     }];
 }
-//CatfoodBooth_del 喵粮抢摊位取消 22_1
--(void)CatfoodBooth_del_netWorking{
-    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
-    NSDictionary *dataDic = @{
-        @"order_id":self.Order_id
-    };
-    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
-                                                           path:CatfoodBooth_del
-                                                     parameters:@{
-                                                         @"data":dataDic,
-                                                         @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key],
-                                                         @"randomStr":randomStr
-                                                     }];
-    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
-//    @weakify(self)
-    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-        if ([response isKindOfClass:[NSString class]]) {
-            NSString *str = (NSString *)response;
-            if ([NSString isNullString:str]) {
-//                @strongify(self)
-                NSLog(@"--%@",response);
-                Toast(@"取消成功");
-                self.sureBtn.alpha = 0;
-                        self.countDownCancelBtn.alpha = 0;
-                [self.tableView.mj_header beginRefreshing];
-            }
-        }
-    }];
-}
 //CatfoodBooth_del_time 喵粮抢摊位取消剩余时间 #22_2
 -(void)CatfoodBooth_del_time_netWorking{
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
@@ -502,34 +472,93 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         @strongify(self)
-        if ([response isKindOfClass:[NSString class]]) {
-            NSString *str = (NSString *)response;
-            NSCharacterSet *nonDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
-            self.time = [[str stringByTrimmingCharactersInSet:nonDigits] intValue];
-            if ([self.orderListModel.order_type intValue] == 1) {//订单类型 1、直通车;2、批发;3、平台
-                if ([self.orderListModel.order_status intValue] == 2) {//已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                    if ([self.orderListModel.del_state intValue] == 0) {//不影响（驳回） 0、不影响（驳回）;1、待审核;2、已通过
-                        self.countDownCancelBtn.titleEndStr = @"取消";
-//                        self.countDownCancelBtn.titleBeginStr = @"";
-                        [self.countDownCancelBtn addTarget:self
-                                                    action:@selector(CatfoodBooth_del_netWorking)
-                                          forControlEvents:UIControlEventTouchUpInside];//#22_1
-                    }else if ([self.orderListModel.del_state intValue] == 1){//待审核 0、不影响（驳回）;1、待审核;2、已通过
-                        //计算两个时间的相隔
-//                        NSDateFormatter *formatter = NSDateFormatter.new;
-//                        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-//                        NSTimeInterval time = [NSString timeIntervalstartDate:self.orderListModel.updateTime
-//                                                                      endDate:[formatter stringFromDate:[NSDate date]]
-//                                                                timeFormatter:formatter];
-//                        self.time = 3 * 3600 - time;
-                        self.time = 3;
-                        self.titleEndStr = @"联系买家";
-                        [self.contactBuyer addTarget:self
-                                              action:@selector(联系买家)
-                                    forControlEvents:UIControlEventTouchUpInside];
-                    }else{}
-                }
-            }
+        NSLog(@"");
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dic = (NSDictionary *)response;
+            NSNumber *b = dic[@"code"];
+            if (b.intValue == 500) {
+                Toast(dic[@"message"]);
+//                self.countDownCancelBtn.hidden = 0;
+                [self.normalCancelBtn setTitle:@"取消"
+                                      forState:UIControlStateNormal];
+                [self.normalCancelBtn addTarget:self
+                                         action:@selector(CatfoodBooth_del_time_netWorking)//先查看剩余时间，过了倒计时才进行下一步
+                               forControlEvents:UIControlEventTouchUpInside];//#9
+            }else if (b.intValue == 200){//3分钟到了！
+                self.tipsIMGV.alpha = 1;
+                [self pullToRefresh];
+                self.normalCancelBtn.hidden = YES;
+                self.time = 3;
+                self.titleEndStr = @"取消";
+                self.titleBeginStr = @"取消";
+                [self.countDownCancelBtn addTarget:self
+                                            action:@selector(cancdel)//喵粮抢摊位取消 真正取消
+                                  forControlEvents:UIControlEventTouchUpInside];//#21_1
+            }else{}
+        }
+
+
+//        if ([response isKindOfClass:[NSString class]]) {
+//            NSString *str = (NSString *)response;
+//            NSCharacterSet *nonDigits = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+//            self.time = [[str stringByTrimmingCharactersInSet:nonDigits] intValue];
+//            if ([self.orderListModel.order_type intValue] == 1) {//订单类型 1、直通车;2、批发;3、平台
+//                if ([self.orderListModel.order_status intValue] == 2) {//已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                    if ([self.orderListModel.del_state intValue] == 0) {//不影响（驳回） 0、不影响（驳回）;1、待审核;2、已通过
+//                        self.countDownCancelBtn.titleEndStr = @"取消";
+////                        self.countDownCancelBtn.titleBeginStr = @"";
+//                        [self.countDownCancelBtn addTarget:self
+//                                                    action:@selector(CatfoodBooth_del_netWorking)
+//                                          forControlEvents:UIControlEventTouchUpInside];//#22_1
+//                    }else if ([self.orderListModel.del_state intValue] == 1){//待审核 0、不影响（驳回）;1、待审核;2、已通过
+//                        //计算两个时间的相隔
+////                        NSDateFormatter *formatter = NSDateFormatter.new;
+////                        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+////                        NSTimeInterval time = [NSString timeIntervalstartDate:self.orderListModel.updateTime
+////                                                                      endDate:[formatter stringFromDate:[NSDate date]]
+////                                                                timeFormatter:formatter];
+////                        self.time = 3 * 3600 - time;
+//                        self.time = 3;
+//                        self.titleEndStr = @"联系买家";
+//                        [self.contactBuyer addTarget:self
+//                                              action:@selector(联系买家)
+//                                    forControlEvents:UIControlEventTouchUpInside];
+//                    }else{}
+//                }
+//            }
+//        }
+    }];
+}
+//CatfoodBooth_del 喵粮抢摊位取消 22_1
+-(void)CatfoodBooth_del_netWorking{
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
+    NSDictionary *dataDic = @{
+        @"order_id":self.Order_id
+    };
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodBooth_del
+                                                     parameters:@{
+                                                         @"data":dataDic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        @strongify(self)
+        NSLog(@"KKKK = %@",response);
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dic = (NSDictionary *)response;
+            NSNumber *b = dic[@"code"];
+            Toast(dic[@"message"]);
+            if (b.intValue == 200) {
+                self.sureBtn.alpha = 0;
+                self.countDownCancelBtn.alpha = 0;
+                [self.tableView.mj_header beginRefreshing];
+            }else if (b.intValue == 500){
+                
+            }else{}
         }
     }];
 }

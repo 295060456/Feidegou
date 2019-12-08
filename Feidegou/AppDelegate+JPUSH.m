@@ -68,7 +68,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 // iOS 12 Support
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center
     openSettingsForNotification:(UNNotification *)notification API_AVAILABLE(ios(10.0)){
-    Toast(@"1");
+//    Toast(@"1");
+    NSLog(@"1");
     if (@available(iOS 10.0, *)) {
         if (notification && [notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
             //从通知界面直接进入应用
@@ -124,7 +125,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 - (void)jpushNotificationCenter:(UNUserNotificationCenter *)center
  didReceiveNotificationResponse:(UNNotificationResponse *)response
           withCompletionHandler:(void (^)(void))completionHandler  API_AVAILABLE(ios(10.0)){
-    Toast(@"3");
+//    Toast(@"3");
+    NSLog(@"3");
 //    [NSObject playSoundWithFileName:@"Sound.wav"];
 //后台唤醒
 //#warning KKK 以下代码做测试

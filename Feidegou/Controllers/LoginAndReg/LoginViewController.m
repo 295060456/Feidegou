@@ -171,6 +171,8 @@
                 ModelLogin *model = [ModelLogin mj_objectWithKeyValues:responseObject[@"data"][@"data"]];
                 [[PersonalInfo sharedInstance] updateLoginUserInfo:model];
                 if ([[PersonalInfo sharedInstance] isLogined]) {
+                    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                    [appDelegate setAlias];
                     [SVProgressHUD showSuccessWithStatus:@"登录成功"];
                     [self.navigationController popViewControllerAnimated:YES];
                 }else{

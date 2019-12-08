@@ -44,7 +44,7 @@
 }
 
 -(void)drawRect:(CGRect)rect{
-    self.tipsIMGV.alpha = 1;
+    self.tipsIMGV.alpha = 0;
     if (![NSString isNullString:self.str]) {
         self.titleLab.attributedText = self.attributedString;
     }

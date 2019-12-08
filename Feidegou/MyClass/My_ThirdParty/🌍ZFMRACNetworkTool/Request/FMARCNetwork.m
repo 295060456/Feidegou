@@ -196,8 +196,10 @@ static FMARCNetwork *_instance = nil;
                 if ([urlpath isEqualToString:@"/catfoodapp/user/buyer/CatfoodTrain_check.htm"] ||
                     [urlpath isEqualToString:@"/catfoodapp/user/buyer/Catfoodbooth_rob_ago.htm"] ||
                     [urlpath isEqualToString:@"/catfoodapp/user/buyer/CatfoodTrain.htm"] ||
-                    [urlpath isEqualToString:@"/catfoodapp/user/buyer/CatfoodTrain_ranking.htm"]) {//
-                    
+                    [urlpath isEqualToString:@"/catfoodapp/user/buyer/CatfoodTrain_ranking.htm"] ||
+                    [urlpath isEqualToString:@"/catfoodapp/user/buyer/CatfoodBooth_del_time.htm"] ||
+                    [urlpath isEqualToString:@"/catfoodapp/user/buyer/CatfoodBooth_del.htm"]) {
+                                             
                     [subscriber sendNext:httpResponse.reqResult];//
                     
                     if (statusCode != HTTPResponseCodeSuccess) {
