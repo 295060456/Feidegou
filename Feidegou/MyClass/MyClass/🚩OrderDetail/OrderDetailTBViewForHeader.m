@@ -13,7 +13,8 @@
 }
 
 @property(nonatomic,strong)YYLabel *titleLab;
-@property(nonatomic,strong)UIImageView *tipsIMGV;
+@property(nonatomic,strong)MMButton *tipsBtn;
+//@property(nonatomic,strong)UIImageView *tipsIMGV;
 
 @property(nonatomic,copy)NSString *str;
 @property(nonatomic,copy)NSMutableAttributedString *attributedString;
@@ -36,46 +37,48 @@
 }
 
 +(CGFloat)headerViewHeightWithModel:(id _Nullable)model{
-    return SCALING_RATIO(50);
+    return SCALING_RATIO(80);
 }
 
 -(void)headerViewWithModel:(id _Nullable)model{
     if ([model isKindOfClass:[OrderManager_panicBuyingModel class]]) {
         self.orderManager_panicBuyingModel = (OrderManager_panicBuyingModel *)model;
-        if (self.orderManager_panicBuyingModel.order_status.intValue == 2 &&
-            self.orderManager_panicBuyingModel.del_state.intValue == 1) {
-            self.tipsIMGV.alpha = 1;
-            self.tipsIMGV.image = kIMG(@"TELE");
-        }else{
-            self.tipsIMGV.alpha = 0;
-        }
+
     }else if ([model isKindOfClass:[OrderDetailModel class]]){
         self.orderDetailModel = (OrderDetailModel *)model;
-        if(self.orderDetailModel.order_status.intValue == 2 &&
-        (self.orderDetailModel.del_state.intValue == 1 ||
-         self.orderDetailModel.del_state.intValue == 0)){
-            self.tipsIMGV.alpha = 1;
-            self.tipsIMGV.image = kIMG(@"TELE");
-        }else{
-            self.tipsIMGV.alpha = 0;
-        }
+
     }else if ([model isKindOfClass:[CatFoodProducingAreaModel class]]){
         self.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)model;
     }else if ([model isKindOfClass:[OrderManager_producingAreaModel class]]){
         self.orderManager_producingAreaModel = (OrderManager_producingAreaModel *)model;
     }
-    
     else{}
 }
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    NSLog(@"");
 }
 
 -(void)drawRect:(CGRect)rect{
-//    self.tipsIMGV.alpha = 1;
-//    self.tipsIMGV.image = kIMG(@"TELE");
+    if (self.orderManager_panicBuyingModel) {
+        if (self.orderManager_panicBuyingModel.order_status.intValue == 2 &&
+            self.orderManager_panicBuyingModel.del_state.intValue == 1) {
+            self.tipsBtn.alpha = 1;
+        }else{
+            self.tipsBtn.alpha = 0;
+        }
+    }else if (self.orderDetailModel){
+        if(self.orderDetailModel.order_status.intValue == 2 &&
+        (self.orderDetailModel.del_state.intValue == 1 ||
+         self.orderDetailModel.del_state.intValue == 0)){
+            self.tipsBtn.alpha = 1;
+        }else{
+            self.tipsBtn.alpha = 0;
+        }
+    }else{
+        self.tipsBtn.alpha = 0;
+    }
+    
     if (![NSString isNullString:self.str]) {
         self.titleLab.attributedText = self.attributedString;
     }
@@ -166,28 +169,39 @@
         [_titleLab sizeToFit];
         [self addSubview:_titleLab];
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.contentView);
-            make.bottom.equalTo(self.contentView);
             make.left.right.equalTo(self.contentView);
+            make.centerY.equalTo(self.tipsBtn);
         }];
     }return _titleLab;
 }
 
--(UIImageView *)tipsIMGV{
-    if (!_tipsIMGV) {
-        _tipsIMGV = UIImageView.new;
-//        _tipsIMGV.backgroundColor = kRedColor;
-        _tipsIMGV.image = kIMG(@"TELE");
-        [self addSubview:_tipsIMGV];
-        [_tipsIMGV mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self);
-            make.right.equalTo(self).offset(-SCALING_RATIO(20));
-//            make.size.mas_equalTo(CGSizeMake(self.mj_h / 1.5, self.mj_h / 1.5));
-            make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(30), SCALING_RATIO(30)));
-        }];
-        [self layoutIfNeeded];
-    }return _tipsIMGV;
+-(MMButton *)tipsBtn{
+    if (!_tipsBtn) {
+        _tipsBtn = MMButton.new;
+         [_tipsBtn setImage:kIMG(@"contact")
+                  forState:UIControlStateNormal];
+         _tipsBtn.imageAlignment = MMImageAlignmentTop;
+         _tipsBtn.spaceBetweenTitleAndImage = SCALING_RATIO(5);
+         [_tipsBtn setTitleColor:COLOR_HEX(0x7D7D7D, 1)
+                       forState:UIControlStateNormal];
+         [self.contentView addSubview:_tipsBtn];
+        _tipsBtn.frame = CGRectMake(SCREEN_WIDTH - SCALING_RATIO(110),
+                                    SCALING_RATIO(15),
+                                    SCALING_RATIO(13),
+                                    SCALING_RATIO(13));
+#warning tpis 这个地方用masonry找不到更好的时机去刷新
+//         [_tipsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//             make.top.equalTo(self);
+//             make.right.equalTo(self).offset(-SCALING_RATIO(50));
+//             make.size.mas_equalTo(CGSizeMake(SCALING_RATIO(30), SCALING_RATIO(30)));
+//             //            make.size.mas_equalTo(CGSizeMake(self.mj_h / 1.5, self.mj_h / 1.5));
+//         }];
+//        [self layoutIfNeeded];
+        [_tipsBtn setTitle:@"联系买家"
+                  forState:UIControlStateNormal];
+        [_tipsBtn sizeToFit];
+        _tipsBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
+    }return _tipsBtn;
 }
-
 
 @end
