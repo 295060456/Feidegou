@@ -144,6 +144,40 @@ UITableViewDataSource
     self.page++;
     [self networking_type:self.businessType];//默认查当前页
 }
+
+////MJRefresh增加震动反馈 https://dongjiawang.top/2019/08/05/2019-08-05-MJRefresh%E5%A2%9E%E5%8A%A0%E9%9C%87%E5%8A%A8%E5%8F%8D%E9%A6%88/
+//-(void)addFeedbackGenerator{
+//    // 增加KVO监听
+//    [self.tableView.mj_header addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+//
+//    [self.tableView.mj_footer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+//}
+//
+//- (void)observeValueForKeyPath:(NSString *)keyPath
+//                      ofObject:(id)object
+//                        change:(NSDictionary<NSString *,id> *)change
+//                       context:(void *)context {
+//
+//    if ([object isEqual:self.tableView.mj_header] &&
+//        self.tableView.mj_header.state == MJRefreshStatePulling) {
+//        [self feedbackGenerator];
+//    }
+//    else if ([object isEqual:self.tableView.mj_footer] &&
+//             self.tableView.mj_footer.state == MJRefreshStatePulling) {
+//        [self feedbackGenerator];
+//    }
+//}
+//
+//- (void)feedbackGenerator{
+//    if (@available(iOS 10.0, *)) {
+//        UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
+//        [generator prepare];
+//        [generator impactOccurred];
+//    } else {
+//        // Fallback on earlier versions
+//    }
+//}
+
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section {

@@ -319,6 +319,31 @@
         [[UIApplication sharedApplication] openURL:url];
     }
 }
+//KVO 监听 MJRefresh + 震动特效反馈
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSString *,id> *)change
+                       context:(void *)context {
+    
+    if ([object isEqual:self.tableViewHeader] &&
+        self.tableViewHeader.state == MJRefreshStatePulling) {
+        [self feedbackGenerator];
+    }
+    else if ([object isEqual:self.tableViewFooter] &&
+             self.tableViewFooter.state == MJRefreshStatePulling) {
+        [self feedbackGenerator];
+    }
+}
+
+- (void)feedbackGenerator{
+    if (@available(iOS 10.0, *)) {
+        UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
+        [generator prepare];
+        [generator impactOccurred];
+    } else {
+        // Fallback on earlier versions
+    }
+}
 #pragma mark —— lazyLoad
 -(MJRefreshGifHeader *)tableViewHeader{
     if (!_tableViewHeader) {
@@ -344,6 +369,11 @@
         _tableViewHeader.stateLabel.font = [UIFont systemFontOfSize:17];
         // 设置颜色
         _tableViewHeader.stateLabel.textColor = KLightGrayColor;
+        //震动特效反馈
+        [_tableViewHeader addObserver:self
+                           forKeyPath:@"state"
+                              options:NSKeyValueObservingOptionNew
+                              context:nil];
     }return _tableViewHeader;
 }
 
@@ -371,6 +401,11 @@
         _tableViewFooter.stateLabel.font = [UIFont systemFontOfSize:17];
         // 设置颜色
         _tableViewFooter.stateLabel.textColor = KLightGrayColor;
+        //震动特效反馈
+        [_tableViewFooter addObserver:self
+                           forKeyPath:@"state"
+                              options:NSKeyValueObservingOptionNew
+                              context:nil];
         _tableViewFooter.hidden = YES;
     }return _tableViewFooter;
 }
