@@ -18,6 +18,8 @@
 #import "CatFoodsManagementVC+VM.h"
 #import "CreateTeamVC.h"//创建团队
 
+CatFoodsManagementVC *catFoodsManagementVC;
+
 @interface CatFoodsManagementVC ()
 <
 UITableViewDelegate,
@@ -52,6 +54,7 @@ UITableViewDataSource
                       success:(DataBlock)block
                      animated:(BOOL)animated{
     CatFoodsManagementVC *vc = CatFoodsManagementVC.new;
+    catFoodsManagementVC = vc;
     vc.successBlock = block;
     vc.requestParams = requestParams;
     switch (comingStyle) {

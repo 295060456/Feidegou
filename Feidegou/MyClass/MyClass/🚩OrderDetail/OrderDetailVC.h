@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UIButton *normalCancelBtn;
 @property(nonatomic,strong)VerifyCodeButton *contactBuyer;//???
 @property(nonatomic,strong)VerifyCodeButton *countDownCancelBtn;
-@property(nonatomic,strong)UIImageView *tipsIMGV;
+//@property(nonatomic,strong)UIImageView *tipsIMGV;
 
 @property(nonatomic,strong)__block UIImage *pic;
 @property(nonatomic,copy)__block NSString *resultStr;

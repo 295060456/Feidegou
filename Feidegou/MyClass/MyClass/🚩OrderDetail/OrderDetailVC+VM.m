@@ -485,12 +485,13 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                                          action:@selector(CatfoodBooth_del_time_netWorking)//先查看剩余时间，过了倒计时才进行下一步
                                forControlEvents:UIControlEventTouchUpInside];//#9
             }else if (b.intValue == 200){//3分钟到了！
-                self.tipsIMGV.alpha = 1;
+//                self.tipsIMGV.alpha = 1;
                 [self pullToRefresh];
                 self.normalCancelBtn.hidden = YES;
                 self.time = 3;
                 self.titleEndStr = @"取消";
                 self.titleBeginStr = @"取消";
+                self.countDownCancelBtn.backgroundColor = kOrangeColor;
                 [self.countDownCancelBtn addTarget:self
                                             action:@selector(cancdel)//喵粮抢摊位取消 真正取消
                                   forControlEvents:UIControlEventTouchUpInside];//#21_1

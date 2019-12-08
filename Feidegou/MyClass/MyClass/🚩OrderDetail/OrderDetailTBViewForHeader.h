@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderDetailTBViewForHeader : ViewForHeader
 
-@property(nonatomic,strong)UIImageView *tipsIMGV;
+//@property(nonatomic,strong)UIImageView *tipsIMGV;
 
 +(CGFloat)headerViewHeightWithModel:(id _Nullable)model;
 -(void)headerViewWithModel:(id _Nullable)model;

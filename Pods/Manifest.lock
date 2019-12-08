@@ -93,6 +93,7 @@ PODS:
   - TZImagePickerController (3.2.7)
   - UICountingLabel (1.4.1)
   - WechatOpenSDK (1.8.6)
+  - WXSTransition (1.2.1)
   - YYText (1.0.7)
   - ZXingObjC/Core (3.6.5)
   - ZXingObjC/QRCode (3.6.5):
@@ -145,6 +146,7 @@ DEPENDENCIES:
   - TZImagePickerController
   - UICountingLabel
   - WechatOpenSDK
+  - WXSTransition
   - YYText
   - ZXingObjC/QRCode
 
@@ -196,6 +198,7 @@ SPEC REPOS:
     - TZImagePickerController
     - UICountingLabel
     - WechatOpenSDK
+    - WXSTransition
     - YYText
     - ZXingObjC
 
@@ -246,9 +249,10 @@ SPEC CHECKSUMS:
   TZImagePickerController: 821b81f83594a736e831a018f2a2ce31822ddf0b
   UICountingLabel: faf890b505d96312e324a86718f031fafffb0ccb
   WechatOpenSDK: 368ae03b72ee3ea1328c4f11326fbb5d2721d118
+  WXSTransition: 0bd758aaa1f5869a908b1bb103c4a9e26ad1d3eb
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZXingObjC: fdbb269f25dd2032da343e06f10224d62f537bdb
 
-PODFILE CHECKSUM: 5b81ee8606bb4f0a3f900f77808c4afeb35b3fa9
+PODFILE CHECKSUM: 22eb89357086c45e5e4eb6a47f537606b96648b2
 
 COCOAPODS: 1.8.4

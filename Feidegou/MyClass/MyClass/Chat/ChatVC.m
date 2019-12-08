@@ -24,6 +24,7 @@ RCIMConnectionStatusDelegate
 @property(nonatomic,assign)BOOL isPush;
 @property(nonatomic,assign)BOOL isPresent;
 @property(nonatomic,assign)BOOL isFirstComing;
+@property(nonatomic,strong)UISwipeGestureRecognizer *recognizer;
 
 @end
 
@@ -104,24 +105,48 @@ RCIMConnectionStatusDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = nil;
+//    [self Recognizer];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO];//和GK冲突，还原设置
+//    [self.navigationController setNavigationBarHidden:NO];//和GK冲突，还原设置
     self.tabBarController.tabBar.hidden = YES;
     [self.chatSessionInputBarControl setInputBarType:RCChatSessionInputBarControlDefaultType style:RC_CHAT_INPUT_BAR_STYLE_CONTAINER_EXTENTION];
     if ([self.chatSessionInputBarControl.pluginBoardView allItems].count > 2) {
         [self.chatSessionInputBarControl.pluginBoardView removeItemAtIndex:3];
         [self.chatSessionInputBarControl.pluginBoardView removeItemAtIndex:2];
     }
-
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
+
+//-(void)Recognizer{
+//    self.recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self
+//                                                               action:@selector(handleSwipeFrom:)];
+//    [self.recognizer setDirection:(UISwipeGestureRecognizerDirectionDown)];
+//    [self.view addGestureRecognizer:self.recognizer];
+//}
+//
+// - (void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
+//    if(recognizer.direction == UISwipeGestureRecognizerDirectionDown) {
+//        NSLog(@"swipe down");
+//        [self dismissViewControllerAnimated:YES completion:nil];
+//    }
+//    if(recognizer.direction == UISwipeGestureRecognizerDirectionUp) {
+//        NSLog(@"swipe up");
+//    }
+//    if(recognizer.direction == UISwipeGestureRecognizerDirectionLeft) {
+//        NSLog(@"swipe left");
+//    }
+//    if(recognizer.direction == UISwipeGestureRecognizerDirectionRight) {
+//      NSLog(@"swipe right");
+//    }
+//}
+
 #pragma mark —— RCIMConnectionStatusDelegate
 /*!
  IMKit连接状态的的监听器

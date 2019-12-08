@@ -21,6 +21,8 @@
 #import "MainNavigationController.h"
 #import "GoodDetialAllController.h"
 
+AdvertiseStartController *advertiseStartController;
+
 @interface AppDelegate ()
 
 @end
@@ -228,6 +230,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
             
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"AdvertiseStart" bundle:nil];
             AdvertiseStartController *controller = [storyboard instantiateViewControllerWithIdentifier:@"AdvertiseStartController"];
+            advertiseStartController = controller;
             controller.image = image;
             controller.strUrl = arrImage[0][@"ad_url"];
             self.window.rootViewController = controller;
@@ -260,6 +263,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
         
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Navigation" bundle:nil];
+        UIViewController *dd = [storyboard instantiateInitialViewController];
         self.window.rootViewController = [storyboard instantiateInitialViewController];
     }
 }

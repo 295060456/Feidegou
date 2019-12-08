@@ -10,6 +10,7 @@
 #import "OrderDetailVC+VM.h"
 #import "UpLoadCancelReasonVC.h"
 #import "OrderDetailTBViewForHeader.h"
+#import "AdvertiseStartController.h"
 
 #import"SDImageCache.h"
 
@@ -149,7 +150,7 @@ UITableViewDataSource
 #warning KKKKKKK
         NSString *str1 = [NSString ensureNonnullString:self.orderManager_panicBuyingModel.byname ReplaceStr:@"无"];//?????????
         NSString *str2 = [NSString ensureNonnullString:self.orderManager_panicBuyingModel.quantity ReplaceStr:@""];
-        self.str = [NSString stringWithFormat:@"您向%@购买%@g喵粮",str1,str2];//trade_no
+        self.str = [NSString stringWithFormat:@"您向%@出售%@g喵粮",str1,str2];//trade_no
         if ([self.orderManager_panicBuyingModel.order_type intValue] == 1) {//直通车 只有卖家 订单类型 1、直通车;2、批发;3、平台
             self.gk_navTitle = @"直通车订单详情";
             if ([self.orderManager_panicBuyingModel.order_status intValue] == 0) {
@@ -184,7 +185,7 @@ UITableViewDataSource
                                       forControlEvents:UIControlEventTouchUpInside];
                 }else if ([self.orderManager_panicBuyingModel.del_state intValue] == 1){//在审核中/买家确认中  0、不影响;1、待审核;2、已通过 3、驳回
                     //买家未确认
-                    [self.titleMutArr addObject:@"凭证:"];
+//                    [self.titleMutArr addObject:@"凭证:"];
                     [self.dataMutArr addObject:@"待审核"];//@"待审核 —— 等待买家确认(3小时内)"
                     [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderListModel.payment_print ReplaceStr:@""]];
                     NSLog(@"");
@@ -678,25 +679,21 @@ UITableViewDataSource
         model.targetId = [NSString stringWithFormat:@"%@",self.orderListModel.platform_id];//0
     }
     
-    [ChatVC ComingFromVC:self_weak_
-               withStyle:ComingStyle_PUSH
-           requestParams:model
-                 success:^(id data) {}
-                animated:YES];
+//    [CatFoodsManagementVC ComingFromVC:self_weak_
+//                             withStyle:ComingStyle_PUSH
+//                         requestParams:model
+//                               success:^(id data) {}
+//                              animated:YES];
     
-//    if (self.orderListModel) {
-//        [ChatVC ComingFromVC:self_weak_
-//                   withStyle:ComingStyle_PUSH
-//               requestParams:model
-//                     success:^(id data) {}
-//                    animated:YES];
-//    }
-//            if (self.catFoodProducingAreaModel) {
-//                self.catFoodProducingAreaModel.seller;
-//            }
-//            if (self.stallListModel) {
-//                self.stallListModel.seller;
-//            }
+    if (self.navigationController) {
+        [ChatVC ComingFromVC:self_weak_
+                   withStyle:ComingStyle_PUSH
+               requestParams:model
+                     success:^(id data) {}
+                    animated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
@@ -706,21 +703,24 @@ viewForHeaderInSection:(NSInteger)section {
     if (!viewForHeader) {
         viewForHeader = [[OrderDetailTBViewForHeader alloc]initWithReuseIdentifier:ReuseIdentifier
                                                                           withData:self.str];
-        [viewForHeader headerViewWithModel:nil];
-        self.tipsIMGV = viewForHeader.tipsIMGV;
+        [viewForHeader headerViewWithModel:self.requestParams];
+//        self.tipsIMGV = viewForHeader.tipsIMGV;
         //只有已发单下面的取消状态才可以聊天
         @weakify(self)
-        if (self.orderListModel.order_status.intValue == 2 &&
-            self.orderListModel.del_state.intValue == 1) {
-            viewForHeader.tipsIMGV.alpha = 1;
-            [viewForHeader actionBlock:^(id data) {
-                 @strongify(self)
+        [viewForHeader actionBlock:^(id data) {
+            @strongify(self)
+            if (self.orderManager_panicBuyingModel.order_status.intValue == 2 &&
+                self.orderManager_panicBuyingModel.del_state.intValue == 1) {
+//                viewForHeader.tipsIMGV.alpha = 1;
                 [self chat];
-            }];
-        }else{
-            viewForHeader.tipsIMGV.alpha = 0;
-        }
-        
+            }
+            if (self.orderDetailModel.order_status.intValue == 2 &&
+                (self.orderDetailModel.del_state.intValue == 1 ||
+                 self.orderDetailModel.del_state.intValue == 0)) {
+//                viewForHeader.tipsIMGV.alpha = 0;
+                [self chat];
+            }
+        }];
     }return viewForHeader;
 }
 
@@ -1022,7 +1022,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _countDownCancelBtn = VerifyCodeButton.new;
         _countDownCancelBtn.showTimeType = ShowTimeType_HHMMSS;
         _countDownCancelBtn.layerCornerRadius = 5.f;
-        _countDownCancelBtn.uxy_acceptEventInterval = btnActionTime;
+//        _countDownCancelBtn.uxy_acceptEventInterval = btnActionTime;
         if (@available(iOS 8.2, *)) {
             _countDownCancelBtn.titleLabelFont = [UIFont systemFontOfSize:20.f weight:1];
         } else {
@@ -1042,7 +1042,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             ) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
             }else{
-                if (self.orderListModel) {//极光推送
+                if (self.orderDetailModel) {//极光推送
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + 7 * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
                 }else{
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));

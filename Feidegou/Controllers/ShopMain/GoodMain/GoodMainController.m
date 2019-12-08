@@ -32,6 +32,7 @@
 //#import "StealRedPacketMainController.h"
 //#import "AchievementController.h"
 
+GoodMainController *goodMainController;
 
 @interface GoodMainController ()<RefreshControlDelegate,DidClickDelegeteCollectionViewMainType,DidClickDelegeteOnlyCollectionView>
 @property (weak, nonatomic) IBOutlet UITableView *tabGood;
@@ -67,6 +68,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    goodMainController = self;
     if (@available(iOS 11.0, *)) {
         self.tabGood.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     } else {

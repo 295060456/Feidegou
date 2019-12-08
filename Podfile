@@ -74,6 +74,7 @@ pod 'PYSearch'
 pod 'SDWebImage'
 pod 'SDWebImage/WebP'
 pod 'SDCycleScrollView'
+pod 'WXSTransition'
 
 pod 'WechatOpenSDK'
 

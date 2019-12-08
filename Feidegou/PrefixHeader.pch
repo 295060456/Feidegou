@@ -76,6 +76,7 @@
 #import <LYEmptyView/LYEmptyViewHeader.h>
 #import <PYSearch.h>
 #import "TXScrollLabelView.h"
+#import "UINavigationController+WXSTransition.h"
 //#import <SDImageWebPCoder.h>
 //#import <SDImageCodersManager.h>
 //#import <YYKit/YYKit.h>
@@ -145,6 +146,7 @@
 #import "ThroughTrainListModel.h"
 #import "ConversationModel.h"
 #import "PlatformConversationModel.h"
+#import "GoodMainController.h"
 
 #import "LoginViewController.h"
 #import "OrderDetailVC.h"//订单详情
@@ -152,6 +154,7 @@
 #import "PersonalInfo.h"
 #import "SearchVC.h"
 #import "ChatListVC.h"
+#import "CatFoodsManagementVC.h"
 
 #import "ContentBaseViewController.h"
 #import "JXCategoryTitleImageView.h"
