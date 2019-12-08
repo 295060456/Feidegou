@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *order_code;
 
 @property(nonatomic,copy)NSString *myOrderCode;
+@property(nonatomic,copy)NSString *buyer;
 
 @end
 

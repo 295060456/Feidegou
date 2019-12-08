@@ -113,6 +113,7 @@ RCIMConnectionStatusDelegate
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO];//和GK冲突，还原设置
+//    self.navigationItem.title = @"消息";
     self.tabBarController.tabBar.hidden = YES;
     [self.chatSessionInputBarControl setInputBarType:RCChatSessionInputBarControlDefaultType style:RC_CHAT_INPUT_BAR_STYLE_CONTAINER_EXTENTION];
     if ([self.chatSessionInputBarControl.pluginBoardView allItems].count > 2) {
