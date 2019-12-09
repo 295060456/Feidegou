@@ -248,6 +248,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             self.sellerNameLab.text = [@"厂家:" stringByAppendingString:str];
         }
         
+        self.numLab.text = [NSString stringWithFormat:@"数量:%@ g",[NSString ensureNonnullString:catFoodProducingAreaModel.quantity ReplaceStr:@"无"]];
+        self.buyTipsLab.text = @"点击购买";
         if (catFoodProducingAreaModel.price) {
             NSString *str = [NSString stringWithFormat:@"%.3f",[catFoodProducingAreaModel.price floatValue]];
             self.priceLab.text = [[@"单价:" stringByAppendingString:str] stringByAppendingString:@" CNY"];
@@ -255,12 +257,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             NSString *str = [NSString ensureNonnullString:catFoodProducingAreaModel.price ReplaceStr:@"无"];
             self.priceLab.text = [@"单价:" stringByAppendingString:str];
         }
-        self.numLab.text = [NSString stringWithFormat:@"数量:%@ g",[NSString ensureNonnullString:catFoodProducingAreaModel.quantity ReplaceStr:@"无"]];
-        self.buyTipsLab.text = @"点击购买";
         [self.sellerNameLab sizeToFit];
-        [self.priceLab sizeToFit];
         [self.numLab sizeToFit];
+        
         [self.buyTipsLab sizeToFit];
+        
+
+        [self.priceLab sizeToFit];
     }
 }
 #pragma mark —— lazyLoad
@@ -281,8 +284,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //        _priceLab.backgroundColor = kBlueColor;
         [self.contentView addSubview:_priceLab];
         [_priceLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.contentView).offset(SCALING_RATIO(10));
-            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-10));
+            make.left.equalTo(self.numLab.mas_right).offset(SCALING_RATIO(10));
+            make.centerY.equalTo(self.numLab);
+            make.right.equalTo(self.buyTipsLab.mas_left);
         }];
     }return _priceLab;
 }
@@ -303,6 +307,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UILabel *)buyTipsLab{
     if (!_buyTipsLab) {
         _buyTipsLab = UILabel.new;
+        _buyTipsLab.textAlignment = NSTextAlignmentRight;
         [self.contentView addSubview:_buyTipsLab];
         [_buyTipsLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.contentView).offset(SCALING_RATIO(-10));

@@ -82,10 +82,10 @@ UITableViewDataSource
     self.gk_navTitle = @"喵粮直通车";
     self.gk_navLeftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.backBtn];
     self.tableView.alpha = 1;
-    [self showAlertViewTitle:@"开启直通车，您的宝贝将大大增加曝光度"
-                     message:@""
-                 btnTitleArr:@[@"好的"]
-              alertBtnAction:@[@"OK"]];
+//    [self showAlertViewTitle:@"开启直通车，您的宝贝将大大增加曝光度"
+//                     message:@""
+//                 btnTitleArr:@[@"好的"]
+//              alertBtnAction:@[@"OK"]];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -96,16 +96,13 @@ UITableViewDataSource
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    if (_openBtn) {
-        [self.openBtn removeFromSuperview];
-    }
     self.tabBarController.tabBar.hidden = NO;
 }
 #pragma mark —— 私有方法
 // 下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
-    [self checkThroughTrainToPromoteStyle_netWorking];//查看直通车状态 按钮布局
+    [self check];//Catfoodbooth_rob_agoUrl 喵粮直通车机会查询 微信3 支付宝3 别人购买的机会 用完今天就不能开启直通车
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
@@ -130,7 +127,15 @@ UITableViewDataSource
 -(void)goOnBtnClickEvent:(UIButton *)sender{
     NSLog(@"%@",sender.titleLabel.text);
 #warning KKK
-    [self rank];
+    [self rank];//继续上一次直通车
+}
+
+-(void)suspendBtnClickEvent:(UIButton *)sender{
+    NSLog(@"暂停直通车出售")
+    self.train_stop = !self.train_stop;
+    sender.selected = !sender.selected;
+    self.suspendBtn.backgroundColor = !sender.selected ? kRedColor : KLightGrayColor;
+    [self CatfoodTrain_stopURL_networking];
 }
 
 -(void)openBtnClickEvent:(UIButton *)sender{
@@ -223,7 +228,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [_cancelBtn setTitle:@"取消上一次直通车"
                     forState:UIControlStateNormal];
         if (@available(iOS 8.2, *)) {
-            _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:13 weight:1];
+            _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:13
+                                                           weight:1];
         } else {
             _cancelBtn.titleLabel.font = [UIFont systemFontOfSize:13];
         }
@@ -254,7 +260,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [_goOnBtn setTitle:@"继续上一次直通车"
                   forState:UIControlStateNormal];
         if (@available(iOS 8.2, *)) {
-            _goOnBtn.titleLabel.font = [UIFont systemFontOfSize:13 weight:1];
+            _goOnBtn.titleLabel.font = [UIFont systemFontOfSize:13
+                                                         weight:1];
         } else {
             _goOnBtn.titleLabel.font = [UIFont systemFontOfSize:13];
         }
@@ -276,6 +283,39 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                          WithColour:KLightGrayColor
                      AndBorderWidth:1.f];
     }return _goOnBtn;
+}
+
+-(UIButton *)suspendBtn{
+    if (!_suspendBtn) {
+        _suspendBtn = UIButton.new;
+//        _suspendBtn.uxy_acceptEventInterval = btnActionTime;
+        if (@available(iOS 8.2, *)) {
+            _suspendBtn.titleLabel.font = [UIFont systemFontOfSize:13
+                                                            weight:1];
+        } else {
+            _suspendBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+        }
+        [_suspendBtn addTarget:self
+                        action:@selector(suspendBtnClickEvent:)
+              forControlEvents:UIControlEventTouchUpInside];
+        [_suspendBtn setTitle:@"暂停直通车出售"
+                     forState:UIControlStateSelected];
+        [_suspendBtn setTitle:@"继续直通车出售"
+                     forState:UIControlStateNormal];
+        [self.view addSubview:_suspendBtn];
+        [_suspendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.view);
+            make.top.equalTo(self.goOnBtn.mas_bottom).offset(SCALING_RATIO( 20));
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH  / 2 - SCALING_RATIO(50),
+                                 SCALING_RATIO(50)));
+        }];
+        [self.view layoutIfNeeded];
+        [UIView cornerCutToCircleWithView:_suspendBtn
+                          AndCornerRadius:5.f];
+        [UIView colourToLayerOfView:_suspendBtn
+                         WithColour:KLightGrayColor
+                     AndBorderWidth:1.f];
+    }return _suspendBtn;
 }
 
 -(UITableView *)tableView{

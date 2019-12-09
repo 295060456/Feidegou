@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)check;// 喵粮直通车机会查询 微信3 支付宝3 别人购买的机会 用完今天就不能开启直通车 先查看机会 再开
 -(void)CatfoodTrainURL_networking;//开启直通车
 -(void)rank;
-
+-(void)CatfoodTrain_stopURL_networking;//暂停/继续 直通车 CatfoodTrain_stopURL
 
 @end
 

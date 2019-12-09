@@ -33,29 +33,29 @@
 
 #pragma mark —— 测试环境
 //狗哥
-//#define BaseUrl BaseUrl_Gouge
-//#define BaseURL BaseUrl_Daniel
-//#define BaseUrl2 [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Gouge,Port_Gouge,@"/catfoodapp"]
-////Daniel
-//#define DanielUrL [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Daniel,Port_Daniel,@"/MFW"]
-//#define DanielUrL_1 [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Daniel,Port_Daniel_1,@"/MFW"]//查看上下级
-//#define AK [NSString stringWithFormat:@"%@%@%@/%@",HTTP,IP_Daniel,Port_Daniel,RELATIVE_PATH_QUERY]//登录
-//#define YQM [NSString stringWithFormat:@"%@%@%@/%@",HTTP,IP_Daniel,Port_Daniel,RELATIVE_PATH_WRITE]//邀请码
-////webSocket
-//#define WebSocketLocalhost [NSString stringWithFormat:@"%@%@%@%@",WS,IP_Daniel,Port_Daniel,@"/MFW/websocket"]
-//#define ImgBaseURL BaseUrl //正式BaseURL 测试BaseUrl
+#define BaseUrl BaseUrl_Gouge
+#define BaseURL BaseUrl_Daniel
+#define BaseUrl2 [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Gouge,Port_Gouge,@"/catfoodapp"]
+//Daniel
+#define DanielUrL [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Daniel,Port_Daniel,@"/MFW"]
+#define DanielUrL_1 [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Daniel,Port_Daniel_1,@"/MFW"]//查看上下级
+#define AK [NSString stringWithFormat:@"%@%@%@/%@",HTTP,IP_Daniel,Port_Daniel,RELATIVE_PATH_QUERY]//登录
+#define YQM [NSString stringWithFormat:@"%@%@%@/%@",HTTP,IP_Daniel,Port_Daniel,RELATIVE_PATH_WRITE]//邀请码
+//webSocket
+#define WebSocketLocalhost [NSString stringWithFormat:@"%@%@%@%@",WS,IP_Daniel,Port_Daniel,@"/MFW/websocket"]
+#define ImgBaseURL BaseUrl //正式BaseURL 测试BaseUrl
 
 #pragma mark —— 预上线环境 47.56.142.41
-#define BaseUrl @"http://47.56.142.41/SHOPAPP2.0/appShop7"//喵粮管理地址
-#define BaseURL @"http://47.56.142.41"//喵粮管理地址
-#define AK @"http://47.56.142.41/SHOPAPP2.0/appShop7/query.do"//登录
-//#define AK @"http://www.miaoxiaodian.shop/SHOPAPP2.0/appShop7/query.do"//登录
-#define YQM @"http://47.56.142.41/SHOPAPP2.0/appShop7/write.do"//邀请码
-#define WebSocketLocalhost @"ws://www.miaoxiaodian.shop:8080/websocket/"//喵粮转转
-#define DanielUrL @"http://47.56.142.41/SHOPAPP2.0/appShop7"//
-#define DanielUrL_1 @"http://47.56.142.41/SHOPAPP2.0/appShop7"//查看上下级
-#define ImgBaseURL BaseURL //正式BaseURL 测试BaseUrl
-#define BASE_URL @"http://47.56.142.41"//商城服务器正式地址
+//#define BaseUrl @"http://47.56.142.41/SHOPAPP2.0/appShop7"//喵粮管理地址
+//#define BaseURL @"http://47.56.142.41"//喵粮管理地址
+//#define AK @"http://47.56.142.41/SHOPAPP2.0/appShop7/query.do"//登录
+////#define AK @"http://www.miaoxiaodian.shop/SHOPAPP2.0/appShop7/query.do"//登录
+//#define YQM @"http://47.56.142.41/SHOPAPP2.0/appShop7/write.do"//邀请码
+//#define WebSocketLocalhost @"ws://www.miaoxiaodian.shop:8080/websocket/"//喵粮转转
+//#define DanielUrL @"http://47.56.142.41/SHOPAPP2.0/appShop7"//
+//#define DanielUrL_1 @"http://47.56.142.41/SHOPAPP2.0/appShop7"//查看上下级
+//#define ImgBaseURL BaseURL //正式BaseURL 测试BaseUrl
+//#define BASE_URL @"http://47.56.142.41"//商城服务器正式地址
 
 #pragma mark —— 线上环境
 //#define BaseUrl @"http://www.miaoxiaodian.shop/SHOPAPP2.0/appShop7"//喵粮管理地址
@@ -114,6 +114,7 @@
 #define GetSuperior @"/catfoodapp/user/getSuperior.htm"//查看上级用户信息
 #define CatfoodboothType @"/catfoodapp/user/buyer/CatfoodboothType.htm"//Daniel
 #define CatfoodTrain_ranking @"/catfoodapp/user/buyer/CatfoodTrain_ranking.htm"
+#define CatfoodTrain_stopURL @"/catfoodapp/user/buyer/CatfoodTrain_stop.htm"//暂停直通车出售
 
 ///user/buyer/CatfoodBooth_del_time.htm // 看是否过3分钟
 

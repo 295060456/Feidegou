@@ -755,6 +755,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             }else{
                 if (self.orderDetailModel) {//极光推送
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + 7 * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
+                }else if (self.catFoodProducingAreaModel){
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + 8 * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
                 }else{
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
                 }
@@ -782,7 +784,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             ) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
             }else{//[OrderDetailTBVCell cellHeightWithModel:nil]
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
+                if (self.catFoodProducingAreaModel) {
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + 8 * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
+                }else{
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
+                }
             }
         }];
         [self.view layoutIfNeeded];

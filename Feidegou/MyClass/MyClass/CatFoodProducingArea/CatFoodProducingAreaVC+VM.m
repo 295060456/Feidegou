@@ -11,6 +11,7 @@
 @implementation CatFoodProducingAreaVC (VM)
 
 -(void)netWorking{
+    NSLog(@"wwwww");
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dic = @{
         @"currentpage":[NSString stringWithFormat:@"%ld",self.currentpage],
@@ -43,9 +44,9 @@
                     }];
                 }
                 self.tableView.mj_footer.hidden = NO;
-                [self.tableView reloadData];
             }
         }
+        [self.tableView reloadData];
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
     }];

@@ -9,6 +9,37 @@
 #import "ThroughTrainToPromoteVC+VM.h"
 
 @implementation ThroughTrainToPromoteVC (VM)
+//Catfoodbooth_rob_agoUrl 喵粮直通车机会查询 微信3 支付宝3 别人购买的机会 用完今天就不能开启直通车
+-(void)check{//
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
+    NSDictionary *dic = @{
+        @"order_type":[NSNumber numberWithInt:1]
+    };
+    
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:Catfoodbooth_rob_agoUrl
+                                                     parameters:@{
+                                                         @"data":dic,
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    @weakify(self)
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        @strongify(self)
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dic = (NSDictionary *)response;
+            NSNumber *b = dic[@"code"];
+            Toast(dic[@"message"]);
+            if (b.intValue == 200) {
+                [self checkThroughTrainToPromoteStyle_netWorking];//查看直通车状态 进来查看直通车看开启与否 开启。。。 继续关闭。
+            }else{
+                NSLog(@"微信3 支付宝3 别人购买的机会 用完今天就不能开启直通车");
+            }
+        }
+    }];
+}
 //查看直通车状态
 -(void)checkThroughTrainToPromoteStyle_netWorking{//进来查看直通车看开启与否 开启。。。 继续关闭。
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
@@ -27,29 +58,111 @@
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         @strongify(self)
-#warning KKK
-        NSLog(@"");
+        NSLog(@"1 —— %@",response);
         if ([response isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dic = (NSDictionary *)response;
             NSNumber *b = dic[@"code"];
             if (b.intValue == 200) {
-                NSNumber *f = (NSNumber *)dic[@"data"];
-                if (f.intValue == 0) {
-                    self.openBtn.alpha = 1;
-                }else{
+                //已经开启直通车 data为字典
+                //尚未开通直通车 data为回显数
+                if([dic[@"data"] isKindOfClass:[NSDictionary class]]){//已经开通直通车
+                    NSNumber *f = (NSNumber *)dic[@"data"][@"train"];
                     self.quantity = f.stringValue;
-                    self.cancelBtn.alpha = 1;
+                    NSNumber *d = (NSNumber *)dic[@"data"][@"train_stop"];
                     self.goOnBtn.alpha = 1;
-                }
+                    self.cancelBtn.alpha = 1;
+                    self.suspendBtn.alpha = 1;
+                    if (d.intValue) {//已经被按暂停
+                        self.suspendBtn.selected = YES;
+                    }else{
+                        self.suspendBtn.selected = NO;
+                    }
+                }else if ([dic[@"data"] isKindOfClass:[NSNumber class]]){//尚未开通直通车
+//                    NSNumber *f = (NSNumber *)dic[@"data"];
+                    self.openBtn.alpha = 1;
+                }else{}
             }
         }
+        
+//        n *openBtn;
+//        @property(nonatomic,strong)UIButton *cancelBtn;
+//        @property(nonatomic,strong)UIButton *goOnBtn;
+//        @property(nonatomic,strong)UIButton *suspendBtn;
+
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
         [self.tableView reloadData];
     }];
 }
 
--(void)rank{//
+//开启直通车 CatfoodTrainURL
+-(void)CatfoodTrainURL_networking{
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
+    @weakify(self)
+    NSDictionary *dataDic = @{
+        @"quantity":self.quantity,
+        @"login_ip":[GettingDeviceIP getNetworkIPAddress]//ip 是否在这里加？
+    };
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodTrainURL
+                                                     parameters:@{
+                                                         @"data":dataDic,//内部加密
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        @strongify(self)
+        NSLog(@"2 —— %@",response);
+
+    }];
+}
+//暂停/继续 直通车 CatfoodTrain_stopURL
+-(void)CatfoodTrain_stopURL_networking{
+    NSLog(@"KKK - %d",self.suspendBtn.selected);
+    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
+    @weakify(self)
+    NSDictionary *dataDic = @{
+//        @"train_stop":[NSNumber numberWithBool:self.suspendBtn.selected],
+        @"train_stop":[NSNumber numberWithInt:self.suspendBtn.selected],//用numberWithBool 服务器只会收到0 这是怎么回事？
+    };
+    NSLog(@"%@",dataDic);
+    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
+                                                           path:CatfoodTrain_stopURL
+                                                     parameters:@{
+                                                         @"data":dataDic,//内部加密
+                                                         @"key":[RSAUtil encryptString:randomStr
+                                                                             publicKey:RSA_Public_key],
+                                                         @"randomStr":randomStr
+                                                     }];
+    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
+    
+    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
+        @strongify(self)
+        NSLog(@"3 —— %@",response);
+//        if ([response isKindOfClass:[NSDictionary class]]) {
+//            NSDictionary *dic = (NSDictionary *)response;
+//            NSNumber *b = dic[@"code"];
+//            if (b.intValue == 200) {
+//                self.openBtn.alpha = 0;
+//                if (!self.suspendBtn.selected) {
+//                    self.cancelBtn.alpha = 0;
+//                    self.goOnBtn.alpha = 0;
+//                }else{
+//                    self.cancelBtn.alpha = 1;
+//                    self.goOnBtn.alpha = 1;
+//                }
+//                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//                    Toast(dic[@"message"]);
+//                }];
+//            }
+//        }
+    }];
+}
+
+-(void)rank{//继续上一次直通车
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     ModelLogin *modelLogin;
     if ([[PersonalInfo sharedInstance] isLogined]) {
@@ -84,35 +197,6 @@
         }
     }];
 }
-//Catfoodbooth_rob_agoUrl 喵粮直通车机会查询 微信3 支付宝3 别人购买的机会 用完今天就不能开启直通车
--(void)check{//
-    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
-    NSDictionary *dic = @{
-        @"order_type":[NSNumber numberWithInt:1]
-    };
-    
-    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
-                                                           path:Catfoodbooth_rob_agoUrl
-                                                     parameters:@{
-                                                         @"data":dic,
-                                                         @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key],
-                                                         @"randomStr":randomStr
-                                                     }];
-    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
-    @weakify(self)
-    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-        @strongify(self)
-        if ([response isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *dic = (NSDictionary *)response;
-            NSNumber *b = dic[@"code"];
-            Toast(dic[@"message"]);
-            if (b.intValue == 200) {
-                [self CatfoodTrainURL_networking];//查看机会成功，正式开启直通车
-            }
-        }
-    }];
-}
 //关闭直通车
 -(void)deleteThroughTrainToPromote_netWorking{
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
@@ -134,39 +218,6 @@
         }
     }];
 }
-//开启直通车 CatfoodTrainURL
--(void)CatfoodTrainURL_networking{
-    NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
-    @weakify(self)
-    NSDictionary *dataDic = @{
-        @"quantity":self.quantity,
-        @"login_ip":[GettingDeviceIP getNetworkIPAddress]//ip 是否在这里加？
-    };
-    FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
-                                                           path:CatfoodTrainURL
-                                                     parameters:@{
-                                                         @"data":dataDic,//内部加密
-                                                         @"key":[RSAUtil encryptString:randomStr
-                                                                             publicKey:RSA_Public_key],
-                                                         @"randomStr":randomStr
-                                                     }];
-    self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
-    
-    [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-        @strongify(self)
-        if ([response isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *dic = (NSDictionary *)response;
-            NSNumber *b = dic[@"code"];
-            Toast(dic[@"message"]);
-            if (b.intValue == 200) {
-                [ThroughTrainListVC ComingFromVC:self_weak_
-                                       withStyle:ComingStyle_PUSH
-                                   requestParams:self.quantity
-                                         success:^(id data) {}
-                                        animated:YES];
-            }
-        }
-    }];
-}
 
 @end
+

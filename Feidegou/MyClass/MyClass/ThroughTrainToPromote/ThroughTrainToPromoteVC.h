@@ -24,10 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ThroughTrainToPromoteVC : BaseVC
 
 @property(nonatomic,strong)UITableView *tableView;
-@property(nonatomic,copy)__block NSString *quantity;
 @property(nonatomic,strong)UIButton *openBtn;
 @property(nonatomic,strong)UIButton *cancelBtn;
 @property(nonatomic,strong)UIButton *goOnBtn;
+@property(nonatomic,strong)UIButton *suspendBtn;
+@property(nonatomic,copy)__block NSString *quantity;
+@property(nonatomic,assign)__block BOOL train_stop;
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
                    withStyle:(ComingStyle)comingStyle

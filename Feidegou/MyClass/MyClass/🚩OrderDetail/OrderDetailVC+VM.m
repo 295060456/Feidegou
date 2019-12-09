@@ -654,20 +654,22 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                         [self.titleMutArr addObject:@"银行卡号:"];//写死
                         [self.dataMutArr addObject:[NSString ensureNonnullString:model.bankCard ReplaceStr:@"暂无"]];//账号
                     }
-                }else{}
-                
-//                if ([model.payment_status intValue] == 3) {//3、银行卡
-//                    [self.dataMutArr addObject:@"银行卡"];
-//                    
-//                }else if ([model.payment_status intValue] == 2){//2、微信
-//                    [self.dataMutArr addObject:@"微信"];
-//                }else if ([model.payment_status intValue] == 1){//1、支付宝
-//                    [self.dataMutArr addObject:@"支付宝"];
-//                }else{
-//                    [self.dataMutArr addObject:@"支付方式数据异常"];//支付方式
-//                    [self.titleMutArr addObject:@"账户异常:"];
-//                    [self.dataMutArr addObject:@"支付账号数据异常"];//账号
-//                }
+                }else if (self.catFoodProducingAreaModel){
+                    if ([self.catFoodProducingAreaModel.payment_status intValue] == 3) {//3、银行卡
+                        [self.dataMutArr addObject:@"银行卡"];
+                        
+                    }else if ([self.catFoodProducingAreaModel.payment_status intValue] == 2){//2、微信
+                        [self.dataMutArr addObject:@"微信"];
+                    }else if ([self.catFoodProducingAreaModel.payment_status intValue] == 1){//1、支付宝
+                        [self.dataMutArr addObject:@"支付宝"];
+                    }else{
+                        [self.dataMutArr addObject:@"银行卡"];//支付方式
+                        [self.titleMutArr addObject:@"银行卡号:"];//写死
+                        [self.dataMutArr addObject:[NSString ensureNonnullString:model.bankCard ReplaceStr:@"暂无"]];//账号
+                    }
+                }
+                else{}
+
                 [self.titleMutArr addObject:@"下单时间:"];
                 [self.titleMutArr addObject:@"订单状态:"];
                 
