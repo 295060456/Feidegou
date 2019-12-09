@@ -66,22 +66,27 @@ UITableViewDataSource
     vc.requestParams = requestParams;
     vc.isFirstComing = YES;
     vc.rootVC = rootVC;
-    if ([vc.requestParams isKindOfClass:[OrderListModel class]]) {//订单管理 子页面共用一个model 进 目前貌似被遗弃
+    if ([vc.requestParams isKindOfClass:[OrderListModel class]]) {//订单管理 子页面共用一个model 进 搜索进
         vc.orderListModel = (OrderListModel *)vc.requestParams;
         vc.Order_id = vc.orderListModel.ID;
+        vc.Order_type = vc.orderListModel.order_type;
     }else if ([vc.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){//喵粮产地页面进
         vc.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)vc.requestParams;
         vc.Order_id = vc.catFoodProducingAreaModel.ID;
+        vc.Order_type = vc.catFoodProducingAreaModel.order_type;
         vc.catFoodProducingAreaModel.isSelect = YES;
     }else if ([vc.requestParams isKindOfClass:[OrderDetailModel class]]){//极光推送进
         vc.orderDetailModel = (OrderDetailModel *)vc.requestParams;
         vc.Order_id = vc.orderDetailModel.ID;
+        vc.Order_type = vc.orderDetailModel.order_type;
     }else if ([vc.requestParams isKindOfClass:[OrderManager_producingAreaModel class]]){//订单管理——产地
         vc.orderManager_producingAreaModel = (OrderManager_producingAreaModel *)vc.requestParams;
         vc.Order_id = vc.orderManager_producingAreaModel.ID;
+        vc.Order_type = vc.orderManager_producingAreaModel.order_type;
     }else if ([vc.requestParams isKindOfClass:[OrderManager_panicBuyingModel class]]){//订单管理——直通车
         vc.orderManager_panicBuyingModel = (OrderManager_panicBuyingModel *)vc.requestParams;
         vc.Order_id = vc.orderManager_panicBuyingModel.ID;
+        vc.Order_type = vc.orderManager_panicBuyingModel.order_type;
     }
     else{}
     switch (comingStyle) {
@@ -396,6 +401,15 @@ UITableViewDataSource
     else if (self.orderDetailModel){//直通车 极光推送
         [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"直通车"];//订单类型 —— 1、直通车;2、批发;3、产地
     }
+    else if (self.orderListModel){//搜索订单
+        if (self.Order_type.intValue == 1) {
+            [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"直通车"];//订单类型 —— 1、直通车;2、批发;3、产地
+        }else if (self.Order_type.intValue == 2){
+            [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"批发"];//订单类型 —— 1、直通车;2、批发;3、产地
+        }else if (self.Order_type.intValue == 3){
+            [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"产地"];//订单类型 —— 1、直通车;2、批发;3、产地
+        }else{}
+    }
 }
 //上拉加载更多
 - (void)loadMoreRefresh{
@@ -469,6 +483,7 @@ UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section {
     OrderDetailTBViewForHeader *viewForHeader = [self.tableView dequeueReusableHeaderFooterViewWithIdentifier:ReuseIdentifier];
+    viewForHeader.str = self.str;
     if (!viewForHeader) {
         viewForHeader = [[OrderDetailTBViewForHeader alloc]initWithReuseIdentifier:ReuseIdentifier
                                                                           withData:self.str];

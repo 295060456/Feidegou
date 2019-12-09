@@ -13,14 +13,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface OrderListModel : BaseModel
 
 @property(nonatomic,copy)NSString *finishTime;//
-@property(nonatomic,copy)NSString *bankCard;//大写
 @property(nonatomic,copy)NSString *payTime;//大写
 @property(nonatomic,strong)NSNumber *deleteStatus;//
 @property(nonatomic,copy)NSString *updateTime;//
 @property(nonatomic,strong)NSNumber *seller;//
 @property(nonatomic,copy)NSString *buyer;//
 @property(nonatomic,copy)NSString *delTime;//
-@property(nonatomic,copy)NSString *bankUser;//大写
 @property(nonatomic,strong)NSNumber *catfoodsale_id;//
 @property(nonatomic,copy)NSString *payment_weixin;//
 @property(nonatomic,copy)NSString *payment_alipay;//

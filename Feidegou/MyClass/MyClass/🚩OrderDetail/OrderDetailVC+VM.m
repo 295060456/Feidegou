@@ -667,6 +667,29 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                         [self.titleMutArr addObject:@"银行卡号:"];//写死
                         [self.dataMutArr addObject:[NSString ensureNonnullString:model.bankCard ReplaceStr:@"暂无"]];//账号
                     }
+                }else if (self.orderListModel){
+                    //order_type 订单类型 1、直通车;2、批发;3、平台
+                    if (self.orderListModel.order_type.intValue == 1) {//直通车 极光
+                        NSString *str1 = [NSString ensureNonnullString:self.orderListModel.byname ReplaceStr:@"无"];//?????????
+                        NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
+                        self.str = [NSString stringWithFormat:@"您向%@出售%@g喵粮",str1,str2];//trade_no
+                    }else if (self.orderListModel.order_type.intValue == 3) {//平台
+                        NSString *str1 = [NSString ensureNonnullString:self.orderListModel.seller_name ReplaceStr:@"无"];
+                        NSString *str2 = [NSString ensureNonnullString:self.orderListModel.quantity ReplaceStr:@""];
+                        self.str = [NSString stringWithFormat:@"您向%@购买%@g喵粮",str1,str2];//trade_no
+                    }
+                    
+                    if ([self.orderListModel.payment_status intValue] == 3) {//3、银行卡
+                        [self.dataMutArr addObject:@"银行卡"];
+                    }else if ([self.orderListModel.payment_status intValue] == 2){//2、微信
+                        [self.dataMutArr addObject:@"微信"];
+                    }else if ([self.orderListModel.payment_status intValue] == 1){//1、支付宝
+                        [self.dataMutArr addObject:@"支付宝"];
+                    }else{
+                        [self.dataMutArr addObject:@"银行卡"];//支付方式
+                        [self.titleMutArr addObject:@"银行卡号:"];//写死
+                        [self.dataMutArr addObject:[NSString ensureNonnullString:model.bankCard ReplaceStr:@"暂无"]];//账号
+                    }
                 }
                 else{}
 

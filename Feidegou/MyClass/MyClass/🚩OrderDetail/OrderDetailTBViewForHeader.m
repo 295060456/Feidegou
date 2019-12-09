@@ -15,12 +15,12 @@
 @property(nonatomic,strong)YYLabel *titleLab;
 @property(nonatomic,strong)MMButton *tipsBtn;
 
-@property(nonatomic,copy)NSString *str;
 @property(nonatomic,copy)NSMutableAttributedString *attributedString;
 @property(nonatomic,strong)OrderManager_panicBuyingModel *orderManager_panicBuyingModel;
 @property(nonatomic,strong)OrderDetailModel *orderDetailModel;
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
 @property(nonatomic,strong)OrderManager_producingAreaModel *orderManager_producingAreaModel;
+@property(nonatomic,strong)OrderListModel *orderListModel;//搜索
 
 @end
 
@@ -45,11 +45,12 @@
 
     }else if ([model isKindOfClass:[OrderDetailModel class]]){
         self.orderDetailModel = (OrderDetailModel *)model;
-
     }else if ([model isKindOfClass:[CatFoodProducingAreaModel class]]){
         self.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)model;
     }else if ([model isKindOfClass:[OrderManager_producingAreaModel class]]){
         self.orderManager_producingAreaModel = (OrderManager_producingAreaModel *)model;
+    }else if ([model isKindOfClass:[OrderListModel class]]){
+        self.orderListModel = (OrderListModel *)model;
     }
     else{}
 }
@@ -69,6 +70,13 @@
     }else if (self.orderDetailModel){
         if(self.orderDetailModel.order_status.intValue == 2 &&//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         (self.orderDetailModel.del_state.intValue == 1)){//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
+            self.tipsBtn.alpha = 1;
+        }else{
+            self.tipsBtn.alpha = 0;
+        }
+    }else if (self.orderListModel){
+        if(self.orderListModel.order_status.intValue == 2 &&//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+        (self.orderListModel.del_state.intValue == 1)){//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
             self.tipsBtn.alpha = 1;
         }else{
             self.tipsBtn.alpha = 0;
@@ -113,6 +121,12 @@
     }
     else if (self.orderManager_producingAreaModel){
         selRange_02 = [self.str rangeOfString:@"购买"];
+    }else if (self.orderListModel){
+        if (self.orderListModel.order_type.intValue == 1) {//order_type 订单类型 1、直通车;2、批发;3、平台
+            selRange_02 = [self.str rangeOfString:@"出售"];
+        }else if (self.orderListModel.order_type.intValue == 3){
+            selRange_02 = [self.str rangeOfString:@"购买"];
+        }else{}
     }else{
         
     }
@@ -208,6 +222,13 @@
         [_tipsBtn sizeToFit];
         _tipsBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
     }return _tipsBtn;
+}
+
+-(void)setStr:(NSString *)str{
+    _str = str;
+    if (![NSString isNullString:_str]) {
+        self.titleLab.attributedText = self.attributedString;
+    }
 }
 
 @end

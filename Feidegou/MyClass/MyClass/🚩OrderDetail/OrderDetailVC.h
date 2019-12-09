@@ -45,11 +45,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)__block NSString *titleBeginStr;
 @property(nonatomic,assign)__block int time;
 @property(nonatomic,strong)NSNumber *Order_id;
+@property(nonatomic,strong)NSNumber *Order_type;//订单类型 1、直通车;2、批发;3、平台
 @property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 
 @property(nonatomic,strong)id requestParams;
-@property(nonatomic,strong)OrderListModel *orderListModel;
+@property(nonatomic,strong)OrderListModel *orderListModel;//搜索
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;//产地
 @property(nonatomic,strong)OrderDetailModel *orderDetailModel;//极光推送
 @property(nonatomic,strong)OrderManager_producingAreaModel *orderManager_producingAreaModel;
