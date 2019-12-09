@@ -95,6 +95,7 @@
 #import "NSString+File.h"
 #import "NSString+Password.h"
 #import "NSString+Url_Chinese.h"
+#import "NSObject+Time.h"
 #import "NSObject+Sound.h"
 #import "TimeManager.h"
 #import "TBVCell_style_01.h"

@@ -177,7 +177,11 @@ viewForHeaderInSection:(NSInteger)section {
                         self.businessType = BusinessType_ALL;
                     }
                 }else{}
+                if (self.dataMutArr.count) {
+                    [self.dataMutArr removeAllObjects];
                 }
+                [self networking_type:self.businessType];//默认查当前页
+            }
         }];
         [viewForHeader headerViewWithModel:nil];
     }return viewForHeader;

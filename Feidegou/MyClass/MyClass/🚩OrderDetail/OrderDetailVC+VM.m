@@ -667,10 +667,15 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                     //计算两个时间的相隔
                     NSDateFormatter *formatter = NSDateFormatter.new;
                     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                    NSTimeInterval time = [NSString timeIntervalstartDate:model.delTime
-                                                                  endDate:[formatter stringFromDate:NSDate.date]
-                                                            timeFormatter:formatter];
-                    NSNumber *timer = [NSNumber numberWithDouble:time];
+
+//                    NSArray *arr = [NSObject dateStringAfterlocalDateForYear:0 Month:0 Day:0 Hour:3 * 60 * 60 * 60 * 1000 Minute:0 Second:0];
+                    
+                    // 直接初始化的时间, 也是当前时间
+//                    NSDate *data3Hour = [NSObject getDate:[NSObject currentTime] afterTime:3];
+//                    NSTimeInterval time = [NSString timeIntervalstartDate:[formatter stringFromDate:data3Hour]
+//                                                                  endDate:model.delTime
+//                                                            timeFormatter:formatter];//
+                    NSNumber *timer = [NSNumber numberWithDouble:model.del_wait_left_time.floatValue / 1000];
 //                        self.orderManager_panicBuyingModel.updateTime;
 //                        self.orderManager_panicBuyingModel.delTime;
 //                        self.orderManager_panicBuyingModel.addTime;

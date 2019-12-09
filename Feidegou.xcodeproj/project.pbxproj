@@ -141,6 +141,7 @@
 		8BB2D3942366CC500047D0E2 /* ZYTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D3372366C7310047D0E2 /* ZYTextField.m */; };
 		8BB2D3952366CC550047D0E2 /* UIView+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB2D31A2366C7310047D0E2 /* UIView+Extras.m */; };
 		8BB2D43E2367F9BB0047D0E2 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */; };
+		8BBE6976239E4ADC004C2932 /* NSObject+Time.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BBE6975239E4ADC004C2932 /* NSObject+Time.m */; };
 		8BC311692394D9D30050E1C1 /* GiftVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC311682394D9D30050E1C1 /* GiftVC.m */; };
 		8BC3116F2394E1CB0050E1C1 /* GiftTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BC3116E2394E1CB0050E1C1 /* GiftTBViewForHeader.m */; };
 		8BC311732394F92D0050E1C1 /* Sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8BC311722394F92D0050E1C1 /* Sound.wav */; };
@@ -920,6 +921,8 @@
 		8BB2D3382366C7310047D0E2 /* ZYTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYTextField.h; sourceTree = "<group>"; };
 		8BB2D33A2366C7310047D0E2 /* ToolMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolMacro.h; sourceTree = "<group>"; };
 		8BB2D43D2367F9BB0047D0E2 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		8BBE6974239E4ADC004C2932 /* NSObject+Time.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+Time.h"; sourceTree = "<group>"; };
+		8BBE6975239E4ADC004C2932 /* NSObject+Time.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Time.m"; sourceTree = "<group>"; };
 		8BC311672394D9D30050E1C1 /* GiftVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftVC.h; sourceTree = "<group>"; };
 		8BC311682394D9D30050E1C1 /* GiftVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GiftVC.m; sourceTree = "<group>"; };
 		8BC3116D2394E1CB0050E1C1 /* GiftTBViewForHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftTBViewForHeader.h; sourceTree = "<group>"; };
@@ -2621,6 +2624,7 @@
 		8BB2D3142366C7310047D0E2 /* MyBase */ = {
 			isa = PBXGroup;
 			children = (
+				8BBE6973239E4ABE004C2932 /* NSObject */,
 				8B716464236FE793009BA9EF /* Model */,
 				8B716463236FE784009BA9EF /* UIViewController */,
 				8B05F84C236AEF1200DCE40C /* UITableView */,
@@ -2716,6 +2720,15 @@
 				8BB2D3372366C7310047D0E2 /* ZYTextField.m */,
 			);
 			path = ZYTextField;
+			sourceTree = "<group>";
+		};
+		8BBE6973239E4ABE004C2932 /* NSObject */ = {
+			isa = PBXGroup;
+			children = (
+				8BBE6974239E4ADC004C2932 /* NSObject+Time.h */,
+				8BBE6975239E4ADC004C2932 /* NSObject+Time.m */,
+			);
+			path = NSObject;
 			sourceTree = "<group>";
 		};
 		8BC311762394FCF00050E1C1 /* NSObject */ = {
@@ -4669,6 +4682,7 @@
 				C42CD1C1213CC2640096675F /* ModelInfo.m in Sources */,
 				C42CD0E4213CC2640096675F /* OrderesAddressController.m in Sources */,
 				C42CD052213CC2640096675F /* CellTip.m in Sources */,
+				8BBE6976239E4ADC004C2932 /* NSObject+Time.m in Sources */,
 				C46368E9213FBE6C006922D5 /* CLCellTypeBig.m in Sources */,
 				8BB2D3462366CB960047D0E2 /* CountdownView.m in Sources */,
 				C42CD0F2213CC2640096675F /* RegisterSucceedController.m in Sources */,

@@ -60,16 +60,15 @@
 
 -(void)drawRect:(CGRect)rect{
     if (self.orderManager_panicBuyingModel) {
-        if (self.orderManager_panicBuyingModel.order_status.intValue == 2 &&
-            self.orderManager_panicBuyingModel.del_state.intValue == 1) {
+        if (self.orderManager_panicBuyingModel.order_status.intValue == 2 &&//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            self.orderManager_panicBuyingModel.del_state.intValue == 1) {//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
             self.tipsBtn.alpha = 1;
         }else{
             self.tipsBtn.alpha = 0;
         }
     }else if (self.orderDetailModel){
-        if(self.orderDetailModel.order_status.intValue == 2 &&
-        (self.orderDetailModel.del_state.intValue == 1 ||
-         self.orderDetailModel.del_state.intValue == 0)){
+        if(self.orderDetailModel.order_status.intValue == 2 &&//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+        (self.orderDetailModel.del_state.intValue == 1)){//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
             self.tipsBtn.alpha = 1;
         }else{
             self.tipsBtn.alpha = 0;
@@ -111,7 +110,8 @@
     }
     else if (self.catFoodProducingAreaModel){
         selRange_02 = [self.str rangeOfString:@"购买"];
-    }else if (self.orderManager_producingAreaModel){
+    }
+    else if (self.orderManager_producingAreaModel){
         selRange_02 = [self.str rangeOfString:@"购买"];
     }else{
         
@@ -180,16 +180,21 @@
 //        _tipsBtn.backgroundColor = kRedColor;
          [_tipsBtn setImage:kIMG(@"contact")
                   forState:UIControlStateNormal];
-//        _tipsBtn.titleLabel.font = [UIFont systemFontOfSize:<#(CGFloat)#> weight:<#(UIFontWeight)#>];
          _tipsBtn.imageAlignment = MMImageAlignmentTop;
+        if (@available(iOS 8.2, *)) {
+            _tipsBtn.titleLabel.font = [UIFont systemFontOfSize:7 weight:1];
+        } else {
+            // Fallback on earlier versions
+            _tipsBtn.titleLabel.font = [UIFont systemFontOfSize:7];
+        }
          _tipsBtn.spaceBetweenTitleAndImage = SCALING_RATIO(5);
          [_tipsBtn setTitleColor:COLOR_HEX(0x7D7D7D, 1)
                        forState:UIControlStateNormal];
          [self.contentView addSubview:_tipsBtn];
         _tipsBtn.frame = CGRectMake(SCREEN_WIDTH - SCALING_RATIO(110),
                                     SCALING_RATIO(15),
-                                    SCALING_RATIO(13),
-                                    SCALING_RATIO(13));
+                                    SCALING_RATIO(8),
+                                    SCALING_RATIO(8));
 #warning tpis 这个地方用masonry找不到更好的时机去刷新
 //         [_tipsBtn mas_makeConstraints:^(MASConstraintMaker *make) {
 //             make.top.equalTo(self);

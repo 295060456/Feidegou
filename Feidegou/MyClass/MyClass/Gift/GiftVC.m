@@ -277,6 +277,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //    self.cancelBtn.alpha = 1;
 //    self.giftBtn.alpha = 1;
     self.btn.alpha = 1;
+    [self.btn.titleLabel sizeToFit];
+    self.btn.titleLabel.adjustsFontSizeToFitWidth = YES;
     self.textField.alpha = 1;
 }
 

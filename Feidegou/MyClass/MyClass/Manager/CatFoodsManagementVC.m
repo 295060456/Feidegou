@@ -304,7 +304,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
                                              reuseIdentifier:ReuseIdentifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = self.titleMutArr[indexPath.section][indexPath.row];
         cell.imageView.image = kIMG(self.imgMutArr[indexPath.section][indexPath.row]);
         cell.detailTextLabel.textColor = kBlueColor;
@@ -318,11 +317,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             cell.detailTextLabel.text = @"";
         }
     }else if (indexPath.section == 1){
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if ([cell.textLabel.text isEqualToString:@"喵粮订单管理"]) {
 #warning KKK
             extern NSNumber *wait_goods;//待处理订单的数量
             if ([wait_goods intValue]) {
-                            UIButton *btn = UIButton.new;
+                UIButton *btn = UIButton.new;
                 [btn setTitle:[wait_goods stringValue]
                      forState:UIControlStateNormal];
                 [btn setBackgroundImage:kIMG(@"RedDot")
