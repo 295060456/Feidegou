@@ -65,17 +65,30 @@
             if (b.intValue == 200) {
                 //已经开启直通车 data为字典
                 //尚未开通直通车 data为回显数
+//                默认开启  0    暂停 1
                 if([dic[@"data"] isKindOfClass:[NSDictionary class]]){//已经开通直通车
                     NSNumber *f = (NSNumber *)dic[@"data"][@"train"];
                     self.quantity = f.stringValue;
                     NSNumber *d = (NSNumber *)dic[@"data"][@"train_stop"];
-                    self.goOnBtn.alpha = 1;
-                    self.cancelBtn.alpha = 1;
-                    self.suspendBtn.alpha = 1;
-                    if (d.intValue) {//已经被按暂停
+                    
+                    if (d.intValue) {//暂停 暂停 1 开启  0
+                        self.openBtn.alpha = 0;
+                        self.goOnBtn.alpha = 0;
+                        self.cancelBtn.alpha = 0;
+                        self.suspendBtn.alpha = 1;
                         self.suspendBtn.selected = YES;
-                    }else{
+                        self.suspendBtn.backgroundColor = kRedColor;
+                        [self.suspendBtn setTitle:@"开启直通车出售"
+                                         forState:UIControlStateNormal];
+                    }else{//开启
+                        self.goOnBtn.alpha = 1;
+                        self.cancelBtn.alpha = 1;
+                        self.suspendBtn.alpha = 1;
                         self.suspendBtn.selected = NO;
+                        self.suspendBtn.backgroundColor = KLightGrayColor;
+                        [self.suspendBtn setTitle:@"暂停直通车出售"
+                                         forState:UIControlStateNormal];
+                        self.openBtn.alpha = 0;
                     }
                 }else if ([dic[@"data"] isKindOfClass:[NSNumber class]]){//尚未开通直通车
 //                    NSNumber *f = (NSNumber *)dic[@"data"];
@@ -94,7 +107,6 @@
         [self.tableView reloadData];
     }];
 }
-
 //开启直通车 CatfoodTrainURL
 -(void)CatfoodTrainURL_networking{
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
@@ -115,8 +127,27 @@
     
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         @strongify(self)
-        NSLog(@"2 —— %@",response);
-
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dic = (NSDictionary *)response;
+            NSNumber *b = dic[@"code"];
+            Toast(dic[@"message"]);
+            //        默认开启  0    暂停 1
+            if (b.intValue == 200) {
+                [ThroughTrainListVC ComingFromVC:self_weak_
+                                       withStyle:ComingStyle_PUSH
+                                   requestParams:self.quantity
+                                         success:^(id data) {}
+                                        animated:YES];
+            }else if (b.intValue == 500){
+                self.suspendBtn.alpha = 1;
+                self.suspendBtn.selected = YES;
+                [self.suspendBtn setTitle:@"开启直通车售卖" forState:UIControlStateNormal];
+                self.suspendBtn.backgroundColor = kRedColor;
+                self.openBtn.alpha = 0;
+                self.cancelBtn.alpha = 0;
+                self.goOnBtn.alpha = 0;
+            }else{}
+        }
     }];
 }
 //暂停/继续 直通车 CatfoodTrain_stopURL
@@ -126,7 +157,8 @@
     @weakify(self)
     NSDictionary *dataDic = @{
 //        @"train_stop":[NSNumber numberWithBool:self.suspendBtn.selected],
-        @"train_stop":[NSNumber numberWithInt:self.suspendBtn.selected],//用numberWithBool 服务器只会收到0 这是怎么回事？
+//        默认开启  0    暂停 1
+        @"train_stop":[NSNumber numberWithInt:!self.suspendBtn.selected],//用numberWithBool 服务器只会收到0 这是怎么回事？
     };
     NSLog(@"%@",dataDic);
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
@@ -142,23 +174,29 @@
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         @strongify(self)
         NSLog(@"3 —— %@",response);
-//        if ([response isKindOfClass:[NSDictionary class]]) {
-//            NSDictionary *dic = (NSDictionary *)response;
-//            NSNumber *b = dic[@"code"];
-//            if (b.intValue == 200) {
-//                self.openBtn.alpha = 0;
-//                if (!self.suspendBtn.selected) {
-//                    self.cancelBtn.alpha = 0;
-//                    self.goOnBtn.alpha = 0;
-//                }else{
-//                    self.cancelBtn.alpha = 1;
-//                    self.goOnBtn.alpha = 1;
-//                }
-//                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//                    Toast(dic[@"message"]);
-//                }];
-//            }
-//        }
+        if ([response isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dic = (NSDictionary *)response;
+            NSNumber *b = dic[@"code"];
+            self.train_stop = !self.train_stop;
+            self.suspendBtn.selected = !self.suspendBtn.selected;
+            if (b.intValue == 200) {
+                self.openBtn.alpha = 0;
+                if (self.suspendBtn.selected) {
+                    self.cancelBtn.alpha = 0;
+                    self.goOnBtn.alpha = 0;
+                    [self.suspendBtn setTitle:@"开启直通车售卖" forState:UIControlStateNormal];
+                    self.suspendBtn.backgroundColor = kRedColor;
+                }else{
+                    self.cancelBtn.alpha = 1;
+                    self.goOnBtn.alpha = 1;
+                    [self.suspendBtn setTitle:@"暂停直通车售卖" forState:UIControlStateNormal];
+                    self.suspendBtn.backgroundColor = KLightGrayColor;
+                }
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    Toast(dic[@"message"]);
+                }];
+            }
+        }
     }];
 }
 

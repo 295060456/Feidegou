@@ -132,9 +132,6 @@ UITableViewDataSource
 
 -(void)suspendBtnClickEvent:(UIButton *)sender{
     NSLog(@"暂停直通车出售")
-    self.train_stop = !self.train_stop;
-    sender.selected = !sender.selected;
-    self.suspendBtn.backgroundColor = !sender.selected ? kRedColor : KLightGrayColor;
     [self CatfoodTrain_stopURL_networking];
 }
 
@@ -142,7 +139,7 @@ UITableViewDataSource
     NSLog(@"开启直通车抢摊位")
     [self.view endEditing:YES];
     if (![NSString isNullString:self.quantity]) {
-        [self check];//先查看机会、再开通直通车
+        [self CatfoodTrainURL_networking];//开启直通车 CatfoodTrainURL
     }else{
         Toast(@"请输入您的数量");
     }
@@ -298,10 +295,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [_suspendBtn addTarget:self
                         action:@selector(suspendBtnClickEvent:)
               forControlEvents:UIControlEventTouchUpInside];
-        [_suspendBtn setTitle:@"暂停直通车出售"
-                     forState:UIControlStateSelected];
-        [_suspendBtn setTitle:@"继续直通车出售"
-                     forState:UIControlStateNormal];
+//        [_suspendBtn setTitle:@"暂停直通车出售"
+//                     forState:UIControlStateSelected];
+//        [_suspendBtn setTitle:@"继续直通车出售"
+//                     forState:UIControlStateNormal];
         [self.view addSubview:_suspendBtn];
         [_suspendBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.view);
