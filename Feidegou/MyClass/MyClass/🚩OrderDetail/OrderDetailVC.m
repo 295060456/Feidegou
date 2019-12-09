@@ -66,7 +66,7 @@ UITableViewDataSource
     vc.requestParams = requestParams;
     vc.isFirstComing = YES;
     vc.rootVC = rootVC;
-    if ([vc.requestParams isKindOfClass:[OrderListModel class]]) {//订单管理 子页面共用一个model 进
+    if ([vc.requestParams isKindOfClass:[OrderListModel class]]) {//订单管理 子页面共用一个model 进 目前貌似被遗弃
         vc.orderListModel = (OrderListModel *)vc.requestParams;
         vc.Order_id = vc.orderListModel.ID;
     }else if ([vc.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){//喵粮产地页面进
@@ -76,10 +76,10 @@ UITableViewDataSource
     }else if ([vc.requestParams isKindOfClass:[OrderDetailModel class]]){//极光推送进
         vc.orderDetailModel = (OrderDetailModel *)vc.requestParams;
         vc.Order_id = vc.orderDetailModel.ID;
-    }else if ([vc.requestParams isKindOfClass:[OrderManager_producingAreaModel class]]){
+    }else if ([vc.requestParams isKindOfClass:[OrderManager_producingAreaModel class]]){//订单管理——产地
         vc.orderManager_producingAreaModel = (OrderManager_producingAreaModel *)vc.requestParams;
         vc.Order_id = vc.orderManager_producingAreaModel.ID;
-    }else if ([vc.requestParams isKindOfClass:[OrderManager_panicBuyingModel class]]){
+    }else if ([vc.requestParams isKindOfClass:[OrderManager_panicBuyingModel class]]){//订单管理——直通车
         vc.orderManager_panicBuyingModel = (OrderManager_panicBuyingModel *)vc.requestParams;
         vc.Order_id = vc.orderManager_panicBuyingModel.ID;
     }
@@ -235,6 +235,8 @@ UITableViewDataSource
                 if ([self.orderManager_producingAreaModel.del_state intValue] == 0) {
                     [self.reloadPicBtn setTitle:@"重新上传支付凭证"
                                        forState:UIControlStateNormal];
+                    [self.reloadPicBtn sizeToFit];
+                    self.reloadPicBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
                     [self.reloadPicBtn addTarget:self
                               action:@selector(getPrintPic:)
                     forControlEvents:UIControlEventTouchUpInside];//CatfoodCO_payURL 喵粮产地购买已支付  #8
@@ -568,7 +570,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSMutableArray<NSString *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;//CatFoodProducingAreaModel
-        if (self.orderManager_producingAreaModel) {
+        if (self.orderManager_producingAreaModel) {//订单管理——产地
             [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_producingAreaModel.ordercode ReplaceStr:@"无"]];//订单号
             [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderManager_producingAreaModel.price ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//单价
             [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderManager_producingAreaModel.quantity ReplaceStr:@"无"] stringByAppendingString:@" g"]];//数量
@@ -578,7 +580,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_producingAreaModel.bankUser ReplaceStr:@"暂无信息"]];//姓名
             [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_producingAreaModel.updateTime ReplaceStr:@"无"]];//时间
         }
-        else if (self.orderManager_panicBuyingModel){
+        else if (self.orderManager_panicBuyingModel){//订单管理——直通车
             [_dataMutArr addObject:[NSString ensureNonnullString:self.orderManager_panicBuyingModel.ordercode ReplaceStr:@"无"]];//订单号
             [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderManager_panicBuyingModel.price ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//单价
             [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderManager_panicBuyingModel.quantity ReplaceStr:@"无"] stringByAppendingString:@" g"]];//数量

@@ -154,25 +154,22 @@ viewForHeaderInSection:(NSInteger)section {
             @strongify(self)
             NSLog(@"");
             if ([data isKindOfClass:[MMButton class]]){
-                MMButton *btn = (MMButton *)data;
-                if (btn.selected) {
-
-                }else{}
+                MMButton *btn = (MMButton *)data;//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成;默认查全部
                 if ([btn.titleLabel.text isEqualToString:@"已下单"]) {//2
                     if (btn.selected) {
                         self.businessType = BusinessType_HadOrdered;
                     }else{
                         self.businessType = BusinessType_ALL;
                     }
-                }else if ([btn.titleLabel.text isEqualToString:@"已支付"]){//4
+                }else if ([btn.titleLabel.text isEqualToString:@"已支付"]){//0
                     if (btn.selected) {
-                        self.businessType = BusinessType_HadConsigned;
+                        self.businessType = BusinessType_HadPaid;
                     }else{
                         self.businessType = BusinessType_ALL;
                     }
-                }else if ([btn.titleLabel.text isEqualToString:@"已发货"]){//3
+                }else if ([btn.titleLabel.text isEqualToString:@"已发货"]){//4
                     if (btn.selected) {
-                        self.businessType = BusinessType_HadCompleted;
+                        self.businessType = BusinessType_HadConsigned;
                     }else{
                         self.businessType = BusinessType_ALL;
                     }

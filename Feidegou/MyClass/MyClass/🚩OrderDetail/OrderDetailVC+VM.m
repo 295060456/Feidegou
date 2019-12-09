@@ -447,6 +447,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                 Toast(@"发货成功");
                 self.sureBtn.alpha = 0;
                 self.countDownCancelBtn.alpha = 0;
+                self.normalCancelBtn.alpha = 0;
                 [self.dataMutArr removeAllObjects];
                 [self.titleMutArr removeAllObjects];
                 [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"直通车"];//订单类型 —— 1、直通车;2、批发;3、产地
@@ -606,25 +607,67 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                 [self.titleMutArr addObject:@"单价:"];
                 [self.titleMutArr addObject:@"数量:"];
                 [self.titleMutArr addObject:@"总价:"];
+                
                 [self.titleMutArr addObject:@"支付方式:"];
                 
                 [self.dataMutArr addObject:[NSString ensureNonnullString:model.ordercode ReplaceStr:@"暂无"]];//订单号
                 [self.dataMutArr addObject:[[NSString ensureNonnullString:model.price ReplaceStr:@"暂无"] stringByAppendingString:@"CNY"]];//单价
                 [self.dataMutArr addObject:[[NSString ensureNonnullString:model.quantity ReplaceStr:@"暂无"] stringByAppendingString:@" g"]];//数量
                 [self.dataMutArr addObject:[[NSString ensureNonnullString:model.rental ReplaceStr:@"暂无"] stringByAppendingString:@" CNY"]];//总价
-
-                if ([model.payment_status intValue] == 3) {//3、银行卡
-                    [self.dataMutArr addObject:@"银行卡"];
-                    
-                }else if ([model.payment_status intValue] == 2){//2、微信
-                    [self.dataMutArr addObject:@"微信"];
-                }else if ([model.payment_status intValue] == 1){//1、支付宝
-                    [self.dataMutArr addObject:@"支付宝"];
-                }else{
-                    [self.titleMutArr addObject:@"异常:"];
-                    [self.dataMutArr addObject:@"支付方式数据异常"];//支付方式
-                    [self.dataMutArr addObject:@"支付账号数据异常"];//账号
-                }
+//OrderDetailModel 和 OrderManager_panicBuyingModel 是同一个
+                if (self.orderDetailModel) {
+                    if ([self.orderDetailModel.payment_status intValue] == 3) {//3、银行卡
+                        [self.dataMutArr addObject:@"银行卡"];
+                        
+                    }else if ([self.orderDetailModel.payment_status intValue] == 2){//2、微信
+                        [self.dataMutArr addObject:@"微信"];
+                    }else if ([self.orderDetailModel.payment_status intValue] == 1){//1、支付宝
+                        [self.dataMutArr addObject:@"支付宝"];
+                    }else{
+                        [self.dataMutArr addObject:@"支付方式数据异常"];//支付方式
+                        [self.titleMutArr addObject:@"账户异常:"];
+                        [self.dataMutArr addObject:@"支付账号数据异常"];//账号
+                    }
+                }else if (self.orderManager_panicBuyingModel){
+                    if ([self.orderManager_panicBuyingModel.payment_status intValue] == 3) {//3、银行卡
+                        [self.dataMutArr addObject:@"银行卡"];
+                        
+                    }else if ([self.orderManager_panicBuyingModel.payment_status intValue] == 2){//2、微信
+                        [self.dataMutArr addObject:@"微信"];
+                    }else if ([self.orderManager_panicBuyingModel.payment_status intValue] == 1){//1、支付宝
+                        [self.dataMutArr addObject:@"支付宝"];
+                    }else{
+                        [self.dataMutArr addObject:@"支付方式数据异常"];//支付方式
+                        [self.titleMutArr addObject:@"账户异常:"];
+                        [self.dataMutArr addObject:@"支付账号数据异常"];//账号
+                    }
+                }else if (self.orderManager_producingAreaModel){
+                    if ([self.orderManager_producingAreaModel.payment_status intValue] == 3) {//3、银行卡
+                        [self.dataMutArr addObject:@"银行卡"];
+                        
+                    }else if ([self.orderManager_producingAreaModel.payment_status intValue] == 2){//2、微信
+                        [self.dataMutArr addObject:@"微信"];
+                    }else if ([self.orderManager_producingAreaModel.payment_status intValue] == 1){//1、支付宝
+                        [self.dataMutArr addObject:@"支付宝"];
+                    }else{
+                        [self.dataMutArr addObject:@"银行卡"];//支付方式
+                        [self.titleMutArr addObject:@"银行卡号:"];//写死
+                        [self.dataMutArr addObject:[NSString ensureNonnullString:model.bankCard ReplaceStr:@"暂无"]];//账号
+                    }
+                }else{}
+                
+//                if ([model.payment_status intValue] == 3) {//3、银行卡
+//                    [self.dataMutArr addObject:@"银行卡"];
+//                    
+//                }else if ([model.payment_status intValue] == 2){//2、微信
+//                    [self.dataMutArr addObject:@"微信"];
+//                }else if ([model.payment_status intValue] == 1){//1、支付宝
+//                    [self.dataMutArr addObject:@"支付宝"];
+//                }else{
+//                    [self.dataMutArr addObject:@"支付方式数据异常"];//支付方式
+//                    [self.titleMutArr addObject:@"账户异常:"];
+//                    [self.dataMutArr addObject:@"支付账号数据异常"];//账号
+//                }
                 [self.titleMutArr addObject:@"下单时间:"];
                 [self.titleMutArr addObject:@"订单状态:"];
                 
@@ -654,11 +697,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                 }else{
                     [self.dataMutArr addObject:@"状态异常"];
                 }
-                if (![NSString isNullString:model.payment_print]) {
-                    [self.titleMutArr addObject:@"凭证:"];
-                    [self.dataMutArr addObject:model.payment_print];
-                }
-                //                OrderDetailModel 和 OrderManager_panicBuyingModel 是同一个
+
+//OrderDetailModel 和 OrderManager_panicBuyingModel 是同一个
                 
 #warning 倒计时数据源          OrderDetailModel
                 if (model.del_state.intValue == 1 &&//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
@@ -667,54 +707,15 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                     //计算两个时间的相隔
                     NSDateFormatter *formatter = NSDateFormatter.new;
                     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-
-//                    NSArray *arr = [NSObject dateStringAfterlocalDateForYear:0 Month:0 Day:0 Hour:3 * 60 * 60 * 60 * 1000 Minute:0 Second:0];
-                    
-                    // 直接初始化的时间, 也是当前时间
-//                    NSDate *data3Hour = [NSObject getDate:[NSObject currentTime] afterTime:3];
-//                    NSTimeInterval time = [NSString timeIntervalstartDate:[formatter stringFromDate:data3Hour]
-//                                                                  endDate:model.delTime
-//                                                            timeFormatter:formatter];//
                     NSNumber *timer = [NSNumber numberWithDouble:model.del_wait_left_time.floatValue / 1000];
-//                        self.orderManager_panicBuyingModel.updateTime;
-//                        self.orderManager_panicBuyingModel.delTime;
-//                        self.orderManager_panicBuyingModel.addTime;
                     [self.dataMutArr addObject:[NSString stringWithFormat:@"等待买家确认 %@",timer.stringValue]];
                 }
+                
+                if (![NSString isNullString:model.payment_print]) {
+                    [self.titleMutArr addObject:@"凭证:"];
+                    [self.dataMutArr addObject:model.payment_print];
+                }
 
-//                if (self.orderDetailModel) {
-//                    if (self.orderDetailModel.del_state.intValue == 1 &&//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
-//                        self.orderDetailModel.order_status.intValue == 2) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-//                        [self.dataMutArr removeLastObject];
-//                        //计算两个时间的相隔
-//                        NSDateFormatter *formatter = NSDateFormatter.new;
-//                        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-//                        NSTimeInterval time = [NSString timeIntervalstartDate:model.del_wait_left_time.stringValue
-//                                                                      endDate:[formatter stringFromDate:NSDate.date]
-//                                                                timeFormatter:formatter];
-//                        NSNumber *timer = [NSNumber numberWithDouble:time];
-////                        self.orderManager_panicBuyingModel.updateTime;
-////                        self.orderManager_panicBuyingModel.delTime;
-////                        self.orderManager_panicBuyingModel.addTime;
-//                        [self.dataMutArr addObject:[NSString stringWithFormat:@"等待买家确认 %@",timer.stringValue]];
-//                    }
-//                }else if (self.orderManager_panicBuyingModel){
-//                    if (self.orderManager_panicBuyingModel.del_state.intValue == 1 &&//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
-//                        self.orderManager_panicBuyingModel.order_status.intValue == 2) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-//                        [self.dataMutArr removeLastObject];
-//                        //计算两个时间的相隔
-//                        NSDateFormatter *formatter = NSDateFormatter.new;
-//                        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-//                        NSTimeInterval time = [NSString timeIntervalstartDate:model.del_wait_left_time.stringValue
-//                                                                      endDate:[formatter stringFromDate:NSDate.date]
-//                                                                timeFormatter:formatter];
-//                        NSNumber *timer = [NSNumber numberWithDouble:time];
-////                        self.orderManager_panicBuyingModel.updateTime;
-////                        self.orderManager_panicBuyingModel.delTime;
-////                        self.orderManager_panicBuyingModel.addTime;
-//                        [self.dataMutArr addObject:[NSString stringWithFormat:@"等待买家确认 %@",timer.stringValue]];
-//                    }
-//                }else{}
             }
             self.tableView.mj_footer.hidden = NO;
             [self.tableView.mj_header endRefreshing];
