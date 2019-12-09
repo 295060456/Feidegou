@@ -126,10 +126,12 @@ UITableViewDataSource
     if (self.isFirstComing) {
         [self data];
         self.isFirstComing = NO;
-        self.tableView.alpha = 1;
+//        self.tableView.alpha = 1;
+        [self.tableView.mj_header beginRefreshing];
     }else{
         [self.tableView.mj_header beginRefreshing];
     }
+
     self.tabBarController.tabBar.hidden = YES;
 }
 
@@ -840,6 +842,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 @implementation OrderDetailTBVCell
 
+-(void)dealloc{
+    NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
+    [self.timeBtn.timer invalidate];
+}
+
 +(instancetype)cellWith:(UITableView *)tableView{
     OrderDetailTBVCell *cell = (OrderDetailTBVCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
     if (!cell) {
@@ -859,7 +866,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         NSString *str = (NSString *)model;
         if ([str containsString:@"等待买家确认"]) {
             self.time = (int)[NSString getDigitsFromStr:str];
-            self.timeBtn.alpha = 1;
+            if (self.time) {
+                [self.timeBtn timeFailBeginFrom:self.time == 0 ? 10 : self.time];
+            }
         }else{
             self.detailTextLabel.text = str;
         }
@@ -888,7 +897,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         } else {
             _timeBtn.titleLabelFont = [UIFont systemFontOfSize:12];
         }
-        [_timeBtn timeFailBeginFrom:self.time == 0 ? 10 : self.time];
+        
         [self.contentView addSubview:_timeBtn];
         [_timeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.right.bottom.equalTo(self.contentView);

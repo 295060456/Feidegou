@@ -177,8 +177,10 @@
 -(MMButton *)tipsBtn{
     if (!_tipsBtn) {
         _tipsBtn = MMButton.new;
+//        _tipsBtn.backgroundColor = kRedColor;
          [_tipsBtn setImage:kIMG(@"contact")
                   forState:UIControlStateNormal];
+//        _tipsBtn.titleLabel.font = [UIFont systemFontOfSize:<#(CGFloat)#> weight:<#(UIFontWeight)#>];
          _tipsBtn.imageAlignment = MMImageAlignmentTop;
          _tipsBtn.spaceBetweenTitleAndImage = SCALING_RATIO(5);
          [_tipsBtn setTitleColor:COLOR_HEX(0x7D7D7D, 1)

@@ -267,7 +267,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView.mj_footer.hidden = YES;
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.bottom.equalTo(self.view);
+            make.bottom.equalTo(self.view).offset(SCALING_RATIO(-60));
+            make.left.right.equalTo(self.view);
             make.top.equalTo(self.view).offset(SCALING_RATIO(50));
         }];
     }return _tableView;

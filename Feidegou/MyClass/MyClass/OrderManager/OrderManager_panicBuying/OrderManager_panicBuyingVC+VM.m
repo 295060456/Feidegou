@@ -68,11 +68,10 @@
     @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
         if (response) {
-//            NSLog(@"--%@",response);
+            NSLog(@"--%@",response);
             if ([response isKindOfClass:[NSArray class]]) {
                 NSArray *arr = (NSArray *)response;
                 if (arr.count) {
-                    NSLog(@"kj");
                     NSArray *array = [OrderManager_panicBuyingModel mj_objectArrayWithKeyValuesArray:response];
                     self.pageSize = array.count;
                     if (array) {

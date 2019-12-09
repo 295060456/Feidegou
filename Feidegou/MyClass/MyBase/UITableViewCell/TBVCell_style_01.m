@@ -21,7 +21,7 @@
                       margin:(CGFloat)margin{
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
-        
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.margin = margin;
     }return self;
 }

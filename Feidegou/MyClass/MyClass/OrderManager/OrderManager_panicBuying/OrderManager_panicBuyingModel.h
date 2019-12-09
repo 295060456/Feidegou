@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderManager_panicBuyingModel : BaseModel
-
+//OrderManager_panicBuyingModel
 @property(nonatomic,copy)NSString *seller;
 @property(nonatomic,strong)NSNumber *buyer;
 @property(nonatomic,copy)NSString *notifyurl;
@@ -40,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *alipay_decode;
 @property(nonatomic,copy)NSString *ip;
 @property(nonatomic,copy)NSString *buyer_city;
+
+@property(nonatomic,strong)NSNumber *del_wait_left_time;//外层数据
 
 @property(nonatomic,copy)NSString *identity;//我自己手动加的字段
 

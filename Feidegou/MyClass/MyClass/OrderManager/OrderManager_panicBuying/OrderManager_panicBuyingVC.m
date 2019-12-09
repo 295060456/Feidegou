@@ -301,7 +301,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 //        _tableView.contentOffset = CGPointMake(0, SCALING_RATIO(20));
         [self.view addSubview:_tableView];
         [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.view);
+            make.bottom.equalTo(self.view).offset(SCALING_RATIO(-60));
             make.left.right.equalTo(self.view);
             make.top.equalTo(self.view).offset(SCALING_RATIO(50));
         }];

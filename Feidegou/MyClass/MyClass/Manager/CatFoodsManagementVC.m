@@ -303,6 +303,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
                                              reuseIdentifier:ReuseIdentifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = self.titleMutArr[indexPath.section][indexPath.row];
         cell.imageView.image = kIMG(self.imgMutArr[indexPath.section][indexPath.row]);
@@ -332,7 +333,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                        SCALING_RATIO(20),
                                        SCALING_RATIO(20));
                 [UIView cornerCutToCircleWithView:btn
-                                  AndCornerRadius:10];
+                                  AndCornerRadius:SCALING_RATIO(10)];
             }
         }
     }else{}

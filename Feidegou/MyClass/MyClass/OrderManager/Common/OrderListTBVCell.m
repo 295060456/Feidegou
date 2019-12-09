@@ -11,7 +11,6 @@
 @interface OrderListTBVCell ()
 
 @property(nonatomic,strong)UIImageView *imgV;
-//@property(nonatomic,strong)UIImageView *typeImgV;
 @property(nonatomic,strong)YYLabel *titleLab;//喵粮？g
 @property(nonatomic,strong)UILabel *timeLab;//时间
 @property(nonatomic,strong)UILabel *sellerLab;//卖家 买家
@@ -50,7 +49,6 @@
 
 -(void)drawRect:(CGRect)rect{
     self.imgV.alpha = 1;
-//    self.typeImgV.alpha = 1;
     self.titleLab.alpha = 1;//喵粮？g
     self.timeLab.alpha = 1;//时间
     self.orderStatusLab.alpha = 1;//订单状态
@@ -76,7 +74,7 @@
         OrderManager_producingAreaModel *orderManager_producingAreaModel = (OrderManager_producingAreaModel *)model;
         self.orderManager_producingAreaModel = orderManager_producingAreaModel;
         self.titleStr = [NSString stringWithFormat:@"购买喵粮:%@ g",[NSString ensureNonnullString:orderManager_producingAreaModel.quantity ReplaceStr:@"无"]];
-        self.timeStr = [@"下单时间:    " stringByAppendingString:[NSString ensureNonnullString:orderManager_producingAreaModel.addTime ReplaceStr:@"无"]];
+        self.timeStr = [@"下单时间:    " stringByAppendingString:[NSString ensureNonnullString:orderManager_producingAreaModel.updateTime ReplaceStr:@"无"]];
         if ([orderManager_producingAreaModel.identity isEqualToString:@"卖家"]) {
 //            self.typeImgV.image = kIMG(@"Mf_flag_Red");
             self.imgV.backgroundColor = kRedColor;
@@ -119,7 +117,7 @@
         OrderManager_panicBuyingModel *orderManager_panicBuyingModel = (OrderManager_panicBuyingModel *)model;
         self.orderManager_panicBuyingModel = orderManager_panicBuyingModel;
         self.titleStr = [NSString stringWithFormat:@"出售喵粮:    %@ g",[NSString ensureNonnullString:orderManager_panicBuyingModel.quantity ReplaceStr:@"无"]];
-        self.timeStr = [@"下单时间:    " stringByAppendingString:[NSString ensureNonnullString:orderManager_panicBuyingModel.addTime ReplaceStr:@"无"]];
+        self.timeStr = [@"下单时间:    " stringByAppendingString:[NSString ensureNonnullString:orderManager_panicBuyingModel.updateTime ReplaceStr:@"无"]];
         if ([orderManager_panicBuyingModel.identity isEqualToString:@"卖家"]) {
 //            self.typeImgV.image = kIMG(@"Mf_flag_Red");
             self.imgV.backgroundColor = kRedColor;
@@ -188,26 +186,6 @@
     }return _imgV;
 }
 
-//-(UILabel *)titleLab{
-//    if (!_titleLab) {
-//        _titleLab = UILabel.new;
-//        _titleLab.text = self.titleStr;
-//        if (@available(iOS 8.2, *)) {
-//            _titleLab.font = [UIFont systemFontOfSize:30
-//                                               weight:1];
-//        } else {
-//            _titleLab.font = [UIFont systemFontOfSize:30];
-//        }
-//        _titleLab.numberOfLines = 0;
-//        [_titleLab sizeToFit];
-//        [self.contentView addSubview:_titleLab];
-//        [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.centerY.equalTo(self.imgV);
-//            make.left.equalTo(self.imgV.mas_right).offset(SCALING_RATIO(5));
-//        }];
-//    }return _titleLab;
-//}
-
 -(NSMutableAttributedString *)attributedString{
     NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
     paragraphStyle.lineSpacing = 1;//行间距
@@ -229,11 +207,17 @@
         NSRange selRange_01 = [self.titleStr rangeOfString:@"出售"];//location=0, length=2
         NSRange selRange_02 = [self.titleStr rangeOfString:@"喵粮"];//location=6, length=2
 
-        //设定可点击文字的的大小
-        UIFont *selFont = [UIFont systemFontOfSize:16];
-        CTFontRef selFontRef = CTFontCreateWithName((__bridge CFStringRef)selFont.fontName,
-                                                    selFont.pointSize,
-                                                    NULL);
+    //设定可点击文字的的大小
+    UIFont *selFont;
+    if (@available(iOS 8.2, *)) {
+        selFont = [UIFont systemFontOfSize:16 weight:1];
+    } else {
+        selFont = [UIFont systemFontOfSize:16];
+    }
+    
+    CTFontRef selFontRef = CTFontCreateWithName((__bridge CFStringRef)selFont.fontName,
+    selFont.pointSize,
+    NULL);
         //设置可点击文本的大小
         [_attributedString addAttribute:(NSString *)kCTFontAttributeName
                                   value:(__bridge id)selFontRef
@@ -355,6 +339,11 @@
 -(UILabel *)timeLab{
     if (!_timeLab) {
         _timeLab = UILabel.new;
+        if (@available(iOS 8.2, *)) {
+            _timeLab.font = [UIFont systemFontOfSize:10 weight:1];
+        } else {
+            _timeLab.font = [UIFont systemFontOfSize:10];
+        }
 //        _timeLab.text = self.timeStr;
         _timeLab.numberOfLines = 0;
         [_timeLab sizeToFit];
@@ -366,22 +355,14 @@
     }return _timeLab;
 }
 
-//-(UIImageView *)typeImgV{
-//    if (!_typeImgV) {
-//        _typeImgV = UIImageView.new;
-//        [self.contentView addSubview:_typeImgV];
-//        [_typeImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.right.equalTo(self.contentView).offset(SCALING_RATIO(-30));
-//            make.top.equalTo(self.contentView);
-//            make.width.mas_equalTo(SCALING_RATIO(40));
-//            make.height.mas_equalTo(SCALING_RATIO(50));
-//        }];
-//    }return _typeImgV;
-//}
-
 -(UILabel *)sellerLab{
     if (!_sellerLab) {
         _sellerLab = UILabel.new;
+        if (@available(iOS 8.2, *)) {
+            _sellerLab.font = [UIFont systemFontOfSize:10 weight:1];
+        } else {
+            _sellerLab.font = [UIFont systemFontOfSize:10];
+        }
 //        _sellerLab.text = self.sellerStr;
         [self.contentView addSubview:_sellerLab];
         [_sellerLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -394,6 +375,11 @@
 -(UILabel *)paymentWayLab{
     if (!_paymentWayLab) {
         _paymentWayLab = UILabel.new;
+        if (@available(iOS 8.2, *)) {
+            _paymentWayLab.font = [UIFont systemFontOfSize:10 weight:1];
+        } else {
+            _paymentWayLab.font = [UIFont systemFontOfSize:10];
+        }
 //        _paymentWayLab.text = self.paymentWayStr;
         [self.contentView addSubview:_paymentWayLab];
         [_paymentWayLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -406,6 +392,11 @@
 -(UILabel *)orderTypeLab{
     if (!_orderTypeLab) {
         _orderTypeLab = UILabel.new;
+        if (@available(iOS 8.2, *)) {
+            _orderTypeLab.font = [UIFont systemFontOfSize:10 weight:1];
+        } else {
+            _orderTypeLab.font = [UIFont systemFontOfSize:10];
+        }
 //        _orderTypeLab.text = self.orderTypeStr;
         [self.contentView addSubview:_orderTypeLab];
         [_orderTypeLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -418,6 +409,11 @@
 -(UILabel *)orderStatusLab{
     if (!_orderStatusLab) {
         _orderStatusLab = UILabel.new;
+        if (@available(iOS 8.2, *)) {
+            _orderStatusLab.font = [UIFont systemFontOfSize:10 weight:1];
+        } else {
+            _orderStatusLab.font = [UIFont systemFontOfSize:10];
+        }
 //        _orderStatusLab.text = self.orderStatusStr;
         [self.contentView addSubview:_orderStatusLab];
         [_orderStatusLab mas_makeConstraints:^(MASConstraintMaker *make) {

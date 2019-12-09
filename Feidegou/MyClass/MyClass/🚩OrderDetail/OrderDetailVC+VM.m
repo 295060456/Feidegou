@@ -578,9 +578,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
     
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dic = @{
-//            @"order_id":[NSString ensureNonnullString:self.Order_id ReplaceStr:@"无"],//订单id
-#warning 测试需要
-        @"order_id":[NSString ensureNonnullString:@"494" ReplaceStr:@"无"],//订单id   //
+        @"order_id":[NSString ensureNonnullString:self.Order_id ReplaceStr:@"无"],//订单id
         @"order_type":[NSString ensureNonnullString:b ReplaceStr:@"无"]//订单类型 —— 1、摊位;2、批发;3、产地
     };
        
@@ -602,6 +600,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             if ([response isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *dataDic = (NSDictionary *)response;
                 OrderDetailModel *model = [OrderDetailModel mj_objectWithKeyValues:dataDic[@"catFoodOrder"]];
+//                OrderManager_panicBuyingModel *model = [OrderManager_panicBuyingModel mj_objectWithKeyValues:dataDic[@"catFoodOrder"]];
+                model.del_wait_left_time = dataDic[@"del_wait_left_time"];//外层数据
                 [self.titleMutArr addObject:@"订单号:"];
                 [self.titleMutArr addObject:@"单价:"];
                 [self.titleMutArr addObject:@"数量:"];
@@ -658,30 +658,58 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                     [self.titleMutArr addObject:@"凭证:"];
                     [self.dataMutArr addObject:model.payment_print];
                 }
+                //                OrderDetailModel 和 OrderManager_panicBuyingModel 是同一个
+                
 #warning 倒计时数据源          OrderDetailModel
-                if (self.orderDetailModel) {
-                    if (self.orderDetailModel.del_state.intValue == 1 &&//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
-                        self.orderDetailModel.order_status.intValue == 2) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                        [self.dataMutArr removeLastObject];
-                        [self.dataMutArr addObject:@"1234567890"];
-                    }
-                }else if (self.orderManager_panicBuyingModel){
-                    if (self.orderManager_panicBuyingModel.del_state.intValue == 1 &&//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
-                        self.orderManager_panicBuyingModel.order_status.intValue == 2) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-                        [self.dataMutArr removeLastObject];
-                        //计算两个时间的相隔
-                        NSDateFormatter *formatter = NSDateFormatter.new;
-                        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-                        NSTimeInterval time = [NSString timeIntervalstartDate:self.orderManager_panicBuyingModel.updateTime
-                                                                      endDate:[formatter stringFromDate:NSDate.date]
-                                                                timeFormatter:formatter];
-                        NSNumber *timer = [NSNumber numberWithDouble:time];
+                if (model.del_state.intValue == 1 &&//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
+                    model.order_status.intValue == 2) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+                    [self.dataMutArr removeLastObject];
+                    //计算两个时间的相隔
+                    NSDateFormatter *formatter = NSDateFormatter.new;
+                    [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                    NSTimeInterval time = [NSString timeIntervalstartDate:model.delTime
+                                                                  endDate:[formatter stringFromDate:NSDate.date]
+                                                            timeFormatter:formatter];
+                    NSNumber *timer = [NSNumber numberWithDouble:time];
 //                        self.orderManager_panicBuyingModel.updateTime;
 //                        self.orderManager_panicBuyingModel.delTime;
 //                        self.orderManager_panicBuyingModel.addTime;
-                        [self.dataMutArr addObject:[NSString stringWithFormat:@"等待买家确认 %@",timer.stringValue]];
-                    }
-                }else{}
+                    [self.dataMutArr addObject:[NSString stringWithFormat:@"等待买家确认 %@",timer.stringValue]];
+                }
+
+//                if (self.orderDetailModel) {
+//                    if (self.orderDetailModel.del_state.intValue == 1 &&//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
+//                        self.orderDetailModel.order_status.intValue == 2) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                        [self.dataMutArr removeLastObject];
+//                        //计算两个时间的相隔
+//                        NSDateFormatter *formatter = NSDateFormatter.new;
+//                        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//                        NSTimeInterval time = [NSString timeIntervalstartDate:model.del_wait_left_time.stringValue
+//                                                                      endDate:[formatter stringFromDate:NSDate.date]
+//                                                                timeFormatter:formatter];
+//                        NSNumber *timer = [NSNumber numberWithDouble:time];
+////                        self.orderManager_panicBuyingModel.updateTime;
+////                        self.orderManager_panicBuyingModel.delTime;
+////                        self.orderManager_panicBuyingModel.addTime;
+//                        [self.dataMutArr addObject:[NSString stringWithFormat:@"等待买家确认 %@",timer.stringValue]];
+//                    }
+//                }else if (self.orderManager_panicBuyingModel){
+//                    if (self.orderManager_panicBuyingModel.del_state.intValue == 1 &&//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
+//                        self.orderManager_panicBuyingModel.order_status.intValue == 2) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                        [self.dataMutArr removeLastObject];
+//                        //计算两个时间的相隔
+//                        NSDateFormatter *formatter = NSDateFormatter.new;
+//                        [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+//                        NSTimeInterval time = [NSString timeIntervalstartDate:model.del_wait_left_time.stringValue
+//                                                                      endDate:[formatter stringFromDate:NSDate.date]
+//                                                                timeFormatter:formatter];
+//                        NSNumber *timer = [NSNumber numberWithDouble:time];
+////                        self.orderManager_panicBuyingModel.updateTime;
+////                        self.orderManager_panicBuyingModel.delTime;
+////                        self.orderManager_panicBuyingModel.addTime;
+//                        [self.dataMutArr addObject:[NSString stringWithFormat:@"等待买家确认 %@",timer.stringValue]];
+//                    }
+//                }else{}
             }
             self.tableView.mj_footer.hidden = NO;
             [self.tableView.mj_header endRefreshing];
