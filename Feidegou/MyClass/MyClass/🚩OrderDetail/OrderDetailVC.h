@@ -62,6 +62,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)Later;
 -(void)pullToRefresh;
 
+//上传支付凭证
+-(void)getPrintPic:(UIButton *)sender;
+
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
                    withStyle:(ComingStyle)comingStyle
                requestParams:(nullable id)requestParams

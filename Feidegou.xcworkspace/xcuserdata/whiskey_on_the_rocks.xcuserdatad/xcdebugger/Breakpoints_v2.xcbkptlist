@@ -7,7 +7,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            uuid = "FCDB0475-EB7C-409F-AA23-00DC83F9FFFB"
+            uuid = "8CB3AB2D-7ACD-491C-8335-B959856BE70B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -18,80 +18,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C1075A6B-DEF5-4890-A88E-D36C6D554D5B"
+            uuid = "D817B677-9669-4110-B6EB-A66ED6C091F3"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailTBViewForHeader.m"
+            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC+VM.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "-attributedString"
+            startingLineNumber = "848"
+            endingLineNumber = "848"
+            landmarkName = "-buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BE20D7D2-DF54-4797-89CE-6F1FA22ED0B2"
+            uuid = "E3A08A2E-4C26-4DE5-929C-A53AD7500C2D"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailTBViewForHeader.m"
+            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC+VM.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "-headerViewWithModel:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D21877B9-8B87-4618-BBC3-DF3512F577F0"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailTBViewForHeader.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "-drawRect:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "A58E145B-BA70-4960-AF4D-F175386BFE83"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailTBViewForHeader.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
-            landmarkName = "-titleLab"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C05A985D-0202-4CD4-BFA0-23682CCE0C14"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailTBViewForHeader.m"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
-            landmarkName = "-setStr:"
+            startingLineNumber = "774"
+            endingLineNumber = "774"
+            landmarkName = "-buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

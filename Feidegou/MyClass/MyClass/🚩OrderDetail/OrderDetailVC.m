@@ -163,7 +163,7 @@ UITableViewDataSource
         if ([self.orderManager_panicBuyingModel.order_type intValue] == 1) {//直通车 只有卖家 订单类型 1、直通车;2、批发;3、平台
             self.gk_navTitle = @"直通车订单详情";
             if ([self.orderManager_panicBuyingModel.order_status intValue] == 0) {
-                [self.dataMutArr addObject:@"订单已支付"];
+                [self.dataMutArr addObject:@"已支付"];
                 //倒计时3s + 发货
                 [self.sureBtn setTitle:@"发货"
                               forState:UIControlStateNormal];
@@ -176,7 +176,7 @@ UITableViewDataSource
                                             action:@selector(CancelDelivery_NetWorking)
                                   forControlEvents:UIControlEventTouchUpInside];
             }else if ([self.orderManager_panicBuyingModel.order_status intValue] == 1){
-                [self.dataMutArr addObject:@"订单已发单"];
+                [self.dataMutArr addObject:@"已发单"];
             }else if ([self.orderManager_panicBuyingModel.order_status intValue] == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                 if ([self.orderManager_panicBuyingModel.del_state intValue] == 0) {//0状态 0、不影响;1、待审核;2、已通过 3、驳回
                     [self.dataMutArr addObject:@"已下单"];
@@ -222,7 +222,7 @@ UITableViewDataSource
                 [self.dataMutArr addObject:@"数据异常"];
             }
         }
-    }
+    }//直通车
     else if (self.orderManager_producingAreaModel){//产地
         NSString *str1 = [NSString ensureNonnullString:self.orderManager_producingAreaModel.seller_name ReplaceStr:@"无"];
         NSString *str2 = [NSString ensureNonnullString:self.orderManager_producingAreaModel.quantity ReplaceStr:@""];
@@ -287,7 +287,7 @@ UITableViewDataSource
                 [self.dataMutArr addObject:@"数据异常"];
             }
         }
-    }//CatFoodProducingAreaModel
+    }//订单详情——喵粮产地
     else if (self.catFoodProducingAreaModel){//喵粮产地
         NSString *str1 = [NSString ensureNonnullString:self.catFoodProducingAreaModel.seller_name ReplaceStr:@"无"];
         NSString *str2 = [NSString ensureNonnullString:self.catFoodProducingAreaModel.quantity ReplaceStr:@""];
@@ -319,8 +319,8 @@ UITableViewDataSource
             [self.titleMutArr addObject:@"凭证"];
             [self.dataMutArr addObject:self.catFoodProducingAreaModel.payment_print];
         }
-    }
-    if (self.orderDetailModel) {
+    }//喵粮产地
+    else if (self.orderDetailModel) {
         NSString *str1 = [NSString ensureNonnullString:self.orderDetailModel.byname ReplaceStr:@"无"];
         NSString *str2 = [NSString ensureNonnullString:self.orderDetailModel.quantity ReplaceStr:@""];
         self.str = [NSString stringWithFormat:@"您向%@出售%@g喵粮",str1,str2];
@@ -358,7 +358,7 @@ UITableViewDataSource
             [self.titleMutArr addObject:@"凭证"];
             [self.dataMutArr addObject:self.orderDetailModel.payment_print];
         }
-    }
+    }//JPush
     else{
         [self.dataMutArr addObject:@"数据异常"];
     }
