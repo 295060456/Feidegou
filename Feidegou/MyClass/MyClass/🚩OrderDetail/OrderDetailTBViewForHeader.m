@@ -128,7 +128,7 @@
             selRange_02 = [self.str rangeOfString:@"购买"];
         }else{}
     }else{
-        
+        selRange_02 = [self.str rangeOfString:@"出售"];
     }
     //设定可点击文字的的大小
     UIFont *selFont = [UIFont systemFontOfSize:16];
