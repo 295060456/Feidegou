@@ -128,9 +128,9 @@
     [params setObject:[YDDevice getUQID] forKey:@"identity"];//设备号
     [params setObject:[GettingDeviceIP getNetworkIPAddress] forKey:@"loginIp"];//ip
 
-    NSString *strJson = [self DataTOjsonString:params];// 字典转为json
+    NSString *strJson = [NSString DataTOjsonString:params];// 字典转为json
     strJson = [NSString encodeToPercentEscapeString:strJson];// encodeing  json
-    NSString *strKey =  [self encryptionTheParameter:strJson];// 根据json生成Key
+    NSString *strKey =  [NSString encryptionTheParameter:strJson];// 根据json生成Key
     [dataMutDic setObject:strKey forKey:@"key"];
     //最后拼接
     [dataMutDic setObject:strJson forKey:@"data"];
@@ -152,7 +152,7 @@
         error:错误信息
      响应头:task.response
      */
-    NSString *str = AK;//http://10.10.37.35:8080/SHOPAPP2.0/appShop7/query.do
+    NSString *str = AK;//http://10.10.37.35:8080/SHOPAPP2.0/appShop7/query.do [NSString stringWithFormat:@"%@%@%@/%@",HTTP,IP_Daniel,Port_Daniel,RELATIVE_PATH_QUERY]//登录
     [manager POST:AK
        parameters:dataMutDic
          progress:nil
@@ -186,30 +186,6 @@
         NSLog(@"请求失败--%@",error);
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }];
-}
-
-- (NSString *)encryptionTheParameter:(NSString *)strJson{
-
-    NSString *strKey = [EncryptUtils md5_32bits:strJson];
-//    strKey = StringFormat(@"%@unknown",strKey);
-    strKey = StringFormat(@"%@2200820a3e35ed74648e775cf3164e9d",strKey);
-    strKey = [EncryptUtils md5_32bits:strKey];
-    return strKey;
-}
-
--(NSString*)DataTOjsonString:(id)object{
-    // Pass 0 if you don't care about the readability of the generated string
-    NSString *jsonString = nil;
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:&error];
-    if (! jsonData) {
-        NSLog(@"Got an error: %@", error);
-    } else {
-        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    }
-    return jsonString;
 }
 
 -(void)old_NetworkingWithArgumentUsername:(NSString *)username

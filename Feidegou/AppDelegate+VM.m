@@ -79,7 +79,86 @@
     }];
 }
 
+-(void)updateAPP{
+    NSMutableDictionary *dataMutDic = NSMutableDictionary.dictionary;
+    NSMutableDictionary *params = NSMutableDictionary.dictionary;
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];//获取app版本信息
+    // 设置为中国时区
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSTimeZone *timeZone = [NSTimeZone timeZoneForSecondsFromGMT:8 * 3600];
+    [dateFormatter setTimeZone:timeZone];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    NSString *strToday = [dateFormatter stringFromDate:[NSDate date]];
+    [params setObject:strToday forKey:@"datetoken"];//token
+    [params setObject:[YDDevice getUQID] forKey:@"identity"];//设备号
+    [params setObject:[GettingDeviceIP getNetworkIPAddress] forKey:@"loginIp"];//ip
 
+    NSString *strJson = [NSString DataTOjsonString:params];// 字典转为json
+    strJson = [NSString encodeToPercentEscapeString:strJson];// encodeing  json
+    NSString *strKey =  [NSString encryptionTheParameter:strJson];// 根据json生成Key
+    [dataMutDic setObject:strKey forKey:@"key"];
+    //最后拼接
+    [dataMutDic setObject:strJson forKey:@"data"];
+    [dataMutDic setObject:@"4" forKey:@"version"];
+    [dataMutDic setObject:@"1021" forKey:@"num"];
+    [dataMutDic setObject:@"Yes" forKey:@"isIphone"];
 
+    //1.创建会话管理者
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //2.发送GET请求
+    /*
+     第一个参数:请求路径(不包含参数).NSString
+     第二个参数:字典(发送给服务器的数据~参数)
+     第三个参数:progress 进度回调
+     第四个参数:success 成功回调
+        task:请求任务
+        responseObject:响应体信息(JSON--->OC对象)
+     第五个参数:failure 失败回调
+        error:错误信息
+     响应头:task.response
+     */
+    NSString *str = AK;
+    @weakify(self)
+    [manager POST:AK
+       parameters:dataMutDic
+         progress:nil
+          success:^(NSURLSessionDataTask * _Nonnull task,
+                    id  _Nullable responseObject) {
+        @strongify(self)
+        NSLog(@"%@---%@",[responseObject class],responseObject);
+        if ([responseObject isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dic = (NSDictionary *)responseObject;
+            NSString *str = (NSString *)dic[@"msg"];
+            if ([str isEqualToString:@"成功"]) {
+                NSNumber *newBuild = dic[@"data"][@"VERSION"];
+                // app版本
+//                NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+                // app build版本
+                NSString *app_build = [infoDictionary objectForKey:@"CFBundleVersion"];
+                if (newBuild.intValue > app_build.intValue) {
+                    NSLog(@"是新版本");
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"版本更新"
+                                                                                             message:dic[@"data"][@"MSG"]
+                                                                                      preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"去更新"
+                                                                      style:UIAlertActionStyleDefault
+                                                                    handler:^(UIAlertAction * _Nonnull action) {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:dic[@"data"][@"URL"]]];
+                    }];
+                    [alertController addAction:confirm];
+                    [self.window.rootViewController presentViewController:alertController
+                                                                 animated:YES
+                                                               completion:nil];
+                }else{
+                    NSLog(@"不是新版本");
+                }
+            }
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task,
+                NSError * _Nonnull error) {
+        NSLog(@"请求失败--%@",error);
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+    }];
+}
 
 @end

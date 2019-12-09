@@ -92,6 +92,11 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSString *)getMMSSFromSS:(NSInteger)totalTime; // 时间转 小时 / d分 、秒
 
 +(NSString *)numberSuitScanf:(NSString*)number;
++ (NSString *)encryptionTheParameter:(NSString *)strJson;
++(NSString*)DataTOjsonString:(id)object;
+//版本号比较
++ (BOOL)versionCompareOldStr:(NSString *)first
+                   andNewStr:(NSString *)second;
 
 @end
 

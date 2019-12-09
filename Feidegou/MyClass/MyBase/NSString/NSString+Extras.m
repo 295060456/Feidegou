@@ -704,4 +704,44 @@
     return numberString;
 }
 
++(NSString*)DataTOjsonString:(id)object{
+    // Pass 0 if you don't care about the readability of the generated string
+    NSString *jsonString = nil;
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:&error];
+    if (! jsonData) {
+        NSLog(@"Got an error: %@", error);
+    } else {
+        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    return jsonString;
+}
+
++ (NSString *)encryptionTheParameter:(NSString *)strJson{
+
+    NSString *strKey = [EncryptUtils md5_32bits:strJson];
+//    strKey = StringFormat(@"%@unknown",strKey);
+    strKey = StringFormat(@"%@2200820a3e35ed74648e775cf3164e9d",strKey);
+    strKey = [EncryptUtils md5_32bits:strKey];
+    return strKey;
+}
+
++ (BOOL)versionCompareOldStr:(NSString *)first
+                   andNewStr:(NSString *)second{
+//    NSOrderedAscending = -1L,表示两个比较的对象前者小于后置
+//    NSOrderedSame, 表示比较的对象相等
+//    NSOrderedDescending表示两个比较的对象前者大于后者
+    if ([first compare:second
+               options:NSNumericSearch] == NSOrderedDescending){
+        return NO;//不是新版本
+    }else if ([first compare:second
+                     options:NSNumericSearch] == NSOrderedSame){
+        return NO;//不是新版本
+    }else{
+        return YES;//是新版本
+    }
+}
+
 @end

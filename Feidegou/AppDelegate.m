@@ -102,6 +102,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {//唤醒2 首次进2 点击小图进只走2
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [self updateAPP];
     //在这里+1
 }
 

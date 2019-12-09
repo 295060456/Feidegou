@@ -48,8 +48,7 @@
 - (NSString *)md5HexDigestUpper:(NSString*)input;
 //MD5小写加密
 - (NSString *)md5HexDigestSmall:(NSString*)input;
-//转化为json
--(NSString*)DataTOjsonString:(id)object;
+
 @end
 
 

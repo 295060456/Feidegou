@@ -187,11 +187,11 @@
 //    strToday = TransformString(strToday);
     [params setObject:strToday forKey:@"datetoken"];
     //    字典转为json
-    NSString *strJson = [self DataTOjsonString:params];/////
+    NSString *strJson = [NSString DataTOjsonString:params];/////
 //    encodeing  json
     strJson = [NSString encodeToPercentEscapeString:strJson];
 //    根据json生成Key
-    NSString *strKey =  [self encryptionTheParameter:strJson];
+    NSString *strKey =  [NSString encryptionTheParameter:strJson];
     if (stype) {
         [params setObject:stype forKey:@"num"];//x
     }
@@ -203,13 +203,6 @@
     return params;
 }
 
-- (NSString *)encryptionTheParameter:(NSString *)strJson{
-    NSString *strKey = [self md5HexDigestSmall:strJson];
-//    strKey = StringFormat(@"%@unknown",strKey);
-    strKey = StringFormat(@"%@2200820a3e35ed74648e775cf3164e9d",strKey);
-    strKey = [self md5HexDigestSmall:strKey];
-    return strKey;
-}
 
 - (NSString *)md5HexDigestUpper:(NSString*)input
 {
@@ -239,20 +232,6 @@
              ];
 }
 
--(NSString*)DataTOjsonString:(id)object{
-    // Pass 0 if you don't care about the readability of the generated string
-    NSString *jsonString = nil;
-    NSError *error;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:&error];
-    if (! jsonData) {
-        NSLog(@"Got an error: %@", error);
-    } else {
-        jsonString = [[NSString alloc] initWithData:jsonData
-                                           encoding:NSUTF8StringEncoding];
-    }return jsonString;
-}
 @end
 
 
