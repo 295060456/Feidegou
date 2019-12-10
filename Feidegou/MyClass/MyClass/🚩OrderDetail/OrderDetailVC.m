@@ -320,7 +320,7 @@ UITableViewDataSource
             [self.dataMutArr addObject:self.catFoodProducingAreaModel.payment_print];
         }
     }//喵粮产地
-    else if (self.orderDetailModel) {
+    else if (self.orderDetailModel) {//极光推送
         NSString *str1 = [NSString ensureNonnullString:self.orderDetailModel.byname ReplaceStr:@"无"];
         NSString *str2 = [NSString ensureNonnullString:self.orderDetailModel.quantity ReplaceStr:@""];
         self.str = [NSString stringWithFormat:@"您向%@出售%@g喵粮",str1,str2];
@@ -478,7 +478,6 @@ UITableViewDataSource
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
-
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section {
@@ -488,6 +487,7 @@ viewForHeaderInSection:(NSInteger)section {
         viewForHeader = [[OrderDetailTBViewForHeader alloc]initWithReuseIdentifier:ReuseIdentifier
                                                                           withData:self.str];
         [viewForHeader headerViewWithModel:self.requestParams];
+        self.viewForHeader = viewForHeader;
 //        self.tipsIMGV = viewForHeader.tipsIMGV;
         //只有已发单下面的取消状态才可以聊天
         @weakify(self)

@@ -13,7 +13,6 @@
 }
 
 @property(nonatomic,strong)YYLabel *titleLab;
-@property(nonatomic,strong)MMButton *tipsBtn;
 
 @property(nonatomic,copy)NSMutableAttributedString *attributedString;
 @property(nonatomic,strong)OrderManager_panicBuyingModel *orderManager_panicBuyingModel;
@@ -40,9 +39,9 @@
 }
 
 -(void)headerViewWithModel:(id _Nullable)model{
+    NSLog(@"FDDD = %@",model);
     if ([model isKindOfClass:[OrderManager_panicBuyingModel class]]) {
         self.orderManager_panicBuyingModel = (OrderManager_panicBuyingModel *)model;
-
     }else if ([model isKindOfClass:[OrderDetailModel class]]){
         self.orderDetailModel = (OrderDetailModel *)model;
     }else if ([model isKindOfClass:[CatFoodProducingAreaModel class]]){
@@ -53,30 +52,31 @@
         self.orderListModel = (OrderListModel *)model;
     }
     else{}
-}
-
--(void)layoutSubviews{
-    [super layoutSubviews];
-}
-
--(void)drawRect:(CGRect)rect{
-    if (self.orderManager_panicBuyingModel) {
+    
+    if (self.orderManager_panicBuyingModel) {//订单管理——直通车
+        NSLog(@"SSS order_status = %d",self.orderManager_panicBuyingModel.order_status.intValue);
+        NSLog(@"SSS del_state = %d",self.orderManager_panicBuyingModel.del_state.intValue);
         if (self.orderManager_panicBuyingModel.order_status.intValue == 2 &&//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-            self.orderManager_panicBuyingModel.del_state.intValue == 1) {//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
-            self.tipsBtn.alpha = 1;
-        }else{
+            (self.orderManager_panicBuyingModel.del_state.intValue == 1) ) {//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
+            self.tipsBtn.alpha = 1;//取消中
+        }
+        else{
             self.tipsBtn.alpha = 0;
         }
-    }else if (self.orderDetailModel){
+    }else if (self.orderDetailModel){//JPush
+        NSLog(@"SSS order_status = %d",self.orderDetailModel.order_status.intValue);
+        NSLog(@"SSS del_state = %d",self.orderDetailModel.del_state.intValue);
         if(self.orderDetailModel.order_status.intValue == 2 &&//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-        (self.orderDetailModel.del_state.intValue == 1)){//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
-            self.tipsBtn.alpha = 1;
+        self.orderDetailModel.del_state.intValue == 1){//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
+            self.tipsBtn.alpha = 1;//取消中
         }else{
             self.tipsBtn.alpha = 0;
         }
-    }else if (self.orderListModel){
+    }else if (self.orderListModel){//搜索
+        NSLog(@"SSS order_status = %d",self.orderListModel.order_status.intValue);
+        NSLog(@"SSS del_state = %d",self.orderListModel.del_state.intValue);
         if(self.orderListModel.order_status.intValue == 2 &&//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-        (self.orderListModel.del_state.intValue == 1)){//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
+        self.orderListModel.del_state.intValue == 1){//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
             self.tipsBtn.alpha = 1;
         }else{
             self.tipsBtn.alpha = 0;
@@ -88,6 +88,14 @@
     if (![NSString isNullString:self.str]) {
         self.titleLab.attributedText = self.attributedString;
     }
+}
+
+-(void)layoutSubviews{
+    [super layoutSubviews];
+}
+
+-(void)drawRect:(CGRect)rect{
+
 }
 #pragma mark —— lazyLoad
 -(NSMutableAttributedString *)attributedString{

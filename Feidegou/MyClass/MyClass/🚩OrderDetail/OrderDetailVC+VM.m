@@ -97,7 +97,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             if ([NSString isNullString:str]) {
 //                @strongify(self)
                 NSLog(@"--%@",response);
-                Toast(@"取消成功");
+//                Toast(@"取消成功");
                 [self CancelDelivery_NetWorking2];
 //                [self.tableView.mj_header beginRefreshing];
             }
@@ -615,7 +615,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                 [self.dataMutArr addObject:[[NSString ensureNonnullString:model.quantity ReplaceStr:@"暂无"] stringByAppendingString:@" g"]];//数量
                 [self.dataMutArr addObject:[[NSString ensureNonnullString:model.rental ReplaceStr:@"暂无"] stringByAppendingString:@" CNY"]];//总价
 //OrderDetailModel 和 OrderManager_panicBuyingModel 是同一个
-                if (self.orderDetailModel) {
+                if (self.orderDetailModel) {//如果 这个页面是从极光推送过来的
                     if ([self.orderDetailModel.payment_status intValue] == 3) {//3、银行卡
                         [self.dataMutArr addObject:@"银行卡"];
                         
@@ -628,8 +628,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                         [self.titleMutArr addObject:@"账户异常:"];
                         [self.dataMutArr addObject:@"支付账号数据异常"];//账号
                     }
-                }
-                else if (self.orderManager_panicBuyingModel){
+                }//如果 这个页面是从极光推送过来的
+                else if (self.orderManager_panicBuyingModel){//如果 这个页面是从订单管理 直通车过来的
                     if ([self.orderManager_panicBuyingModel.payment_status intValue] == 3) {//3、银行卡
                         [self.dataMutArr addObject:@"银行卡"];
                         
@@ -642,8 +642,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                         [self.titleMutArr addObject:@"账户异常:"];
                         [self.dataMutArr addObject:@"支付账号数据异常"];//账号
                     }
-                }
-                else if (self.orderManager_producingAreaModel){
+                }//如果 这个页面是从订单管理 直通车过来的
+                else if (self.orderManager_producingAreaModel){//如果 这个页面是从订单管理 喵粮产地过来的
                     if ([self.orderManager_producingAreaModel.payment_status intValue] == 3) {//3、银行卡
                         [self.dataMutArr addObject:@"银行卡"];
                         
@@ -656,8 +656,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                         [self.titleMutArr addObject:@"银行卡号:"];//写死
                         [self.dataMutArr addObject:[NSString ensureNonnullString:model.bankCard ReplaceStr:@"暂无"]];//账号
                     }
-                }
-                else if (self.catFoodProducingAreaModel){
+                }//如果 这个页面是从订单管理 喵粮产地过来的
+                else if (self.catFoodProducingAreaModel){//如果 这个页面是从 喵粮产地过来的
                     if ([self.catFoodProducingAreaModel.payment_status intValue] == 3) {//3、银行卡
                         [self.dataMutArr addObject:@"银行卡"];
                         
@@ -670,8 +670,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                         [self.titleMutArr addObject:@"银行卡号:"];//写死
                         [self.dataMutArr addObject:[NSString ensureNonnullString:model.bankCard ReplaceStr:@"暂无"]];//账号
                     }
-                }
-                else if (self.orderListModel){
+                }//如果 这个页面是从 喵粮产地过来的
+                else if (self.orderListModel){//如果 这个页面是从 搜索过来的
                     //order_type 订单类型 1、直通车;2、批发;3、平台
                     if (self.orderListModel.order_type.intValue == 1) {//直通车 极光
                         NSString *str1 = [NSString ensureNonnullString:self.orderListModel.byname ReplaceStr:@"无"];//?????????
@@ -695,7 +695,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                         [self.dataMutArr addObject:[NSString ensureNonnullString:model.bankCard ReplaceStr:@"暂无"]];//账号
                     }
                     ///////
-                    if (self.orderListModel.order_type.intValue == 1) {//直通车 极光
+                    if (self.orderListModel.order_type.intValue == 1) {//
                         if ([self.orderListModel.order_status intValue] == 0) {
                             //倒计时3s + 发货
                             [self.sureBtn setTitle:@"发货"
@@ -745,7 +745,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                                 [self.dataMutArr addObject:@""];
                             }
                         }
-                    }//直通车 极光
+                    }//搜索
                     else if (self.orderListModel.order_type.intValue == 3){//喵粮产地
                         if (self.orderListModel.order_status.intValue == 2) {//订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                             if ([self.orderListModel.del_state intValue] == 0) {
@@ -790,7 +790,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
                         }else{}
                     }//平台
                     else{}
-                }
+                }//如果 这个页面是从 搜索过来的
                 else{}
 
                 [self.titleMutArr addObject:@"下单时间:"];
@@ -825,10 +825,17 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 
 //OrderDetailModel 和 OrderManager_panicBuyingModel 是同一个
                 
-#warning 倒计时数据源          OrderDetailModel
+#warning 倒计时数据源 OrderDetailModel
                 if (model.del_state.intValue == 1 &&//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
                     model.order_status.intValue == 2) {//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
                     [self.dataMutArr removeLastObject];
+                    self.viewForHeader.tipsBtn.alpha = 1;
+                    
+//                    if ([model isKindOfClass:[OrderDetailModel class]]) {
+//                        OrderDetailModel *orderDetailModel = (OrderDetailModel *)model;
+//                        self.orderDetailModel.del_state = orderDetailModel.del_state;
+//                        NSLog(@"");
+//                    }
                     //计算两个时间的相隔
                     NSDateFormatter *formatter = NSDateFormatter.new;
                     [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];

@@ -7,6 +7,7 @@
 //
 
 #import "BaseVC.h"
+#import "OrderDetailTBViewForHeader.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -36,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UIButton *normalCancelBtn;
 @property(nonatomic,strong)VerifyCodeButton *contactBuyer;//???
 @property(nonatomic,strong)VerifyCodeButton *countDownCancelBtn;
+@property(nonatomic,strong)OrderDetailTBViewForHeader *viewForHeader;
 //@property(nonatomic,strong)UIImageView *tipsIMGV;
 
 @property(nonatomic,strong)__block UIImage *pic;

@@ -112,14 +112,13 @@
             _titleLabelFont = [UIFont systemFontOfSize:11.f
                                                 weight:1];
         } else {
-            // Fallback on earlier versions
+            _titleLabelFont = [UIFont systemFontOfSize:11.f];
         }
     }return _titleLabelFont;
 }
 
 -(CGFloat)layerCornerRadius{
     if (!_layerCornerRadius) {
-       
         _layerCornerRadius = self.frame.size.height / 2;
     }return _layerCornerRadius;
 }
@@ -159,7 +158,6 @@
         _showTimeType = ShowTimeType_SS;//默认只显示秒
     }return _showTimeType;
 }
-
 //传入 秒  得到 xx:xx:xx
 -(NSString *)getHHMMSSFromStr:(NSString *)totalTime{
     NSInteger seconds = [totalTime integerValue];
@@ -167,7 +165,7 @@
     NSString *str_minute = [NSString stringWithFormat:@"%02ld",(seconds % 3600) / 60];//format of minute
     NSString *str_second = [NSString stringWithFormat:@"%02ld",seconds % 60];//format of second
     NSString *format_time = [NSString stringWithFormat:@"%@:%@:%@",str_hour,str_minute,str_second];//format of time
-    NSLog(@"format_time : %@",format_time);
+//    NSLog(@"format_time : %@",format_time);
     return format_time;
 }
 
