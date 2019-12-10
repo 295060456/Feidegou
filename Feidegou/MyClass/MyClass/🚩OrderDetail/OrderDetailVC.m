@@ -75,10 +75,10 @@ UITableViewDataSource
         vc.Order_id = vc.catFoodProducingAreaModel.ID;
         vc.Order_type = vc.catFoodProducingAreaModel.order_type;
         vc.catFoodProducingAreaModel.isSelect = YES;
-    }else if ([vc.requestParams isKindOfClass:[OrderDetailModel class]]){//极光推送进
-        vc.orderDetailModel = (OrderDetailModel *)vc.requestParams;
-        vc.Order_id = vc.orderDetailModel.ID;
-        vc.Order_type = vc.orderDetailModel.order_type;
+    }else if ([vc.requestParams isKindOfClass:[JPushOrderDetailModel class]]){//极光推送进
+        vc.jPushOrderDetailModel = (JPushOrderDetailModel *)vc.requestParams;
+        vc.Order_id = vc.jPushOrderDetailModel.ID;
+        vc.Order_type = vc.jPushOrderDetailModel.order_type;
     }else if ([vc.requestParams isKindOfClass:[OrderManager_producingAreaModel class]]){//订单管理——产地
         vc.orderManager_producingAreaModel = (OrderManager_producingAreaModel *)vc.requestParams;
         vc.Order_id = vc.orderManager_producingAreaModel.ID;
@@ -320,24 +320,24 @@ UITableViewDataSource
             [self.dataMutArr addObject:self.catFoodProducingAreaModel.payment_print];
         }
     }//喵粮产地
-    else if (self.orderDetailModel) {//极光推送
-        NSString *str1 = [NSString ensureNonnullString:self.orderDetailModel.byname ReplaceStr:@"无"];
-        NSString *str2 = [NSString ensureNonnullString:self.orderDetailModel.quantity ReplaceStr:@""];
+    else if (self.jPushOrderDetailModel) {//极光推送
+        NSString *str1 = [NSString ensureNonnullString:self.jPushOrderDetailModel.byname ReplaceStr:@"无"];
+        NSString *str2 = [NSString ensureNonnullString:self.jPushOrderDetailModel.quantity ReplaceStr:@""];
         self.str = [NSString stringWithFormat:@"您向%@出售%@g喵粮",str1,str2];
         self.gk_navTitle = @"直通车订单详情";
         //只有3小时取消、发货、状态为已下单
         //订单状态|已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-        if ([self.orderDetailModel.order_status intValue] == 0) {
+        if ([self.jPushOrderDetailModel.order_status intValue] == 0) {
             [self.dataMutArr addObject:@"已支付"];
-        }else if ([self.orderDetailModel.order_status intValue] == 1){
+        }else if ([self.jPushOrderDetailModel.order_status intValue] == 1){
             [self.dataMutArr addObject:@"已发单"];
-        }else if ([self.orderDetailModel.order_status intValue] == 2){
+        }else if ([self.jPushOrderDetailModel.order_status intValue] == 2){
             [self.dataMutArr addObject:@"已下单"];
-        }else if ([self.orderDetailModel.order_status intValue] == 3){
+        }else if ([self.jPushOrderDetailModel.order_status intValue] == 3){
             [self.dataMutArr addObject:@"已作废"];
-        }else if ([self.orderDetailModel.order_status intValue] == 4){
+        }else if ([self.jPushOrderDetailModel.order_status intValue] == 4){
             [self.dataMutArr addObject:@"已发货"];
-        }else if ([self.orderDetailModel.order_status intValue] == 5){
+        }else if ([self.jPushOrderDetailModel.order_status intValue] == 5){
             [self.dataMutArr addObject:@"已完成"];
         }else{
             [self.dataMutArr addObject:@"数据异常"];
@@ -354,9 +354,9 @@ UITableViewDataSource
         [self.sureBtn addTarget:self
                          action:@selector(boothDeliver_networking)//喵粮抢摊位发货
                forControlEvents:UIControlEventTouchUpInside];//#21
-        if (![NSString isNullString:self.orderDetailModel.payment_print]) {
+        if (![NSString isNullString:self.jPushOrderDetailModel.payment_print]) {
             [self.titleMutArr addObject:@"凭证"];
-            [self.dataMutArr addObject:self.orderDetailModel.payment_print];
+            [self.dataMutArr addObject:self.jPushOrderDetailModel.payment_print];
         }
     }//JPush
     else{
@@ -398,7 +398,7 @@ UITableViewDataSource
     else if (self.catFoodProducingAreaModel){//喵粮产地
         [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"产地"];//订单类型 —— 1、直通车;2、批发;3、产地
     }
-    else if (self.orderDetailModel){//直通车 极光推送
+    else if (self.jPushOrderDetailModel){//直通车 极光推送
         [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:@"直通车"];//订单类型 —— 1、直通车;2、批发;3、产地
     }
     else if (self.orderListModel){//搜索订单
@@ -447,10 +447,10 @@ UITableViewDataSource
             model.conversationTitle = [NSString stringWithFormat:@"买家:%@",self.orderListModel.byname];
         }else if (self.catFoodProducingAreaModel){
 //            model.targetId = [NSString stringWithFormat:@"%@",self.catFoodProducingAreaModel.platform_id];//0
-        }else if (self.orderDetailModel){
-            model.targetId = [NSString stringWithFormat:@"%@",self.orderDetailModel.platform_id];//0
-            model.myOrderCode = self.orderDetailModel.ordercode;
-            model.conversationTitle = [NSString stringWithFormat:@"买家:%@",self.orderDetailModel.byname];
+        }else if (self.jPushOrderDetailModel){
+            model.targetId = [NSString stringWithFormat:@"%@",self.jPushOrderDetailModel.platform_id];//0
+            model.myOrderCode = self.jPushOrderDetailModel.ordercode;
+            model.conversationTitle = [NSString stringWithFormat:@"买家:%@",self.jPushOrderDetailModel.byname];
         }
         else if (self.orderManager_producingAreaModel){
 //            model.targetId = [NSString stringWithFormat:@"%@",self.orderManager_producingAreaModel.platform_id];//0
@@ -498,9 +498,9 @@ viewForHeaderInSection:(NSInteger)section {
 //                viewForHeader.tipsIMGV.alpha = 1;
                 [self chat];
             }
-            if (self.orderDetailModel.order_status.intValue == 2 &&
-                (self.orderDetailModel.del_state.intValue == 1 ||
-                 self.orderDetailModel.del_state.intValue == 0)) {
+            if (self.jPushOrderDetailModel.order_status.intValue == 2 &&
+                (self.jPushOrderDetailModel.del_state.intValue == 1 ||
+                 self.jPushOrderDetailModel.del_state.intValue == 0)) {
 //                viewForHeader.tipsIMGV.alpha = 0;
                 [self chat];
             }
@@ -517,7 +517,7 @@ heightForHeaderInSection:(NSInteger)section{
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (![NSString isNullString:self.orderListModel.payment_print] ||
     ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-        ![NSString isNullString:self.orderDetailModel.payment_print] ||
+        ![NSString isNullString:self.jPushOrderDetailModel.payment_print] ||
         ![NSString isNullString:self.orderManager_producingAreaModel.payment_print]
     ) {//![NSString isNullString:self.stallListModel.payment_print]
         if (indexPath.row == self.titleMutArr.count - 1) {
@@ -543,7 +543,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == self.titleMutArr.count - 1) {//最后一行
         if (![NSString isNullString:self.orderListModel.payment_print] ||
             ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-            ![NSString isNullString:self.orderDetailModel.payment_print] ||
+            ![NSString isNullString:self.jPushOrderDetailModel.payment_print] ||
             ![NSString isNullString:self.orderManager_producingAreaModel.payment_print]
             ) {//有凭证数据  ![NSString isNullString:self.stallListModel.payment_print]
             OrderDetailTBVIMGCell *cell = [OrderDetailTBVIMGCell cellWith:tableView];//
@@ -570,7 +570,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 
             }else if ([self.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){
                 
-            }else if ([self.requestParams isKindOfClass:[OrderDetailModel class]]){
+            }else if ([self.requestParams isKindOfClass:[JPushOrderDetailModel class]]){
                 
             }
             else{}
@@ -627,13 +627,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.bankaddress ReplaceStr:@"无"]];//支行信息
             [_dataMutArr addObject:[NSString ensureNonnullString:self.catFoodProducingAreaModel.updateTime ReplaceStr:@"无"]];//下单时间
         }
-        else if (self.orderDetailModel){//极光推送
-            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.ordercode ReplaceStr:@"无"]];//订单号
-            [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderDetailModel.price ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//单价
-            [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderDetailModel.quantity ReplaceStr:@"无"] stringByAppendingString:@" g"]];//数量
-            [_dataMutArr addObject:[[NSString ensureNonnullString:self.orderDetailModel.rental ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//总价
+        else if (self.jPushOrderDetailModel){//极光推送
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.jPushOrderDetailModel.ordercode ReplaceStr:@"无"]];//订单号
+            [_dataMutArr addObject:[[NSString ensureNonnullString:self.jPushOrderDetailModel.price ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//单价
+            [_dataMutArr addObject:[[NSString ensureNonnullString:self.jPushOrderDetailModel.quantity ReplaceStr:@"无"] stringByAppendingString:@" g"]];//数量
+            [_dataMutArr addObject:[[NSString ensureNonnullString:self.jPushOrderDetailModel.rental ReplaceStr:@"无"] stringByAppendingString:@" CNY"]];//总价
             [_dataMutArr addObject:@"微信"];//支付方式
-            [_dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.updateTime ReplaceStr:@"无"]];//下单时间
+            [_dataMutArr addObject:[NSString ensureNonnullString:self.jPushOrderDetailModel.updateTime ReplaceStr:@"无"]];//下单时间
         }
         else{}
     }return _dataMutArr;
@@ -674,7 +674,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [_titleMutArr addObject:@"下单时间:"];
             [_titleMutArr addObject:@"订单状态"];
         }
-        else if (self.orderDetailModel){//原直通车
+        else if (self.jPushOrderDetailModel){//原直通车
             [_titleMutArr addObject:@"订单号:"];
             [_titleMutArr addObject:@"单价:"];
             [_titleMutArr addObject:@"数量:"];
@@ -728,7 +728,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         
         if (![NSString isNullString:self.orderListModel.payment_print] ||
         ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-            ![NSString isNullString:self.orderDetailModel.payment_print]
+            ![NSString isNullString:self.jPushOrderDetailModel.payment_print]
         ) {
             _reloadPicBtn.frame = CGRectMake((SCREEN_WIDTH / 2 - (SCREEN_WIDTH - SCALING_RATIO(100)) / 4),
                                              [OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil] + SCALING_RATIO(120),
@@ -764,11 +764,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2, SCALING_RATIO(50)));
             if (![NSString isNullString:self.orderListModel.payment_print] ||
             ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-                ![NSString isNullString:self.orderDetailModel.payment_print]
+                ![NSString isNullString:self.jPushOrderDetailModel.payment_print]
             ) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
             }else{
-                if (self.orderDetailModel) {//极光推送
+                if (self.jPushOrderDetailModel) {//极光推送
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + 7 * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
                 }else if (self.catFoodProducingAreaModel){
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + 8 * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
@@ -795,7 +795,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2, SCALING_RATIO(50)));
             if (![NSString isNullString:self.orderListModel.payment_print] ||
             ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-                ![NSString isNullString:self.orderDetailModel.payment_print]
+                ![NSString isNullString:self.jPushOrderDetailModel.payment_print]
             ) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
             }else{//[OrderDetailTBVCell cellHeightWithModel:nil]
@@ -824,7 +824,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2, SCALING_RATIO(50)));
             if (![NSString isNullString:self.orderListModel.payment_print] ||
             ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-                ![NSString isNullString:self.orderDetailModel.payment_print]
+                ![NSString isNullString:self.jPushOrderDetailModel.payment_print]
             ) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
             }else{//

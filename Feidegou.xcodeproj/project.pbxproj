@@ -20,7 +20,7 @@
 		8B16F0692386AEAC003941B4 /* SearchVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B16F0682386AEAC003941B4 /* SearchVC.m */; };
 		8B225B99238900A6003682CC /* SearchVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B225B98238900A6003682CC /* SearchVC+VM.m */; };
 		8B3C0B58237FCAB800BFFA86 /* OrderDetailVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3C0B57237FCAB800BFFA86 /* OrderDetailVC+VM.m */; };
-		8B3C0B5B237FCAD500BFFA86 /* OrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3C0B5A237FCAD500BFFA86 /* OrderDetailModel.m */; };
+		8B3C0B5B237FCAD500BFFA86 /* JPushOrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3C0B5A237FCAD500BFFA86 /* JPushOrderDetailModel.m */; };
 		8B408746238E45550030ABBF /* QRcodeIMGV.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B408745238E45550030ABBF /* QRcodeIMGV.m */; };
 		8B40874D238E62120030ABBF /* EvaluateVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40874C238E62120030ABBF /* EvaluateVC.m */; };
 		8B408751238E62320030ABBF /* GoodsDetailsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B408750238E62320030ABBF /* GoodsDetailsVC.m */; };
@@ -679,8 +679,8 @@
 		8B225B98238900A6003682CC /* SearchVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SearchVC+VM.m"; sourceTree = "<group>"; };
 		8B3C0B56237FCAB800BFFA86 /* OrderDetailVC+VM.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OrderDetailVC+VM.h"; sourceTree = "<group>"; };
 		8B3C0B57237FCAB800BFFA86 /* OrderDetailVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "OrderDetailVC+VM.m"; sourceTree = "<group>"; };
-		8B3C0B59237FCAD500BFFA86 /* OrderDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailModel.h; sourceTree = "<group>"; };
-		8B3C0B5A237FCAD500BFFA86 /* OrderDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailModel.m; sourceTree = "<group>"; };
+		8B3C0B59237FCAD500BFFA86 /* JPushOrderDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPushOrderDetailModel.h; sourceTree = "<group>"; };
+		8B3C0B5A237FCAD500BFFA86 /* JPushOrderDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPushOrderDetailModel.m; sourceTree = "<group>"; };
 		8B408743238E35DF0030ABBF /* 喵粮商城.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "喵粮商城.entitlements"; sourceTree = "<group>"; };
 		8B408744238E45550030ABBF /* QRcodeIMGV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRcodeIMGV.h; sourceTree = "<group>"; };
 		8B408745238E45550030ABBF /* QRcodeIMGV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRcodeIMGV.m; sourceTree = "<group>"; };
@@ -2498,8 +2498,8 @@
 				8BAC1F102382374A0084B6B4 /* OrderDetailTBViewForHeader.m */,
 				8BAC1F0C2381A3B90084B6B4 /* OrderDetailVC.h */,
 				8BAC1F0D2381A3B90084B6B4 /* OrderDetailVC.m */,
-				8B3C0B59237FCAD500BFFA86 /* OrderDetailModel.h */,
-				8B3C0B5A237FCAD500BFFA86 /* OrderDetailModel.m */,
+				8B3C0B59237FCAD500BFFA86 /* JPushOrderDetailModel.h */,
+				8B3C0B5A237FCAD500BFFA86 /* JPushOrderDetailModel.m */,
 				8B3C0B56237FCAB800BFFA86 /* OrderDetailVC+VM.h */,
 				8B3C0B57237FCAB800BFFA86 /* OrderDetailVC+VM.m */,
 			);
@@ -4990,7 +4990,7 @@
 				8B86E02B23853FEA004D4C0A /* AppDelegate+Alipay.m in Sources */,
 				8BCAB650238AA3D9000B0360 /* SearchModel.m in Sources */,
 				C42CD150213CC2640096675F /* CLCellTypeSelected.m in Sources */,
-				8B3C0B5B237FCAD500BFFA86 /* OrderDetailModel.m in Sources */,
+				8B3C0B5B237FCAD500BFFA86 /* JPushOrderDetailModel.m in Sources */,
 				C42F5D2E213F858B00114E0E /* CellIncomeAll.m in Sources */,
 				C46D6B5E2143A5FF00428D7A /* ModelOrderGoodList.m in Sources */,
 				8B8A0DFD238FEFDE000D7579 /* ThroughTrainListVC.m in Sources */,

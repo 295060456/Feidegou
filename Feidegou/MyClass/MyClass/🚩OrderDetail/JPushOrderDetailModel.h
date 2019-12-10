@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 //极光推送 直通车订单使用
-@interface OrderDetailModel : BaseModel
+@interface JPushOrderDetailModel : BaseModel
 
 @property(nonatomic,copy)NSString *seller;
 @property(nonatomic,strong)NSNumber *buyer;

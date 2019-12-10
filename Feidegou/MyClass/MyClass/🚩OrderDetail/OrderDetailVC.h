@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)id requestParams;
 @property(nonatomic,strong)OrderListModel *orderListModel;//搜索
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;//产地
-@property(nonatomic,strong)OrderDetailModel *orderDetailModel;//极光推送
+@property(nonatomic,strong)JPushOrderDetailModel *jPushOrderDetailModel;//极光推送
 @property(nonatomic,strong)OrderManager_producingAreaModel *orderManager_producingAreaModel;
 @property(nonatomic,strong)OrderManager_panicBuyingModel *orderManager_panicBuyingModel;//直通车
 //@property(nonatomic,strong)StallListModel *stallListModel;

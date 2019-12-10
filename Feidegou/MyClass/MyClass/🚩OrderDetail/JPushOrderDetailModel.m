@@ -6,8 +6,8 @@
 //  Copyright © 2019 朝花夕拾. All rights reserved.
 //
 
-#import "OrderDetailModel.h"
+#import "JPushOrderDetailModel.h"
 
-@implementation OrderDetailModel
+@implementation JPushOrderDetailModel
 
 @end

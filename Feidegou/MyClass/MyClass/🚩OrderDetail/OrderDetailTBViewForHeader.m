@@ -16,7 +16,7 @@
 
 @property(nonatomic,copy)NSMutableAttributedString *attributedString;
 @property(nonatomic,strong)OrderManager_panicBuyingModel *orderManager_panicBuyingModel;
-@property(nonatomic,strong)OrderDetailModel *orderDetailModel;
+@property(nonatomic,strong)JPushOrderDetailModel *jPushOrderDetailModel;
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
 @property(nonatomic,strong)OrderManager_producingAreaModel *orderManager_producingAreaModel;
 @property(nonatomic,strong)OrderListModel *orderListModel;//搜索
@@ -42,8 +42,8 @@
     NSLog(@"FDDD = %@",model);
     if ([model isKindOfClass:[OrderManager_panicBuyingModel class]]) {
         self.orderManager_panicBuyingModel = (OrderManager_panicBuyingModel *)model;
-    }else if ([model isKindOfClass:[OrderDetailModel class]]){
-        self.orderDetailModel = (OrderDetailModel *)model;
+    }else if ([model isKindOfClass:[JPushOrderDetailModel class]]){
+        self.jPushOrderDetailModel = (JPushOrderDetailModel *)model;
     }else if ([model isKindOfClass:[CatFoodProducingAreaModel class]]){
         self.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)model;
     }else if ([model isKindOfClass:[OrderManager_producingAreaModel class]]){
@@ -63,11 +63,11 @@
         else{
             self.tipsBtn.alpha = 0;
         }
-    }else if (self.orderDetailModel){//JPush
-        NSLog(@"SSS order_status = %d",self.orderDetailModel.order_status.intValue);
-        NSLog(@"SSS del_state = %d",self.orderDetailModel.del_state.intValue);
-        if(self.orderDetailModel.order_status.intValue == 2 &&//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-        self.orderDetailModel.del_state.intValue == 1){//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
+    }else if (self.jPushOrderDetailModel){//JPush
+        NSLog(@"SSS order_status = %d",self.jPushOrderDetailModel.order_status.intValue);
+        NSLog(@"SSS del_state = %d",self.jPushOrderDetailModel.del_state.intValue);
+        if(self.jPushOrderDetailModel.order_status.intValue == 2 &&//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+        self.jPushOrderDetailModel.del_state.intValue == 1){//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
             self.tipsBtn.alpha = 1;//取消中
         }else{
             self.tipsBtn.alpha = 0;
@@ -118,7 +118,7 @@
     }
     NSRange selRange_01 = [self.str rangeOfString:@"您向"];//location=0, length=2
     NSRange selRange_02;
-    if (self.orderDetailModel) {
+    if (self.jPushOrderDetailModel) {
         selRange_02 = [self.str rangeOfString:@"出售"];//location=6, length=2
     }
     else if (self.orderManager_panicBuyingModel){

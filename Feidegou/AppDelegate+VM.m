@@ -65,7 +65,7 @@
             NSLog(@"--%@",response);
             if ([response isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *dataDic = (NSDictionary *)response;
-                OrderDetailModel *model = [OrderDetailModel mj_objectWithKeyValues:dataDic[@"catFoodOrder"]];
+                JPushOrderDetailModel *model = [JPushOrderDetailModel mj_objectWithKeyValues:dataDic[@"catFoodOrder"]];
                 if (!self.orderDetailVC) {
                     @weakify(self)
                     self.orderDetailVC = [OrderDetailVC ComingFromVC:self_weak_.window.rootViewController

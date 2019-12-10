@@ -134,14 +134,10 @@
 #import "CleanPetsModel.h"
 #import "GrowthValuePetsModel.h"
 #import "GiftFoodsModel.h"
-#import "OrderDetailModel.h"
 #import "ReleaseOrderModel.h"
-#import "CatFoodProducingAreaModel.h"
 #import "JJBaseModel.h"
 #import "SettingPaymentWayModel.h"
 #import "PersonalDataChangedListModel.h"
-#import "OrderManager_panicBuyingModel.h"
-#import "OrderManager_producingAreaModel.h"
 #import "DefineStructure.h"
 #import "OrderListModel.h"
 #import "ThroughTrainListModel.h"
@@ -149,8 +145,13 @@
 #import "PlatformConversationModel.h"
 #import "GoodMainController.h"
 
-#import "LoginViewController.h"
+#import "OrderManager_panicBuyingModel.h"//订单详情——直通车 准备进订单详情
+#import "OrderManager_producingAreaModel.h"//订单详情——喵粮产地 准备进订单详情
+#import "JPushOrderDetailModel.h"//极光推送准备进订单详情
+#import "CatFoodProducingAreaModel.h"//喵粮产地 准备进订单详情
 #import "OrderDetailVC.h"//订单详情
+
+#import "LoginViewController.h"
 #import "UpLoadCancelReasonVC.h"//上传截图
 #import "PersonalInfo.h"
 #import "SearchVC.h"
