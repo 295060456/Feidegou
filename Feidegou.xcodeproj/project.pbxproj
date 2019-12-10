@@ -989,7 +989,7 @@
 		C416281B2171DFE200DC0D10 /* CellTuihuoWuliu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CellTuihuoWuliu.h; sourceTree = "<group>"; };
 		C416281C2171DFE200DC0D10 /* CellTuihuoWuliu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CellTuihuoWuliu.m; sourceTree = "<group>"; };
 		C416281D2171DFE200DC0D10 /* CellTuihuoWuliu.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CellTuihuoWuliu.xib; sourceTree = "<group>"; };
-		C42CCCD6213CC04F0096675F /* 喵粮商城.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "喵粮商城.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C42CCCD6213CC04F0096675F /* 喵小店.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "喵小店.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C42CCCD9213CC04F0096675F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		C42CCCDA213CC04F0096675F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C42CCCE0213CC04F0096675F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -2844,7 +2844,7 @@
 		C42CCCD7213CC04F0096675F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C42CCCD6213CC04F0096675F /* 喵粮商城.app */,
+				C42CCCD6213CC04F0096675F /* 喵小店.app */,
 				C42CCCEE213CC0520096675F /* FeidegouTests.xctest */,
 				C42CCCF9213CC0520096675F /* FeidegouUITests.xctest */,
 			);
@@ -4287,7 +4287,7 @@
 			);
 			name = Feidegou;
 			productName = Feidegou;
-			productReference = C42CCCD6213CC04F0096675F /* 喵粮商城.app */;
+			productReference = C42CCCD6213CC04F0096675F /* 喵小店.app */;
 			productType = "com.apple.product-type.application";
 		};
 		C42CCCED213CC0520096675F /* FeidegouTests */ = {
@@ -5290,7 +5290,7 @@
 				);
 				MARKETING_VERSION = 110;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miaoLiangStores.app;
-				PRODUCT_NAME = "喵粮商城";
+				PRODUCT_NAME = "喵小店";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -5355,7 +5355,7 @@
 				);
 				MARKETING_VERSION = 110;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miaoLiangStores.app;
-				PRODUCT_NAME = "喵粮商城";
+				PRODUCT_NAME = "喵小店";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -21,6 +21,7 @@ NSString *market_price_co;//产地均价
 @implementation CatFoodsManagementVC (VM)
 
 -(void)networking{
+    NSLog(@"wokeyi");
     ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
     tokenStr = modelLogin.token;
     NSDictionary *dataDic = @{

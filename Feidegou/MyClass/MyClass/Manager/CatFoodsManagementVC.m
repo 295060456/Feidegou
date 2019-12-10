@@ -18,8 +18,6 @@
 #import "CatFoodsManagementVC+VM.h"
 #import "CreateTeamVC.h"//创建团队
 
-CatFoodsManagementVC *catFoodsManagementVC;
-
 @interface CatFoodsManagementVC ()
 <
 UITableViewDelegate,
@@ -27,6 +25,7 @@ UITableViewDataSource
 >
 
 @property(nonatomic,strong)UIButton *contactCustomerServiceBtn;
+@property(nonatomic,strong)UIButton *btn;
 @property(nonatomic,strong)ModelLogin *loginModel;
 @property(nonatomic,strong)NSMutableArray <NSArray *>*titleMutArr;
 @property(nonatomic,strong)NSMutableArray <NSArray *>*imgMutArr;
@@ -45,6 +44,7 @@ UITableViewDataSource
 @implementation CatFoodsManagementVC
 
 - (void)dealloc {
+    NSLog(@"enhaode");
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
 }
 
@@ -54,7 +54,6 @@ UITableViewDataSource
                       success:(DataBlock)block
                      animated:(BOOL)animated{
     CatFoodsManagementVC *vc = CatFoodsManagementVC.new;
-    catFoodsManagementVC = vc;
     vc.successBlock = block;
     vc.requestParams = requestParams;
     switch (comingStyle) {
@@ -116,12 +115,12 @@ UITableViewDataSource
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
+    [self.timer invalidate];
+    self.timer = nil;
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    [self.timer invalidate];
-    self.timer = nil;
 }
 
 #pragma mark —— 点击事件
@@ -321,19 +320,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         if ([cell.textLabel.text isEqualToString:@"喵粮订单管理"]) {
 #warning KKK
             extern NSNumber *wait_goods;//待处理订单的数量
+            [self.btn setTitle:[wait_goods stringValue]
+                      forState:UIControlStateNormal];
+            [cell addSubview:self.btn];
+            _btn.frame = CGRectMake(SCREEN_WIDTH - SCALING_RATIO(60),
+                                            SCALING_RATIO(15),
+                                            SCALING_RATIO(20),
+                                            SCALING_RATIO(20));
+            [UIView cornerCutToCircleWithView:_btn
+                              AndCornerRadius:SCALING_RATIO(10)];
             if ([wait_goods intValue]) {
-                UIButton *btn = UIButton.new;
-                [btn setTitle:[wait_goods stringValue]
-                     forState:UIControlStateNormal];
-                [btn setBackgroundImage:kIMG(@"RedDot")
-                               forState:UIControlStateNormal];
-                [cell addSubview:btn];
-                btn.frame = CGRectMake(SCREEN_WIDTH - SCALING_RATIO(60),
-                                       SCALING_RATIO(15),
-                                       SCALING_RATIO(20),
-                                       SCALING_RATIO(20));
-                [UIView cornerCutToCircleWithView:btn
-                                  AndCornerRadius:SCALING_RATIO(10)];
+                 self.btn.alpha = 1;
+            }else{
+                self.btn.alpha = 0;
             }
         }
     }else{}
@@ -363,6 +362,16 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     }self.isFirstComing = NO;
 }
 #pragma mark —— lazyLoad
+-(UIButton *)btn{
+    if (!_btn) {
+        _btn = UIButton.new;
+        
+        [_btn setBackgroundImage:kIMG(@"RedDot")
+                        forState:UIControlStateNormal];
+
+    }return _btn;
+}
+
 -(UIButton *)contactCustomerServiceBtn{
     if (!_contactCustomerServiceBtn) {
         _contactCustomerServiceBtn = UIButton.new;
