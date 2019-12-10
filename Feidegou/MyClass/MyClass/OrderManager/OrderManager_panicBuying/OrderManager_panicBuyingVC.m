@@ -239,8 +239,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-
-    NSLog(@"BBBB = %ld",self.dataMutArr.count);
     if (self.dataMutArr.count) {
         @weakify(self)
         OrderManager_panicBuyingModel *orderListModel = self.dataMutArr[indexPath.row];
@@ -252,18 +250,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }else{
         NSLog(@"等待数据");
     }
-    
-//    if ([orderListModel.identity isEqualToString:@"买家"]) {
-//        [OrderDetail_BuyerVC pushFromVC:self_weak_
-//                          requestParams:orderListModel
-//                                success:^(id data) {}
-//                               animated:YES];
-//    }else if ([orderListModel.identity isEqualToString:@"卖家"]){
-//        [OrderDetail_SellerVC pushFromVC:self_weak_
-//                           requestParams:orderListModel
-//                                 success:^(id data) {}
-//                                animated:YES];
-//    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView

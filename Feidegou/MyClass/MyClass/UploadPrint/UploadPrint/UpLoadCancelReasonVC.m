@@ -57,8 +57,8 @@ UITableViewDataSource
     UpLoadCancelReasonVC *vc = UpLoadCancelReasonVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-    if ([requestParams isKindOfClass:[OrderListModel class]]) {
-        vc.orderListModel = (OrderListModel *)requestParams;
+    if ([requestParams isKindOfClass:[SearchOrderListModel class]]) {
+        vc.orderListModel = (SearchOrderListModel *)requestParams;
         vc.Order_id = vc.orderListModel.ID;
         vc.Order_type = vc.orderListModel.order_type;
     }

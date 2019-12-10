@@ -121,25 +121,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
     if (self.dataMutArr.count) {
-        @weakify(self)
-////        订单类型 1、直通车;2、批发;3、平台
-//        OrderListModel *orderListModel = self.dataMutArr[indexPath.row];
-//        if ([orderListModel.order_type intValue] == 1) {//1、直通车 StallListModel
-////            StallListModel *model = (StallListModel *)orderListModel;
-////            [OrderDetailVC ComingFromVC:self_weak_
-////                              withStyle:ComingStyle_PUSH
-////                          requestParams:model
-////                                success:^(id data) {}
-////                               animated:YES];
-//        }else if ([orderListModel.order_type intValue] == 3){//3、平台 CatFoodProducingAreaModel
-//            CatFoodProducingAreaModel *model = (CatFoodProducingAreaModel *)orderListModel;
-//            [OrderDetailVC ComingFromVC:self_weak_
-//                              withStyle:ComingStyle_PUSH
-//                          requestParams:model//只需要orderType 和 order_id
-//                                success:^(id data) {}
-//                               animated:YES];
-//        }else{}
-        
+        @weakify(self)        
         [OrderDetailVC ComingFromVC:self_weak_
                           withStyle:ComingStyle_PUSH
                       requestParams:self.dataMutArr[indexPath.row]//只需要orderType 和 order_id
@@ -222,7 +204,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }return _searchBar;
 }
 
--(NSMutableArray<OrderListModel *> *)dataMutArr{
+-(NSMutableArray<SearchOrderListModel *> *)dataMutArr{
     if (!_dataMutArr) {
         _dataMutArr = NSMutableArray.array;
     }return _dataMutArr;
@@ -252,8 +234,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    if ([model isKindOfClass:[OrderListModel class]]) {
-        OrderListModel *orderListModel = (OrderListModel *)model;
+    if ([model isKindOfClass:[SearchOrderListModel class]]) {
+        SearchOrderListModel *orderListModel = (SearchOrderListModel *)model;
         self.textLabel.text = orderListModel.ordercode;
     }
 }

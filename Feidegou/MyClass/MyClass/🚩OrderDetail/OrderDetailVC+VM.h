@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderDetailVC (VM)
 //buyer_CatfoodRecord_checkURL 喵粮订单查看
--(void)buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:(NSString *)order_type;
+-(void)buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:(NSNumber *)Order_type;
 -(void)CancelDelivery_NetWorking;//喵粮订单撤销 #5
 #pragma mark —— 喵粮产地
 -(void)cancelOrder_producingArea_netWorking;//喵粮产地购买取消 #9

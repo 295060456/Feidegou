@@ -139,7 +139,6 @@
 #import "SettingPaymentWayModel.h"
 #import "PersonalDataChangedListModel.h"
 #import "DefineStructure.h"
-#import "OrderListModel.h"
 #import "ThroughTrainListModel.h"
 #import "ConversationModel.h"
 #import "PlatformConversationModel.h"
@@ -149,6 +148,7 @@
 #import "OrderManager_producingAreaModel.h"//订单详情——喵粮产地 准备进订单详情
 #import "JPushOrderDetailModel.h"//极光推送准备进订单详情
 #import "CatFoodProducingAreaModel.h"//喵粮产地 准备进订单详情
+#import "SearchOrderListModel.h"//搜素页面 准备进订单详情
 #import "OrderDetailVC.h"//订单详情
 
 #import "LoginViewController.h"

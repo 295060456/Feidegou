@@ -46,13 +46,13 @@
             NSLog(@"--%@",response);
             if (response) {
                 if ([response isKindOfClass:[NSArray class]]) {
-                    NSArray *array = [OrderListModel mj_objectArrayWithKeyValuesArray:response];
+                    NSArray *array = [SearchOrderListModel mj_objectArrayWithKeyValuesArray:response];
                     if (array) {
                         [array enumerateObjectsUsingBlock:^(id  _Nonnull obj,
                                                             NSUInteger idx,
                                                             BOOL * _Nonnull stop) {
                             @strongify(self)
-                            OrderListModel *model = array[idx];
+                            SearchOrderListModel *model = array[idx];
                             [self.dataMutArr addObject:model];
                         }];
                         [self.tableView reloadData];

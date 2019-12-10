@@ -86,15 +86,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
           withCompletionHandler:(void (^)(NSInteger))completionHandler  API_AVAILABLE(ios(10.0)){
 //在这里处理回调信息 app active的时候
     NSLog(@"KKK = %@",notification);
-
-//    if (!self.orderDetailVC) {
-//        @weakify(self)
-//        self.orderDetailVC = [OrderDetailVC ComingFromVC:self_weak_.window.rootViewController
-//                                               withStyle:ComingStyle_PUSH
-//                                           requestParams:nil
-//                                                 success:^(id data) {}
-//                                                animated:YES];
-//    }
 //   Required
   NSDictionary *userInfo = notification.request.content.userInfo;
   if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {

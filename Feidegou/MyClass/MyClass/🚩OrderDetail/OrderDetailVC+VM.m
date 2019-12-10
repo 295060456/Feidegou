@@ -11,22 +11,12 @@
 @implementation OrderDetailVC (VM)
 //这个是数据核心
 //buyer_CatfoodRecord_checkURL 喵粮订单查看
--(void)buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:(NSString *)order_type{//订单类型 —— 1、摊位;2、批发;3、产地
-    NSNumber *b;
-    if ([order_type isEqualToString:@"直通车"]) {
-        b = [NSNumber numberWithInt:1];
-    }else if ([order_type isEqualToString:@"批发"]){
-        b = [NSNumber numberWithInt:2];
-    }else if ([order_type isEqualToString:@"产地"]){
-        b = [NSNumber numberWithInt:3];
-    }else{
-        b = [NSNumber numberWithInt:0];
-    }
-    
+-(void)buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:(NSNumber *)Order_type{//订单类型 —— 1、摊位;2、批发;3、产地
+
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dic = @{
-        @"order_id":[NSString ensureNonnullString:self.Order_id ReplaceStr:@"无"],//订单id
-        @"order_type":[NSString ensureNonnullString:b ReplaceStr:@"无"]//订单类型 —— 1、摊位;2、批发;3、产地
+        @"order_id":self.Order_id,//订单id
+        @"order_type":Order_type//订单类型 —— 1、摊位;2、批发;3、产地
     };
        
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST

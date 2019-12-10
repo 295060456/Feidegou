@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SearchVC : BaseVC
 
 @property(nonatomic,strong)UITableView *tableView;
-@property(nonatomic,strong)NSMutableArray <OrderListModel *>*dataMutArr;
+@property(nonatomic,strong)NSMutableArray <SearchOrderListModel *>*dataMutArr;
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
                     withStyle:(ComingStyle)comingStyle

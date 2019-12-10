@@ -227,7 +227,7 @@ constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
 -(void)CancelDelivery_NetWorking1{//废弃
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
     NSDictionary *dic;
-    OrderListModel *model;
+    SearchOrderListModel *model;
     if ([self.requestParams isKindOfClass:[NSDictionary class]]) {
         dic = (NSDictionary *)self.requestParams;
         model = dic[@"OrderListModel"][@"OrderListModel"];

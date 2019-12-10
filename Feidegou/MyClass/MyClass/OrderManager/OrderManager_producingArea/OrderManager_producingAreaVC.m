@@ -198,20 +198,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-    //
-    //先移除数据源
-    //
-    self.isDelCell = YES;
-    
-//    [self.dataMutArr removeObjectAtIndex:indexPath.row];
-//
-//    [self.tableView beginUpdates];
-//    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath]
-//                            withRowAnimation:UITableViewRowAnimationMiddle];
-//    [self.tableView endUpdates];
-//    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0]
-//                    withRowAnimation:UITableViewRowAnimationNone];
-    
     if (self.dataMutArr.count) {
         @weakify(self)
         OrderManager_producingAreaModel *orderListModel = self.dataMutArr[indexPath.row];
@@ -221,18 +207,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                             success:^(id data) {}
                            animated:YES];
     }
-    
-//    if ([orderListModel.identity isEqualToString:@"买家"]) {
-//        [OrderDetail_BuyerVC pushFromVC:self_weak_
-//                          requestParams:orderListModel
-//                                success:^(id data) {}
-//                               animated:YES];
-//    }else if ([orderListModel.identity isEqualToString:@"卖家"]){
-//        [OrderDetail_SellerVC pushFromVC:self_weak_
-//                           requestParams:orderListModel
-//                                 success:^(id data) {}
-//                                animated:YES];
-//    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView

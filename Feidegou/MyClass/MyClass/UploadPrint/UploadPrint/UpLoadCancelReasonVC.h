@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSNumber *Order_type;
 
 @property(nonatomic,strong)id requestParams;
-@property(nonatomic,strong)OrderListModel *orderListModel;
+@property(nonatomic,strong)SearchOrderListModel *orderListModel;
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
 @property(nonatomic,strong)OrderManager_producingAreaModel *orderManager_producingAreaModel;
 

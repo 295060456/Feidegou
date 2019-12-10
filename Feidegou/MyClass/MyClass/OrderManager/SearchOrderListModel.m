@@ -6,8 +6,8 @@
 //  Copyright © 2019 朝花夕拾. All rights reserved.
 //
 
-#import "OrderListModel.h"
+#import "SearchOrderListModel.h"
 
-@implementation OrderListModel
+@implementation SearchOrderListModel
 
 @end

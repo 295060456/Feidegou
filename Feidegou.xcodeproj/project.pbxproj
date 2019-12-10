@@ -165,7 +165,7 @@
 		8BCB993423719DEA0063E01E /* GiftVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BCB993323719DEA0063E01E /* GiftVC+VM.m */; };
 		8BEAAFC323884DB2008D7F1D /* readME in Resources */ = {isa = PBXBuildFile; fileRef = 8BEAAFC123884DB2008D7F1D /* readME */; };
 		8BEAAFC423884DB2008D7F1D /* UIControl+XY.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAAFC223884DB2008D7F1D /* UIControl+XY.m */; };
-		8BF2EC21238C220A0058C771 /* OrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2EC20238C220A0058C771 /* OrderListModel.m */; };
+		8BF2EC21238C220A0058C771 /* SearchOrderListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BF2EC20238C220A0058C771 /* SearchOrderListModel.m */; };
 		C4026DBD2148161D00D81974 /* AchievementController.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBB2148161D00D81974 /* AchievementController.m */; };
 		C4026DC02148164E00D81974 /* ButtonShare.m in Sources */ = {isa = PBXBuildFile; fileRef = C4026DBE2148164E00D81974 /* ButtonShare.m */; };
 		C405FEFB218C2A0900C02CDC /* CLCellInterger.m in Sources */ = {isa = PBXBuildFile; fileRef = C405FEF9218C2A0900C02CDC /* CLCellInterger.m */; };
@@ -965,8 +965,8 @@
 		8BEAAFC023884DB2008D7F1D /* UIControl+XY.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+XY.h"; sourceTree = "<group>"; };
 		8BEAAFC123884DB2008D7F1D /* readME */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readME; sourceTree = "<group>"; };
 		8BEAAFC223884DB2008D7F1D /* UIControl+XY.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+XY.m"; sourceTree = "<group>"; };
-		8BF2EC1F238C220A0058C771 /* OrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OrderListModel.h; path = Feidegou/MyClass/MyClass/OrderManager/OrderListModel.h; sourceTree = SOURCE_ROOT; };
-		8BF2EC20238C220A0058C771 /* OrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OrderListModel.m; path = Feidegou/MyClass/MyClass/OrderManager/OrderListModel.m; sourceTree = SOURCE_ROOT; };
+		8BF2EC1F238C220A0058C771 /* SearchOrderListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchOrderListModel.h; path = Feidegou/MyClass/MyClass/OrderManager/SearchOrderListModel.h; sourceTree = SOURCE_ROOT; };
+		8BF2EC20238C220A0058C771 /* SearchOrderListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchOrderListModel.m; path = Feidegou/MyClass/MyClass/OrderManager/SearchOrderListModel.m; sourceTree = SOURCE_ROOT; };
 		947AD75F86191C8F32BD1901 /* Pods-Feidegou.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Feidegou.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Feidegou/Pods-Feidegou.debug.xcconfig"; sourceTree = "<group>"; };
 		B086B5DEB6BD8EAB7AE4870A /* libPods-Feidegou.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Feidegou.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4026DBB2148161D00D81974 /* AchievementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementController.m; sourceTree = "<group>"; };
@@ -2771,8 +2771,8 @@
 		8BCAB642238A8E5D000B0360 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				8BF2EC1F238C220A0058C771 /* OrderListModel.h */,
-				8BF2EC20238C220A0058C771 /* OrderListModel.m */,
+				8BF2EC1F238C220A0058C771 /* SearchOrderListModel.h */,
+				8BF2EC20238C220A0058C771 /* SearchOrderListModel.m */,
 				8B16F04523867F03003941B4 /* OrderListTBVCell.h */,
 				8B16F04623867F03003941B4 /* OrderListTBVCell.m */,
 				8BA69E5E2396CFFF00575B2F /* OrderManagerTBViewForHeader.h */,
@@ -4976,7 +4976,7 @@
 				8B86A7F9237D0FE50058173B /* ReleaseOrderVC.m in Sources */,
 				C46368D4213FBE6C006922D5 /* LayoutSixType.m in Sources */,
 				8BA69E4F2396C3BD00575B2F /* GettingDeviceIP.m in Sources */,
-				8BF2EC21238C220A0058C771 /* OrderListModel.m in Sources */,
+				8BF2EC21238C220A0058C771 /* SearchOrderListModel.m in Sources */,
 				C42CD065213CC2640096675F /* CellCollectionType.m in Sources */,
 				8BB2D3412366CB3B0047D0E2 /* FMARCNetwork.m in Sources */,
 				C46143F1214386B6000C0CDC /* collectionLandScape.m in Sources */,

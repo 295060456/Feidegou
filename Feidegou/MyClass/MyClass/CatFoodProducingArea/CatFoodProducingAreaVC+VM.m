@@ -66,9 +66,7 @@
                                                          @"randomStr":randomStr
                                                      }];
     self.reqSignal = [[FMARCNetwork sharedInstance] requestNetworkData:req];
-    @weakify(self)
     [self.reqSignal subscribeNext:^(FMHttpResonse *response) {
-        @strongify(self)
         @weakify(self)
         [OrderDetailVC ComingFromVC:self_weak_
                           withStyle:ComingStyle_PUSH

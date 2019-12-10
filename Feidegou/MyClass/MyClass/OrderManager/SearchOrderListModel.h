@@ -1,5 +1,5 @@
 //
-//  OrderListModel.h
+//  SearchOrderListModel.h
 //  Feidegou
 //
 //  Created by Kite on 2019/11/21.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface OrderListModel : BaseModel
+@interface SearchOrderListModel : BaseModel
 
 @property(nonatomic,copy)NSString *finishTime;//
 @property(nonatomic,copy)NSString *payTime;//大写

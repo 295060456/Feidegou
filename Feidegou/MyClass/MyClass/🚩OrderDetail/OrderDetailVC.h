@@ -38,7 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)VerifyCodeButton *contactBuyer;//???
 @property(nonatomic,strong)VerifyCodeButton *countDownCancelBtn;
 @property(nonatomic,strong)OrderDetailTBViewForHeader *viewForHeader;
-//@property(nonatomic,strong)UIImageView *tipsIMGV;
 
 @property(nonatomic,strong)__block UIImage *pic;
 @property(nonatomic,copy)__block NSString *resultStr;
@@ -52,12 +51,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 
 @property(nonatomic,strong)id requestParams;
-@property(nonatomic,strong)OrderListModel *orderListModel;//搜索
+@property(nonatomic,strong)SearchOrderListModel *orderListModel;//搜索
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;//产地
 @property(nonatomic,strong)JPushOrderDetailModel *jPushOrderDetailModel;//极光推送
 @property(nonatomic,strong)OrderManager_producingAreaModel *orderManager_producingAreaModel;
 @property(nonatomic,strong)OrderManager_panicBuyingModel *orderManager_panicBuyingModel;//直通车
-//@property(nonatomic,strong)StallListModel *stallListModel;
 
 -(void)chat;
 -(void)cancdel;

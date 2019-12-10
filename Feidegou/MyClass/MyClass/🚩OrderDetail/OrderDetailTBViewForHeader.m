@@ -19,7 +19,7 @@
 @property(nonatomic,strong)JPushOrderDetailModel *jPushOrderDetailModel;
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
 @property(nonatomic,strong)OrderManager_producingAreaModel *orderManager_producingAreaModel;
-@property(nonatomic,strong)OrderListModel *orderListModel;//搜索
+@property(nonatomic,strong)SearchOrderListModel *orderListModel;//搜索
 
 @end
 
@@ -48,8 +48,8 @@
         self.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)model;
     }else if ([model isKindOfClass:[OrderManager_producingAreaModel class]]){
         self.orderManager_producingAreaModel = (OrderManager_producingAreaModel *)model;
-    }else if ([model isKindOfClass:[OrderListModel class]]){
-        self.orderListModel = (OrderListModel *)model;
+    }else if ([model isKindOfClass:[SearchOrderListModel class]]){
+        self.orderListModel = (SearchOrderListModel *)model;
     }
     else{}
     
