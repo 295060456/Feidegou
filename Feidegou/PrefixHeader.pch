@@ -117,6 +117,7 @@
 #import "YDDevice.h"
 #import "UIControl+XY.h"
 #import "GettingDeviceIP.h"
+#import "SunSortMutableDictionary.h"
 //#import "MISCustomButton.h"
 //加密体系
 #import "RSAUtil.h"
@@ -149,6 +150,8 @@
 #import "JPushOrderDetailModel.h"//极光推送准备进订单详情
 #import "CatFoodProducingAreaModel.h"//喵粮产地 准备进订单详情
 #import "SearchOrderListModel.h"//搜素页面 准备进订单详情
+
+#import "OrderDetailModel.h"
 #import "OrderDetailVC.h"//订单详情
 
 #import "LoginViewController.h"

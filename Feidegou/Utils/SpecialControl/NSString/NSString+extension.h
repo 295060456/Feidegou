@@ -115,4 +115,6 @@
 
 +(long long)getDigitsFromStr:(NSString *)str;
 
++ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString ;
+
 @end

@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSNumber *rental;//成交价格
 @property(nonatomic,copy)NSString *paytime;//支付时间
 @property(nonatomic,copy)NSString *finshtime;//完成时间
-@property(nonatomic,strong)NSNumber *order_type;//订单类型 1、直通车;2、批发;3、平台
+@property(nonatomic,strong)NSNumber *order_type;//订单类型 1、直通车;2、批发;3、产地
 @property(nonatomic,copy)NSString *reason;//撤销理由
 @property(nonatomic,copy)NSString *del_check;//审核理由
 @property(nonatomic,copy)NSNumber *del_state;//撤销状态 0、不影响（驳回）;1、待审核;2、已通过

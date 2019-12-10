@@ -63,7 +63,7 @@ pod 'GKNavigationBarViewController'
 pod 'MISFloatingBall'
 pod 'BRPickerView'
 pod 'JJStockView'#Excel
-pod 'MLeaksFinder' #在开发时在iOS应用中查找内存泄漏 https://github.com/Tencent/MLeaksFinder
+#pod 'MLeaksFinder' #在开发时在iOS应用中查找内存泄漏 https://github.com/Tencent/MLeaksFinder
 pod 'YYText'
 pod 'BEMCheckBox'
 pod 'SocketRocket'
@@ -75,7 +75,6 @@ pod 'SDWebImage'
 pod 'SDWebImage/WebP'
 pod 'SDCycleScrollView'
 pod 'WXSTransition'
-
 pod 'WechatOpenSDK'
 
 #pod 'SDWebImage'

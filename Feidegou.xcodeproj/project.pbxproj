@@ -46,6 +46,8 @@
 		8B7A54ED236D6DD1006B12F8 /* WBTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A54E3236D6DD0006B12F8 /* WBTableViewDataSource.m */; };
 		8B7A552C236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7A552B236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m */; };
 		8B7DED9A2382C0D200DEBA38 /* Q_Pet+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B7DED982382C0D200DEBA38 /* Q_Pet+VM.m */; };
+		8B8424BA23A00C5500BFBA59 /* OrderDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8424B923A00C5500BFBA59 /* OrderDetailModel.m */; };
+		8B8424BE23A02BDF00BFBA59 /* SunSortMutableDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B8424BD23A02BDF00BFBA59 /* SunSortMutableDictionary.m */; };
 		8B86A7F8237D0FE50058173B /* ReleaseOrderVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86A7F4237D0FE40058173B /* ReleaseOrderVC+VM.m */; };
 		8B86A7F9237D0FE50058173B /* ReleaseOrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86A7F5237D0FE40058173B /* ReleaseOrderVC.m */; };
 		8B86A7FC237D120C0058173B /* ReleaseOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B86A7FA237D120C0058173B /* ReleaseOrderModel.m */; };
@@ -731,6 +733,10 @@
 		8B7A552B236EC3FF006B12F8 /* CatFoodsManagementVC+VM.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CatFoodsManagementVC+VM.m"; sourceTree = "<group>"; };
 		8B7DED982382C0D200DEBA38 /* Q_Pet+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Q_Pet+VM.m"; sourceTree = "<group>"; };
 		8B7DED992382C0D200DEBA38 /* Q_Pet+VM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Q_Pet+VM.h"; sourceTree = "<group>"; };
+		8B8424B823A00C5500BFBA59 /* OrderDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailModel.h; sourceTree = "<group>"; };
+		8B8424B923A00C5500BFBA59 /* OrderDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailModel.m; sourceTree = "<group>"; };
+		8B8424BC23A02BDE00BFBA59 /* SunSortMutableDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SunSortMutableDictionary.h; sourceTree = "<group>"; };
+		8B8424BD23A02BDF00BFBA59 /* SunSortMutableDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SunSortMutableDictionary.m; sourceTree = "<group>"; };
 		8B86A7F4237D0FE40058173B /* ReleaseOrderVC+VM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ReleaseOrderVC+VM.m"; sourceTree = "<group>"; };
 		8B86A7F5237D0FE40058173B /* ReleaseOrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReleaseOrderVC.m; sourceTree = "<group>"; };
 		8B86A7F6237D0FE50058173B /* ReleaseOrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReleaseOrderVC.h; sourceTree = "<group>"; };
@@ -2027,6 +2033,15 @@
 			path = SettingPayway;
 			sourceTree = "<group>";
 		};
+		8B8424BB23A02BD700BFBA59 /* SunSortMutableDictionary */ = {
+			isa = PBXGroup;
+			children = (
+				8B8424BC23A02BDE00BFBA59 /* SunSortMutableDictionary.h */,
+				8B8424BD23A02BDF00BFBA59 /* SunSortMutableDictionary.m */,
+			);
+			path = SunSortMutableDictionary;
+			sourceTree = "<group>";
+		};
 		8B86A7F2237D0F8C0058173B /* plan1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2310,6 +2325,7 @@
 		8BB2D2942366C7310047D0E2 /* My_ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				8B8424BB23A02BD700BFBA59 /* SunSortMutableDictionary */,
 				8BB217DA2397D0F800BD1B5F /* UIDevice+XMUtils */,
 				8BA69E4C2396C37100575B2F /* GetDeviceIP */,
 				8BC31198239555490050E1C1 /* Timer */,
@@ -2498,8 +2514,8 @@
 				8BAC1F102382374A0084B6B4 /* OrderDetailTBViewForHeader.m */,
 				8BAC1F0C2381A3B90084B6B4 /* OrderDetailVC.h */,
 				8BAC1F0D2381A3B90084B6B4 /* OrderDetailVC.m */,
-				8B3C0B59237FCAD500BFFA86 /* JPushOrderDetailModel.h */,
-				8B3C0B5A237FCAD500BFFA86 /* JPushOrderDetailModel.m */,
+				8B8424B823A00C5500BFBA59 /* OrderDetailModel.h */,
+				8B8424B923A00C5500BFBA59 /* OrderDetailModel.m */,
 				8B3C0B56237FCAB800BFFA86 /* OrderDetailVC+VM.h */,
 				8B3C0B57237FCAB800BFFA86 /* OrderDetailVC+VM.m */,
 			);
@@ -2863,6 +2879,8 @@
 				C42CCCDA213CC04F0096675F /* AppDelegate.m */,
 				8B86E02623853DDE004D4C0A /* AppDelegate+JPUSH.h */,
 				8B86E02723853DDE004D4C0A /* AppDelegate+JPUSH.m */,
+				8B3C0B59237FCAD500BFFA86 /* JPushOrderDetailModel.h */,
+				8B3C0B5A237FCAD500BFFA86 /* JPushOrderDetailModel.m */,
 				8BCAB63D238A5360000B0360 /* AppDelegate+VM.h */,
 				8BCAB63E238A5360000B0360 /* AppDelegate+VM.m */,
 				8B86E02923853FEA004D4C0A /* AppDelegate+Alipay.h */,
@@ -4624,6 +4642,7 @@
 				C42CD0F0213CC2640096675F /* RegisterInviterController.m in Sources */,
 				8B8A1DCC238D730D006AE2CB /* LookUpContactWayTBViewForHeader.m in Sources */,
 				C46143F2214386B6000C0CDC /* CellVendorAddress.m in Sources */,
+				8B8424BA23A00C5500BFBA59 /* OrderDetailModel.m in Sources */,
 				C42CD138213CC2640096675F /* CLCellGoods.m in Sources */,
 				C461440D214386B6000C0CDC /* CellVendorGoodList.m in Sources */,
 				8B86E05423857985004D4C0A /* PersonalDataChangedListModel.m in Sources */,
@@ -4918,6 +4937,7 @@
 				C42CD0C1213CC2640096675F /* CellOrderAddressYes.m in Sources */,
 				C42CD095213CC2640096675F /* OrderLogisticsDetailController.m in Sources */,
 				C46F8C49214CF1E600F0C7D1 /* AreaDoneDetailController.m in Sources */,
+				8B8424BE23A02BDF00BFBA59 /* SunSortMutableDictionary.m in Sources */,
 				C42CD188213CC2640096675F /* UIImage+WebP.m in Sources */,
 				C42CD077213CC2640096675F /* MoneyDetailListController.m in Sources */,
 				C46F8C48214CF1E600F0C7D1 /* AreaExchangeDetailController.m in Sources */,

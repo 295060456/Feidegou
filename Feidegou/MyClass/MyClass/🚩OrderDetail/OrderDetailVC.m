@@ -246,21 +246,13 @@ viewForHeaderInSection:(NSInteger)section {
         viewForHeader = [[OrderDetailTBViewForHeader alloc]initWithReuseIdentifier:ReuseIdentifier
                                                                           withData:self.str];
         [viewForHeader headerViewWithModel:self.requestParams];
-        self.viewForHeader = viewForHeader;
-//        self.tipsIMGV = viewForHeader.tipsIMGV;
         //只有已发单下面的取消状态才可以聊天
         @weakify(self)
         [viewForHeader actionBlock:^(id data) {
             @strongify(self)
-            if (self.orderManager_panicBuyingModel.order_status.intValue == 2 &&
-                self.orderManager_panicBuyingModel.del_state.intValue == 1) {
-//                viewForHeader.tipsIMGV.alpha = 1;
-                [self chat];
-            }
-            if (self.jPushOrderDetailModel.order_status.intValue == 2 &&
-                (self.jPushOrderDetailModel.del_state.intValue == 1 ||
-                 self.jPushOrderDetailModel.del_state.intValue == 0)) {
-//                viewForHeader.tipsIMGV.alpha = 0;
+            if (self.orderDetailModel.order_status.intValue == 2 &&
+                (self.orderDetailModel.del_state.intValue == 1 ||
+                 self.orderDetailModel.del_state.intValue == 0)) {
                 [self chat];
             }
         }];
@@ -274,15 +266,11 @@ heightForHeaderInSection:(NSInteger)section{
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (![NSString isNullString:self.orderListModel.payment_print] ||
-    ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-        ![NSString isNullString:self.jPushOrderDetailModel.payment_print] ||
-        ![NSString isNullString:self.orderManager_producingAreaModel.payment_print]
-    ) {//![NSString isNullString:self.stallListModel.payment_print]
-        if (indexPath.row == self.titleMutArr.count - 1) {
-            return [OrderDetailTBVIMGCell cellHeightWithModel:nil];//凭证图
-        }else return [OrderDetailTBVCell cellHeightWithModel:nil];
-    }else return [OrderDetailTBVCell cellHeightWithModel:nil];
+
+    if (![NSString isNullString:self.orderDetailModel.payment_print] &&
+        indexPath.row == self.titleMutArr.count - 1) {
+        return [OrderDetailTBVIMGCell cellHeightWithModel:nil];//凭证图
+    }return [OrderDetailTBVCell cellHeightWithModel:nil];
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -300,11 +288,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
          cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"KKK = %lu",(unsigned long)self.titleMutArr.count);
     if (indexPath.row == self.titleMutArr.count - 1) {//最后一行
-        if (![NSString isNullString:self.orderListModel.payment_print] ||
-            ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-            ![NSString isNullString:self.jPushOrderDetailModel.payment_print] ||
-            ![NSString isNullString:self.orderManager_producingAreaModel.payment_print]
-            ) {//有凭证数据  ![NSString isNullString:self.stallListModel.payment_print]
+        if (![NSString isNullString:self.orderDetailModel.payment_print]) {//有凭证数据
             OrderDetailTBVIMGCell *cell = [OrderDetailTBVIMGCell cellWith:tableView];//
             if (self.titleMutArr.count) {
                 cell.textLabel.text = self.titleMutArr[indexPath.row];
@@ -379,16 +363,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [UIView cornerCutToCircleWithView:_sureBtn
                           AndCornerRadius:5.f];
         [self.tableView addSubview:_reloadPicBtn];
-        
-        if (![NSString isNullString:self.orderListModel.payment_print] ||
-        ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-            ![NSString isNullString:self.jPushOrderDetailModel.payment_print]
-        ) {
+        if (![NSString isNullString:self.orderDetailModel.payment_print]) {
             _reloadPicBtn.frame = CGRectMake((SCREEN_WIDTH / 2 - (SCREEN_WIDTH - SCALING_RATIO(100)) / 4),
                                              [OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil] + SCALING_RATIO(120),
                                              (SCREEN_WIDTH - SCALING_RATIO(100)) / 2,
                                              SCALING_RATIO(50));
-        }else{//(
+        }else{//有凭证图
             _reloadPicBtn.frame = CGRectMake((SCREEN_WIDTH / 2 - (SCREEN_WIDTH - SCALING_RATIO(100)) / 4),
                                              [OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(120),
                                              (SCREEN_WIDTH - SCALING_RATIO(100)) / 2,
@@ -416,12 +396,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [_countDownCancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.view).offset(SCALING_RATIO(30));
             make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2, SCALING_RATIO(50)));
-            if (![NSString isNullString:self.orderListModel.payment_print] ||
-            ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-                ![NSString isNullString:self.jPushOrderDetailModel.payment_print]
-            ) {
+            if (![NSString isNullString:self.orderDetailModel.payment_print]) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
-            }else{
+            }else{//有凭证图
                 if (self.jPushOrderDetailModel) {//极光推送
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + 7 * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
                 }else if (self.catFoodProducingAreaModel){
@@ -447,13 +424,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [_sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.view).offset(SCALING_RATIO(-30));
             make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2, SCALING_RATIO(50)));
-            if (![NSString isNullString:self.orderListModel.payment_print] ||
-            ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-                ![NSString isNullString:self.jPushOrderDetailModel.payment_print]
-            ) {
+            if (![NSString isNullString:self.orderDetailModel.payment_print]) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
-            }else{//[OrderDetailTBVCell cellHeightWithModel:nil]
-                if (self.catFoodProducingAreaModel) {
+            }else{
+                if (self.catFoodProducingAreaModel) {//从喵粮产地进
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + 8 * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
                 }else{
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
@@ -476,10 +450,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [_normalCancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.view).offset(SCALING_RATIO(30));
             make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2, SCALING_RATIO(50)));
-            if (![NSString isNullString:self.orderListModel.payment_print] ||
-            ![NSString isNullString:self.catFoodProducingAreaModel.payment_print] ||
-                ![NSString isNullString:self.jPushOrderDetailModel.payment_print]
-            ) {
+            if (![NSString isNullString:self.orderDetailModel.payment_print]) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
             }else{//
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));

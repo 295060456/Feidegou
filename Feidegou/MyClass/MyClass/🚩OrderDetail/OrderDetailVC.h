@@ -37,7 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UIButton *normalCancelBtn;
 @property(nonatomic,strong)VerifyCodeButton *contactBuyer;//???
 @property(nonatomic,strong)VerifyCodeButton *countDownCancelBtn;
-@property(nonatomic,strong)OrderDetailTBViewForHeader *viewForHeader;
 
 @property(nonatomic,strong)__block UIImage *pic;
 @property(nonatomic,copy)__block NSString *resultStr;
@@ -47,15 +46,19 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,assign)__block int time;
 @property(nonatomic,strong)NSNumber *Order_id;
 @property(nonatomic,strong)NSNumber *Order_type;//订单类型 1、直通车;2、批发;3、平台
+
 @property(nonatomic,strong)NSMutableArray <NSString *>*dataMutArr;
 @property(nonatomic,strong)NSMutableArray <NSString *>*titleMutArr;
 
 @property(nonatomic,strong)id requestParams;
+//外来数据层
 @property(nonatomic,strong)SearchOrderListModel *orderListModel;//搜索
 @property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;//产地
 @property(nonatomic,strong)JPushOrderDetailModel *jPushOrderDetailModel;//极光推送
 @property(nonatomic,strong)OrderManager_producingAreaModel *orderManager_producingAreaModel;
 @property(nonatomic,strong)OrderManager_panicBuyingModel *orderManager_panicBuyingModel;//直通车
+//自身的数据层
+@property(nonatomic,strong)OrderDetailModel *orderDetailModel;//订单详情
 
 -(void)chat;
 -(void)cancdel;
