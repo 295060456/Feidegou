@@ -109,6 +109,11 @@
     }else{
         [self.dataMutArr addObject:@"状态异常"];
     }
+    
+    if (![NSString isNullString:self.orderDetailModel.payment_print]) {
+        [self.titleMutArr addObject:@"凭证:"];
+        [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.payment_print ReplaceStr:@""]];
+    }
 }
 
 //这个是数据核心
@@ -189,16 +194,17 @@
                     }
                 }
             }else if (self.orderDetailModel.order_type.intValue == 3){//喵粮产地
-                self.time = 3;
-                self.titleEndStr = @"取消";
-                self.titleBeginStr = @"取消";
-                [self.countDownCancelBtn addTarget:self
-                                            action:@selector(cancelOrder_producingArea_netWorking)//喵粮产地购买取消
-                                  forControlEvents:UIControlEventTouchUpInside];//#9
+
                 //订单详情上传凭证的订单状态：del_state = 0，order_status = 2;重新上传凭证，del_state = 0,order_status = 0
                 if ([self.orderDetailModel.del_state intValue] == 0) {
                     if ([self.orderDetailModel.order_status intValue] == 2 ||
-                        [self.orderDetailModel.order_status intValue] == 1) {
+                        [self.orderDetailModel.order_type intValue] == 3) {
+                        self.time = 3;
+                        self.titleEndStr = @"取消";
+                        self.titleBeginStr = @"取消";
+                        [self.countDownCancelBtn addTarget:self
+                                                    action:@selector(cancelOrder_producingArea_netWorking)//喵粮产地购买取消
+                                          forControlEvents:UIControlEventTouchUpInside];//#9
                         [self.sureBtn setTitle:@"上传支付凭证"//
                                       forState:UIControlStateNormal];
                     }else if ([self.orderDetailModel.order_status intValue] == 0){

@@ -9,17 +9,14 @@
 #import "OrderDetailTBViewForHeader.h"
 
 @interface OrderDetailTBViewForHeader (){
-    
+    NSRange selRange_01;
+    NSRange selRange_02;
 }
 
 @property(nonatomic,strong)YYLabel *titleLab;
 
 @property(nonatomic,copy)NSMutableAttributedString *attributedString;
-@property(nonatomic,strong)OrderManager_panicBuyingModel *orderManager_panicBuyingModel;
-@property(nonatomic,strong)JPushOrderDetailModel *jPushOrderDetailModel;
-@property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
-@property(nonatomic,strong)OrderManager_producingAreaModel *orderManager_producingAreaModel;
-@property(nonatomic,strong)SearchOrderListModel *orderListModel;//搜索
+@property(nonatomic,strong)OrderDetailModel *orderDetailModel;
 
 @end
 
@@ -39,52 +36,17 @@
 }
 
 -(void)headerViewWithModel:(id _Nullable)model{
-    NSLog(@"FDDD = %@",model);
-    if ([model isKindOfClass:[OrderManager_panicBuyingModel class]]) {
-        self.orderManager_panicBuyingModel = (OrderManager_panicBuyingModel *)model;
-    }else if ([model isKindOfClass:[JPushOrderDetailModel class]]){
-        self.jPushOrderDetailModel = (JPushOrderDetailModel *)model;
-    }else if ([model isKindOfClass:[CatFoodProducingAreaModel class]]){
-        self.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)model;
-    }else if ([model isKindOfClass:[OrderManager_producingAreaModel class]]){
-        self.orderManager_producingAreaModel = (OrderManager_producingAreaModel *)model;
-    }else if ([model isKindOfClass:[SearchOrderListModel class]]){
-        self.orderListModel = (SearchOrderListModel *)model;
-    }
-    else{}
-    
-    if (self.orderManager_panicBuyingModel) {//订单管理——直通车
-        NSLog(@"SSS order_status = %d",self.orderManager_panicBuyingModel.order_status.intValue);
-        NSLog(@"SSS del_state = %d",self.orderManager_panicBuyingModel.del_state.intValue);
-        if (self.orderManager_panicBuyingModel.order_status.intValue == 2 &&//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-            (self.orderManager_panicBuyingModel.del_state.intValue == 1) ) {//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
-            self.tipsBtn.alpha = 1;//取消中
-        }
-        else{
-            self.tipsBtn.alpha = 0;
-        }
-    }else if (self.jPushOrderDetailModel){//JPush
-        NSLog(@"SSS order_status = %d",self.jPushOrderDetailModel.order_status.intValue);
-        NSLog(@"SSS del_state = %d",self.jPushOrderDetailModel.del_state.intValue);
-        if(self.jPushOrderDetailModel.order_status.intValue == 2 &&//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-        self.jPushOrderDetailModel.del_state.intValue == 1){//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
+    if ([model isKindOfClass:[OrderDetailModel class]]) {
+        self.orderDetailModel = (OrderDetailModel *)model;
+//        order_status;//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//        del_state;//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
+        if (self.orderDetailModel.order_status.intValue == 2 &&
+            self.orderDetailModel.del_state.intValue == 1) {
             self.tipsBtn.alpha = 1;//取消中
         }else{
             self.tipsBtn.alpha = 0;
         }
-    }else if (self.orderListModel){//搜索
-        NSLog(@"SSS order_status = %d",self.orderListModel.order_status.intValue);
-        NSLog(@"SSS del_state = %d",self.orderListModel.del_state.intValue);
-        if(self.orderListModel.order_status.intValue == 2 &&//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-        self.orderListModel.del_state.intValue == 1){//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
-            self.tipsBtn.alpha = 1;
-        }else{
-            self.tipsBtn.alpha = 0;
-        }
-    }else{
-        self.tipsBtn.alpha = 0;
     }
-    
     if (![NSString isNullString:self.str]) {
         self.titleLab.attributedText = self.attributedString;
     }
@@ -116,28 +78,14 @@
         _attributedString = [[NSMutableAttributedString alloc]initWithString:self.str
                                                                   attributes:attributeDic];
     }
-    NSRange selRange_01 = [self.str rangeOfString:@"您向"];//location=0, length=2
-    NSRange selRange_02;
-    if (self.jPushOrderDetailModel) {
-        selRange_02 = [self.str rangeOfString:@"出售"];//location=6, length=2
-    }
-    else if (self.orderManager_panicBuyingModel){
-        selRange_02 = [self.str rangeOfString:@"出售"];//location=6, length=2
-    }
-    else if (self.catFoodProducingAreaModel){
-        selRange_02 = [self.str rangeOfString:@"购买"];
-    }
-    else if (self.orderManager_producingAreaModel){
-        selRange_02 = [self.str rangeOfString:@"购买"];
-    }else if (self.orderListModel){
-        if (self.orderListModel.order_type.intValue == 1) {//order_type 订单类型 1、直通车;2、批发;3、平台
-            selRange_02 = [self.str rangeOfString:@"出售"];
-        }else if (self.orderListModel.order_type.intValue == 3){
-            selRange_02 = [self.str rangeOfString:@"购买"];
-        }else{}
-    }else{
+    selRange_01 = [self.str rangeOfString:@"您向"];//location=0, length=2
+//    order_type;//订单类型 1、直通车;2、批发;3、产地
+    if (self.orderDetailModel.order_type.intValue == 1) {
         selRange_02 = [self.str rangeOfString:@"出售"];
-    }
+    }else if (self.orderDetailModel.order_type.intValue == 3){
+        selRange_02 = [self.str rangeOfString:@"购买"];
+    }else{}
+//    selRange_02 = [self.str rangeOfString:@"出售"];
     //设定可点击文字的的大小
     UIFont *selFont = [UIFont systemFontOfSize:16];
     CTFontRef selFontRef = CTFontCreateWithName((__bridge CFStringRef)selFont.fontName,
@@ -191,7 +139,7 @@
         [self addSubview:_titleLab];
         [_titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.contentView);
-            make.centerY.equalTo(self.tipsBtn);
+            make.top.equalTo(self.contentView).offset(SCALING_RATIO(30));
         }];
     }return _titleLab;
 }
@@ -234,7 +182,12 @@
 
 -(void)setStr:(NSString *)str{
     _str = str;
-    if (![NSString isNullString:_str]) {
+    if (![NSString isNullString:str]) {
+        if ([str containsString:@"出售"]) {
+            selRange_02 = [self.str rangeOfString:@"出售"];
+        }else if ([str containsString:@"购买"]){
+            selRange_02 = [self.str rangeOfString:@"购买"];
+        }else{}
         self.titleLab.attributedText = self.attributedString;
     }
 }

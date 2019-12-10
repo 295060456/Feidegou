@@ -245,7 +245,7 @@ viewForHeaderInSection:(NSInteger)section {
     if (!viewForHeader) {
         viewForHeader = [[OrderDetailTBViewForHeader alloc]initWithReuseIdentifier:ReuseIdentifier
                                                                           withData:self.str];
-        [viewForHeader headerViewWithModel:self.requestParams];
+        [viewForHeader headerViewWithModel:self.orderDetailModel];
         //只有已发单下面的取消状态才可以聊天
         @weakify(self)
         [viewForHeader actionBlock:^(id data) {
@@ -266,7 +266,6 @@ heightForHeaderInSection:(NSInteger)section{
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-
     if (![NSString isNullString:self.orderDetailModel.payment_print] &&
         indexPath.row == self.titleMutArr.count - 1) {
         return [OrderDetailTBVIMGCell cellHeightWithModel:nil];//凭证图
