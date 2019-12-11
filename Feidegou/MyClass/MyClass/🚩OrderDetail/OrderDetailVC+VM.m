@@ -56,10 +56,19 @@
     else if (self.catFoodProducingAreaModel){//喵粮产地 只允许银行卡
 
         [self.titleMutArr addObject:@"银行卡号:"];
+        [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.bankCard ReplaceStr:@"暂无"]];//银行卡号:
+        
         [self.titleMutArr addObject:@"姓名:"];
+        [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.bankUser ReplaceStr:@"暂无"]];//姓名:
+        
         [self.titleMutArr addObject:@"银行类型:"];
+        [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.bankName ReplaceStr:@"暂无"]];//银行类型:
+        
         [self.titleMutArr addObject:@"支行信息:"];
+        [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.bankaddress ReplaceStr:@"暂无"]];//支行信息:
+        
         [self.titleMutArr addObject:@"下单时间:"];
+        [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.updateTime ReplaceStr:@"暂无"]];//下单时间:
     }//喵粮产地 只允许银行卡
     else if (self.jPushOrderDetailModel){//极光推送
 
@@ -91,10 +100,12 @@
         if (self.orderDetailModel.del_state.intValue == 0) {
             [self.dataMutArr addObject:@"已下单"];
         }else if (self.orderDetailModel.del_state.intValue == 1){
-            [self.dataMutArr addObject:@"等待买家确认"];//@"待审核 —— 等待买家确认(3小时内)"
-            
-            [self.titleMutArr addObject:@"凭证:"];
-            [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.payment_print ReplaceStr:@""]];
+            //计算两个时间的相隔
+            NSDateFormatter *formatter = NSDateFormatter.new;
+            [formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+            NSNumber *timer = [NSNumber numberWithDouble:self.orderDetailModel.del_wait_left_time.floatValue / 1000];
+            self.orderDetailModel.countDownStr = [NSString stringWithFormat:@"等待买家确认 %@",timer.stringValue];
+            [self.dataMutArr addObject:self.orderDetailModel.countDownStr];
         }else if (self.orderDetailModel.del_state.intValue == 2){
             [self.dataMutArr addObject:@"已通过"];
         }else{
@@ -142,7 +153,12 @@
             NSDictionary *dataDic = (NSDictionary *)response;
             self.orderDetailModel = [OrderDetailModel mj_objectWithKeyValues:dataDic[@"catFoodOrder"]];
             self.orderDetailModel.del_wait_left_time = dataDic[@"del_wait_left_time"];//外层数据
-            
+            if (self.dataMutArr.count) {
+                [self.dataMutArr removeAllObjects];
+            }
+            if (self.titleMutArr.count) {
+                [self.titleMutArr removeAllObjects];
+            }
             [self makeTitleAndData];
 //            订单类型 1、直通车;2、批发;3、平台
             if (self.orderDetailModel.order_type.intValue == 1) {
@@ -309,8 +325,6 @@
         }
     }];
 }
-
-
 //CatfoodBooth_goodsURL 喵粮抢摊位发货 #21
 -(void)boothDeliver_networking{
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
@@ -337,8 +351,6 @@
                 self.sureBtn.alpha = 0;
                 self.countDownCancelBtn.alpha = 0;
                 self.normalCancelBtn.alpha = 0;
-                [self.dataMutArr removeAllObjects];
-                [self.titleMutArr removeAllObjects];
                 [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:self.Order_type];//订单类型 —— 1、直通车;2、批发;3、产地
             }
         }

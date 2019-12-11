@@ -51,7 +51,6 @@ UITableViewDataSource
 //上个页面给数据，本页面手动的刷新
 - (void)dealloc {
     NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
-    [_contactBuyer.timer invalidate];
     [_countDownCancelBtn.timer invalidate];
 }
 
@@ -68,7 +67,7 @@ UITableViewDataSource
         vc.orderListModel = (SearchOrderListModel *)vc.requestParams;
         vc.Order_id = vc.orderListModel.ID;
         vc.Order_type = vc.orderListModel.order_type;
-        NSLog(@"我从搜素页面来，order_id = %d,order_type = %d",vc.Order_id.intValue,vc.Order_type.intValue);
+        NSLog(@"我从搜索页面来，order_id = %d,order_type = %d",vc.Order_id.intValue,vc.Order_type.intValue);
     }else if ([vc.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){//喵粮产地页面进
         vc.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)vc.requestParams;
         vc.Order_id = vc.catFoodProducingAreaModel.ID;
@@ -152,12 +151,6 @@ UITableViewDataSource
 // 手动下拉刷新
 -(void)pullToRefresh{
     NSLog(@"下拉刷新");
-    if (self.dataMutArr.count) {
-        [self.dataMutArr removeAllObjects];
-    }
-    if (self.titleMutArr.count) {
-        [self.titleMutArr removeAllObjects];
-    }
     [self buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:self.Order_type];//订单类型 —— 1、直通车;2、批发;3、产地
 }
 //上拉加载更多
@@ -256,7 +249,17 @@ viewForHeaderInSection:(NSInteger)section {
                 [self chat];
             }
         }];
-    }return viewForHeader;
+    }
+    
+    if (self.orderDetailModel.order_type.intValue == 1 &&
+        self.orderDetailModel.del_state.intValue == 1 &&
+        self.orderDetailModel.order_status.intValue == 2) {//直通车取消中...
+        viewForHeader.tipsBtn.alpha = 1;
+    }else{
+        viewForHeader.tipsBtn.alpha = 0;
+    }
+    
+    return viewForHeader;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -276,6 +279,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
+    OrderDetailTBVCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if ([cell.textLabel.text isEqualToString:@"订单号:"]) {
+        [YKToastView showToastText:@"复制成功!"];
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = cell.textLabel.text;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -324,31 +333,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     return 1;
 }
 #pragma mark —— lazyLoad
--(VerifyCodeButton *)contactBuyer{
-    if (!_contactBuyer) {
-        _contactBuyer = VerifyCodeButton.new;
-        _contactBuyer.showTimeType = ShowTimeType_HHMMSS;
-        _contactBuyer.uxy_acceptEventInterval = btnActionTime;
-        _contactBuyer.layerCornerRadius = 5.f;
-        if (@available(iOS 8.2, *)) {
-            _contactBuyer.titleLabelFont = [UIFont systemFontOfSize:20.f weight:1];
-        } else {
-            _contactBuyer.titleLabelFont = [UIFont systemFontOfSize:20.f];
-        }
-        _contactBuyer.clipsToBounds = YES;
-        _contactBuyer.titleEndStr = self.titleEndStr;
-        _contactBuyer.titleBeginStr = self.titleBeginStr;
-        [_contactBuyer timeFailBeginFrom:self.time == 0 ? 10 : self.time];
-        [self.tableView addSubview:_contactBuyer];
-        [_contactBuyer mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.bottom.equalTo(self.view).offset(SCALING_RATIO(-100));
-            make.centerX.equalTo(self.view);
-            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100),
-                                             SCALING_RATIO(50)));
-        }];
-    }return _contactBuyer;
-}
-
 -(UIButton *)reloadPicBtn{
     if (!_reloadPicBtn) {
         _reloadPicBtn = UIButton.new;
@@ -398,13 +382,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             if (![NSString isNullString:self.orderDetailModel.payment_print]) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
             }else{//有凭证图
-                if (self.jPushOrderDetailModel) {//极光推送
-                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + 7 * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
-                }else if (self.catFoodProducingAreaModel){
-                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + 8 * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
-                }else{
-                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
-                }
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
+//                if (self.jPushOrderDetailModel) {//极光推送
+//                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + 7 * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
+//                }else if (self.catFoodProducingAreaModel){
+//                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + self.titleMutArr.count * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
+//                }else{
+//                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
+//                }
             }
         }];
     }return _countDownCancelBtn;
@@ -426,11 +411,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             if (![NSString isNullString:self.orderDetailModel.payment_print]) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
             }else{
-                if (self.catFoodProducingAreaModel) {//从喵粮产地进
-                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + 8 * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
-                }else{
-                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
-                }
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + self.titleMutArr.count * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
+//                if (self.catFoodProducingAreaModel) {//从喵粮产地进
+//                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + self.titleMutArr.count * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
+//                }else{
+//                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
+//                }
             }
         }];
         [self.view layoutIfNeeded];
@@ -521,6 +507,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{//
+    NSLog(@"model = %@",model);
     if ([model isKindOfClass:[NSString class]]) {
         NSString *str = (NSString *)model;
         if ([str containsString:@"等待买家确认"]) {

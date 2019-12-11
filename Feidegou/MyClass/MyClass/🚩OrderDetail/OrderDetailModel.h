@@ -45,6 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSNumber *del_wait_left_time;//外层数据
 
 @property(nonatomic,copy)NSString *identity;//我自己手动加的字段
+@property(nonatomic,copy)NSString *countDownStr;
 
 @end
 

@@ -38,8 +38,9 @@
 -(void)headerViewWithModel:(id _Nullable)model{
     if ([model isKindOfClass:[OrderDetailModel class]]) {
         self.orderDetailModel = (OrderDetailModel *)model;
-//        order_status;//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
-//        del_state;//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
+//        self.orderDetailModel.countDownStr;
+////        order_status;//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+////        del_state;//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
         if (self.orderDetailModel.order_status.intValue == 2 &&
             self.orderDetailModel.del_state.intValue == 1) {
             self.tipsBtn.alpha = 1;//取消中

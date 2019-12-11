@@ -5,29 +5,34 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EBB63F43-A800-4DCF-A140-145DEECC7CAE"
-            shouldBeEnabled = "Yes"
+            uuid = "05FEFD5A-50F6-498F-B1A3-70BA998D50C7"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            scope = "1"
-            stopOnStyle = "0">
+            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "514"
+            endingLineNumber = "514"
+            landmarkName = "-richElementsInCellWithModel:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "9322105C-8C0F-4862-96DB-8E4EB5C07CEB"
-            shouldBeEnabled = "No"
+            uuid = "14E173C5-1B98-49CC-AB89-0B4CF97A7358"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Feidegou/Controllers/Center/CenterController.m"
+            filePath = "Feidegou/MyClass/MyClass/&#x1f6a9;OrderDetail/OrderDetailVC+VM.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "499"
-            endingLineNumber = "499"
-            landmarkName = "-didClickCollectionViewSection:andRow:"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
+            landmarkName = "-buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
