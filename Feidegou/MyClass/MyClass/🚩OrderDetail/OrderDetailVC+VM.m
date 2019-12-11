@@ -121,9 +121,17 @@
         [self.dataMutArr addObject:@"状态异常"];
     }
     
-    if (![NSString isNullString:self.orderDetailModel.payment_print]) {
-        [self.titleMutArr addObject:@"凭证:"];
-        [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.payment_print ReplaceStr:@""]];
+//    if (![NSString isNullString:self.orderDetailModel.payment_print]) {
+//        [self.titleMutArr addObject:@"凭证:"];
+//        [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.payment_print ReplaceStr:@""]];
+//    }
+    
+    if (self.orderDetailModel.order_status.intValue == 0 ||
+        self.orderDetailModel.order_status.intValue == 4) {
+        if (![NSString isNullString:self.orderDetailModel.payment_print]) {
+            [self.titleMutArr addObject:@"凭证:"];
+            [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.payment_print ReplaceStr:@""]];
+        }
     }
 }
 
@@ -225,9 +233,13 @@
                                           forControlEvents:UIControlEventTouchUpInside];//#9
                         [self.sureBtn setTitle:@"上传支付凭证"//
                                       forState:UIControlStateNormal];
+                        [self.sureBtn.titleLabel sizeToFit];
+                        self.sureBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
                     }else if ([self.orderDetailModel.order_status intValue] == 0){
                         [self.sureBtn setTitle:@"重新上传支付凭证"//
                                       forState:UIControlStateNormal];
+                        [self.sureBtn.titleLabel sizeToFit];
+                        self.sureBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
                     }else{}
                 }
                 [self.sureBtn addTarget:self
