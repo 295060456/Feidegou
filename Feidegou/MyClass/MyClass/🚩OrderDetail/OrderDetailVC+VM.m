@@ -160,18 +160,19 @@
                 [self.titleMutArr removeAllObjects];
             }
             [self makeTitleAndData];
-//            订单类型 1、直通车;2、批发;3、平台
-            if (self.orderDetailModel.order_type.intValue == 1) {
+//            订单类型 1、直通车;2、批发;3、喵粮产地
+            if (self.orderDetailModel.order_type.intValue == 1) {//直通车
                 self.gk_navTitle = @"直通车订单详情";
                 NSString *str1 = [NSString ensureNonnullString:self.orderDetailModel.byname ReplaceStr:@"无"];//?????????
                 NSString *str2 = [NSString ensureNonnullString:self.orderDetailModel.quantity ReplaceStr:@""];
                 self.str = [NSString stringWithFormat:@"您向%@出售%@g喵粮",str1,str2];//trade_no
-            }else if (self.orderDetailModel.order_type.intValue == 3){
+            }//直通车
+            else if (self.orderDetailModel.order_type.intValue == 3){//喵粮产地
                 self.gk_navTitle = @"产地订单详情";
                 NSString *str1 = [NSString ensureNonnullString:self.orderDetailModel.trade_no ReplaceStr:@"无"];//?????????
                 NSString *str2 = [NSString ensureNonnullString:self.orderDetailModel.quantity ReplaceStr:@""];
                 self.str = [NSString stringWithFormat:@"您向%@购买%@g喵粮",str1,str2];//trade_no
-            }
+            }//喵粮产地
 //            order_type;//订单类型 1、直通车;2、批发;3、平台
 //            order_status;//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
 //            del_state;//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
@@ -210,11 +211,12 @@
                     }
                 }
             }else if (self.orderDetailModel.order_type.intValue == 3){//喵粮产地
-
                 //订单详情上传凭证的订单状态：del_state = 0，order_status = 2;重新上传凭证，del_state = 0,order_status = 0
-                if ([self.orderDetailModel.del_state intValue] == 0) {
-                    if ([self.orderDetailModel.order_status intValue] == 2 ||
-                        [self.orderDetailModel.order_type intValue] == 3) {
+//                order_status;//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+//                order_type;//订单类型 1、直通车;2、批发;3、产地
+                if (self.orderDetailModel.del_state.intValue == 0) {
+                    if (self.orderDetailModel.order_status.intValue == 2 ||
+                        self.orderDetailModel.order_type.intValue == 3) {
                         self.time = 3;
                         self.titleEndStr = @"取消";
                         self.titleBeginStr = @"取消";

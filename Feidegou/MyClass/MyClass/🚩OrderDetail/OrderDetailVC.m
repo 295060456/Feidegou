@@ -346,21 +346,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [UIView cornerCutToCircleWithView:_sureBtn
                           AndCornerRadius:5.f];
         [self.tableView addSubview:_reloadPicBtn];
-        if (![NSString isNullString:self.orderDetailModel.payment_print]) {
-            _reloadPicBtn.frame = CGRectMake((SCREEN_WIDTH / 2 - (SCREEN_WIDTH - SCALING_RATIO(100)) / 4),
-                                             [OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil] + SCALING_RATIO(120),
-                                             (SCREEN_WIDTH - SCALING_RATIO(100)) / 2,
+        if ([NSString isNullString:self.orderDetailModel.payment_print]) {
+            _reloadPicBtn.frame = CGRectMake((SCREEN_WIDTH - SCALING_RATIO(120)) / 2,
+                                             [OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(120),
+                                             SCALING_RATIO(120),
                                              SCALING_RATIO(50));
         }else{//有凭证图
-            _reloadPicBtn.frame = CGRectMake((SCREEN_WIDTH / 2 - (SCREEN_WIDTH - SCALING_RATIO(100)) / 4),
-                                             [OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(120),
-                                             (SCREEN_WIDTH - SCALING_RATIO(100)) / 2,
+            _reloadPicBtn.frame = CGRectMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2,
+                                             [OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count - 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil] + SCALING_RATIO(0),
+                                             SCALING_RATIO(120),
                                              SCALING_RATIO(50));
         }
     }return _reloadPicBtn;
 }
 
--(VerifyCodeButton *)countDownCancelBtn{
+-(VerifyCodeButton *)countDownCancelBtn{///
     if (!_countDownCancelBtn) {
         _countDownCancelBtn = VerifyCodeButton.new;
         _countDownCancelBtn.showTimeType = ShowTimeType_HHMMSS;
@@ -376,26 +376,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         _countDownCancelBtn.clipsToBounds = YES;
         [_countDownCancelBtn timeFailBeginFrom:self.time == 0 ? 3 : self.time];
         [self.tableView addSubview:_countDownCancelBtn];
-        [_countDownCancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.view).offset(SCALING_RATIO(30));
-            make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2, SCALING_RATIO(50)));
-            if (![NSString isNullString:self.orderDetailModel.payment_print]) {
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
-            }else{//有凭证图
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
-//                if (self.jPushOrderDetailModel) {//极光推送
-//                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + 7 * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
-//                }else if (self.catFoodProducingAreaModel){
-//                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + self.titleMutArr.count * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
-//                }else{
-//                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
-//                }
-            }
-        }];
+
+        if ([NSString isNullString:self.orderDetailModel.payment_print]) {//没有凭证图
+            _countDownCancelBtn.frame = CGRectMake(SCALING_RATIO(30),
+                                           [OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20),
+                                           SCALING_RATIO(120),
+                                           SCALING_RATIO(50));
+        }else{
+            _countDownCancelBtn.frame = CGRectMake(SCALING_RATIO(30),
+                                                   [OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count - 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil] + SCALING_RATIO(20),
+                                                   SCALING_RATIO(120),
+                                                   SCALING_RATIO(50));
+        }
     }return _countDownCancelBtn;
 }
 
--(UIButton *)sureBtn{
+-(UIButton *)sureBtn{///
     if (!_sureBtn) {
         _sureBtn = UIButton.new;
         _sureBtn.uxy_acceptEventInterval = btnActionTime;
@@ -405,22 +401,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [UIView cornerCutToCircleWithView:_sureBtn
                           AndCornerRadius:5.f];
         [self.tableView addSubview:_sureBtn];
-        [_sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.view).offset(SCALING_RATIO(-30));
-            make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2, SCALING_RATIO(50)));
-            if (![NSString isNullString:self.orderDetailModel.payment_print]) {
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
-            }else{
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + self.titleMutArr.count * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
-//                if (self.catFoodProducingAreaModel) {//从喵粮产地进
-//                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + self.titleMutArr.count * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
-//                }else{
-//                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
-//                }
-            }
-        }];
-        [self.view layoutIfNeeded];
-        NSLog(@"");
+        
+        if([NSString isNullString:self.orderDetailModel.payment_print]){//没有凭证图
+            _sureBtn.frame = CGRectMake(SCREEN_WIDTH - SCALING_RATIO(150),
+                                        [OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20),
+                                        SCALING_RATIO(120),
+                                        SCALING_RATIO(50));
+        }else{
+            _sureBtn.frame = CGRectMake(SCREEN_WIDTH - SCALING_RATIO(150),
+                                        [OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count - 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil] + SCALING_RATIO(20),
+                                        SCALING_RATIO(120),
+                                        SCALING_RATIO(50));
+        }
     }return _sureBtn;
 }
 
@@ -432,15 +424,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                           AndCornerRadius:3.f];
         _normalCancelBtn.backgroundColor = KLightGrayColor;
         [self.tableView addSubview:_normalCancelBtn];
-        [_normalCancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.view).offset(SCALING_RATIO(30));
-            make.size.mas_equalTo(CGSizeMake((SCREEN_WIDTH - SCALING_RATIO(100)) / 2, SCALING_RATIO(50)));
-            if (![NSString isNullString:self.orderDetailModel.payment_print]) {
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count + 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil]);
-            }else{//
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset([OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20));
-            }
-        }];
+        if ([NSString isNullString:self.orderDetailModel.payment_print]) {//没有凭证图
+            self.normalCancelBtn.frame = CGRectMake(SCALING_RATIO(30),
+                                                    [OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count) * [OrderDetailTBVCell cellHeightWithModel:nil] + SCALING_RATIO(20),
+                                                    SCALING_RATIO(120),
+                                                    SCALING_RATIO(50));
+        }else{
+            self.normalCancelBtn.frame = CGRectMake(SCALING_RATIO(30),
+                                                    [OrderDetailTBViewForHeader headerViewHeightWithModel:nil] + (self.titleMutArr.count - 1) * [OrderDetailTBVCell cellHeightWithModel:nil] + [OrderDetailTBVIMGCell cellHeightWithModel:nil] + SCALING_RATIO(20),
+                                                    SCALING_RATIO(120),
+                                                    SCALING_RATIO(50));
+        }
     }return _normalCancelBtn;
 }
 
