@@ -182,16 +182,11 @@ DidClickCollectionViewDelegete
 #pragma mark---tableviewdelegate---
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
+    NSLog(@" UUU = %ld",(long)section);
     if (section == 0) {
         return 3;
-    }else if (section == 4) {
-        if ([[PersonalInfo sharedInstance] isLogined] &
-            [NSString isNullString:self.model.store_id]) {
-            return 1;
-        }else{
-            return 0;
-        }
-    }else if (section == 6){
+    }
+    if (section == 4) {
         ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
         if ([[PersonalInfo sharedInstance] isLogined]) {//未登录不显示
             switch ([model.grade_id intValue]) {
@@ -211,12 +206,11 @@ DidClickCollectionViewDelegete
                     return 0;//
                     break;
             }
-        }return 0;
-    }else return 1;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 7;
+        }else{
+            return 0;
+        }
+    }
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -236,10 +230,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 2) {
         return 105.0f;
     }
-    if (indexPath.section == 3) {
-        return 0;
-    }
-    
     return 45.0f;
 }
 
@@ -266,6 +256,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             return cell;
         } else{
             CellCollection *cell=[tableView dequeueReusableCellWithIdentifier:@"CellCollection"];
+//            cell.backgroundColor = kRedColor;
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             [cell populateData:indexPath andModel:self.model];
             [cell setDelegete:self];
@@ -348,43 +339,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         }];return cell;
     }
     CellMyService *cell = [tableView dequeueReusableCellWithIdentifier:@"CellMyService"];
-    if (indexPath.section == 3) {
-        [cell.imgHead setImage:ImageNamed(@"img_center_wdewm")];
-        [cell.lblName setText:@"邀请好友"];
-        [cell.lblNum setText:@""];
-    }
-    if (indexPath.section == 4) {
-        [cell.imgHead setImage:ImageNamed(@"img_center_sqcwfxs")];
-        NSString *strVenderState;
-        int stateNum = [self.model.store_status intValue];
-        if (stateNum == -1) {
-            strVenderState = @"审核失败,点击重新申请";
-        }else if (stateNum == 1) {
-            strVenderState = @"审核中";
-        }else if (stateNum == 2) {
-            strVenderState = @"店铺已开通";
-        }else if (stateNum == 3) {
-            strVenderState = @"店铺已关闭,点击联系客服";
-        }else{
-            strVenderState = @"加入我们";
-        }
-        if (stateNum == 1||
-            stateNum == 2) {
-            [cell.imgArrow setHidden:YES];
-            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-        }else{
-            [cell.imgArrow setHidden:NO];
-            [cell setSelectionStyle:UITableViewCellSelectionStyleDefault];
-        }
-        [cell.lblName setText:strVenderState];
-        [cell.lblNum setText:@""];
-    }
-    if (indexPath.section == 5) {
+    if (indexPath.section == 3) {//5
         [cell.imgHead setImage:ImageNamed(@"img_center_jfcz")];
         [cell.lblName setText:@"积分充值"];
         [cell.lblNum setText:@""];
     }
-    if(indexPath.section == 6){
+    if(indexPath.section == 4){//6
         ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
         switch ([model.grade_id intValue]) {
             case 0:{//普通用户，只显示“邀请码”
@@ -412,11 +372,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0||
-        section == 4||
-        section == 5) {
-        return 0;
-    }else return 10;
+    return 10;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView
@@ -429,8 +385,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return viHeader;
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 5;
+}
+
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSLog(@"ASF%@",indexPath);
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
     if (indexPath.section == 0) {
@@ -456,57 +417,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             }
         }
     }
-    if (indexPath.section == 1) {
-        
-    }
-    if (indexPath.section == 2) {
-        
-    }
-    if (indexPath.section == 3) {
-        if ([[PersonalInfo sharedInstance] isLogined]) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMine bundle:nil];
-            QRCodeController *controller = [storyboard instantiateViewControllerWithIdentifier:@"QRCodeController"];
-            [self.navigationController pushViewController:controller animated:YES];
-        }else{
-            [self pushLoginController];
-        }
-    }
-    if (indexPath.section == 4) {
-    
-        if ([[PersonalInfo sharedInstance] isLogined]){
-            
-            int stateNum = [self.model.store_status intValue];
-            if (stateNum == -1) {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardApplyForVender bundle:nil];
-                ApplyForVenderController *controller = [storyboard instantiateViewControllerWithIdentifier:@"ApplyForVenderController"];
-                [self.navigationController pushViewController:controller
-                                                     animated:YES];
-            }
-            else if (stateNum == 1) {
-                
-            }
-            else if (stateNum == 2) {
-                
-            }
-            else if (stateNum == 3) {
-//                JJAlertViewTwoButton *alertView = [[JJAlertViewTwoButton alloc] init];
-//                [alertView showAlertView:self andTitle:nil andMessage:@"是否拨打电话" andCancel:@"取消" andCanelIsRed:NO andOherButton:@"立即拨打" andConfirm:^{
-//                    D_NSLog(@"点击了立即发布");
-//                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:StringFormat(@"tel://%@",ServicePhone)]]; //拨号
-//                } andCancel:^{
-//                    D_NSLog(@"点击了取消");
-//                }];
-            }else{
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardApplyForVender bundle:nil];
-                ApplyForVenderController *controller = [storyboard instantiateViewControllerWithIdentifier:@"ApplyForVenderController"];
-                [self.navigationController pushViewController:controller
-                                                     animated:YES];
-            }
-        }else{
-            [self pushLoginController];
-        }
-    }
-    if (indexPath.section == 5) {
+//    indexPath.section == 1 和 2 在collection进行处理
+
+    if (indexPath.section == 3) {//积分充值
         if ([[PersonalInfo sharedInstance] isLogined]) {
             ChangeNameController *controller = [[UIStoryboard storyboardWithName:StoryboardMine
                                                                           bundle:nil]
@@ -518,17 +431,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             [self pushLoginController];
         }
     }
-    if (indexPath.section == 6) {
+    
+    if (indexPath.section == 4) {
         @weakify(self)
         ModelLogin *model = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
         if ([[PersonalInfo sharedInstance] isLogined]) {//登录成功方可见喵粮管理（邀请码）
             switch ([model.grade_id intValue]) {
-                case 0:{//普通用户，只显示“邀请码”
+                case 0:{//普通用户，只显示“邀请码” 加入团队
                     [JoinInTeamVC ComingFromVC:self_weak_
-                                         withStyle:ComingStyle_PUSH
-                                     requestParams:nil
-                                           success:^(id data) {}
-                                          animated:YES];
+                                     withStyle:ComingStyle_PUSH
+                                 requestParams:nil
+                                       success:^(id data) {}
+                                      animated:YES];
                 }break;
                 case 2:{//高级商家，只显示“喵粮管理”
                     [CatFoodsManagementVC ComingFromVC:self_weak_
@@ -567,10 +481,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)didClickCollectionViewSection:(NSInteger)section
                                andRow:(NSInteger)row{
+    NSLog(@"move section %ld row %ld",(long)section,(long)row);
     if ([[PersonalInfo sharedInstance] isLogined]) {
-        
         if (section == 1) {
-            if (row==0) {
+            if (row == 0) {
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMine bundle:nil];
                 AchievememtController *controller = [storyboard instantiateViewControllerWithIdentifier:@"AchievememtController"];
                 [self.navigationController pushViewController:controller
@@ -604,10 +518,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         }
         if(section == 2){
             if (row == 0) {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardVendorDetail bundle:nil];
-                BillHistoryController *controller = [storyboard instantiateViewControllerWithIdentifier:@"BillHistoryController"];
-                [self.navigationController pushViewController:controller
-                                                     animated:YES];
+//                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardVendorDetail bundle:nil];
+//                BillHistoryController *controller = [storyboard instantiateViewControllerWithIdentifier:@"BillHistoryController"];
+//                [self.navigationController pushViewController:controller
+//                                                     animated:YES];
             }
             if (row == 1) {
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardMine bundle:nil];
@@ -693,9 +607,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [_pet show];
         [self.view addSubview:_pet];
         [_pet becomeFirstResponder];
-        @weakify(self)
+//        @weakify(self)
         [_pet actionBlock:^(id data) {
-            @strongify(self)
+//            @strongify(self)
 //            [self.tableView.mj_header beginRefreshing];
         }];
     }return _pet;

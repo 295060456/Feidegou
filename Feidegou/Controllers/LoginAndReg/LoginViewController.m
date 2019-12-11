@@ -174,7 +174,8 @@
                     AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
                     [appDelegate setAlias];
                     [SVProgressHUD showSuccessWithStatus:@"登录成功"];
-                    [self.navigationController popViewControllerAnimated:YES];
+//                    [self.navigationController popViewControllerAnimated:YES];
+                    [self.navigationController popToRootViewControllerAnimated:YES];
                 }else{
         //            [SVProgressHUD showSuccessWithStatus:@"登录成功但是存取状态异常"];
         //            Toast(@"登录成功但是存取状态异常");
