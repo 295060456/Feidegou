@@ -257,7 +257,12 @@ UIScrollViewDelegate
         @weakify(self)
         [_qrCodeIMGV_alipay actionBlock:^(id data) {
             @strongify(self)
-            [self aliPay];
+            extern NSString *weixin_qr_img;//微信收款二维码
+            if ([weixin_qr_img isEqualToString:@"无"]) {
+                Toast(@"请先上传微信收款码");
+            }else{
+                [self aliPay];
+            }
         }];
         _qrCodeIMGV_alipay.image = kIMG(@"uploadQRCode");
         [self.scrollView addSubview:_qrCodeIMGV_alipay];
