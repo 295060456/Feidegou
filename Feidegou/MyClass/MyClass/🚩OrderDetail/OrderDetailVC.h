@@ -21,6 +21,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface OrderDetailTBVCopyCell : TBVCell_style_01
+
+@property(nonatomic,strong)UILabel *lab;
+
++(instancetype)cellWith:(UITableView *)tableView;
++(CGFloat)cellHeightWithModel:(id _Nullable)model;
+- (void)richElementsInCellWithModel:(id _Nullable)model;
+
+@end
+
 @interface OrderDetailTBVIMGCell : TBVCell_style_01
 
 +(instancetype)cellWith:(UITableView *)tableView;

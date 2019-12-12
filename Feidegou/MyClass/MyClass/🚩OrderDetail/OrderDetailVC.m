@@ -21,6 +21,11 @@
 
 @end
 
+//复制
+@interface OrderDetailTBVCopyCell ()
+
+@end
+
 //订单、单价、总价、账号、支付方式、参考号、下单时间
 @interface OrderDetailTBVCell ()
 
@@ -229,7 +234,6 @@ UITableViewDataSource
 -(void)sureCancel{//真正开始取消
     [self CatfoodBooth_del_netWorking];
 }
-
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section {
@@ -309,6 +313,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
             }return cell;
         }
+    }else if (indexPath.row == 0){
+        OrderDetailTBVCopyCell *cell = [OrderDetailTBVCopyCell cellWith:tableView];//
+        [cell richElementsInCellWithModel:self.dataMutArr[indexPath.row]];
+        cell.textLabel.text = self.titleMutArr[indexPath.row];
+        cell.detailTextLabel.text = @"复制";
+        cell.detailTextLabel.textColor = kBlueColor;
+        return cell;
     }else{//其他正常的行
         OrderDetailTBVCell *cell = [OrderDetailTBVCell cellWith:tableView];//
         if (self.titleMutArr.count) {
@@ -545,6 +556,49 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             make.width.mas_equalTo(SCREEN_WIDTH * 2 / 3);
         }];
     }return _timeBtn;
+}
+
+@end
+#pragma mark —— 复制
+@implementation OrderDetailTBVCopyCell
+
+-(void)dealloc{
+    NSLog(@"Running self.class = %@;NSStringFromSelector(_cmd) = '%@';__FUNCTION__ = %s", self.class, NSStringFromSelector(_cmd),__FUNCTION__);
+}
+
++(instancetype)cellWith:(UITableView *)tableView{
+    OrderDetailTBVCopyCell *cell = (OrderDetailTBVCopyCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
+    if (!cell) {
+        cell = [[OrderDetailTBVCopyCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                             reuseIdentifier:ReuseIdentifier
+                                                      margin:SCALING_RATIO(5)];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }return cell;
+}
+
++(CGFloat)cellHeightWithModel:(id _Nullable)model{
+    return SCALING_RATIO(50);
+}
+
+- (void)richElementsInCellWithModel:(id _Nullable)model{//
+    NSLog(@"model = %@",model);
+    if ([model isKindOfClass:[NSString class]]) {
+        NSString *str = (NSString *)model;
+        self.lab.text = str;
+    }
+}
+#pragma mark —— lazyLoad
+-(UILabel *)lab{
+    if (!_lab) {
+        _lab = UILabel.new;
+        _lab.textColor = KLightGrayColor;
+        _lab.textAlignment = NSTextAlignmentCenter;
+        [self.contentView addSubview:_lab];
+        [_lab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(self.contentView);
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - SCALING_RATIO(100), SCALING_RATIO(50)));
+        }];
+    }return _lab;
 }
 
 @end
