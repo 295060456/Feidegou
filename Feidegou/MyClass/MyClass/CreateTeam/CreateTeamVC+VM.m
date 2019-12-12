@@ -44,13 +44,19 @@
                 }
                 for (ZYTextField *tf in self.dataMutSet) {
                     if ([tf.placeholder isEqualToString:self.titleMutArr[0]]) {//手机
-                        tf.text = [@"手机号:"stringByAppendingString:dic[@"contactmobile"]];
+                        if (![NSString isNullString:dic[@"contactmobile"]]) {
+                            tf.text = [@"手机号:"stringByAppendingString:dic[@"contactmobile"]];
+                        }
                         self.telePhoneStr = dic[@"contactmobile"];
                     }else if ([tf.placeholder isEqualToString:self.titleMutArr[1]]){//QQ
-                        tf.text = [@"QQ号:"stringByAppendingString:dic[@"QQ"]];
+                        if (![NSString isNullString:dic[@"QQ"]]) {
+                            tf.text = [@"QQ号:"stringByAppendingString:dic[@"QQ"]];
+                        }
                         self.QQStr = dic[@"QQ"];
                     }else if ([tf.placeholder isEqualToString:self.titleMutArr[2]]){//微信
-                        tf.text = [@"微信号:"stringByAppendingString:dic[@"weixin_account"]];
+                        if (![NSString isNullString:dic[@"weixin_account"]]) {
+                            tf.text = [@"微信号:"stringByAppendingString:dic[@"weixin_account"]];
+                        }
                         self.wechatStr = dic[@"weixin_account"];
                     }else{}
                 }

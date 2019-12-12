@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ViewForHeader : UITableViewHeaderFooterView
 
+@property(nonatomic,copy)DataBlock ClickBlock;
+
 - (instancetype)initWithReuseIdentifier:(nullable NSString *)reuseIdentifier
                                withData:(id)data;
 -(void)actionBlock:(DataBlock)block;

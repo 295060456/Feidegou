@@ -120,22 +120,14 @@
     }else{
         [self.dataMutArr addObject:@"状态异常"];
     }
-    
-//    if (![NSString isNullString:self.orderDetailModel.payment_print]) {
-//        [self.titleMutArr addObject:@"凭证:"];
-//        [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.payment_print ReplaceStr:@""]];
-//    }
-    
+
 //    order_status;//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
     if (self.orderDetailModel.order_status.intValue == 0 ||
         self.orderDetailModel.order_status.intValue == 4) {
-        if (![NSString isNullString:self.orderDetailModel.payment_print]) {
-            [self.titleMutArr addObject:@"凭证:"];
-            [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.payment_print ReplaceStr:@""]];
-        }
+        [self.titleMutArr addObject:@"凭证:"];
+        [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.payment_print ReplaceStr:@""]];
     }
 }
-
 //这个是数据核心
 //buyer_CatfoodRecord_checkURL 喵粮订单查看
 -(void)buyer_CatfoodRecord_checkURL_NetWorkingWithOrder_type:(NSNumber *)Order_type{//订单类型 —— 1、摊位;2、批发;3、产地
@@ -224,8 +216,7 @@
 //                order_status;//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
 //                order_type;//订单类型 1、直通车;2、批发;3、产地
                 if (self.orderDetailModel.del_state.intValue == 0) {
-                    if (self.orderDetailModel.order_status.intValue == 2 ||
-                        self.orderDetailModel.order_type.intValue == 3) {
+                    if (self.orderDetailModel.order_status.intValue == 2) {
                         self.time = 3;
                         self.titleEndStr = @"取消";
                         self.titleBeginStr = @"取消";
@@ -241,7 +232,11 @@
                                       forState:UIControlStateNormal];
                         [self.sureBtn.titleLabel sizeToFit];
                         self.sureBtn.titleLabel.adjustsFontSizeToFitWidth = YES;
-                    }else{}
+                        self.sureBtn.mj_x = (SCREEN_WIDTH - self.sureBtn.mj_w) / 2;
+                    }else if (self.orderDetailModel.order_status.intValue == 4){
+                        self.sureBtn.alpha = 0;
+                    }
+                    else{}
                 }
                 [self.sureBtn addTarget:self
                                  action:@selector(getPrintPic:)
@@ -371,6 +366,11 @@
         }
     }];
 }
+//omic,strong)UIButton *sureBtn;
+//@property(nonatomic,strong)UIButton *reloadPicBtn;
+//@property(nonatomic,strong)UIButton *normalCancelBtn;
+//@property(nonatomic,strong)VerifyCodeButton *countDownCancelBtn;
+
 //CatfoodBooth_del_time 喵粮抢摊位取消剩余时间 #22_2
 -(void)CatfoodBooth_del_time_netWorking{
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];

@@ -50,7 +50,7 @@ RCIMConnectionStatusDelegate
         vc.chatSessionInputBarControl.hidden = NO;
         vc.myOrderCode = [NSString stringWithFormat:@"我是:%@;我的订单号是:%@",vc.conversationModel.userID,vc.conversationModel.myOrderCode];
         vc.title = vc.conversationModel.conversationTitle;
-    }else if ([requestParams isKindOfClass:[PlatformConversationModel class]]){//喵粮管理右上角进
+    }else if ([requestParams isKindOfClass:[PlatformConversationModel class]]){//喵粮管理右上角进 平台客服
         vc.platformConversationModel = (PlatformConversationModel *)requestParams;
         vc.conversationType = vc.platformConversationModel.conversationType;
         vc.targetId = vc.platformConversationModel.targetId;
@@ -142,60 +142,40 @@ RCIMConnectionStatusDelegate
     }
 }
 #warning KKK
--(void)sendUserInfoExtras{
-    NSString *content = @"你好";
-    RCTextMessage *txtMessage = [RCTextMessage messageWithContent:content];
-    NSDictionary *dataDic = nil;
-    if (self.rcConversationModel) {
-        dataDic = @{};
-    }else if (self.conversationModel){
-        dataDic = @{
+-(void)sendUserInfoExtras{//订单直通车
+    if (self.conversationModel){
+        NSString *content = @"你好";
+        RCTextMessage *txtMessage = [RCTextMessage messageWithContent:content];
+        NSDictionary *dataDic = @{
             @"nick":[NSString ensureNonnullString:self.conversationModel.nick ReplaceStr:@""],
             @"portrait":[NSString ensureNonnullString:self.conversationModel.portrait ReplaceStr:@""],
             @"order_code":[NSString ensureNonnullString:self.conversationModel.order_code ReplaceStr:@""],
         };
-    }else if (self.platformConversationModel){
-        dataDic = @{};
-    }else{}
-    
-    NSData *data = [NSJSONSerialization dataWithJSONObject:dataDic
-                                                   options:NSJSONWritingPrettyPrinted
-                                                     error:Nil];
-    txtMessage.extra = [[NSString alloc] initWithData:data
-                                             encoding:NSUTF8StringEncoding];
-      [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE
-                                        targetId:@"admin"
-                                         content:txtMessage
-                                     pushContent:@"远程推送显示的内容"
-                                        pushData:@"远程推送的附加信息"
-                                         success:^(long messageId) {
-      }
-       error:^(RCErrorCode nErrorCode,
-               long messageId) {
-      }];
+        
+        NSData *data = [NSJSONSerialization dataWithJSONObject:dataDic
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:Nil];
+        txtMessage.extra = [[NSString alloc] initWithData:data
+                                                 encoding:NSUTF8StringEncoding];
+          [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE
+                                            targetId:self.targetId
+                                             content:txtMessage
+                                         pushContent:@"远程推送显示的内容"
+                                            pushData:@"远程推送的附加信息"
+                                             success:^(long messageId) {
+          }
+           error:^(RCErrorCode nErrorCode,
+                   long messageId) {
+          }];
+        
+    }
 }
 
 -(void)sendMsg{
     NSString *content = self.myOrderCode;
     RCTextMessage *txtMessage = [RCTextMessage messageWithContent:content];
-    NSDictionary *dataDic = nil;
-    if (self.rcConversationModel) {
-        dataDic = @{};
-    }else if (self.conversationModel){
-        dataDic = @{
-            @"nick":[NSString ensureNonnullString:self.conversationModel.nick ReplaceStr:@""],
-            @"portrait":[NSString ensureNonnullString:self.conversationModel.portrait ReplaceStr:@""],
-            @"order_code":[NSString ensureNonnullString:self.conversationModel.order_code ReplaceStr:@""],
-        };
-    }else if (self.platformConversationModel){
-        dataDic = @{};
-    }else{}
     
-    NSData *data = [NSJSONSerialization dataWithJSONObject:dataDic
-                                                   options:NSJSONWritingPrettyPrinted
-                                                     error:Nil];
-    txtMessage.extra = [[NSString alloc] initWithData:data
-                                             encoding:NSUTF8StringEncoding];
+    
     [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE
                                       targetId:self.targetId
                                        content:txtMessage

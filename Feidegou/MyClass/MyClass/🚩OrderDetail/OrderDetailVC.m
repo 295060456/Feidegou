@@ -176,7 +176,6 @@ UITableViewDataSource
         ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
         model.nick = modelLogin.userName;
         model.userID = modelLogin.userId;
-        model.order_code = [self.orderListModel.ID stringValue];
         model.portrait = modelLogin.head;
         model.targetId = @"";
         if (self.orderListModel) {
@@ -195,8 +194,9 @@ UITableViewDataSource
         }
         else if (self.orderManager_panicBuyingModel){
             model.targetId = [NSString stringWithFormat:@"%@",self.orderManager_panicBuyingModel.platform_id];//0
-            model.myOrderCode = self.orderManager_panicBuyingModel.ordercode;
+//            model.myOrderCode = self.orderManager_panicBuyingModel.ordercode;
             model.conversationTitle = [NSString stringWithFormat:@"买家:%@",self.orderManager_panicBuyingModel.byname];
+            model.order_code = self.orderManager_panicBuyingModel.ordercode;
         }
     }
     
@@ -269,7 +269,6 @@ heightForHeaderInSection:(NSInteger)section{
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     if ((self.orderDetailModel.order_status.intValue == 0 || self.orderDetailModel.order_status.intValue == 4) &&
         indexPath.row == self.titleMutArr.count - 1) {
         return [OrderDetailTBVIMGCell cellHeightWithModel:nil];//凭证图 payment_print

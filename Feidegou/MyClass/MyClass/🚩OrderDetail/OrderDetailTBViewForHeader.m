@@ -60,6 +60,12 @@
 -(void)drawRect:(CGRect)rect{
 
 }
+
+-(void)tipsBtnClickEvent:(MMButton *)sender{
+    if (self.ClickBlock) {
+        self.ClickBlock(@1);
+    }
+}
 #pragma mark —— lazyLoad
 -(NSMutableAttributedString *)attributedString{
     NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
@@ -153,7 +159,8 @@
                   forState:UIControlStateNormal];
          _tipsBtn.imageAlignment = MMImageAlignmentTop;
         if (@available(iOS 8.2, *)) {
-            _tipsBtn.titleLabel.font = [UIFont systemFontOfSize:7 weight:1];
+            _tipsBtn.titleLabel.font = [UIFont systemFontOfSize:7
+                                                         weight:1];
         } else {
             // Fallback on earlier versions
             _tipsBtn.titleLabel.font = [UIFont systemFontOfSize:7];
@@ -162,6 +169,9 @@
          [_tipsBtn setTitleColor:COLOR_HEX(0x7D7D7D, 1)
                        forState:UIControlStateNormal];
          [self.contentView addSubview:_tipsBtn];
+        [_tipsBtn addTarget:self
+                     action:@selector(tipsBtnClickEvent:)
+           forControlEvents:UIControlEventTouchUpInside];
         _tipsBtn.frame = CGRectMake(SCREEN_WIDTH - SCALING_RATIO(110),
                                     SCALING_RATIO(15),
                                     SCALING_RATIO(8),
