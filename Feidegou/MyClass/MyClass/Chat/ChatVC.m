@@ -120,7 +120,8 @@ RCIMConnectionStatusDelegate
         [self.chatSessionInputBarControl.pluginBoardView removeItemAtIndex:3];
         [self.chatSessionInputBarControl.pluginBoardView removeItemAtIndex:2];
     }
-    [self sendMsg];
+
+     [self performSelector:@selector(sendUserInfoExtras) withObject:nil afterDelay:3.0];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -138,13 +139,14 @@ RCIMConnectionStatusDelegate
  */
 - (void)onRCIMConnectionStatusChanged:(RCConnectionStatus)status{
     if (status == ConnectionStatus_Connected) {
-        [self sendUserInfoExtras];
+//        [self sendUserInfoExtras];
+//        [self performSelector:@selector(sendUserInfoExtras) withObject:nil afterDelay:3.0];
     }
 }
 #warning KKK
--(void)sendUserInfoExtras{//订单直通车
-    if (self.conversationModel){
-        NSString *content = @"你好";
+-(void)sendUserInfoExtras{
+    if (self.conversationModel){//订单直通车
+        NSString *content = self.myOrderCode;
         RCTextMessage *txtMessage = [RCTextMessage messageWithContent:content];
         NSDictionary *dataDic = @{
             @"nick":[NSString ensureNonnullString:self.conversationModel.nick ReplaceStr:@""],
@@ -157,17 +159,19 @@ RCIMConnectionStatusDelegate
                                                          error:Nil];
         txtMessage.extra = [[NSString alloc] initWithData:data
                                                  encoding:NSUTF8StringEncoding];
+        
           [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE
                                             targetId:self.targetId
                                              content:txtMessage
                                          pushContent:@"远程推送显示的内容"
                                             pushData:@"远程推送的附加信息"
                                              success:^(long messageId) {
+              NSLog(@"messageId = %ld",messageId);
           }
-           error:^(RCErrorCode nErrorCode,
-                   long messageId) {
+                                               error:^(RCErrorCode nErrorCode,
+                                                           long messageId) {
+              NSLog(@"messageId = %ld,nErrorCode = %ld",messageId,(long)nErrorCode);
           }];
-        
     }
 }
 

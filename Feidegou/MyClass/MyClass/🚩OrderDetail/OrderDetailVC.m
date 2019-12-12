@@ -194,7 +194,7 @@ UITableViewDataSource
         }
         else if (self.orderManager_panicBuyingModel){
             model.targetId = [NSString stringWithFormat:@"%@",self.orderManager_panicBuyingModel.platform_id];//0
-//            model.myOrderCode = self.orderManager_panicBuyingModel.ordercode;
+            model.myOrderCode = self.orderManager_panicBuyingModel.ordercode;
             model.conversationTitle = [NSString stringWithFormat:@"买家:%@",self.orderManager_panicBuyingModel.byname];
             model.order_code = self.orderManager_panicBuyingModel.ordercode;
         }
