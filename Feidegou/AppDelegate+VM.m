@@ -143,7 +143,7 @@
                     UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"去更新"
                                                                       style:UIAlertActionStyleDefault
                                                                     handler:^(UIAlertAction * _Nonnull action) {
-                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:dic[@"data"][@"URL"]]];
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:dic[@"data"][@"IOSURL"]]];
                     }];
                     [alertController addAction:confirm];
                     [self.window.rootViewController presentViewController:alertController

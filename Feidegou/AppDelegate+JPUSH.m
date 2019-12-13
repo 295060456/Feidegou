@@ -107,7 +107,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
                                                              Order_id:userInfo[@"order_id"]];//20190000
           [NSObject playSoundWithFileName:@"Sound.wav"];
       }else{//
-          Toast(userInfo[@"aps"][@"alert"]);
+          if ([userInfo[@"aps"][@"alert"] isKindOfClass:[NSString class]]) {
+              Toast(userInfo[@"aps"][@"alert"]);
+          }
       }
   }
   completionHandler(UNNotificationPresentationOptionAlert); // 需要执行这个方法，选择是否提醒用户，有 Badge、Sound、Alert 三种类型可以选择设置
