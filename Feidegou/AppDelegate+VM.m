@@ -22,7 +22,7 @@
         @"type":num,
         @"randomStr":randomStr
     };
-    NSLog(@"%lu",(unsigned long)onlinePeople)
+    NSLog(@"%lu",(unsigned long)onlinePeople);
     FMHttpRequest *req = [FMHttpRequest urlParametersWithMethod:HTTTP_METHOD_POST
                                                            path:Catfood_statisticsUrl
                                                      parameters:@{
@@ -130,7 +130,7 @@
             NSDictionary *dic = (NSDictionary *)responseObject;
             NSString *str = (NSString *)dic[@"msg"];
             if ([str isEqualToString:@"成功"]) {
-                NSNumber *newBuild = dic[@"data"][@"VERSION"];
+                NSNumber *newBuild = dic[@"data"][@"IOSVERSION"];
                 // app版本
 //                NSString *app_Version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
                 // app build版本

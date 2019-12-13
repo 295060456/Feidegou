@@ -283,11 +283,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:NO];
-    OrderDetailTBVCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    OrderDetailTBVCopyCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if ([cell.textLabel.text isEqualToString:@"订单号:"]) {
         [YKToastView showToastText:@"复制成功!"];
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        pasteboard.string = cell.textLabel.text;
+        pasteboard.string = cell.lab.text;
     }
 }
 

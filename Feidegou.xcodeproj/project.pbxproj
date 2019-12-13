@@ -5257,7 +5257,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Feidegou/喵粮商城.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_TEAM = LFJTRVCABB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5308,7 +5308,7 @@
 					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMLib_CallLib_RTCLib_SDK_v2_10_1_Dev/IMLib",
 					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/IMLib",
 				);
-				MARKETING_VERSION = 110;
+				MARKETING_VERSION = 113;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miaoLiangStores.app;
 				PRODUCT_NAME = "喵小店";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -5322,7 +5322,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Feidegou/喵粮商城.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_TEAM = LFJTRVCABB;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5373,7 +5373,7 @@
 					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMLib_CallLib_RTCLib_SDK_v2_10_1_Dev/IMLib",
 					"$(PROJECT_DIR)/Feidegou/MyClass/RongCloudSight/Rong_Cloud_iOS_IMKit_CallKit_RedPacket_Sight_MCenter_Sticker_SDK_v2_10_1_Dev/IMLib",
 				);
-				MARKETING_VERSION = 110;
+				MARKETING_VERSION = 113;
 				PRODUCT_BUNDLE_IDENTIFIER = com.miaoLiangStores.app;
 				PRODUCT_NAME = "喵小店";
 				TARGETED_DEVICE_FAMILY = 1;

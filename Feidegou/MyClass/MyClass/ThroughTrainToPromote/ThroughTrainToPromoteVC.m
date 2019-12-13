@@ -131,12 +131,12 @@ UITableViewDataSource
 }
 
 -(void)suspendBtnClickEvent:(UIButton *)sender{
-    NSLog(@"暂停直通车出售")
+    NSLog(@"暂停直通车出售");
     [self CatfoodTrain_stopURL_networking];
 }
 
 -(void)openBtnClickEvent:(UIButton *)sender{
-    NSLog(@"开启直通车抢摊位")
+    NSLog(@"开启直通车抢摊位");
     [self.view endEditing:YES];
     if (![NSString isNullString:self.quantity]) {
         [self CatfoodTrainURL_networking];//开启直通车 CatfoodTrainURL
