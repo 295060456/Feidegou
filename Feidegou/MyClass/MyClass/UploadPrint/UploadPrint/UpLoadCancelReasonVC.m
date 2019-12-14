@@ -168,31 +168,6 @@ UITableViewDataSource
                 [self uploadPic_producingArea_havePaid_netWorking:self.pic];
             }
         }
-//        if (self.orderListModel) {
-//            if ([self.orderListModel.order_status intValue] == 2 &&
-//                [self.orderListModel.identity isEqualToString:@"买家"] &&
-//                [self.orderListModel.order_type intValue] == 2) {
-//                //#17
-//                [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.pic];
-//            }
-//            if ([self.orderListModel.order_status intValue] == 0 &&
-//                [self.orderListModel.identity isEqualToString:@"买家"] &&
-//                [self.orderListModel.order_type intValue] == 2) {
-//                //#17
-//                [self upLoadPic_wholesaleMarket_havePaid_netWorking:self.pic];
-//            }
-//            if ([self.orderListModel.order_status intValue] == 2 &&
-//                [self.orderListModel.order_type intValue] == 3) {
-//                //#8
-//                [self uploadPic_producingArea_havePaid_netWorking:self.pic];
-//            }
-//            if ([self.orderListModel.order_status intValue] == 0 &&
-//                [self.orderListModel.order_type intValue] == 3) {//??
-//                //#8
-//                [self uploadPic_producingArea_havePaid_netWorking:self.pic];
-//            }
-//        }
-#warning KKK 检查
         else if (self.catFoodProducingAreaModel){
             //#8
             [self uploadPic_producingArea_havePaid_netWorking:self.pic];

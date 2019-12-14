@@ -250,11 +250,16 @@ viewForHeaderInSection:(NSInteger)section {
             if (self.orderDetailModel.order_status.intValue == 2 &&
                 (self.orderDetailModel.del_state.intValue == 1 ||
                  self.orderDetailModel.del_state.intValue == 0)) {
-                [self chat];
+//                [self chat];
+                //新需求：如果没有上传凭证那么跳上传凭证
+                if ([NSString isNullString:self.orderDetailModel.payment_print]) {
+                    [self getPrintPic:Nil];
+                }else{
+                    [self chat];
+                }
             }
         }];
     }
-    
     if (self.orderDetailModel.order_type.intValue == 1 &&
         self.orderDetailModel.del_state.intValue == 1 &&
         self.orderDetailModel.order_status.intValue == 2) {//直通车取消中...

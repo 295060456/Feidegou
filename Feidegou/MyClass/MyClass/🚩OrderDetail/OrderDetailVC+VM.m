@@ -190,11 +190,8 @@
                     [self.normalCancelBtn setTitle:@"取消"
                                             forState:UIControlStateNormal];
                     [self.normalCancelBtn addTarget:self
-                                            action:@selector(CatfoodBooth_del_time_netWorking)//先查看剩余时间，过了倒计时才进行下一步
-                                forControlEvents:UIControlEventTouchUpInside];//#9
-//                    [self.countDownCancelBtn addTarget:self
-//                                                action:@selector(CancelDelivery_NetWorking)
-//                                      forControlEvents:UIControlEventTouchUpInside];
+                                             action:@selector(CatfoodBooth_del_time_netWorking)//先查看剩余时间，过了倒计时才进行下一步 喵粮抢摊位取消CatfoodBooth_del_netWorking
+                                   forControlEvents:UIControlEventTouchUpInside];//#9
                 }else if (self.orderDetailModel.order_status.intValue == 2){//已下单
                     if (self.orderDetailModel.del_state.intValue == 0) {//0、不影响（驳回）
                         //去请求 #22-2 获取最新时间
@@ -207,7 +204,7 @@
                         self.titleEndStr = @"取消";
                         //KKK
                         [self.countDownCancelBtn addTarget:self
-                                                    action:@selector(CancelDelivery_NetWorking)//
+                                                    action:@selector(CancelDelivery_NetWorking)//喵粮订单撤销
                                           forControlEvents:UIControlEventTouchUpInside];
                     }
                 }
@@ -366,11 +363,6 @@
         }
     }];
 }
-//omic,strong)UIButton *sureBtn;
-//@property(nonatomic,strong)UIButton *reloadPicBtn;
-//@property(nonatomic,strong)UIButton *normalCancelBtn;
-//@property(nonatomic,strong)VerifyCodeButton *countDownCancelBtn;
-
 //CatfoodBooth_del_time 喵粮抢摊位取消剩余时间 #22_2
 -(void)CatfoodBooth_del_time_netWorking{
     NSString *randomStr = [EncryptUtils shuffledAlphabet:16];
