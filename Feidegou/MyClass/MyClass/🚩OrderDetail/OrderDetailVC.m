@@ -218,7 +218,8 @@ UITableViewDataSource
                      success:^(id data) {}
                     animated:YES];
     }else{
-        [self dismissViewControllerAnimated:YES completion:nil];
+        [self dismissViewControllerAnimated:YES
+                                 completion:nil];
     }
 }
 
@@ -252,7 +253,7 @@ viewForHeaderInSection:(NSInteger)section {
                  self.orderDetailModel.del_state.intValue == 0)) {
 //                [self chat];
                 //新需求：如果没有上传凭证那么跳上传凭证
-                if ([NSString isNullString:self.orderDetailModel.payment_print]) {
+                if ([NSString isNullString:self.orderDetailModel.del_print]) {
                     [self getPrintPic:Nil];
                 }else{
                     [self chat];

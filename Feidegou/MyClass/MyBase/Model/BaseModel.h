@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy)NSString *del_check;//审核理由
 @property(nonatomic,copy)NSNumber *del_state;//撤销状态 0、不影响（驳回）;1、待审核;2、已通过
 @property(nonatomic,copy)NSString *refer;//参考号
-@property(nonatomic,strong)NSNumber *del_print;//取消凭证
+@property(nonatomic,copy)NSString *del_print;//取消凭证
 @property(nonatomic,copy)NSString *del_print_path;//?
 @property(nonatomic,copy)NSString *del_print_name;//?
 @property(nonatomic,copy)NSString *trueName;//真实姓名

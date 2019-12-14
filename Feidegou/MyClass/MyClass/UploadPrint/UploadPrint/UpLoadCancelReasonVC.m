@@ -57,21 +57,33 @@ UITableViewDataSource
     UpLoadCancelReasonVC *vc = UpLoadCancelReasonVC.new;
     vc.successBlock = block;
     vc.requestParams = requestParams;
-    if ([requestParams isKindOfClass:[SearchOrderListModel class]]) {
-        vc.orderListModel = (SearchOrderListModel *)requestParams;
-        vc.Order_id = vc.orderListModel.ID;
-        vc.Order_type = vc.orderListModel.order_type;
-    }
-    else if ([requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){
-        vc.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)requestParams;
-        vc.Order_id = vc.catFoodProducingAreaModel.ID;
-        vc.Order_type = vc.catFoodProducingAreaModel.order_type;
-    }
-    else if ([requestParams isKindOfClass:[OrderManager_producingAreaModel class]]){
-        vc.orderManager_producingAreaModel = (OrderManager_producingAreaModel *)requestParams;
-        vc.Order_id = vc.orderManager_producingAreaModel.ID;
-        vc.Order_type = vc.orderManager_producingAreaModel.order_type;
-    }
+     if ([vc.requestParams isKindOfClass:[SearchOrderListModel class]]) {//搜索页面进
+         vc.orderListModel = (SearchOrderListModel *)vc.requestParams;
+         vc.Order_id = vc.orderListModel.ID;
+         vc.Order_type = vc.orderListModel.order_type;
+         NSLog(@"我从搜索页面来，order_id = %d,order_type = %d",vc.Order_id.intValue,vc.Order_type.intValue);
+     }else if ([vc.requestParams isKindOfClass:[CatFoodProducingAreaModel class]]){//喵粮产地页面进
+         vc.catFoodProducingAreaModel = (CatFoodProducingAreaModel *)vc.requestParams;
+         vc.Order_id = vc.catFoodProducingAreaModel.ID;
+         vc.Order_type = vc.catFoodProducingAreaModel.order_type;
+         vc.catFoodProducingAreaModel.isSelect = YES;
+         NSLog(@"我从喵粮产地页面来，order_id = %d,order_type = %d",vc.Order_id.intValue,vc.Order_type.intValue);
+     }else if ([vc.requestParams isKindOfClass:[JPushOrderDetailModel class]]){//极光推送——直通车 进
+         vc.jPushOrderDetailModel = (JPushOrderDetailModel *)vc.requestParams;
+         vc.Order_id = vc.jPushOrderDetailModel.ID;
+         vc.Order_type = vc.jPushOrderDetailModel.order_type;
+         NSLog(@"我从极光推送——直通车来，order_id = %d,order_type = %d",vc.Order_id.intValue,vc.Order_type.intValue);
+     }else if ([vc.requestParams isKindOfClass:[OrderManager_producingAreaModel class]]){//订单管理——产地
+         vc.orderManager_producingAreaModel = (OrderManager_producingAreaModel *)vc.requestParams;
+         vc.Order_id = vc.orderManager_producingAreaModel.ID;
+         vc.Order_type = vc.orderManager_producingAreaModel.order_type;
+         NSLog(@"我从订单管理——产地来，order_id = %d,order_type = %d",vc.Order_id.intValue,vc.Order_type.intValue);
+     }else if ([vc.requestParams isKindOfClass:[OrderManager_panicBuyingModel class]]){//订单管理——直通车
+         vc.orderManager_panicBuyingModel = (OrderManager_panicBuyingModel *)vc.requestParams;
+         vc.Order_id = vc.orderManager_panicBuyingModel.ID;
+         vc.Order_type = vc.orderManager_panicBuyingModel.order_type;
+         NSLog(@"我从订单管理——直通车来，order_id = %d,order_type = %d",vc.Order_id.intValue,vc.Order_type.intValue);
+     }
     else{}
     switch (comingStyle) {
         case ComingStyle_PUSH:{
@@ -100,7 +112,6 @@ UITableViewDataSource
             break;
     }return vc;
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -159,7 +170,7 @@ UITableViewDataSource
 
 -(void)GoUploadPic{
     if (self.pic) {
-        if (self.orderManager_producingAreaModel) {
+        if (self.orderManager_producingAreaModel) {//订单详情 —— 喵粮产地
             NSLog(@"");//已下单上传凭证 已支付重新上传
             if (([self.orderManager_producingAreaModel.order_status intValue] == 0 || //已支付
             [self.orderManager_producingAreaModel.order_status intValue] == 2) &&//已下单 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
@@ -168,12 +179,17 @@ UITableViewDataSource
                 [self uploadPic_producingArea_havePaid_netWorking:self.pic];
             }
         }
-        else if (self.catFoodProducingAreaModel){
+        else if (self.catFoodProducingAreaModel){//喵粮产地
             //#8
             [self uploadPic_producingArea_havePaid_netWorking:self.pic];
-        }else{
-            
         }
+        else if (self.jPushOrderDetailModel){//极光推送 —— 直通车
+            [self CatfoodRecord_delURL_netWorking:self.pic];
+        }
+        else if (self.orderManager_panicBuyingModel){//订单管理 —— 直通车
+            [self CatfoodRecord_delURL_netWorking:self.pic];
+        }
+        else{}
     }
 }
 
@@ -205,6 +221,58 @@ UITableViewDataSource
 -(void)OK{
     NSLog(@"OK");
 }
+
+-(void)chat{
+    @weakify(self)
+    NSLog(@"联系");
+    ConversationModel *model = ConversationModel.new;
+    model.conversationType = ConversationType_PRIVATE;
+    if ([[PersonalInfo sharedInstance] isLogined]) {
+        ModelLogin *modelLogin = [[PersonalInfo sharedInstance] fetchLoginUserInfo];
+        model.nick = modelLogin.userName;
+        model.userID = modelLogin.userId;
+        model.portrait = modelLogin.head;
+        model.targetId = @"";
+        if (self.orderListModel) {
+            model.targetId = [NSString stringWithFormat:@"%@",self.orderListModel.platform_id];//0
+            model.myOrderCode = self.orderListModel.ordercode;
+            model.conversationTitle = [NSString stringWithFormat:@"买家:%@",self.orderListModel.byname];
+        }else if (self.catFoodProducingAreaModel){
+//            model.targetId = [NSString stringWithFormat:@"%@",self.catFoodProducingAreaModel.platform_id];//0
+        }else if (self.jPushOrderDetailModel){
+            model.targetId = [NSString stringWithFormat:@"%@",self.jPushOrderDetailModel.platform_id];//0
+            model.myOrderCode = self.jPushOrderDetailModel.ordercode;
+            model.conversationTitle = [NSString stringWithFormat:@"买家:%@",self.jPushOrderDetailModel.byname];
+        }
+        else if (self.orderManager_producingAreaModel){
+//            model.targetId = [NSString stringWithFormat:@"%@",self.orderManager_producingAreaModel.platform_id];//0
+        }
+        else if (self.orderManager_panicBuyingModel){
+            model.targetId = [NSString stringWithFormat:@"%@",self.orderManager_panicBuyingModel.platform_id];//0
+            model.myOrderCode = self.orderManager_panicBuyingModel.ordercode;
+            model.conversationTitle = [NSString stringWithFormat:@"买家:%@",self.orderManager_panicBuyingModel.byname];
+            model.order_code = self.orderManager_panicBuyingModel.ordercode;
+        }
+    }
+    
+//    [CatFoodsManagementVC ComingFromVC:self_weak_
+//                             withStyle:ComingStyle_PUSH
+//                         requestParams:model
+//                               success:^(id data) {}
+//                              animated:YES];
+    
+    if (self.navigationController) {
+        [ChatVC ComingFromVC:self_weak_
+                   withStyle:ComingStyle_PUSH
+               requestParams:model
+                     success:^(id data) {}
+                    animated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES
+                                 completion:nil];
+    }
+}
+
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -248,7 +316,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIImageView *)imageView{
     if (!_imageView) {
         _imageView = UIImageView.new;
-        _imageView.backgroundColor = AppMainThemeColor;//COLOR_HEX(0x4870EF, 1);
+        _imageView.backgroundColor = AppMainThemeColor;
         [self.view addSubview:_imageView];
         [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom);

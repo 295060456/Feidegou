@@ -26,9 +26,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)NSNumber *Order_type;
 
 @property(nonatomic,strong)id requestParams;
-@property(nonatomic,strong)SearchOrderListModel *orderListModel;
-@property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;
+//外来数据层
+@property(nonatomic,strong)SearchOrderListModel *orderListModel;//搜索
+@property(nonatomic,strong)CatFoodProducingAreaModel *catFoodProducingAreaModel;//产地
+@property(nonatomic,strong)JPushOrderDetailModel *jPushOrderDetailModel;//极光推送
 @property(nonatomic,strong)OrderManager_producingAreaModel *orderManager_producingAreaModel;
+@property(nonatomic,strong)OrderManager_panicBuyingModel *orderManager_panicBuyingModel;//直通车
+@property(nonatomic,strong)OrderDetailModel *orderDetailModel;//订单详情
 
 + (instancetype)ComingFromVC:(UIViewController *)rootVC
                    withStyle:(ComingStyle)comingStyle
@@ -39,6 +43,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)upLoadbtnClickEvent:(UIButton *)sender;
 -(void)backBtnClickEvent:(UIButton *)sender;
 -(void)sorry;
+
+-(void)chat;
 
 @end
 

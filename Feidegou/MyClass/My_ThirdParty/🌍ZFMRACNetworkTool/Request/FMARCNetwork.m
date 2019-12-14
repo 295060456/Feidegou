@@ -122,23 +122,23 @@ static FMARCNetwork *_instance = nil;
         /// 获取request KKK
         NSError *serializationError = nil;
 #warning KKK 正式环境，下面代码不要
-//        NSString *url;
-//        __block NSString *urlpath = req.path;
-//        if ([req.path isEqualToString:Updatewx]) {
-//            url = [DanielUrL stringByAppendingString:req.path];//KKK 8080
-//        }else if ([req.path isEqualToString:GetSuperior] ||
-//                  [req.path isEqualToString:CatfoodboothType] ||
-//                  [req.path isEqualToString:GetTeam]){
-//            url = [DanielUrL_1 stringByAppendingString:req.path];//KKK 8888
-//        }
-//        else{
-//            url = [BaseUrl_Gouge stringByAppendingString:req.path];//KKK
-//        }
+        NSString *url;
+        __block NSString *urlpath = req.path;
+        if ([req.path isEqualToString:Updatewx]) {
+            url = [DanielUrL stringByAppendingString:req.path];//KKK 8080
+        }else if ([req.path isEqualToString:GetSuperior] ||
+                  [req.path isEqualToString:CatfoodboothType] ||
+                  [req.path isEqualToString:GetTeam]){
+            url = [DanielUrL_1 stringByAppendingString:req.path];//KKK 8888
+        }
+        else{
+            url = [BaseUrl_Gouge stringByAppendingString:req.path];//KKK
+        }
 #warning KKK 正式环境，上面代码不要
         
 #warning 正式环境用下面
-        NSString *url = [BaseURL stringByAppendingString:req.path];//KKK
-        __block NSString *urlpath = req.path;
+//        NSString *url = [BaseURL stringByAppendingString:req.path];//KKK
+//        __block NSString *urlpath = req.path;
         
         NSMutableURLRequest *request = [self.manager.requestSerializer requestWithMethod:req.method
                                                                                URLString:url
