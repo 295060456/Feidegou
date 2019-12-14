@@ -117,7 +117,6 @@
         error:错误信息
      响应头:task.response
      */
-    NSString *str = AK;
     @weakify(self)
     [manager POST:AK
        parameters:dataMutDic
@@ -137,10 +136,10 @@
                 NSString *app_build = [infoDictionary objectForKey:@"CFBundleVersion"];
                 if (newBuild.intValue > app_build.intValue) {
                     NSLog(@"是新版本");
-                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"版本更新"
+                    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"版本更新 当前版本:%@",app_build]
                                                                                              message:dic[@"data"][@"MSG"]
                                                                                       preferredStyle:UIAlertControllerStyleAlert];
-                    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"去更新"
+                    UIAlertAction *confirm = [UIAlertAction actionWithTitle:[NSString stringWithFormat:@"去更新 版本:%@",newBuild]
                                                                       style:UIAlertActionStyleDefault
                                                                     handler:^(UIAlertAction * _Nonnull action) {
                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:dic[@"data"][@"IOSURL"]]];
