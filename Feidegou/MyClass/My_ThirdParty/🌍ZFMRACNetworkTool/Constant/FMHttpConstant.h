@@ -21,11 +21,11 @@
 #define Port_Daniel_1 @":8888"//查看上下级
 #define Port_Daniel @":8080"
 //线上
-//#define RELATIVE_PATH_QUERY @"SHOPAPP2.0/appShop7/query.do?"
-//#define RELATIVE_PATH_WRITE @"SHOPAPP2.0/appShop7/write.do?"
+#define RELATIVE_PATH_QUERY @"SHOPAPP2.0/appShop7/query.do?"
+#define RELATIVE_PATH_WRITE @"SHOPAPP2.0/appShop7/write.do?"
 //线下
-#define RELATIVE_PATH_QUERY @"/appShop7/query.do?"
-#define RELATIVE_PATH_WRITE @"/appShop7/write.do?"
+//#define RELATIVE_PATH_QUERY @"/appShop7/query.do?"
+//#define RELATIVE_PATH_WRITE @"/appShop7/write.do?"
 #define BaseUrl_Gouge [NSString stringWithFormat:@"%@%@%@",HTTP,IP_Gouge,Port_Gouge]//http:xxx.xx.xx:8080 ###根 进行拼接
 #define BaseUrl_Daniel [NSString stringWithFormat:@"%@%@%@",HTTP,IP_Daniel,Port_Daniel]
 //#define BASE_URL [NSString stringWithFormat:@"%@%@%@",HTTP,IP_Gouge,Port_Gouge]//http:xxx.xx.xx:8080
