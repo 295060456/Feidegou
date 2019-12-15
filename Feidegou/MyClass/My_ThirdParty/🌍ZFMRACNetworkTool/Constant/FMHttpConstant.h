@@ -34,34 +34,34 @@
 #define BaseUrl_Daniel [NSString stringWithFormat:@"%@%@%@",HTTP,IP_Daniel,Port_Daniel]
 //#define BASE_URL [NSString stringWithFormat:@"%@%@%@",HTTP,IP_Gouge,Port_Gouge]//http:xxx.xx.xx:8080
 
-#define BaseUrl BaseUrl_Gouge
-#define BaseURL BaseUrl_Daniel
-#define BaseUrl2 [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Gouge,Port_Gouge,@"/catfoodapp"]
-//Daniel
-#define DanielUrL [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Daniel,Port_Daniel,@"/MFW"]
-#define DanielUrL_1 [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Daniel,Port_Daniel_1,@"/MFW"]//查看上下级
-#define AK [NSString stringWithFormat:@"%@%@%@/%@",HTTP,IP_Daniel,Port_Daniel,RELATIVE_PATH_QUERY]//登录
-#define YQM [NSString stringWithFormat:@"%@%@%@/%@",HTTP,IP_Daniel,Port_Daniel,RELATIVE_PATH_WRITE]//邀请码
-//webSocket
-#define WebSocketLocalhost [NSString stringWithFormat:@"%@%@%@%@",WS,IP_Daniel,Port_Daniel,@"/MFW/websocket"]
-//#define ImgBaseURL BaseUrl //正式BaseURL 测试BaseUrl
-#define ImgBaseURL @"http://10.1.41.158:8080" //临时测下阿狗的
-#define RELATIVE_PATH_QUERY @"appShop7/query.do?"
-#define RELATIVE_PATH_WRITE @"appShop7/write.do?"
+//#define BaseUrl BaseUrl_Gouge
+//#define BaseURL BaseUrl_Daniel
+//#define BaseUrl2 [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Gouge,Port_Gouge,@"/catfoodapp"]
+////Daniel
+//#define DanielUrL [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Daniel,Port_Daniel,@"/MFW"]
+//#define DanielUrL_1 [NSString stringWithFormat:@"%@%@%@%@",HTTP,IP_Daniel,Port_Daniel_1,@"/MFW"]//查看上下级
+//#define AK [NSString stringWithFormat:@"%@%@%@/%@",HTTP,IP_Daniel,Port_Daniel,RELATIVE_PATH_QUERY]//登录
+//#define YQM [NSString stringWithFormat:@"%@%@%@/%@",HTTP,IP_Daniel,Port_Daniel,RELATIVE_PATH_WRITE]//邀请码
+////webSocket
+//#define WebSocketLocalhost [NSString stringWithFormat:@"%@%@%@%@",WS,IP_Daniel,Port_Daniel,@"/MFW/websocket"]
+////#define ImgBaseURL BaseUrl //正式BaseURL 测试BaseUrl
+//#define ImgBaseURL @"http://10.1.41.158:8080" //临时测下阿狗的
+//#define RELATIVE_PATH_QUERY @"appShop7/query.do?"
+//#define RELATIVE_PATH_WRITE @"appShop7/write.do?"
 
 #pragma mark —— 预上线环境 47.56.142.41
-//#define BaseUrl @"http://47.56.142.41/SHOPAPP2.0/appShop7"//喵粮管理地址
-//#define BaseURL @"http://47.56.142.41"//喵粮管理地址
-//#define AK @"http://47.56.142.41/SHOPAPP2.0/appShop7/query.do"//登录
-////#define AK @"http://www.miaoxiaodian.shop/SHOPAPP2.0/appShop7/query.do"//登录
-//#define YQM @"http://47.56.142.41/SHOPAPP2.0/appShop7/write.do"//邀请码
-//#define WebSocketLocalhost @"ws://www.miaoxiaodian.shop:8080/websocket/"//喵粮转转
-//#define DanielUrL @"http://47.56.142.41/SHOPAPP2.0/appShop7"//
-//#define DanielUrL_1 @"http://47.56.142.41/SHOPAPP2.0/appShop7"//查看上下级
-//#define ImgBaseURL BaseURL //正式BaseURL 测试BaseUrl
-//#define BASE_URL @"http://47.56.142.41"//商城服务器正式地址
-//#define RELATIVE_PATH_QUERY @"SHOPAPP2.0/appShop7/query.do?"
-//#define RELATIVE_PATH_WRITE @"SHOPAPP2.0/appShop7/write.do?"
+#define BaseUrl @"http://47.56.142.41/SHOPAPP2.0/appShop7"//喵粮管理地址
+#define BaseURL @"http://47.56.142.41"//喵粮管理地址
+#define AK @"http://47.56.142.41/SHOPAPP2.0/appShop7/query.do"//登录
+//#define AK @"http://www.miaoxiaodian.shop/SHOPAPP2.0/appShop7/query.do"//登录
+#define YQM @"http://47.56.142.41/SHOPAPP2.0/appShop7/write.do"//邀请码
+#define WebSocketLocalhost @"ws://www.miaoxiaodian.shop:8080/websocket/"//喵粮转转
+#define DanielUrL @"http://47.56.142.41/SHOPAPP2.0/appShop7"//
+#define DanielUrL_1 @"http://47.56.142.41/SHOPAPP2.0/appShop7"//查看上下级
+#define ImgBaseURL BaseURL //正式BaseURL 测试BaseUrl
+#define BASE_URL @"http://47.56.142.41"//商城服务器正式地址
+#define RELATIVE_PATH_QUERY @"SHOPAPP2.0/appShop7/query.do?"
+#define RELATIVE_PATH_WRITE @"SHOPAPP2.0/appShop7/write.do?"
 
 #pragma mark —— 线上环境
 //#define BaseUrl @"http://www.miaoxiaodian.shop/SHOPAPP2.0/appShop7"//喵粮管理地址

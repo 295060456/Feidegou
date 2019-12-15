@@ -264,7 +264,6 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
         
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Navigation" bundle:nil];
-        UIViewController *dd = [storyboard instantiateInitialViewController];
         self.window.rootViewController = [storyboard instantiateInitialViewController];
     }
 }
@@ -309,7 +308,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
         [JPUSHService setAlias:strUerId completion:^(NSInteger iResCode,
                                                      NSString *iAlias,
                                                      NSInteger seq) {
-            D_NSLog(@"setAlias code:%ld iAlias:%@ seq:%ld", iResCode, iAlias, seq);
+            D_NSLog(@"setAlias code:%ld iAlias:%@ seq:%ld", (long)iResCode, iAlias, seq);
         } seq:[self seq]];
     }
 }

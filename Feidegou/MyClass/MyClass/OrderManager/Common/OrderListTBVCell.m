@@ -148,7 +148,11 @@
         }else if ([orderManager_panicBuyingModel.order_status intValue] == 1){//已发单
             self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"已发单"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if ([orderManager_panicBuyingModel.order_status intValue] == 2){//已下单
-            self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"已下单"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            if (self.orderManager_panicBuyingModel.del_state.intValue == 1) {
+                self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"等待买家确认"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            }else{
+                self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"已下单"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
+            }
         }else if ([orderManager_panicBuyingModel.order_status intValue] == 3){//已作废
             self.orderStatusStr = [@"订单状态:    " stringByAppendingString:@"已作废"];//状态 —— 0、已支付;1、已发单;2、已下单;3、已作废;4、已发货;5、已完成
         }else if ([orderManager_panicBuyingModel.order_status intValue] == 4){//已发货
