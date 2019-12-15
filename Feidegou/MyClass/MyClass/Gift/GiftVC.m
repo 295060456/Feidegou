@@ -102,6 +102,14 @@ UITableViewDataSource
 }
 #pragma mark —— 点击事件
 -(void)sendBtnClickEvent:(UIButton *)sender{
+    //新需求 加弹窗
+    [self showAlertViewTitle:@"确认赠送"
+                     message:@""
+                 btnTitleArr:@[@"好的",@"我点错了"]
+              alertBtnAction:@[@"OK",@"Sorry"]];
+}
+
+-(void)OK{
     [self.view endEditing:YES];
     NSLog(@"赠送");
     if ([NSString isNullString:self.User_phone]) {
@@ -112,6 +120,8 @@ UITableViewDataSource
         [self netWorking];
     }
 }
+
+-(void)Sorry{}
 
 -(void)cancelBtnClickEvent:(UIButton *)sender{
     NSLog(@"取消赠送");
