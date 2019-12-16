@@ -26,7 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(instancetype)initWithrequestParams:(nullable id)requestParams
                              success:(DataBlock)block;
--(void)delay;
 
 @end
 

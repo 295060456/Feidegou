@@ -99,6 +99,7 @@
 #import "NSObject+Sound.h"
 #import "TimeManager.h"
 #import "TBVCell_style_01.h"
+#import "TBVCell_style_02.h"
 #import "UIView+Extras.h"
 #import "MMButton.h"
 #import "MISFloatingBall.h"
@@ -169,6 +170,7 @@
 //Test
 #import "TestVC.h"
 #import "TestView.h"
+
 
 //#import <RongCallKit/RongCallKit.h>
 //#import <RongCallLib/RongCallLib.h>

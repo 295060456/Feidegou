@@ -11,7 +11,9 @@
 
 @interface ChatVC ()
 <
-RCIMConnectionStatusDelegate
+RCIMConnectionStatusDelegate,
+RCIMUserInfoDataSource
+//RCIMGroupInfoDataSource
 >
 
 @property(nonatomic,strong)UIViewController *rootVC;
@@ -45,6 +47,7 @@ RCIMConnectionStatusDelegate
     vc.rootVC = rootVC;
     if ([requestParams isKindOfClass:[ConversationModel class]]){//订单详情——直通车进来
         vc.conversationModel = (ConversationModel *)requestParams;
+//        vc.conversationModel.buyer =
         vc.conversationType = vc.conversationModel.conversationType;
         vc.targetId = vc.conversationModel.targetId;
         vc.chatSessionInputBarControl.hidden = NO;
@@ -55,7 +58,7 @@ RCIMConnectionStatusDelegate
         vc.conversationType = vc.platformConversationModel.conversationType;
         vc.targetId = vc.platformConversationModel.targetId;
         vc.chatSessionInputBarControl.hidden = NO;
-        vc.title = vc.platformConversationModel.conversationTitle;
+        vc.title = vc.platformConversationModel.buyer;
     }else{//从会话列表进
         vc.rcConversationModel = (RCConversationModel *)requestParams;
         vc.conversationType = vc.rcConversationModel.conversationType;
@@ -66,12 +69,14 @@ RCIMConnectionStatusDelegate
 
     extern NSString *tokenStr;
     RCIM *rcim = [RCIM sharedRCIM];
+
+//    [[RCIM sharedRCIM] setGroupInfoDataSource:self];
     rcim.connectionStatusDelegate = vc;
     [rcim connectWithToken:tokenStr
                    success:^(NSString *userId) {
         NSLog(@"%@",userId);
     }error:^(RCConnectErrorCode status) {
-        
+
     }tokenIncorrect:^{}];
     
     switch (comingStyle) {
@@ -115,20 +120,19 @@ RCIMConnectionStatusDelegate
     [self.navigationController setNavigationBarHidden:NO];//和GK冲突，还原设置
 //    self.navigationItem.title = @"消息";
     self.tabBarController.tabBar.hidden = YES;
-    [self.chatSessionInputBarControl setInputBarType:RCChatSessionInputBarControlDefaultType style:RC_CHAT_INPUT_BAR_STYLE_CONTAINER_EXTENTION];
+    [self.chatSessionInputBarControl setInputBarType:RCChatSessionInputBarControlDefaultType
+                                               style:RC_CHAT_INPUT_BAR_STYLE_CONTAINER_EXTENTION];
     if ([self.chatSessionInputBarControl.pluginBoardView allItems].count > 2) {
         [self.chatSessionInputBarControl.pluginBoardView removeItemAtIndex:3];
         [self.chatSessionInputBarControl.pluginBoardView removeItemAtIndex:2];
     }
-
-     [self performSelector:@selector(sendUserInfoExtras) withObject:nil afterDelay:3.0];
+    [self performSelector:@selector(sendUserInfoExtras) withObject:nil afterDelay:3.0];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
-
 #pragma mark —— RCIMConnectionStatusDelegate
 /*!
  IMKit连接状态的的监听器
@@ -172,6 +176,8 @@ RCIMConnectionStatusDelegate
                                                            long messageId) {
               NSLog(@"messageId = %ld,nErrorCode = %ld",messageId,(long)nErrorCode);
           }];
+    }else{
+        [self sendMsg];
     }
 }
 

@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface AppDelegate (RCIM)
 <
 RCIMConnectionStatusDelegate,
-RCIMUserInfoDataSource
+RCIMUserInfoDataSource,
+RCIMGroupInfoDataSource
 >
 
 -(void)RCIM;

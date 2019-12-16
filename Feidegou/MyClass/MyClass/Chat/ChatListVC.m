@@ -122,8 +122,10 @@ RCIMConnectionStatusDelegate
                        success:^(NSString *userId) {
             NSLog(@"%@",userId);
         }error:^(RCConnectErrorCode status) {
-            
-        }tokenIncorrect:^{}];
+            NSLog(@"");
+        }tokenIncorrect:^{
+            NSLog(@"");
+        }];
     }return self;
 }
 
@@ -147,7 +149,6 @@ RCIMConnectionStatusDelegate
     [super viewWillDisappear:animated];
     self.tabBarController.tabBar.hidden = NO;
 }
-
 // 下拉刷新
 -(void)pullToRefresh{//轮询
     NSLog(@"下拉刷新");
@@ -158,7 +159,6 @@ RCIMConnectionStatusDelegate
     NSLog(@"上拉加载更多");
     [self.conversationListTableView.mj_footer endRefreshing];
 }
-
 #pragma mark —— RCIMConnectionStatusDelegate
 /*!
  IMKit连接状态的的监听器

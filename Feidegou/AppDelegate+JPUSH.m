@@ -154,21 +154,3 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
 @end
 
-
-//    UILocalNotification *noti = [[UILocalNotification alloc] init];
-//    noti.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
-//    //设置时区
-//    noti.timeZone = [NSTimeZone defaultTimeZone];
-//    // 设置重复间隔
-////    noti.repeatInterval = NSCalendarUnitWeekOfMonth;
-//    // 推送声音
-//    noti.soundName = @"Sound.wav";//UILocalNotificationDefaultSoundName;
-//    // 内容
-//    noti.alertBody = @"推送内容";
-//    // 显示在icon 上的红色圈中的数字
-//    noti.applicationIconBadgeNumber = 10;
-//    // 设置info方便在之后 需要撤销的时候使用
-//    NSDictionary *infoDic = [NSDictionary dictionaryWithObject:@"name" forKey:@"key"];
-//    noti.userInfo = infoDic;
-//    // 添加推送到UIApplication
-//    [[UIApplication sharedApplication] scheduleLocalNotification:noti];

@@ -141,6 +141,7 @@ UITableViewDataSource
         PlatformConversationModel *conversationModel = PlatformConversationModel.new;
         conversationModel.conversationType = ConversationType_PRIVATE;
         conversationModel.targetId = [model.platform_id stringValue];//
+        conversationModel.buyer = @"小喵客服";
         [ChatVC ComingFromVC:self_weak_
                    withStyle:ComingStyle_PUSH
                requestParams:conversationModel

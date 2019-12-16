@@ -71,8 +71,8 @@ UIScrollViewDelegate
             [btn setTitleColor:kBlackColor
                       forState:UIControlStateNormal];
             [self.scrollView addSubview:btn];
-            btn.frame = CGRectMake((self.BtnWidth + SCALING_RATIO(10)) * (i) + SCALING_RATIO(5),
-                                   0,
+            btn.frame = CGRectMake((self.BtnWidth + SCALING_RATIO(10)) * (i) + SCALING_RATIO(0),
+                                   SCALING_RATIO(3),
                                    self.BtnWidth,
                                    SCALING_RATIO(30));
             [self.btnMutArr addObject:btn];

@@ -34,7 +34,6 @@
 		8B40A2C32372F84200ED42DB /* CatFoodProducingAreaVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C22372F84200ED42DB /* CatFoodProducingAreaVC+VM.m */; };
 		8B40A2C62372FA2E00ED42DB /* CatFoodProducingAreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C52372FA2E00ED42DB /* CatFoodProducingAreaModel.m */; };
 		8B40A2C92373016300ED42DB /* ShopReceiptQRcodeVC+VM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B40A2C82373016300ED42DB /* ShopReceiptQRcodeVC+VM.m */; };
-		8B464BA7238537490005E3B3 /* AppDelegate+RCIM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B464BA6238537490005E3B3 /* AppDelegate+RCIM.m */; };
 		8B464BAA238539640005E3B3 /* AppDelegate+BMKMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B464BA9238539640005E3B3 /* AppDelegate+BMKMap.m */; };
 		8B571ABA23875686009624D8 /* ContentBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B571AB923875686009624D8 /* ContentBaseViewController.m */; };
 		8B716467236FE7B7009BA9EF /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B716466236FE7B7009BA9EF /* BaseModel.m */; };
@@ -87,8 +86,10 @@
 		8BA69E4F2396C3BD00575B2F /* GettingDeviceIP.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA69E4E2396C3BC00575B2F /* GettingDeviceIP.m */; };
 		8BA69E5D2396CBF000575B2F /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = 8BA69E5C2396CBF000575B2F /* data.json */; };
 		8BA69E602396CFFF00575B2F /* OrderManagerTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA69E5F2396CFFF00575B2F /* OrderManagerTBViewForHeader.m */; };
-		8BAA9E9423A4BC4300398291 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAA9E9323A4BC4300398291 /* NotificationService.m */; };
-		8BAA9E9823A4BC4300398291 /* FeidegouNotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8BAA9E9023A4BC4300398291 /* FeidegouNotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8BAA9EF023A722A000398291 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAA9EEF23A722A000398291 /* NotificationService.m */; };
+		8BAA9EF423A722A000398291 /* FeidegouNotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 8BAA9EEC23A722A000398291 /* FeidegouNotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8BAA9EFC23A74EFE00398291 /* TBVCell_style_02.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAA9EFB23A74EFE00398291 /* TBVCell_style_02.m */; };
+		8BAA9EFE23A77BD200398291 /* AppDelegate+RCIM.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B464BA6238537490005E3B3 /* AppDelegate+RCIM.m */; };
 		8BAC1F0E2381A3B90084B6B4 /* OrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F0D2381A3B90084B6B4 /* OrderDetailVC.m */; };
 		8BAC1F112382374A0084B6B4 /* OrderDetailTBViewForHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F102382374A0084B6B4 /* OrderDetailTBViewForHeader.m */; };
 		8BAC1F162382392C0084B6B4 /* ViewForFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BAC1F132382392B0084B6B4 /* ViewForFooter.m */; };
@@ -642,11 +643,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8BAA9E9623A4BC4300398291 /* PBXContainerItemProxy */ = {
+		8BAA9EF223A722A000398291 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C42CCCCE213CC04F0096675F /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 8BAA9E8F23A4BC4300398291;
+			remoteGlobalIDString = 8BAA9EEB23A722A000398291;
 			remoteInfo = FeidegouNotificationService;
 		};
 		C42CCCEF213CC0520096675F /* PBXContainerItemProxy */ = {
@@ -672,7 +673,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				8BAA9E9823A4BC4300398291 /* FeidegouNotificationService.appex in Embed App Extensions */,
+				8BAA9EF423A722A000398291 /* FeidegouNotificationService.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -840,11 +841,13 @@
 		8BA69E5C2396CBF000575B2F /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 		8BA69E5E2396CFFF00575B2F /* OrderManagerTBViewForHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderManagerTBViewForHeader.h; sourceTree = "<group>"; };
 		8BA69E5F2396CFFF00575B2F /* OrderManagerTBViewForHeader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderManagerTBViewForHeader.m; sourceTree = "<group>"; };
-		8BAA9E9023A4BC4300398291 /* FeidegouNotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FeidegouNotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		8BAA9E9223A4BC4300398291 /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
-		8BAA9E9323A4BC4300398291 /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
-		8BAA9E9523A4BC4300398291 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8BAA9E9D23A4BCD300398291 /* FeidegouNotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FeidegouNotificationService.entitlements; sourceTree = "<group>"; };
+		8BAA9EEC23A722A000398291 /* FeidegouNotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FeidegouNotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BAA9EEE23A722A000398291 /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		8BAA9EEF23A722A000398291 /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
+		8BAA9EF123A722A000398291 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8BAA9EF823A723F100398291 /* FeidegouNotificationServiceDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FeidegouNotificationServiceDebug.entitlements; sourceTree = "<group>"; };
+		8BAA9EFA23A74EFE00398291 /* TBVCell_style_02.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBVCell_style_02.h; sourceTree = "<group>"; };
+		8BAA9EFB23A74EFE00398291 /* TBVCell_style_02.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBVCell_style_02.m; sourceTree = "<group>"; };
 		8BAC1F0C2381A3B90084B6B4 /* OrderDetailVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailVC.h; sourceTree = "<group>"; };
 		8BAC1F0D2381A3B90084B6B4 /* OrderDetailVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrderDetailVC.m; sourceTree = "<group>"; };
 		8BAC1F0F2382374A0084B6B4 /* OrderDetailTBViewForHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OrderDetailTBViewForHeader.h; sourceTree = "<group>"; };
@@ -1871,7 +1874,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8BAA9E8D23A4BC4300398291 /* Frameworks */ = {
+		8BAA9EE923A722A000398291 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2234,13 +2237,13 @@
 			path = GetDeviceIP;
 			sourceTree = "<group>";
 		};
-		8BAA9E9123A4BC4300398291 /* FeidegouNotificationService */ = {
+		8BAA9EED23A722A000398291 /* FeidegouNotificationService */ = {
 			isa = PBXGroup;
 			children = (
-				8BAA9E9D23A4BCD300398291 /* FeidegouNotificationService.entitlements */,
-				8BAA9E9223A4BC4300398291 /* NotificationService.h */,
-				8BAA9E9323A4BC4300398291 /* NotificationService.m */,
-				8BAA9E9523A4BC4300398291 /* Info.plist */,
+				8BAA9EF823A723F100398291 /* FeidegouNotificationServiceDebug.entitlements */,
+				8BAA9EEE23A722A000398291 /* NotificationService.h */,
+				8BAA9EEF23A722A000398291 /* NotificationService.m */,
+				8BAA9EF123A722A000398291 /* Info.plist */,
 			);
 			path = FeidegouNotificationService;
 			sourceTree = "<group>";
@@ -2705,6 +2708,8 @@
 			children = (
 				8BB2D3172366C7310047D0E2 /* TBVCell_style_01.h */,
 				8BB2D3162366C7310047D0E2 /* TBVCell_style_01.m */,
+				8BAA9EFA23A74EFE00398291 /* TBVCell_style_02.h */,
+				8BAA9EFB23A74EFE00398291 /* TBVCell_style_02.m */,
 			);
 			path = UITableViewCell;
 			sourceTree = "<group>";
@@ -2894,7 +2899,7 @@
 		C42CCCCD213CC04F0096675F = {
 			isa = PBXGroup;
 			children = (
-				8BAA9E9123A4BC4300398291 /* FeidegouNotificationService */,
+				8BAA9EED23A722A000398291 /* FeidegouNotificationService */,
 				C42CCCD8213CC04F0096675F /* Feidegou */,
 				C42CCCF1213CC0520096675F /* FeidegouTests */,
 				C42CCCFC213CC0520096675F /* FeidegouUITests */,
@@ -2910,7 +2915,7 @@
 				C42CCCD6213CC04F0096675F /* 喵小店.app */,
 				C42CCCEE213CC0520096675F /* FeidegouTests.xctest */,
 				C42CCCF9213CC0520096675F /* FeidegouUITests.xctest */,
-				8BAA9E9023A4BC4300398291 /* FeidegouNotificationService.appex */,
+				8BAA9EEC23A722A000398291 /* FeidegouNotificationService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2925,6 +2930,8 @@
 				8B16F04F23869002003941B4 /* DefineStructure.h */,
 				C42CCCD9213CC04F0096675F /* AppDelegate.h */,
 				C42CCCDA213CC04F0096675F /* AppDelegate.m */,
+				8B464BA5238537490005E3B3 /* AppDelegate+RCIM.h */,
+				8B464BA6238537490005E3B3 /* AppDelegate+RCIM.m */,
 				8B86E02623853DDE004D4C0A /* AppDelegate+JPUSH.h */,
 				8B86E02723853DDE004D4C0A /* AppDelegate+JPUSH.m */,
 				8B3C0B59237FCAD500BFFA86 /* JPushOrderDetailModel.h */,
@@ -2937,8 +2944,6 @@
 				8B86E02423853D77004D4C0A /* AppDelegate+WeiXin.m */,
 				8B464BA8238539640005E3B3 /* AppDelegate+BMKMap.h */,
 				8B464BA9238539640005E3B3 /* AppDelegate+BMKMap.m */,
-				8B464BA5238537490005E3B3 /* AppDelegate+RCIM.h */,
-				8B464BA6238537490005E3B3 /* AppDelegate+RCIM.m */,
 				8BB2D2922366C7290047D0E2 /* TestVC.h */,
 				8BB2D2912366C7290047D0E2 /* TestVC.m */,
 				8B8B0D0B236815140040EE53 /* TestView.h */,
@@ -4336,13 +4341,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8BAA9E8F23A4BC4300398291 /* FeidegouNotificationService */ = {
+		8BAA9EEB23A722A000398291 /* FeidegouNotificationService */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8BAA9E9C23A4BC4300398291 /* Build configuration list for PBXNativeTarget "FeidegouNotificationService" */;
+			buildConfigurationList = 8BAA9EF523A722A000398291 /* Build configuration list for PBXNativeTarget "FeidegouNotificationService" */;
 			buildPhases = (
-				8BAA9E8C23A4BC4300398291 /* Sources */,
-				8BAA9E8D23A4BC4300398291 /* Frameworks */,
-				8BAA9E8E23A4BC4300398291 /* Resources */,
+				8BAA9EE823A722A000398291 /* Sources */,
+				8BAA9EE923A722A000398291 /* Frameworks */,
+				8BAA9EEA23A722A000398291 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -4350,7 +4355,7 @@
 			);
 			name = FeidegouNotificationService;
 			productName = FeidegouNotificationService;
-			productReference = 8BAA9E9023A4BC4300398291 /* FeidegouNotificationService.appex */;
+			productReference = 8BAA9EEC23A722A000398291 /* FeidegouNotificationService.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		C42CCCD5213CC04F0096675F /* Feidegou */ = {
@@ -4368,7 +4373,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				8BAA9E9723A4BC4300398291 /* PBXTargetDependency */,
+				8BAA9EF323A722A000398291 /* PBXTargetDependency */,
 			);
 			name = Feidegou;
 			productName = Feidegou;
@@ -4420,7 +4425,7 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "朝花夕拾";
 				TargetAttributes = {
-					8BAA9E8F23A4BC4300398291 = {
+					8BAA9EEB23A722A000398291 = {
 						CreatedOnToolsVersion = 11.2.1;
 					};
 					C42CCCD5213CC04F0096675F = {
@@ -4453,13 +4458,13 @@
 				C42CCCD5213CC04F0096675F /* Feidegou */,
 				C42CCCED213CC0520096675F /* FeidegouTests */,
 				C42CCCF8213CC0520096675F /* FeidegouUITests */,
-				8BAA9E8F23A4BC4300398291 /* FeidegouNotificationService */,
+				8BAA9EEB23A722A000398291 /* FeidegouNotificationService */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		8BAA9E8E23A4BC4300398291 /* Resources */ = {
+		8BAA9EEA23A722A000398291 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -4709,11 +4714,11 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8BAA9E8C23A4BC4300398291 /* Sources */ = {
+		8BAA9EE823A722A000398291 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BAA9E9423A4BC4300398291 /* NotificationService.m in Sources */,
+				8BAA9EF023A722A000398291 /* NotificationService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4760,6 +4765,7 @@
 				C42CD07E213CC2640096675F /* CLCellOneLbl.m in Sources */,
 				C46D6B5B2143A5C900428D7A /* CellOrderConfilm.m in Sources */,
 				C42CD0FE213CC2640096675F /* CellBrandRoneRecommend.m in Sources */,
+				8BAA9EFE23A77BD200398291 /* AppDelegate+RCIM.m in Sources */,
 				C42CD063213CC2640096675F /* CellCollection.m in Sources */,
 				C42CD06F213CC2640096675F /* SettingController.m in Sources */,
 				C46143EF214386B6000C0CDC /* CellHeader.m in Sources */,
@@ -4891,6 +4897,7 @@
 				C42CD1BB213CC2640096675F /* JJTableViewCell.m in Sources */,
 				8BAC1F162382392C0084B6B4 /* ViewForFooter.m in Sources */,
 				8B86E035238557ED004D4C0A /* ChatVC.m in Sources */,
+				8BAA9EFC23A74EFE00398291 /* TBVCell_style_02.m in Sources */,
 				C42CD074213CC2640096675F /* CellPHBTopThree.m in Sources */,
 				C42CD12E213CC2640096675F /* CellGoodEnterIn.m in Sources */,
 				C4614404214386B6000C0CDC /* CellVendorTitle.m in Sources */,
@@ -5075,7 +5082,6 @@
 				C42CD1AF213CC2640096675F /* JJWaterflowLayout.m in Sources */,
 				C4FC07BB215B2A5C00C6ECF3 /* JJDBHelper+Advertise.m in Sources */,
 				8BB2D3922366CC460047D0E2 /* TBVCell_style_01.m in Sources */,
-				8B464BA7238537490005E3B3 /* AppDelegate+RCIM.m in Sources */,
 				C42CD191213CC2640096675F /* PublicFunction.m in Sources */,
 				C42CD128213CC2640096675F /* CLCellGoodType.m in Sources */,
 				C42CD156213CC2640096675F /* CellOneImage.m in Sources */,
@@ -5194,10 +5200,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8BAA9E9723A4BC4300398291 /* PBXTargetDependency */ = {
+		8BAA9EF323A722A000398291 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8BAA9E8F23A4BC4300398291 /* FeidegouNotificationService */;
-			targetProxy = 8BAA9E9623A4BC4300398291 /* PBXContainerItemProxy */;
+			target = 8BAA9EEB23A722A000398291 /* FeidegouNotificationService */;
+			targetProxy = 8BAA9EF223A722A000398291 /* PBXContainerItemProxy */;
 		};
 		C42CCCF0213CC0520096675F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -5231,10 +5237,10 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		8BAA9E9A23A4BC4300398291 /* Debug */ = {
+		8BAA9EF623A722A000398291 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = FeidegouNotificationService/FeidegouNotificationService.entitlements;
+				CODE_SIGN_ENTITLEMENTS = FeidegouNotificationService/FeidegouNotificationServiceDebug.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LFJTRVCABB;
 				INFOPLIST_FILE = FeidegouNotificationService/Info.plist;
@@ -5253,10 +5259,9 @@
 			};
 			name = Debug;
 		};
-		8BAA9E9B23A4BC4300398291 /* Release */ = {
+		8BAA9EF723A722A000398291 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = FeidegouNotificationService/FeidegouNotificationService.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LFJTRVCABB;
 				INFOPLIST_FILE = FeidegouNotificationService/Info.plist;
@@ -5587,11 +5592,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8BAA9E9C23A4BC4300398291 /* Build configuration list for PBXNativeTarget "FeidegouNotificationService" */ = {
+		8BAA9EF523A722A000398291 /* Build configuration list for PBXNativeTarget "FeidegouNotificationService" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8BAA9E9A23A4BC4300398291 /* Debug */,
-				8BAA9E9B23A4BC4300398291 /* Release */,
+				8BAA9EF623A722A000398291 /* Debug */,
+				8BAA9EF723A722A000398291 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

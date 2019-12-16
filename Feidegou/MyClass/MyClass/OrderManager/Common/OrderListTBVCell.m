@@ -36,14 +36,15 @@
 +(instancetype)cellWith:(UITableView *)tableView{
     OrderListTBVCell *cell = (OrderListTBVCell *)[tableView dequeueReusableCellWithIdentifier:ReuseIdentifier];
     if (!cell) {
-        cell = [[OrderListTBVCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                       reuseIdentifier:ReuseIdentifier
-                                                margin:SCALING_RATIO(5)];
-        [UIView cornerCutToCircleWithView:cell.contentView
-                          AndCornerRadius:5.f];
-        [UIView colourToLayerOfView:cell.contentView
-                         WithColour:KGreenColor
-                     AndBorderWidth:.1f];
+        cell = [[OrderListTBVCell alloc]initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier:ReuseIdentifier
+                                              marginX:3
+                                              marginY:10];
+//        [UIView cornerCutToCircleWithView:cell.contentView
+//                          AndCornerRadius:5.f];
+//        [UIView colourToLayerOfView:cell.contentView
+//                         WithColour:kBlackColor
+//                     AndBorderWidth:.1f];
     }return cell;
 }
 
@@ -65,11 +66,12 @@
 }
 
 +(CGFloat)cellHeightWithModel:(id _Nullable)model{
-    return SCREEN_HEIGHT / 5.5;
+    return SCREEN_HEIGHT / 4.5;
 }
 
 - (void)richElementsInCellWithModel:(id _Nullable)model{
-    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+//    self.contentView.backgroundColor = [UIColor colorWithPatternImage:kIMG(@"builtin-wallpaper-0")];
+    self.contentView.backgroundColor = kWhiteColor;
     if ([model isKindOfClass:[OrderManager_producingAreaModel class]]) {
         OrderManager_producingAreaModel *orderManager_producingAreaModel = (OrderManager_producingAreaModel *)model;
         self.orderManager_producingAreaModel = orderManager_producingAreaModel;
@@ -173,7 +175,6 @@
             self.titleLab.attributedText = self.attributedString2;
         }
     }
-    
 }
 #pragma mark —— lazyLoad
 -(UIImageView *)imgV{//小红点
@@ -344,9 +345,9 @@
     if (!_timeLab) {
         _timeLab = UILabel.new;
         if (@available(iOS 8.2, *)) {
-            _timeLab.font = [UIFont systemFontOfSize:10 weight:1];
+            _timeLab.font = [UIFont systemFontOfSize:15 weight:1];
         } else {
-            _timeLab.font = [UIFont systemFontOfSize:10];
+            _timeLab.font = [UIFont systemFontOfSize:15];
         }
 //        _timeLab.text = self.timeStr;
         _timeLab.numberOfLines = 0;
@@ -363,9 +364,9 @@
     if (!_sellerLab) {
         _sellerLab = UILabel.new;
         if (@available(iOS 8.2, *)) {
-            _sellerLab.font = [UIFont systemFontOfSize:10 weight:1];
+            _sellerLab.font = [UIFont systemFontOfSize:15 weight:1];
         } else {
-            _sellerLab.font = [UIFont systemFontOfSize:10];
+            _sellerLab.font = [UIFont systemFontOfSize:15];
         }
 //        _sellerLab.text = self.sellerStr;
         [self.contentView addSubview:_sellerLab];
@@ -380,9 +381,9 @@
     if (!_paymentWayLab) {
         _paymentWayLab = UILabel.new;
         if (@available(iOS 8.2, *)) {
-            _paymentWayLab.font = [UIFont systemFontOfSize:10 weight:1];
+            _paymentWayLab.font = [UIFont systemFontOfSize:15 weight:1];
         } else {
-            _paymentWayLab.font = [UIFont systemFontOfSize:10];
+            _paymentWayLab.font = [UIFont systemFontOfSize:15];
         }
 //        _paymentWayLab.text = self.paymentWayStr;
         [self.contentView addSubview:_paymentWayLab];
@@ -397,9 +398,9 @@
     if (!_orderTypeLab) {
         _orderTypeLab = UILabel.new;
         if (@available(iOS 8.2, *)) {
-            _orderTypeLab.font = [UIFont systemFontOfSize:10 weight:1];
+            _orderTypeLab.font = [UIFont systemFontOfSize:15 weight:1];
         } else {
-            _orderTypeLab.font = [UIFont systemFontOfSize:10];
+            _orderTypeLab.font = [UIFont systemFontOfSize:15];
         }
 //        _orderTypeLab.text = self.orderTypeStr;
         [self.contentView addSubview:_orderTypeLab];
@@ -414,9 +415,9 @@
     if (!_orderStatusLab) {
         _orderStatusLab = UILabel.new;
         if (@available(iOS 8.2, *)) {
-            _orderStatusLab.font = [UIFont systemFontOfSize:10 weight:1];
+            _orderStatusLab.font = [UIFont systemFontOfSize:15 weight:1];
         } else {
-            _orderStatusLab.font = [UIFont systemFontOfSize:10];
+            _orderStatusLab.font = [UIFont systemFontOfSize:15];
         }
 //        _orderStatusLab.text = self.orderStatusStr;
         [self.contentView addSubview:_orderStatusLab];

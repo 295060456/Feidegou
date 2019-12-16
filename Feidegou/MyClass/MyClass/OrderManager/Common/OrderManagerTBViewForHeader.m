@@ -44,7 +44,6 @@
 -(void)headerViewWithModel:(id _Nullable)model{
 
 }
-
 #pragma mark —— lazyLoad
 -(SearchView *)searchView{
     if (!_searchView) {

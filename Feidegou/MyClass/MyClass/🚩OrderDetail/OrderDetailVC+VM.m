@@ -86,6 +86,21 @@
         [self.titleMutArr addObject:@"下单时间:"];
         [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.updateTime ReplaceStr:@"暂无"]];//下单时间
     }//极光推送
+    else if (self.orderListModel){//搜索
+        [self.titleMutArr addObject:@"支付方式:"];
+        //支付类型:1、支付宝;2、微信;3、银行卡
+        if (self.orderDetailModel.payment_status.intValue == 3) {//3、银行卡
+            [self.dataMutArr addObject:@"银行卡"];
+        }else if (self.orderDetailModel.payment_status.intValue == 2){//2、微信
+            [self.dataMutArr addObject:@"微信"];
+        }else if (self.orderDetailModel.payment_status.intValue == 1){//1、支付宝
+            [self.dataMutArr addObject:@"支付宝"];
+        }else{
+            [self.dataMutArr addObject:@"支付方式异常"];//银行卡？
+        }
+        [self.titleMutArr addObject:@"下单时间:"];
+        [self.dataMutArr addObject:[NSString ensureNonnullString:self.orderDetailModel.updateTime ReplaceStr:@"暂无"]];//下单时间
+    }//极光推送
     else{}
     //Common
     [self.titleMutArr addObject:@"订单状态"];

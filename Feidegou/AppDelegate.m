@@ -24,6 +24,11 @@
 AdvertiseStartController *advertiseStartController;
 
 @interface AppDelegate ()
+<
+RCIMConnectionStatusDelegate,
+RCIMUserInfoDataSource,
+RCIMGroupInfoDataSource
+>
 
 @end
 
@@ -47,7 +52,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self loginAgin];
     [self requestAdverMain];
-    
     return YES;
 }
 

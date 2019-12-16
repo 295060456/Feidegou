@@ -203,6 +203,7 @@ UITableViewDataSource
             model.conversationTitle = [NSString stringWithFormat:@"买家:%@",self.orderManager_panicBuyingModel.byname];
             model.order_code = self.orderManager_panicBuyingModel.ordercode;
         }
+        model.buyer = model.conversationTitle;
     }
     
 //    [CatFoodsManagementVC ComingFromVC:self_weak_
