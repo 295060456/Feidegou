@@ -177,15 +177,14 @@ RCIMUserInfoDataSource
               NSLog(@"messageId = %ld,nErrorCode = %ld",messageId,(long)nErrorCode);
           }];
     }else{
-        [self sendMsg];
+//        [self sendMsg];
     }
 }
 
 -(void)sendMsg{
     NSString *content = self.myOrderCode;
     RCTextMessage *txtMessage = [RCTextMessage messageWithContent:content];
-    
-    
+
     [[RCIMClient sharedRCIMClient] sendMessage:ConversationType_PRIVATE
                                       targetId:self.targetId
                                        content:txtMessage
